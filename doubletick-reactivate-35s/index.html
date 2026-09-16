@@ -434,6 +434,17 @@
         font-size: 33px;
         line-height: 1.34;
       }
+      .wa-act {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        height: 84px;
+        border-top: 1px solid var(--line);
+        font-size: 30px;
+        font-weight: 600;
+        color: var(--fg);
+      }
       .attach {
         overflow: hidden;
         display: flex;
@@ -655,6 +666,12 @@
             fill="currentColor"
           />
         </symbol>
+        <symbol id="reply" viewBox="0 0 24 24">
+          <path
+            d="M10 8.2V4.4L3.4 11.1 10 17.8v-3.9c4.3 0 7.4 1.4 9.6 4.3-.9-4.5-3.6-9-9.6-10.2Z"
+            fill="currentColor"
+          />
+        </symbol>
         <symbol id="doc" viewBox="0 0 24 24">
           <path
             d="M7 2.8h6.6L18 7.4V21a1.2 1.2 0 0 1-1.2 1.2H7A1.2 1.2 0 0 1 5.8 21V4A1.2 1.2 0 0 1 7 2.8Z"
@@ -839,24 +856,24 @@
             </div>
           </div>
 
-          <div id="s4-bub" class="ctr" style="margin-top: 18px; padding: 20px 22px; border-radius: 22px; background: linear-gradient(180deg, rgba(37,211,102,.16), rgba(37,211,102,.09)); border: 1px solid var(--line-g); font-size: 26px; line-height: 1.34; opacity: 0">
-            Hi Ahmed, thanks for your interest in our latest project. Since we missed you on
-            call, here are the details.
+          <div id="s4-bub" style="margin-top: 18px; padding: 22px 24px 16px; border-radius: 22px; background: linear-gradient(180deg, rgba(37,211,102,.16), rgba(37,211,102,.09)); border: 1px solid var(--line-g); opacity: 0">
+            <div class="ctr" style="font-size: 26px; line-height: 1.38">
+              Hi Ahmed, thanks for your interest in our latest project. Since we missed you on
+              call, here's the brochure, payment plan and project details.
+            </div>
+            <div style="text-align: right; font-size: 20px; color: var(--fg-2); margin-top: 10px">10:35 AM</div>
           </div>
 
-          <div id="s4-atts" style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px">
-            <div class="attach a4" style="height: 68px; opacity: 0"><svg viewBox="0 0 24 24" style="width: 26px; height: 26px; color: var(--g)"><use href="#doc" /></svg>Project brochure</div>
-            <div class="attach a4" style="height: 68px; opacity: 0"><svg viewBox="0 0 24 24" style="width: 26px; height: 26px; color: var(--g)"><use href="#doc" /></svg>Payment plan</div>
-            <div class="attach a4" style="height: 68px; opacity: 0"><svg viewBox="0 0 24 24" style="width: 26px; height: 26px; color: var(--g)"><use href="#doc" /></svg>Project details</div>
+          <div id="s4-act1" class="wa-act" style="overflow: hidden; opacity: 0">
+            <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; color: var(--fg-2)"><use href="#reply" /></svg>
+            Project Details
           </div>
 
-          <!-- the way back into the funnel -->
           <div id="s4-cta" style="overflow: hidden; opacity: 0">
-            <div style="margin-top: 14px; padding: 18px; border-radius: 22px; background: rgba(255, 255, 255, 0.035); border: 1px solid var(--line-g)">
-              <div class="ctr uilabel" style="font-size: 18px">Want to speak with our team?</div>
-              <div id="s4-btn" style="display: flex; align-items: center; justify-content: center; gap: 12px; height: 78px; margin-top: 14px; border-radius: 18px; background: linear-gradient(180deg, #2ee06f, var(--g-600)); color: #04180d; font-size: 30px; font-weight: 700">
+            <div class="wa-act" style="border-top: 1px solid var(--line); padding-top: 16px; height: 100px">
+              <div id="s4-btn" style="display: flex; align-items: center; justify-content: center; gap: 12px; height: 78px; width: 100%; border-radius: 18px; background: linear-gradient(180deg, #2ee06f, var(--g-600)); color: #04180d; font-size: 30px; font-weight: 700">
+                <svg viewBox="0 0 24 24" style="width: 26px; height: 26px"><use href="#reply" /></svg>
                 Request for Callback
-                <svg viewBox="0 0 24 24" style="width: 26px; height: 26px"><use href="#phone" /></svg>
               </div>
             </div>
           </div>
@@ -1105,11 +1122,11 @@
 
         tl.to("#s4-h1", { opacity: 0, y: -26, duration: 0.26, ease: "power2.in" }, 24.14)
           .fromTo("#s4-h2", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.34 }, 24.34)
-          .fromTo(".a4", { height: 0, opacity: 0 }, { height: 68, opacity: 1, duration: 0.3, stagger: 0.6 }, 24.45);
+          .fromTo("#s4-act1", { height: 0, opacity: 0 }, { height: 84, opacity: 1, duration: 0.34 }, 24.55);
 
         tl.to("#s4-h2", { opacity: 0, y: -26, duration: 0.26, ease: "power2.in" }, 25.88)
           .fromTo("#s4-h3", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.34 }, 26.06)
-          .fromTo("#s4-cta", { height: 0, opacity: 0 }, { height: 176, opacity: 1, duration: 0.36 }, 26.14)
+          .fromTo("#s4-cta", { height: 0, opacity: 0 }, { height: 116, opacity: 1, duration: 0.36 }, 26.14)
           .fromTo("#s4-btn", { scale: 0.985 }, { scale: 1.015, duration: 0.42, repeat: 3, yoyo: true, ease: "sine.inOut" }, 26.56);
 
         /* ============ SCENE 05 — active pipeline, then the ask ============ */
