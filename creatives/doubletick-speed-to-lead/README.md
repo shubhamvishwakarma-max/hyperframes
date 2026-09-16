@@ -2,6 +2,11 @@
 
 Square performance creative for LinkedIn / Instagram / Meta paid.
 
+Two variants:
+
+- `ad-minimal.html` / `ad-minimal.png` — **the simple one**, built on the "Building a new AI agent…" reference layout: black top band with the framed headline panel, centered supporting line, a three-step visual (New Lead → 00:01 AI Calling → Broker), the green CTA button with cursor, and the brand footer bar.
+- `ad.html` / `ad.png` — the denser product-UI variant (lead card, live call panel, qualification chips, manual-vs-AI timer strip).
+
 - `ad.html` — the source. Self-contained single file (Figtree + JetBrains Mono embedded as base64 woff2, all art is inline SVG/CSS). Fixed `.canvas` of 1080 × 1080, no overflow, 64px safe margins.
 - `ad.png` — the exported creative, 1080 × 1080.
 
@@ -11,7 +16,7 @@ Square performance creative for LinkedIn / Instagram / Meta paid.
 /opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell \
   --no-sandbox --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
   --window-size=1080,1080 --virtual-time-budget=4000 \
-  --screenshot=ad.png file://$PWD/ad.html
+  --screenshot=ad-minimal.png file://$PWD/ad-minimal.html
 ```
 
 (Any headless Chrome works; use `headless_shell` — the `--headless=new` path renders at a ~1.09× scale here.)
