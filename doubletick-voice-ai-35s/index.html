@@ -456,27 +456,6 @@
         letter-spacing: -0.06em;
       }
 
-      /* ---- persistent brand layer (never animated, never moved) ---- */
-      #dt-logo {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 104px;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 18px;
-        pointer-events: none;
-      }
-      #dt-logo .mark { width: 86px; height: 46px; color: var(--brand-green); }
-      #dt-logo .word {
-        font-size: 42px;
-        font-weight: 700;
-        letter-spacing: -0.03em;
-        color: var(--fg);
-      }
-
       /* ---- three text layers ---- */
       .hero-k {
         font-size: 86px;
@@ -979,14 +958,6 @@
       <!-- ======= SUBTITLE LAYER (full narration, phrase-timed) ======= -->
       <div id="subs"></div>
 
-      <!-- ======= GLOBAL BRAND LAYER — fixed for the whole film ======= -->
-      <div id="dt-logo">
-        <!-- Swap this block for <img src="assets/brand/doubletick-logo.svg"> when the
-             official lockup is supplied; position and clear space come from #dt-logo. -->
-        <svg class="mark" viewBox="0 0 64 64"><use href="#dtmark" /></svg>
-        <div class="word">DoubleTick</div>
-      </div>
-
       <!-- ============================ AUDIO ============================ -->
       <audio id="a-score" src="assets/audio/score.wav" data-start="0" data-duration="35" data-track-index="10" data-volume="0.9"></audio>
       <audio id="a-vo1" src="assets/audio/vo1.wav" data-start="0.3" data-duration="5.49" data-track-index="11" data-volume="1"></audio>
@@ -1001,7 +972,7 @@
          DoubleTick Voice AI — instant calling for UAE launch leads
          1080x1920 @ 30fps, 35.0s. One paused GSAP root timeline.
          Three text layers: hero keywords, full-narration subtitles, product
-         UI labels. The brand layer (#dt-logo) is never animated or moved.
+         UI labels.
          Deterministic: no clocks, no unseeded random, no render-time network.
       ==================================================================*/
       (function () {
