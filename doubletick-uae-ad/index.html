@@ -461,7 +461,7 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="40"
+      data-duration="57.4"
       data-width="1080"
       data-height="1920"
     >
@@ -470,7 +470,7 @@
         id="s1"
         class="clip scene"
         data-start="0"
-        data-duration="7.5"
+        data-duration="11.55"
         data-track-index="0"
         style="z-index: 1"
       >
@@ -548,8 +548,8 @@
       <section
         id="s2"
         class="clip scene"
-        data-start="7.5"
-        data-duration="7.1"
+        data-start="11.55"
+        data-duration="9.95"
         data-track-index="1"
         style="z-index: 2"
       >
@@ -601,8 +601,8 @@
       <section
         id="s3"
         class="clip scene"
-        data-start="14.6"
-        data-duration="5.8"
+        data-start="21.5"
+        data-duration="9.8"
         data-track-index="2"
         style="z-index: 3"
       >
@@ -672,8 +672,8 @@
       <section
         id="s4"
         class="clip scene"
-        data-start="20.4"
-        data-duration="4.6"
+        data-start="31.3"
+        data-duration="6.05"
         data-track-index="3"
         style="z-index: 4"
       >
@@ -749,8 +749,8 @@
       <section
         id="s5"
         class="clip scene"
-        data-start="25"
-        data-duration="7.6"
+        data-start="37.35"
+        data-duration="11.4"
         data-track-index="4"
         style="z-index: 5"
       >
@@ -836,8 +836,8 @@
       <section
         id="s6"
         class="clip scene"
-        data-start="32.6"
-        data-duration="7.4"
+        data-start="48.75"
+        data-duration="8.65"
         data-track-index="5"
         style="z-index: 6"
       >
@@ -901,12 +901,12 @@
       </section>
 
       <!-- ==================== AUDIO ==================== -->
-      <audio id="a-score" src="assets/audio/score.wav" data-start="0" data-duration="40" data-track-index="10" data-volume="0.9"></audio>
-      <audio id="a-vo1" src="assets/audio/vo1.wav" data-start="0.45" data-duration="6.69" data-track-index="11" data-volume="1"></audio>
-      <audio id="a-vo2" src="assets/audio/vo2.wav" data-start="7.6" data-duration="6.7" data-track-index="11" data-volume="1"></audio>
-      <audio id="a-vo3" src="assets/audio/vo3.wav" data-start="14.7" data-duration="9.84" data-track-index="11" data-volume="1"></audio>
-      <audio id="a-vo4" src="assets/audio/vo4.wav" data-start="25" data-duration="7.38" data-track-index="11" data-volume="1"></audio>
-      <audio id="a-vo5" src="assets/audio/vo5.wav" data-start="32.8" data-duration="5.66" data-track-index="11" data-volume="1"></audio>
+      <audio id="a-score" src="assets/audio/score.wav" data-start="0" data-duration="57.4" data-track-index="10" data-volume="0.9"></audio>
+      <audio id="a-vo1" src="assets/audio/vo1.wav" data-start="0.45" data-duration="10.67" data-track-index="11" data-volume="1"></audio>
+      <audio id="a-vo2" src="assets/audio/vo2.wav" data-start="11.55" data-duration="9.54" data-track-index="11" data-volume="1"></audio>
+      <audio id="a-vo3" src="assets/audio/vo3.wav" data-start="21.5" data-duration="15.4" data-track-index="11" data-volume="1"></audio>
+      <audio id="a-vo4" src="assets/audio/vo4.wav" data-start="37.35" data-duration="10.97" data-track-index="11" data-volume="1"></audio>
+      <audio id="a-vo5" src="assets/audio/vo5.wav" data-start="48.75" data-duration="7.55" data-track-index="11" data-volume="1"></audio>
     </div>
 
     <script>
@@ -1004,35 +1004,35 @@
         /* ===================== SCENE 01 — HOOK ===================== */
         /* The complete hook thought is painted in frame 0; motion only settles it. */
         tl.fromTo("#s1-a", { y: 16 }, { y: 0, duration: 1.1, ease: "power3.out" }, 0)
-          .fromTo("#s1-sky", { scale: 1.09, y: 22 }, { scale: 1, y: 0, duration: 7.5, ease: "power1.out" }, 0)
-          .fromTo("#s1-grid", { y: 0 }, { y: -36, duration: 7.5, ease: "none" }, 0)
-          .to("#s1-a", { opacity: 0, y: -38, duration: 0.28, ease: "power2.in" }, 3.2)
-          .fromTo("#s1-b", { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: 0.36 }, 3.34)
-          .to("#s1-b", { opacity: 0, y: -30, duration: 0.26, ease: "power2.in" }, 4.62)
-          .fromTo("#s1-c", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 4.8)
-          .fromTo("#s1-c > div", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.34, stagger: 0.1 }, 4.84);
+          .fromTo("#s1-sky", { scale: 1.09, y: 22 }, { scale: 1, y: 0, duration: 11.55, ease: "power1.out" }, 0)
+          .fromTo("#s1-grid", { y: 0 }, { y: -36, duration: 11.55, ease: "none" }, 0)
+          .to("#s1-a", { opacity: 0, y: -38, duration: 0.28, ease: "power2.in" }, 4.6)
+          .fromTo("#s1-b", { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: 0.36 }, 4.77)
+          .to("#s1-b", { opacity: 0, y: -30, duration: 0.26, ease: "power2.in" }, 6.29)
+          .fromTo("#s1-c", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 6.5)
+          .fromTo("#s1-c > div", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.34, stagger: 0.1 }, 6.56);
 
-        tl.fromTo("#s1-strip", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.36 }, 5.3)
-          .fromTo("#s1-chip", { x: 0 }, { x: 459, duration: 0.95, ease: "power2.inOut" }, 5.82)
-          .to("#s1-own", { opacity: 0.4, duration: 0.5 }, 6.1)
-          .to("#s1-rival", { opacity: 1, duration: 0.5 }, 6.3);
+        tl.fromTo("#s1-strip", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.36 }, 7.3)
+          .fromTo("#s1-chip", { x: 0 }, { x: 459, duration: 0.95, ease: "power2.inOut" }, 8.4)
+          .to("#s1-own", { opacity: 0.4, duration: 0.5 }, 8.75)
+          .to("#s1-rival", { opacity: 1, duration: 0.5 }, 9);
 
         /* ===================== SCENE 02 — SLOW FOLLOW-UPS ===================== */
-        tl.fromTo("#s2-brand", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.3 }, 7.56)
-          .fromTo("#s2-h1", { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.4 }, 7.66)
-          .fromTo("#s2-sheet", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.4 }, 8.55)
-          .fromTo(".s2row", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.26, stagger: 0.1 }, 8.8)
+        tl.fromTo("#s2-brand", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.3 }, 11.61)
+          .fromTo("#s2-h1", { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.4 }, 11.7)
+          .fromTo("#s2-sheet", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.4 }, 12.9)
+          .fromTo(".s2row", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.26, stagger: 0.1 }, 13.22)
           .fromTo(
             ".s2row",
-            { borderColor: "rgba(255,255,255,0.08)" },
-            { borderColor: "rgba(37,211,102,0.5)", duration: 0.24, yoyo: true, repeat: 1, stagger: 0.5, immediateRender: false },
-            9.5
+            { borderColor: "rgba(255,255,255,0.11)" },
+            { borderColor: "rgba(37,211,102,0.72)", duration: 0.24, yoyo: true, repeat: 1, stagger: 0.62, immediateRender: false },
+            14.08
           )
-          .fromTo("#s2-dialing", { opacity: 0.35 }, { opacity: 1, duration: 0.5, yoyo: true, repeat: 5, ease: "sine.inOut" }, 9.4);
+          .fromTo("#s2-dialing", { opacity: 0.35 }, { opacity: 1, duration: 0.5, yoyo: true, repeat: 11, ease: "sine.inOut" }, 14);
 
-        tl.to("#s2-h1", { opacity: 0, y: -30, duration: 0.26, ease: "power2.in" }, 10.66)
-          .fromTo("#s2-h2", { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: 0.38 }, 10.82)
-          .fromTo("#s2-count", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.32 }, 11.4);
+        tl.to("#s2-h1", { opacity: 0, y: -30, duration: 0.26, ease: "power2.in" }, 15.05)
+          .fromTo("#s2-h2", { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: 0.38 }, 15.25)
+          .fromTo("#s2-count", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.32 }, 16.6);
 
         var t2 = { v: 0 };
         tl.to(t2, {
@@ -1040,100 +1040,100 @@
           duration: 1.5,
           ease: "power2.out",
           onUpdate: function () { $("#s2-num").textContent = Math.round(t2.v).toLocaleString("en-US"); }
-        }, 11.5);
+        }, 16.7);
 
         /* ===================== SCENE 03 — DOUBLETICK AI CALLING ===================== */
-        tl.fromTo("#s3-wipe", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1.25, duration: 0.5, ease: "power2.out" }, 14.6)
-          .to("#s3-wipe", { opacity: 0, duration: 0.5 }, 15.12)
-          .fromTo("#s3-brand", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.3 }, 14.72)
-          .fromTo("#s3-h1", { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.42 }, 14.85)
-          .to("#s3-h1", { opacity: 0, y: -34, duration: 0.26, ease: "power2.in" }, 16.4);
+        tl.fromTo("#s3-wipe", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1.25, duration: 0.5, ease: "power2.out" }, 21.5)
+          .to("#s3-wipe", { opacity: 0, duration: 0.5 }, 22.25)
+          .fromTo("#s3-brand", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.3 }, 21.62)
+          .fromTo("#s3-h1", { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.42 }, 21.75)
+          .to("#s3-h1", { opacity: 0, y: -34, duration: 0.26, ease: "power2.in" }, 24.6);
 
-        tl.set("#s3-flow", { opacity: 1 }, 16.52)
-          .fromTo("#s3-n1", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.24 }, 16.56)
-          .fromTo(".s3c", { scaleY: 0, opacity: 0.4 }, { scaleY: 1, opacity: 1, duration: 0.2, stagger: 0.4 }, 16.82)
-          .fromTo("#s3-n2", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.24 }, 16.98)
-          .fromTo("#s3-n3", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.24 }, 17.4)
-          .to("#s3-flow", { opacity: 0, y: -42, duration: 0.28, ease: "power2.in" }, 18.06);
+        tl.set("#s3-flow", { opacity: 1 }, 24.9)
+          .fromTo("#s3-n1", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.24 }, 24.96)
+          .fromTo(".s3c", { scaleY: 0, opacity: 0.4 }, { scaleY: 1, opacity: 1, duration: 0.2, stagger: 0.68 }, 25.38)
+          .fromTo("#s3-n2", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.24 }, 25.63)
+          .fromTo("#s3-n3", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.24 }, 26.3)
+          .to("#s3-flow", { opacity: 0, y: -42, duration: 0.28, ease: "power2.in" }, 27.2);
 
-        tl.fromTo("#s3-phone", { opacity: 0, y: 76, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.42 }, 18.2)
-          .fromTo("#s3-ring", { opacity: 0, scale: 1 }, { opacity: 0.85, scale: 1.015, duration: 0.3, repeat: 3, yoyo: true, ease: "sine.inOut" }, 18.42)
-          .to("#s3-wave", { opacity: 1, duration: 0.26 }, 19.32)
+        tl.fromTo("#s3-phone", { opacity: 0, y: 76, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.42 }, 27.4)
+          .fromTo("#s3-ring", { opacity: 0, scale: 1 }, { opacity: 0.85, scale: 1.015, duration: 0.3, repeat: 5, yoyo: true, ease: "sine.inOut" }, 27.7)
+          .to("#s3-wave", { opacity: 1, duration: 0.26 }, 29.6)
           .fromTo(
             "#s3-wave i",
             { scaleY: 0.18 },
-            { scaleY: 1, duration: 0.26, repeat: 6, yoyo: true, ease: "sine.inOut", stagger: { each: 0.035, from: "center" } },
-            19.34
+            { scaleY: 1, duration: 0.26, repeat: 12, yoyo: true, ease: "sine.inOut", stagger: { each: 0.035, from: "center" } },
+            29.63
           )
-          .fromTo("#s3-cap", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.34 }, 19.44);
+          .fromTo("#s3-cap", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.34 }, 29.8);
 
         /* ===================== SCENE 04 — REAL-TIME QUALIFICATION ===================== */
-        tl.fromTo("#s4-brand", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.28 }, 20.44)
-          .fromTo("#s4-call", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.32 }, 20.46)
+        tl.fromTo("#s4-brand", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.28 }, 31.35)
+          .fromTo("#s4-call", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.32 }, 31.38)
           .fromTo(
             "#s4-wave i",
             { scaleY: 0.2 },
-            { scaleY: 1, duration: 0.3, repeat: 13, yoyo: true, ease: "sine.inOut", stagger: { each: 0.03, from: "center" } },
-            20.5
+            { scaleY: 1, duration: 0.3, repeat: 19, yoyo: true, ease: "sine.inOut", stagger: { each: 0.03, from: "center" } },
+            31.43
           );
 
         var t4 = { v: 18 };
         tl.to(t4, {
-          v: 41,
-          duration: 4.3,
+          v: 44,
+          duration: 5.9,
           ease: "none",
           onUpdate: function () { $("#s4-dur").textContent = clock(t4.v); }
-        }, 20.5);
+        }, 31.43);
 
-        tl.fromTo("#s4-p1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.26 }, 20.56)
-          .to("#s4-p1", { opacity: 0, y: -18, duration: 0.2, ease: "power2.in" }, 21.5)
-          .fromTo("#s4-p2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.26 }, 21.6)
-          .to("#s4-p2", { opacity: 0, y: -18, duration: 0.2, ease: "power2.in" }, 22.42)
-          .fromTo("#s4-p3", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.26 }, 22.52);
+        tl.fromTo("#s4-p1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.26 }, 31.5)
+          .to("#s4-p1", { opacity: 0, y: -18, duration: 0.2, ease: "power2.in" }, 32.5)
+          .fromTo("#s4-p2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.26 }, 32.65)
+          .to("#s4-p2", { opacity: 0, y: -18, duration: 0.2, ease: "power2.in" }, 34.9)
+          .fromTo("#s4-p3", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.26 }, 35.05);
 
-        tl.fromTo("#s4-t1", { opacity: 0, x: -26 }, { opacity: 1, x: 0, duration: 0.3 }, 20.92)
-          .fromTo("#s4-t2", { opacity: 0, x: -26 }, { opacity: 1, x: 0, duration: 0.3 }, 21.88)
-          .fromTo("#s4-qual", { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.34 }, 22.6)
-          .fromTo(".qrow", { opacity: 0.14, y: 18 }, { opacity: 1, y: 0, duration: 0.26, stagger: 0.5 }, 22.78)
-          .fromTo(".qcheck", { scale: 0.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "back.out(2.4)", stagger: 0.5 }, 22.9);
+        tl.fromTo("#s4-t1", { opacity: 0, x: -26 }, { opacity: 1, x: 0, duration: 0.3 }, 31.9)
+          .fromTo("#s4-t2", { opacity: 0, x: -26 }, { opacity: 1, x: 0, duration: 0.3 }, 33)
+          .fromTo("#s4-qual", { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.34 }, 35.2)
+          .fromTo(".qrow", { opacity: 0.14, y: 18 }, { opacity: 1, y: 0, duration: 0.26, stagger: 0.5 }, 35.35)
+          .fromTo(".qcheck", { scale: 0.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "back.out(2.4)", stagger: 0.5 }, 35.46);
 
         /* ===================== SCENE 05 — QUALIFIED LIVE TRANSFER ===================== */
-        tl.fromTo("#s5-h1", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3 }, 25.08)
-          .to("#s5-h1", { opacity: 0, y: -28, duration: 0.24, ease: "power2.in" }, 25.84)
-          .fromTo("#s5-h2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3 }, 25.96)
-          .to("#s5-h2", { opacity: 0, y: -28, duration: 0.24, ease: "power2.in" }, 26.62);
+        tl.fromTo("#s5-h1", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3 }, 37.42)
+          .to("#s5-h1", { opacity: 0, y: -28, duration: 0.24, ease: "power2.in" }, 38.9)
+          .fromTo("#s5-h2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3 }, 39.05)
+          .to("#s5-h2", { opacity: 0, y: -28, duration: 0.24, ease: "power2.in" }, 40.2);
 
-        tl.fromTo("#s5-brand", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.28 }, 26.72)
-          .set("#s5-flow", { opacity: 1 }, 26.76)
-          .to("#s5-n1", { opacity: 1, duration: 0.22 }, 26.86)
-          .fromTo(".s5c", { scaleY: 0 }, { scaleY: 1, duration: 0.2, stagger: 0.6 }, 27.08)
-          .to("#s5-n2", { opacity: 1, duration: 0.22 }, 27.46)
-          .to("#s5-n3", { opacity: 1, duration: 0.22 }, 28.06)
-          .to("#s5-n4", { opacity: 1, duration: 0.22 }, 28.66)
-          .fromTo("#s5-broker", { opacity: 0, y: 56, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.4 }, 28.96)
-          .fromTo("#s5-live", { opacity: 0.45 }, { opacity: 1, duration: 0.3, repeat: 4, yoyo: true, ease: "sine.inOut" }, 29.3);
+        tl.fromTo("#s5-brand", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.28 }, 40.35)
+          .set("#s5-flow", { opacity: 1 }, 40.39)
+          .to("#s5-n1", { opacity: 1, duration: 0.22 }, 40.5)
+          .fromTo(".s5c", { scaleY: 0 }, { scaleY: 1, duration: 0.2, stagger: 0.9 }, 40.9)
+          .to("#s5-n2", { opacity: 1, duration: 0.22 }, 41.6)
+          .to("#s5-n3", { opacity: 1, duration: 0.22 }, 42.5)
+          .to("#s5-n4", { opacity: 1, duration: 0.22 }, 43.4)
+          .fromTo("#s5-broker", { opacity: 0, y: 56, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.4 }, 43.9)
+          .fromTo("#s5-live", { opacity: 0.45 }, { opacity: 1, duration: 0.3, repeat: 6, yoyo: true, ease: "sine.inOut" }, 44.3);
 
-        tl.to(["#s5-flow", "#s5-broker", "#s5-brand"], { opacity: 0, duration: 0.3, ease: "power2.in" }, 30.5)
-          .to("#s5-scrim", { opacity: 1, duration: 0.34 }, 30.56)
-          .fromTo("#s5-h3", { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.4 }, 30.7)
-          .fromTo("#s5-h3", { scale: 0.985 }, { scale: 1, duration: 1.3, ease: "power2.out", immediateRender: false }, 30.7);
+        tl.to(["#s5-flow", "#s5-broker", "#s5-brand"], { opacity: 0, duration: 0.3, ease: "power2.in" }, 45.9)
+          .to("#s5-scrim", { opacity: 1, duration: 0.34 }, 45.97)
+          .fromTo("#s5-h3", { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.4 }, 46.15)
+          .fromTo("#s5-h3", { scale: 0.985 }, { scale: 1, duration: 1.3, ease: "power2.out", immediateRender: false }, 46.15);
 
         /* ===================== SCENE 06 — SELL FASTER + CTA ===================== */
-        tl.fromTo("#s6-brand", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.28 }, 32.66)
-          .fromTo(".gcard", { opacity: 0, y: 36, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.08 }, 32.74);
+        tl.fromTo("#s6-brand", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.28 }, 48.79)
+          .fromTo(".gcard", { opacity: 0, y: 36, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.08 }, 48.85);
 
-        tl.to(["#s6-grid", "#s6-brand"], { opacity: 0, duration: 0.3, ease: "power2.in" }, 33.56)
-          .to("#s6-scrim", { opacity: 1, duration: 0.32 }, 33.6)
-          .fromTo("#s6-h1", { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: 0.34 }, 33.72)
-          .to("#s6-h1", { opacity: 0, y: -30, duration: 0.26, ease: "power2.in" }, 34.86)
-          .fromTo("#s6-h2", { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: 0.34 }, 35.0)
-          .to("#s6-h2", { opacity: 0, duration: 0.3, ease: "power2.in" }, 35.98);
+        tl.to(["#s6-grid", "#s6-brand"], { opacity: 0, duration: 0.3, ease: "power2.in" }, 50)
+          .to("#s6-scrim", { opacity: 1, duration: 0.32 }, 50.05)
+          .fromTo("#s6-h1", { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: 0.34 }, 50.2)
+          .to("#s6-h1", { opacity: 0, y: -30, duration: 0.26, ease: "power2.in" }, 51.48)
+          .fromTo("#s6-h2", { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: 0.34 }, 51.7)
+          .to("#s6-h2", { opacity: 0, duration: 0.3, ease: "power2.in" }, 53.3);
 
-        tl.to("#s6-end", { opacity: 1, duration: 0.45 }, 36.04)
-          .fromTo("#s6-logo", { scale: 0.93, y: 20 }, { scale: 1, y: 0, duration: 0.6 }, 36.1)
-          .fromTo("#s6-sub", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.34 }, 36.42)
-          .fromTo("#s6-cta", { opacity: 0, y: 28, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 36.78)
-          .fromTo("#s6-foot", { opacity: 0 }, { opacity: 1, duration: 0.34 }, 37.16);
+        tl.to("#s6-end", { opacity: 1, duration: 0.45 }, 53.4)
+          .fromTo("#s6-logo", { scale: 0.93, y: 20 }, { scale: 1, y: 0, duration: 0.6 }, 53.5)
+          .fromTo("#s6-sub", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.34 }, 53.9)
+          .fromTo("#s6-cta", { opacity: 0, y: 28, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 54.3)
+          .fromTo("#s6-foot", { opacity: 0 }, { opacity: 1, duration: 0.34 }, 54.8);
 
         window.__timelines["main"] = tl;
         tl.seek(0);

@@ -6,7 +6,7 @@ Run: /tmp/ttsvenv/bin/python tools/score.py
 import numpy as np, soundfile as sf, os
 
 SR = 48000
-DUR = 40.0
+DUR = 57.4
 N = int(SR * DUR)
 L = np.zeros(N); R = np.zeros(N)
 rng = np.random.default_rng(7)  # seeded -> deterministic
@@ -95,94 +95,96 @@ def tick(dur=0.035):
     return noise(dur, hp=2500, a=0.001, r=0.03) * 0.5
 
 # ---------------------------------------------------------------- MUSIC BED
-# Act 1 (0 - 14.6): tension under the hook and the slow-follow-up problem
-add(pad([55, 82.4, 110], 15.2, gain=0.30, a=0.35, r=1.8), 0.0, 0.9)
-add(pad([164.8, 196.0], 14.8, gain=0.10, a=2.0, r=2.2), 0.4, 0.8)
+# Act 1 (0 - 21.5): tension under the hook and the slow-follow-up problem
+add(pad([55, 82.4, 110], 22.2, gain=0.30, a=0.35, r=2.0), 0.0, 0.9)
+add(pad([164.8, 196.0], 21.6, gain=0.10, a=2.0, r=2.4), 0.4, 0.8)
 t = 0.35
-while t < 14.3:
+while t < 21.2:
     add(sub_pulse(46, 0.5), t, 0.50)
     t += 0.7
 t = 0.5
-while t < 7.4:
-    add(tick(), t, 0.34)
+while t < 11.4:
+    add(tick(), t, 0.32)
     t += 0.5
 
 # the lead sliding to the rival developer
-add(whoosh(0.9, up=False), 5.85, 0.30)
-add(tone(220, 0.5, a=0.01, r=0.45), 6.35, 0.16)
-add(tone(174.6, 0.7, a=0.01, r=0.6), 6.6, 0.18)
+add(whoosh(0.9, up=False), 8.4, 0.30)
+add(tone(220, 0.5, a=0.01, r=0.45), 8.9, 0.16)
+add(tone(174.6, 0.7, a=0.01, r=0.6), 9.15, 0.18)
 
-# manual dialling under scene 02 - restrained, never chaotic
-for t0 in (9.5, 10.0, 10.5, 11.0, 11.5):
+# manual dialling under scene 02 - one tone per row, never chaotic
+for t0 in (14.0, 14.62, 15.24, 15.86, 16.48):
     add(tone(1400, 0.06, a=0.002, r=0.05), t0, 0.15)
     add(tone(1180, 0.06, a=0.002, r=0.05), t0 + 0.1, 0.13)
-t = 11.5
-while t < 13.1:
+t = 16.7
+while t < 18.3:
     add(tick(), t, 0.22)
     t += 0.16
 
-# Act 2 (14.6 - 32.6): the DoubleTick reveal - confident, warmer
-add(whoosh(0.85, up=True), 13.9, 0.32)
-add(sub_pulse(40, 1.2), 14.6, 0.80)
-add(pad([82.4, 123.5, 164.8, 246.9], 6.4, gain=0.26, a=0.5, r=2.2), 14.6, 1.0)
-add(pad([110, 164.8, 220, 329.6], 9.0, gain=0.24, a=0.9, r=2.4), 20.4, 1.0)
-add(pad([98, 146.8, 196, 293.7], 8.2, gain=0.24, a=0.8, r=2.4), 25.0, 1.0)
-t = 14.7
+# Act 2 (21.5 - 48.75): the DoubleTick reveal - confident, warmer
+add(whoosh(0.85, up=True), 20.8, 0.32)
+add(sub_pulse(40, 1.2), 21.5, 0.80)
+add(pad([82.4, 123.5, 164.8, 246.9], 10.4, gain=0.26, a=0.5, r=2.4), 21.5, 1.0)
+add(pad([110, 164.8, 220, 329.6], 7.2, gain=0.24, a=0.9, r=2.4), 31.3, 1.0)
+add(pad([98, 146.8, 196, 293.7], 12.2, gain=0.24, a=0.8, r=2.6), 37.35, 1.0)
+t = 21.6
 i = 0
-while t < 32.4:
+while t < 48.5:
     add(sub_pulse(44, 0.45), t, 0.34 if i % 2 else 0.46)
     if i % 4 in (1, 3):
         add(pluck([329.6, 246.9, 392.0, 293.7][(i // 2) % 4], 0.28), t + 0.2, 0.07)
     t += 0.4
     i += 1
 
-# Act 3 (32.6 - 40): resolve into the CTA
-add(whoosh(0.7, up=True), 32.2, 0.26)
-add(pad([110, 164.8, 220, 277.2], 3.8, gain=0.26, a=0.4, r=1.4), 32.6, 1.0)
-add(pad([82.4, 123.5, 207.7, 246.9, 329.6], 6.4, gain=0.32, a=0.5, r=2.8), 36.0, 1.0)
-t = 32.7
+# Act 3 (48.75 - 57.4): resolve into the CTA
+add(whoosh(0.7, up=True), 48.35, 0.26)
+add(pad([110, 164.8, 220, 277.2], 5.0, gain=0.26, a=0.4, r=1.6), 48.75, 1.0)
+add(pad([82.4, 123.5, 207.7, 246.9, 329.6], 4.4, gain=0.32, a=0.5, r=2.8), 53.35, 1.0)
+t = 48.85
 i = 0
-while t < 36.0:
+while t < 53.4:
     add(sub_pulse(44, 0.45), t, 0.42 if i % 2 else 0.30)
     t += 0.4
     i += 1
-add(sub_pulse(38, 1.6), 36.05, 0.85)
-add(sub_pulse(38, 2.2), 37.6, 0.42)
+add(sub_pulse(38, 1.6), 53.4, 0.85)
+add(sub_pulse(38, 2.2), 55.2, 0.42)
 
 # ---------------------------------------------------------------- SFX
 # S1: the competing-launch handover
-add(blip(1560), 5.34, 0.26); add(blip(2080, 0.07), 5.42, 0.16)
+add(blip(1560), 7.34, 0.26); add(blip(2080, 0.07), 7.42, 0.16)
 
 # S2: lead rows landing
-for t0 in (8.82, 8.92, 9.02, 9.12, 9.22):
+for t0 in (13.17, 13.29, 13.41, 13.53, 13.65):
     add(tick(), t0, 0.22)
 
 # S3: reveal -> routing -> PSTN ring -> connect
-add(blip(1760, 0.08), 16.56, 0.30)
-add(tick(), 16.98, 0.30); add(blip(1320, 0.07), 17.0, 0.22)
-add(blip(1480, 0.08), 17.42, 0.24)
-for t0 in (18.45, 18.95):  # two-tone PSTN ring cadence
+add(blip(1760, 0.08), 24.95, 0.30)
+add(tick(), 25.63, 0.30); add(blip(1320, 0.07), 25.65, 0.22)
+add(blip(1480, 0.08), 26.3, 0.24)
+for t0 in (27.75, 28.45, 29.15):  # two-tone PSTN ring cadence
     for off in (0.0, 0.42):
         ring = (tone(440, 0.34, a=0.01, r=0.12) + tone(480, 0.34, a=0.01, r=0.12)) * 0.5
         add(ring, t0 + off, 0.16)
-add(blip(880, 0.12), 19.34, 0.30)
-add(blip(1320, 0.10), 19.44, 0.22)
+add(blip(880, 0.12), 29.62, 0.30)
+add(blip(1320, 0.10), 29.72, 0.22)
 
 # S4: qualification confirmations
-for t0 in (22.9, 23.4, 23.9, 24.4):
+for t0 in (35.46, 35.96, 36.46, 36.96):
     add(blip(1480, 0.07), t0, 0.20)
     add(tick(), t0, 0.15)
 
-# S5: live-transfer cue
-add(tone(587.3, 0.16, a=0.004, r=0.12), 28.7, 0.22)
-add(tone(880.0, 0.30, a=0.004, r=0.26), 28.86, 0.24)
-add(blip(1174.7, 0.12), 29.3, 0.20)
+# S5: the transfer chain and its live cue
+for t0 in (40.5, 41.6, 42.5):
+    add(blip(1240, 0.07), t0, 0.16)
+add(tone(587.3, 0.16, a=0.004, r=0.12), 43.4, 0.22)
+add(tone(880.0, 0.30, a=0.004, r=0.26), 43.56, 0.24)
+add(blip(1174.7, 0.12), 44.3, 0.20)
 
 # S6: concurrent calls + CTA
-for k, t0 in enumerate((32.76, 32.94, 33.12, 33.3, 33.48, 33.66)):
+for k, t0 in enumerate((48.92, 49.1, 49.28, 49.46, 49.64, 49.82)):
     add(blip(1180 + k * 90, 0.06), t0, 0.13)
-add(whoosh(0.5, up=True), 35.7, 0.22)
-add(blip(1046.5, 0.5), 36.1, 0.16)
+add(whoosh(0.5, up=True), 53.0, 0.22)
+add(blip(1046.5, 0.5), 53.45, 0.16)
 
 # ---------------------------------------------------------------- MASTER
 stereo = np.stack([L, R], axis=1)
