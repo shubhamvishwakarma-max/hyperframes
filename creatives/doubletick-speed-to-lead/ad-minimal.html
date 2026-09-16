@@ -25,32 +25,37 @@ body{-webkit-font-smoothing:antialiased}
   position:relative;width:1080px;height:1080px;overflow:hidden;
   font-family:'Figtree',system-ui,sans-serif;color:#fff;
   background:
-    radial-gradient(105% 80% at 104% 100%, rgba(22,170,108,.62) 0%, rgba(11,88,58,.34) 32%, rgba(0,0,0,0) 64%),
-    radial-gradient(70% 55% at 10% 104%, rgba(13,104,68,.34) 0%, rgba(0,0,0,0) 62%),
-    linear-gradient(180deg,#050706 0%, #050706 33%, #07130E 52%, #08251A 76%, #093121 100%);
+    radial-gradient(52% 40% at 96% 60%, rgba(52,232,158,.78) 0%, rgba(20,150,100,.42) 46%, rgba(0,0,0,0) 76%),
+    radial-gradient(44% 34% at 68% 84%, rgba(30,192,128,.50) 0%, rgba(0,0,0,0) 74%),
+    radial-gradient(26% 52% at 100% 72%, rgba(90,245,180,.34) 0%, rgba(0,0,0,0) 70%),
+    radial-gradient(76% 46% at 46% 116%, rgba(16,120,80,.50) 0%, rgba(0,0,0,0) 74%),
+    linear-gradient(180deg,#0B0D0C 0%, #0B0D0C 33%, #050807 40%, #04110B 58%, #062018 80%, #073322 100%);
 }
 /* black band across the top, exactly as the reference */
-.band{position:absolute;left:0;right:0;top:0;height:352px;background:#080A09;z-index:1}
+.band{position:absolute;left:0;right:0;top:0;height:354px;background:#0B0D0C;z-index:1}
 .bg{position:absolute;inset:0;z-index:2;pointer-events:none}
-.frame{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.07)}
+.frame{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.13)}
 .frame.l{left:84px}.frame.r{right:84px}
-.rule{position:absolute;left:0;right:0;height:1px;background:rgba(255,255,255,.07)}
+.rule{position:absolute;left:0;right:0;height:1px;background:rgba(255,255,255,.11)}
 .dots{
-  position:absolute;left:96px;bottom:96px;width:400px;height:210px;
-  background-image:radial-gradient(rgba(180,230,205,.30) 1.6px, transparent 1.6px);
-  background-size:22px 22px;
-  -webkit-mask-image:linear-gradient(105deg,#000 0%,rgba(0,0,0,.25) 62%,transparent 88%);
-          mask-image:linear-gradient(105deg,#000 0%,rgba(0,0,0,.25) 62%,transparent 88%);
-  opacity:.55;
+  position:absolute;left:132px;top:786px;width:300px;height:228px;
+  background-image:radial-gradient(rgba(198,240,220,.55) 1.7px, transparent 1.7px);
+  background-size:19px 19px;
+  -webkit-mask-image:radial-gradient(78% 70% at 62% 78%, #000 0%, rgba(0,0,0,.35) 58%, transparent 86%);
+          mask-image:radial-gradient(78% 70% at 62% 78%, #000 0%, rgba(0,0,0,.35) 58%, transparent 86%);
+  opacity:.50;
 }
+.beam{position:absolute;left:381px;top:690px;width:3px;height:300px;
+  background:linear-gradient(180deg, rgba(190,255,225,0) 0%, rgba(190,255,225,.30) 45%, rgba(190,255,225,.05) 100%);
+  filter:blur(1.4px)}
 
 /* headline panel inside the black band */
 .panel{
   position:absolute;z-index:3;left:84px;right:84px;top:122px;height:231px;
-  background:linear-gradient(140deg, rgba(255,255,255,.055), rgba(255,255,255,.012) 62%);
+  background:linear-gradient(135deg, rgba(255,255,255,.085), rgba(255,255,255,.012) 66%);
   display:flex;align-items:center;justify-content:center;text-align:center;
 }
-.mark{position:absolute;width:15px;height:15px;background:rgba(255,255,255,.55)}
+.mark{position:absolute;width:14px;height:14px;background:#C5CBC8}
 .mark.tl{top:-7px;left:-7px}.mark.tr{top:-7px;right:-7px}
 .mark.bl{bottom:-7px;left:-7px}.mark.br{bottom:-7px;right:-7px}
 .h1{font-family:'Geist',system-ui,sans-serif;font-size:56px;font-weight:600;line-height:1.34;letter-spacing:-1.1px;color:var(--head)}
@@ -112,10 +117,10 @@ body{-webkit-font-smoothing:antialiased}
 .cursor{position:absolute;right:-42px;bottom:-48px}
 
 /* footer */
-.footer{position:absolute;z-index:3;left:0;right:0;bottom:0;height:98px;background:rgba(5,44,30,.72);
-  display:flex;align-items:center;justify-content:space-between;padding:0 64px;border-top:1px solid rgba(255,255,255,.06)}
+.footer{position:absolute;z-index:3;left:0;right:0;bottom:0;height:72px;background:#0A3D29;
+  display:flex;align-items:center;justify-content:space-between;padding:0 58px}
 .logo{display:flex;align-items:center;gap:13px}
-.logo .word{font-size:31px;font-weight:800;letter-spacing:-.6px}
+.logo .word{font-size:30px;font-weight:800;letter-spacing:-.6px}
 .meta{display:flex;align-items:center;gap:10px}
 .meta .mt{line-height:1.1}
 .meta .mt b{display:block;font-size:22px;font-weight:600;letter-spacing:-.4px;color:#fff}
@@ -128,16 +133,13 @@ body{-webkit-font-smoothing:antialiased}
 
   <div class="bg">
     <div class="frame l"></div><div class="frame r"></div>
-    <div class="rule" style="top:352px"></div>
-    <div class="rule" style="top:122px;opacity:.55"></div>
+    <div class="rule" style="top:354px"></div>
+    <div class="rule" style="top:118px"></div>
+    <div class="beam"></div>
     <div class="dots"></div>
     <svg width="1080" height="1080" style="position:absolute;inset:0" fill="none">
       <g stroke="rgba(255,255,255,.07)" stroke-width="1">
         <path d="M0 640 H84 M996 640 H1080"/>
-      </g>
-      <!-- faint skyline, bottom right -->
-      <g opacity=".12" fill="rgba(150,240,200,.35)">
-        <path d="M812 1080 V856 h30 v224z M852 1080 V892 h24 v188z M884 1080 V838 l14-26 14 26 v242z M926 1080 V880 h34 v200z M968 1080 V906 h28 v174z M1004 1080 V866 h40 v214z"/>
       </g>
     </svg>
   </div>
@@ -208,7 +210,7 @@ body{-webkit-font-smoothing:antialiased}
 
   <div class="footer">
     <div class="logo">
-      <svg width="56" height="34" viewBox="0 0 58 36" fill="none">
+      <svg width="48" height="30" viewBox="0 0 58 36" fill="none">
         <path d="M3 19.5 L14.5 31 L33 7" stroke="#0E8E57" stroke-width="6.4" stroke-linecap="square"/>
         <path d="M21 19.5 L32.5 31 L54 4" stroke="#2BE08C" stroke-width="6.4" stroke-linecap="square"/>
       </svg>
