@@ -809,39 +809,73 @@
         <div class="vign"></div>
         <div class="grid"></div>
 
-        <div id="s4-flow" style="position: absolute; left: 190px; right: 190px; top: 262px">
-          <div class="node-c f4" id="s4-n1" style="opacity: 0">NO ANSWER</div>
-          <div class="conn s4c" style="height: 30px; margin: 9px auto"></div>
-          <div class="node-c card-g f4" id="s4-n2" style="opacity: 0; border-color: var(--line-g)">
+        <!-- the follow-up progresses through one centred state line -->
+        <div id="s4-state" style="position: absolute; left: 150px; right: 150px; top: 258px; height: 56px">
+          <div class="qline s4st" style="position: absolute; left: 0; right: 0; top: 0; height: 56px; justify-content: center; gap: 14px">
+            <span style="width: 11px; height: 11px; border-radius: 999px; background: var(--fg-3); display: block"></span>
+            <span class="uilabel">Missed call</span>
+          </div>
+          <div class="qline s4st" style="position: absolute; left: 0; right: 0; top: 0; height: 56px; justify-content: center; gap: 14px; opacity: 0; border-color: var(--line-g)">
+            <span style="width: 11px; height: 11px; border-radius: 999px; background: var(--g); display: block"></span>
+            <span class="uilabel gr">WhatsApp message sent</span>
+          </div>
+          <div class="qline s4st" style="position: absolute; left: 0; right: 0; top: 0; height: 56px; justify-content: center; gap: 14px; opacity: 0; border-color: var(--line-g)">
+            <span style="width: 11px; height: 11px; border-radius: 999px; background: var(--g); display: block"></span>
+            <span class="uilabel gr">Project info shared</span>
+          </div>
+          <div class="qline s4st" style="position: absolute; left: 0; right: 0; top: 0; height: 56px; justify-content: center; gap: 14px; opacity: 0; border-color: var(--line-g)">
+            <span style="width: 11px; height: 11px; border-radius: 999px; background: var(--g); display: block"></span>
+            <span class="uilabel gr">Request for callback</span>
+          </div>
+        </div>
+
+        <!-- the WhatsApp thread carries this whole section -->
+        <div id="s4-wa" class="wapanel" style="position: absolute; left: 140px; right: 140px; top: 344px; padding: 22px 22px 24px; opacity: 0">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 14px; padding-bottom: 18px; border-bottom: 1px solid var(--line)">
             <svg viewBox="0 0 24 24" style="width: 34px; height: 34px; color: var(--g)"><use href="#wamark" /></svg>
-            WHATSAPP
+            <div class="ctr">
+              <div style="font-size: 26px; font-weight: 600">DoubleTick</div>
+              <div class="uilabel gr" style="font-size: 17px; margin-top: 2px">WhatsApp business <span class="dot">•</span> automated</div>
+            </div>
           </div>
-          <div class="conn s4c" style="height: 30px; margin: 9px auto"></div>
-          <div class="node-c f4 gr" id="s4-n3" style="opacity: 0; border-color: var(--line-g)">MESSAGE SENT</div>
+
+          <div id="s4-bub" class="ctr" style="margin-top: 18px; padding: 20px 22px; border-radius: 22px; background: linear-gradient(180deg, rgba(37,211,102,.16), rgba(37,211,102,.09)); border: 1px solid var(--line-g); font-size: 26px; line-height: 1.34; opacity: 0">
+            Hi Ahmed, thanks for your interest in our latest project. Since we missed you on
+            call, here are the details.
+          </div>
+
+          <div id="s4-atts" style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px">
+            <div class="attach a4" style="height: 68px; opacity: 0"><svg viewBox="0 0 24 24" style="width: 26px; height: 26px; color: var(--g)"><use href="#doc" /></svg>Project brochure</div>
+            <div class="attach a4" style="height: 68px; opacity: 0"><svg viewBox="0 0 24 24" style="width: 26px; height: 26px; color: var(--g)"><use href="#doc" /></svg>Payment plan</div>
+            <div class="attach a4" style="height: 68px; opacity: 0"><svg viewBox="0 0 24 24" style="width: 26px; height: 26px; color: var(--g)"><use href="#doc" /></svg>Project details</div>
+          </div>
+
+          <!-- the way back into the funnel -->
+          <div id="s4-cta" style="overflow: hidden; opacity: 0">
+            <div style="margin-top: 14px; padding: 18px; border-radius: 22px; background: rgba(255, 255, 255, 0.035); border: 1px solid var(--line-g)">
+              <div class="ctr uilabel" style="font-size: 18px">Want to speak with our team?</div>
+              <div id="s4-btn" style="display: flex; align-items: center; justify-content: center; gap: 12px; height: 78px; margin-top: 14px; border-radius: 18px; background: linear-gradient(180deg, #2ee06f, var(--g-600)); color: #04180d; font-size: 30px; font-weight: 700">
+                Request for Callback
+                <svg viewBox="0 0 24 24" style="width: 26px; height: 26px"><use href="#phone" /></svg>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- the message, centred inside the DoubleTick product -->
-        <div id="s4-wa" class="wapanel" style="position: absolute; left: 150px; right: 150px; top: 262px; padding: 26px 26px 28px; opacity: 0">
-          <div class="uilabel gr ctr">WhatsApp follow-up <span class="dot">•</span> automated</div>
-          <div id="s4-bub" class="ctr" style="margin-top: 20px; padding: 24px 26px; border-radius: 24px; background: linear-gradient(180deg, rgba(37,211,102,.16), rgba(37,211,102,.09)); border: 1px solid var(--line-g); font-size: 30px; line-height: 1.34; opacity: 0">
-            Hi Ahmed, thanks for your interest in our latest development.
-          </div>
-          <div id="s4-atts" style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px">
-            <div class="attach a4" style="opacity: 0"><svg viewBox="0 0 24 24" style="width: 30px; height: 30px; color: var(--g)"><use href="#doc" /></svg>Project brochure</div>
-            <div class="attach a4" style="opacity: 0"><svg viewBox="0 0 24 24" style="width: 30px; height: 30px; color: var(--g)"><use href="#doc" /></svg>Payment plan</div>
-            <div class="attach a4" style="opacity: 0"><svg viewBox="0 0 24 24" style="width: 30px; height: 30px; color: var(--g)"><use href="#doc" /></svg>Project details</div>
-          </div>
-        </div>
-
-        <div id="s4-h1" class="h3" style="top: 860px; opacity: 0">
+        <div id="s4-h1" class="h3" style="top: 1110px; opacity: 0">
           <div>Missed the</div>
           <div>voice call?</div>
-          <div class="gr">Follow up instantly</div>
+          <div class="gr">WhatsApp follows up</div>
         </div>
-        <div id="s4-h2" class="h3" style="top: 860px; opacity: 0">
-          <div class="gr">Brochure</div>
-          <div class="gr">Payment plan</div>
-          <div class="gr">Project details</div>
+        <div id="s4-h2" class="h3" style="top: 1110px; opacity: 0">
+          <div>Brochure</div>
+          <div>Payment plan</div>
+          <div>Project details</div>
+        </div>
+        <div id="s4-h3" class="h3" style="top: 1110px; opacity: 0">
+          <div>No response?</div>
+          <div>Send a</div>
+          <div class="gr">Request for Callback</div>
         </div>
       </section>
 
@@ -1055,20 +1089,28 @@
           .fromTo("#s3-h3", { opacity: 0, y: 38 }, { opacity: 1, y: 0, duration: 0.36 }, 18.36)
           .fromTo("#s3-booked", { opacity: 0, y: 26, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: "back.out(1.7)" }, 19.5);
 
-        /* ============ SCENE 04 — WhatsApp follow-up ============ */
-        tl.fromTo("#s4-n1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.28 }, 20.78)
-          .fromTo("#s4-h1", { opacity: 0, y: 38 }, { opacity: 1, y: 0, duration: 0.36 }, 21.1)
-          .fromTo(".s4c", { scaleY: 0 }, { scaleY: 1, duration: 0.2, stagger: 0.6 }, 21.35)
-          .fromTo("#s4-n2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.28 }, 21.6)
-          .fromTo("#s4-n3", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.28 }, 22.2);
+        /* ============ SCENE 04 — the WhatsApp follow-up ============ */
+        tl.fromTo("#s4-state", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3 }, 20.75)
+          .fromTo("#s4-h1", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.34 }, 21.0)
+          .fromTo("#s4-wa", { opacity: 0, y: 44, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.42 }, 21.4)
+          .fromTo("#s4-bub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.32 }, 21.86);
 
-        tl.to("#s4-flow", { opacity: 0, y: -28, duration: 0.3, ease: "power2.in" }, 23.1)
-          .fromTo("#s4-wa", { opacity: 0, y: 40, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.4 }, 23.32)
-          .fromTo("#s4-bub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.32 }, 23.8)
-          .fromTo(".a4", { height: 0, opacity: 0 }, { height: 88, opacity: 1, duration: 0.32, stagger: 0.7 }, 24.5);
+        /* the state line advances with the thread */
+        tl.to(".s4st:nth-of-type(1)", { opacity: 0, duration: 0.2 }, 22.5)
+          .to(".s4st:nth-of-type(2)", { opacity: 1, duration: 0.24 }, 22.54)
+          .to(".s4st:nth-of-type(2)", { opacity: 0, duration: 0.2 }, 25.24)
+          .to(".s4st:nth-of-type(3)", { opacity: 1, duration: 0.24 }, 25.28)
+          .to(".s4st:nth-of-type(3)", { opacity: 0, duration: 0.2 }, 26.44)
+          .to(".s4st:nth-of-type(4)", { opacity: 1, duration: 0.24 }, 26.48);
 
-        tl.to("#s4-h1", { opacity: 0, y: -26, duration: 0.26, ease: "power2.in" }, 25.95)
-          .fromTo("#s4-h2", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.36 }, 26.15);
+        tl.to("#s4-h1", { opacity: 0, y: -26, duration: 0.26, ease: "power2.in" }, 24.14)
+          .fromTo("#s4-h2", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.34 }, 24.34)
+          .fromTo(".a4", { height: 0, opacity: 0 }, { height: 68, opacity: 1, duration: 0.3, stagger: 0.6 }, 24.45);
+
+        tl.to("#s4-h2", { opacity: 0, y: -26, duration: 0.26, ease: "power2.in" }, 25.88)
+          .fromTo("#s4-h3", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.34 }, 26.06)
+          .fromTo("#s4-cta", { height: 0, opacity: 0 }, { height: 176, opacity: 1, duration: 0.36 }, 26.14)
+          .fromTo("#s4-btn", { scale: 0.985 }, { scale: 1.015, duration: 0.42, repeat: 3, yoyo: true, ease: "sine.inOut" }, 26.56);
 
         /* ============ SCENE 05 — active pipeline, then the ask ============ */
         tl.set("#s5-db", { opacity: 1 }, 27.8)
