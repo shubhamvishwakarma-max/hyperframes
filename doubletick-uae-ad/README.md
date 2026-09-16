@@ -1,11 +1,11 @@
 # DoubleTick — Voice AI for UAE Real Estate (9:16 performance ad)
 
-A 38.0s vertical performance ad built as a HyperFrames composition.
+A 40.0s vertical performance ad built as a HyperFrames composition.
 
 | Spec | Value |
 | --- | --- |
 | Aspect / resolution | 9:16 — 1080 × 1920 |
-| Duration | 38.0s (1140 frames) |
+| Duration | 40.0s (1200 frames) |
 | Frame rate | 30 fps |
 | Output | MP4 / H.264 (`renders/doubletick-uae-voice-ai-9x16.mp4`) |
 | Placements | Instagram Reels, LinkedIn, Meta Ads, mobile-first paid media |
@@ -27,26 +27,30 @@ npx hyperframes render -o renders/doubletick-uae-voice-ai-9x16.mp4 -f 30 -q deli
   one paused GSAP root timeline on `window.__timelines["main"]`.
 - `assets/fonts/` — Geist Variable + Geist Mono Variable (shipped locally, `@font-face`d).
 - `assets/vendor/gsap.min.js` — GSAP, vendored so the render never touches the network.
-- `assets/audio/vo1…vo6.wav` — voiceover, General American (Kokoro `am_michael`).
+- `assets/audio/vo1…vo5.wav` — voiceover (Kokoro `am_michael`), one file per narration line.
 - `assets/audio/score.wav` — the whole music bed + sound design, pre-mixed.
 - `tools/score.py` — deterministic generator for `score.wav` (seeded, re-runnable).
+- `tools/voice.sh` + `tools/tighten.py` — regenerate and pace the voiceover.
 
 ## Scene map
 
-| # | Window | Beat |
-| --- | --- | --- |
-| 01 | 0.00 – 6.90 | Hook: `5 MINUTES.` → lead decays NEW → WAITING → COLD |
-| 02 | 6.90 – 11.20 | Problem: manual dialling, +48 / +126 / +247 uncalled leads |
-| 03 | 11.20 – 19.60 | Solution: enquiry → DoubleTick AI → PSTN call. `LEAD IN. AI CALL OUT. INSTANTLY.` |
-| 04 | 19.60 – 27.40 | AI qualification: live transcript + auto-captured fields. `ASK. QUALIFY. ANSWER.` |
-| 05 | 27.40 – 31.60 | Live transfer to broker. `AI QUALIFIES. YOUR TEAM CLOSES.` |
-| 06 | 31.60 – 38.00 | Scale + end card. `SCALE CONVERSATIONS. NOT HEADCOUNT.` → `BOOK A VOICE AI DEMO` |
+Every on-screen line is the narration it sits under, or a tight condensation of it —
+no free-floating campaign slogans.
+
+| # | Window | VO | On screen |
+| --- | --- | --- | --- |
+| 01 | 0.00 – 7.50 | 1 | `Taking more than 5 minutes to call a new project lead?` → `You didn't lose an investor.` → `You handed millions in off-plan revenue to a rival developer.` |
+| 02 | 7.50 – 14.60 | 2 | `Slow follow-ups kill launch inventory.` → `Thousands of high-intent leads sitting cold.` |
+| 03 | 14.60 – 20.40 | 3a | `DoubleTick AI Calling changes that instantly.` → NEW LEAD → DOUBLETICK AI → PSTN CALL → `Lead registers. DoubleTick calls instantly.` |
+| 04 | 20.40 – 25.00 | 3b | `Talking naturally` → `Answering payment-plan questions` → `Vetting budget on the spot`, qualification auto-capturing |
+| 05 | 25.00 – 32.60 | 4 | `No robotic delays.` → `No missed leads.` → live transfer chain → `Brokers step in with qualified investors.` |
+| 06 | 32.60 – 40.00 | 5 | `Sell your next development faster.` → `Without expanding your sales team.` → end card + `BOOK YOUR DEMO` |
 
 ## Typography
 
 Geist for all copy, UI labels and CTAs. Geist Mono for every numeral-led element —
-the `5 MINUTES.` hook, the `00:00 → 05:00` timer, phone numbers, `+247`, `AED 3–4M`,
-`2` BEDROOM, `30` DAYS, call duration, concurrent-call counter. No other family is loaded.
+the `5` in the hook, phone numbers, the uncontacted-lead count, `AED 3–4M`, `AED 3.5M`,
+`2` Bedroom, `30` Days and the live call duration. No other family is loaded.
 
 ## Brand tokens
 
