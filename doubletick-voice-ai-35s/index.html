@@ -29,6 +29,7 @@
       ----------------------------------------------------------------*/
       :root {
         --g: #25d366;
+        --brand-green: #2bb673; /* sampled from the supplied logo */
         --g-600: #14b85b;
         --g-700: #0e8f49;
         --g-deep: #0a4d2c;
@@ -458,15 +459,17 @@
       /* ---- persistent brand layer (never animated, never moved) ---- */
       #dt-logo {
         position: absolute;
-        left: 92px;
+        left: 0;
+        right: 0;
         top: 104px;
         z-index: 100;
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 18px;
         pointer-events: none;
       }
-      #dt-logo .mark { width: 52px; height: 52px; color: var(--g); }
+      #dt-logo .mark { width: 78px; height: 42px; color: var(--brand-green); }
       #dt-logo .word {
         font-size: 38px;
         font-weight: 700;
@@ -480,14 +483,14 @@
         line-height: 1.1;
         font-weight: 700;
         letter-spacing: -0.04em;
-        text-transform: uppercase;
+        text-align: center;
       }
       .hero-s {
         font-size: 62px;
         line-height: 1.14;
         font-weight: 700;
         letter-spacing: -0.03em;
-        text-transform: uppercase;
+        text-align: center;
       }
       .sub {
         position: absolute;
@@ -525,6 +528,9 @@
         text-transform: uppercase;
         color: var(--fg-2);
         white-space: nowrap;
+      }
+      .r {
+        color: var(--cold);
       }
       .chip-g { background: var(--g-tint-2); border-color: var(--line-g); color: var(--g); }
       .qline {
@@ -598,23 +604,21 @@
             stroke-width="14"
           />
         </symbol>
-        <symbol id="dtmark" viewBox="0 0 64 64">
-          <path
-            d="M6 34 L18 46 L40 20"
+        <!-- DoubleTick mark, traced from the supplied lockup: two ticks, the
+             first partly behind the second, mitred corners, flat ends. -->
+        <symbol id="dtmark" viewBox="0 0 64 34">
+          <g
             fill="none"
             stroke="currentColor"
-            stroke-width="7"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M26 34 L38 46 L60 20"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="7"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+            stroke-width="6"
+            stroke-linecap="butt"
+            stroke-linejoin="miter"
+            stroke-miterlimit="10"
+          >
+            <path d="M3 18.4 L15.2 31" />
+            <path d="M28.6 15.6 L45.8 1.6" />
+            <path d="M17.4 16.8 L32.6 31.6 L61.2 2.4" />
+          </g>
         </symbol>
         <symbol id="tick" viewBox="0 0 24 24">
           <path
@@ -686,13 +690,13 @@
 
         <div id="s1-h1" style="position: absolute; left: 92px; right: 92px; top: 232px">
           <div class="hero-s">Taking more than</div>
-          <div class="hero-s"><span class="mono g">5 minutes</span></div>
+          <div class="hero-s"><span class="mono r">5 minutes</span></div>
           <div class="hero-s">to call a new</div>
           <div class="hero-s">project lead?</div>
         </div>
         <div id="s1-h2" style="position: absolute; left: 92px; right: 92px; top: 232px; opacity: 0">
           <div class="hero-s">Your competitor</div>
-          <div class="hero-s">might <span class="g" style="font-size: 88px">already</span></div>
+          <div class="hero-s">might <span class="r" style="font-size: 88px">already</span></div>
           <div class="hero-s">be talking to them.</div>
         </div>
 
@@ -775,12 +779,12 @@
         <div class="grid"></div>
 
         <div id="s2-h1" style="position: absolute; left: 92px; right: 92px; top: 232px; opacity: 0">
-          <div class="hero-k g">Slow follow-ups</div>
+          <div class="hero-k r">Slow follow-ups</div>
           <div class="hero-k">kill launch</div>
           <div class="hero-k">momentum.</div>
         </div>
         <div id="s2-h2" style="position: absolute; left: 92px; right: 92px; top: 232px; opacity: 0">
-          <div class="hero-k g">High-intent leads</div>
+          <div class="hero-k r">High-intent leads</div>
           <div class="hero-k">can go cold</div>
           <div class="hero-k">in minutes.</div>
         </div>

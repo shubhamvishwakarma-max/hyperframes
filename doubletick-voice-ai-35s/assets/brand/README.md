@@ -6,25 +6,33 @@ composition targets it, so it cannot be moved, faded, scaled or covered by a
 scene transition — it is painted identically on every frame from 0:00 to the
 final frame.
 
-## Swapping in the official asset
+## Position
 
-The official logo file did not reach this session, so `#dt-logo` currently draws
-the mark inline (green double-tick SVG + "DoubleTick" in Geist). To use the real
-lockup, drop the file in this folder and replace the two child elements of
-`#dt-logo` with a single image:
+Top centre, controlled in one rule:
+
+```css
+#dt-logo { left: 0; right: 0; top: 104px; justify-content: center; }
+#dt-logo .mark { width: 78px; height: 42px; }
+```
+
+`top` sets the distance from the frame edge; `.mark` sets the scale.
+
+## The mark
+
+`#dtmark` in the shared `<defs>` is traced from the supplied lockup: two ticks
+with the first partly behind the second, mitred corners and flat stroke ends, in
+the logo's own green `--brand-green: #2bb673` (sampled from the artwork). The
+wordmark is set in Geist Bold alongside it.
+
+## Using the vector file directly
+
+If you can drop the original `.svg` into this folder, replace the two children of
+`#dt-logo` with the file and the traced copy is no longer used:
 
 ```html
 <div id="dt-logo">
-  <img src="assets/brand/doubletick-logo.svg" alt="DoubleTick" style="height: 52px" />
+  <img src="assets/brand/doubletick-logo.svg" alt="DoubleTick" style="height: 42px" />
 </div>
 ```
 
-Position, clear space and alignment are controlled in one place — the `#dt-logo`
-rule in `index.html`:
-
-```css
-#dt-logo { left: 92px; top: 104px; }
-```
-
-`left`/`top` set the distance from the frame edges; the lockup height sets the
-scale. Nothing else in the composition needs to change.
+Nothing else in the composition needs to change.
