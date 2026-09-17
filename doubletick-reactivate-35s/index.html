@@ -438,12 +438,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 14px;
-        height: 84px;
-        border-top: 1px solid var(--line);
-        font-size: 30px;
+        gap: 12px;
+        height: 72px;
+        border-top: 1px solid #e7e7e7;
+        font-size: 27px;
         font-weight: 600;
-        color: var(--fg);
+        color: #0e8f49;
       }
       .attach {
         overflow: hidden;
@@ -666,6 +666,12 @@
             fill="currentColor"
           />
         </symbol>
+        <symbol id="handset" viewBox="0 0 24 24">
+          <path
+            d="M6.6 3.2c.5-.3 1.2-.2 1.6.3l2 2.6c.4.5.3 1.2-.1 1.6l-1.2 1c-.3.3-.4.7-.2 1.1a12 12 0 0 0 4.5 4.5c.4.2.8.1 1.1-.2l1-1.2c.4-.4 1.1-.5 1.6-.1l2.6 2c.5.4.6 1.1.3 1.6l-1 1.6c-.4.6-1.1.9-1.8.8C11.7 18.9 5.1 12.3 4.2 5.6c-.1-.7.2-1.4.8-1.8l1.6-.6Z"
+            fill="currentColor"
+          />
+        </symbol>
         <symbol id="reply" viewBox="0 0 24 24">
           <path
             d="M10 8.2V4.4L3.4 11.1 10 17.8v-3.9c4.3 0 7.4 1.4 9.6 4.3-.9-4.5-3.6-9-9.6-10.2Z"
@@ -826,73 +832,68 @@
         <div class="vign"></div>
         <div class="grid"></div>
 
-        <!-- the follow-up progresses through one centred state line -->
-        <div id="s4-state" style="position: absolute; left: 150px; right: 150px; top: 258px; height: 56px">
-          <div class="qline s4st" style="position: absolute; left: 0; right: 0; top: 0; height: 56px; justify-content: center; gap: 14px">
-            <span style="width: 11px; height: 11px; border-radius: 999px; background: var(--fg-3); display: block"></span>
-            <span class="uilabel">Missed call</span>
-          </div>
-          <div class="qline s4st" style="position: absolute; left: 0; right: 0; top: 0; height: 56px; justify-content: center; gap: 14px; opacity: 0; border-color: var(--line-g)">
-            <span style="width: 11px; height: 11px; border-radius: 999px; background: var(--g); display: block"></span>
-            <span class="uilabel gr">WhatsApp message sent</span>
-          </div>
-          <div class="qline s4st" style="position: absolute; left: 0; right: 0; top: 0; height: 56px; justify-content: center; gap: 14px; opacity: 0; border-color: var(--line-g)">
-            <span style="width: 11px; height: 11px; border-radius: 999px; background: var(--g); display: block"></span>
-            <span class="uilabel gr">Project info shared</span>
-          </div>
-          <div class="qline s4st" style="position: absolute; left: 0; right: 0; top: 0; height: 56px; justify-content: center; gap: 14px; opacity: 0; border-color: var(--line-g)">
-            <span style="width: 11px; height: 11px; border-radius: 999px; background: var(--g); display: block"></span>
-            <span class="uilabel gr">Request for callback</span>
-          </div>
-        </div>
+        <!-- the real WhatsApp screen, with the thread rebuilt on top of it -->
+        <div id="s4-phone" style="position: absolute; left: 100px; top: 250px; width: 880px; height: 841px; opacity: 0">
+          <img
+            src="assets/ui/wa-screen-plate.png"
+            alt=""
+            style="position: absolute; left: 0; top: 0; width: 880px; height: 841px"
+          />
 
-        <!-- the WhatsApp thread carries this whole section -->
-        <div id="s4-wa" class="wapanel" style="position: absolute; left: 140px; right: 140px; top: 344px; padding: 22px 22px 24px; opacity: 0">
-          <div style="display: flex; align-items: center; justify-content: center; gap: 14px; padding-bottom: 18px; border-bottom: 1px solid var(--line)">
-            <svg viewBox="0 0 24 24" style="width: 34px; height: 34px; color: var(--g)"><use href="#wamark" /></svg>
-            <div class="ctr">
-              <div style="font-size: 26px; font-weight: 600">DoubleTick</div>
-              <div class="uilabel gr" style="font-size: 17px; margin-top: 2px">WhatsApp business <span class="dot">•</span> automated</div>
+          <!-- business account -->
+          <div style="position: absolute; left: 190px; top: 40px">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <span style="font-size: 30px; font-weight: 700; color: #0b1418; letter-spacing: -0.01em">ABC Estate</span>
+              <span style="width: 24px; height: 24px; border-radius: 999px; background: #0e8f49; display: flex; align-items: center; justify-content: center">
+                <svg viewBox="0 0 24 24" style="width: 15px; height: 15px; color: #ffffff"><use href="#tick" /></svg>
+              </span>
             </div>
+            <div style="font-size: 19px; color: #5b6468; margin-top: 3px">Business Account</div>
           </div>
 
-          <div id="s4-bub" style="margin-top: 18px; padding: 22px 24px 16px; border-radius: 22px; background: linear-gradient(180deg, rgba(37,211,102,.16), rgba(37,211,102,.09)); border: 1px solid var(--line-g); opacity: 0">
-            <div class="ctr" style="font-size: 26px; line-height: 1.38">
-              Hi Ahmed, thanks for your interest in our latest project. Since we missed you on
-              call, here's the brochure, payment plan and project details.
+          <!-- the message DoubleTick sends the moment the call is missed -->
+          <div
+            id="s4-bub"
+            style="position: absolute; left: 28px; top: 246px; width: 622px; border-radius: 16px 16px 16px 4px; background: #ffffff; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); overflow: hidden; opacity: 0"
+          >
+            <div style="padding: 22px 26px 14px">
+              <div style="font-size: 26px; line-height: 1.42; color: #0b1418">
+                Hi Mohammad, we tried reaching you regarding your enquiry for AVA at Palm Jumeirah.
+              </div>
+              <div style="font-size: 26px; line-height: 1.42; color: #0b1418; margin-top: 16px">
+                Would you like to explore the project details or request a callback?
+              </div>
+              <div style="text-align: right; font-size: 19px; color: #6b7280; margin-top: 12px">10:35 AM</div>
             </div>
-            <div style="text-align: right; font-size: 20px; color: var(--fg-2); margin-top: 10px">10:35 AM</div>
-          </div>
 
-          <div id="s4-act1" class="wa-act" style="overflow: hidden; opacity: 0">
-            <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; color: var(--fg-2)"><use href="#reply" /></svg>
-            Project Details
-          </div>
+            <div id="s4-act1" class="wa-act" style="overflow: hidden; opacity: 0">
+              <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; color: #0e8f49"><use href="#reply" /></svg>
+              View Project Details
+            </div>
 
-          <div id="s4-cta" style="overflow: hidden; opacity: 0">
-            <div class="wa-act" style="border-top: 1px solid var(--line); padding-top: 16px; height: 100px">
-              <div id="s4-btn" style="display: flex; align-items: center; justify-content: center; gap: 12px; height: 78px; width: 100%; border-radius: 18px; background: linear-gradient(180deg, #2ee06f, var(--g-600)); color: #04180d; font-size: 30px; font-weight: 700">
-                <svg viewBox="0 0 24 24" style="width: 26px; height: 26px"><use href="#reply" /></svg>
-                Request for Callback
+            <div id="s4-cta" style="overflow: hidden; opacity: 0">
+              <div id="s4-btn" class="wa-act">
+                <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; color: #0e8f49"><use href="#handset" /></svg>
+                Request a Callback
               </div>
             </div>
           </div>
         </div>
 
-        <div id="s4-h1" class="h3" style="top: 1110px; opacity: 0">
+        <div id="s4-h1" class="h3" style="top: 1150px; opacity: 0">
           <div>Missed the</div>
           <div>voice call?</div>
           <div class="gr">WhatsApp follows up</div>
         </div>
-        <div id="s4-h2" class="h3" style="top: 1110px; opacity: 0">
+        <div id="s4-h2" class="h3" style="top: 1150px; opacity: 0">
           <div>Brochure</div>
           <div>Payment plan</div>
           <div>Project details</div>
         </div>
-        <div id="s4-h3" class="h3" style="top: 1110px; opacity: 0">
+        <div id="s4-h3" class="h3" style="top: 1150px; opacity: 0">
           <div>No response?</div>
           <div>Send a</div>
-          <div class="gr">Request for Callback</div>
+          <div class="gr">Request a Callback</div>
         </div>
       </section>
 
@@ -1107,27 +1108,18 @@
           .fromTo("#s3-booked", { opacity: 0, y: 26, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: "back.out(1.7)" }, 19.5);
 
         /* ============ SCENE 04 — the WhatsApp follow-up ============ */
-        tl.fromTo("#s4-state", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3 }, 20.75)
-          .fromTo("#s4-h1", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.34 }, 21.0)
-          .fromTo("#s4-wa", { opacity: 0, y: 44, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.42 }, 21.4)
-          .fromTo("#s4-bub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.32 }, 21.86);
-
-        /* the state line advances with the thread */
-        tl.to(".s4st:nth-of-type(1)", { opacity: 0, duration: 0.2 }, 22.5)
-          .to(".s4st:nth-of-type(2)", { opacity: 1, duration: 0.24 }, 22.54)
-          .to(".s4st:nth-of-type(2)", { opacity: 0, duration: 0.2 }, 25.24)
-          .to(".s4st:nth-of-type(3)", { opacity: 1, duration: 0.24 }, 25.28)
-          .to(".s4st:nth-of-type(3)", { opacity: 0, duration: 0.2 }, 26.44)
-          .to(".s4st:nth-of-type(4)", { opacity: 1, duration: 0.24 }, 26.48);
+        tl.fromTo("#s4-phone", { opacity: 0, y: 44, scale: 0.975 }, { opacity: 1, y: 0, scale: 1, duration: 0.46 }, 20.9)
+          .fromTo("#s4-h1", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.34 }, 21.2)
+          .fromTo("#s4-bub", { opacity: 0, y: 18, scale: 0.985 }, { opacity: 1, y: 0, scale: 1, duration: 0.36 }, 21.9);
 
         tl.to("#s4-h1", { opacity: 0, y: -26, duration: 0.26, ease: "power2.in" }, 24.14)
           .fromTo("#s4-h2", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.34 }, 24.34)
-          .fromTo("#s4-act1", { height: 0, opacity: 0 }, { height: 84, opacity: 1, duration: 0.34 }, 24.55);
+          .fromTo("#s4-act1", { height: 0, opacity: 0 }, { height: 72, opacity: 1, duration: 0.34 }, 24.55);
 
         tl.to("#s4-h2", { opacity: 0, y: -26, duration: 0.26, ease: "power2.in" }, 25.88)
           .fromTo("#s4-h3", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.34 }, 26.06)
-          .fromTo("#s4-cta", { height: 0, opacity: 0 }, { height: 116, opacity: 1, duration: 0.36 }, 26.14)
-          .fromTo("#s4-btn", { scale: 0.985 }, { scale: 1.015, duration: 0.42, repeat: 3, yoyo: true, ease: "sine.inOut" }, 26.56);
+          .fromTo("#s4-cta", { height: 0, opacity: 0 }, { height: 72, opacity: 1, duration: 0.34 }, 26.14)
+          .fromTo("#s4-btn", { backgroundColor: "rgba(14,143,73,0)" }, { backgroundColor: "rgba(14,143,73,0.1)", duration: 0.45, repeat: 3, yoyo: true, ease: "sine.inOut" }, 26.6);
 
         /* ============ SCENE 05 — active pipeline, then the ask ============ */
         tl.set("#s5-db", { opacity: 1 }, 27.8)
