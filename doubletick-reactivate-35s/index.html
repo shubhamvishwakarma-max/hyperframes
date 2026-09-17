@@ -666,6 +666,12 @@
             fill="currentColor"
           />
         </symbol>
+        <symbol id="estate" viewBox="0 0 24 24">
+          <path
+            d="M3.2 21V9.6L10 5.1l6.8 4.5V21H13v-5.1h-3V21H3.2Zm14.9 0V9.1L12.4 5.3V3.1l8.4 5.5V21h-2.7Z"
+            fill="currentColor"
+          />
+        </symbol>
         <symbol id="handset" viewBox="0 0 24 24">
           <path
             d="M6.6 3.2c.5-.3 1.2-.2 1.6.3l2 2.6c.4.5.3 1.2-.1 1.6l-1.2 1c-.3.3-.4.7-.2 1.1a12 12 0 0 0 4.5 4.5c.4.2.8.1 1.1-.2l1-1.2c.4-.4 1.1-.5 1.6-.1l2.6 2c.5.4.6 1.1.3 1.6l-1 1.6c-.4.6-1.1.9-1.8.8C11.7 18.9 5.1 12.3 4.2 5.6c-.1-.7.2-1.4.8-1.8l1.6-.6Z"
@@ -840,8 +846,15 @@
             style="position: absolute; left: 0; top: 0; width: 880px; height: 841px"
           />
 
+          <!-- business profile photo -->
+          <div
+            style="position: absolute; left: 104px; top: 40px; width: 85px; height: 85px; border-radius: 999px; background: linear-gradient(160deg, #23c268, #0e8f49); display: flex; align-items: center; justify-content: center"
+          >
+            <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; color: #ffffff"><use href="#estate" /></svg>
+          </div>
+
           <!-- business account -->
-          <div style="position: absolute; left: 190px; top: 40px">
+          <div style="position: absolute; left: 200px; top: 40px">
             <div style="display: flex; align-items: center; gap: 10px">
               <span style="font-size: 30px; font-weight: 700; color: #0b1418; letter-spacing: -0.01em">ABC Estate</span>
               <span style="width: 24px; height: 24px; border-radius: 999px; background: #0e8f49; display: flex; align-items: center; justify-content: center">
@@ -872,8 +885,8 @@
             </div>
 
             <div id="s4-cta" style="overflow: hidden; opacity: 0">
-              <div id="s4-btn" class="wa-act">
-                <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; color: #0e8f49"><use href="#handset" /></svg>
+              <div id="s4-btn" class="wa-act" style="background: #0e8f49; color: #ffffff; border-top: none">
+                <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; color: #ffffff"><use href="#handset" /></svg>
                 Request a Callback
               </div>
             </div>
@@ -1119,7 +1132,7 @@
         tl.to("#s4-h2", { opacity: 0, y: -26, duration: 0.26, ease: "power2.in" }, 25.88)
           .fromTo("#s4-h3", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.34 }, 26.06)
           .fromTo("#s4-cta", { height: 0, opacity: 0 }, { height: 72, opacity: 1, duration: 0.34 }, 26.14)
-          .fromTo("#s4-btn", { backgroundColor: "rgba(14,143,73,0)" }, { backgroundColor: "rgba(14,143,73,0.1)", duration: 0.45, repeat: 3, yoyo: true, ease: "sine.inOut" }, 26.6);
+          .fromTo("#s4-btn", { backgroundColor: "#0e8f49" }, { backgroundColor: "#18b862", duration: 0.45, repeat: 3, yoyo: true, ease: "sine.inOut" }, 26.6);
 
         /* ============ SCENE 05 — active pipeline, then the ask ============ */
         tl.set("#s5-db", { opacity: 1 }, 27.8)
