@@ -62,3 +62,32 @@ lane = {"version": 1, "lanes": [{"target": "volume", "points": [{"t": t, "v": v}
 set_attr("music", "data-automation", json.dumps(lane, separators=(",", ":")).replace('"', "&quot;"))
 open(html_path, "w").write(html)
 print("stamped", len(pts), "automation points; total", total)
+
+# ---- SFX follow the narration keywords (same cues the visuals use) ----
+def word_t(line, token, nth=1):
+    seen = 0
+    for w in T["lines"][line]["words"]:
+        if w["w"] == token:
+            seen += 1
+            if seen == nth:
+                return w["t"]
+    raise SystemExit(f"cue not found: {line}/{token}")
+
+L = T["lines"]
+SFX = {
+    "sfx-connect": word_t("hook-sub", "OUTCOMES") + 0.15,
+    "sfx-au-route": word_t("au-solution", "M", 2) + 0.15,
+    "sfx-au-metric": L["au-solution"]["end"] + 1.2,
+    "sfx-pf-rm": word_t("pf-solution", "NEED") + 0.15,
+    "sfx-ww-panel": word_t("ww-solution", "CENTRALIZED") + 0.02,
+    "sfx-cd-merge-1": word_t("cd-solution", "ONE") + 0.55,
+    "sfx-cd-merge-2": word_t("cd-solution", "ONE") + 0.67,
+    "sfx-cd-merge-3": word_t("cd-solution", "ONE") + 0.79,
+    "sfx-sc-boundary": word_t("sc-solution", "ROLE") + 0.15,
+    "sfx-cta": word_t("cta-sub", "AUTOMATED") + 0.2,
+}
+html = open(html_path).read()
+for sid, at in SFX.items():
+    set_attr(sid, "data-start", f"{at:.3f}")
+open(html_path, "w").write(html)
+print("stamped", len(SFX), "sfx cues")

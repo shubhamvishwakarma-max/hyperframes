@@ -76,9 +76,9 @@ window.Scenes.s02 = function (tl, section) {
   tl.fromTo(nodes, { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(1.6)", stagger: 0.05 }, S.start + 0.4);
   tl.to(entry, { opacity: 0, duration: 0.5 }, S.start + 1.6);
   // "lakhs of leads": the backlog pulses; "missed": half the leads dim out
-  const lakhs = cue("au-problem", "LOCKS");
+  const lakhs = cue("au-problem", "LAKHS");
   tl.to(nodes, { scale: 1.25, duration: 0.22, ease: "power2.out", yoyo: true, repeat: 1, stagger: 0.03 }, lakhs);
-  tl.to([nodes[1], nodes[3], nodes[4], nodes[6]], { opacity: 0.35, duration: 0.4 }, cue("au-problem", "MIST"));
+  tl.to([nodes[1], nodes[3], nodes[4], nodes[6]], { opacity: 0.35, duration: 0.4 }, cue("au-problem", "MISSED"));
 
   // "AI Voice" -> waveform activates; leads converge
   const ai = cue("au-solution", "VOICE");

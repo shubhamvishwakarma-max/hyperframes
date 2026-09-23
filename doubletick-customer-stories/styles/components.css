@@ -22,14 +22,24 @@
 .cust-head {
   display: flex;
   align-items: center;
-  gap: 20px;
-  height: 64px;
+  gap: 22px;
+  height: 72px;
 }
 .logo-slot {
   flex: 0 0 auto;
-  width: 132px;
-  height: 60px;
+  width: 212px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
+  border-radius: var(--dt-radius-md);
+  background: var(--dt-green-dark);
+}
+.logo-img {
   display: block;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 }
 .cust-meta {

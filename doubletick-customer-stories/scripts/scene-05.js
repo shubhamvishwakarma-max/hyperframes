@@ -11,8 +11,8 @@ window.Scenes.s05 = function (tl, section) {
   const r = window.CustomerScene.scaffold(section, c);
 
   const LANES = [
-    { label: "SALES", x: 0, key: ["SAILS", 1] },
-    { label: "VIP", x: 315, key: ["V", 1] },
+    { label: "SALES", x: 0, key: ["SALES", 1] },
+    { label: "VIP", x: 315, key: ["VIP", 1] },
     { label: "SUB-BROKER", x: 630, key: ["SUB", 1] },
   ];
   const svg = svgEl("svg", { class: "svg-layer", viewBox: "0 0 920 336" });

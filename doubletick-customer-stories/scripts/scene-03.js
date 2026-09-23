@@ -94,7 +94,7 @@ window.Scenes.s03 = function (tl, section) {
     prevX = x;
   });
   // "escalating only the conversations that need an RM": exception card to RM
-  const esc = cue("pf-solution", "ESCULATING");
+  const esc = cue("pf-solution", "ESCALATING");
   const need = cue("pf-solution", "NEED");
   tl.fromTo(exc, { opacity: 0, y: -30, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, esc);
   tl.to(exc, { x: 238, y: -56, scale: 0.7, duration: need - esc - 0.2, ease: "power2.inOut" }, esc + 0.45);

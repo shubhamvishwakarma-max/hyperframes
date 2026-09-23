@@ -74,12 +74,20 @@
   }
 
   // ---- components --------------------------------------------------------
+  // Official customer logos are reversed (white-text) artwork, so they sit
+  // unaltered on a dark DoubleTick-green plate instead of being recoloured.
+  function logoPlate(c) {
+    const plate = el("span", "logo-slot");
+    const img = el("img", "logo-img");
+    img.src = `assets/logos/${c.id}.png`;
+    img.alt = c.name + " logo";
+    plate.append(img);
+    return plate;
+  }
+
   function customerHeader(c) {
     const row = el("div", "cust-head");
-    const logo = el("img", "logo-slot");
-    // Placeholder until the official customer logo is dropped in (same path).
-    logo.src = `assets/logos/${c.id}.svg`;
-    logo.alt = c.name + " logo";
+    const logo = logoPlate(c);
     const meta = el("div", "cust-meta");
     meta.append(el("span", "eyebrow", c.label), el("span", "cust-name", c.name));
     row.append(logo, meta);
@@ -218,6 +226,7 @@
     svgEl,
     place,
     icon,
+    logoPlate,
     customerHeader,
     problemCopy,
     solutionCopy,

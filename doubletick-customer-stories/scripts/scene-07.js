@@ -24,7 +24,7 @@ window.Scenes.s07 = function (tl, section) {
     place(card, i * STEP, 0, CARD_W, 420);
     card.append(
       el("span", "accent"),
-      el("span", "eyebrow", c.label),
+      H.logoPlate(c),
       el("span", "cust-name", c.name),
       el("span", "rc-value", m.value),
       el("span", "rc-label", m.label),

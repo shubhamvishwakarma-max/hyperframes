@@ -464,9 +464,12 @@
   background: var(--dt-green);
   transform-origin: left center;
 }
+.rc-card .logo-slot {
+  margin-bottom: 6px;
+}
 .rc-card .cust-name {
-  font-size: 30px;
-  margin-bottom: 18px;
+  font-size: 26px;
+  margin-bottom: 14px;
 }
 .rc-value {
   display: block;

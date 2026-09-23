@@ -3,7 +3,7 @@
 A narrated customer-proof film for DoubleTick's BFSI customers, built with HyperFrames.
 
 - Composition ID: `doubletick-customer-stories-1080-square`, in `index.html`
-- 1080 × 1080, 30 fps, about 2:19 (139.5 s). Narration sets the timing.
+- 1080 × 1080, 30 fps, about 2:19 (139.4 s). Narration sets the timing.
 - Output: `renders/doubletick-customer-stories-1080-square.mp4` (H.264 + AAC, −14 LUFS)
 
 ## Content lock
@@ -39,7 +39,7 @@ build/asr.py               local ASR: narration QA + word timestamps for visual 
 build/music.py             original 112 BPM music bed, arranged to the scene map
 build/apply-timing.py      writes clip timings and the music duck envelope into index.html
 build/finalize.sh          loudness pass: −14 LUFS integrated, −1.5 dBTP
-assets/logos               DoubleTick logo (from the official asset) + customer logo placeholders
+assets/logos               DoubleTick logo (official asset) + official customer logos (au, pf, ww, cd, sc .png)
 assets/audio               narration.wav, music.wav, sfx/ (Pixabay licence, see CREDITS.md)
 assets/fonts               fallback brand font (Plus Jakarta Sans, OFL)
 assets/vendor/gsap.min.js  GSAP 3.14.2, local so renders need no network
@@ -83,6 +83,11 @@ Note: in `hyperframes@0.8.64`, `render -c` takes a composition *file*. This film
    - Every other token is derived from it and marked UNVERIFIED in `styles/tokens.css`.
    - The font is a declared fallback: `--dt-font-brand` → Plus Jakarta Sans.
    - Put the site's computed values into `tokens.css`. The film then updates everywhere.
-2. **Customer logos**: none were available, and none were redrawn. `assets/logos/{au,pf,ww,cd,sc}.svg` are clearly labelled "LOGO" placeholders. Drop the official transparent files in under the same names. The slot is 132 × 60 and uses `object-fit: contain`.
+2. **Customer logos**: the official logos supplied are reversed artwork with white lettering. Each one sits unaltered on a dark DoubleTick-green plate (212 × 72, `object-fit: contain`) in the story header and the recap. To swap one, replace `assets/logos/<id>.png`.
 3. **Duration**: the brief asked for 50–60 s. At a natural pace, the required narration alone runs about 96 s. Add designed pauses and reading holds for the full on-screen copy, and the film comes to 2:19. Nothing was sped up or cut.
-4. **Voice**: HeyGen and ElevenLabs voices need an account sign-in, which wasn't available here, so the narration uses the best offline Indian-English option. For broadcast quality, re-voice with a human or premium TTS voice using the same script. The line IDs and pauses are in `build/voiceover.py`, then re-run `apply-timing.py`.
+4. **Voice: ElevenLabs "Aaditya - Healthcare Advisor" is wired up but not rendered yet.** The build environment could not reach `api.elevenlabs.io`, and it has no API key, so the current render still uses the local Kokoro voice. To switch voices:
+   - Allow `api.elevenlabs.io` in the environment's network access.
+   - Set `ELEVENLABS_API_KEY` as an environment variable.
+   - Add "Aaditya - Healthcare Advisor" from the Voice Library to My Voices, or set `ELEVENLABS_VOICE_ID`.
+   - Run `python3 build/voiceover.py && python3 build/music.py && python3 build/apply-timing.py`, then render and finalise.
+   Scene animations, SFX and the music duck all re-time themselves to the new voice. The script words are aligned to the recognised speech.

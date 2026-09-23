@@ -95,7 +95,7 @@ window.Scenes.s06 = function (tl, section) {
     gov,
   );
   // "role-based access" -> boundaries form
-  const role = cue("sc-solution", "ROLL");
+  const role = cue("sc-solution", "ROLE");
   tl.fromTo(
     cards.map((x) => x.bound),
     { opacity: 0, scale: 1.08 },
