@@ -1,0 +1,517 @@
+/* Scene-specific styling. Shared primitives live in components.css. */
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- S01 opening ---------- */
+.s01-head {
+  width: 920px;
+  font-size: 58px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  color: var(--dt-text);
+}
+.s01-head .hl {
+  color: var(--dt-text);
+}
+.s01-sup {
+  font-size: 27px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--dt-text-secondary);
+}
+.s01-sup .em {
+  font-weight: 800;
+  color: var(--dt-text-secondary);
+  background-image: linear-gradient(var(--dt-green), var(--dt-green));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 3px;
+  padding-bottom: 2px;
+}
+.s01-card {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.s01-card .rows,
+.s01-card .qrows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.qrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.bubbles,
+.cd-conv {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bubble {
+  display: block;
+  height: 22px;
+  border-radius: 11px;
+  background: #eef1ef;
+}
+.bubble.out {
+  align-self: flex-end;
+  background: var(--dt-green-soft);
+}
+
+/* ---------- S02 AU ---------- */
+.au-flow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 460px;
+  height: 336px;
+}
+.au-flow .svg-layer {
+  width: 460px;
+  height: 336px;
+}
+.au-hub {
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-color: rgba(40, 179, 121, 0.55);
+}
+.au-hub .wave {
+  height: 50px;
+  gap: 5px;
+  transform-origin: center center;
+}
+.au-hub .wave i {
+  width: 7px;
+  height: 50px;
+}
+.rm-card {
+  padding: 14px 12px;
+}
+.rm-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rm-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rm-card .bar {
+  width: 40px !important;
+  height: 8px;
+}
+.au-right {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+
+/* ---------- S03 Piramal ---------- */
+.pf-rail {
+  position: absolute;
+  inset: 0;
+}
+.pf-track,
+.pf-fill {
+  position: absolute;
+  display: block;
+  border-radius: 2px;
+  transform-origin: left center;
+}
+.pf-track {
+  background: var(--dt-border-strong);
+}
+.pf-fill {
+  background: var(--dt-green);
+}
+.pf-stage {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: var(--dt-radius-pill);
+  background: var(--dt-surface);
+  border: 2px solid var(--dt-border-strong);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--dt-text-secondary);
+  white-space: nowrap;
+}
+.pf-rm {
+  height: 60px;
+  padding: 0 20px 0 10px;
+  font-size: 20px;
+  color: var(--dt-text);
+}
+.pf-pulse {
+  position: absolute;
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--dt-green);
+  box-shadow: 0 0 0 6px rgba(40, 179, 121, 0.22), 0 0 18px rgba(40, 179, 121, 0.55);
+}
+.pf-manual {
+  position: absolute;
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--dt-idle);
+}
+.pf-exc {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  border-color: rgba(40, 179, 121, 0.7);
+}
+.pf-rt {
+  position: absolute;
+  right: 28px;
+  top: 50%;
+  width: 150px;
+  height: 12px;
+  margin-top: -6px;
+  border-radius: 6px;
+  background: #e6ebe8;
+  overflow: hidden;
+}
+.pf-rt-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--dt-green);
+  transform-origin: left center;
+}
+.pf-ghost,
+.cd-ghost {
+  border-color: rgba(40, 179, 121, 0.6);
+  box-shadow: var(--dt-shadow-lift);
+}
+
+/* ---------- S04 Wint ---------- */
+.ww-ui {
+  position: absolute;
+  inset: 0;
+}
+.ww-ui .svg-layer {
+  width: 920px;
+  height: 336px;
+}
+.ww-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  border-color: rgba(40, 179, 121, 0.55);
+  box-shadow: var(--dt-shadow-lift);
+}
+.ww-minis {
+  display: flex;
+  gap: 8px;
+}
+.ww-mini {
+  display: block;
+  width: 42px;
+  height: 10px;
+  border-radius: 5px;
+  background: #e6ebe8;
+  overflow: hidden;
+}
+.ww-mini i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--dt-green);
+  transform-origin: left center;
+}
+.ww-card {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ww-card .avatar {
+  width: 34px;
+  height: 34px;
+  font-size: 16px;
+}
+.ww-status {
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin-left: auto;
+  border-radius: 50%;
+  background: var(--dt-idle);
+}
+.ww-msgs {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.ww-msgs .bar {
+  height: 8px;
+}
+
+/* ---------- S05 CoinDCX ---------- */
+.cd-lane {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-style: dashed;
+  border-width: 2px;
+}
+.cd-conv .bubble {
+  height: 16px;
+}
+.cd-layer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-color: rgba(40, 179, 121, 0.6);
+  box-shadow: var(--dt-shadow-lift);
+}
+.cd-logo {
+  display: block;
+  height: 24px;
+  width: auto;
+}
+.cd-merged {
+  display: flex;
+  gap: 6px;
+}
+.cd-dot {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--dt-green);
+  border: 2px solid #fff;
+}
+.cd-analytics {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 34px;
+}
+.cd-analytics i {
+  display: block;
+  width: 10px;
+  height: 34px;
+  border-radius: 3px;
+  background: var(--dt-green);
+  transform-origin: bottom center;
+}
+.cd-ring {
+  display: block;
+  width: 34px;
+  height: 34px;
+  margin-left: 10px;
+}
+.bullet-cards.compact .bullet-card {
+  padding: 14px 16px;
+  font-size: 19px;
+  line-height: 1.35;
+}
+.metric.single {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 36px;
+}
+.metric.single .value {
+  font-size: 110px;
+}
+.metric.single .label {
+  font-size: 26px;
+  color: var(--dt-text);
+  font-weight: 700;
+}
+.cd-metric-dots {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  margin-top: -9px;
+  display: flex;
+  gap: 8px;
+}
+.cd-metric-dots .cd-dot {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---------- S06 Samar ---------- */
+.sc-sup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  border-color: rgba(40, 179, 121, 0.55);
+  box-shadow: var(--dt-shadow-lift);
+}
+.sc-sdots {
+  display: flex;
+  gap: 8px;
+}
+.sc-sdots .cd-dot {
+  background: var(--dt-idle);
+}
+.sc-wrap {
+  position: absolute;
+}
+.sc-bound {
+  position: absolute;
+  inset: -6px;
+  display: block;
+  border: 2px dashed rgba(40, 179, 121, 0.75);
+  border-radius: 18px;
+}
+.sc-card {
+  position: absolute;
+  inset: 0;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.sc-head {
+  justify-content: space-between;
+}
+.sc-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--dt-green-ink);
+}
+.sc-badge .icon {
+  width: 20px;
+  height: 20px;
+}
+.sc-num .icon {
+  width: 20px;
+  height: 20px;
+}
+.sc-clients {
+  display: flex;
+  gap: 8px;
+}
+.sc-client {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #eef1ef;
+  border: 2px solid var(--dt-border-strong);
+}
+.sc-lock {
+  position: absolute;
+  display: block;
+  width: 30px;
+  height: 30px;
+  padding: 3px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(10, 58, 43, 0.15);
+}
+
+/* ---------- S07 recap ---------- */
+.rc-track {
+  position: absolute;
+}
+.rc-card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px 44px;
+  background: var(--dt-surface);
+  border: 2px solid var(--dt-border);
+  border-radius: var(--dt-radius-lg);
+  box-shadow: var(--dt-shadow-lift);
+  overflow: hidden;
+}
+.rc-card .accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--dt-green);
+  transform-origin: left center;
+}
+.rc-card .cust-name {
+  font-size: 30px;
+  margin-bottom: 18px;
+}
+.rc-value {
+  display: block;
+  font-size: 108px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: var(--dt-green-ink);
+  white-space: nowrap;
+}
+.rc-label {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--dt-text-secondary);
+}
+
+/* ---------- S08 CTA ---------- */
+.cta-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 78%, #11563f 0%, var(--dt-green-dark) 45%, var(--dt-green-deep) 100%);
+}
+.cta-logo {
+  position: absolute;
+  height: 30px;
+  width: auto;
+}
+.cta-q-mask {
+  position: absolute;
+}
+.cta-q {
+  font-size: 62px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  color: #ffffff;
+}
+.cta-sub {
+  position: absolute;
+  font-size: 32px;
+  line-height: 1.35;
+  font-weight: 500;
+  color: #cdeadb;
+}
+.cta-btn-wrap {
+  position: absolute;
+}

@@ -1,0 +1,59 @@
+/*
+ * DoubleTick brand tokens
+ * ------------------------------------------------------------------
+ * SOURCE STATUS (read before editing):
+ *  - --dt-green  #28B379  VERIFIED: sampled from the official DoubleTick logo
+ *                         asset (Drive: Logo/DoubleTick/doubletick_05.png).
+ *  - Everything else      UNVERIFIED: doubletick.io and /customers were not
+ *                         reachable from the build environment (egress policy),
+ *                         so the live site's computed styles could not be read.
+ *                         Values below are derived from the logo hue and a
+ *                         clean-SaaS reading of the brand. Replace them with the
+ *                         site's computed values (DevTools > Computed) when available.
+ */
+
+/*
+ * FONT FALLBACK IN USE
+ * The real DoubleTick web font could not be extracted (site blocked).
+ * --dt-font-brand is the slot for the production family name; until it is
+ * filled, the stack falls through to "DT Sans Fallback", a locally shipped
+ * Plus Jakarta Sans variable font (OFL) chosen as the closest geometric
+ * SaaS sans to the DoubleTick wordmark. Renders never fetch fonts at runtime.
+ */
+/* @font-face for "DT Sans Fallback" is declared in index.html (root-relative
+   asset path, required by the HyperFrames linter). */
+
+:root {
+  /* Colour */
+  --dt-green: #28b379; /* verified from logo */
+  --dt-green-ink: #0f7a50; /* green for TEXT on light bg (AA contrast) */
+  --dt-green-soft: #e7f5ee;
+  --dt-green-mist: #f1f9f5;
+  --dt-green-dark: #0a3a2b; /* premium dark section / CTA */
+  --dt-green-deep: #062a1f;
+  --dt-bg: #fafaf7; /* warm off-white canvas */
+  --dt-surface: #ffffff;
+  --dt-text: #111613; /* charcoal, tinted toward brand green */
+  --dt-text-secondary: #4f5a54;
+  --dt-text-muted: #6b7570;
+  --dt-border: #dfe6e1;
+  --dt-border-strong: #c9d4cd;
+  --dt-idle: #b9c4bd; /* inactive nodes / disconnected states */
+
+  /* Shape */
+  --dt-radius-sm: 8px;
+  --dt-radius-md: 14px;
+  --dt-radius-lg: 22px;
+  --dt-radius-pill: 999px; /* logo badge + CTA button are full pills */
+  --dt-shadow-card: 0 1px 2px rgba(10, 58, 43, 0.06), 0 8px 24px rgba(10, 58, 43, 0.07);
+  --dt-shadow-lift: 0 2px 4px rgba(10, 58, 43, 0.08), 0 16px 40px rgba(10, 58, 43, 0.12);
+
+  /* Type */
+  --dt-font-brand: "DT Sans Fallback"; /* TODO: production DoubleTick family name */
+  --dt-font: var(--dt-font-brand), "DT Sans Fallback", system-ui, sans-serif;
+
+  /* 1080 x 1080 safe area */
+  --safe-x: 80px;
+  --safe-top: 76px;
+  --safe-bottom: 86px;
+}

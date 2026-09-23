@@ -1,0 +1,154 @@
+/* Frame + zone layout for the 1080 x 1080 composition.
+ * Safe area: x 80..1000, y 76..994. Every critical element sits inside it. */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 1080px;
+  height: 1080px;
+  overflow: hidden;
+  background: var(--dt-bg);
+  font-family: var(--dt-font);
+  color: var(--dt-text);
+  -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
+}
+
+#root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--dt-bg);
+}
+
+.clip {
+  position: absolute;
+  inset: 0;
+}
+
+/* ---------- persistent background ---------- */
+#bg .bg-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--dt-bg);
+}
+#bg .bg-dots {
+  position: absolute;
+  inset: -40px;
+  background-image: radial-gradient(rgba(15, 122, 80, 0.16) 1.4px, transparent 1.6px);
+  background-size: 30px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 70% 60%, #000 30%, transparent 85%);
+  mask-image: radial-gradient(ellipse 75% 70% at 70% 60%, #000 30%, transparent 85%);
+}
+#bg .bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(30px);
+}
+#bg .glow-a {
+  width: 720px;
+  height: 720px;
+  left: 520px;
+  top: 480px;
+  background: radial-gradient(circle, rgba(40, 179, 121, 0.2), rgba(40, 179, 121, 0) 65%);
+}
+#bg .glow-b {
+  width: 560px;
+  height: 560px;
+  left: -220px;
+  top: -160px;
+  background: radial-gradient(circle, rgba(40, 179, 121, 0.13), rgba(40, 179, 121, 0) 65%);
+}
+
+/* ---------- persistent header ---------- */
+#hdr .brand {
+  position: absolute;
+  left: var(--safe-x);
+  top: var(--safe-top);
+  height: 30px;
+  width: auto;
+}
+#hdr .story-counter {
+  position: absolute;
+  right: var(--safe-x);
+  top: 78px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--dt-text-secondary);
+}
+#hdr .counter-num {
+  display: block;
+  width: 76px;
+  height: 24px;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  text-align: right;
+}
+#hdr .counter-num span {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+  color: var(--dt-text);
+}
+#hdr .ticks {
+  display: flex;
+  gap: 6px;
+}
+#hdr .tick {
+  display: block;
+  width: 22px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--dt-border-strong);
+  position: relative;
+  overflow: hidden;
+}
+#hdr .tick i {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: var(--dt-green);
+  transform-origin: left center;
+}
+
+/* ---------- customer scene zones ---------- */
+.zone {
+  position: absolute;
+  left: var(--safe-x);
+  width: 920px;
+}
+.zone-id {
+  top: 144px;
+  height: 64px;
+}
+.zone-copy {
+  top: 240px;
+  height: 176px;
+}
+.zone-mid {
+  top: 440px;
+  height: 336px;
+}
+.zone-impact {
+  top: 800px;
+  height: 194px;
+}
+
+.svg-layer {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}

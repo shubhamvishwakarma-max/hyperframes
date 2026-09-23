@@ -1,0 +1,6 @@
+snapshots/
+.hyperframes/
+renders/*.raw.mp4
+renders/render.log
+node_modules/
+__pycache__/
