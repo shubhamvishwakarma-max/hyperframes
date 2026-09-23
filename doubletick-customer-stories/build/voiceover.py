@@ -59,24 +59,24 @@ SCRIPT = [
     ("hook-sub", "See how B F S I leaders are turning conversations into measurable outcomes.", 0.75),
     ("scene", "s02", 1.0),
     ("au-name", "A U Small Finance Bank.", 0.0),
-    ("au-problem", "Manual calling couldn't scale across lakhs of leads, creating missed revenue opportunities.", 0.5),
-    ("au-solution", "DoubleTick combined AI Voice with R M mapping to re-engage leads and route conversations to the right R M.", 0.8),
+    ("au-problem", "Manual calling couldn't scale across lakhs of leads, creating missed revenue opportunities.", 0.4),
+    ("au-solution", "DoubleTick combined AI Voice with R M mapping to re-engage leads and route conversations to the right R M.", 0.65),
     ("scene", "s03", 5.2),
     ("pf-name", "Piramal Finance.", 0.0),
-    ("pf-problem", "Manual outreach was slowing conversations across the loan lifecycle.", 0.5),
-    ("pf-solution", "DoubleTick AI Voice automates outreach across follow-ups, partners and collections, escalating only the conversations that need an R M.", 0.8),
+    ("pf-problem", "Manual outreach was slowing conversations across the loan lifecycle.", 0.4),
+    ("pf-solution", "DoubleTick AI Voice automates outreach across follow-ups, partners and collections, escalating only the conversations that need an R M.", 0.65),
     ("scene", "s04", 4.6),
     ("ww-name", "Wint Wealth.", 0.0),
-    ("ww-problem", "Personalized wealth conversations were becoming harder to govern.", 0.5),
-    ("ww-solution", "DoubleTick gives Wint Wealth centralized oversight across R M-led WhatsApp conversations, without managers manually reading every chat.", 0.8),
+    ("ww-problem", "Personalized wealth conversations were becoming harder to govern.", 0.4),
+    ("ww-solution", "DoubleTick gives Wint Wealth centralized oversight across R M-led WhatsApp conversations, without managers manually reading every chat.", 0.65),
     ("scene", "s05", 4.6),
     ("cd-name", "Coin D C X.", 0.0),
-    ("cd-problem", "More WhatsApp journeys created more blind spots across teams.", 0.5),
-    ("cd-solution", "DoubleTick brings Sales, VIP and Sub-Broker conversations onto one governed WhatsApp layer with centralized visibility and analytics.", 0.8),
+    ("cd-problem", "More WhatsApp journeys created more blind spots across teams.", 0.4),
+    ("cd-solution", "DoubleTick brings Sales, VIP and Sub-Broker conversations onto one governed WhatsApp layer with centralized visibility and analytics.", 0.65),
     ("scene", "s06", 4.4),
     ("sc-name", "Samar Capital.", 0.0),
-    ("sc-problem", "R M conversations needed independence without losing enterprise control.", 0.5),
-    ("sc-solution", "DoubleTick gives every R M a governed business number with role-based access, while keeping supervisors in control.", 0.8),
+    ("sc-problem", "R M conversations needed independence without losing enterprise control.", 0.4),
+    ("sc-solution", "DoubleTick gives every R M a governed business number with role-based access, while keeping supervisors in control.", 0.65),
     # Recap carries no narration (strict PDF-only VO): metrics speak visually.
     ("scene", "s07", 4.4),
     ("scene", "s08", 6.4),
@@ -123,8 +123,75 @@ def eleven_voice_id():
     return hits[0]["voice_id"]
 
 
+TAKES_DIR = os.path.join(ROOT, "build/vo-takes")
+WPM_MIN, WPM_MAX = 149.0, 158.0  # fitted on speech span; lands 145-160 with edge padding
+
+
+def load_take(lid):
+    """Decode a pre-generated ElevenLabs take (build/vo-takes/<id>.mp3)."""
+    import subprocess
+
+    raw = subprocess.run(
+        ["ffmpeg", "-v", "error", "-i", os.path.join(TAKES_DIR, lid + ".mp3"), "-f", "f32le", "-ac", "1", "-ar", str(SR_OUT), "-"],
+        check=True,
+        capture_output=True,
+    ).stdout
+    return np.frombuffer(raw, dtype=np.float32).copy()
+
+
+def tighten_pauses(audio, max_gap=0.2, keep=0.16):
+    """Shorten internal silences longer than max_gap to `keep` seconds (10 ms crossfades)."""
+    win = int(0.01 * SR_OUT)
+    n = len(audio) // win
+    rms = np.sqrt((audio[: n * win].reshape(n, win) ** 2).mean(1))
+    quiet = rms < max(0.006, rms.max() * 0.03)
+    out, i, last = [], 0, 0
+    while i < n:
+        if quiet[i]:
+            j = i
+            while j < n and quiet[j]:
+                j += 1
+            if (j - i) * win > max_gap * SR_OUT and i > 0 and j < n:
+                half = int(keep * SR_OUT / 2)
+                out.append(audio[last : i * win + half])
+                last = j * win - half
+            i = j
+        else:
+            i += 1
+    out.append(audio[last:])
+    return np.concatenate(out).astype(np.float32)
+
+
+def fit_pace(audio, text):
+    """Pitch-preserving tempo nudge so full sentences land inside WPM_MIN..WPM_MAX."""
+    import subprocess
+
+    audio = tighten_pauses(audio)
+
+    words = len(script_words(text))
+    if words < 6:  # names / short beats keep their natural read
+        return audio, 1.0
+    nz = np.where(np.abs(audio) > 0.004)[0]
+    wpm = words / ((nz[-1] - nz[0]) / SR_OUT) * 60
+    target = min(max(wpm, WPM_MIN), WPM_MAX)
+    tempo = round(target / wpm, 3)
+    if abs(tempo - 1) < 0.005:
+        return audio, 1.0
+    out = subprocess.run(
+        ["ffmpeg", "-v", "error", "-f", "f32le", "-ac", "1", "-ar", str(SR_OUT), "-i", "-", "-af", f"atempo={tempo}", "-f", "f32le", "-"],
+        input=audio.astype(np.float32).tobytes(),
+        check=True,
+        capture_output=True,
+    ).stdout
+    return np.frombuffer(out, dtype=np.float32).copy(), tempo
+
+
 def make_synth():
-    provider = os.environ.get("VO_PROVIDER") or ("elevenlabs" if os.environ.get("ELEVENLABS_API_KEY") else "kokoro")
+    provider = os.environ.get("VO_PROVIDER") or (
+        "takes" if os.path.isdir(TAKES_DIR) else "elevenlabs" if os.environ.get("ELEVENLABS_API_KEY") else "kokoro"
+    )
+    if provider == "takes":
+        return provider, None
     if provider == "elevenlabs":
         vid = eleven_voice_id()
         texts = [it[1] for it in SCRIPT if it[0] not in ("scene", "end")]
@@ -199,7 +266,11 @@ def main():
             continue
         lid, text, gap = item
         t += gap
-        audio = synth(text)
+        tempo = 1.0
+        if synth is None:
+            audio, tempo = fit_pace(load_take(lid), text)
+        else:
+            audio = synth(text)
         nz = np.where(np.abs(audio) > 0.004)[0]  # trim provider lead/tail silence
         if len(nz):
             audio = audio[max(nz[0] - int(0.03 * SR_OUT), 0) : nz[-1] + int(0.08 * SR_OUT)]
@@ -216,7 +287,8 @@ def main():
             "words": [{"w": w, "t": round(t + s, 3)} for w, s in words],
         }
         chunks.append((t, audio))
-        print(f"{lid:12s} {t:7.2f}s  +{dur:5.2f}s  asr: {' '.join(w for w, _ in heard)}")
+        wpm = len(script_words(text)) / dur * 60
+        print(f"{lid:12s} {t:7.2f}s  +{dur:5.2f}s  {wpm:4.0f}wpm x{tempo}  asr: {' '.join(w for w, _ in heard)}")
         t += dur
 
     total = t

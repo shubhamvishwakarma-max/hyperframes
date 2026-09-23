@@ -3,7 +3,7 @@
 A narrated customer-proof film for DoubleTick's BFSI customers, built with HyperFrames.
 
 - Composition ID: `doubletick-customer-stories-1080-square`, in `index.html`
-- 1080 × 1080, 30 fps, about 2:19 (139.4 s). Narration sets the timing.
+- 1080 × 1080, 30 fps, about 2:03 (123.0 s). Narration sets the timing.
 - Output: `renders/doubletick-customer-stories-1080-square.mp4` (H.264 + AAC, −14 LUFS)
 
 ## Content lock
@@ -85,9 +85,4 @@ Note: in `hyperframes@0.8.64`, `render -c` takes a composition *file*. This film
    - Put the site's computed values into `tokens.css`. The film then updates everywhere.
 2. **Customer logos**: the official logos supplied are reversed artwork with white lettering. Each one sits unaltered on a dark DoubleTick-green plate (212 × 72, `object-fit: contain`) in the story header and the recap. To swap one, replace `assets/logos/<id>.png`.
 3. **Duration**: the brief asked for 50–60 s. At a natural pace, the required narration alone runs about 96 s. Add designed pauses and reading holds for the full on-screen copy, and the film comes to 2:19. Nothing was sped up or cut.
-4. **Voice: ElevenLabs "Aaditya - Healthcare Advisor" is wired up but not rendered yet.** The build environment could not reach `api.elevenlabs.io`, and it has no API key, so the current render still uses the local Kokoro voice. To switch voices:
-   - Allow `api.elevenlabs.io` in the environment's network access.
-   - Set `ELEVENLABS_API_KEY` as an environment variable.
-   - Add "Aaditya - Healthcare Advisor" from the Voice Library to My Voices, or set `ELEVENLABS_VOICE_ID`.
-   - Run `python3 build/voiceover.py && python3 build/music.py && python3 build/apply-timing.py`, then render and finalise.
-   Scene animations, SFX and the music duck all re-time themselves to the new voice. The script words are aligned to the recognised speech.
+4. **Voice**: ElevenLabs "Aaditya K - Soothing Midnight Storyteller" (`qWdiyiWdNPlPyVCOLW0h`, eleven_multilingual_v2), generated through the ElevenLabs connector. The takes are in `build/vo-takes/`. `build/voiceover.py` (provider `takes`) shortens long internal pauses, then applies a pitch-preserving tempo so every full sentence runs at 145–160 wpm. Short name lines keep their natural read.
