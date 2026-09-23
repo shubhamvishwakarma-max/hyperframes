@@ -3,7 +3,7 @@
 A narrated customer-proof film for DoubleTick's BFSI customers, built with HyperFrames.
 
 - Composition ID: `doubletick-customer-stories-1080-square`, in `index.html`
-- 1080 × 1080, 30 fps, about 2:03 (123.0 s). Narration sets the timing.
+- 1080 × 1080, 30 fps, about 1:58 (117.7 s). Narration sets the timing.
 - Output: `renders/doubletick-customer-stories-1080-square.mp4` (H.264 + AAC, −14 LUFS)
 
 ## Content lock
@@ -85,4 +85,4 @@ Note: in `hyperframes@0.8.64`, `render -c` takes a composition *file*. This film
    - Put the site's computed values into `tokens.css`. The film then updates everywhere.
 2. **Customer logos**: the official logos supplied are reversed artwork with white lettering. Each one sits unaltered on a dark DoubleTick-green plate (212 × 72, `object-fit: contain`) in the story header and the recap. To swap one, replace `assets/logos/<id>.png`.
 3. **Duration**: the brief asked for 50–60 s. At a natural pace, the required narration alone runs about 96 s. Add designed pauses and reading holds for the full on-screen copy, and the film comes to 2:19. Nothing was sped up or cut.
-4. **Voice**: ElevenLabs "Aaditya K - Soothing Midnight Storyteller" (`qWdiyiWdNPlPyVCOLW0h`, eleven_multilingual_v2), generated through the ElevenLabs connector. The takes are in `build/vo-takes/`. `build/voiceover.py` (provider `takes`) shortens long internal pauses, then applies a pitch-preserving tempo so every full sentence runs at 145–160 wpm. Short name lines keep their natural read.
+4. **Voice**: ElevenLabs "Aaditya K - Soothing Midnight Storyteller" (`qWdiyiWdNPlPyVCOLW0h`, eleven_multilingual_v2), generated through the ElevenLabs connector. The takes are in `build/vo-takes/`. `build/voiceover.py` (provider `takes`) shortens long internal pauses, then applies a pitch-preserving tempo so every full sentence runs at 150–165 wpm. Short name lines keep their natural read.

@@ -124,7 +124,7 @@ def eleven_voice_id():
 
 
 TAKES_DIR = os.path.join(ROOT, "build/vo-takes")
-WPM_MIN, WPM_MAX = 149.0, 158.0  # fitted on speech span; lands 145-160 with edge padding
+WPM_MIN, WPM_MAX = 157.0, 163.0  # fitted on speech span; lands 150-165 with edge padding
 
 
 def load_take(lid):
@@ -169,7 +169,7 @@ def fit_pace(audio, text):
     audio = tighten_pauses(audio)
 
     words = len(script_words(text))
-    if words < 6:  # names / short beats keep their natural read
+    if words < 4:  # customer names keep their natural read
         return audio, 1.0
     nz = np.where(np.abs(audio) > 0.004)[0]
     wpm = words / ((nz[-1] - nz[0]) / SR_OUT) * 60

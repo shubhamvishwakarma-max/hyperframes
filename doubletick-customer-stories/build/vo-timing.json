@@ -1,45 +1,45 @@
 {
- "total": 122.89,
+ "total": 117.677,
  "provider": "takes",
  "scenes": {
   "s01": {
    "start": 0.7,
-   "end": 12.309
+   "end": 11.818
   },
   "s02": {
-   "start": 12.309,
-   "end": 33.266
+   "start": 11.818,
+   "end": 32.409
   },
   "s03": {
-   "start": 33.266,
-   "end": 51.94
+   "start": 32.409,
+   "end": 50.489
   },
   "s04": {
-   "start": 51.94,
-   "end": 69.236
+   "start": 50.489,
+   "end": 67.259
   },
   "s05": {
-   "start": 69.236,
-   "end": 88.127
+   "start": 67.259,
+   "end": 84.842
   },
   "s06": {
-   "start": 88.127,
-   "end": 105.612
+   "start": 84.842,
+   "end": 101.763
   },
   "s07": {
-   "start": 105.612,
-   "end": 112.012
+   "start": 101.763,
+   "end": 108.163
   },
   "s08": {
-   "start": 112.012,
-   "end": 122.89
+   "start": 108.163,
+   "end": 117.677
   }
  },
  "lines": {
   "hook-q": {
    "text": "How many opportunities are hiding inside unworked leads and unmanaged conversations?",
    "start": 0.7,
-   "end": 5.241,
+   "end": 5.014,
    "words": [
     {
      "w": "HOW",
@@ -51,893 +51,893 @@
     },
     {
      "w": "OPPORTUNITIES",
-     "t": 1.18
+     "t": 1.14
     },
     {
      "w": "ARE",
-     "t": 1.86
+     "t": 1.78
     },
     {
      "w": "HIDING",
-     "t": 2.02
+     "t": 1.94
     },
     {
      "w": "INSIDE",
-     "t": 2.34
+     "t": 2.26
     },
     {
      "w": "UNWORKED",
-     "t": 2.78
+     "t": 2.66
     },
     {
      "w": "LEADS",
-     "t": 3.26
+     "t": 3.14
     },
     {
      "w": "AND",
-     "t": 3.62
+     "t": 3.46
     },
     {
      "w": "UNMANAGED",
-     "t": 3.78
+     "t": 3.62
     },
     {
      "w": "CONVERSATIONS",
-     "t": 4.38
+     "t": 4.22
     }
    ]
   },
   "hook-sub": {
    "text": "See how B F S I leaders are turning conversations into measurable outcomes.",
-   "start": 5.991,
-   "end": 11.309,
+   "start": 5.764,
+   "end": 10.818,
    "words": [
     {
      "w": "SEE",
-     "t": 5.991
+     "t": 5.764
     },
     {
      "w": "HOW",
-     "t": 6.271
+     "t": 6.044
     },
     {
      "w": "B",
-     "t": 6.631
+     "t": 6.384
     },
     {
      "w": "F",
-     "t": 6.991
+     "t": 6.724
     },
     {
      "w": "S",
-     "t": 7.271
+     "t": 6.964
     },
     {
      "w": "I",
-     "t": 7.511
+     "t": 7.204
     },
     {
      "w": "LEADERS",
-     "t": 7.751
+     "t": 7.444
     },
     {
      "w": "ARE",
-     "t": 8.311
+     "t": 7.964
     },
     {
      "w": "TURNING",
-     "t": 8.471
+     "t": 8.164
     },
     {
      "w": "CONVERSATIONS",
-     "t": 8.831
+     "t": 8.484
     },
     {
      "w": "INTO",
-     "t": 9.671
+     "t": 9.284
     },
     {
      "w": "MEASURABLE",
-     "t": 9.991
+     "t": 9.564
     },
     {
      "w": "OUTCOMES",
-     "t": 10.631
+     "t": 10.164
     }
    ]
   },
   "au-name": {
    "text": "A U Small Finance Bank.",
-   "start": 12.309,
-   "end": 13.93,
+   "start": 11.818,
+   "end": 13.743,
    "words": [
     {
      "w": "A",
-     "t": 12.455
+     "t": 11.992
     },
     {
      "w": "U",
-     "t": 12.602
+     "t": 12.165
     },
     {
      "w": "SMALL",
-     "t": 12.749
+     "t": 12.338
     },
     {
      "w": "FINANCE",
-     "t": 12.989
+     "t": 12.618
     },
     {
      "w": "BANK",
-     "t": 13.509
+     "t": 13.258
     }
    ]
   },
   "au-problem": {
    "text": "Manual calling couldn't scale across lakhs of leads, creating missed revenue opportunities.",
-   "start": 14.33,
-   "end": 19.259,
+   "start": 14.143,
+   "end": 18.815,
    "words": [
     {
      "w": "MANUAL",
-     "t": 14.33
+     "t": 14.143
     },
     {
      "w": "CALLING",
-     "t": 14.73
+     "t": 14.543
     },
     {
      "w": "COULDN'T",
-     "t": 15.17
+     "t": 14.943
     },
     {
      "w": "SCALE",
-     "t": 15.53
+     "t": 15.263
     },
     {
      "w": "ACROSS",
-     "t": 15.85
+     "t": 15.583
     },
     {
      "w": "LAKHS",
-     "t": 16.21
+     "t": 15.923
     },
     {
      "w": "OF",
-     "t": 16.57
+     "t": 16.263
     },
     {
      "w": "LEADS",
-     "t": 16.73
+     "t": 16.423
     },
     {
      "w": "CREATING",
-     "t": 17.17
+     "t": 16.863
     },
     {
      "w": "MISSED",
-     "t": 17.65
+     "t": 17.263
     },
     {
      "w": "REVENUE",
-     "t": 17.93
+     "t": 17.543
     },
     {
      "w": "OPPORTUNITIES",
-     "t": 18.41
+     "t": 18.023
     }
    ]
   },
   "au-solution": {
    "text": "DoubleTick combined AI Voice with R M mapping to re-engage leads and route conversations to the right R M.",
-   "start": 19.909,
-   "end": 28.066,
+   "start": 19.465,
+   "end": 27.209,
    "words": [
     {
      "w": "DOUBLETICK",
-     "t": 20.249
+     "t": 19.785
     },
     {
      "w": "COMBINED",
-     "t": 20.589
+     "t": 20.105
     },
     {
      "w": "AI",
-     "t": 21.149
+     "t": 20.625
     },
     {
      "w": "VOICE",
-     "t": 21.709
+     "t": 21.145
     },
     {
      "w": "WITH",
-     "t": 22.149
+     "t": 21.545
     },
     {
      "w": "R",
-     "t": 22.429
+     "t": 21.825
     },
     {
      "w": "M",
-     "t": 22.749
+     "t": 22.145
     },
     {
      "w": "MAPPING",
-     "t": 23.029
+     "t": 22.425
     },
     {
      "w": "TO",
-     "t": 23.589
+     "t": 22.985
     },
     {
      "w": "RE",
-     "t": 23.869
+     "t": 23.225
     },
     {
      "w": "ENGAGE",
-     "t": 24.109
+     "t": 23.465
     },
     {
      "w": "LEADS",
-     "t": 24.709
+     "t": 24.025
     },
     {
      "w": "AND",
-     "t": 25.189
+     "t": 24.505
     },
     {
      "w": "ROUTE",
-     "t": 25.429
+     "t": 24.665
     },
     {
      "w": "CONVERSATIONS",
-     "t": 25.749
+     "t": 24.985
     },
     {
      "w": "TO",
-     "t": 26.669
+     "t": 25.865
     },
     {
      "w": "THE",
-     "t": 26.869
+     "t": 26.065
     },
     {
      "w": "RIGHT",
-     "t": 27.029
+     "t": 26.185
     },
     {
      "w": "R",
-     "t": 27.469
+     "t": 26.625
     },
     {
      "w": "M",
-     "t": 27.749
+     "t": 26.865
     }
    ]
   },
   "pf-name": {
    "text": "Piramal Finance.",
-   "start": 33.266,
-   "end": 34.437,
+   "start": 32.409,
+   "end": 33.579,
    "words": [
     {
      "w": "PIRAMAL",
-     "t": 33.506
+     "t": 32.649
     },
     {
      "w": "FINANCE",
-     "t": 33.746
+     "t": 32.889
     }
    ]
   },
   "pf-problem": {
    "text": "Manual outreach was slowing conversations across the loan lifecycle.",
-   "start": 34.837,
-   "end": 38.554,
+   "start": 33.979,
+   "end": 37.513,
    "words": [
     {
      "w": "MANUAL",
-     "t": 34.837
+     "t": 33.979
     },
     {
      "w": "OUTREACH",
-     "t": 35.297
+     "t": 34.419
     },
     {
      "w": "WAS",
-     "t": 35.757
+     "t": 34.859
     },
     {
      "w": "SLOWING",
-     "t": 35.917
+     "t": 35.019
     },
     {
      "w": "CONVERSATIONS",
-     "t": 36.357
+     "t": 35.419
     },
     {
      "w": "ACROSS",
-     "t": 37.117
+     "t": 36.139
     },
     {
      "w": "THE",
-     "t": 37.517
+     "t": 36.539
     },
     {
      "w": "LOAN",
-     "t": 37.862
+     "t": 36.864
     },
     {
      "w": "LIFECYCLE",
-     "t": 38.208
+     "t": 37.188
     }
    ]
   },
   "pf-solution": {
    "text": "DoubleTick AI Voice automates outreach across follow-ups, partners and collections, escalating only the conversations that need an R M.",
-   "start": 39.204,
-   "end": 47.34,
+   "start": 38.163,
+   "end": 45.889,
    "words": [
     {
      "w": "DOUBLETICK",
-     "t": 39.537
+     "t": 38.483
     },
     {
      "w": "AI",
-     "t": 39.871
+     "t": 38.803
     },
     {
      "w": "VOICE",
-     "t": 40.204
+     "t": 39.123
     },
     {
      "w": "AUTOMATES",
-     "t": 40.524
+     "t": 39.403
     },
     {
      "w": "OUTREACH",
-     "t": 41.164
+     "t": 40.003
     },
     {
      "w": "ACROSS",
-     "t": 41.604
+     "t": 40.443
     },
     {
      "w": "FOLLOW",
-     "t": 41.937
+     "t": 40.749
     },
     {
      "w": "UPS",
-     "t": 42.271
+     "t": 41.056
     },
     {
      "w": "PARTNERS",
-     "t": 42.604
+     "t": 41.363
     },
     {
      "w": "AND",
-     "t": 43.004
+     "t": 41.763
     },
     {
      "w": "COLLECTIONS",
-     "t": 43.124
+     "t": 41.923
     },
     {
      "w": "ESCALATING",
-     "t": 43.764
+     "t": 42.503
     },
     {
      "w": "ONLY",
-     "t": 44.404
+     "t": 43.083
     },
     {
      "w": "THE",
-     "t": 44.724
+     "t": 43.363
     },
     {
      "w": "CONVERSATIONS",
-     "t": 44.884
+     "t": 43.523
     },
     {
      "w": "THAT",
-     "t": 45.684
+     "t": 44.323
     },
     {
      "w": "NEED",
-     "t": 45.924
+     "t": 44.563
     },
     {
      "w": "AN",
-     "t": 46.364
+     "t": 44.963
     },
     {
      "w": "R",
-     "t": 46.644
+     "t": 45.203
     },
     {
      "w": "M",
-     "t": 46.924
+     "t": 45.483
     }
    ]
   },
   "ww-name": {
    "text": "Wint Wealth.",
-   "start": 51.94,
-   "end": 52.922,
+   "start": 50.489,
+   "end": 51.471,
    "words": [
     {
      "w": "WINT",
-     "t": 51.94
+     "t": 50.489
     },
     {
      "w": "WEALTH",
-     "t": 52.431
+     "t": 50.98
     }
    ]
   },
   "ww-problem": {
    "text": "Personalized wealth conversations were becoming harder to govern.",
-   "start": 53.322,
-   "end": 56.658,
+   "start": 51.871,
+   "end": 55.049,
    "words": [
     {
      "w": "PERSONALIZED",
-     "t": 53.322
+     "t": 51.871
     },
     {
      "w": "WEALTH",
-     "t": 53.962
+     "t": 52.471
     },
     {
      "w": "CONVERSATIONS",
-     "t": 54.242
+     "t": 52.751
     },
     {
      "w": "WERE",
-     "t": 55.042
+     "t": 53.471
     },
     {
      "w": "BECOMING",
-     "t": 55.202
+     "t": 53.631
     },
     {
      "w": "HARDER",
-     "t": 55.682
+     "t": 54.111
     },
     {
      "w": "TO",
-     "t": 56.002
+     "t": 54.431
     },
     {
      "w": "GOVERN",
-     "t": 56.202
+     "t": 54.591
     }
    ]
   },
   "ww-solution": {
    "text": "DoubleTick gives Wint Wealth centralized oversight across R M-led WhatsApp conversations, without managers manually reading every chat.",
-   "start": 57.308,
-   "end": 64.636,
+   "start": 55.699,
+   "end": 62.659,
    "words": [
     {
      "w": "DOUBLETICK",
-     "t": 57.588
+     "t": 55.939
     },
     {
      "w": "GIVES",
-     "t": 57.868
+     "t": 56.179
     },
     {
      "w": "WINT",
-     "t": 58.108
+     "t": 56.459
     },
     {
      "w": "WEALTH",
-     "t": 58.348
+     "t": 56.699
     },
     {
      "w": "CENTRALIZED",
-     "t": 58.668
+     "t": 56.979
     },
     {
      "w": "OVERSIGHT",
-     "t": 59.308
+     "t": 57.619
     },
     {
      "w": "ACROSS",
-     "t": 59.828
+     "t": 58.099
     },
     {
      "w": "R",
-     "t": 60.268
+     "t": 58.499
     },
     {
      "w": "M",
-     "t": 60.468
+     "t": 58.769
     },
     {
      "w": "LED",
-     "t": 60.775
+     "t": 59.039
     },
     {
      "w": "WHATSAPP",
-     "t": 61.081
+     "t": 59.309
     },
     {
      "w": "CONVERSATIONS",
-     "t": 61.388
+     "t": 59.579
     },
     {
      "w": "WITHOUT",
-     "t": 62.108
+     "t": 60.259
     },
     {
      "w": "MANAGERS",
-     "t": 62.388
+     "t": 60.499
     },
     {
      "w": "MANUALLY",
-     "t": 62.948
+     "t": 61.059
     },
     {
      "w": "READING",
-     "t": 63.468
+     "t": 61.539
     },
     {
      "w": "EVERY",
-     "t": 63.948
+     "t": 61.979
     },
     {
      "w": "CHAT",
-     "t": 64.268
+     "t": 62.259
     }
    ]
   },
   "cd-name": {
    "text": "Coin D C X.",
-   "start": 69.236,
-   "end": 71.602,
+   "start": 67.259,
+   "end": 68.883,
    "words": [
     {
      "w": "COIN",
-     "t": 69.236
+     "t": 67.499
     },
     {
      "w": "D",
-     "t": 69.827
+     "t": 67.739
     },
     {
      "w": "C",
-     "t": 70.419
+     "t": 68.12
     },
     {
      "w": "X",
-     "t": 71.01
+     "t": 68.502
     }
    ]
   },
   "cd-problem": {
    "text": "More WhatsApp journeys created more blind spots across teams.",
-   "start": 72.002,
-   "end": 75.747,
+   "start": 69.283,
+   "end": 72.847,
    "words": [
     {
      "w": "MORE",
-     "t": 72.042
+     "t": 69.283
     },
     {
      "w": "WHATSAPP",
-     "t": 72.382
+     "t": 69.643
     },
     {
      "w": "JOURNEYS",
-     "t": 72.722
+     "t": 70.003
     },
     {
      "w": "CREATED",
-     "t": 73.242
+     "t": 70.443
     },
     {
      "w": "MORE",
-     "t": 73.722
+     "t": 70.883
     },
     {
      "w": "BLIND",
-     "t": 73.922
+     "t": 71.123
     },
     {
      "w": "SPOTS",
-     "t": 74.322
+     "t": 71.483
     },
     {
      "w": "ACROSS",
-     "t": 74.722
+     "t": 71.883
     },
     {
      "w": "TEAMS",
-     "t": 75.162
+     "t": 72.283
     }
    ]
   },
   "cd-solution": {
    "text": "DoubleTick brings Sales, VIP and Sub-Broker conversations onto one governed WhatsApp layer with centralized visibility and analytics.",
-   "start": 76.397,
-   "end": 83.727,
+   "start": 73.497,
+   "end": 80.442,
    "words": [
     {
      "w": "DOUBLETICK",
-     "t": 76.657
+     "t": 73.737
     },
     {
      "w": "BRINGS",
-     "t": 76.917
+     "t": 73.977
     },
     {
      "w": "SALES",
-     "t": 77.277
+     "t": 74.337
     },
     {
      "w": "VIP",
-     "t": 77.837
+     "t": 74.857
     },
     {
      "w": "AND",
-     "t": 78.397
+     "t": 75.377
     },
     {
      "w": "SUB",
-     "t": 78.65
+     "t": 75.577
     },
     {
      "w": "BROKER",
-     "t": 78.904
+     "t": 75.777
     },
     {
      "w": "CONVERSATIONS",
-     "t": 79.157
+     "t": 76.097
     },
     {
      "w": "ONTO",
-     "t": 79.657
+     "t": 76.597
     },
     {
      "w": "ONE",
-     "t": 80.157
+     "t": 77.097
     },
     {
      "w": "GOVERNED",
-     "t": 80.437
+     "t": 77.337
     },
     {
      "w": "WHATSAPP",
-     "t": 80.824
+     "t": 77.757
     },
     {
      "w": "LAYER",
-     "t": 81.21
+     "t": 78.177
     },
     {
      "w": "WITH",
-     "t": 81.597
+     "t": 78.417
     },
     {
      "w": "CENTRALIZED",
-     "t": 81.757
+     "t": 78.577
     },
     {
      "w": "VISIBILITY",
-     "t": 82.317
+     "t": 79.097
     },
     {
      "w": "AND",
-     "t": 82.877
+     "t": 79.657
     },
     {
      "w": "ANALYTICS",
-     "t": 83.037
+     "t": 79.777
     }
    ]
   },
   "sc-name": {
    "text": "Samar Capital.",
-   "start": 88.127,
-   "end": 89.122,
+   "start": 84.842,
+   "end": 85.836,
    "words": [
     {
      "w": "SAMAR",
-     "t": 88.127
+     "t": 84.842
     },
     {
      "w": "CAPITAL",
-     "t": 88.527
+     "t": 85.242
     }
    ]
   },
   "sc-problem": {
    "text": "R M conversations needed independence without losing enterprise control.",
-   "start": 89.522,
-   "end": 93.232,
+   "start": 86.236,
+   "end": 89.757,
    "words": [
     {
      "w": "R",
-     "t": 89.602
+     "t": 86.316
     },
     {
      "w": "M",
-     "t": 89.682
+     "t": 86.396
     },
     {
      "w": "CONVERSATIONS",
-     "t": 89.762
+     "t": 86.476
     },
     {
      "w": "NEEDED",
-     "t": 90.442
+     "t": 87.116
     },
     {
      "w": "INDEPENDENCE",
-     "t": 90.802
+     "t": 87.436
     },
     {
      "w": "WITHOUT",
-     "t": 91.522
+     "t": 88.116
     },
     {
      "w": "LOSING",
-     "t": 91.762
+     "t": 88.396
     },
     {
      "w": "ENTERPRISE",
-     "t": 92.202
+     "t": 88.796
     },
     {
      "w": "CONTROL",
-     "t": 92.762
+     "t": 89.316
     }
    ]
   },
   "sc-solution": {
    "text": "DoubleTick gives every R M a governed business number with role-based access, while keeping supervisors in control.",
-   "start": 93.882,
-   "end": 101.212,
+   "start": 90.407,
+   "end": 97.363,
    "words": [
     {
      "w": "DOUBLETICK",
-     "t": 94.262
+     "t": 90.767
     },
     {
      "w": "GIVES",
-     "t": 94.642
+     "t": 91.127
     },
     {
      "w": "EVERY",
-     "t": 95.082
+     "t": 91.527
     },
     {
      "w": "R",
-     "t": 95.402
+     "t": 91.927
     },
     {
      "w": "M",
-     "t": 95.722
+     "t": 92.167
     },
     {
      "w": "A",
-     "t": 96.122
+     "t": 92.527
     },
     {
      "w": "GOVERNED",
-     "t": 96.362
+     "t": 92.767
     },
     {
      "w": "BUSINESS",
-     "t": 96.802
+     "t": 93.207
     },
     {
      "w": "NUMBER",
-     "t": 97.242
+     "t": 93.607
     },
     {
      "w": "WITH",
-     "t": 97.642
+     "t": 93.967
     },
     {
      "w": "ROLE",
-     "t": 97.862
+     "t": 94.187
     },
     {
      "w": "BASED",
-     "t": 98.082
+     "t": 94.407
     },
     {
      "w": "ACCESS",
-     "t": 98.442
+     "t": 94.727
     },
     {
      "w": "WHILE",
-     "t": 99.002
+     "t": 95.247
     },
     {
      "w": "KEEPING",
-     "t": 99.242
+     "t": 95.487
     },
     {
      "w": "SUPERVISORS",
-     "t": 99.602
+     "t": 95.847
     },
     {
      "w": "IN",
-     "t": 100.442
+     "t": 96.607
     },
     {
      "w": "CONTROL",
-     "t": 100.602
+     "t": 96.767
     }
    ]
   },
   "cta-q": {
    "text": "Still managing customer conversations manually?",
-   "start": 112.512,
-   "end": 115.845,
+   "start": 108.663,
+   "end": 110.65,
    "words": [
     {
      "w": "STILL",
-     "t": 112.512
+     "t": 108.663
     },
     {
      "w": "MANAGING",
-     "t": 112.912
+     "t": 108.823
     },
     {
      "w": "CUSTOMER",
-     "t": 113.552
+     "t": 109.223
     },
     {
      "w": "CONVERSATIONS",
-     "t": 114.112
+     "t": 109.583
     },
     {
      "w": "MANUALLY",
-     "t": 115.152
+     "t": 110.183
     }
    ]
   },
   "cta-sub": {
    "text": "Let DoubleTick show you what can be automated.",
-   "start": 116.545,
-   "end": 119.69,
+   "start": 111.35,
+   "end": 114.477,
    "words": [
     {
      "w": "LET",
-     "t": 116.545
+     "t": 111.35
     },
     {
      "w": "DOUBLETICK",
-     "t": 117.045
+     "t": 111.85
     },
     {
      "w": "SHOW",
-     "t": 117.545
+     "t": 112.35
     },
     {
      "w": "YOU",
-     "t": 117.865
+     "t": 112.67
     },
     {
      "w": "WHAT",
-     "t": 118.145
+     "t": 112.95
     },
     {
      "w": "CAN",
-     "t": 118.385
+     "t": 113.19
     },
     {
      "w": "BE",
-     "t": 118.585
+     "t": 113.39
     },
     {
      "w": "AUTOMATED",
-     "t": 118.785
+     "t": 113.59
     }
    ]
   }
