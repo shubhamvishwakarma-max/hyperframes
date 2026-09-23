@@ -81,14 +81,15 @@ body {
   display: flex;
   align-items: center;
   gap: 14px;
+  font-family: var(--dt-font-mono);
   font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   color: var(--dt-text-secondary);
 }
 #hdr .counter-num {
   display: block;
-  width: 76px;
+  width: 96px;
   height: 24px;
   white-space: nowrap;
   position: relative;

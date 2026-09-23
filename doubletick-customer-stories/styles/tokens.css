@@ -13,15 +13,10 @@
  */
 
 /*
- * FONT FALLBACK IN USE
- * The real DoubleTick web font could not be extracted (site blocked).
- * --dt-font-brand is the slot for the production family name; until it is
- * filled, the stack falls through to "DT Sans Fallback", a locally shipped
- * Plus Jakarta Sans variable font (OFL) chosen as the closest geometric
- * SaaS sans to the DoubleTick wordmark. Renders never fetch fonts at runtime.
+ * TYPE: Geist (UI + headlines) and Geist Mono (labels, eyebrows, counters),
+ * as used on doubletick.io. Both ship locally (assets/fonts, OFL) and are
+ * declared with @font-face in index.html, so renders never fetch fonts.
  */
-/* @font-face for "DT Sans Fallback" is declared in index.html (root-relative
-   asset path, required by the HyperFrames linter). */
 
 :root {
   /* Colour */
@@ -49,8 +44,8 @@
   --dt-shadow-lift: 0 2px 4px rgba(10, 58, 43, 0.08), 0 16px 40px rgba(10, 58, 43, 0.12);
 
   /* Type */
-  --dt-font-brand: "DT Sans Fallback"; /* TODO: production DoubleTick family name */
-  --dt-font: var(--dt-font-brand), "DT Sans Fallback", system-ui, sans-serif;
+  --dt-font: "Geist", system-ui, sans-serif;
+  --dt-font-mono: "Geist Mono", ui-monospace, monospace;
 
   /* 1080 x 1080 safe area */
   --safe-x: 80px;

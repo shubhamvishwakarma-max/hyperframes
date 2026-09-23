@@ -41,7 +41,7 @@ build/apply-timing.py      writes clip timings and the music duck envelope into 
 build/finalize.sh          loudness pass: −14 LUFS integrated, −1.5 dBTP
 assets/logos               DoubleTick logo (official asset) + official customer logos (au, pf, ww, cd, sc .png)
 assets/audio               narration.wav, music.wav, sfx/ (Pixabay licence, see CREDITS.md)
-assets/fonts               fallback brand font (Plus Jakarta Sans, OFL)
+assets/fonts               Geist + Geist Mono (OFL), the doubletick.io faces, shipped locally
 assets/vendor/gsap.min.js  GSAP 3.14.2, local so renders need no network
 ```
 
@@ -81,7 +81,7 @@ Note: in `hyperframes@0.8.64`, `render -c` takes a composition *file*. This film
 1. **doubletick.io was blocked** by this environment's network policy, so nothing could be read from the live site: font family, dark greens, button style, radii, shadows.
    - `--dt-green #28B379` is verified. It was sampled from the official logo.
    - Every other token is derived from it and marked UNVERIFIED in `styles/tokens.css`.
-   - The font is a declared fallback: `--dt-font-brand` → Plus Jakarta Sans.
+   - Type is Geist (headlines, body) + Geist Mono (eyebrows, chips, counters, stage labels), as on doubletick.io.
    - Put the site's computed values into `tokens.css`. The film then updates everywhere.
 2. **Customer logos**: the official logos supplied are reversed artwork with white lettering. Each one sits unaltered on a dark DoubleTick-green plate (212 × 72, `object-fit: contain`) in the story header and the recap. To swap one, replace `assets/logos/<id>.png`.
 3. **Duration**: the brief asked for 50–60 s. At a natural pace, the required narration alone runs about 96 s. Add designed pauses and reading holds for the full on-screen copy, and the film comes to 2:19. Nothing was sped up or cut.

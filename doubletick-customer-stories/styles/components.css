@@ -3,9 +3,10 @@
 /* ---------- type primitives ---------- */
 .eyebrow {
   display: block;
+  font-family: var(--dt-font-mono);
   font-size: 18px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--dt-green-ink);
 }
@@ -245,6 +246,7 @@
 }
 .ui-chip {
   display: inline-block;
+  font-family: var(--dt-font-mono);
   font-size: 18px;
   font-weight: 700;
   padding: 4px 10px;

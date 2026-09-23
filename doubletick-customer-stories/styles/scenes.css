@@ -149,9 +149,10 @@
   border-radius: var(--dt-radius-pill);
   background: var(--dt-surface);
   border: 2px solid var(--dt-border-strong);
+  font-family: var(--dt-font-mono);
   font-size: 18px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   color: var(--dt-text-secondary);
   white-space: nowrap;
 }
@@ -400,6 +401,7 @@
   justify-content: space-between;
 }
 .sc-badge {
+  font-family: var(--dt-font-mono);
   display: flex;
   align-items: center;
   gap: 4px;
