@@ -1,0 +1,1631 @@
+<!doctype html>
+<html lang="en" data-resolution="square">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>DoubleTick — Personalization at Scale</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      /* Self-hosted (OFL) so renders never fetch fonts at render time */
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist-variable.woff2") format("woff2");
+        font-weight: 100 900;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Geist Mono";
+        src: url("assets/fonts/geist-mono-variable.woff2") format("woff2");
+        font-weight: 100 900;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Hedvig Letters Sans";
+        src: url("assets/fonts/hedvig-letters-sans-400.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      :root {
+        --bg: #07090a;
+        --surface: #0e1312;
+        --surface-2: #131a18;
+        --surface-3: #18201e;
+        --border: rgba(255, 255, 255, 0.09);
+        --border-strong: rgba(255, 255, 255, 0.14);
+        --text: #f4f7f5;
+        --text-2: #c9d1cd;
+        --muted: #9aa5a0;
+        --green: #27b578; /* DoubleTick emerald (from doubletick.io brand kit) */
+        --green-deep: #005f33;
+        --green-ink: #042717;
+        --green-soft: rgba(39, 181, 120, 0.14);
+        --amber: #e4b045;
+        --coral: #de494d;
+        --r-card: 20px;
+        --r-sm: 14px;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+        font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .cam {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 55%;
+      }
+
+      /* ---------- ambient background ---------- */
+      #ambient {
+        background:
+          radial-gradient(700px 420px at 50% -8%, rgba(39, 181, 120, 0.16), transparent 70%),
+          radial-gradient(600px 500px at 110% 110%, rgba(0, 95, 51, 0.18), transparent 70%),
+          var(--bg);
+      }
+      #ambient .grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 54px 54px;
+        mask-image: radial-gradient(ellipse at 50% 45%, black 20%, transparent 75%);
+      }
+
+      /* ---------- shared type ---------- */
+      .eyebrow {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: "Geist Mono", ui-monospace, monospace;
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .eyebrow .dash {
+        display: inline-block;
+        width: 22px;
+        height: 2px;
+        background: var(--green);
+        vertical-align: middle;
+        margin: 0 14px 3px;
+      }
+      .hl {
+        color: var(--green);
+        font-style: normal;
+      }
+      .headline {
+        position: absolute;
+        left: 80px;
+        right: 80px;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.06;
+      }
+      .headline .line {
+        display: block;
+        overflow: hidden;
+        padding-bottom: 0.06em;
+      }
+      .headline .line > span {
+        display: inline-block;
+      }
+      .hero {
+        font-family: "Hedvig Letters Sans", "Geist", sans-serif;
+        font-weight: 400;
+        letter-spacing: -0.035em;
+      }
+
+      .card {
+        position: absolute;
+        background: linear-gradient(180deg, var(--surface-2), var(--surface));
+        border: 1px solid var(--border);
+        border-radius: var(--r-card);
+        box-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.45),
+          inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      }
+      .mono {
+        font-family: "Geist Mono", ui-monospace, monospace;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .avatar {
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        flex: none;
+      }
+      .dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--green);
+        flex: none;
+      }
+      .live-dot {
+        box-shadow: 0 0 0 4px rgba(39, 181, 120, 0.18);
+      }
+      .row {
+        display: flex;
+        align-items: center;
+      }
+
+      /* ---------- SCENE 1 ---------- */
+      #s1 .eyebrow {
+        top: 108px;
+      }
+      #s1 .headline {
+        top: 150px;
+        font-size: 70px;
+      }
+      #dash1 {
+        left: 80px;
+        top: 372px;
+        width: 920px;
+        height: 468px;
+        border-radius: 24px;
+        background: rgba(14, 19, 18, 0.72);
+      }
+      #dash1 .topbar {
+        position: absolute;
+        left: 28px;
+        right: 28px;
+        top: 20px;
+        height: 52px;
+        justify-content: space-between;
+      }
+      #dash1 .topbar .who {
+        gap: 14px;
+      }
+      #dash1 .topbar .title {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      #dash1 .topbar .sub {
+        font-size: 22px;
+        color: var(--muted);
+      }
+      #dash1 .topbar .live {
+        gap: 10px;
+        color: var(--green);
+      }
+      .s1card {
+        position: absolute;
+        top: 96px;
+        width: 360px;
+        height: 290px;
+        border-radius: 18px;
+        background: var(--surface-3);
+        border: 1px solid var(--border);
+        padding: 24px 26px;
+      }
+      #volCard {
+        left: 30px;
+      }
+      #persCard {
+        left: 530px;
+      }
+      .s1card .mono {
+        color: var(--muted);
+      }
+      #volCard .metric {
+        margin-top: 18px;
+        font-size: 76px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+      #volCard .unit {
+        font-size: 28px;
+        color: var(--text-2);
+        margin-top: 6px;
+      }
+      .leadstack {
+        position: absolute;
+        left: 26px;
+        right: 26px;
+        bottom: 22px;
+        height: 66px;
+      }
+      .leadstack .mini {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 50px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: #1c2522;
+        padding: 0 16px;
+        gap: 12px;
+        font-size: 22px;
+        color: var(--text-2);
+      }
+      .leadstack .mini .bar {
+        height: 8px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.12);
+      }
+      #persCard .prep {
+        margin-top: 18px;
+        gap: 14px;
+      }
+      #persCard .prep .name {
+        font-size: 26px;
+        font-weight: 600;
+      }
+      #persCard .prep .role {
+        font-size: 22px;
+        color: var(--muted);
+      }
+      #persCard .bubble {
+        margin-top: 18px;
+        background: #1f2a26;
+        border: 1px solid rgba(39, 181, 120, 0.25);
+        border-radius: 16px 16px 16px 4px;
+        padding: 14px 16px;
+        font-size: 22px;
+        line-height: 1.35;
+        color: var(--text);
+      }
+      #persCard .status {
+        position: absolute;
+        left: 26px;
+        bottom: 22px;
+        gap: 10px;
+        font-size: 22px;
+        color: var(--green);
+      }
+      .cardglow {
+        position: absolute;
+        inset: -1px;
+        border-radius: 18px;
+        border: 1.5px solid var(--green);
+        box-shadow: 0 0 36px rgba(39, 181, 120, 0.28);
+        opacity: 0;
+      }
+      #pxs {
+        position: absolute;
+        left: 50%;
+        top: 404px;
+        white-space: nowrap;
+        padding: 10px 20px;
+        border-radius: 999px;
+        border: 1px solid rgba(39, 181, 120, 0.45);
+        background: rgba(4, 39, 23, 0.9);
+        color: var(--text);
+        font-size: 20px;
+        letter-spacing: 0.2em;
+        box-shadow: 0 0 30px rgba(39, 181, 120, 0.2);
+      }
+      #pxs b {
+        color: var(--green);
+        font-weight: 500;
+        margin: 0 10px;
+      }
+      /* the connector that becomes the phone edge */
+      #morph {
+        position: absolute;
+        left: 510px;
+        top: 612px;
+        width: 60px;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--green);
+        box-shadow: 0 0 14px rgba(39, 181, 120, 0.6);
+        transform-origin: 0 50%;
+      }
+
+      #frame {
+        position: absolute;
+        left: 548px;
+        top: 292px;
+        width: 432px;
+        height: 560px;
+        border-radius: 40px;
+        border: 2px solid rgba(39, 181, 120, 0.9);
+        background: #27b578;
+        box-shadow: 0 0 40px rgba(39, 181, 120, 0.25);
+        opacity: 0;
+      }
+
+      /* ---------- SCENE 2 ---------- */
+      #s2 .eyebrow {
+        top: 108px;
+      }
+      #s2 .headline {
+        top: 148px;
+        font-size: 50px;
+        font-weight: 650;
+        letter-spacing: -0.025em;
+      }
+      #phone {
+        left: 548px;
+        top: 292px;
+        width: 432px;
+        height: 560px;
+        border-radius: 40px;
+        background: #0b100f;
+        border: 1px solid var(--border-strong);
+        overflow: hidden;
+      }
+      #phone .ph-head {
+        height: 88px;
+        padding: 0 22px;
+        gap: 14px;
+        background: #121917;
+        border-bottom: 1px solid var(--border);
+      }
+      #phone .ph-name {
+        font-size: 23px;
+        font-weight: 600;
+      }
+      #phone .ph-name span {
+        color: var(--muted);
+        font-weight: 400;
+      }
+      #phone .ph-verified {
+        gap: 6px;
+        font-size: 20px;
+        color: var(--green);
+        margin-top: 3px;
+      }
+      #phone .msgs {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        top: 106px;
+      }
+      .msg {
+        max-width: 316px;
+        padding: 12px 16px;
+        font-size: 22px;
+        line-height: 1.34;
+        border-radius: 18px;
+        margin-bottom: 14px;
+      }
+      .msg.in {
+        background: #1c2422;
+        border-bottom-left-radius: 6px;
+        border: 1px solid var(--border);
+      }
+      .msg.out {
+        margin-left: auto;
+        background: #0f4a31;
+        border-bottom-right-radius: 6px;
+      }
+      #phone .ph-input {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+        height: 54px;
+        border-radius: 27px;
+        background: #151c1a;
+        border: 1px solid var(--border);
+        padding: 0 20px;
+        font-size: 20px;
+        color: #8a9590;
+      }
+      #aiPanel {
+        left: 80px;
+        top: 360px;
+        width: 436px;
+        height: 424px;
+        padding: 26px 26px;
+        background: linear-gradient(180deg, rgba(19, 26, 24, 0.92), rgba(12, 17, 16, 0.92));
+      }
+      #aiPanel .ai-head {
+        justify-content: space-between;
+      }
+      #aiPanel .ai-head .mono {
+        color: var(--green);
+      }
+      #aiPanel .ai-sub {
+        margin-top: 6px;
+        font-size: 22px;
+        color: var(--muted);
+      }
+      .check {
+        margin-top: 20px;
+        gap: 14px;
+        font-size: 24px;
+        color: var(--muted);
+      }
+      .check .ring {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(255, 255, 255, 0.22);
+        flex: none;
+      }
+      .check .ring .fill {
+        position: absolute;
+        inset: -1.5px;
+        border-radius: 50%;
+        background: var(--green);
+        display: grid;
+        place-items: center;
+        opacity: 0;
+      }
+      #aiPanel .statusrow {
+        position: absolute;
+        left: 26px;
+        right: 26px;
+        bottom: 24px;
+        padding-top: 18px;
+        border-top: 1px solid var(--border);
+        justify-content: space-between;
+        font-size: 22px;
+        color: var(--muted);
+      }
+      .pill {
+        position: relative;
+        height: 40px;
+        min-width: 150px;
+        border-radius: 999px;
+        font-family: "Geist Mono", monospace;
+        font-size: 18px;
+        letter-spacing: 0.16em;
+        display: grid;
+        place-items: center;
+      }
+      .pill > span {
+        position: relative;
+        grid-area: 1 / 1;
+        padding: 0 18px;
+      }
+      #leadPill {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: #1a2220;
+      }
+      #leadPill .hot {
+        color: #04140c;
+        font-weight: 600;
+      }
+      #leadPill .bg {
+        position: absolute;
+        inset: -1px;
+        border-radius: 999px;
+        background: var(--green);
+        opacity: 0;
+      }
+      #leadPill .pulse {
+        position: absolute;
+        inset: -1px;
+        border-radius: 999px;
+        border: 2px solid var(--green);
+        opacity: 0;
+      }
+
+      /* ---------- SCENE 3 ---------- */
+      #hotEyebrow {
+        position: absolute;
+        left: 50%;
+        top: 96px;
+        height: 44px;
+        padding: 0 20px;
+        gap: 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(39, 181, 120, 0.5);
+        background: rgba(4, 39, 23, 0.85);
+        color: var(--green);
+        white-space: nowrap;
+        font-family: "Geist Mono", monospace;
+        font-size: 20px;
+        letter-spacing: 0.2em;
+      }
+      #s3 .headline {
+        top: 162px;
+        font-size: 58px;
+        font-weight: 650;
+        letter-spacing: -0.03em;
+      }
+      #toast {
+        left: 250px;
+        top: 300px;
+        width: 580px;
+        height: 96px;
+        padding: 0 24px;
+        gap: 16px;
+        border-radius: 18px;
+        border-color: rgba(39, 181, 120, 0.35);
+      }
+      #toast .t1 {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      #toast .t2 {
+        font-size: 22px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      #summary {
+        left: 80px;
+        top: 276px;
+        width: 624px;
+        height: 580px;
+        padding: 26px 30px;
+        transform-origin: 50% 50%;
+      }
+      #summary .sum-head {
+        justify-content: space-between;
+      }
+      #summary .sum-head .mono {
+        color: var(--green);
+      }
+      #summary .sum-head .src {
+        font-size: 20px;
+        color: var(--muted);
+        gap: 8px;
+      }
+      #summary .who {
+        margin-top: 16px;
+      }
+      #summary .who .n {
+        font-size: 32px;
+        font-weight: 650;
+        letter-spacing: -0.01em;
+      }
+      #summary .who .s {
+        font-size: 22px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      #summary ul {
+        list-style: none;
+        margin-top: 16px;
+      }
+      #summary li {
+        gap: 14px;
+        font-size: 23px;
+        color: var(--text);
+        height: 40px;
+      }
+      #summary li .dot {
+        width: 8px;
+        height: 8px;
+      }
+      #summary .tags {
+        margin-top: 14px;
+        gap: 10px;
+      }
+      .tag {
+        height: 40px;
+        padding: 0 16px;
+        border-radius: 10px;
+        font-size: 21px;
+        background: var(--green-soft);
+        color: #8fe0b9;
+        border: 1px solid rgba(39, 181, 120, 0.3);
+        display: flex;
+        align-items: center;
+      }
+      .tag b {
+        color: var(--text);
+        font-weight: 600;
+        margin-left: 6px;
+      }
+      #takeover {
+        position: absolute;
+        left: 30px;
+        right: 30px;
+        bottom: 26px;
+        height: 62px;
+        border-radius: 14px;
+        background: var(--green);
+        color: #04140c;
+        font-size: 24px;
+        font-weight: 650;
+        justify-content: center;
+        gap: 12px;
+        box-shadow: 0 10px 30px rgba(39, 181, 120, 0.25);
+      }
+      #takeover .live {
+        position: absolute;
+        inset: 0;
+        border-radius: 14px;
+        background: #0f3b27;
+        border: 1px solid rgba(39, 181, 120, 0.6);
+        color: var(--text);
+        justify-content: center;
+        gap: 12px;
+        opacity: 0;
+      }
+      #channels {
+        position: absolute;
+        left: 730px;
+        top: 276px;
+        width: 270px;
+      }
+      #channels .mono {
+        color: var(--muted);
+        font-size: 18px;
+        margin-bottom: 12px;
+        letter-spacing: 0.18em;
+      }
+      .chip {
+        height: 56px;
+        margin-bottom: 10px;
+        padding: 0 16px;
+        gap: 12px;
+        border-radius: 14px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        font-size: 22px;
+        color: var(--text-2);
+      }
+      .chip svg {
+        flex: none;
+      }
+      .chip .ok {
+        margin-left: auto;
+        width: 8px;
+        height: 8px;
+      }
+      #owner {
+        left: 730px;
+        top: 628px;
+        width: 270px;
+        height: 228px;
+        padding: 22px;
+        border-color: rgba(39, 181, 120, 0.45);
+        box-shadow:
+          0 30px 70px rgba(0, 0, 0, 0.55),
+          0 0 40px rgba(39, 181, 120, 0.18);
+      }
+      #owner .mono {
+        color: var(--green);
+        font-size: 18px;
+      }
+      #owner .ringwrap {
+        margin-top: 14px;
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        padding: 3px;
+        background: var(--green);
+      }
+      #owner .n {
+        margin-top: 12px;
+        font-size: 24px;
+        font-weight: 650;
+      }
+      #owner .s {
+        font-size: 22px;
+        color: var(--text-2);
+        margin-top: 2px;
+      }
+
+      /* zoom-out layer: other rep conversations */
+      .ghost {
+        position: absolute;
+        width: 250px;
+        height: 96px;
+        padding: 0 16px;
+        gap: 12px;
+        border-radius: 16px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      }
+      .ghost .gn {
+        font-size: 22px;
+        font-weight: 600;
+      }
+      .ghost .gl {
+        margin-top: 8px;
+        height: 8px;
+        width: 130px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      /* ---------- SCENE 4 ---------- */
+      #s4 .eyebrow {
+        top: 108px;
+      }
+      #s4 .headline {
+        top: 146px;
+        font-size: 56px;
+        font-weight: 650;
+        letter-spacing: -0.03em;
+      }
+      #cmd {
+        left: 80px;
+        top: 318px;
+        width: 920px;
+        height: 540px;
+        border-radius: 24px;
+        background: rgba(14, 19, 18, 0.8);
+        overflow: hidden;
+      }
+      #cmd .topbar {
+        position: absolute;
+        left: 26px;
+        right: 26px;
+        top: 0;
+        height: 70px;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+      }
+      #cmd .topbar .t {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      #cmd .topbar .t span {
+        color: var(--muted);
+        font-weight: 400;
+        font-size: 22px;
+        margin-left: 12px;
+      }
+      #cmd .topbar .live {
+        gap: 10px;
+        color: var(--green);
+      }
+      #reps {
+        position: absolute;
+        left: 20px;
+        top: 86px;
+        width: 486px;
+      }
+      .reprow {
+        height: 82px;
+        padding: 0 16px;
+        gap: 16px;
+        border-radius: 16px;
+        margin-bottom: 6px;
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .reprow .rn {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      .reprow .rs {
+        font-size: 22px;
+        color: var(--muted);
+        margin-top: 2px;
+        gap: 8px;
+      }
+      .reprow .rs b {
+        color: var(--text);
+        font-weight: 600;
+      }
+      .reprow.hot {
+        border-color: rgba(39, 181, 120, 0.5);
+        background: rgba(39, 181, 120, 0.08);
+      }
+      .reprow.hot .rs {
+        color: var(--green);
+      }
+      .reprow .rs.ok {
+        color: #7fd6ac;
+      }
+      .reprow .rs.warn {
+        color: var(--amber);
+      }
+      #gov {
+        position: absolute;
+        left: 526px;
+        top: 86px;
+        width: 374px;
+        height: 434px;
+        border-radius: 18px;
+        background: var(--surface-3);
+        border: 1px solid var(--border);
+        padding: 22px 22px;
+        overflow: hidden;
+      }
+      #gov .mono {
+        color: var(--green);
+      }
+      #gov .spark {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 54px;
+        height: 70px;
+        opacity: 0.55;
+      }
+      .srow {
+        margin-top: 12px;
+        font-size: 22px;
+        color: var(--text-2);
+      }
+      .srow .lbl {
+        justify-content: space-between;
+      }
+      .srow .lbl b {
+        color: var(--text);
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+      .srow .track {
+        margin-top: 8px;
+        height: 6px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+      }
+      .srow .fillbar {
+        height: 100%;
+        border-radius: 3px;
+        transform-origin: 0 50%;
+      }
+      #alerts {
+        position: absolute;
+        left: 22px;
+        right: 22px;
+        bottom: 20px;
+        height: 150px;
+      }
+      .alert {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 68px;
+        padding: 0 14px;
+        gap: 12px;
+        border-radius: 14px;
+        background: #1d2623;
+        border: 1px solid var(--border-strong);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      }
+      .alert .at {
+        font-size: 22px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .alert .as {
+        font-size: 20px;
+        color: var(--muted);
+        margin-top: 1px;
+      }
+      .alert .ico {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        flex: none;
+      }
+
+      /* ---------- SCENE 5 ---------- */
+      #s5glow {
+        position: absolute;
+        left: 50%;
+        top: 470px;
+        width: 1100px;
+        height: 900px;
+        background: radial-gradient(
+          closest-side,
+          rgba(39, 181, 120, 0.3),
+          rgba(0, 95, 51, 0.14) 45%,
+          transparent 100%
+        );
+      }
+      #logo {
+        position: absolute;
+        left: 50%;
+        top: 200px;
+        gap: 16px;
+        white-space: nowrap;
+      }
+      #logo .word {
+        font-size: 46px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+      #s5 .headline {
+        top: 300px;
+        font-size: 84px;
+        line-height: 1.04;
+      }
+      #s5 .support {
+        position: absolute;
+        left: 80px;
+        right: 80px;
+        top: 530px;
+        text-align: center;
+        font-size: 32px;
+        color: var(--text-2);
+        letter-spacing: -0.01em;
+      }
+      #cta {
+        position: absolute;
+        left: 50%;
+        top: 628px;
+        height: 84px;
+        padding: 0 40px;
+        gap: 16px;
+        border-radius: 18px;
+        background: var(--green);
+        color: #04140c;
+        font-size: 30px;
+        font-weight: 650;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+        box-shadow:
+          0 18px 50px rgba(39, 181, 120, 0.32),
+          0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+      }
+      #s5 .url {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 750px;
+        text-align: center;
+        font-family: "Geist Mono", monospace;
+        font-size: 20px;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+      }
+
+      /* ---------- captions ---------- */
+      #captions {
+        position: absolute;
+        top: auto;
+        left: 80px;
+        right: 80px;
+        bottom: 84px;
+        height: 112px;
+      }
+      .cap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+        opacity: 0;
+      }
+      .cap > span {
+        display: inline-block;
+        max-width: 900px;
+        padding: 10px 20px 12px;
+        border-radius: 12px;
+        background: rgba(6, 9, 8, 0.62);
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 1.32;
+        color: #f2f5f3;
+        letter-spacing: -0.005em;
+      }
+      .cap .hl {
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="34"
+      data-width="1080"
+      data-height="1080"
+    >
+      <!-- soundtrack: VO + music + SFX, pre-mixed by scripts/mix-audio.sh -->
+      <audio
+        id="mix"
+        src="assets/audio/mix.wav"
+        data-start="0"
+        data-duration="34"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+
+      <div id="ambient" class="clip" data-start="0" data-duration="34" data-track-index="0">
+        <div class="grid"></div>
+      </div>
+
+      <!-- ================= SCENE 1 — EXECUTIVE HOOK ================= -->
+      <div id="s1" class="clip" data-start="0" data-duration="7" data-track-index="1">
+        <div class="cam">
+          <div class="eyebrow"><span class="dash"></span>For Sales CXOs<span class="dash"></span></div>
+          <h1 class="headline hero">
+            <span class="line"><span id="s1l1">Scale vs. Personalization?</span></span>
+            <span class="line"><span id="s1l2">You <em class="hl">don't have to choose.</em></span></span>
+          </h1>
+
+          <div id="dash1" class="card">
+            <div class="topbar row">
+              <div class="who row">
+                <img class="avatar" src="assets/img/cro.jpg" width="44" height="44" alt="" />
+                <div>
+                  <div class="title">Revenue overview</div>
+                </div>
+                <div class="sub">· Priya, CRO</div>
+              </div>
+              <div class="live row mono"><span class="dot live-dot"></span>Live</div>
+            </div>
+
+            <div id="volCard" class="s1card">
+              <div class="mono">High volume</div>
+              <div class="metric" id="leadCount">0</div>
+              <div class="unit">Leads this quarter</div>
+              <div class="leadstack">
+                <div class="mini row" id="lm3" style="top: 0; opacity: 0.35; transform: scale(0.9)">
+                  <span class="bar" style="width: 60%"></span>
+                </div>
+                <div class="mini row" id="lm2" style="top: 8px; opacity: 0.6; transform: scale(0.95)">
+                  <span class="bar" style="width: 70%"></span>
+                </div>
+                <div class="mini row" id="lm1" style="top: 16px">
+                  <span class="dot"></span>New lead · WhatsApp
+                </div>
+              </div>
+              <div class="cardglow" id="volGlow"></div>
+            </div>
+
+            <div id="persCard" class="s1card">
+              <div class="mono">Personal experience</div>
+              <div class="prep row">
+                <img class="avatar" src="assets/img/deepak.jpg" width="56" height="56" alt="" />
+                <div>
+                  <div class="name">Deepak</div>
+                  <div class="role">Sales Lead</div>
+                </div>
+              </div>
+              <div class="bubble">
+                Hi Rahul, your team's rollout plan is ready.
+              </div>
+              <div class="status row"><span class="dot"></span>Active conversation</div>
+              <div class="cardglow" id="persGlow"></div>
+            </div>
+
+            <div id="pxs" class="mono">Personalization<b>×</b>Scale</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- connector → phone edge (bridges S1 → S2) -->
+      <div id="m1" class="clip" data-start="0" data-duration="7.4" data-track-index="2">
+        <div id="morph"></div>
+        <div id="frame"></div>
+      </div>
+
+      <!-- ================= SCENE 2 — AI-POWERED REP EXPERIENCE ================= -->
+      <div id="s2" class="clip" data-start="6.2" data-duration="8" data-track-index="3">
+        <div class="cam">
+          <div class="eyebrow"><span class="dash"></span>AI-Powered Outreach<span class="dash"></span></div>
+          <h2 class="headline">
+            <span class="line"><span id="s2l1">Personal at every conversation.</span></span>
+            <span class="line"><span id="s2l2" class="hl">Scaled across every lead.</span></span>
+          </h2>
+
+          <div id="aiPanel" class="card">
+            <div class="ai-head row">
+              <span class="mono">AI Agent</span>
+              <span class="row mono" style="gap: 8px; color: var(--muted); font-size: 16px"
+                ><span class="dot"></span>Active</span
+              >
+            </div>
+            <div class="ai-sub">Qualifying for Deepak</div>
+            <div class="check row" id="ck1">
+              <span class="ring"><span class="fill"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#04140c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>Intent identified
+            </div>
+            <div class="check row" id="ck2">
+              <span class="ring"><span class="fill"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#04140c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>Team size captured
+            </div>
+            <div class="check row" id="ck3">
+              <span class="ring"><span class="fill"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#04140c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>Enterprise lead
+            </div>
+            <div class="check row" id="ck4">
+              <span class="ring"><span class="fill"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#04140c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>Qualification complete
+            </div>
+            <div class="statusrow row">
+              <span>Lead status</span>
+              <div class="pill" id="leadPill">
+                <div class="bg"></div>
+                <div class="pulse"></div>
+                <span class="pro">PROSPECT</span>
+                <span class="hot" style="opacity: 0">HOT LEAD</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="phone" class="card">
+            <div class="ph-head row">
+              <img class="avatar" src="assets/img/deepak.jpg" width="50" height="50" alt="" />
+              <div>
+                <div class="ph-name">Deepak <span>| Sales Lead</span></div>
+                <div class="ph-verified row">
+                  <svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="8" fill="#27b578"/><path d="M5.2 9.3l2.4 2.3 5-5" fill="none" stroke="#04140c" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Verified business
+                </div>
+              </div>
+            </div>
+            <div class="msgs">
+              <div class="msg out" id="msg1">We're evaluating this for a 200-member sales team.</div>
+              <div class="msg in" id="msg2">
+                Absolutely. Are your teams currently using individual WhatsApp numbers or a shared setup?
+              </div>
+              <div class="msg out" id="msg3">Mostly individual numbers.</div>
+            </div>
+            <div class="ph-input row">Message</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOT LEAD pill carrier (bridges S2 → S3) -->
+      <div id="m2" class="clip" data-start="12.2" data-duration="2.4" data-track-index="4">
+        <div id="hotCarrier" class="pill" style="position: absolute; left: 338px; top: 718px; background: var(--green); color: #04140c; font-weight: 600; opacity: 0">
+          <span>HOT LEAD</span>
+        </div>
+      </div>
+
+      <!-- ================= SCENE 3 — HOT LEAD + HUMAN HANDOFF ================= -->
+      <div id="s3" class="clip" data-start="13.2" data-duration="7" data-track-index="5">
+        <div class="cam">
+          <div id="hotEyebrow" class="row"><span class="dot live-dot"></span>HOT LEAD DETECTED</div>
+          <h2 class="headline">
+            <span class="line"><span id="s3l1">Your rep enters <em class="hl">ready.</em></span></span>
+          </h2>
+
+          <div id="toast" class="card row">
+            <img class="avatar" src="assets/img/deepak.jpg" width="56" height="56" alt="" />
+            <div style="flex: 1">
+              <div class="t1">High Intent Lead</div>
+              <div class="t2">Rahul Mehta · routed to Deepak</div>
+            </div>
+            <span class="dot live-dot"></span>
+          </div>
+
+          <div id="summary" class="card">
+            <div class="sum-head row">
+              <span class="mono">AI Summary</span>
+              <span class="src row"><span class="dot" style="width: 8px; height: 8px"></span>Generated just now</span>
+            </div>
+            <div class="who">
+              <div class="n">Rahul Mehta</div>
+              <div class="s">Enterprise prospect</div>
+            </div>
+            <ul>
+              <li class="row"><span class="dot"></span>200-member sales team</li>
+              <li class="row"><span class="dot"></span>Uses individual WhatsApp numbers</li>
+              <li class="row"><span class="dot"></span>Evaluating centralized governance</li>
+              <li class="row"><span class="dot"></span>Requested enterprise pricing</li>
+              <li class="row"><span class="dot"></span>Ready for sales discussion</li>
+            </ul>
+            <div class="tags row">
+              <span class="tag">Sentiment:<b>Positive</b></span>
+              <span class="tag">Intent:<b>High</b></span>
+            </div>
+            <div id="takeover" class="row">
+              Take Over Conversation
+              <svg width="22" height="22" viewBox="0 0 22 22"><path d="M5 11h12M12 6l5 5-5 5" fill="none" stroke="#04140c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="live row"><span class="dot live-dot"></span>Deepak is live in the chat</div>
+            </div>
+          </div>
+
+          <div id="channels">
+            <div class="mono">Connected channels</div>
+            <div class="chip row">
+              <svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.6 20.4l4.2-1.1A8.5 8.5 0 1 0 12 3.5z" fill="none" stroke="#9aa5a0" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              WhatsApp<span class="dot ok"></span>
+            </div>
+            <div class="chip row">
+              <svg width="24" height="24" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5" fill="none" stroke="#9aa5a0" stroke-width="1.6"/><circle cx="12" cy="12" r="3.6" fill="none" stroke="#9aa5a0" stroke-width="1.6"/></svg>
+              Instagram<span class="dot ok"></span>
+            </div>
+            <div class="chip row">
+              <svg width="24" height="24" viewBox="0 0 24 24"><path d="M4.5 5.5h15v10h-9l-4 3.5v-3.5h-2z" fill="none" stroke="#9aa5a0" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              SMS / RCS<span class="dot ok"></span>
+            </div>
+            <div class="chip row">
+              <svg width="24" height="24" viewBox="0 0 24 24"><path d="M7.5 4.5l2.2 3.8-1.6 1.7a10 10 0 0 0 5.9 5.9l1.7-1.6 3.8 2.2-.9 2.8c-6.7.4-13-5.9-12.6-12.6z" fill="none" stroke="#9aa5a0" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              Phone<span class="dot ok"></span>
+            </div>
+          </div>
+
+          <div id="owner" class="card">
+            <div class="mono">Owner</div>
+            <div class="ringwrap">
+              <img class="avatar" src="assets/img/deepak.jpg" width="66" height="66" alt="" />
+            </div>
+            <div class="n">Deepak</div>
+            <div class="s">Took over · 00:02</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- zoom-out: surrounding rep conversations (bridges S3 → S4) -->
+      <div id="m3" class="clip" data-start="18.9" data-duration="2.2" data-track-index="6">
+        <div class="ghost row" id="g1" style="left: 60px; top: 290px"><img class="avatar" src="assets/img/aliva.jpg" width="48" height="48" alt="" /><div><div class="gn">Aliva</div><div class="gl"></div></div></div>
+        <div class="ghost row" id="g2" style="left: 770px; top: 290px"><img class="avatar" src="assets/img/rashi.jpg" width="48" height="48" alt="" /><div><div class="gn">Rashi</div><div class="gl"></div></div></div>
+        <div class="ghost row" id="g3" style="left: 60px; top: 700px"><img class="avatar" src="assets/img/anshu.jpg" width="48" height="48" alt="" /><div><div class="gn">Anshu</div><div class="gl"></div></div></div>
+        <div class="ghost row" id="g4" style="left: 770px; top: 700px"><img class="avatar" src="assets/img/rahul.jpg" width="48" height="48" alt="" /><div><div class="gn">Rahul</div><div class="gl"></div></div></div>
+        <div class="ghost row" id="g5" style="left: 60px; top: 495px"><span class="dot"></span><div><div class="gn">+ 42 reps</div><div class="gl"></div></div></div>
+        <div class="ghost row" id="g6" style="left: 770px; top: 495px"><span class="dot"></span><div><div class="gn">1,284 live</div><div class="gl"></div></div></div>
+      </div>
+
+      <!-- ================= SCENE 4 — CXO CONTROL + GOVERNANCE ================= -->
+      <div id="s4" class="clip" data-start="19.2" data-duration="8.6" data-track-index="7">
+        <div class="cam">
+          <div class="eyebrow"><span class="dash"></span>Enterprise Governance<span class="dash"></span></div>
+          <h2 class="headline">
+            <span class="line"><span id="s4l1">Every rep.</span></span>
+            <span class="line"><span id="s4l2" class="hl">One command center.</span></span>
+          </h2>
+
+          <div id="cmd" class="card">
+            <div class="topbar row">
+              <div class="t">Command Center<span>All teams · Today</span></div>
+              <div class="live row mono"><span class="dot live-dot"></span>Live</div>
+            </div>
+            <div id="reps">
+              <div class="reprow row" id="r1">
+                <img class="avatar" src="assets/img/aliva.jpg" width="48" height="48" alt="" />
+                <div><div class="rn">Aliva</div><div class="rs row"><b>128</b> Active Conversations</div></div>
+              </div>
+              <div class="reprow row" id="r2">
+                <img class="avatar" src="assets/img/rashi.jpg" width="48" height="48" alt="" />
+                <div><div class="rn">Rashi</div><div class="rs row"><b>94</b> Active Conversations</div></div>
+              </div>
+              <div class="reprow row hot" id="r3">
+                <img class="avatar" src="assets/img/deepak.jpg" width="48" height="48" alt="" />
+                <div><div class="rn">Deepak</div><div class="rs row"><span class="dot live-dot" style="width: 8px; height: 8px"></span>Hot Lead Detected</div></div>
+              </div>
+              <div class="reprow row" id="r4">
+                <img class="avatar" src="assets/img/anshu.jpg" width="48" height="48" alt="" />
+                <div><div class="rn">Anshu</div><div class="rs row ok">SLA Healthy</div></div>
+              </div>
+              <div class="reprow row" id="r5">
+                <img class="avatar" src="assets/img/rahul.jpg" width="48" height="48" alt="" />
+                <div><div class="rn">Rahul</div><div class="rs row warn">Follow-up Pending</div></div>
+              </div>
+            </div>
+
+            <div id="gov">
+              <div class="mono">AI Governance</div>
+              <svg class="spark" viewBox="0 0 374 70" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#27b578" stop-opacity="0.35" />
+                    <stop offset="1" stop-color="#27b578" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path id="sparkArea" d="M0 52 L34 48 L68 50 L102 40 L136 43 L170 34 L204 37 L238 28 L272 30 L306 21 L340 24 L374 15 L374 70 L0 70 Z" fill="url(#sg)" />
+                <path id="sparkLine" d="M0 52 L34 48 L68 50 L102 40 L136 43 L170 34 L204 37 L238 28 L272 30 L306 21 L340 24 L374 15" fill="none" stroke="#27b578" stroke-width="2" />
+              </svg>
+              <div style="height: 74px"></div>
+              <div class="srow">
+                <div class="lbl row"><span>Positive</span><b id="p1">0%</b></div>
+                <div class="track"><div class="fillbar" id="b1" style="width: 72%; background: var(--green)"></div></div>
+              </div>
+              <div class="srow">
+                <div class="lbl row"><span>Attention</span><b id="p2">0%</b></div>
+                <div class="track"><div class="fillbar" id="b2" style="width: 19%; background: var(--amber)"></div></div>
+              </div>
+              <div class="srow">
+                <div class="lbl row"><span>Action Needed</span><b id="p3">0%</b></div>
+                <div class="track"><div class="fillbar" id="b3" style="width: 9%; background: var(--coral)"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- governance alerts: slide in over the governance column -->
+      <div id="m4" class="clip" data-start="24.6" data-duration="3.0" data-track-index="8">
+        <div class="alert row" id="al1" style="left: 616px; width: 364px; top: 764px">
+          <span class="ico" style="background: rgba(222, 73, 77, 0.16)"><span class="dot" style="background: var(--coral)"></span></span>
+          <div><div class="at">Negative sentiment detected</div><div class="as">Rahul's account · Auto-flagged</div></div>
+        </div>
+        <div class="alert row" id="al2" style="left: 616px; width: 364px; top: 764px">
+          <span class="ico" style="background: rgba(228, 176, 69, 0.16)"><span class="dot" style="background: var(--amber)"></span></span>
+          <div><div class="at">Customer waiting 12+ min</div><div class="as">Escalated to team lead</div></div>
+        </div>
+      </div>
+
+      <!-- ================= SCENE 5 — FINAL CTA ================= -->
+      <div id="s5" class="clip" data-start="26.8" data-duration="7.2" data-track-index="9">
+        <div id="s5glow"></div>
+        <div class="cam">
+          <div id="logo" class="row">
+            <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+              <rect width="64" height="64" rx="18" fill="#27b578" />
+              <path d="M13 33.5l7.5 7.5L36 25.5" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M28.5 38.5l2.5 2.5L50.5 21.5" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="word">DoubleTick</span>
+          </div>
+          <h2 class="headline hero">
+            <span class="line"><span id="s5l1">True Personalization</span></span>
+            <span class="line"><span id="s5l2" class="hl">at Scale.</span></span>
+          </h2>
+          <div class="support" id="s5sup">AI-powered conversations. Human-led revenue.</div>
+          <div id="cta" class="row">
+            Book an Executive Demo
+            <svg id="ctaArrow" width="28" height="28" viewBox="0 0 28 28"><path d="M6 14h15M15 7.5l6.5 6.5-6.5 6.5" fill="none" stroke="#04140c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="url" id="s5url">doubletick.io</div>
+        </div>
+      </div>
+
+      <!-- ================= CAPTIONS ================= -->
+      <div id="captions" class="clip" data-start="0" data-duration="34" data-track-index="11">
+        <div class="cap" id="c1"><span>Your buyers expect <em class="hl">personal conversations</em>.</span></div>
+        <div class="cap" id="c2"><span>Your revenue team needs <em class="hl">scale</em>.</span></div>
+        <div class="cap" id="c3"><span>With DoubleTick, you get both.</span></div>
+        <div class="cap" id="c4"><span>Run outreach from governed rep profiles</span></div>
+        <div class="cap" id="c5"><span>while <em class="hl">AI</em> engages and qualifies across <em class="hl">WhatsApp</em> and connected channels.</span></div>
+        <div class="cap" id="c6"><span>When a lead turns <em class="hl">hot</em>, your rep steps in</span></div>
+        <div class="cap" id="c7"><span>with an instant <em class="hl">AI summary</em> and <em class="hl">full customer context</em>.</span></div>
+        <div class="cap" id="c8"><span>Every number, rep and conversation stays visible in <em class="hl">one command center</em>,</span></div>
+        <div class="cap" id="c9"><span>with real-time <em class="hl">governance</em> and sentiment signals.</span></div>
+        <div class="cap" id="c10"><span>Scale revenue without losing the <em class="hl">human touch</em>.</span></div>
+        <div class="cap" id="c11"><span>Book your <em class="hl">DoubleTick</em> demo today.</span></div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const EIO = "power2.inOut";
+      const SPRING = "back.out(1.4)";
+
+      // ---------- centring transforms (GSAP-owned) ----------
+      gsap.set(["#pxs", "#hotEyebrow", "#cta"], { xPercent: -50 });
+      gsap.set(["#s5glow", "#logo"], { xPercent: -50, yPercent: -50 });
+
+      // ---------- initial states ----------
+      gsap.set(["#s1 .eyebrow", "#s2 .eyebrow", "#s4 .eyebrow"], { opacity: 0, y: 10 });
+      gsap.set(["#s1l1", "#s1l2", "#s2l1", "#s2l2", "#s3l1", "#s4l1", "#s4l2", "#s5l1", "#s5l2"], { yPercent: 110 });
+      gsap.set("#dash1", { opacity: 0, y: 24 });
+      gsap.set("#volCard", { opacity: 0, x: -30 });
+      gsap.set("#persCard", { opacity: 0, x: 30 });
+      gsap.set("#pxs", { opacity: 0, y: 8 });
+      gsap.set("#morph", { scaleX: 0, opacity: 0 });
+      gsap.set("#frame", { x: -224, y: 40, scaleX: 0.139, scaleY: 0.0036 });
+      gsap.set(["#phone", "#aiPanel"], { opacity: 0 });
+      gsap.set("#phone", { y: 20 });
+      gsap.set("#aiPanel", { x: -24 });
+      gsap.set(["#msg1", "#msg2", "#msg3"], { opacity: 0, y: 14 });
+      
+      gsap.set("#hotEyebrow", { opacity: 0 });
+      gsap.set("#toast", { opacity: 0, y: -18 });
+      gsap.set("#summary", { opacity: 0, y: 18 });
+      gsap.set("#summary li", { opacity: 0, y: 10 });
+      gsap.set("#summary .tags", { opacity: 0 });
+      gsap.set("#takeover", { opacity: 0, y: 10 });
+      gsap.set("#channels .mono, #channels .chip", { opacity: 0, x: 16 });
+      gsap.set("#owner", { opacity: 0, y: 24, scale: 0.92 });
+      gsap.set(".ghost", { opacity: 0, scale: 0.9 });
+      gsap.set("#cmd", { opacity: 0, y: 20 });
+      gsap.set(".reprow", { opacity: 0, x: -18 });
+      gsap.set("#gov", { opacity: 0, x: 18 });
+      gsap.set(["#b1", "#b2", "#b3"], { scaleX: 0 });
+      gsap.set(["#al1", "#al2"], { opacity: 0, x: 60 });
+      gsap.set("#s5glow", { opacity: 0, scale: 0.85 });
+      gsap.set("#logo", { opacity: 0, y: 330, scale: 0.9 });
+      gsap.set(["#s5sup", "#s5url"], { opacity: 0, y: 12 });
+      gsap.set("#cta", { opacity: 0, y: 16 });
+
+      // ---------- camera: slow push-ins / drift per scene ----------
+      tl.fromTo("#s1 .cam", { scale: 1 }, { scale: 1.03, duration: 7, ease: "none" }, 0);
+      tl.fromTo("#s2 .cam", { scale: 1.0, x: 6 }, { scale: 1.022, x: -6, duration: 7, ease: "none" }, 6.2);
+      tl.fromTo("#s3 .cam", { scale: 1 }, { scale: 1.03, duration: 5.9, ease: "none" }, 13.2);
+      tl.fromTo("#s4 .cam", { scale: 1.0, x: -5 }, { scale: 1.025, x: 5, duration: 7.4, ease: "none" }, 19.4);
+      tl.fromTo("#s5 .cam", { scale: 1 }, { scale: 1.02, duration: 7.2, ease: "none" }, 26.8);
+
+      // ================= SCENE 1 =================
+      tl.to("#s1 .eyebrow", { opacity: 1, y: 0, duration: 0.5, ease: E }, 0.15);
+      tl.to("#s1l1", { yPercent: 0, duration: 0.7, ease: E }, 0.3);
+      tl.to("#dash1", { opacity: 1, y: 0, duration: 0.7, ease: E }, 0.55);
+      tl.to("#persCard", { opacity: 1, x: 0, duration: 0.6, ease: E }, 0.8);
+      tl.to("#volCard", { opacity: 1, x: 0, duration: 0.6, ease: E }, 0.95);
+      // "personal conversations" → personal card glows
+      tl.to("#persGlow", { opacity: 1, duration: 0.4, ease: EIO }, 1.4);
+      tl.to("#persGlow", { opacity: 0, duration: 0.4, ease: EIO }, 2.7);
+      // lead counter runs up while "needs scale"
+      const counter = { v: 0 };
+      tl.to(
+        counter,
+        {
+          v: 24580,
+          duration: 1.8,
+          ease: "power2.out",
+          onUpdate: () => {
+            document.getElementById("leadCount").textContent = Math.round(counter.v).toLocaleString("en-US");
+          },
+        },
+        1.3,
+      );
+      tl.to("#volGlow", { opacity: 1, duration: 0.4, ease: EIO }, 3.0);
+      tl.fromTo("#lm1", { y: 0 }, { y: -4, duration: 0.3, ease: E, yoyo: true, repeat: 3 }, 3.0);
+      tl.to("#volGlow", { opacity: 0, duration: 0.4, ease: EIO }, 4.4);
+      // "With DoubleTick, you get both" → both sides move toward the middle, green connector joins them
+      tl.to("#volCard", { x: 40, duration: 0.6, ease: EIO }, 4.6);
+      tl.to("#persCard", { x: -40, duration: 0.6, ease: EIO }, 4.6);
+      tl.to("#morph", { opacity: 1, scaleX: 1, duration: 0.5, ease: E }, 5.0);
+      tl.to(["#volGlow", "#persGlow"], { opacity: 0.8, duration: 0.5, ease: EIO }, 5.0);
+      tl.to("#pxs", { opacity: 1, y: 0, duration: 0.5, ease: E }, 5.1);
+      tl.to("#s1l2", { yPercent: 0, duration: 0.7, ease: E }, 4.75);
+      // transition: scene recedes, the connector grows into the phone frame
+      tl.to("#s1 .cam", { opacity: 0, y: -20, duration: 0.5, ease: EIO }, 6.35);
+      tl.set("#frame", { opacity: 1 }, 6.3);
+      tl.set("#morph", { opacity: 0 }, 6.3);
+      tl.to("#frame", { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 0.6, ease: EIO }, 6.3);
+      tl.to("#frame", { backgroundColor: "rgba(39,181,120,0)", duration: 0.16, ease: "power1.out" }, 6.32);
+      tl.to("#frame", { opacity: 0, duration: 0.4, ease: EIO }, 6.95);
+
+      // ================= SCENE 2 =================
+      tl.to("#phone", { opacity: 1, y: 0, duration: 0.5, ease: E }, 6.75);
+      tl.to("#s2 .eyebrow", { opacity: 1, y: 0, duration: 0.5, ease: E }, 6.8);
+      tl.to("#s2l1", { yPercent: 0, duration: 0.6, ease: E }, 6.9);
+      tl.to("#s2l2", { yPercent: 0, duration: 0.6, ease: E }, 7.08);
+      tl.to("#aiPanel", { opacity: 1, x: 0, duration: 0.6, ease: E }, 7.3);
+      tl.to("#msg1", { opacity: 1, y: 0, duration: 0.45, ease: SPRING }, 7.4);
+      tl.to("#msg2", { opacity: 1, y: 0, duration: 0.45, ease: SPRING }, 8.7);
+      tl.to("#msg3", { opacity: 1, y: 0, duration: 0.45, ease: SPRING }, 10.5);
+      [
+        ["#ck1", 8.0],
+        ["#ck2", 9.0],
+        ["#ck3", 10.2],
+        ["#ck4", 11.4],
+      ].forEach(([id, t]) => {
+        tl.fromTo(`${id} .fill`, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.35, ease: SPRING }, t);
+        tl.to(id, { color: "#f4f7f5", duration: 0.3 }, t);
+      });
+      // PROSPECT → HOT LEAD
+      tl.to("#leadPill .pro", { opacity: 0, duration: 0.25 }, 12.3);
+      tl.to("#leadPill .bg", { opacity: 1, duration: 0.3, ease: E }, 12.3);
+      tl.to("#leadPill .hot", { opacity: 1, duration: 0.3, ease: E }, 12.4);
+      tl.fromTo("#leadPill .pulse", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 1.35, duration: 0.8, ease: "power2.out" }, 12.4);
+      tl.fromTo("#leadPill", { scale: 1 }, { scale: 1.08, duration: 0.25, ease: E, yoyo: true, repeat: 1 }, 12.35);
+      // transition: HOT LEAD pill lifts off and expands into the scene-3 eyebrow
+      tl.set("#hotCarrier", { opacity: 1 }, 13.15);
+      tl.set("#leadPill", { opacity: 0 }, 13.15);
+      tl.to("#s2 .cam", { opacity: 0, scale: 1.05, duration: 0.5, ease: EIO }, 13.2);
+      tl.to("#hotCarrier", { x: 127, y: -620, scale: 1.12, duration: 0.65, ease: EIO }, 13.2);
+      tl.to("#hotCarrier", { opacity: 0, duration: 0.3 }, 13.8);
+
+      // ================= SCENE 3 =================
+      tl.to("#hotEyebrow", { opacity: 1, duration: 0.35, ease: E }, 13.72);
+      tl.to("#s3l1", { yPercent: 0, duration: 0.6, ease: E }, 13.9);
+      tl.to("#toast", { opacity: 1, y: 0, duration: 0.5, ease: SPRING }, 14.0);
+      tl.to("#toast", { opacity: 0, y: -10, scale: 0.96, duration: 0.4, ease: EIO }, 15.0);
+      tl.to("#summary", { opacity: 1, y: 0, duration: 0.6, ease: SPRING }, 15.05);
+      tl.to("#summary li", { opacity: 1, y: 0, duration: 0.4, ease: E, stagger: 0.18 }, 15.4);
+      tl.to("#summary .tags", { opacity: 1, duration: 0.4, ease: E }, 16.4);
+      tl.to("#channels .mono, #channels .chip", { opacity: 1, x: 0, duration: 0.4, ease: E, stagger: 0.12 }, 16.3);
+      tl.to("#takeover", { opacity: 1, y: 0, duration: 0.45, ease: E }, 17.1);
+      // rep activates takeover
+      tl.to("#takeover", { scale: 0.97, duration: 0.12, ease: "power1.in" }, 17.82);
+      tl.to("#takeover", { scale: 1, duration: 0.25, ease: SPRING }, 17.94);
+      tl.to("#takeover .live", { opacity: 1, duration: 0.18, ease: E }, 17.95);
+      // AI state moves back in depth, human owner comes forward
+      tl.to("#summary", { scale: 0.965, opacity: 0.72, duration: 0.6, ease: EIO }, 18.05);
+      tl.to("#channels", { opacity: 0.55, duration: 0.6, ease: EIO }, 18.05);
+      tl.to("#owner", { opacity: 1, y: 0, scale: 1.04, duration: 0.6, ease: SPRING }, 18.1);
+      // transition: pull back to reveal the other reps' conversations
+      tl.to("#s3 .cam", { scale: 0.42, opacity: 0, duration: 0.8, ease: EIO }, 19.15);
+      tl.to(".ghost", { opacity: 1, scale: 1, duration: 0.45, ease: E, stagger: 0.05 }, 19.2);
+      tl.to(
+        ".ghost",
+        { x: (i) => [180, -510, 180, -510, 180, -510][i], y: (i) => [110, 180, -130, -60, 30, 100][i], scale: 0.7, opacity: 0, duration: 0.6, ease: EIO, stagger: 0.04 },
+        19.95,
+      );
+
+      // ================= SCENE 4 =================
+      tl.to("#s4 .eyebrow", { opacity: 1, y: 0, duration: 0.5, ease: E }, 19.7);
+      tl.to("#s4l1", { yPercent: 0, duration: 0.6, ease: E }, 19.85);
+      tl.to("#cmd", { opacity: 1, y: 0, duration: 0.6, ease: E }, 20.0);
+      tl.to(".reprow", { opacity: 1, x: 0, duration: 0.45, ease: E, stagger: 0.28 }, 20.3);
+      tl.to("#s4l2", { yPercent: 0, duration: 0.65, ease: E }, 22.9);
+      tl.to("#gov", { opacity: 1, x: 0, duration: 0.55, ease: E }, 22.7);
+      tl.fromTo("#sparkLine", { strokeDasharray: 420, strokeDashoffset: 420 }, { strokeDashoffset: 0, duration: 1.4, ease: "power1.inOut" }, 23.0);
+      tl.fromTo("#sparkArea", { opacity: 0 }, { opacity: 1, duration: 1.2, ease: "power1.inOut" }, 23.2);
+      const pct = { a: 0, b: 0, c: 0 };
+      tl.to("#b1", { scaleX: 1, duration: 0.9, ease: E }, 24.0);
+      tl.to("#b2", { scaleX: 1, duration: 0.9, ease: E }, 24.12);
+      tl.to("#b3", { scaleX: 1, duration: 0.9, ease: E }, 24.24);
+      tl.to(
+        pct,
+        {
+          a: 72,
+          b: 19,
+          c: 9,
+          duration: 0.9,
+          ease: E,
+          onUpdate: () => {
+            document.getElementById("p1").textContent = Math.round(pct.a) + "%";
+            document.getElementById("p2").textContent = Math.round(pct.b) + "%";
+            document.getElementById("p3").textContent = Math.round(pct.c) + "%";
+          },
+        },
+        24.0,
+      );
+      tl.to("#al1", { opacity: 1, x: 0, duration: 0.5, ease: E }, 24.95);
+      tl.to("#al1", { opacity: 0, y: -16, duration: 0.35, ease: EIO }, 25.8);
+      tl.to("#al2", { opacity: 1, x: 0, duration: 0.5, ease: E }, 25.95);
+      tl.to("#r3", { boxShadow: "0 0 30px rgba(39,181,120,0.25)", duration: 0.5, ease: EIO }, 21.0);
+      // transition: rep cards collapse toward the centre, dashboard falls back, brand emerges
+      tl.to("#al2", { opacity: 0, x: 30, duration: 0.35, ease: EIO }, 26.75);
+      tl.to(".reprow", { x: 170, y: (i) => (2 - i) * 70, scale: 0.6, opacity: 0, duration: 0.6, ease: EIO, stagger: 0.03 }, 26.8);
+      tl.to("#gov", { x: -150, scale: 0.7, opacity: 0, duration: 0.6, ease: EIO }, 26.85);
+      tl.to("#s4 .cam", { scale: 0.9, opacity: 0, duration: 0.6, ease: EIO }, 27.0);
+
+      // ================= SCENE 5 =================
+      tl.to("#s5glow", { opacity: 1, scale: 1, duration: 1.2, ease: EIO }, 26.95);
+      tl.to("#logo", { opacity: 1, scale: 1, duration: 0.5, ease: E }, 27.2);
+      tl.to("#logo", { y: 0, duration: 0.65, ease: EIO }, 27.65);
+      tl.to("#s5l1", { yPercent: 0, duration: 0.7, ease: E }, 28.3);
+      tl.to("#s5l2", { yPercent: 0, duration: 0.7, ease: E }, 28.5);
+      tl.to("#s5sup", { opacity: 1, y: 0, duration: 0.5, ease: E }, 28.95);
+      tl.to("#cta", { opacity: 1, y: 0, duration: 0.55, ease: SPRING }, 29.35);
+      tl.fromTo("#ctaArrow", { x: 0 }, { x: 5, duration: 0.35, ease: "power2.out", yoyo: true, repeat: 1 }, 29.9);
+      tl.to("#s5url", { opacity: 1, y: 0, duration: 0.5, ease: E }, 29.7);
+      tl.fromTo(
+        "#cta",
+        { boxShadow: "0 18px 50px rgba(39,181,120,0.32), 0 0 0 1px rgba(255,255,255,0.12) inset" },
+        { boxShadow: "0 18px 70px rgba(39,181,120,0.5), 0 0 0 1px rgba(255,255,255,0.16) inset", duration: 0.8, ease: EIO, yoyo: true, repeat: 1 },
+        31.2,
+      );
+
+      // ================= CAPTIONS =================
+      const caps = [
+        ["#c1", 0.35, 2.85],
+        ["#c2", 2.85, 4.62],
+        ["#c3", 4.62, 6.55],
+        ["#c4", 6.62, 9.4],
+        ["#c5", 9.4, 13.62],
+        ["#c6", 13.8, 16.5],
+        ["#c7", 16.5, 19.6],
+        ["#c8", 19.95, 24.4],
+        ["#c9", 24.4, 27.4],
+        ["#c10", 27.55, 30.7],
+        ["#c11", 31.05, 34.0],
+      ];
+      caps.forEach(([id, a, b], i) => {
+        const next = caps[i + 1];
+        const gapless = next && Math.abs(next[1] - b) < 0.05;
+        tl.fromTo(id, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25, ease: E, immediateRender: false }, a);
+        if (b < 34) tl.to(id, { opacity: 0, y: gapless ? -4 : 0, duration: gapless ? 0.15 : 0.25, ease: EIO }, b - (gapless ? 0.12 : 0.2));
+      });
+
+      tl.set({}, {}, 34);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
