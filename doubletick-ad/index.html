@@ -26,20 +26,22 @@
         font-display: block;
       }
       :root {
-        --bg: #07090a;
-        --surface: #0e1312;
-        --surface-2: #131a18;
-        --surface-3: #18201e;
-        --border: rgba(255, 255, 255, 0.09);
-        --border-strong: rgba(255, 255, 255, 0.14);
-        --text: #f4f7f5;
-        --text-2: #c9d1cd;
-        --muted: #9aa5a0;
+        --bg: #f5efe4; /* warm DoubleTick-style beige canvas */
+        --surface: #ffffff;
+        --surface-2: #fffdf9;
+        --surface-3: #fbf7f0;
+        --border: rgba(52, 40, 20, 0.1);
+        --border-strong: rgba(52, 40, 20, 0.16);
+        --text: #0e1b14;
+        --text-2: #33413a;
+        --muted: #5f6b64;
         --green: #27b578; /* DoubleTick emerald (from doubletick.io brand kit) */
+        --green-text: #08774a; /* emerald, deepened for text on light surfaces */
         --green-deep: #005f33;
         --green-ink: #042717;
         --green-soft: rgba(39, 181, 120, 0.14);
         --amber: #e4b045;
+        --amber-text: #a8680d;
         --coral: #de494d;
         --r-card: 20px;
         --r-sm: 14px;
@@ -85,16 +87,16 @@
       /* ---------- ambient background ---------- */
       #ambient {
         background:
-          radial-gradient(700px 420px at 50% -8%, rgba(39, 181, 120, 0.16), transparent 70%),
-          radial-gradient(600px 500px at 110% 110%, rgba(0, 95, 51, 0.18), transparent 70%),
+          radial-gradient(700px 420px at 50% -8%, rgba(39, 181, 120, 0.12), transparent 70%),
+          radial-gradient(600px 500px at 110% 110%, rgba(39, 181, 120, 0.1), transparent 70%),
           var(--bg);
       }
       #ambient .grid {
         position: absolute;
         inset: 0;
         background-image:
-          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+          linear-gradient(rgba(60, 45, 20, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(60, 45, 20, 0.05) 1px, transparent 1px);
         background-size: 54px 54px;
         mask-image: radial-gradient(ellipse at 50% 45%, black 20%, transparent 75%);
       }
@@ -121,7 +123,7 @@
         margin: 0 14px 3px;
       }
       .hl {
-        color: var(--green);
+        color: var(--green-text);
         font-style: normal;
       }
       .headline {
@@ -153,8 +155,8 @@
         border: 1px solid var(--border);
         border-radius: var(--r-card);
         box-shadow:
-          0 24px 60px rgba(0, 0, 0, 0.45),
-          inset 0 1px 0 rgba(255, 255, 255, 0.04);
+          0 22px 50px rgba(70, 52, 20, 0.1),
+          0 2px 6px rgba(70, 52, 20, 0.05);
       }
       .mono {
         font-family: "Geist Mono", ui-monospace, monospace;
@@ -186,12 +188,12 @@
       }
 
       /* ---------- SCENE 1 ---------- */
-      #s1 .eyebrow {
-        top: 108px;
-      }
       #s1 .headline {
-        top: 150px;
+        top: 140px;
         font-size: 70px;
+      }
+      #s1l2 {
+        font-size: 58px;
       }
       #dash1 {
         left: 80px;
@@ -199,7 +201,7 @@
         width: 920px;
         height: 468px;
         border-radius: 24px;
-        background: rgba(14, 19, 18, 0.72);
+        background: rgba(255, 255, 255, 0.62);
       }
       #dash1 .topbar {
         position: absolute;
@@ -222,7 +224,7 @@
       }
       #dash1 .topbar .live {
         gap: 10px;
-        color: var(--green);
+        color: var(--green-text);
       }
       .s1card {
         position: absolute;
@@ -270,7 +272,7 @@
         height: 50px;
         border-radius: 12px;
         border: 1px solid var(--border);
-        background: #1c2522;
+        background: #ffffff;
         padding: 0 16px;
         gap: 12px;
         font-size: 22px;
@@ -279,7 +281,7 @@
       .leadstack .mini .bar {
         height: 8px;
         border-radius: 4px;
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(20, 30, 25, 0.1);
       }
       #persCard .prep {
         margin-top: 18px;
@@ -295,8 +297,8 @@
       }
       #persCard .bubble {
         margin-top: 18px;
-        background: #1f2a26;
-        border: 1px solid rgba(39, 181, 120, 0.25);
+        background: #eef8f2;
+        border: 1px solid rgba(39, 181, 120, 0.3);
         border-radius: 16px 16px 16px 4px;
         padding: 14px 16px;
         font-size: 22px;
@@ -309,7 +311,7 @@
         bottom: 22px;
         gap: 10px;
         font-size: 22px;
-        color: var(--green);
+        color: var(--green-text);
       }
       .cardglow {
         position: absolute;
@@ -327,8 +329,8 @@
         padding: 10px 20px;
         border-radius: 999px;
         border: 1px solid rgba(39, 181, 120, 0.45);
-        background: rgba(4, 39, 23, 0.9);
-        color: var(--text);
+        background: #042717;
+        color: #ffffff;
         font-size: 20px;
         letter-spacing: 0.2em;
         box-shadow: 0 0 30px rgba(39, 181, 120, 0.2);
@@ -374,73 +376,136 @@
         font-weight: 650;
         letter-spacing: -0.025em;
       }
+      /* WhatsApp (light) conversation UI */
       #phone {
         left: 548px;
         top: 292px;
         width: 432px;
         height: 560px;
         border-radius: 40px;
-        background: #0b100f;
-        border: 1px solid var(--border-strong);
+        background-color: #efeae2;
+        background-image:
+          radial-gradient(rgba(84, 101, 111, 0.09) 1.4px, transparent 1.6px),
+          radial-gradient(rgba(84, 101, 111, 0.06) 1.2px, transparent 1.4px);
+        background-size: 26px 26px, 26px 26px;
+        background-position: 0 0, 13px 13px;
+        border: 1px solid rgba(0, 0, 0, 0.12);
         overflow: hidden;
       }
       #phone .ph-head {
         height: 88px;
-        padding: 0 22px;
-        gap: 14px;
-        background: #121917;
-        border-bottom: 1px solid var(--border);
+        padding: 0 18px 0 12px;
+        gap: 12px;
+        background: #008069;
+        color: #ffffff;
       }
       #phone .ph-name {
-        font-size: 23px;
+        font-size: 22px;
         font-weight: 600;
+        white-space: nowrap;
       }
       #phone .ph-name span {
-        color: var(--muted);
         font-weight: 400;
+        opacity: 0.85;
       }
       #phone .ph-verified {
         gap: 6px;
-        font-size: 20px;
-        color: var(--green);
-        margin-top: 3px;
+        font-size: 18px;
+        color: #ffffff;
+        margin-top: 2px;
+      }
+      #phone .ph-icons {
+        margin-left: auto;
+        gap: 18px;
+      }
+      #phone .daychip {
+        position: absolute;
+        left: 50%;
+        top: 102px;
+        transform: translateX(-50%);
+        padding: 4px 12px;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #54656f;
+        font-size: 16px;
+        letter-spacing: 0.04em;
+        box-shadow: 0 1px 1px rgba(11, 20, 26, 0.12);
       }
       #phone .msgs {
         position: absolute;
-        left: 18px;
-        right: 18px;
-        top: 106px;
+        left: 16px;
+        right: 16px;
+        top: 146px;
       }
       .msg {
-        max-width: 316px;
-        padding: 12px 16px;
+        position: relative;
+        max-width: 322px;
+        width: fit-content;
+        padding: 9px 12px 8px 14px;
         font-size: 22px;
         line-height: 1.34;
-        border-radius: 18px;
-        margin-bottom: 14px;
+        color: #111b21;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        box-shadow: 0 1px 1px rgba(11, 20, 26, 0.13);
       }
       .msg.in {
-        background: #1c2422;
-        border-bottom-left-radius: 6px;
-        border: 1px solid var(--border);
+        background: #ffffff;
+        border-top-left-radius: 0;
       }
       .msg.out {
         margin-left: auto;
-        background: #0f4a31;
-        border-bottom-right-radius: 6px;
+        background: #d9fdd3;
+        border-top-right-radius: 0;
+      }
+      .msg .meta {
+        float: right;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin: 10px 0 -4px 12px;
+        font-size: 15px;
+        color: #667781;
+      }
+      .msg .ticks {
+        position: relative;
+        width: 18px;
+        height: 12px;
+      }
+      .msg .ticks svg {
+        position: absolute;
+        inset: 0;
+      }
+      .msg .ticks .read {
+        opacity: 0;
       }
       #phone .ph-input {
         position: absolute;
-        left: 18px;
-        right: 18px;
-        bottom: 18px;
-        height: 54px;
-        border-radius: 27px;
-        background: #151c1a;
-        border: 1px solid var(--border);
-        padding: 0 20px;
+        left: 12px;
+        right: 12px;
+        bottom: 14px;
+        height: 56px;
+        gap: 10px;
+      }
+      #phone .ph-input .field {
+        flex: 1;
+        height: 56px;
+        border-radius: 28px;
+        background: #ffffff;
+        padding: 0 16px;
+        gap: 12px;
         font-size: 20px;
-        color: #8a9590;
+        color: #5d6c75;
+        box-shadow: 0 1px 1px rgba(11, 20, 26, 0.1);
+      }
+      #phone .ph-input .mic {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: #00a884;
+        display: grid;
+        place-items: center;
+        flex: none;
       }
       #aiPanel {
         left: 80px;
@@ -448,13 +513,13 @@
         width: 436px;
         height: 424px;
         padding: 26px 26px;
-        background: linear-gradient(180deg, rgba(19, 26, 24, 0.92), rgba(12, 17, 16, 0.92));
+        background: linear-gradient(180deg, #ffffff, #fcf9f3);
       }
       #aiPanel .ai-head {
         justify-content: space-between;
       }
       #aiPanel .ai-head .mono {
-        color: var(--green);
+        color: var(--green-text);
       }
       #aiPanel .ai-sub {
         margin-top: 6px;
@@ -472,7 +537,7 @@
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        border: 1.5px solid rgba(255, 255, 255, 0.22);
+        border: 1.5px solid rgba(20, 30, 25, 0.25);
         flex: none;
       }
       .check .ring .fill {
@@ -512,8 +577,9 @@
         padding: 0 18px;
       }
       #leadPill {
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        background: #1a2220;
+        border: 1px solid rgba(20, 30, 25, 0.2);
+        background: #f3eee5;
+        color: var(--muted);
       }
       #leadPill .hot {
         color: #04140c;
@@ -544,8 +610,8 @@
         gap: 12px;
         border-radius: 999px;
         border: 1px solid rgba(39, 181, 120, 0.5);
-        background: rgba(4, 39, 23, 0.85);
-        color: var(--green);
+        background: #042717;
+        color: #5fd8a2;
         white-space: nowrap;
         font-family: "Geist Mono", monospace;
         font-size: 20px;
@@ -588,7 +654,7 @@
         justify-content: space-between;
       }
       #summary .sum-head .mono {
-        color: var(--green);
+        color: var(--green-text);
       }
       #summary .sum-head .src {
         font-size: 20px;
@@ -632,7 +698,7 @@
         border-radius: 10px;
         font-size: 21px;
         background: var(--green-soft);
-        color: #8fe0b9;
+        color: #08774a;
         border: 1px solid rgba(39, 181, 120, 0.3);
         display: flex;
         align-items: center;
@@ -661,9 +727,9 @@
         position: absolute;
         inset: 0;
         border-radius: 14px;
-        background: #0f3b27;
+        background: #042717;
         border: 1px solid rgba(39, 181, 120, 0.6);
-        color: var(--text);
+        color: #ffffff;
         justify-content: center;
         gap: 12px;
         opacity: 0;
@@ -707,11 +773,11 @@
         padding: 22px;
         border-color: rgba(39, 181, 120, 0.45);
         box-shadow:
-          0 30px 70px rgba(0, 0, 0, 0.55),
-          0 0 40px rgba(39, 181, 120, 0.18);
+          0 26px 60px rgba(70, 52, 20, 0.16),
+          0 0 40px rgba(39, 181, 120, 0.2);
       }
       #owner .mono {
-        color: var(--green);
+        color: var(--green-text);
         font-size: 18px;
       }
       #owner .ringwrap {
@@ -743,7 +809,7 @@
         border-radius: 16px;
         background: var(--surface-2);
         border: 1px solid var(--border);
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+        box-shadow: 0 16px 36px rgba(70, 52, 20, 0.12);
       }
       .ghost .gn {
         font-size: 22px;
@@ -754,7 +820,7 @@
         height: 8px;
         width: 130px;
         border-radius: 4px;
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(20, 30, 25, 0.1);
       }
 
       /* ---------- SCENE 4 ---------- */
@@ -773,7 +839,7 @@
         width: 920px;
         height: 540px;
         border-radius: 24px;
-        background: rgba(14, 19, 18, 0.8);
+        background: rgba(255, 255, 255, 0.7);
         overflow: hidden;
       }
       #cmd .topbar {
@@ -797,7 +863,7 @@
       }
       #cmd .topbar .live {
         gap: 10px;
-        color: var(--green);
+        color: var(--green-text);
       }
       #reps {
         position: absolute;
@@ -811,8 +877,8 @@
         gap: 16px;
         border-radius: 16px;
         margin-bottom: 6px;
-        background: rgba(255, 255, 255, 0.025);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: #ffffff;
+        border: 1px solid rgba(52, 40, 20, 0.08);
       }
       .reprow .rn {
         font-size: 24px;
@@ -833,13 +899,13 @@
         background: rgba(39, 181, 120, 0.08);
       }
       .reprow.hot .rs {
-        color: var(--green);
+        color: var(--green-text);
       }
       .reprow .rs.ok {
-        color: #7fd6ac;
+        color: #08774a;
       }
       .reprow .rs.warn {
-        color: var(--amber);
+        color: var(--amber-text);
       }
       #gov {
         position: absolute;
@@ -854,7 +920,7 @@
         overflow: hidden;
       }
       #gov .mono {
-        color: var(--green);
+        color: var(--green-text);
       }
       #gov .spark {
         position: absolute;
@@ -881,7 +947,7 @@
         margin-top: 8px;
         height: 6px;
         border-radius: 3px;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(20, 30, 25, 0.08);
         overflow: hidden;
       }
       .srow .fillbar {
@@ -904,9 +970,9 @@
         padding: 0 14px;
         gap: 12px;
         border-radius: 14px;
-        background: #1d2623;
+        background: #ffffff;
         border: 1px solid var(--border-strong);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 12px 30px rgba(70, 52, 20, 0.14);
       }
       .alert .at {
         font-size: 22px;
@@ -936,8 +1002,8 @@
         height: 900px;
         background: radial-gradient(
           closest-side,
-          rgba(39, 181, 120, 0.3),
-          rgba(0, 95, 51, 0.14) 45%,
+          rgba(39, 181, 120, 0.2),
+          rgba(39, 181, 120, 0.08) 45%,
           transparent 100%
         );
       }
@@ -1020,11 +1086,12 @@
         max-width: 900px;
         padding: 10px 20px 12px;
         border-radius: 12px;
-        background: rgba(6, 9, 8, 0.62);
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 6px 20px rgba(70, 52, 20, 0.08);
         font-size: 32px;
         font-weight: 500;
         line-height: 1.32;
-        color: #f2f5f3;
+        color: #0e1b14;
         letter-spacing: -0.005em;
       }
       .cap .hl {
@@ -1058,7 +1125,6 @@
       <!-- ================= SCENE 1 — EXECUTIVE HOOK ================= -->
       <div id="s1" class="clip" data-start="0" data-duration="7" data-track-index="1">
         <div class="cam">
-          <div class="eyebrow"><span class="dash"></span>For Sales CXOs<span class="dash"></span></div>
           <h1 class="headline hero">
             <span class="line"><span id="s1l1">Scale vs. Personalization?</span></span>
             <span class="line"><span id="s1l2">You <em class="hl">don't have to choose.</em></span></span>
@@ -1163,23 +1229,34 @@
 
           <div id="phone" class="card">
             <div class="ph-head row">
-              <img class="avatar" src="assets/img/deepak.jpg" width="50" height="50" alt="" />
+              <svg width="22" height="22" viewBox="0 0 22 22"><path d="M14 4l-7 7 7 7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <img class="avatar" src="assets/img/deepak.jpg" width="48" height="48" alt="" />
               <div>
                 <div class="ph-name">Deepak <span>| Sales Lead</span></div>
                 <div class="ph-verified row">
-                  <svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="8" fill="#27b578"/><path d="M5.2 9.3l2.4 2.3 5-5" fill="none" stroke="#04140c" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  Verified business
+                  <svg width="16" height="16" viewBox="0 0 18 18"><circle cx="9" cy="9" r="8" fill="#25d366"/><path d="M5.2 9.3l2.4 2.3 5-5" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Business account
                 </div>
               </div>
-            </div>
-            <div class="msgs">
-              <div class="msg out" id="msg1">We're evaluating this for a 200-member sales team.</div>
-              <div class="msg in" id="msg2">
-                Absolutely. Are your teams currently using individual WhatsApp numbers or a shared setup?
+              <div class="ph-icons row">
+                <svg width="24" height="24" viewBox="0 0 24 24"><rect x="2.5" y="6.5" width="13" height="11" rx="2.5" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M15.5 10.5l5-3v9l-5-3z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24"><path d="M7.5 3.5l2.2 3.8-1.6 1.7a10 10 0 0 0 5.9 5.9l1.7-1.6 3.8 2.2-.9 2.8c-6.7.4-13-5.9-12.6-12.6z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg>
               </div>
-              <div class="msg out" id="msg3">Mostly individual numbers.</div>
             </div>
-            <div class="ph-input row">Message</div>
+            <div class="daychip">TODAY</div>
+            <div class="msgs">
+              <div class="msg out" id="msg1">We're evaluating this for a 200-member sales team.<span class="meta">10:42<span class="ticks"><svg viewBox="0 0 18 12" width="18" height="12"><path d="M1 6.5l3 3L10 2.5M7 8.5l1 1L15 2.5" fill="none" stroke="#8696a0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="read" viewBox="0 0 18 12" width="18" height="12"><path d="M1 6.5l3 3L10 2.5M7 8.5l1 1L15 2.5" fill="none" stroke="#53bdeb" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></div>
+              <div class="msg in" id="msg2">Absolutely. Are your teams currently using individual WhatsApp numbers or a shared setup?<span class="meta">10:42</span></div>
+              <div class="msg out" id="msg3">Mostly individual numbers.<span class="meta">10:43<span class="ticks"><svg viewBox="0 0 18 12" width="18" height="12"><path d="M1 6.5l3 3L10 2.5M7 8.5l1 1L15 2.5" fill="none" stroke="#8696a0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="read" viewBox="0 0 18 12" width="18" height="12"><path d="M1 6.5l3 3L10 2.5M7 8.5l1 1L15 2.5" fill="none" stroke="#53bdeb" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></div>
+            </div>
+            <div class="ph-input row">
+              <div class="field row">
+                <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#8696a0" stroke-width="1.7"/><circle cx="9" cy="10" r="1.2" fill="#8696a0"/><circle cx="15" cy="10" r="1.2" fill="#8696a0"/><path d="M8.5 14.5c1.8 2 5.2 2 7 0" fill="none" stroke="#8696a0" stroke-width="1.7" stroke-linecap="round"/></svg>
+                Message
+                <svg style="margin-left:auto" width="22" height="22" viewBox="0 0 24 24"><path d="M15.5 7.5l-7 7a2 2 0 0 0 2.8 2.8l7.5-7.5a4 4 0 0 0-5.7-5.7L5.4 11.8" fill="none" stroke="#8696a0" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </div>
+              <div class="mic"><svg width="22" height="22" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3" fill="#fff"/><path d="M6 11.5a6 6 0 0 0 12 0M12 17.5v3" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            </div>
           </div>
         </div>
       </div>
@@ -1408,7 +1485,7 @@
       gsap.set(["#s5glow", "#logo"], { xPercent: -50, yPercent: -50 });
 
       // ---------- initial states ----------
-      gsap.set(["#s1 .eyebrow", "#s2 .eyebrow", "#s4 .eyebrow"], { opacity: 0, y: 10 });
+      gsap.set(["#s2 .eyebrow", "#s4 .eyebrow"], { opacity: 0, y: 10 });
       gsap.set(["#s1l1", "#s1l2", "#s2l1", "#s2l2", "#s3l1", "#s4l1", "#s4l2", "#s5l1", "#s5l2"], { yPercent: 110 });
       gsap.set("#dash1", { opacity: 0, y: 24 });
       gsap.set("#volCard", { opacity: 0, x: -30 });
@@ -1448,7 +1525,6 @@
       tl.fromTo("#s5 .cam", { scale: 1 }, { scale: 1.02, duration: 7.2, ease: "none" }, 26.8);
 
       // ================= SCENE 1 =================
-      tl.to("#s1 .eyebrow", { opacity: 1, y: 0, duration: 0.5, ease: E }, 0.15);
       tl.to("#s1l1", { yPercent: 0, duration: 0.7, ease: E }, 0.3);
       tl.to("#dash1", { opacity: 1, y: 0, duration: 0.7, ease: E }, 0.55);
       tl.to("#persCard", { opacity: 1, x: 0, duration: 0.6, ease: E }, 0.8);
@@ -1495,8 +1571,10 @@
       tl.to("#s2l2", { yPercent: 0, duration: 0.6, ease: E }, 7.08);
       tl.to("#aiPanel", { opacity: 1, x: 0, duration: 0.6, ease: E }, 7.3);
       tl.to("#msg1", { opacity: 1, y: 0, duration: 0.45, ease: SPRING }, 7.4);
+      tl.to("#msg1 .ticks .read", { opacity: 1, duration: 0.25, ease: E }, 8.45);
       tl.to("#msg2", { opacity: 1, y: 0, duration: 0.45, ease: SPRING }, 8.7);
       tl.to("#msg3", { opacity: 1, y: 0, duration: 0.45, ease: SPRING }, 10.5);
+      tl.to("#msg3 .ticks .read", { opacity: 1, duration: 0.25, ease: E }, 11.3);
       [
         ["#ck1", 8.0],
         ["#ck2", 9.0],
@@ -1504,7 +1582,7 @@
         ["#ck4", 11.4],
       ].forEach(([id, t]) => {
         tl.fromTo(`${id} .fill`, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.35, ease: SPRING }, t);
-        tl.to(id, { color: "#f4f7f5", duration: 0.3 }, t);
+        tl.to(id, { color: "#0e1b14", duration: 0.3 }, t);
       });
       // PROSPECT → HOT LEAD
       tl.to("#leadPill .pro", { opacity: 0, duration: 0.25 }, 12.3);
