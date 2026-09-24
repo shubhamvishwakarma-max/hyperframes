@@ -1,0 +1,307 @@
+[
+ {
+  "clip": "narrator/narrator_01",
+  "orig_start": 1.08,
+  "new_start": 1.08,
+  "shift": 0.0,
+  "end": 12.316,
+  "dur": 11.236,
+  "tempo": 1.046,
+  "steps": [
+   "pauses 11.90->11.73s",
+   "tempo x1.046"
+  ],
+  "spill_into_next_gap": 0.016
+ },
+ {
+  "clip": "narrator/narrator_02",
+  "orig_start": 12.55,
+  "new_start": 12.566,
+  "shift": 0.016,
+  "end": 19.159,
+  "dur": 6.593,
+  "tempo": 1.006,
+  "steps": [
+   "pauses 6.64->6.64s",
+   "tempo x1.006"
+  ],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "narrator/narrator_03",
+  "orig_start": 19.41,
+  "new_start": 19.41,
+  "shift": 0.0,
+  "end": 26.079,
+  "dur": 6.669,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "ai-agent/ai_01",
+  "orig_start": 26.99,
+  "new_start": 26.99,
+  "shift": 0.0,
+  "end": 34.631,
+  "dur": 7.641,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "rohan/rohan_01",
+  "orig_start": 35.17,
+  "new_start": 35.17,
+  "shift": 0.0,
+  "end": 41.128,
+  "dur": 5.958,
+  "tempo": 1.0,
+  "steps": [
+   "pauses 6.37->5.96s"
+  ],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "ai-agent/ai_02",
+  "orig_start": 41.45,
+  "new_start": 41.45,
+  "shift": 0.0,
+  "end": 47.714,
+  "dur": 6.264,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "ai-agent/ai_03",
+  "orig_start": 48.92,
+  "new_start": 48.92,
+  "shift": 0.0,
+  "end": 54.859,
+  "dur": 5.939,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "rohan/rohan_02",
+  "orig_start": 55.8,
+  "new_start": 55.8,
+  "shift": 0.0,
+  "end": 56.66,
+  "dur": 0.86,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "narrator/narrator_04",
+  "orig_start": 58.08,
+  "new_start": 58.08,
+  "shift": 0.0,
+  "end": 67.977,
+  "dur": 9.897,
+  "tempo": 1.092,
+  "steps": [
+   "pauses 10.83->10.79s",
+   "tempo x1.092"
+  ],
+  "spill_into_next_gap": 0.017
+ },
+ {
+  "clip": "narrator/narrator_05",
+  "orig_start": 68.21,
+  "new_start": 68.227,
+  "shift": 0.017,
+  "end": 76.984,
+  "dur": 8.757,
+  "tempo": 1.1,
+  "steps": [
+   "pauses 9.75->9.63s",
+   "tempo x1.100"
+  ],
+  "spill_into_next_gap": 0.334
+ },
+ {
+  "clip": "narrator/narrator_06",
+  "orig_start": 76.9,
+  "new_start": 77.234,
+  "shift": 0.334,
+  "end": 85.696,
+  "dur": 8.462,
+  "tempo": 1.1,
+  "steps": [
+   "pauses 9.30->9.30s",
+   "tempo x1.100"
+  ],
+  "spill_into_next_gap": 0.166
+ },
+ {
+  "clip": "narrator/narrator_07",
+  "orig_start": 85.78,
+  "new_start": 85.946,
+  "shift": 0.166,
+  "end": 90.114,
+  "dur": 4.168,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "narrator/narrator_08",
+  "orig_start": 90.7,
+  "new_start": 90.7,
+  "shift": 0.0,
+  "end": 96.496,
+  "dur": 5.796,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "ai-agent/ai_04",
+  "orig_start": 97.0,
+  "new_start": 97.0,
+  "shift": 0.0,
+  "end": 102.938,
+  "dur": 5.938,
+  "tempo": 1.0,
+  "steps": [
+   "pauses 6.16->5.94s"
+  ],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "rohan/rohan_03",
+  "orig_start": 103.33,
+  "new_start": 103.33,
+  "shift": 0.0,
+  "end": 106.132,
+  "dur": 2.802,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "ai-agent/ai_05",
+  "orig_start": 106.67,
+  "new_start": 106.67,
+  "shift": 0.0,
+  "end": 117.709,
+  "dur": 11.039,
+  "tempo": 1.0,
+  "steps": [
+   "pauses 11.79->11.04s"
+  ],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "narrator/narrator_09",
+  "orig_start": 118.38,
+  "new_start": 118.38,
+  "shift": 0.0,
+  "end": 129.699,
+  "dur": 11.319,
+  "tempo": 1.1,
+  "steps": [
+   "pauses 13.50->12.43s",
+   "tempo x1.100"
+  ],
+  "spill_into_next_gap": 0.799
+ },
+ {
+  "clip": "rm/rm_01",
+  "orig_start": 129.15,
+  "new_start": 129.949,
+  "shift": 0.799,
+  "end": 138.05,
+  "dur": 8.101,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "narrator/narrator_10",
+  "orig_start": 139.13,
+  "new_start": 139.13,
+  "shift": 0.0,
+  "end": 150.021,
+  "dur": 10.891,
+  "tempo": 1.075,
+  "steps": [
+   "pauses 11.93->11.70s",
+   "tempo x1.075"
+  ],
+  "spill_into_next_gap": 0.011
+ },
+ {
+  "clip": "narrator/narrator_11",
+  "orig_start": 150.26,
+  "new_start": 150.271,
+  "shift": 0.011,
+  "end": 159.923,
+  "dur": 9.652,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "narrator/narrator_12",
+  "orig_start": 161.58,
+  "new_start": 161.58,
+  "shift": 0.0,
+  "end": 166.202,
+  "dur": 4.622,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "ai-agent/ai_06",
+  "orig_start": 166.84,
+  "new_start": 166.84,
+  "shift": 0.0,
+  "end": 175.747,
+  "dur": 8.907,
+  "tempo": 1.022,
+  "steps": [
+   "pauses 9.40->9.11s",
+   "tempo x1.022"
+  ],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "rohan/rohan_04",
+  "orig_start": 176.0,
+  "new_start": 176.0,
+  "shift": 0.0,
+  "end": 177.949,
+  "dur": 1.949,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "ai-agent/ai_07",
+  "orig_start": 179.1,
+  "new_start": 179.1,
+  "shift": 0.0,
+  "end": 182.795,
+  "dur": 3.695,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ },
+ {
+  "clip": "narrator/narrator_13",
+  "orig_start": 184.88,
+  "new_start": 184.88,
+  "shift": 0.0,
+  "end": 193.379,
+  "dur": 8.499,
+  "tempo": 1.0,
+  "steps": [],
+  "spill_into_next_gap": 0.0
+ }
+]
