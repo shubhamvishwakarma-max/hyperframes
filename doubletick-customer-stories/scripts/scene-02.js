@@ -93,7 +93,7 @@ window.Scenes.s02 = function (tl, section) {
   outPaths.forEach((p, i) => draw(tl, p, map + i * 0.08, 0.5));
 
   // "right RM" -> connection completes on the assigned RM
-  const done = cue("au-solution", "M", 2);
+  const done = cue("au-solution", "MANAGER", 2);
   tl.to([outPaths[0], outPaths[2]], { opacity: 0.25, duration: 0.3 }, done);
   tl.to([rms[0], rms[2]], { opacity: 0.55, duration: 0.3 }, done);
   tl.to(right, { borderColor: "#28B379", boxShadow: "0 0 0 4px rgba(40,179,121,0.18), 0 8px 24px rgba(10,58,43,0.1)", duration: 0.35 }, done);

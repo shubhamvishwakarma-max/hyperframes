@@ -1,8 +1,8 @@
 """Build the narration track + timing map.
 
-Narration copy is taken verbatim from the customers_carousels source doc
-(see content/customer-data.js). Only spoken-form spellings differ
-("R M", "B F S I") so the TTS pronounces abbreviations letter by letter.
+Narration copy is taken from the customers_carousels source doc (see
+scripts/customer-data.js). Voiceover-only wording: "RM" is spoken as
+"relationship manager"; on-screen text keeps "RM".
 
 Voice providers (VO_PROVIDER, default: elevenlabs when ELEVENLABS_API_KEY is set):
   elevenlabs  "Aaditya - Healthcare Advisor" (ELEVENLABS_VOICE_ID, or looked up
@@ -56,27 +56,27 @@ PHONEME_FIX = [
 SCRIPT = [
     ("scene", "s01", 0.7),
     ("hook-q", "How many opportunities are hiding inside unworked leads and unmanaged conversations?", 0.0),
-    ("hook-sub", "See how B F S I leaders are turning conversations into measurable outcomes.", 0.75),
+    ("hook-sub", "See how BFSI leaders are turning conversations into measurable outcomes.", 0.75),
     ("scene", "s02", 1.0),
     ("au-name", "A U Small Finance Bank.", 0.0),
     ("au-problem", "Manual calling couldn't scale across lakhs of leads, creating missed revenue opportunities.", 0.4),
-    ("au-solution", "DoubleTick combined AI Voice with R M mapping to re-engage leads and route conversations to the right R M.", 0.65),
+    ("au-solution", "DoubleTick combined AI Voice with relationship manager mapping to re-engage leads and route conversations to the right relationship manager.", 0.65),
     ("scene", "s03", 5.2),
     ("pf-name", "Piramal Finance.", 0.0),
     ("pf-problem", "Manual outreach was slowing conversations across the loan lifecycle.", 0.4),
-    ("pf-solution", "DoubleTick AI Voice automates outreach across follow-ups, partners and collections, escalating only the conversations that need an R M.", 0.65),
+    ("pf-solution", "DoubleTick AI Voice automates outreach across follow-ups, partners and collections, escalating only the conversations that need a relationship manager.", 0.65),
     ("scene", "s04", 4.6),
     ("ww-name", "Wint Wealth.", 0.0),
     ("ww-problem", "Personalized wealth conversations were becoming harder to govern.", 0.4),
-    ("ww-solution", "DoubleTick gives Wint Wealth centralized oversight across R M-led WhatsApp conversations, without managers manually reading every chat.", 0.65),
+    ("ww-solution", "DoubleTick gives Wint Wealth centralized oversight across relationship manager-led WhatsApp conversations, without managers manually reading every chat.", 0.65),
     ("scene", "s05", 4.6),
-    ("cd-name", "Coin D C X.", 0.0),
+    ("cd-name", "CoinDCX.", 0.0),
     ("cd-problem", "More WhatsApp journeys created more blind spots across teams.", 0.4),
     ("cd-solution", "DoubleTick brings Sales, VIP and Sub-Broker conversations onto one governed WhatsApp layer with centralized visibility and analytics.", 0.65),
     ("scene", "s06", 4.4),
     ("sc-name", "Samar Capital.", 0.0),
-    ("sc-problem", "R M conversations needed independence without losing enterprise control.", 0.4),
-    ("sc-solution", "DoubleTick gives every R M a governed business number with role-based access, while keeping supervisors in control.", 0.65),
+    ("sc-problem", "Relationship manager conversations needed independence without losing enterprise control.", 0.4),
+    ("sc-solution", "DoubleTick gives every relationship manager a governed business number with role-based access, while keeping supervisors in control.", 0.65),
     # Recap carries no narration (strict PDF-only VO): metrics speak visually.
     ("scene", "s07", 4.4),
     ("scene", "s08", 6.4),

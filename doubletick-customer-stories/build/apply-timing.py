@@ -76,7 +76,7 @@ def word_t(line, token, nth=1):
 L = T["lines"]
 SFX = {
     "sfx-connect": word_t("hook-sub", "OUTCOMES") + 0.15,
-    "sfx-au-route": word_t("au-solution", "M", 2) + 0.15,
+    "sfx-au-route": word_t("au-solution", "MANAGER", 2) + 0.15,
     "sfx-au-metric": L["au-solution"]["end"] + 1.2,
     "sfx-pf-rm": word_t("pf-solution", "NEED") + 0.15,
     "sfx-ww-panel": word_t("ww-solution", "CENTRALIZED") + 0.02,

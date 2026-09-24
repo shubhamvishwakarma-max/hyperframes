@@ -3,7 +3,7 @@
 A narrated customer-proof film for DoubleTick's BFSI customers, built with HyperFrames.
 
 - Composition ID: `doubletick-customer-stories-1080-square`, in `index.html`
-- 1080 × 1080, 30 fps, about 1:58 (117.7 s). Narration sets the timing.
+- 1080 × 1080, 30 fps, about 1:56 (116.2 s). Narration sets the timing.
 - Output: `renders/doubletick-customer-stories-1080-square.mp4` (H.264 + AAC, −14 LUFS)
 
 ## Content lock

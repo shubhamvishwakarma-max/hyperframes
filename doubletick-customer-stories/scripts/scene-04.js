@@ -96,7 +96,7 @@ window.Scenes.s04 = function (tl, section) {
   const over = cue("ww-solution", "CENTRALIZED");
   tl.fromTo(panel, { opacity: 0, y: -24 }, { opacity: 1, y: 0, duration: 0.55, ease: "expo.out" }, over);
   // "RM-led WhatsApp conversations" -> cards become governed (snap to grid)
-  const gov = cue("ww-solution", "R");
+  const gov = cue("ww-solution", "RELATIONSHIP");
   tl.to(cards, { x: 0, y: 0, rotation: 0, duration: 0.6, ease: "power3.inOut", stagger: 0.05 }, gov);
   links.forEach((l, i) => H.draw(tl, l, gov + 0.35 + i * 0.05, 0.4, "power2.out"));
   tl.to(cards, { borderColor: "rgba(40,179,121,0.6)", duration: 0.3, stagger: 0.05 }, gov + 0.4);
