@@ -1,6 +1,16 @@
-"""Deterministic sound-design generator for the DoubleTick CRM-reactivation 35s ad.
+"""Deterministic sound design for the DoubleTick CRM-reactivation ad (India cut, 35.0s).
 
-Writes assets/audio/score.wav: one pre-mixed music bed + SFX track (38.0s, 48k stereo).
+Two buses, written as two separate stems so the composition can hold the brief's
+level relationship precisely:
+
+  assets/audio/music.wav  — the music bed, ducked under every voice-over line
+  assets/audio/sfx.wav    — UI / call / notification cues only
+
+Mix targets (brief): narration dominant; music ~20 dB under the voice; UI + SFX
+~15 dB under the voice. The voice-over stems are mastered to I=-15 LUFS, so the
+music bus is normalised to -38 dBFS RMS and the SFX bus to -33 dBFS RMS over its
+active hits. Everything is seeded / closed-form, so the render is deterministic.
+
 Run: /tmp/ttsvenv/bin/python tools/score.py
 """
 import numpy as np, soundfile as sf, os
@@ -8,18 +18,25 @@ import numpy as np, soundfile as sf, os
 SR = 48000
 DUR = 35.0
 N = int(SR * DUR)
-L = np.zeros(N); R = np.zeros(N)
+ML = np.zeros(N); MR = np.zeros(N)   # music bus
+XL = np.zeros(N); XR = np.zeros(N)   # sfx bus
 rng = np.random.default_rng(7)  # seeded -> deterministic
 
 def idx(t): return int(t * SR)
 
-def add(sig, t, gain=1.0, pan=0.0):
+def _put(bl, br, sig, t, gain, pan):
     s = idx(t)
     if s >= N: return
     e = min(N, s + len(sig))
     seg = sig[: e - s] * gain
-    L[s:e] += seg * (1.0 - max(0.0, pan))
-    R[s:e] += seg * (1.0 + min(0.0, pan))
+    bl[s:e] += seg * (1.0 - max(0.0, pan))
+    br[s:e] += seg * (1.0 + min(0.0, pan))
+
+def add(sig, t, gain=1.0, pan=0.0):        # music bus
+    _put(ML, MR, sig, t, gain, pan)
+
+def sfx(sig, t, gain=1.0, pan=0.0):        # sfx bus
+    _put(XL, XR, sig, t, gain, pan)
 
 def env(n, a, d, s_lvl=0.0, r=0.0):
     e = np.ones(n)
@@ -94,43 +111,37 @@ def blip(freq=1320, dur=0.09):
 def tick(dur=0.035):
     return noise(dur, hp=2500, a=0.001, r=0.03) * 0.5
 
-# ---------------------------------------------------------------- MUSIC BED
-# Act 1 (0 - 11.35): the dormant database, controlled tension
+# ================================================================== VOICE MAP
+# Where each narration line sits, used to duck the music underneath it and to
+# hang the SFX off the right words.
+VO = [
+    (0.28, 5.53),    # 1  "Your CRM is sitting on thousands of old leads ..."
+    (5.95, 10.93),   # 2  "... a database of twenty thousand cold numbers."
+    (11.45, 20.58),  # 3  "DoubleTick Voice AI calls your existing leads over PSTN ..."
+    (20.75, 27.61),  # 4  "And if they miss the call ... on WhatsApp ..."
+    (27.80, 32.58),  # 5  "Turn your old database into active opportunities ..."
+    (32.85, 34.59),  # 6  "Book your DoubleTick AI demo today."
+]
+# Phrases the brief asks to be pushed forward: duck a little harder under these.
+KEY = [(0.90, 2.00), (8.40, 10.93), (11.45, 13.10), (15.90, 16.60),
+       (22.10, 23.40), (28.40, 30.10), (32.85, 34.59)]
+
+# ================================================================== MUSIC BED
+# ---- Act 1 (0.00 - 11.35): premium corporate tension, controlled, never grim
 add(pad([55, 82.4, 110], 12.0, gain=0.30, a=0.35, r=1.8), 0.0, 0.9)
 add(pad([164.8, 196.0], 11.6, gain=0.10, a=1.8, r=2.2), 0.3, 0.8)
 t = 0.3
-while t < 11.1:
-    add(sub_pulse(46, 0.5), t, 0.50)
+while t < 11.1:                       # very subtle low-frequency pulse
+    add(sub_pulse(46, 0.5), t, 0.46)
     t += 0.7
 
-# database / interface texture under the scrolling records
-t = 0.3
-while t < 3.0:
-    add(tick(), t, 0.30)
-    t += 0.26
-
-# competing acquisition stack
-for t0 in (3.08, 3.24, 3.40):
-    add(blip(980, 0.06), t0, 0.14)
-
-# the counter climbing, then manual dialling
-for t0 in (5.98, 6.63, 7.28, 7.93):
-    add(blip(880 + (t0 - 5.9) * 60, 0.06), t0, 0.16)
-t = 5.98
-while t < 8.7:
-    add(tick(), t, 0.20)
-    t += 0.13
-for t0 in (9.82, 9.96, 10.10, 10.24):
-    add(tone(1400, 0.05, a=0.002, r=0.05), t0, 0.13)
-
-# Act 2 (11.35 - 27.7): DoubleTick takes over
-add(whoosh(0.8, up=True), 10.75, 0.32)
-add(sub_pulse(40, 1.2), 11.35, 0.80)
+# ---- Act 2 (11.35 - 27.7): shifts positive and progressive as DoubleTick lands
+add(whoosh(0.8, up=True), 10.80, 0.26)
+add(sub_pulse(40, 1.2), 11.35, 0.78)
 add(pad([82.4, 123.5, 164.8, 246.9], 7.0, gain=0.26, a=0.5, r=2.2), 11.35, 1.0)
 add(pad([110, 164.8, 220, 329.6], 7.4, gain=0.24, a=0.9, r=2.4), 17.8, 1.0)
 add(pad([98, 146.8, 196, 293.7], 8.4, gain=0.24, a=0.8, r=2.4), 23.2, 1.0)
-t = 11.45
-i = 0
+t, i = 11.45, 0
 while t < 27.5:
     add(sub_pulse(44, 0.45), t, 0.34 if i % 2 else 0.46)
     if i % 4 in (1, 3):
@@ -138,60 +149,118 @@ while t < 27.5:
     t += 0.4
     i += 1
 
-# Act 3 (27.7 - 35): the database wakes up, then resolve
-add(pad([110, 164.8, 220, 277.2], 4.4, gain=0.26, a=0.4, r=1.6), 27.7, 1.0)
-add(pad([82.4, 123.5, 207.7, 246.9, 329.6], 3.6, gain=0.32, a=0.5, r=2.6), 31.8, 1.0)
-t = 27.8
-i = 0
-while t < 31.9:
+# ---- Act 3 (27.7 - 35.0): opens up, more confident, then resolves cleanly
+add(pad([110, 164.8, 220, 277.2], 5.0, gain=0.28, a=0.4, r=1.6), 27.7, 1.0)
+add(pad([82.4, 123.5, 207.7, 246.9, 329.6], 3.1, gain=0.34, a=0.5, r=1.1), 31.9, 1.0)
+add(pad([82.4, 164.8, 246.9], 2.2, gain=0.22, a=0.3, r=0.9), 32.8, 1.0)   # clean resolve
+t, i = 27.8, 0
+while t < 32.6:
     add(sub_pulse(44, 0.45), t, 0.42 if i % 2 else 0.30)
     t += 0.4
     i += 1
-add(sub_pulse(38, 1.5), 31.9, 0.85)
-add(sub_pulse(38, 2.0), 33.4, 0.42)
+add(sub_pulse(38, 1.4), 32.85, 0.80)      # the CTA lands
+add(sub_pulse(38, 1.8), 33.5, 0.34)
 
-# ---------------------------------------------------------------- SFX
-# S3: routing, PSTN ring, connect, qualification confirms
-add(blip(1760, 0.08), 11.58, 0.26)
-add(tick(), 12.05, 0.24); add(blip(1320, 0.06), 12.07, 0.18)
-for off in (0.0, 0.42):
+# ======================================================================= SFX
+# ---- 0:00-0:04  problem hook: a soft CRM / dashboard notification texture
+sfx(blip(1180, 0.07), 0.74, 0.30)                      # on the word "CRM"
+sfx(tick(), 0.80, 0.26)
+t = 1.05
+while t < 2.90:                                        # records scrolling past
+    sfx(tick(), t, 0.22)
+    t += 0.27
+for t0 in (3.62, 3.80, 3.98):                          # the competing bidders
+    sfx(blip(980, 0.06), t0, 0.20)
+
+# ---- 0:04-0:09  scale of the problem: faint phone-list / database UI, no ringing
+for k, t0 in enumerate((6.05, 6.70, 7.35, 8.00)):      # the counter climbing
+    sfx(blip(880 + k * 55, 0.06), t0, 0.22)
+t = 6.05
+while t < 8.70:
+    sfx(tick(), t, 0.18)
+    t += 0.13
+for t0 in (9.55, 9.72, 9.89, 10.06):                   # manual dialling, dry
+    sfx(tone(1400, 0.05, a=0.002, r=0.05), t0, 0.16)
+
+# ---- 0:09-0:18  Voice AI: routing, a clean outgoing PSTN connect, call ambience
+sfx(blip(1760, 0.08), 11.58, 0.30)                     # route opens
+sfx(tick(), 12.05, 0.26); sfx(blip(1320, 0.06), 12.07, 0.20)
+for off in (0.0, 0.42):                                # two restrained ring cycles
     ring = (tone(440, 0.30, a=0.01, r=0.12) + tone(480, 0.30, a=0.01, r=0.12)) * 0.5
-    add(ring, 12.6 + off, 0.15)
-add(blip(880, 0.12), 13.6, 0.26)
-add(blip(1046.5, 0.07), 16.24, 0.18)
-for t0 in (18.34, 18.64, 18.94):
-    add(blip(1480, 0.06), t0, 0.18)
-    add(tick(), t0, 0.13)
-add(tone(587.3, 0.14, a=0.004, r=0.12), 19.54, 0.20)
-add(tone(880.0, 0.26, a=0.004, r=0.22), 19.68, 0.22)
+    sfx(ring, 12.70 + off, 0.17)
+sfx(tone(660, 0.10, a=0.004, r=0.08), 13.72, 0.22)     # line connects
+sfx(tone(880, 0.16, a=0.004, r=0.14), 13.80, 0.24)
+t = 14.85                                              # subtle conversational bed
+while t < 17.90:
+    sfx(noise(0.22, lp=900, a=0.06, r=0.14), t, 0.05)
+    t += 0.38
+sfx(blip(1046.5, 0.07), 16.24, 0.20)                   # the buyer's question lands
+for t0 in (18.22, 18.52, 18.82):                       # qualification confirms
+    sfx(blip(1480, 0.06), t0, 0.20); sfx(tick(), t0, 0.14)
+sfx(tone(587.3, 0.14, a=0.004, r=0.12), 19.42, 0.22)   # viewing booked
+sfx(tone(880.0, 0.26, a=0.004, r=0.22), 19.56, 0.24)
 
-# S4: unanswered call, then a soft WhatsApp delivery
-add(tone(392.0, 0.20, a=0.006, r=0.18), 20.8, 0.15)
-add(tone(311.1, 0.30, a=0.006, r=0.26), 20.96, 0.15)
-add(blip(1320, 0.06), 21.64, 0.16)
-add(blip(1560, 0.06), 22.24, 0.16)
-add(whoosh(0.45, up=True), 23.2, 0.18)
-add(blip(1046.5, 0.08), 23.84, 0.18)
-for t0 in (24.54, 25.24, 25.94):
-    add(tick(), t0, 0.22); add(blip(1244.5, 0.05), t0, 0.13)
+# ---- 0:18-0:25  WhatsApp: one soft missed-call cue, then a clean message tone
+sfx(tone(392.0, 0.20, a=0.006, r=0.18), 20.88, 0.17)   # unanswered, falling
+sfx(tone(311.1, 0.32, a=0.006, r=0.28), 21.04, 0.17)
+sfx(tone(1318.5, 0.09, a=0.003, r=0.08), 21.92, 0.26)  # WhatsApp-style two-tone
+sfx(tone(1760.0, 0.14, a=0.003, r=0.12), 21.99, 0.22)
+for t0 in (24.40, 24.66, 24.92):                       # Brochure / Payment / Project
+    sfx(tick(), t0, 0.24); sfx(blip(1244.5, 0.05), t0, 0.15)
+sfx(tick(), 24.58, 0.20); sfx(blip(1046.5, 0.06), 24.60, 0.16)   # CTA row 1 opens
+sfx(tick(), 26.16, 0.20); sfx(blip(1160.0, 0.06), 26.18, 0.16)   # CTA row 2 opens
 
-# S5: rows flipping active, then the CTA resolve
+# ---- 0:25-0:31  outcome: soft success confirmations as leads turn active
 for k in range(5):
-    add(blip(1400 + k * 60, 0.05), 28.56 + k * 0.16, 0.13)
-add(whoosh(0.5, up=True), 31.5, 0.22)
-add(blip(1046.5, 0.45), 31.95, 0.16)
+    sfx(blip(1400 + k * 60, 0.05), 28.56 + k * 0.16, 0.16)
+sfx(tone(659.3, 0.12, a=0.004, r=0.10), 29.42, 0.18)
+sfx(tone(987.8, 0.20, a=0.004, r=0.18), 29.52, 0.18)
 
-# ---------------------------------------------------------------- MASTER
-stereo = np.stack([L, R], axis=1)
-# gentle master fades
-fi, fo = int(0.06 * SR), int(1.2 * SR)
-stereo[:fi] *= np.linspace(0, 1, fi)[:, None]
-stereo[-fo:] *= np.linspace(1, 0, fo)[:, None]
-# soft-clip then normalise so the bed never fights the voiceover
-stereo = np.tanh(stereo * 0.9)
-peak = np.max(np.abs(stereo))
-stereo *= (0.30 / peak)  # ~ -10.5 dBFS peak; VO stays dominant
+# ---- final CTA: one restrained branded impact, no cinematic boom
+sfx(whoosh(0.42, up=True), 32.50, 0.20)
+sfx(tone(523.3, 0.55, a=0.004, r=0.50), 32.86, 0.20)
+sfx(tone(784.0, 0.50, a=0.004, r=0.46), 32.88, 0.13)
 
-out = os.path.join(os.path.dirname(__file__), "..", "assets", "audio", "score.wav")
-sf.write(out, stereo.astype(np.float32), SR, subtype="PCM_16")
-print("wrote", os.path.normpath(out), round(len(stereo) / SR, 2), "s")
+# ==================================================================== MASTER
+def duck(buf_l, buf_r, depth_db, key_db, edge=0.16):
+    """Pull the bus down under every narration line, a little further under the
+    phrases the brief asks to be emphasised. Cosine edges, so no pumping."""
+    g = np.ones(N)
+    def dip(a, b, db):
+        s, e = max(0, idx(a - edge)), min(N, idx(b + edge))
+        if e <= s: return
+        target = 10 ** (-abs(db) / 20.0)
+        w = np.full(e - s, target)
+        ne = max(1, idx(edge))
+        ramp = (1 - np.cos(np.linspace(0, np.pi, ne))) / 2
+        w[:ne] = 1 + (target - 1) * ramp
+        w[-ne:] = target + (1 - target) * ramp
+        g[s:e] = np.minimum(g[s:e], w)
+    for a, b in VO:  dip(a, b, depth_db)
+    for a, b in KEY: dip(a, b, key_db)
+    return buf_l * g, buf_r * g
+
+ML, MR = duck(ML, MR, 3.5, 6.0)      # music ducks under the voice
+XL, XR = duck(XL, XR, 1.0, 2.0)      # sfx barely ducks — it is already sparse
+
+def master(bl, br, rms_dbfs, fade_out=1.2):
+    st = np.stack([bl, br], axis=1)
+    st = np.tanh(st * 0.9)
+    fi, fo = int(0.06 * SR), int(fade_out * SR)
+    st[:fi] *= np.linspace(0, 1, fi)[:, None]
+    st[-fo:] *= np.linspace(1, 0, fo)[:, None]
+    rms = np.sqrt(np.mean(st[np.abs(st).max(axis=1) > 1e-4] ** 2)) if np.any(np.abs(st) > 1e-4) else 1.0
+    st *= (10 ** (rms_dbfs / 20.0)) / (rms + 1e-9)
+    peak = np.max(np.abs(st))
+    if peak > 0.85:
+        st *= 0.85 / peak
+    return st.astype(np.float32)
+
+out_dir = os.path.join(os.path.dirname(__file__), "..", "assets", "audio")
+music = master(ML, MR, -38.0, fade_out=0.8)   # ~20 dB under the -15 LUFS voice
+sfx_b = master(XL, XR, -33.0, fade_out=0.5)   # ~15 dB under the voice
+for name, buf in (("music.wav", music), ("sfx.wav", sfx_b)):
+    p = os.path.join(out_dir, name)
+    sf.write(p, buf, SR, subtype="PCM_16")
+    print("wrote", os.path.normpath(p), round(len(buf) / SR, 2), "s",
+          "peak", round(20 * np.log10(np.max(np.abs(buf)) + 1e-9), 1), "dBFS")

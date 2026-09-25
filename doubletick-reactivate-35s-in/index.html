@@ -959,12 +959,14 @@
       <div id="subs"></div>
 
       <!-- ============================ AUDIO ============================ -->
-      <audio id="a-score" src="assets/audio/score.wav" data-start="0" data-duration="35" data-track-index="10" data-volume="0.9"></audio>
-      <audio id="a-vo1" src="assets/audio/vo1.wav" data-start="0.28" data-duration="5.26" data-track-index="11" data-volume="1"></audio>
-      <audio id="a-vo2" src="assets/audio/vo2.wav" data-start="5.85" data-duration="5.17" data-track-index="11" data-volume="1"></audio>
-      <audio id="a-vo3" src="assets/audio/vo3.wav" data-start="11.45" data-duration="9.12" data-track-index="11" data-volume="1"></audio>
-      <audio id="a-vo4" src="assets/audio/vo4.wav" data-start="20.75" data-duration="6.68" data-track-index="11" data-volume="1"></audio>
-      <audio id="a-vo5" src="assets/audio/vo5.wav" data-start="27.8" data-duration="7.11" data-track-index="11" data-volume="1"></audio>
+      <audio id="a-music" src="assets/audio/music.wav" data-start="0" data-duration="35" data-track-index="10" data-volume="1"></audio>
+      <audio id="a-sfx" src="assets/audio/sfx.wav" data-start="0" data-duration="35" data-track-index="12" data-volume="1"></audio>
+      <audio id="a-vo1" src="assets/audio/vo1.wav" data-start="0.28" data-duration="5.25" data-track-index="11" data-volume="1"></audio>
+      <audio id="a-vo2" src="assets/audio/vo2.wav" data-start="5.95" data-duration="4.98" data-track-index="11" data-volume="1"></audio>
+      <audio id="a-vo3" src="assets/audio/vo3.wav" data-start="11.45" data-duration="9.13" data-track-index="11" data-volume="1"></audio>
+      <audio id="a-vo4" src="assets/audio/vo4.wav" data-start="20.75" data-duration="6.86" data-track-index="11" data-volume="1"></audio>
+      <audio id="a-vo5" src="assets/audio/vo5.wav" data-start="27.8" data-duration="4.78" data-track-index="11" data-volume="1"></audio>
+      <audio id="a-vo6" src="assets/audio/vo6.wav" data-start="32.85" data-duration="1.77" data-track-index="11" data-volume="1"></audio>
     </div>
 
     <script>
@@ -982,18 +984,19 @@
 
         /* ---------------- subtitles: the entire narration ---------------- */
         var SUBS = [
-          { t: 0.28, d: 2.85, a: "Your CRM is sitting on thousands", b: "of old leads" },
-          { t: 3.13, d: 2.41, a: "your competitors are paying", b: "to find again." },
-          { t: 5.85, d: 3.31, a: "But your sales team can't", b: "manually re-engage a database" },
-          { t: 9.16, d: 1.86, a: "of 20,000", b: "cold numbers." },
-          { t: 11.45, d: 4.26, a: "DoubleTick Voice AI calls your", b: "existing leads over PSTN," },
-          { t: 15.88, d: 2.45, a: "speaks naturally about", b: "your latest project," },
-          { t: 18.5, d: 2.07, a: "qualifies interest,", b: "and books viewings." },
-          { t: 20.75, d: 3.57, a: "If they miss the call,", b: "DoubleTick instantly follows up on WhatsApp" },
-          { t: 24.47, d: 2.96, a: "with the brochure, payment plan,", b: "and project details." },
-          { t: 27.8, d: 2.79, a: "Turn your old database", b: "into active opportunities," },
-          { t: 30.73, d: 1.6, a: "without adding", b: "more brokers." },
-          { t: 32.55, d: 2.36, a: "Book your DoubleTick AI", b: "demo today." }
+          { t: 0.28, d: 3.08, a: "Your CRM is sitting on thousands", b: "of old leads" },
+          { t: 3.57, d: 1.96, a: "your competitors are paying", b: "to find again." },
+          { t: 5.95, d: 3.13, a: "But your sales team can't", b: "manually re-engage a database" },
+          { t: 9.08, d: 1.85, a: "of 20,000", b: "cold numbers." },
+          { t: 11.45, d: 4.21, a: "DoubleTick Voice AI calls your", b: "existing leads over PSTN," },
+          { t: 15.87, d: 2.06, a: "speaks naturally about", b: "your latest project," },
+          { t: 18.11, d: 2.47, a: "qualifies their interest,", b: "and books property viewings." },
+          { t: 20.75, d: 1.22, a: "And if they miss the call,", b: "" },
+          { t: 22.12, d: 2.23, a: "DoubleTick instantly follows up", b: "on WhatsApp" },
+          { t: 24.74, d: 2.87, a: "with the brochure, payment plan,", b: "and project details." },
+          { t: 27.8, d: 3.09, a: "Turn your old database", b: "into active opportunities," },
+          { t: 31.02, d: 1.55, a: "without adding", b: "more brokers." },
+          { t: 32.85, d: 1.74, a: "Book your DoubleTick AI", b: "demo today." }
         ];
         $("#subs").innerHTML = SUBS.map(function (c) {
           return '<div class="sub subcard" style="opacity:0"><div>' + c.a + "</div>" +

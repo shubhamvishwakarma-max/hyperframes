@@ -10,7 +10,8 @@ leads over PSTN → missed call gets a WhatsApp follow-up → active opportuniti
 | Frame rate | 30 fps |
 | Output | MP4 / H.264 (`renders/doubletick-reactivate-35s-in-9x16.mp4`) |
 | Placements | LinkedIn, Instagram Reels, paid social |
-| Voice-over | ElevenLabs — "Aaditya K" (Indian English, male), `eleven_multilingual_v2` |
+| Voice-over | ElevenLabs — "Aaditya K" (Indian English, male), `eleven_multilingual_v2`, 6 lines |
+| Audio stems | `vo1`–`vo6` (VO, track 11), `music.wav` (bed, track 10), `sfx.wav` (UI/call cues, track 12) |
 | Locale | India — Emerald Heights / Whitefield, ₹ pricing, BHK config |
 
 ## Layout system
@@ -88,3 +89,44 @@ nudged +13% / +11% in tempo (pitch-preserving `atempo`) to keep every scene
 window, animation and cut at exactly the original 35.0s. Subtitle cues were
 re-derived against the new line durations. `tools/voice.py` is retained from the
 UAE cut for reference but no longer produces the shipped audio.
+
+## Audio build
+
+Three buses, kept as separate stems so the brief's level relationship is exact
+and verifiable rather than eyeballed:
+
+| Bus | File | Level | Measured |
+| --- | --- | --- | --- |
+| Narration | `vo1`–`vo6.wav` | dominant, mastered to I=-15 LUFS | -15.3 dBFS active RMS |
+| Music bed | `music.wav` | 18–22 dB under the voice | **20.4 dB** under |
+| UI / SFX | `sfx.wav` | 12–18 dB under the voice | **15.4 dB** under |
+
+`tools/score.py` writes the music and SFX stems from seeded, closed-form
+synthesis (no sample library, so the render stays deterministic) and applies a
+cosine-edged ducking envelope keyed to the narration windows: -3.5 dB under
+every line, -6 dB under the phrases the brief flags for emphasis. The SFX bus
+ducks only -1 to -2 dB, since it is sparse by design.
+
+Cue map, following the sound-design brief:
+
+| Window | Music | SFX |
+| --- | --- | --- |
+| 0:00–0:04 | premium corporate tension bed, sub-pulse underneath | soft CRM/dashboard notification on the word "CRM", record-scroll ticks, three competitor blips |
+| 0:04–0:09 | same bed holds | faint phone-list / database UI ticks under the counter, dry manual-dial beeps — no literal ringing |
+| 0:09–0:18 | shifts positive and progressive as DoubleTick lands (11.35s) | route-open blip, two restrained ring cycles, a clean PSTN connect, low conversational ambience under the call |
+| 0:18–0:25 | continues | one soft falling missed-call cue, one clean two-tone WhatsApp message tone, UI ticks on Brochure / Payment plan / Project details and on each CTA row |
+| 0:25–0:31 | opens up, more confident | soft success confirmations as leads flip to active |
+| final CTA | resolves cleanly over 0.8s | one restrained branded impact on "Book your DoubleTick AI demo today" |
+
+No cinematic booms, exaggerated whooshes, stock jingles or futuristic AI sounds.
+Final mix peaks at -1.2 dBFS.
+
+## Fitting the read to 35.0s
+
+The directed read totals 33.8s of speech across six lines. Every scene window,
+animation and cut stays exactly where it was; each line is de-silenced at the
+head and tail and placed in its own scene, with a light pitch-preserving tempo
+nudge where a line overran its window (line 3 +2.5%, line 4 +8.1%, line 5 +4%;
+lines 1, 2 and 6 run at their natural pace). A 0.42s beat sits after the first
+sentence, per the delivery notes. Subtitle cues were re-derived from the
+measured pause boundaries inside each rendered line rather than estimated.
