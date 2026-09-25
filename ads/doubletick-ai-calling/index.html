@@ -14,9 +14,9 @@
     --bg: #F4F8F5;
     --card: #FFFFFF;
     --line: #E1E9E4;
-    --green: #0FA958;
-    --green-2: #25D366;
-    --green-soft: #E3F7EC;
+    --green: #007A5A;
+    --green-2: #2FBF8F;
+    --green-soft: #E0F2EC;
     --red: #E5484D;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,8 +30,8 @@
   .ad {
     position: relative; width: 1080px; height: 1080px; padding: 64px 72px;
     background:
-      radial-gradient(700px 520px at 100% 0%, rgba(37,211,102,.18), transparent 60%),
-      radial-gradient(600px 500px at 0% 100%, rgba(15,169,88,.10), transparent 60%),
+      radial-gradient(700px 520px at 100% 0%, rgba(0,122,90,.14), transparent 60%),
+      radial-gradient(600px 500px at 0% 100%, rgba(0,122,90,.10), transparent 60%),
       var(--bg);
     display: flex; flex-direction: column;
   }
@@ -51,22 +51,17 @@
 
   /* header */
   .top { display: flex; align-items: center; justify-content: space-between; }
-  .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 30px; letter-spacing: -0.02em; }
-  .logo-mark {
-    width: 46px; height: 46px; border-radius: 13px; background: var(--green);
-    display: grid; place-items: center; box-shadow: 0 6px 16px rgba(15,169,88,.35);
-  }
+  .logo { display: block; height: 44px; width: auto; }
   .pill {
     font-size: 15px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
     padding: 10px 16px; border-radius: 999px; background: var(--ink); color: #fff;
     display: flex; align-items: center; gap: 10px;
   }
-  .pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 4px rgba(37,211,102,.25); }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 4px rgba(47,191,143,.25); }
 
   /* headline */
-  .eyebrow { margin-top: 42px; font-size: 18px; color: var(--green); letter-spacing: .06em; text-transform: uppercase; font-weight: 500; }
   h1 {
-    margin-top: 16px; font-size: 74px; line-height: 1.0; letter-spacing: -0.045em; font-weight: 700;
+    margin-top: 64px; font-size: 74px; line-height: 1.0; letter-spacing: -0.045em; font-weight: 700;
   }
   h1 s { text-decoration: none; position: relative; color: var(--muted); }
   h1 s::after {
@@ -125,7 +120,7 @@
   .btn {
     background: var(--green); color: #fff; font-size: 24px; font-weight: 600; letter-spacing: -0.01em;
     padding: 18px 30px; border-radius: 16px; display: flex; align-items: center; gap: 12px;
-    box-shadow: 0 14px 30px -10px rgba(15,169,88,.6);
+    box-shadow: 0 14px 30px -10px rgba(0,122,90,.6);
   }
   .url { font-size: 16px; color: var(--ink-2); }
 </style>
@@ -133,18 +128,10 @@
 <body>
 <div class="ad">
   <div class="top">
-    <div class="logo">
-      <div class="logo-mark">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2.5 12.5l4.2 4.2L15 8.4"/><path d="M11.2 15.4l1.3 1.3L21 8.2"/>
-        </svg>
-      </div>
-      DoubleTick
-    </div>
+    <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
     <div class="pill mono"><i></i>AI Lead Calling</div>
   </div>
 
-  <div class="eyebrow mono">// Revive dormant leads on autopilot</div>
   <h1>Agents still calling<br/>dormant leads <s>manually</s>?<br/><em>Let AI dial them all.</em></h1>
   <p class="sub">Hyper-realistic <b>AI PSTN calls</b> at scale, with a <b>WhatsApp fallback</b> when leads don't pick up. Every call and message is logged in your <b>CRM</b>, so your agents only work leads that are ready to talk.</p>
 
@@ -163,7 +150,7 @@
       <div class="live mono"><i></i>LIVE · 2,480 in queue</div>
     </div>
 
-    <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#0FA958" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
 
     <!-- 2. WhatsApp fallback -->
     <div class="card">
@@ -179,14 +166,14 @@
       </div>
     </div>
 
-    <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#0FA958" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
 
     <!-- 3. CRM -->
     <div class="card">
       <div class="step mono"><span class="n">03</span><span>CRM sync</span></div>
       <h3>Everything logged in your CRM</h3>
       <div class="rows">
-        <div class="row"><span class="l"><span class="dot" style="background:#0FA958"></span>Rahul K.</span><span class="tag g mono">Hot · Replied</span></div>
+        <div class="row"><span class="l"><span class="dot" style="background:#007A5A"></span>Rahul K.</span><span class="tag g mono">Hot · Replied</span></div>
         <div class="row"><span class="l"><span class="dot" style="background:#2F6FEB"></span>Priya S.</span><span class="tag b mono">Call · 2m 14s</span></div>
         <div class="row"><span class="l"><span class="dot" style="background:#B7791F"></span>Amit V.</span><span class="tag y mono">WA · Delivered</span></div>
       </div>
