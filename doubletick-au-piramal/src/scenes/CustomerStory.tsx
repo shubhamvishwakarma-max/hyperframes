@@ -16,6 +16,7 @@ import {
   Phone,
   StatusBar,
   StatusChip,
+  VerifiedBadge,
   progressAt,
 } from "../ui";
 
@@ -122,12 +123,12 @@ export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
   return (
     <div style={{ position: "absolute", inset: 0, fontFamily: FONT }}>
       {/* top-right customer logos */}
-      <div style={{ position: "absolute", right: 56, top: 30, height: 44, display: "flex", alignItems: "center" }}>
-        <div style={{ position: "absolute", right: 0, opacity: Math.min(auLogo, auL) }}>
-          <CustomerLogo brand="au" height={40} maxWidth={200} />
+      <div style={{ position: "absolute", right: 52, top: 25, height: 54 }}>
+        <div style={{ position: "absolute", right: 0, top: 0, opacity: Math.min(auLogo, auL) }}>
+          <CustomerLogo brand="au" height={54} />
         </div>
-        <div style={{ position: "absolute", right: 0, opacity: Math.min(pLogo, pL) }}>
-          <CustomerLogo brand="piramal" height={40} maxWidth={200} />
+        <div style={{ position: "absolute", right: 0, top: 4, opacity: Math.min(pLogo, pL) }}>
+          <CustomerLogo brand="piramal" height={46} />
         </div>
       </div>
 
@@ -155,7 +156,10 @@ export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
                 >
                   <LogoAvatar brand={b} size={46} />
                   <div style={{ color: "#fff" }}>
-                    <div style={{ fontSize: 17, fontWeight: 600 }}>{b === "au" ? "AU Small Finance Bank" : "Piramal Finance"}</div>
+                    <div style={{ fontSize: 17, fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
+                      {b === "au" ? "AU Small Finance Bank" : "Piramal Finance"}
+                      <VerifiedBadge size={18} />
+                    </div>
                     <div style={{ fontSize: 13, opacity: 0.8 }}>Business account</div>
                   </div>
                 </div>
@@ -198,8 +202,8 @@ export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <DoubleTickLogo width={112} />
             <div style={{ position: "relative", width: 150, height: 26 }}>
-              <div style={{ position: "absolute", right: 0, top: 0, opacity: auL }}><CustomerLogo brand="au" height={24} maxWidth={140} /></div>
-              <div style={{ position: "absolute", right: 0, top: 0, opacity: pL }}><CustomerLogo brand="piramal" height={24} maxWidth={140} /></div>
+              <div style={{ position: "absolute", right: 0, top: 0, opacity: auL }}><CustomerLogo brand="au" height={28} /></div>
+              <div style={{ position: "absolute", right: 0, top: 0, opacity: pL }}><CustomerLogo brand="piramal" height={26} /></div>
             </div>
           </div>
 

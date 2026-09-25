@@ -38,9 +38,8 @@ Set `REMOTION_BROWSER` to a local Chromium headless shell if Remotion cannot dow
 ## Brand assets (`public/assets`)
 
 - `doubletick-logo.png` — official logo supplied by DoubleTick.
-- `au-small-finance-bank-logo.svg` — **official file required** (not yet added).
-- `piramal-finance-logo.svg` — **official file required** (not yet added).
+- `au-small-finance-bank-logo.png` / `au-small-finance-bank-icon.png` — official AU files (supplied).
+- `piramal-finance-logo.png` / `piramal-finance-icon.png` — official Piramal files (supplied).
 
-After adding a customer logo, set its path in `src/brand-assets.ts` and re-render. Until then the
-top-right slot is left empty and the WhatsApp avatar shows a neutral bank icon — brands are never
-recreated with typed text.
+Full logos sit top-right and inside the DoubleTick card; the icons are the WhatsApp business
+avatars, shown with a blue verified tick next to the profile name. Paths live in `src/brand-assets.ts`.

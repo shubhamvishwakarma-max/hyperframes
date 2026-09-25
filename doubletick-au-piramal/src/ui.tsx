@@ -209,30 +209,20 @@ export const DoubleTickLogo: React.FC<{ width: number; style?: React.CSSProperti
   style,
 }) => <Img src={staticFile(brandAssets.doubletick)} style={{ width, height: "auto", display: "block", ...style }} />;
 
-/**
- * Official customer logo. While the official file is not yet in /public/assets we render a neutral
- * dashed slot (never a typed/recreated brand mark).
- */
+/** Official customer logo (full lockup), never recoloured or distorted. */
 export const CustomerLogo: React.FC<{
   brand: "au" | "piramal";
   height: number;
   maxWidth?: number;
   style?: React.CSSProperties;
-}> = ({ brand, height, maxWidth, style }) => {
-  const src = brandAssets[brand];
-  if (src) {
-    return (
-      <Img
-        src={staticFile(src)}
-        style={{ height, width: "auto", maxWidth, objectFit: "contain", display: "block", ...style }}
-      />
-    );
-  }
-  // Official file not supplied yet: render nothing rather than a recreated or placeholder mark.
-  return null;
-};
+}> = ({ brand, height, maxWidth, style }) => (
+  <Img
+    src={staticFile(brandAssets[brand])}
+    style={{ height, width: "auto", maxWidth, objectFit: "contain", display: "block", ...style }}
+  />
+);
 
-/** Square avatar holding the official customer logo (for WhatsApp business headers). */
+/** Round WhatsApp business avatar carrying the official brand icon. */
 export const LogoAvatar: React.FC<{ brand: "au" | "piramal"; size: number }> = ({ brand, size }) => (
   <div
     style={{
@@ -247,12 +237,25 @@ export const LogoAvatar: React.FC<{ brand: "au" | "piramal"; size: number }> = (
       flex: "none",
     }}
   >
-    {brandAssets[brand] ? (
-      <CustomerLogo brand={brand} height={size * 0.42} maxWidth={size * 0.78} />
+    {brand === "au" ? (
+      // The AU icon is a full orange disc on a square canvas: fill the circle with it.
+      <Img src={staticFile(brandAssets.auIcon)} style={{ width: size * 1.04, height: size * 1.04, display: "block" }} />
     ) : (
-      <IconBank size={size * 0.5} color={C.green} />
+      <Img src={staticFile(brandAssets.piramalIcon)} style={{ height: size * 0.72, width: "auto", display: "block" }} />
     )}
   </div>
+);
+
+/** Verified-business blue tick shown next to the profile name. */
+export const VerifiedBadge: React.FC<{ size?: number }> = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flex: "none", display: "block" }}>
+    <path
+      fill="#1D9BF0"
+      d="M12 1.5l2.4 1.8 3-.2 1 2.8 2.6 1.6-.7 2.9L21.5 13l-1.8 2.4.2 3-2.8 1-1.6 2.6-2.9-.7L10 22.5l-2.4-1.8-3 .2-1-2.8-2.6-1.6.7-2.9L.5 11l1.8-2.4-.2-3 2.8-1L6.5 1.9l2.9.7z"
+      transform="translate(0.8 0.2) scale(0.95)"
+    />
+    <path d="M7.4 12.3l3 3 6.2-6.4" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
 );
 
 /* ---------- phone ---------- */

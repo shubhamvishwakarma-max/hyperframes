@@ -1,11 +1,8 @@
-// Paths are relative to /public. Customer logos must be the official files;
-// set to null until the official asset is placed in public/assets.
-export const brandAssets: {
-  doubletick: string;
-  au: string | null;
-  piramal: string | null;
-} = {
+// Paths are relative to /public. Official logo files supplied by DoubleTick.
+export const brandAssets = {
   doubletick: "assets/doubletick-logo.png",
-  au: null, // "assets/au-small-finance-bank-logo.svg"
-  piramal: null, // "assets/piramal-finance-logo.svg"
-};
+  au: "assets/au-small-finance-bank-logo.png",
+  auIcon: "assets/au-small-finance-bank-icon.png",
+  piramal: "assets/piramal-finance-logo.png",
+  piramalIcon: "assets/piramal-finance-icon.png",
+} as const;
