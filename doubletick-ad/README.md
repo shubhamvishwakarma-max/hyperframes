@@ -10,7 +10,7 @@ Final render: `renders/doubletick-personalization-at-scale-1080x1080.mp4`
 | 02 AI-powered rep experience | 6.6–13.8 | Connector grows into Deepak's WhatsApp chat (WhatsApp light UI, grey → blue read ticks); AI Agent panel ticks Intent → Team size → Enterprise → Qualification; PROSPECT → HOT LEAD |
 | 03 Hot lead + human handoff | 13.8–19.6 | HOT LEAD pill becomes the eyebrow; notification → AI Summary + channels → Take Over Conversation; AI recedes, owner card comes forward |
 | 04 CXO governance | 19.6–27.3 | Pull-back reveals other reps → command center, AI Governance (72 / 19 / 9), alerts one at a time |
-| 05 CTA | 27.3–34.0 | Brand emerges from centre → True Personalization at Scale. → Book an Executive Demo (held about 4 s after it is fully visible) |
+| 05 CTA | 27.3–34.0 | Brand emerges from centre → True Personalization at Scale. → Book Free Demo (held about 4 s after it is fully visible) |
 
 ## Sources
 - **VO:** ElevenLabs "Aaditya K — Deep Voice for Finance & Healthcare Support" (`eleven_multilingual_v2`), one natural take (~147 WPM). Scribe transcript matches the script word for word (DoubleTick, AI, WhatsApp).
