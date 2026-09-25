@@ -81,23 +81,19 @@
   }
   .ai-l { position: absolute; left: 50%; top: calc(50% + 44px); transform: translateX(-50%); font-size: 11px; color: var(--green); letter-spacing: .06em; text-transform: uppercase; font-weight: 600; white-space: nowrap; }
 
-  /* CRM record */
-  .crm { padding: 22px 22px; display: flex; flex-direction: column; gap: 14px; }
+  /* CRM logos */
+  .crm { padding: 20px 22px 18px; display: flex; flex-direction: column; gap: 14px; }
   .crm .head { display: flex; align-items: center; justify-content: space-between; }
-  .who { display: flex; align-items: center; gap: 10px; }
-  .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--green-soft); color: var(--green); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
-  .who .n { font-size: 16px; font-weight: 600; }
-  .who .d { font-size: 11.5px; color: var(--muted); }
+  .crm .ttl { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
   .sync { font-size: 11px; color: var(--green); display: flex; align-items: center; gap: 6px; background: var(--green-soft); padding: 5px 9px; border-radius: 7px; font-weight: 600; }
-  .field { display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: start; font-size: 14.5px; padding-top: 14px; border-top: 1px solid var(--line); }
-  .field .k { font-size: 11px; color: var(--muted); letter-spacing: .05em; text-transform: uppercase; padding-top: 2px; }
-  .stage { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .tag { font-size: 11.5px; padding: 4px 9px; border-radius: 7px; font-weight: 500; }
-  .tag.old { background: #F1F3F2; color: var(--muted); text-decoration: line-through; }
-  .tag.new { background: var(--green); color: #fff; }
-  .v { color: var(--ink); line-height: 1.38; }
-  .ai-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: var(--green); letter-spacing: .05em; text-transform: uppercase; font-weight: 600; margin-left: 6px; }
-
+  .logos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .lg { position: relative; height: 72px; border: 1px solid var(--line); border-radius: 14px; display: grid; place-items: center; background: #fff; }
+  .lg img { max-width: 104px; max-height: 32px; display: block; }
+  .lg .ok { position: absolute; top: -6px; right: -6px; width: 18px; height: 18px; border-radius: 50%; background: var(--green); display: grid; place-items: center; box-shadow: 0 0 0 2px #fff; }
+  .dyn { display: flex; align-items: center; gap: 7px; }
+  .dyn img { width: 22px; height: 22px; }
+  .dyn span { font-size: 13px; font-weight: 600; line-height: 1.05; color: #3B3B3B; letter-spacing: -0.01em; }
+  .more { font-size: 12px; color: var(--muted); text-align: center; }
   .foot { margin-top: 0; display: flex; align-items: center; justify-content: space-between; }
   .stats { display: flex; gap: 36px; }
   .stat .v2 { font-size: 34px; font-weight: 700; letter-spacing: -0.03em; }
@@ -157,32 +153,24 @@
         <div class="ai-l mono">AI agent</div>
       </div>
 
-      <!-- CRM record -->
+      <!-- CRM logos -->
       <div class="card crm">
         <div class="head">
-          <div class="who">
-            <div class="avatar">AM</div>
-            <div><div class="n">Arjun Mehta</div><div class="d mono">Deal · ₹4.8L · Acme Retail</div></div>
-          </div>
+          <span class="ttl">Auto-updates your CRM</span>
           <span class="sync mono">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
             Synced
           </span>
         </div>
-        <div class="field">
-          <span class="k mono">Stage</span>
-          <span class="stage"><span class="tag old mono">Qualified</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A8781" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            <span class="tag new mono">Negotiation</span></span>
+        <div class="logos">
+          <div class="lg"><img src="logos/salesforce.svg" alt="Salesforce" style="max-height:44px"/><span class="ok"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div>
+          <div class="lg"><img src="logos/zoho.svg" alt="Zoho" style="max-height:38px"/><span class="ok"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div>
+          <div class="lg"><img src="logos/hubspot.svg" alt="HubSpot" style="max-width:96px"/><span class="ok"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div>
+          <div class="lg"><img src="logos/zendesk.svg" alt="Zendesk" style="max-width:100px"/><span class="ok"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div>
+          <div class="lg"><img src="logos/pipedrive.svg" alt="Pipedrive" style="max-width:100px"/><span class="ok"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div>
+          <div class="lg"><span class="dyn"><img src="logos/microsoft-icon.svg" alt="Microsoft"/><span>Dynamics<br/>365</span></span><span class="ok"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div>
         </div>
-        <div class="field">
-          <span class="k mono">Context</span>
-          <span class="v">Budget confirmed on call, NDA signed, wants final quote on WhatsApp.<span class="ai-badge mono">✦ AI</span></span>
-        </div>
-        <div class="field">
-          <span class="k mono">Next step</span>
-          <span class="v">Share final quote · Fri 11:00 AM<span class="ai-badge mono">✦ AI</span></span>
-        </div>
+        <div class="more mono">+ more CRMs</div>
       </div>
     </div>
   </div>
