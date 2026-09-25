@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>DoubleTick AI CRM Update</title>
+<style>
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+
+  :root {
+    --ink: #0A1A12;
+    --ink-2: #3D4A44;
+    --muted: #7A8781;
+    --bg: #F4F8F5;
+    --card: #FFFFFF;
+    --line: #E1E9E4;
+    --green: #007A5A;
+    --green-2: #2FBF8F;
+    --green-soft: #E0F2EC;
+    --red: #E5484D;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; overflow: hidden; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+
+  .ad {
+    position: relative; width: 1080px; height: 1080px; padding: 64px 72px;
+    background:
+      radial-gradient(700px 520px at 100% 0%, rgba(0,122,90,.14), transparent 60%),
+      radial-gradient(600px 500px at 0% 100%, rgba(0,122,90,.08), transparent 60%),
+      var(--bg);
+    display: flex; flex-direction: column;
+  }
+  .ad::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: radial-gradient(ellipse at 70% 60%, #000 10%, transparent 70%);
+    opacity: .55;
+  }
+  .ad > * { position: relative; }
+
+  .top { display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: block; height: 44px; width: auto; }
+  .pill {
+    font-size: 15px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    padding: 10px 16px; border-radius: 999px; background: var(--ink); color: #fff;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 4px rgba(47,191,143,.25); }
+
+  h1 { margin-top: 60px; font-size: 76px; line-height: 1.0; letter-spacing: -0.045em; font-weight: 700; }
+  h1 .bad { color: var(--red); }
+  h1 em { font-style: normal; color: var(--green); }
+  .sub { margin-top: 22px; font-size: 20.5px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* visual */
+  .vis { margin: auto 0; display: grid; grid-template-columns: 250px 1fr; gap: 0; align-items: center; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 22px;
+    box-shadow: 0 1px 0 rgba(10,26,18,.03), 0 18px 40px -18px rgba(10,26,18,.18);
+  }
+
+  /* channel inputs */
+  .inputs { display: flex; flex-direction: column; gap: 12px; position: relative; }
+  .in { display: flex; align-items: center; gap: 10px; padding: 0 13px; height: 66px; border-radius: 14px; }
+  .ic { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; flex: none; }
+  .in .t { font-size: 14px; font-weight: 600; }
+  .in .d { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+
+  /* connector + AI node */
+  .right { display: grid; grid-template-columns: 110px 1fr; align-items: center; }
+  .link { position: relative; height: 300px; }
+  .link svg { position: absolute; inset: 0; }
+  .ai {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 62px; height: 62px; border-radius: 18px; background: var(--green);
+    display: grid; place-items: center; box-shadow: 0 12px 26px -8px rgba(0,122,90,.7), 0 0 0 7px rgba(0,122,90,.12);
+  }
+  .ai-l { position: absolute; left: 50%; top: calc(50% + 44px); transform: translateX(-50%); font-size: 11px; color: var(--green); letter-spacing: .06em; text-transform: uppercase; font-weight: 600; white-space: nowrap; }
+
+  /* CRM record */
+  .crm { padding: 22px 22px; display: flex; flex-direction: column; gap: 14px; }
+  .crm .head { display: flex; align-items: center; justify-content: space-between; }
+  .who { display: flex; align-items: center; gap: 10px; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--green-soft); color: var(--green); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+  .who .n { font-size: 16px; font-weight: 600; }
+  .who .d { font-size: 11.5px; color: var(--muted); }
+  .sync { font-size: 11px; color: var(--green); display: flex; align-items: center; gap: 6px; background: var(--green-soft); padding: 5px 9px; border-radius: 7px; font-weight: 600; }
+  .field { display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: start; font-size: 14.5px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .field .k { font-size: 11px; color: var(--muted); letter-spacing: .05em; text-transform: uppercase; padding-top: 2px; }
+  .stage { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .tag { font-size: 11.5px; padding: 4px 9px; border-radius: 7px; font-weight: 500; }
+  .tag.old { background: #F1F3F2; color: var(--muted); text-decoration: line-through; }
+  .tag.new { background: var(--green); color: #fff; }
+  .v { color: var(--ink); line-height: 1.38; }
+  .ai-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: var(--green); letter-spacing: .05em; text-transform: uppercase; font-weight: 600; margin-left: 6px; }
+
+  .foot { margin-top: 0; display: flex; align-items: center; justify-content: space-between; }
+  .stats { display: flex; gap: 36px; }
+  .stat .v2 { font-size: 34px; font-weight: 700; letter-spacing: -0.03em; }
+  .stat .k { font-size: 13px; color: var(--muted); letter-spacing: .05em; text-transform: uppercase; margin-top: 2px; }
+  .cta { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+  .btn {
+    background: var(--green); color: #fff; font-size: 24px; font-weight: 600; letter-spacing: -0.01em;
+    padding: 18px 30px; border-radius: 16px; display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 14px 30px -10px rgba(0,122,90,.6);
+  }
+  .url { font-size: 16px; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="top">
+    <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+    <div class="pill mono"><i></i>AI CRM Auto-update</div>
+  </div>
+
+  <h1><span class="bad">Unupdated CRM</span><br/>is a nightmare.<br/><em>Let the AI agent do it.</em></h1>
+  <p class="sub">AI agent updates <b>context and stage across WhatsApp, email, PSTN calls &amp; more</b>.<br/>Your sales reps focus on what actually matters, <b>not manual CRM data entry</b>.</p>
+
+  <div class="vis">
+    <!-- channel inputs -->
+    <div class="inputs">
+      <div class="in card">
+        <div class="ic" style="background:#E3F9EA"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1FA855" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg></div>
+        <div><div class="t">WhatsApp</div><div class="d mono">"Send the final quote"</div></div>
+      </div>
+      <div class="in card">
+        <div class="ic" style="background:#E6F0FF"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F6FEB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+        <div><div class="t">Email</div><div class="d mono">Signed NDA attached</div></div>
+      </div>
+      <div class="in card">
+        <div class="ic" style="background:#FFF4DB"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B7791F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+        <div><div class="t">PSTN call</div><div class="d mono">4m 12s · budget OK</div></div>
+      </div>
+      <div class="in card">
+        <div class="ic" style="background:#F1F3F2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7A8781" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div><div class="t">&amp; more</div><div class="d mono">Instagram, web chat…</div></div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="link">
+        <svg viewBox="0 0 110 300" preserveAspectRatio="none" fill="none" stroke="#007A5A" stroke-width="1.6" stroke-dasharray="4 4" opacity=".55">
+          <path d="M0 33 C 40 33, 40 150, 55 150"/>
+          <path d="M0 111 C 40 111, 40 150, 55 150"/>
+          <path d="M0 189 C 40 189, 40 150, 55 150"/>
+          <path d="M0 267 C 40 267, 40 150, 55 150"/>
+          <path d="M55 150 L 110 150" stroke-dasharray="0" stroke-width="2.2" opacity="1"/>
+        </svg>
+        <div class="ai">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/></svg>
+        </div>
+        <div class="ai-l mono">AI agent</div>
+      </div>
+
+      <!-- CRM record -->
+      <div class="card crm">
+        <div class="head">
+          <div class="who">
+            <div class="avatar">AM</div>
+            <div><div class="n">Arjun Mehta</div><div class="d mono">Deal · ₹4.8L · Acme Retail</div></div>
+          </div>
+          <span class="sync mono">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+            Synced
+          </span>
+        </div>
+        <div class="field">
+          <span class="k mono">Stage</span>
+          <span class="stage"><span class="tag old mono">Qualified</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A8781" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <span class="tag new mono">Negotiation</span></span>
+        </div>
+        <div class="field">
+          <span class="k mono">Context</span>
+          <span class="v">Budget confirmed on call, NDA signed, wants final quote on WhatsApp.<span class="ai-badge mono">✦ AI</span></span>
+        </div>
+        <div class="field">
+          <span class="k mono">Next step</span>
+          <span class="v">Share final quote · Fri 11:00 AM<span class="ai-badge mono">✦ AI</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="stats">
+      <div class="stat"><div class="v2">0</div><div class="k mono">Manual entries</div></div>
+      <div class="stat"><div class="v2">Real-time</div><div class="k mono">Stage updates</div></div>
+    </div>
+    <div class="cta">
+      <div class="btn">Book a free demo
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+      <div class="url mono">doubletick.io</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
