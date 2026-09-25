@@ -20,7 +20,7 @@ Final render: `renders/doubletick-personalization-at-scale-1080x1080.mp4`
 - **Faces:** AI-generated headshots (gpt-image-2), used for fictional reps.
 - **Theme:** light, on a warm beige canvas `#f5efe4` (approximated: doubletick.io is unreachable from the build sandbox and its extracted brand kit lists no beige, so swap in the exact site value in `:root --bg` if it differs). Emerald text is deepened to `#08774a` for contrast on light surfaces.
 - **Brand:** green `#27b578` and deep greens extracted from doubletick.io (ElevenLabs brand-kit extractor). Fonts: Geist, Geist Mono, Hedvig Letters Sans (self-hosted, OFL).
-- **Logo:** `index.html#logo` is a placeholder mark (green tile + double tick + Geist wordmark) because the official logo file could not be downloaded here. Swap in the official SVG before publishing.
+- **Logo:** official DoubleTick logo (`assets/img/doubletick-logo.png`, supplied by the client), used for the top brand mark and the CTA slide.
 
 ## Rebuild
 ```bash
