@@ -1,0 +1,24 @@
+{
+  "name": "doubletick-au-piramal",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "narration": "tsx scripts/generateNarration.ts",
+    "studio": "remotion studio",
+    "render": "remotion render src/index.ts Main out/doubletick-au-piramal-ai-voice-whatsapp.mp4 --codec=h264 --audio-codec=aac"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.529",
+    "@remotion/media-utils": "^4.0.529",
+    "geist": "^1.7.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.529"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "@types/react": "^19.3.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

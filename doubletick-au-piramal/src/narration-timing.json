@@ -1,0 +1,22 @@
+{
+  "source": "estimate",
+  "durationSec": 38.0,
+  "cues": {
+    "hook": 0.3,
+    "au": 6.3,
+    "auDoubleTick": 7.6,
+    "auWhatsApp": 8.9,
+    "auMetric": 12.4,
+    "auRm": 15.3,
+    "piramal": 17.3,
+    "pDoubleTick": 18.3,
+    "pChannels": 19.2,
+    "pChip1": 21.4,
+    "pChip2": 22.5,
+    "pChip3": 23.7,
+    "pChip4": 25.0,
+    "pMetric": 26.6,
+    "solution": 28.9,
+    "cta": 34.0
+  }
+}
