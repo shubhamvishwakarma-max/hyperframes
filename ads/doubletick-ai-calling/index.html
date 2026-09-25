@@ -61,7 +61,7 @@
 
   /* headline */
   h1 {
-    margin-top: 64px; font-size: 74px; line-height: 1.0; letter-spacing: -0.045em; font-weight: 700;
+    margin-top: 48px; font-size: 66px; line-height: 1.0; letter-spacing: -0.045em; font-weight: 700;
   }
   h1 s { text-decoration: none; position: relative; color: var(--muted); }
   h1 s::after {
@@ -69,54 +69,80 @@
     background: var(--red); border-radius: 4px; transform: rotate(-2deg);
   }
   h1 em { font-style: normal; color: var(--green); }
-  .sub { margin-top: 22px; font-size: 24px; line-height: 1.4; color: var(--ink-2); max-width: 860px; letter-spacing: -0.01em; }
+  .sub { margin-top: 20px; font-size: 21px; line-height: 1.4; color: var(--ink-2); max-width: 900px; letter-spacing: -0.01em; }
   .sub b { color: var(--ink); font-weight: 600; }
 
-  /* flow */
-  .flow { margin-top: 40px; display: grid; grid-template-columns: 1fr 34px 1fr 34px 1fr; align-items: stretch; }
-  .card {
-    background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 22px 22px 20px;
-    box-shadow: 0 1px 0 rgba(10,26,18,.03), 0 18px 40px -18px rgba(10,26,18,.18);
-    display: flex; flex-direction: column; gap: 14px;
+  /* hero scene */
+  .hero { position: absolute; left: 0; right: 0; top: 440px; bottom: 0; }
+  .hero > * { position: absolute; }
+
+  /* pulse rings behind phone */
+  .rings { left: 540px; top: 230px; width: 0; height: 0; }
+  .rings i { position: absolute; border-radius: 50%; border: 1.5px solid rgba(0,122,90,.18); transform: translate(-50%, -50%); }
+
+  /* faded lead cards */
+  .lead {
+    width: 244px; height: 60px; padding: 0 12px; border-radius: 14px; background: #fff; border: 1px solid var(--line);
+    display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 24px -14px rgba(10,26,18,.25);
   }
-  .step { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
-  .step span.n { color: var(--green); font-weight: 600; }
-  .card h3 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
-  .arrow { display: grid; place-items: center; }
-  .arrow svg { width: 26px; height: 26px; }
+  .lead .av { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 700; flex: none; background: #EEF2F0; color: var(--ink-2); }
+  .lead .nm { font-size: 14px; font-weight: 600; }
+  .lead .dd { font-size: 11px; color: var(--muted); margin-top: 1px; white-space: nowrap; }
+  .lead .st { margin-left: auto; font-size: 10.5px; padding: 3px 7px; border-radius: 6px; font-weight: 500; white-space: nowrap; }
+  .st.q { background: #F1F3F2; color: var(--muted); }
+  .st.c { background: var(--green-soft); color: var(--green); }
+  .st.w { background: #E3F9EA; color: #1A8A47; }
+  .st.y { background: #FFF4DB; color: #B7791F; }
 
-  /* call card */
-  .caller { display: flex; align-items: center; gap: 12px; }
-  .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--green-soft); color: var(--green); display: grid; place-items: center; font-weight: 700; font-size: 16px; }
-  .caller .who { font-size: 15px; font-weight: 600; }
-  .caller .num { font-size: 12.5px; color: var(--muted); }
-  .wave { display: flex; align-items: center; gap: 4px; height: 38px; }
-  .wave b { width: 5px; border-radius: 3px; background: var(--green); display: block; }
-  .live { font-size: 12.5px; color: var(--green); display: flex; gap: 8px; align-items: center; }
-  .live i { width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+  /* phone */
+  .phone {
+    left: 392px; top: 18px; width: 296px; height: 590px; border-radius: 48px; padding: 10px;
+    background: linear-gradient(160deg, #26302C, #0B0F0D 40%);
+    box-shadow: 0 0 0 1.5px #3A4540 inset, 0 40px 70px -24px rgba(10,26,18,.55), 0 14px 28px -12px rgba(10,26,18,.35);
+  }
+  .screen {
+    position: relative; width: 100%; height: 100%; border-radius: 38px; overflow: hidden; color: #fff;
+    background:
+      radial-gradient(260px 220px at 50% 32%, rgba(47,191,143,.28), transparent 70%),
+      linear-gradient(180deg, #0D2A20 0%, #071711 100%);
+    display: flex; flex-direction: column; align-items: center; padding: 14px 20px 22px;
+  }
+  .island { width: 92px; height: 26px; border-radius: 14px; background: #000; position: absolute; top: 10px; left: 50%; transform: translateX(-50%); }
+  .sbar { width: 100%; display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; padding: 0 10px; opacity: .9; }
+  .pstn { margin-top: 30px; font-size: 10.5px; letter-spacing: .14em; color: rgba(255,255,255,.55); display: flex; align-items: center; gap: 6px; }
+  .aib { margin-top: 10px; font-size: 11.5px; font-weight: 600; letter-spacing: .04em; background: var(--green); color: #fff; padding: 5px 11px; border-radius: 999px; display: flex; align-items: center; gap: 6px; box-shadow: 0 0 0 4px rgba(0,122,90,.3); }
+  .pav { margin-top: 22px; width: 92px; height: 92px; border-radius: 50%; background: linear-gradient(160deg, #2E4A40, #183229); display: grid; place-items: center; box-shadow: 0 0 0 8px rgba(47,191,143,.12), 0 0 0 18px rgba(47,191,143,.06); }
+  .olabel { margin-top: 20px; font-size: 10.5px; letter-spacing: .14em; color: rgba(255,255,255,.5); }
+  .pname { margin-top: 4px; font-size: 27px; font-weight: 600; letter-spacing: -0.02em; }
+  .pstat { margin-top: 6px; font-size: 15px; color: var(--green-2); font-weight: 500; }
+  .timer { margin-top: 3px; font-size: 13px; color: rgba(255,255,255,.6); }
+  .pwave { margin-top: 18px; display: flex; align-items: center; gap: 3.5px; height: 40px; }
+  .pwave b { width: 4px; border-radius: 2px; background: var(--green-2); display: block; }
+  .ctrls { margin-top: auto; display: grid; grid-template-columns: repeat(3, 52px); gap: 16px 22px; justify-items: center; }
+  .cb { width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,.12); display: grid; place-items: center; }
+  .cb.end { background: #E5484D; grid-column: 2; }
 
-  /* whatsapp card */
-  .chat { background: #EFEAE2; border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
-  .miss { align-self: center; font-size: 11.5px; background: #fff; color: var(--ink-2); padding: 4px 10px; border-radius: 8px; }
-  .bubble { align-self: flex-end; background: #D9FDD3; border-radius: 12px 12px 3px 12px; padding: 9px 11px 6px; font-size: 13.5px; line-height: 1.35; max-width: 96%; }
-  .meta { display: flex; justify-content: flex-end; align-items: center; gap: 4px; font-size: 10.5px; color: #667781; margin-top: 3px; }
+  /* front active campaign card */
+  .front {
+    left: 140px; top: 372px; width: 336px; padding: 18px 20px; border-radius: 20px; background: #fff; border: 1px solid var(--line);
+    box-shadow: 0 30px 60px -22px rgba(10,26,18,.4), 0 8px 18px -8px rgba(10,26,18,.18);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .front .r { display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; }
+  .front .live { display: flex; align-items: center; gap: 7px; color: var(--ink); font-weight: 600; }
+  .front .live i { width: 8px; height: 8px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 4px rgba(229,72,77,.18); }
+  .front .t { font-size: 15px; color: var(--ink-2); }
+  .front .big { font-size: 38px; font-weight: 700; letter-spacing: -0.035em; line-height: 1; }
+  .front .big span { font-size: 18px; color: var(--muted); font-weight: 500; letter-spacing: -0.01em; }
+  .bar { height: 7px; border-radius: 4px; background: var(--green-soft); overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 45%; background: var(--green); border-radius: 4px; }
+  .chips { display: flex; gap: 8px; }
+  .chip { font-size: 11.5px; padding: 5px 9px; border-radius: 8px; display: flex; align-items: center; gap: 5px; font-weight: 500; }
+  .chip.wa { background: #E3F9EA; color: #1A8A47; }
+  .chip.crm { background: var(--green-soft); color: var(--green); }
 
-  /* crm card */
-  .rows { display: flex; flex-direction: column; gap: 8px; }
-  .row { display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--line); border-radius: 11px; padding: 9px 11px; font-size: 13.5px; }
-  .row .l { display: flex; align-items: center; gap: 8px; font-weight: 500; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; }
-  .tag { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: 500; }
-  .tag.g { background: var(--green-soft); color: var(--green); }
-  .tag.b { background: #E6F0FF; color: #2F6FEB; }
-  .tag.y { background: #FFF4DB; color: #B7791F; }
-
-  /* footer */
-  .foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; }
-  .stats { display: flex; gap: 36px; }
-  .stat .v { font-size: 34px; font-weight: 700; letter-spacing: -0.03em; }
-  .stat .k { font-size: 13px; color: var(--muted); letter-spacing: .05em; text-transform: uppercase; margin-top: 2px; }
-  .cta { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+  /* CTA */
+  .cta { right: 72px; top: 474px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
   .btn {
     background: var(--green); color: #fff; font-size: 24px; font-weight: 600; letter-spacing: -0.01em;
     padding: 18px 30px; border-radius: 16px; display: flex; align-items: center; gap: 12px;
@@ -133,59 +159,59 @@
   </div>
 
   <h1>Agents still calling<br/>dormant leads <s>manually</s>?<br/><em>Let AI dial them all.</em></h1>
-  <p class="sub">Hyper-realistic <b>AI PSTN calls</b> at scale, with a <b>WhatsApp fallback</b> when leads don't pick up. Every call and message is logged in your <b>CRM</b>, so your agents only work leads that are ready to talk.</p>
+  <p class="sub">Hyper-realistic <b>AI PSTN calls</b> at scale, with a <b>WhatsApp fallback</b> when leads don't pick up. Every call and message is logged in your <b>CRM</b>, so agents only work leads that are ready to talk.</p>
 
-  <div class="flow">
-    <!-- 1. AI call -->
-    <div class="card">
-      <div class="step mono"><span class="n">01</span><span>PSTN call</span></div>
-      <h3>AI calls every dormant lead</h3>
-      <div class="caller">
-        <div class="avatar">RK</div>
-        <div><div class="who">Rahul K.</div><div class="num mono">+91 98xxx x4210</div></div>
-      </div>
-      <div class="wave">
-        <b style="height:12px"></b><b style="height:24px"></b><b style="height:34px"></b><b style="height:18px"></b><b style="height:30px"></b><b style="height:38px"></b><b style="height:22px"></b><b style="height:14px"></b><b style="height:28px"></b><b style="height:36px"></b><b style="height:20px"></b><b style="height:10px"></b><b style="height:26px"></b><b style="height:16px"></b><b style="height:8px"></b>
-      </div>
-      <div class="live mono"><i></i>LIVE · 2,480 in queue</div>
-    </div>
+  <div class="hero">
+    <div class="rings"><i style="width:420px;height:420px;opacity:1"></i><i style="width:600px;height:600px;opacity:0.7"></i><i style="width:780px;height:780px;opacity:0.45"></i></div>
+    <div class="lead" style="left:72px;top:36px;opacity:0.55"><div class="av">PS</div><div><div class="nm">Priya S.</div><div class="dd mono">Dormant · 132d</div></div><span class="st q mono">Queued</span></div>
+    <div class="lead" style="left:112px;top:112px;opacity:0.8"><div class="av">AV</div><div><div class="nm">Amit V.</div><div class="dd mono">Dormant · 94d</div></div><span class="st c mono">Calling…</span></div>
+    <div class="lead" style="left:60px;top:188px;opacity:0.45"><div class="av">NR</div><div><div class="nm">Neha R.</div><div class="dd mono">Dormant · 210d</div></div><span class="st w mono">WA sent ✓✓</span></div>
+    <div class="lead" style="left:100px;top:264px;opacity:0.7"><div class="av">KP</div><div><div class="nm">Karan P.</div><div class="dd mono">Dormant · 61d</div></div><span class="st c mono">Connected</span></div>
+    <div class="lead" style="left:764px;top:20px;opacity:0.5"><div class="av">SM</div><div><div class="nm">Sana M.</div><div class="dd mono">Dormant · 88d</div></div><span class="st q mono">Queued</span></div>
+    <div class="lead" style="left:728px;top:96px;opacity:0.8"><div class="av">VJ</div><div><div class="nm">Vikram J.</div><div class="dd mono">Dormant · 175d</div></div><span class="st y mono">Callback</span></div>
+    <div class="lead" style="left:776px;top:172px;opacity:0.45"><div class="av">RD</div><div><div class="nm">Rohit D.</div><div class="dd mono">Dormant · 240d</div></div><span class="st c mono">Calling…</span></div>
+    <div class="lead" style="left:736px;top:248px;opacity:0.65"><div class="av">MK</div><div><div class="nm">Meera K.</div><div class="dd mono">Dormant · 119d</div></div><span class="st w mono">WA sent ✓✓</span></div>
 
-    <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-
-    <!-- 2. WhatsApp fallback -->
-    <div class="card">
-      <div class="step mono"><span class="n">02</span><span>Fallback</span></div>
-      <h3>No answer? WhatsApp follows up</h3>
-      <div class="chat">
-        <div class="miss mono">📞 Missed AI call · 11:02</div>
-        <div class="bubble">Hi Rahul 👋 We just tried calling you. Still looking for a plan? Reply <b>YES</b> and we'll pick a time.
-          <div class="meta mono">11:03
-            <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5"/><path d="M7 8.2l.8.8 6-7.5"/></svg>
-          </div>
+    <div class="phone">
+      <div class="screen">
+        <div class="island"></div>
+        <div class="sbar mono"><span>11:02</span><span>5G ▮▮▮</span></div>
+        <div class="pstn mono">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+          PSTN · OUTBOUND
+        </div>
+        <div class="aib mono">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/></svg>
+          AI AGENT
+        </div>
+        <div class="pav">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+        </div>
+        <div class="olabel mono">OLD LEAD</div>
+        <div class="pname">Dormant Lead</div>
+        <div class="pstat">AI Calling…</div>
+        <div class="timer mono">00:47</div>
+        <div class="pwave"><b style="height:10px"></b><b style="height:18px"></b><b style="height:28px"></b><b style="height:16px"></b><b style="height:34px"></b><b style="height:40px"></b><b style="height:24px"></b><b style="height:14px"></b><b style="height:30px"></b><b style="height:38px"></b><b style="height:22px"></b><b style="height:12px"></b><b style="height:26px"></b><b style="height:36px"></b><b style="height:20px"></b><b style="height:32px"></b><b style="height:16px"></b><b style="height:10px"></b><b style="height:22px"></b><b style="height:14px"></b><b style="height:8px"></b></div>
+        <div class="ctrls">
+          <div class="cb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1M12 18v4"/></svg></div>
+          <div class="cb"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><circle cx="6" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="18" cy="5" r="1.6"/><circle cx="6" cy="11" r="1.6"/><circle cx="12" cy="11" r="1.6"/><circle cx="18" cy="11" r="1.6"/><circle cx="6" cy="17" r="1.6"/><circle cx="12" cy="17" r="1.6"/><circle cx="18" cy="17" r="1.6"/></svg></div>
+          <div class="cb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg></div>
+          <div class="cb end"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 9c-3.2 0-6.2.9-8.6 2.6-.6.4-.8 1.2-.5 1.9l1.1 2.2c.3.6 1 .9 1.7.7l2.9-.9c.6-.2 1-.7 1-1.3V12c1.6-.4 3.2-.4 4.8 0v2.2c0 .6.4 1.1 1 1.3l2.9.9c.7.2 1.4-.1 1.7-.7l1.1-2.2c.3-.7.1-1.5-.5-1.9C18.2 9.9 15.2 9 12 9z"/></svg></div>
         </div>
       </div>
     </div>
 
-    <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-
-    <!-- 3. CRM -->
-    <div class="card">
-      <div class="step mono"><span class="n">03</span><span>CRM sync</span></div>
-      <h3>Everything logged in your CRM</h3>
-      <div class="rows">
-        <div class="row"><span class="l"><span class="dot" style="background:#007A5A"></span>Rahul K.</span><span class="tag g mono">Hot · Replied</span></div>
-        <div class="row"><span class="l"><span class="dot" style="background:#2F6FEB"></span>Priya S.</span><span class="tag b mono">Call · 2m 14s</span></div>
-        <div class="row"><span class="l"><span class="dot" style="background:#B7791F"></span>Amit V.</span><span class="tag y mono">WA · Delivered</span></div>
+    <div class="front">
+      <div class="r mono"><span class="live"><i></i>Live campaign</span><span style="color:var(--muted)">AI · PSTN</span></div>
+      <div class="t">Dormant leads re-engaged today</div>
+      <div class="big">1,126 <span>/ 2,480 leads</span></div>
+      <div class="bar"><span></span></div>
+      <div class="chips">
+        <span class="chip wa mono"><svg width="14" height="10" viewBox="0 0 16 11" fill="none" stroke="#1A8A47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5"/><path d="M7 8.2l.8.8 6-7.5"/></svg>WhatsApp fallback</span>
+        <span class="chip crm mono"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Synced to CRM</span>
       </div>
     </div>
-  </div>
 
-  <div class="foot">
-    <div class="stats">
-      <div class="stat"><div class="v">0</div><div class="k mono">Manual dials</div></div>
-      <div class="stat"><div class="v">24/7</div><div class="k mono">AI calling</div></div>
-      <div class="stat"><div class="v">100%</div><div class="k mono">CRM logged</div></div>
-    </div>
     <div class="cta">
       <div class="btn">Book a free demo
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
