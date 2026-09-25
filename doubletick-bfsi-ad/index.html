@@ -1,0 +1,398 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DoubleTick BFSI</title>
+<style>
+@font-face{font-family:Inter;font-weight:400;src:url(node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2)}
+@font-face{font-family:Inter;font-weight:600;src:url(node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2)}
+@font-face{font-family:Inter;font-weight:700;src:url(node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2)}
+@font-face{font-family:Inter;font-weight:800;src:url(node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2)}
+:root{
+  --bg:#F4EEE4; --bg2:#EDE4D6; --ink:#1E2124; --muted:#5E6369; --line:#E4DCCF;
+  --green:#12A150; --green-d:#0B7A3C; --green-l:#E3F5EA;
+  --wa:#1F7A5C; --wa-bg:#EFE7DC; --warn:#E8622C; --warn-l:#FDEBE2; --red:#D8453B;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1080px;overflow:hidden;background:var(--bg)}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+#stage{position:relative;width:1080px;height:1080px;overflow:hidden;
+  background:radial-gradient(900px 700px at 80% 10%,#FBF7F0 0%,rgba(251,247,240,0) 70%),var(--bg)}
+.blob{position:absolute;border-radius:50%;filter:blur(2px)}
+.scene{position:absolute;inset:0;visibility:hidden}
+.head{position:absolute;left:80px;right:80px;top:74px}
+.h1{font-size:60px;line-height:1.06;font-weight:800;letter-spacing:-1.8px}
+.h1 .g{color:var(--green)}
+.sub{margin-top:18px;font-size:27px;line-height:1.35;font-weight:500;color:var(--muted);max-width:880px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:19px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--green-d);margin-bottom:16px}
+.eyebrow i{width:10px;height:10px;border-radius:50%;background:var(--green);display:block}
+.card{background:#fff;border-radius:26px;box-shadow:0 1px 0 rgba(30,33,36,.04),0 18px 40px -18px rgba(60,45,20,.28),0 4px 12px -6px rgba(60,45,20,.12)}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font-size:17px;font-weight:600}
+/* phone */
+.phone{position:absolute;width:340px;height:640px;border-radius:52px;background:#16181B;padding:12px;
+  box-shadow:0 40px 70px -30px rgba(40,30,10,.45),0 10px 24px -10px rgba(40,30,10,.3)}
+.screen{position:relative;width:100%;height:100%;border-radius:41px;overflow:hidden;background:#fff}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:96px;height:26px;border-radius:14px;background:#16181B;z-index:5}
+.sbar{height:46px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 6px;font-size:14px;font-weight:700}
+.wa-head{background:var(--wa);color:#fff;display:flex;align-items:center;gap:10px;padding:10px 14px 12px}
+.wa-head .av{width:38px;height:38px;border-radius:50%;background:#fff;color:var(--wa);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+.wa-head .nm{font-size:15px;font-weight:700;line-height:1.15}
+.wa-head .st{font-size:12px;opacity:.85}
+.wa-body{position:absolute;top:108px;bottom:0;left:0;right:0;background:var(--wa-bg);padding:16px 12px;display:flex;flex-direction:column;gap:10px}
+.bub{max-width:86%;padding:10px 12px 18px;border-radius:14px;font-size:15px;line-height:1.35;position:relative;box-shadow:0 1px 1px rgba(0,0,0,.06)}
+.bub .t{position:absolute;right:10px;bottom:4px;font-size:10px;color:#8a8f94}
+.bub.in{background:#fff;align-self:flex-start;border-top-left-radius:4px}
+.bub.out{background:#D9F7C6;align-self:flex-end;border-top-right-radius:4px}
+.tick{color:#34B7F1;font-weight:800}
+.sysnote{align-self:center;background:#FFF5D6;color:#6b5a1f;font-size:12px;font-weight:600;padding:5px 10px;border-radius:8px}
+.row{display:flex;align-items:center;gap:12px}
+.ico{flex:none;display:flex;align-items:center;justify-content:center;border-radius:50%}
+/* logo */
+.logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:30px;letter-spacing:-.6px}
+.logo .mk{width:46px;height:46px;border-radius:14px;background:var(--green);display:flex;align-items:center;justify-content:center}
+.tag{position:absolute;background:#fff;border-radius:999px;padding:12px 20px;font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px;box-shadow:0 14px 30px -14px rgba(60,45,20,.35)}
+.tag i{width:12px;height:12px;border-radius:50%;background:var(--green);display:block}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="blob" style="width:520px;height:520px;right:-180px;bottom:-200px;background:#E9DFCF"></div>
+  <div class="blob" style="width:300px;height:300px;left:-140px;top:420px;background:#EFE6D8"></div>
+
+  <!-- ============ SCENE 1 — HOOK ============ -->
+  <section class="scene" id="s1">
+    <div class="head">
+      <div class="h1 s1-h">Still chasing lakhs of<br>leads <span style="color:var(--warn)">manually?</span></div>
+      <div class="sub s1-sub">While hot opportunities go cold before your teams can follow up?</div>
+    </div>
+    <div class="phone" id="s1-phone" style="left:96px;top:352px">
+      <div class="screen"><div class="notch"></div>
+        <div class="sbar"><span>9:41</span><span>●●● ▮</span></div>
+        <div style="padding:10px 20px 8px;display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:22px;font-weight:800">Leads</div>
+          <div class="chip" style="background:var(--warn-l);color:var(--warn);font-size:13px;padding:5px 10px">1,248 pending</div>
+        </div>
+        <div id="s1-list" style="padding:4px 14px;display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+    </div>
+    <div id="s1-cards" style="position:absolute;left:500px;top:382px;width:500px">
+      <div class="card s1-card" style="padding:22px 24px;margin-bottom:18px">
+        <div class="row"><div class="ico" style="width:52px;height:52px;background:var(--warn-l)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E8622C" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/><path d="M16 2l6 6M22 2l-6 6"/></svg></div>
+          <div style="flex:1"><div style="font-size:24px;font-weight:700">Missed follow-ups</div><div style="font-size:18px;color:var(--muted);margin-top:2px">Callbacks never happened</div></div>
+          <div style="font-size:28px;font-weight:800;color:var(--warn)">412</div></div>
+      </div>
+      <div class="card s1-card" style="padding:22px 24px;margin-bottom:18px">
+        <div class="row"><div class="ico" style="width:52px;height:52px;background:#F1ECE4"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#6B6F75" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.9 3.1-7 7-7s7 3.1 7 7"/><path d="M17 8h5"/></svg></div>
+          <div style="flex:1"><div style="font-size:24px;font-weight:700">Dormant leads</div><div style="font-size:18px;color:var(--muted);margin-top:2px">No touchpoint in 30+ days</div></div>
+          <div style="font-size:28px;font-weight:800;color:#6B6F75">8.9K</div></div>
+      </div>
+      <div class="card s1-card" style="padding:22px 24px">
+        <div class="row"><div class="ico" style="width:52px;height:52px;background:var(--warn-l)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E8622C" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div style="flex:1"><div style="font-size:24px;font-weight:700">Slow RM response</div><div style="font-size:18px;color:var(--muted);margin-top:2px">Avg. first reply</div></div>
+          <div style="font-size:28px;font-weight:800;color:var(--warn)">48h</div></div>
+      </div>
+      <div id="s1-cold" style="margin-top:26px;display:flex;align-items:center;gap:16px">
+        <div style="position:relative;width:22px;height:22px"><div id="s1-pulse" style="position:absolute;inset:0;border-radius:50%;background:var(--red);opacity:.3"></div><div style="position:absolute;inset:5px;border-radius:50%;background:var(--red)"></div></div>
+        <div style="font-size:22px;font-weight:700;color:var(--red)">Leads going cold</div>
+        <div style="flex:1;height:10px;border-radius:6px;background:#EADFD2;overflow:hidden"><div id="s1-bar" style="height:100%;width:100%;background:linear-gradient(90deg,#F2A25C,#D8453B);transform-origin:left"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 2 — PROBLEM ============ -->
+  <section class="scene" id="s2">
+    <div class="head">
+      <div class="h1 s2-h">Manual outreach<br>doesn’t scale</div>
+      <div class="sub s2-sub">Calls get missed. Follow-ups slow down. Conversations drop off.</div>
+    </div>
+    <div class="card s2-l" style="position:absolute;left:80px;top:360px;width:448px;height:520px;padding:24px">
+      <div class="row" style="justify-content:space-between;margin-bottom:16px"><div style="font-size:22px;font-weight:800">Call list</div><div class="chip" style="background:#F1ECE4;color:var(--muted);font-size:14px;padding:5px 10px">Manual dialing</div></div>
+      <div id="s2-calls" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div>
+    <div class="card s2-r" style="position:absolute;left:552px;top:360px;width:448px;height:520px;overflow:hidden">
+      <div class="wa-head" style="padding:16px 18px"><div class="av">R</div><div><div class="nm">Rahul · Home loan</div><div class="st">last seen 3 days ago</div></div></div>
+      <div style="position:absolute;top:74px;bottom:0;left:0;right:0;background:var(--wa-bg);padding:18px 16px;display:flex;flex-direction:column;gap:12px" id="s2-chat">
+        <div class="bub in s2-b">Hi, I wanted details on the loan offer.<span class="t">Mon 10:02</span></div>
+        <div class="sysnote s2-b">⏱ 2 days without a reply</div>
+        <div class="bub out s2-b">Sorry for the delay! Are you still interested?<span class="t">Wed 18:40 <span style="color:#8a8f94">✓✓</span></span></div>
+        <div class="sysnote s2-b" style="background:#FDEBE2;color:#B2461F">No reply · Conversation dropped</div>
+      </div>
+    </div>
+    <div class="card s2-rm" style="position:absolute;left:320px;top:908px;width:440px;padding:16px 22px;display:flex;align-items:center;gap:16px">
+      <div class="ico" style="width:54px;height:54px;background:#F1ECE4"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1E2124" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div>
+      <div style="flex:1"><div style="font-size:21px;font-weight:700">1 RM</div><div style="font-size:16px;color:var(--muted)">Assigned leads today</div></div>
+      <div id="s2-count" style="font-size:34px;font-weight:800;color:var(--warn)">0</div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 3 — AU SFB ============ -->
+  <section class="scene" id="s3">
+    <div class="head">
+      <div class="eyebrow s3-e"><i></i>Case study</div>
+      <div class="h1 s3-h">AU Small Finance Bank</div>
+      <div class="sub s3-sub">Re-engaged dormant and rejected leads at scale</div>
+    </div>
+    <div class="phone" id="s3-phone" style="left:80px;top:372px;height:620px">
+      <div class="screen"><div class="notch"></div>
+        <div class="sbar" style="background:var(--wa);color:#fff"><span>9:41</span><span>●●● ▮</span></div>
+        <div class="wa-head" style="padding-top:6px"><div class="av">AU</div><div><div class="nm">AU Small Finance Bank</div><div class="st">Business account</div></div></div>
+        <div class="wa-body" style="top:102px">
+          <div class="sysnote s3-b">📞 AI Voice call · 1:12</div>
+          <div class="bub in s3-b">Hi, we’re following up on your loan enquiry.<span class="t">11:02</span></div>
+          <div class="bub in s3-b">Would you like to continue on WhatsApp?<span class="t">11:02</span></div>
+          <div class="bub out s3-b">Yes, please share the details<span class="t">11:04 <span class="tick">✓✓</span></span></div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;left:470px;top:372px;width:530px">
+      <div class="card s3-metric" style="padding:26px 30px;background:var(--ink);color:#fff">
+        <div style="font-size:74px;font-weight:800;letter-spacing:-2px;line-height:1"><span id="s3-num">0</span><span style="color:#4ADE80">+</span></div>
+        <div style="font-size:23px;font-weight:600;margin-top:10px;color:#D6D9DC">Outbound AI Calls Placed</div>
+      </div>
+      <div class="card s3-ui" style="margin-top:20px;padding:20px 22px">
+        <div class="row" style="justify-content:space-between;margin-bottom:12px"><div class="logo" style="font-size:18px;gap:8px"><div class="mk" style="width:28px;height:28px;border-radius:8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13l4 4L14 8"/><path d="M10 17l1 0L22 6"/></svg></div>DoubleTick</div><div style="font-size:14px;color:var(--muted);font-weight:600">Lead #A-20931</div></div>
+        <div class="s3-step row" style="padding:10px 0;border-top:1px solid var(--line)"><div class="ico" style="width:34px;height:34px;background:var(--green-l);color:var(--green-d);font-weight:800">✓</div><div style="font-size:20px;font-weight:600">AI Voice outreach</div></div>
+        <div class="s3-step row" style="padding:10px 0;border-top:1px solid var(--line)"><div class="ico" style="width:34px;height:34px;background:var(--green-l);color:var(--green-d);font-weight:800">✓</div><div style="font-size:20px;font-weight:600">Lead re-engaged</div></div>
+        <div class="s3-step row" style="padding:10px 0;border-top:1px solid var(--line)"><div class="ico" style="width:34px;height:34px;background:var(--green-l);color:var(--green-d);font-weight:800">✓</div><div style="font-size:20px;font-weight:600">Routed to assigned RM</div></div>
+      </div>
+      <div class="s3-flow row" style="margin-top:20px;gap:10px;justify-content:space-between">
+        <div class="chip s3-f" style="background:#fff;font-size:19px;padding:12px 18px;box-shadow:0 8px 18px -10px rgba(60,45,20,.3)">📞 AI Voice</div>
+        <div class="s3-f" style="font-size:24px;color:var(--green);font-weight:800">→</div>
+        <div class="chip s3-f" style="background:#fff;font-size:19px;padding:12px 18px;box-shadow:0 8px 18px -10px rgba(60,45,20,.3)">💬 WhatsApp</div>
+        <div class="s3-f" style="font-size:24px;color:var(--green);font-weight:800">→</div>
+        <div class="chip s3-f" style="background:var(--green);color:#fff;font-size:19px;padding:12px 18px">👤 RM</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 4 — PIRAMAL ============ -->
+  <section class="scene" id="s4">
+    <div class="head">
+      <div class="eyebrow s4-e"><i></i>Case study</div>
+      <div class="h1 s4-h">Piramal Finance</div>
+      <div class="sub s4-sub">Scaled outreach across the loan lifecycle</div>
+    </div>
+    <div class="phone" id="s4-phone" style="left:80px;top:372px;height:620px">
+      <div class="screen"><div class="notch"></div>
+        <div class="sbar" style="background:var(--wa);color:#fff"><span>9:41</span><span>●●● ▮</span></div>
+        <div class="wa-head" style="padding-top:6px"><div class="av">P</div><div><div class="nm">Piramal Finance</div><div class="st">Business account</div></div></div>
+        <div class="wa-body" style="top:102px">
+          <div class="bub in s4-b">Your loan follow-up is due.<span class="t">10:15</span></div>
+          <div class="bub in s4-b">Need help completing your application?<span class="t">10:15</span></div>
+          <div class="bub out s4-b">Yes, I got stuck on documents<span class="t">10:17 <span class="tick">✓✓</span></span></div>
+          <div class="bub in s4-b">Our team can help you continue.<span class="t">10:17</span></div>
+          <div class="sysnote s4-b" style="background:var(--green-l);color:var(--green-d)">↗ Escalated to RM</div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;left:470px;top:372px;width:530px">
+      <div class="card s4-metric" style="padding:26px 30px;background:var(--ink);color:#fff;display:flex;align-items:center;gap:22px">
+        <div style="font-size:84px;font-weight:800;letter-spacing:-3px;line-height:1"><span id="s4-num">0</span><span style="color:#4ADE80">%</span></div>
+        <div style="font-size:24px;font-weight:600;line-height:1.25;color:#D6D9DC">Faster RM<br>Response</div>
+      </div>
+      <div id="s4-wf" style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:14px"></div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 5 — VALUE ============ -->
+  <section class="scene" id="s5">
+    <div class="head">
+      <div class="h1 s5-h">Voice AI + WhatsApp<br><span class="g">+ RM workflow</span></div>
+      <div class="sub s5-sub">Automate outreach. Surface intent. Let RMs focus on closing.</div>
+    </div>
+    <div style="position:absolute;left:80px;right:80px;top:372px;height:230px">
+      <div style="position:absolute;left:110px;right:110px;top:62px;height:6px;border-radius:4px;background:#E4DACB"></div>
+      <div id="s5-prog" style="position:absolute;left:110px;right:110px;top:62px;height:6px;border-radius:4px;background:var(--green);transform-origin:left;transform:scaleX(0)"></div>
+      <div id="s5-steps" style="position:absolute;inset:0;display:flex;justify-content:space-between"></div>
+    </div>
+    <div class="card s5-ui" style="position:absolute;left:80px;top:650px;width:540px;padding:22px 26px">
+      <div class="row" style="justify-content:space-between;margin-bottom:14px"><div class="logo" style="font-size:19px;gap:8px"><div class="mk" style="width:30px;height:30px;border-radius:9px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13l4 4L14 8"/><path d="M10 17l1 0L22 6"/></svg></div>DoubleTick · Leads</div><div style="font-size:14px;color:var(--muted);font-weight:600">Live</div></div>
+      <div class="row" style="padding:14px 0;border-top:1px solid var(--line)">
+        <div class="ico" style="width:46px;height:46px;background:#F1ECE4;font-weight:800;font-size:17px">NK</div>
+        <div style="flex:1"><div style="font-size:21px;font-weight:700">Neha K.</div><div style="font-size:16px;color:var(--muted)">Personal loan · ₹5L</div></div>
+        <div style="position:relative;width:200px;height:40px">
+          <div class="chip s5-st" style="position:absolute;right:0;background:#F1ECE4;color:var(--muted)">New lead</div>
+          <div class="chip s5-st" style="position:absolute;right:0;background:#EEF2FF;color:#4450B8">AI call done</div>
+          <div class="chip s5-st" style="position:absolute;right:0;background:#E7F6EF;color:var(--wa)">On WhatsApp</div>
+          <div class="chip s5-st" style="position:absolute;right:0;background:var(--green);color:#fff">🔥 High intent</div>
+        </div>
+      </div>
+      <div class="row s5-route" style="padding:12px 16px;border-radius:14px;background:var(--green-l);margin-top:6px">
+        <div style="font-size:18px;font-weight:700;color:var(--green-d)">↗ Routed to RM · Amit S.</div>
+      </div>
+    </div>
+    <div class="card s5-wa" style="position:absolute;left:648px;top:650px;width:352px;overflow:hidden">
+      <div class="wa-head" style="padding:14px 16px"><div class="av" style="font-size:12px">DT</div><div><div class="nm">WhatsApp</div><div class="st">online</div></div></div>
+      <div style="background:var(--wa-bg);padding:14px 12px;display:flex;flex-direction:column;gap:10px;height:196px">
+        <div class="bub in s5-b" style="font-size:15px">Thanks for the call! Here’s your loan summary 📄<span class="t">12:10</span></div>
+        <div class="bub out s5-b" style="font-size:15px">Great, I’d like to proceed<span class="t">12:11 <span class="tick">✓✓</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 6 — CTA ============ -->
+  <section class="scene" id="s6">
+    <div class="logo s6-logo" style="position:absolute;left:80px;top:74px"><div class="mk"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13l4 4L14 8"/><path d="M10 17l1 0L22 6"/></svg></div>DoubleTick</div>
+    <div style="position:absolute;left:80px;top:196px;width:520px">
+      <div class="h1 s6-h" style="font-size:62px">Turn more leads into <span class="g">real conversations</span></div>
+      <div class="sub s6-sub" style="font-size:27px">Book your DoubleTick demo today</div>
+      <div class="s6-btn" style="margin-top:38px;display:inline-flex;align-items:center;gap:14px;background:var(--green);color:#fff;font-size:28px;font-weight:800;padding:22px 36px;border-radius:999px;box-shadow:0 20px 36px -16px rgba(18,161,80,.7)">Book Demo <span style="font-size:30px">→</span></div>
+    </div>
+    <div class="s6-sec" style="position:absolute;left:80px;right:80px;bottom:72px;font-size:22px;font-weight:600;color:var(--muted)">Automate follow-ups <span style="color:var(--green)">•</span> Prioritize high-intent leads <span style="color:var(--green)">•</span> Scale customer conversations</div>
+    <div class="phone" id="s6-phone" style="left:656px;top:190px;width:320px;height:620px">
+      <div class="screen"><div class="notch"></div>
+        <div class="sbar"><span>9:41</span><span>●●● ▮</span></div>
+        <div style="padding:8px 18px 10px;display:flex;align-items:center;gap:8px"><div class="logo" style="font-size:18px;gap:8px"><div class="mk" style="width:28px;height:28px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13l4 4L14 8"/><path d="M10 17l1 0L22 6"/></svg></div>Inbox</div></div>
+        <div id="s6-list" style="padding:0 12px;display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+    </div>
+    <div class="tag s6-tag" style="left:596px;top:150px"><i></i>AI Voice</div>
+    <div class="tag s6-tag" style="left:846px;top:648px"><i></i>WhatsApp</div>
+    <div class="tag s6-tag" style="left:596px;top:716px"><i></i>RM Routing</div>
+    <div class="tag s6-tag" style="left:780px;top:800px"><i></i>Faster Response</div>
+  </section>
+</div>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script>
+// Scene boundaries (seconds) — aligned to the voiceover
+const S = [0, 4.6, 8.6, 14.6, 20.0, 26.4, 30.6];
+window.DURATION = S[6];
+
+// ---- build repeated content ----
+const leads = [["Priya S.","Missed call","warn"],["Arjun M.","Pending","warn"],["Kavita R.","No answer","warn"],["Rohan D.","Pending","warn"],["Sana P.","Missed call","warn"],["Vikram T.","Pending","warn"],["Meera J.","No answer","warn"],["Imran K.","Missed call","warn"]];
+document.getElementById('s1-list').innerHTML = leads.map(([n,s])=>`
+  <div class="s1-li row" style="padding:10px 10px;border-radius:14px;background:#F8F5F0">
+    <div class="ico" style="width:36px;height:36px;background:#EDE6DB;font-size:13px;font-weight:800">${n.split(' ').map(x=>x[0]).join('')}</div>
+    <div style="flex:1;font-size:15px;font-weight:700">${n}</div>
+    <div class="chip" style="font-size:12px;padding:4px 9px;background:var(--warn-l);color:var(--warn)">${s}</div>
+  </div>`).join('');
+
+const calls = [["+91 98xxx 11204","Missed call"],["+91 97xxx 55310","No reply"],["+91 99xxx 20417","Follow-up pending"],["+91 90xxx 67821","Missed call"],["+91 88xxx 13092","No reply"],["+91 70xxx 44518","Follow-up pending"]];
+document.getElementById('s2-calls').innerHTML = calls.map(([n,s])=>`
+  <div class="s2-c row" style="padding:12px 14px;border-radius:14px;background:#F8F5F0">
+    <div class="ico" style="width:36px;height:36px;background:#EDE6DB"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B6F75" stroke-width="2.4" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+    <div style="flex:1;font-size:17px;font-weight:600">${n}</div>
+    <div class="chip" style="font-size:13px;padding:5px 10px;background:${s==='Follow-up pending'?'#FFF3D6':'var(--warn-l)'};color:${s==='Follow-up pending'?'#8A6A12':'var(--warn)'}">${s}</div>
+  </div>`).join('');
+
+const wf = [["🔔","Follow-ups"],["↩︎","Drop-off recovery"],["🤝","Partner engagement"],["₹","Collections"]];
+document.getElementById('s4-wf').innerHTML = wf.map(([i,t])=>`
+  <div class="card s4-w row" style="padding:18px 18px;border-radius:20px">
+    <div class="ico" style="width:42px;height:42px;background:var(--green-l);color:var(--green-d);font-size:20px;font-weight:800">${i}</div>
+    <div style="font-size:19px;font-weight:700;line-height:1.2">${t}</div>
+  </div>`).join('') + `
+  <div class="card s4-w row" style="grid-column:1/3;padding:18px 20px;border-radius:20px;background:var(--green);color:#fff">
+    <div class="ico" style="width:42px;height:42px;background:rgba(255,255,255,.2);font-size:20px;font-weight:800">👤</div>
+    <div style="font-size:21px;font-weight:700">Escalate to RM only when needed</div>
+  </div>`;
+
+const steps = [["📥","Lead comes in"],["📞","AI Voice follows up"],["💬","WhatsApp continues"],["👤","High-intent → RM"]];
+document.getElementById('s5-steps').innerHTML = steps.map(([i,t],k)=>`
+  <div class="s5-s" style="width:196px;display:flex;flex-direction:column;align-items:center;text-align:center">
+    <div class="s5-dot card" style="width:128px;height:128px;border-radius:36px;display:flex;align-items:center;justify-content:center;font-size:52px;position:relative">${i}
+      <div style="position:absolute;top:-10px;right:-10px;width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;font-size:17px;font-weight:800;display:flex;align-items:center;justify-content:center">${k+1}</div></div>
+    <div style="margin-top:18px;font-size:21px;font-weight:700;line-height:1.2">${t}</div>
+  </div>`).join('');
+
+const inbox = [["AU","Loan enquiry · re-engaged","AI Voice"],["NK","Ready to proceed","High intent"],["RS","Documents shared","WhatsApp"],["PT","EMI query resolved","Auto"],["AM","Callback booked","RM"]];
+document.getElementById('s6-list').innerHTML = inbox.map(([a,t,c],k)=>`
+  <div class="s6-li row" style="padding:10px;border-radius:14px;background:${k===1?'var(--green-l)':'#F8F5F0'}">
+    <div class="ico" style="width:36px;height:36px;background:${k===1?'var(--green)':'#EDE6DB'};color:${k===1?'#fff':'inherit'};font-size:12px;font-weight:800">${a}</div>
+    <div style="flex:1;font-size:13px;font-weight:700;line-height:1.25">${t}</div>
+    <div class="chip" style="font-size:11px;padding:3px 8px;background:#fff;color:var(--green-d)">${c}</div>
+  </div>`).join('');
+
+// ---- timeline ----
+const tl = gsap.timeline({paused:true});
+const E = "power3.out";
+function sceneWindow(id,i,last){
+  const s=S[i], e=S[i+1];
+  tl.set(id,{visibility:"visible",opacity:1},s);
+  if(!last){ tl.to(id,{opacity:0,duration:0.35,ease:"power1.in"},e-0.35); tl.set(id,{visibility:"hidden"},e); }
+}
+function inUp(t,sel,at,o={}){ tl.from(sel,Object.assign({opacity:0,y:28,duration:0.6,ease:E},o),at); }
+
+// Scene 1
+sceneWindow("#s1",0);
+inUp(1,".s1-h",0.1); inUp(1,".s1-sub",0.35);
+tl.from("#s1-phone",{opacity:0,y:60,scale:.96,duration:0.8,ease:E},0.4);
+tl.from(".s1-li",{opacity:0,y:-18,duration:0.35,stagger:0.12,ease:E},0.8);
+tl.from(".s1-card",{opacity:0,x:40,duration:0.55,stagger:0.28,ease:E},1.0);
+tl.from("#s1-cold",{opacity:0,y:16,duration:0.5,ease:E},2.1);
+tl.fromTo("#s1-bar",{scaleX:1},{scaleX:0.18,duration:2.0,ease:"power1.inOut"},2.3);
+tl.fromTo("#s1-pulse",{scale:1,opacity:.35},{scale:2.2,opacity:0,duration:0.9,repeat:2,ease:"power1.out"},2.2);
+tl.to(".s1-card:nth-child(1), .s1-card:nth-child(2)",{opacity:0.42,filter:"grayscale(1)",duration:0.6,stagger:0.3},3.0);
+tl.to(".s1-li:nth-child(n+5)",{opacity:0.35,duration:0.5,stagger:0.08},3.1);
+
+// Scene 2
+const b=S[1];
+sceneWindow("#s2",1);
+inUp(1,".s2-h",b+0.05); inUp(1,".s2-sub",b+0.25);
+tl.from(".s2-l",{opacity:0,x:-40,duration:0.6,ease:E},b+0.3);
+tl.from(".s2-r",{opacity:0,x:40,duration:0.6,ease:E},b+0.4);
+tl.from(".s2-c",{opacity:0,y:14,duration:0.3,stagger:0.12,ease:E},b+0.6);
+tl.from(".s2-b",{opacity:0,y:14,duration:0.35,stagger:0.45,ease:E},b+0.8);
+tl.from(".s2-rm",{opacity:0,y:30,duration:0.5,ease:E},b+1.4);
+const rm={v:0}; tl.to(rm,{v:142,duration:1.6,ease:"power2.out",onUpdate:()=>{document.getElementById('s2-count').textContent=Math.round(rm.v)}},b+1.6);
+
+// Scene 3
+const c=S[2];
+sceneWindow("#s3",2);
+inUp(1,".s3-e",c+0.05); inUp(1,".s3-h",c+0.15); inUp(1,".s3-sub",c+0.35);
+tl.from("#s3-phone",{opacity:0,y:60,duration:0.8,ease:E},c+0.3);
+tl.from(".s3-b",{opacity:0,y:16,scale:.97,duration:0.4,stagger:0.55,ease:E},c+0.8);
+tl.from(".s3-metric",{opacity:0,y:30,duration:0.6,ease:E},c+0.6);
+const n3={v:0}; tl.to(n3,{v:312945,duration:2.4,ease:"power2.out",onUpdate:()=>{document.getElementById('s3-num').textContent=Math.round(n3.v).toLocaleString('en-IN')}},c+0.8);
+tl.from(".s3-ui",{opacity:0,y:30,duration:0.6,ease:E},c+1.6);
+tl.from(".s3-step",{opacity:0,x:20,duration:0.4,stagger:0.45,ease:E},c+2.0);
+tl.from(".s3-f",{opacity:0,y:12,duration:0.35,stagger:0.18,ease:E},c+3.4);
+
+// Scene 4
+const d=S[3];
+sceneWindow("#s4",3);
+inUp(1,".s4-e",d+0.05); inUp(1,".s4-h",d+0.15); inUp(1,".s4-sub",d+0.35);
+tl.from("#s4-phone",{opacity:0,y:60,duration:0.8,ease:E},d+0.3);
+tl.from(".s4-b",{opacity:0,y:16,scale:.97,duration:0.4,stagger:0.5,ease:E},d+0.7);
+tl.from(".s4-metric",{opacity:0,y:30,duration:0.6,ease:E},d+0.5);
+const n4={v:0}; tl.to(n4,{v:90,duration:1.8,ease:"power2.out",onUpdate:()=>{document.getElementById('s4-num').textContent=Math.round(n4.v)}},d+0.7);
+tl.from(".s4-w",{opacity:0,y:20,duration:0.45,stagger:0.3,ease:E},d+1.4);
+
+// Scene 5
+const f=S[4];
+sceneWindow("#s5",4);
+inUp(1,".s5-h",f+0.05); inUp(1,".s5-sub",f+0.3);
+tl.from(".s5-s",{opacity:0,y:30,duration:0.5,stagger:0.55,ease:E},f+0.5);
+tl.to("#s5-prog",{scaleX:1,duration:2.0,ease:"none"},f+0.8);
+tl.from(".s5-ui",{opacity:0,y:30,duration:0.6,ease:E},f+1.0);
+tl.from(".s5-wa",{opacity:0,y:30,duration:0.6,ease:E},f+1.2);
+const st = gsap.utils.toArray(".s5-st");
+tl.set(st.slice(1),{opacity:0},f);
+[1,2,3].forEach((k,j)=>{ const at=f+1.6+j*1.1;
+  tl.to(st[k-1],{opacity:0,y:-10,duration:0.25},at);
+  tl.fromTo(st[k],{opacity:0,y:10},{opacity:1,y:0,duration:0.3,ease:E},at+0.1);
+});
+tl.from(".s5-b",{opacity:0,y:14,duration:0.35,stagger:0.8,ease:E},f+2.4);
+tl.from(".s5-route",{opacity:0,y:14,duration:0.45,ease:E},f+5.0);
+tl.fromTo(".s5-dot",{scale:1},{scale:1.08,duration:0.25,yoyo:true,repeat:1,stagger:0.55,ease:"power1.inOut"},f+1.0);
+
+// Scene 6
+const g=S[5];
+sceneWindow("#s6",5,true);
+inUp(1,".s6-logo",g+0.05); inUp(1,".s6-h",g+0.15); inUp(1,".s6-sub",g+0.4);
+tl.from(".s6-btn",{opacity:0,scale:.85,duration:0.6,ease:"back.out(1.6)"},g+0.7);
+tl.from("#s6-phone",{opacity:0,y:60,duration:0.8,ease:E},g+0.3);
+tl.from(".s6-li",{opacity:0,y:14,duration:0.35,stagger:0.12,ease:E},g+0.8);
+tl.from(".s6-tag",{opacity:0,scale:.8,duration:0.5,stagger:0.18,ease:"back.out(1.7)"},g+1.1);
+tl.from(".s6-sec",{opacity:0,y:14,duration:0.5,ease:E},g+1.4);
+tl.to(".s6-btn",{scale:1.04,duration:0.5,yoyo:true,repeat:1,ease:"power1.inOut"},g+2.5);
+tl.to(".s6-tag",{y:"-=8",duration:1.6,yoyo:true,repeat:1,stagger:0.2,ease:"sine.inOut"},g+1.8);
+tl.set({},{},S[6]);
+
+window.__tl = tl;
+window.seek = (t)=>{ tl.seek(t,false); };
+window.__ready = document.fonts.ready.then(()=>true);
+</script>
+</body>
+</html>
