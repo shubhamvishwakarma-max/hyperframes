@@ -174,6 +174,14 @@ export const IconArrow: React.FC<IconProps & { dir?: "right" | "down" }> = ({
   </svg>
 );
 
+export const IconBank: React.FC<IconProps> = ({ size = 22, color = C.green, stroke = 2 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 10l9-6 9 6" />
+    <path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8" />
+    <path d="M3 21h18" />
+  </svg>
+);
+
 export const IconBadge: React.FC<{ children: React.ReactNode; size?: number; bg?: string }> = ({
   children,
   size = 40,
@@ -220,28 +228,8 @@ export const CustomerLogo: React.FC<{
       />
     );
   }
-  return (
-    <div
-      style={{
-        height,
-        minWidth: height * 2.6,
-        maxWidth,
-        border: `1.5px dashed ${C.muted}`,
-        borderRadius: 8,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: MONO,
-        fontSize: Math.max(8, height * 0.24),
-        color: C.muted,
-        letterSpacing: 1,
-        padding: "0 8px",
-        ...style,
-      }}
-    >
-      LOGO
-    </div>
-  );
+  // Official file not supplied yet: render nothing rather than a recreated or placeholder mark.
+  return null;
 };
 
 /** Square avatar holding the official customer logo (for WhatsApp business headers). */
@@ -259,7 +247,11 @@ export const LogoAvatar: React.FC<{ brand: "au" | "piramal"; size: number }> = (
       flex: "none",
     }}
   >
-    <CustomerLogo brand={brand} height={size * 0.42} maxWidth={size * 0.78} style={{ minWidth: 0, border: brandAssets[brand] ? undefined : `1px dashed ${C.muted}`, fontSize: 7 }} />
+    {brandAssets[brand] ? (
+      <CustomerLogo brand={brand} height={size * 0.42} maxWidth={size * 0.78} />
+    ) : (
+      <IconBank size={size * 0.5} color={C.green} />
+    )}
   </div>
 );
 

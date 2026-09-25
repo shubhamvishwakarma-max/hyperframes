@@ -21,12 +21,17 @@ automatically whenever the narration is regenerated.
 ```bash
 npm install
 python3 scripts/make-sfx.py                       # soft UI sound effects → public/sfx
-ELEVENLABS_API_KEY=... npm run narration          # voice "Aaditya - Healthcare Advisor" → public/audio/narration.mp3 + cue sync
+ELEVENLABS_API_KEY=... npm run narration          # voice "Aaditya K" → public/audio/narration.mp3 + cue sync
 npm run render                                    # → out/doubletick-au-piramal-ai-voice-whatsapp.mp4
 ```
 
-`npm run narration` stops (no substitution) if the exact voice "Aaditya - Healthcare Advisor"
-is not in the ElevenLabs account.
+`npm run narration` stops (no substitution) if the exact voice name is not in the ElevenLabs account.
+
+Shipped narration: ElevenLabs "Aaditya K - Deep Voice for Finance & Healthcare Support"
+(`SVdvKlYuyNTd1xzQqLWD`, eleven_multilingual_v2), exact script. Two long paragraph pauses were
+tightened and the take was time-stretched 1.14× (rubberband, pitch/formants preserved) → 40.65 s,
+≈154 wpm. Cues in `src/narration-timing.json` are anchored on the detected pauses of that file.
+Final audio is loudness-normalised to −14 LUFS after render.
 
 Set `REMOTION_BROWSER` to a local Chromium headless shell if Remotion cannot download its own.
 
@@ -36,5 +41,6 @@ Set `REMOTION_BROWSER` to a local Chromium headless shell if Remotion cannot dow
 - `au-small-finance-bank-logo.svg` — **official file required** (not yet added).
 - `piramal-finance-logo.svg` — **official file required** (not yet added).
 
-After adding a customer logo, set its path in `src/brand-assets.ts`. Until then the video shows
-a neutral dashed "LOGO" slot; brands are never recreated with typed text.
+After adding a customer logo, set its path in `src/brand-assets.ts` and re-render. Until then the
+top-right slot is left empty and the WhatsApp avatar shows a neutral bank icon — brands are never
+recreated with typed text.

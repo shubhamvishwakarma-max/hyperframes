@@ -1,5 +1,5 @@
 {
-  "narration": false,
+  "narration": true,
   "narrationOffsetSec": 0.3,
   "music": true,
   "sfx": true

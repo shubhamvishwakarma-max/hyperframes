@@ -76,7 +76,7 @@ export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
   const pCtx = progressAt(t, cues.pChip2, 0.35); // context label: APPLICATION FOLLOW-UP → DROP-OFF RECOVERY
   const pRoute = progressAt(t, cues.pChip4 + 0.7, 0.4);
   const pMetric = progressAt(t, cues.pMetric, 0.45);
-  const pCount = interpolate(t, [cues.pMetric, cues.pMetric + 1.0], [0, 90], {
+  const pCount = interpolate(t, [cues.pMetric, cues.pMetric + 2.0], [0, 90], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: (x) => 1 - Math.pow(1 - x, 3),
@@ -279,7 +279,7 @@ export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
                 {Math.round(pCount)}
                 <span style={{ color: C.logoGreen }}>%</span>
               </div>
-              <div style={{ fontSize: 22, fontWeight: 600, lineHeight: 1.25, color: "#E4E6E1", opacity: progressAt(t, cues.pMetric + 0.9, 0.35) }}>
+              <div style={{ fontSize: 22, fontWeight: 600, lineHeight: 1.25, color: "#E4E6E1", opacity: progressAt(t, cues.pMetric + 1.6, 0.35) }}>
                 Reduction in
                 <br />
                 RM Response Time

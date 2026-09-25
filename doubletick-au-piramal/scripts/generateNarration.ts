@@ -3,7 +3,8 @@
  *
  *   ELEVENLABS_API_KEY=... npx tsx scripts/generateNarration.ts
  *
- * 1. Resolves the voice "Aaditya - Healthcare Advisor" (exact name; stops if missing).
+ * 1. Resolves the voice by exact name (default: the approved "Aaditya K - Deep Voice for Finance &
+ *    Healthcare Support"; override with ELEVENLABS_VOICE_NAME). Stops if missing — no substitution.
  * 2. Renders the narration with character-level timestamps.
  * 3. Writes public/audio/narration.mp3.
  * 4. Writes src/narration-timing.json (duration + visual cue times from the spoken words).
@@ -13,7 +14,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const VOICE_NAME = "Aaditya - Healthcare Advisor";
+const VOICE_NAME = process.env.ELEVENLABS_VOICE_NAME ?? "Aaditya K - Deep Voice for Finance & Healthcare Support";
 const MODEL_ID = "eleven_multilingual_v2";
 const OFFSET_SEC = 0.3; // narration starts 0.3s into the film
 
