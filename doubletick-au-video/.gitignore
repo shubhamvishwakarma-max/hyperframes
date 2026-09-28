@@ -5,3 +5,4 @@ audio-src/*.f32
 audio-src/amit_a.mp3
 audio-src/raj_b.mp3
 audio-src/music_a.mp3
+out/qa/
