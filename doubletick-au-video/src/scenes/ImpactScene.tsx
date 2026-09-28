@@ -60,12 +60,12 @@ export const ImpactScene: React.FC = () => {
   const frame = useCurrentFrame();
   const leftIn = prog(frame, 18.3, 0.6);
   const rightIn = prog(frame, 18.45, 0.6);
-  const exit = prog(frame, 25.0, 0.45, easeIn);
+  const exit = prog(frame, 24.8, 0.35, easeIn);
   const push = 1 + 0.02 * prog(frame, 18.1, 7, easeInOut);
   return (
     <AbsoluteFill style={{ transform: `scale(${push})`, transformOrigin: "50% 50%" }}>
       <div style={{ position: "absolute", left: 64, top: 132 }}>
-        <Eyebrow text="PROVEN AT SCALE" at={18.15} exitAt={24.95} />
+        <Eyebrow text="PROVEN AT SCALE" at={18.15} exitAt={24.75} />
       </div>
       <div
         style={{
@@ -91,10 +91,10 @@ export const ImpactScene: React.FC = () => {
       </div>
       <CallParticles />
       <div style={{ position: "absolute", left: 64, top: 622 }}>
-        <MaskedLine text="SCALE OUTREACH." at={21.05} exitAt={25.0} size={92} weight={800} stagger={0.1} />
+        <MaskedLine text="SCALE OUTREACH." at={21.05} exitAt={24.72} size={92} weight={800} stagger={0.1} />
       </div>
       <div style={{ position: "absolute", left: 64, top: 724 }}>
-        <MaskedLine text="NOT RM WORKLOAD." at={21.35} exitAt={25.05} size={92} weight={800} color={colors.greenDeep} stagger={0.1} />
+        <MaskedLine text="NOT RM WORKLOAD." at={21.35} exitAt={24.76} size={92} weight={800} color={colors.greenDeep} stagger={0.1} />
       </div>
       <div
         style={{

@@ -79,7 +79,7 @@ export const ValueScene: React.FC = () => {
           whiteSpace: "nowrap",
         }}
       >
-        <WordRoll from="STOP" to="START" at={T.s5Start + 0.15} swapAt={T.startClosing} exitAt={T.ctaStart - 0.2} />
+        <WordRoll from="STOP" to="START" at={T.s5Start + 0.12} swapAt={T.startClosing} exitAt={T.ctaStart - 0.2} />
         <WordRoll
           from="CHASING."
           to="CLOSING."

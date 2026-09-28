@@ -37,7 +37,7 @@ export const AULeadGenVideo: React.FC = () => {
       <Window from={5.7} to={18.4}>
         <PhoneLayer />
       </Window>
-      <Window from={17.8} to={25.6}>
+      <Window from={17.8} to={25.25}>
         <ImpactScene />
       </Window>
       <Window from={24.9} to={T.end}>
