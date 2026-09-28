@@ -1,0 +1,405 @@
+{
+  "file": "audio/narration.wav",
+  "voiceId": "SVdvKlYuyNTd1xzQqLWD",
+  "voiceName": "Aaditya K - Deep Voice for Finance & Healthcare Support",
+  "model": "eleven_multilingual_v2",
+  "offset": 0.3,
+  "duration": 29.451,
+  "words": [
+    {
+      "text": "Still",
+      "start": 0.3,
+      "end": 0.61
+    },
+    {
+      "text": "relying",
+      "start": 0.61,
+      "end": 0.94
+    },
+    {
+      "text": "on",
+      "start": 0.94,
+      "end": 1.04
+    },
+    {
+      "text": "manual",
+      "start": 1.04,
+      "end": 1.43
+    },
+    {
+      "text": "calling",
+      "start": 1.43,
+      "end": 1.72
+    },
+    {
+      "text": "across",
+      "start": 1.72,
+      "end": 2.03
+    },
+    {
+      "text": "the",
+      "start": 2.03,
+      "end": 2.12
+    },
+    {
+      "text": "loan",
+      "start": 2.12,
+      "end": 2.29
+    },
+    {
+      "text": "lifecycle",
+      "start": 2.29,
+      "end": 2.96
+    },
+    {
+      "text": "while",
+      "start": 2.96,
+      "end": 3.26
+    },
+    {
+      "text": "follow-ups,",
+      "start": 3.26,
+      "end": 3.73
+    },
+    {
+      "text": "drop-offs",
+      "start": 3.73,
+      "end": 4.21
+    },
+    {
+      "text": "and",
+      "start": 4.21,
+      "end": 4.33
+    },
+    {
+      "text": "collections",
+      "start": 4.33,
+      "end": 4.76
+    },
+    {
+      "text": "keep",
+      "start": 4.76,
+      "end": 4.96
+    },
+    {
+      "text": "piling",
+      "start": 4.96,
+      "end": 5.27
+    },
+    {
+      "text": "up?",
+      "start": 5.27,
+      "end": 5.47
+    },
+    {
+      "text": "Piramal",
+      "start": 5.67,
+      "end": 6.03
+    },
+    {
+      "text": "Finance",
+      "start": 6.03,
+      "end": 6.49
+    },
+    {
+      "text": "uses",
+      "start": 6.49,
+      "end": 6.86
+    },
+    {
+      "text": "DoubleTick",
+      "start": 6.86,
+      "end": 7.37
+    },
+    {
+      "text": "AI",
+      "start": 7.37,
+      "end": 7.64
+    },
+    {
+      "text": "Voice",
+      "start": 7.64,
+      "end": 8.03
+    },
+    {
+      "text": "to",
+      "start": 8.03,
+      "end": 8.12
+    },
+    {
+      "text": "automate",
+      "start": 8.12,
+      "end": 8.52
+    },
+    {
+      "text": "first-level",
+      "start": 8.52,
+      "end": 9.09
+    },
+    {
+      "text": "outreach",
+      "start": 9.09,
+      "end": 9.62
+    },
+    {
+      "text": "across",
+      "start": 9.62,
+      "end": 9.98
+    },
+    {
+      "text": "loan",
+      "start": 9.98,
+      "end": 10.15
+    },
+    {
+      "text": "follow-ups,",
+      "start": 10.15,
+      "end": 10.62
+    },
+    {
+      "text": "application",
+      "start": 10.62,
+      "end": 11.21
+    },
+    {
+      "text": "drop-offs,",
+      "start": 11.21,
+      "end": 11.68
+    },
+    {
+      "text": "channel",
+      "start": 11.77,
+      "end": 12.06
+    },
+    {
+      "text": "partners",
+      "start": 12.06,
+      "end": 12.62
+    },
+    {
+      "text": "and",
+      "start": 12.62,
+      "end": 12.79
+    },
+    {
+      "text": "collections",
+      "start": 12.79,
+      "end": 13.4
+    },
+    {
+      "text": "bringing",
+      "start": 13.4,
+      "end": 13.86
+    },
+    {
+      "text": "RMs",
+      "start": 13.86,
+      "end": 14.39
+    },
+    {
+      "text": "in",
+      "start": 14.39,
+      "end": 14.53
+    },
+    {
+      "text": "only",
+      "start": 14.53,
+      "end": 14.93
+    },
+    {
+      "text": "when",
+      "start": 14.93,
+      "end": 15.1
+    },
+    {
+      "text": "human",
+      "start": 15.1,
+      "end": 15.41
+    },
+    {
+      "text": "intervention",
+      "start": 15.41,
+      "end": 15.97
+    },
+    {
+      "text": "is",
+      "start": 15.97,
+      "end": 16.18
+    },
+    {
+      "text": "needed.",
+      "start": 16.18,
+      "end": 16.56
+    },
+    {
+      "text": "That",
+      "start": 16.56,
+      "end": 16.79
+    },
+    {
+      "text": "means",
+      "start": 16.79,
+      "end": 17.02
+    },
+    {
+      "text": "more",
+      "start": 17.02,
+      "end": 17.15
+    },
+    {
+      "text": "consistent",
+      "start": 17.15,
+      "end": 17.69
+    },
+    {
+      "text": "outreach,",
+      "start": 17.69,
+      "end": 18.11
+    },
+    {
+      "text": "fewer",
+      "start": 18.11,
+      "end": 18.49
+    },
+    {
+      "text": "repetitive",
+      "start": 18.49,
+      "end": 18.94
+    },
+    {
+      "text": "calls",
+      "start": 18.94,
+      "end": 19.21
+    },
+    {
+      "text": "for",
+      "start": 19.21,
+      "end": 19.32
+    },
+    {
+      "text": "RMs,",
+      "start": 19.32,
+      "end": 19.75
+    },
+    {
+      "text": "and",
+      "start": 19.75,
+      "end": 19.97
+    },
+    {
+      "text": "faster",
+      "start": 19.97,
+      "end": 20.39
+    },
+    {
+      "text": "movement",
+      "start": 20.39,
+      "end": 20.82
+    },
+    {
+      "text": "across",
+      "start": 20.82,
+      "end": 21.19
+    },
+    {
+      "text": "customer",
+      "start": 21.19,
+      "end": 21.5
+    },
+    {
+      "text": "conversations.",
+      "start": 21.5,
+      "end": 22.34
+    },
+    {
+      "text": "Automate",
+      "start": 22.48,
+      "end": 22.94
+    },
+    {
+      "text": "the",
+      "start": 22.94,
+      "end": 23.05
+    },
+    {
+      "text": "repetitive.",
+      "start": 23.05,
+      "end": 23.67
+    },
+    {
+      "text": "Escalate",
+      "start": 23.67,
+      "end": 24.14
+    },
+    {
+      "text": "what",
+      "start": 24.14,
+      "end": 24.31
+    },
+    {
+      "text": "matters.",
+      "start": 24.31,
+      "end": 24.89
+    },
+    {
+      "text": "Let",
+      "start": 25.04,
+      "end": 25.28
+    },
+    {
+      "text": "your",
+      "start": 25.28,
+      "end": 25.43
+    },
+    {
+      "text": "RMs",
+      "start": 25.43,
+      "end": 25.88
+    },
+    {
+      "text": "focus",
+      "start": 25.88,
+      "end": 26.25
+    },
+    {
+      "text": "on",
+      "start": 26.25,
+      "end": 26.36
+    },
+    {
+      "text": "high-value",
+      "start": 26.36,
+      "end": 26.99
+    },
+    {
+      "text": "conversations.",
+      "start": 26.99,
+      "end": 27.84
+    },
+    {
+      "text": "Book",
+      "start": 27.97,
+      "end": 28.19
+    },
+    {
+      "text": "your",
+      "start": 28.19,
+      "end": 28.3
+    },
+    {
+      "text": "DoubleTick",
+      "start": 28.3,
+      "end": 28.69
+    },
+    {
+      "text": "demo",
+      "start": 28.69,
+      "end": 28.94
+    },
+    {
+      "text": "today.",
+      "start": 28.94,
+      "end": 29.36
+    }
+  ]
+}
