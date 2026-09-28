@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Piramal Finance × DoubleTick — Agentic AI + human loan journey</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 400; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 400; src: url("assets/fonts/inter-latin-ext-400-normal.woff2") format("woff2"); unicode-range: U+20B9; }
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-latin-ext-500-normal.woff2") format("woff2"); unicode-range: U+20B9; }
+      @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/inter-latin-ext-600-normal.woff2") format("woff2"); unicode-range: U+20B9; }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-latin-ext-700-normal.woff2") format("woff2"); unicode-range: U+20B9; }
+
+      :root {
+        /* Piramal Finance brand (replaces the original maroon) */
+        --brand: #ef4123;
+        --brand-deep: #c9381b;
+        --brand-ink: #a82e14;
+        --brand-tint: #fdece6;
+        --brand-soft: #ff8f73;
+        --navy: #1e354a;
+        /* WhatsApp UI */
+        --wa-header: #008069;
+        --wa-accent: #00a884;
+        --wa-bg: #efeae2;
+        --wa-out: #d9fdd3;
+        --wa-tick: #53bdeb;
+        --wa-call-top: #0f6f60;
+        --wa-call-bot: #053c34;
+        --wa-wave: #7fe3c4;
+        /* neutrals */
+        --bg: #f5f3ef;
+        --ink: #151a22;
+        --body: #2b3036;
+        --muted: #6f737a;
+        --faint: #9a9ea5;
+        --line: #ebe7e2;
+        --green: #1b8f63;
+        --green-tint: #e3f4ec;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: var(--bg); }
+      body { font-family: "Inter", sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      .clip { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+      .layer { position: absolute; inset: 0; }
+
+      /* ---------- global header ---------- */
+      #hdr-logo { left: 50px; top: 25px; height: 30px; }
+      #hdr-div { left: 109px; top: 28px; width: 1px; height: 26px; background: #d9d4ce; }
+      #hdr-dt { left: 125px; top: 33px; display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: #3b3f45; }
+      #hdr-tag { right: 50px; top: 32px; font-size: 15px; font-weight: 600; color: #6b6f76; }
+
+      /* ---------- scene A ---------- */
+      .pcard { background: #fff; border: 1.5px solid var(--line); border-radius: 20px; text-align: center; }
+      .pcard .av { width: 60px; height: 60px; border-radius: 50%; background: #efeae5; color: var(--muted); font-weight: 700; font-size: 22px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+      .pcard h3 { margin: 0 auto; max-width: 220px; font-size: 25px; line-height: 30px; font-weight: 700; color: #111; }
+      .pcard p { margin: 8px auto 0; max-width: 200px; font-size: 17px; line-height: 25px; color: #8a8e94; }
+      .dash { height: 3px; background: repeating-linear-gradient(90deg, #d6ccc4 0 12px, transparent 12px 22px); }
+      #a-dark { left: 760px; top: 371px; width: 400px; height: 182px; background: #15181f; border-radius: 20px; color: #fff; text-align: center; padding-top: 30px; }
+      #a-dark h3 { margin: 0 0 12px; font-size: 25px; font-weight: 700; }
+      #a-dark p { margin: 0; font-size: 16.5px; line-height: 26.5px; color: #c5c8ce; }
+      .otag { top: 855px; height: 42px; padding: 0 20px; border-radius: 10px; background: #fdeee2; color: #b8540f; font-size: 16.5px; font-weight: 700; display: flex; align-items: center; }
+      .capA { left: 400px; top: 898px; width: 1120px; min-height: 122px; background: #fff; border-radius: 0 16px 16px 0; border-left: 6px solid var(--brand); box-shadow: 0 2px 10px rgba(0,0,0,.03); padding: 25px 30px; font-size: 21.5px; line-height: 34px; color: var(--body); }
+
+      /* ---------- scene B ---------- */
+      .bpill { left: 480px; width: 370px; height: 64px; background: #fff; border: 1.5px solid #e6e1dc; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 21px; font-weight: 700; color: #111; }
+      #b-arrow { left: 915px; top: 494px; font-size: 30px; color: #b8b0a8; }
+      #b-box { left: 1011px; top: 369px; width: 430px; height: 268px; background: var(--brand-deep); border-radius: 24px; color: #fff; text-align: center; padding: 32px 30px 0; }
+      #b-box h3 { margin: 0 0 18px; font-size: 29px; line-height: 35px; font-weight: 700; }
+      #b-box p { margin: 0; font-size: 17px; line-height: 26px; color: #ffe6de; }
+
+      /* ---------- main layout ---------- */
+      .collabel { text-align: center; }
+      .collabel .k { font-size: 15px; font-weight: 700; letter-spacing: 2px; color: var(--brand-deep); }
+      .collabel .v { position: relative; height: 25px; margin-top: 4px; font-size: 19px; font-weight: 700; color: var(--ink); }
+      .collabel .v span { position: absolute; left: 0; right: 0; }
+
+      #phone { left: 50px; top: 120px; width: 528px; height: 940px; border-radius: 50px; background: #0b0b08; box-shadow: 0 18px 40px rgba(0,0,0,.08); }
+      #screen { position: absolute; left: 9px; top: 9px; right: 9px; bottom: 9px; border-radius: 42px; overflow: hidden; background: var(--wa-bg); }
+      #notch { left: 180px; top: 0; width: 150px; height: 26px; background: #0b0b08; border-radius: 0 0 16px 16px; z-index: 20; }
+      .status { left: 0; right: 0; top: 18px; height: 20px; padding: 0 27px 0 26px; display: flex; justify-content: space-between; color: #fff; font-size: 15px; font-weight: 600; z-index: 10; }
+
+      /* WhatsApp chat */
+      #wa-head { left: 0; right: 0; top: 0; height: 104px; background: var(--wa-header); }
+      #wa-av { left: 25px; top: 54px; width: 40px; height: 40px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; }
+      #wa-av img { height: 28px; }
+      #wa-name { left: 81px; top: 51px; color: #fff; font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+      #wa-sub { left: 81px; top: 79px; color: #e6f4f1; font-size: 13px; }
+      #wa-view { left: 0; right: 0; top: 104px; height: 745px; overflow: hidden; background: var(--wa-bg); }
+      #thread { position: absolute; left: 0; right: 0; top: 0; padding: 0 14px; }
+      .msg { margin-bottom: 11px; }
+      .note { margin-left: 14px; margin-right: 14px; background: #fdf3cf; color: #74601f; border-radius: 10px; padding: 9px 22px; font-size: 13.5px; line-height: 19px; text-align: center; }
+      .bub { width: 424px; background: #fff; border-radius: 14px; padding: 13px 14px 8px; box-shadow: 0 1px 1px rgba(0,0,0,.05); }
+      .bub .lbl { font-size: 12px; font-weight: 800; letter-spacing: 1.2px; color: var(--wa-header); margin: 2px 0 6px; }
+      .bub .txt { font-size: 18px; line-height: 27px; color: #1f1f1f; }
+      .bub .tm { text-align: right; font-size: 12px; color: #8a8a8a; margin-top: 4px; }
+      .bub.out { margin-left: auto; width: auto; max-width: 344px; background: var(--wa-out); }
+      .bub.out .tm span { color: var(--wa-tick); margin-left: 6px; letter-spacing: -2px; }
+      .bub.offer { width: 443px; }
+      .offer-card { border: 1.5px solid #e6e3de; border-radius: 12px; padding: 14px 16px 6px; margin-top: 4px; }
+      .offer-card h4 { margin: 0 0 6px; font-size: 16px; font-weight: 700; color: var(--wa-header); }
+      .offer-row { display: flex; justify-content: space-between; font-size: 15px; line-height: 33px; color: #333; }
+      .offer-row b { font-weight: 700; color: #111; }
+      #wa-input { left: 0; right: 0; bottom: 0; height: 73px; background: #f0f2f5; }
+      #wa-field { left: 16px; top: 14px; width: 420px; height: 46px; border-radius: 23px; background: #fff; color: #9a9a9a; font-size: 17px; padding: 12px 18px; }
+      #wa-mic { left: 448px; top: 14px; width: 46px; height: 46px; border-radius: 50%; background: var(--wa-accent); display: flex; align-items: center; justify-content: center; }
+
+      /* WhatsApp Flow sheet */
+      #flow { left: 11px; width: 488px; bottom: 89px; background: #fff; border-radius: 18px; box-shadow: 0 -6px 30px rgba(0,0,0,.12); padding: 20px 22px 20px; }
+      #flow h4 { margin: 0; font-size: 16.5px; font-weight: 700; color: #111; }
+      #flow .ftag { position: absolute; right: 22px; top: 20px; background: #e2f6ee; color: #00735c; font-size: 10.5px; font-weight: 800; letter-spacing: 1px; padding: 4px 8px; border-radius: 5px; }
+      #flow .fsub { font-size: 12.5px; color: #666; margin: 6px 0 14px; }
+      .frow { border-top: 1px solid #eee; height: 57px; display: flex; align-items: center; gap: 12px; font-size: 14.5px; font-weight: 600; color: #222; position: relative; }
+      .frow .ic { width: 34px; height: 34px; border-radius: 8px; background: #f2efea; display: flex; align-items: center; justify-content: center; font-size: 15px; color: #999; position: relative; }
+      .frow .ic .ok { position: absolute; inset: 0; border-radius: 8px; background: #e2f6ee; color: var(--wa-header); display: flex; align-items: center; justify-content: center; }
+      .frow .st { position: absolute; right: 0; font-size: 12px; font-weight: 700; }
+      .frow .st span { position: absolute; right: 0; white-space: nowrap; top: -8px; }
+      .fbtn { position: relative; height: 43px; border-radius: 10px; margin-top: 14px; background: #f0ede8; color: #9d9892; font-size: 14.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+      .fbtn .on { position: absolute; inset: 0; background: var(--wa-accent); color: #fff; display: flex; align-items: center; justify-content: center; }
+
+      /* WhatsApp call screen */
+      .call { background: linear-gradient(180deg, var(--wa-call-top) 0%, #0a574b 45%, var(--wa-call-bot) 100%); color: #fff; text-align: center; }
+      .call .ctop { position: absolute; left: 0; right: 0; top: 102px; font-size: 13px; font-weight: 700; letter-spacing: 2.5px; color: #cfe9e2; }
+      .call .clogo { position: absolute; left: 50%; top: 128px; width: 150px; margin-left: -75px; height: 38px; background: #fff; border-radius: 19px; display: flex; align-items: center; justify-content: center; }
+      .call .clogo img { height: 24px; }
+      .call .cav { position: absolute; left: 185px; top: 178px; width: 140px; height: 140px; border-radius: 50%; background: rgba(255,255,255,.16); font-size: 44px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+      .call .cbadge { position: absolute; right: 2px; bottom: 4px; width: 38px; height: 38px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; border: 2px solid #0c5f52; }
+      .call .cbadge img { height: 25px; }
+      .call .cname { position: absolute; left: 0; right: 0; top: 314px; font-size: 29px; font-weight: 700; }
+      .call .csub { position: absolute; left: 0; right: 0; top: 360px; font-size: 15px; color: #d7eee8; }
+      .call .cstat { position: absolute; left: 0; right: 0; top: 398px; font-size: 20px; font-weight: 500; }
+      .call .cwave { position: absolute; left: 175px; top: 462px; width: 160px; height: 40px; display: flex; align-items: flex-end; justify-content: space-between; }
+      .call .cwave i { display: block; width: 6px; border-radius: 3px; background: var(--wa-wave); }
+      .call .cbtn { position: absolute; top: 790px; width: 62px; height: 62px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+      .cbtn.dec { left: 181px; background: #ea4352; }
+      .cbtn.acc { left: 267px; background: #25d366; }
+      .cbtn.spk { left: 267px; background: rgba(255,255,255,.16); }
+
+      /* middle column */
+      .steppill { left: 618px; top: 120px; height: 35px; padding: 0 20px; border-radius: 18px; background: var(--brand-tint); color: var(--brand-ink); font-size: 14px; font-weight: 800; letter-spacing: 3px; display: flex; align-items: center; }
+      .title { left: 618px; top: 176px; width: 705px; font-size: 35px; line-height: 40px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px; }
+      .cap { left: 618px; width: 684px; background: #fff; border-radius: 0 16px 16px 0; border-left: 6px solid var(--brand); box-shadow: 0 2px 10px rgba(0,0,0,.03); padding: 25px 30px 25px 30px; font-size: 22px; line-height: 35px; color: var(--body); }
+      .live { left: 618px; top: 604px; width: 684px; min-height: 157px; background: #161a22; border-radius: 22px; padding: 26px 28px; color: #f1f1f1; }
+      .live .lh { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 700; letter-spacing: 2.5px; color: var(--brand-soft); }
+      .live .lh .dot { width: 12px; height: 12px; border-radius: 50%; background: #ff5651; }
+      .live .lw { position: absolute; right: 28px; top: 28px; width: 176px; height: 28px; display: flex; align-items: center; justify-content: space-between; }
+      .live .lw i { display: block; width: 3.5px; border-radius: 2px; background: var(--brand-soft); }
+      .live .lq { margin-top: 18px; font-size: 19.5px; line-height: 29px; }
+      .foot { left: 618px; top: 987px; width: 684px; height: 73px; background: #fcfaf8; padding: 27px 16px; font-size: 14.5px; color: var(--muted); }
+      .chips { left: 618px; top: 1028px; display: flex; gap: 12px; }
+      .chip { height: 32px; padding: 0 14px; border-radius: 8px; font-size: 15px; font-weight: 600; display: flex; align-items: center; }
+      .chip.b { background: var(--brand-tint); color: var(--brand-ink); }
+      .chip.g { background: var(--green-tint); color: var(--green); }
+
+      /* console */
+      #console { left: 1342px; top: 120px; width: 528px; height: 940px; background: #fff; border-radius: 26px; border: 1px solid #efebe6; box-shadow: 0 10px 30px rgba(0,0,0,.04); }
+      #con-h { left: 28px; top: 27px; font-size: 13px; font-weight: 700; letter-spacing: 2.5px; color: var(--faint); }
+      #con-live { right: 28px; top: 27px; font-size: 13px; font-weight: 700; color: #e5383b; display: flex; align-items: center; gap: 6px; }
+      #con-live i { width: 9px; height: 9px; border-radius: 50%; background: #e5383b; display: block; }
+      #lead { left: 28px; top: 61px; width: 470px; height: 154px; border: 1.5px solid var(--line); border-radius: 18px; padding: 18px 20px; }
+      #lead h3 { margin: 0; font-size: 20px; font-weight: 700; color: #111; }
+      #lead .ls { font-size: 14.5px; color: #7a7d83; margin-top: 5px; }
+      #tags { position: absolute; left: 20px; top: 76px; width: 430px; display: flex; flex-wrap: wrap; gap: 6px 7px; }
+      .tg { height: 26px; padding: 0 10px; border-radius: 6px; font-size: 11.5px; font-weight: 700; display: flex; align-items: center; background: #efeee9; color: #a3a3a3; }
+      .ccard { left: 28px; top: 231px; width: 470px; border: 1.5px solid var(--line); border-radius: 18px; padding: 19px 19px 18px; background: #fff; }
+      .ccard .ch { display: flex; align-items: center; gap: 9px; font-size: 14.5px; font-weight: 700; color: #111; }
+      .ccard .ch .d { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); }
+      .ccard .ct { position: absolute; right: 19px; top: 17px; font-size: 11px; font-weight: 800; letter-spacing: .8px; padding: 4px 8px; border-radius: 5px; background: var(--brand-tint); color: var(--brand-ink); }
+      .ccard .ct.blue { background: #e7eefc; color: #2a52c9; }
+      .ccard .cs { font-size: 14.5px; line-height: 21px; color: #6b6f76; margin-top: 10px; }
+      .ccard .cl { border-top: 1px solid #eee; margin-top: 10px; padding-top: 9px; font-size: 13.5px; color: #333; }
+      .ccard .cl + .cl { margin-top: 9px; }
+      .ccard .cl b { color: var(--brand-ink); font-weight: 700; }
+      .elig { margin-top: 10px; background: #e5f5ee; border-radius: 10px; padding: 12px 16px; }
+      .elig h5 { margin: 0 0 6px; font-size: 15px; font-weight: 700; color: var(--green); }
+      .elig p { margin: 0; font-size: 13px; line-height: 20px; color: #4d5a54; }
+      .esc { left: 28px; top: 231px; width: 470px; background: #fdf0e4; border-radius: 14px; padding: 16px 16px; }
+      .esc h5 { margin: 0 0 6px; font-size: 14.5px; font-weight: 700; color: #b0521a; }
+      .esc p { margin: 0; font-size: 13.5px; line-height: 20px; color: #a0521f; }
+      .takeover { left: 28px; top: 330px; width: 470px; height: 60px; background: #161a22; border-radius: 12px; display: flex; align-items: center; gap: 12px; padding: 0 16px; color: #fff; }
+      .takeover .pa { width: 34px; height: 34px; border-radius: 50%; background: #2f55d4; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+      .takeover b { font-size: 14px; display: block; }
+      .takeover span { font-size: 12px; color: #aab0ba; }
+      .otp { left: 28px; top: 350px; width: 470px; border: 1.5px dashed #ddd6cc; border-radius: 12px; padding: 14px 16px; background: #fdfcfa; }
+      .otp h5 { margin: 0 0 5px; font-size: 13.5px; font-weight: 700; color: #111; }
+      .otp p { margin: 0; font-size: 13px; line-height: 19px; color: #6b6f76; }
+      #con-foot { left: 28px; top: 872px; width: 470px; border-top: 1px solid #eee; padding-top: 12px; font-size: 12px; line-height: 17px; color: var(--faint); }
+
+      /* end card */
+      #end-logo { left: 915px; top: 330px; height: 42px; }
+      #end-h { left: 0; right: 0; top: 413px; text-align: center; font-size: 52px; line-height: 62px; font-weight: 700; color: var(--ink); letter-spacing: -0.8px; }
+      #end-s { left: 0; right: 0; top: 563px; text-align: center; font-size: 22px; color: var(--muted); }
+      #end-chips { left: 0; right: 0; top: 636px; display: flex; justify-content: center; gap: 15px; }
+      #end-chips div { height: 44px; padding: 0 24px; border-radius: 22px; background: var(--brand-tint); color: var(--brand-ink); font-size: 16px; font-weight: 700; display: flex; align-items: center; }
+      #end-f { left: 0; right: 0; top: 736px; text-align: center; font-size: 13px; color: var(--faint); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="194.667">
+      <!-- persistent header -->
+      <div id="hdr" class="clip" data-start="0" data-duration="184.6" data-track-index="1">
+        <div id="hdr-in" class="layer">
+          <img id="hdr-logo" class="abs" src="assets/piramal-logo.png" alt="Piramal Finance" />
+          <div id="hdr-div" class="abs"></div>
+          <div id="hdr-dt" class="abs">
+            <svg width="16" height="10" viewBox="0 0 16 10"><path d="M1 5.5l3 3L10 1.5M6.5 8.5L13 1.5" stroke="#25d366" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            DoubleTick
+          </div>
+          <div id="hdr-tag" class="abs">Agentic AI + human loan journey on WhatsApp</div>
+        </div>
+      </div>
+
+      <!-- scene A: the problem -->
+      <section id="sceneA" class="clip" data-start="0" data-duration="12.4" data-track-index="2">
+        <div id="a-in" class="layer">
+          <div id="a-rm" class="abs pcard" style="left: 70px; top: 337px; width: 319px; height: 250px; padding-top: 29px">
+            <div class="av">RM</div>
+            <h3>Relationship Manager</h3>
+            <p>Talks to customers on personal WhatsApp</p>
+          </div>
+          <div id="a-cu" class="abs pcard" style="left: 1530px; top: 352px; width: 320px; height: 220px; padding-top: 29px">
+            <div class="av">C</div>
+            <h3>Customer</h3>
+            <p>Discussing a loan, sharing documents</p>
+          </div>
+          <div class="abs dash" style="left: 395px; top: 461px; width: 352px"></div>
+          <div class="abs dash" style="left: 1165px; top: 461px; width: 352px"></div>
+          <div id="a-dark" class="abs">
+            <h3>Unmonitored &amp; unaudited</h3>
+            <p>No record for the bank.</p>
+            <p>Real PII exposure.</p>
+            <p>Not something compliance can see.</p>
+          </div>
+          <div id="a-t1" class="abs otag" style="left: 669px">Ungoverned channel</div>
+          <div id="a-t2" class="abs otag" style="left: 892px">DPDP / PII exposure</div>
+          <div id="a-t3" class="abs otag" style="left: 1108px">No audit trail</div>
+          <div class="abs capA">In lending, conversations between relationship managers and customers usually happen on personal WhatsApp. It's ungoverned, unaudited, and a real exposure of customer data.</div>
+        </div>
+      </section>
+
+      <!-- scene B: the solution -->
+      <section id="sceneB" class="clip" data-start="12.3" data-duration="6.8" data-track-index="3">
+        <div id="b-in" class="layer">
+          <div id="b-p1" class="abs bpill" style="top: 388px">AI voice agent</div>
+          <div id="b-p2" class="abs bpill" style="top: 471px">WhatsApp chat, full context</div>
+          <div id="b-p3" class="abs bpill" style="top: 554px">Human RM, on the same thread</div>
+          <div id="b-arrow" class="abs">→</div>
+          <div id="b-box" class="abs">
+            <h3>One governed WhatsApp thread inside Piramal Finance's own console</h3>
+            <p>Decisioning stays with the bank. Every step recorded, transcribed, and auditable.</p>
+          </div>
+          <div class="abs capA">Here's how Piramal Finance and Doubletick close that gap — voice and chat, AI and a human, all on one channel the bank can see end to end.</div>
+        </div>
+      </section>
+
+      <!-- main walkthrough -->
+      <section id="main" class="clip" data-start="19.0" data-duration="165.6" data-track-index="4">
+        <div id="m-in" class="layer">
+          <div class="abs collabel" style="left: 164px; top: 58px; width: 300px">
+            <div class="k">CUSTOMER</div>
+            <div class="v"><span id="lbl-wa">WhatsApp</span><span id="lbl-call">Voice call</span></div>
+          </div>
+          <div class="abs collabel" style="left: 1405px; top: 58px; width: 400px">
+            <div class="k">PIRAMAL FINANCE</div>
+            <div class="v"><span>RM Console — Backend</span></div>
+          </div>
+
+          <div id="phone" class="abs">
+            <div id="screen">
+              <div id="wa" class="layer">
+                <div id="wa-head" class="abs"></div>
+                <div id="wa-av" class="abs"><img src="assets/piramal-icon.png" alt="" /></div>
+                <div id="wa-name" class="abs">Piramal Finance
+                  <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#25d366" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3-2.6-1.9 1-3-1-3 2.6-1.9 1-3 3.2.1z" /><path d="M7.8 12.3l2.8 2.8 5.6-5.8" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </div>
+                <div id="wa-sub" class="abs">Verified business account</div>
+                <div id="wa-view" class="abs"><div id="thread"></div></div>
+                <div id="wa-input" class="abs">
+                  <div id="wa-field" class="abs">Message</div>
+                  <div id="wa-mic" class="abs">
+                    <svg width="18" height="22" viewBox="0 0 18 22"><rect x="5" y="1" width="8" height="13" rx="4" fill="#fff" /><path d="M2 10a7 7 0 0 0 14 0M9 17v4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" /></svg>
+                  </div>
+                </div>
+                <div id="flow" class="abs">
+                  <h4>Secure Document Upload</h4>
+                  <div class="ftag">WHATSAPP FLOW</div>
+                  <div class="fsub">Stays inside WhatsApp — no external link, no app switch.</div>
+                  <div class="frow"><div class="ic">📄<div class="ok" id="f1ok">✓</div></div>ID Proof (PAN Card)<div class="st"><span id="f1p" style="color:#9a9a9a">Pending</span><span id="f1u" style="color:#00735c">Uploaded</span></div></div>
+                  <div class="frow"><div class="ic">📄<div class="ok" id="f2ok">✓</div></div>Income Proof (3 files)<div class="st"><span id="f2p" style="color:#9a9a9a">Pending</span><span id="f2u" style="color:#00735c">Uploaded</span></div></div>
+                  <div class="fbtn">Submit documents<div class="on" id="fbtn-on">Submit documents</div></div>
+                </div>
+                <div class="abs status"><span id="wa-time">11:04</span><span>5G&nbsp;&nbsp;100%</span></div>
+              </div>
+              <div id="calls"></div>
+              <div id="notch" class="abs"></div>
+            </div>
+          </div>
+
+          <div id="mid"></div>
+
+          <div id="console" class="abs">
+            <div id="con-h" class="abs">PIRAMAL FINANCE · RM CONSOLE</div>
+            <div id="con-live" class="abs"><i></i>LIVE</div>
+            <div id="lead" class="abs">
+              <h3>Rohan Mehta</h3>
+              <div class="ls">Personal Loan&nbsp;&nbsp;·&nbsp;&nbsp;Lead #PF-77042</div>
+              <div id="tags"></div>
+            </div>
+            <div id="ccards"></div>
+            <div id="con-foot" class="abs">Application state is written back to Piramal Finance's own origination and CRM systems. Nothing persists as a separate system of record.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- end card -->
+      <section id="endcard" class="clip" data-start="184.0" data-duration="10.667" data-track-index="5">
+        <div id="e-in" class="layer">
+          <img id="end-logo" class="abs" src="assets/piramal-logo.png" alt="Piramal Finance" />
+          <div id="end-h" class="abs">One WhatsApp thread.<br />Voice and chat. A.I. and human.</div>
+          <div id="end-s" class="abs">Lending decisions stay with Piramal Finance, end to end.</div>
+          <div id="end-chips" class="abs">
+            <div>Context carries across voice and chat</div>
+            <div>Human in the loop</div>
+            <div>AI never approves</div>
+            <div>Full transcript &amp; audit trail</div>
+          </div>
+          <div id="end-f" class="abs">Conversational layer powered by Doubletick</div>
+        </div>
+      </section>
+
+      <audio id="vo" src="assets/voiceover.wav" data-start="0" data-duration="194.667" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      (function () {
+        const $ = (s) => document.querySelector(s);
+        function el(tag, cls, html, parent, style) {
+          const e = document.createElement(tag);
+          if (cls) e.className = cls;
+          if (html != null) e.innerHTML = html;
+          if (style) e.setAttribute("style", style);
+          if (parent) parent.appendChild(e);
+          return e;
+        }
+
+        // ------------------------------------------------------------ data
+
+        const STEPS = [
+          { t0: 19.0, t1: 26.2, pill: "STEP 01", title: "Richa, the AI voice agent, calls Rohan", cap: "Rohan submits a loan enquiry online. Richa calls him back within seconds, on the bank's own verified line — no queue, no waiting for a callback.", chips: ["b", "AI-initiated call", "Instant callback"] },
+          { t0: 26.2, t1: 57.6, pill: "STEP 01", title: "Qualifying the loan, live", cap: "Purpose, amount, and an instant eligibility check — pulled straight from Rohan's existing salary account.", live: ["RICHA (AI)", "“Checking eligibility for an ₹8 lakh personal loan for home renovation — pre-qualified up to ₹10 lakh.”"], foot: "Recorded and transcribed automatically" },
+          { t0: 57.6, t1: 68.2, pill: "STEP 02", title: "The call ends — the chat already knows everything", cap: "The moment the call ends, a WhatsApp message arrives from the same verified Piramal Finance handle, already carrying everything Richa just heard. Rohan never repeats himself.", chips: ["g", "Context carried over", "Zero re-ask"] },
+          { t0: 68.2, t1: 76.8, pill: "STEP 03", title: "KYC and income, inside the same thread", cap: "Richa collects ID and income documents, sandboxed inside the chat — no access to Rohan's personal photo gallery, nothing downloadable.", chips: ["g", "Sandboxed documents", "No gallery access"] },
+          { t0: 76.8, t1: 85.8, pill: "STEP 04", title: "Handed to the bank's own underwriting engine", cap: "The application goes to Piramal Finance's own rules engine. The AI never approves anything itself — it only reads the bank's decision back.", chips: ["b", "AI never approves", "Decision stays with the bank"] },
+          { t0: 85.8, t1: 90.7, pill: "STEP 04", title: "The offer lands back in the same thread", cap: "An eligible offer comes back from underwriting and appears right where the conversation already is — no new app, no separate link.", chips: ["g", "Offer in-thread", "No app switch"] },
+          { t0: 90.7, t1: 96.3, pill: "STEP 05", title: "Richa calls again to follow up", cap: "A day later, Richa proactively calls Rohan to check in on the offer — and this time, he has a question only a human can really answer.", chips: ["b", "Proactive follow-up call"] },
+          { t0: 96.3, t1: 118.1, pill: "STEP 05", title: "Richa recognizes the limit of her authority", cap: "She doesn't try to negotiate pricing herself. She flags it and brings in a human.", live: ["RICHA (AI)", "“I'm not able to change pricing myself — let me bring in a relationship manager who can look into this.”"], foot: "Escalation flagged the moment pricing is raised" },
+          { t0: 118.1, t1: 128.5, pill: "STEP 06", title: "The handoff, inside the same thread", cap: "Priya, a human RM, picks up on the bank's own console. She inherits both call transcripts and the full chat history — nothing to repeat, nothing lost.", chips: ["b", "Full context inherited", "No cold restart"] },
+          { t0: 128.5, t1: 139.1, pill: "STEP 06", title: "Priya picks up, live", cap: "A short human call to reassure Rohan she's read everything — then the conversation moves back to chat.", live: ["PRIYA (HUMAN RM)", "“This is Priya. I can see the call with Richa and your full lead history — let's sort out the rate.”"], foot: "Handled entirely inside the same governed thread" },
+          { t0: 139.1, t1: 150.3, pill: "STEP 07", title: "Priya closes the deal over chat", cap: "A better rate, a revised tenure — negotiated directly in the thread. Identity verification runs through a separate, private OTP flow that's never visible in the chat, and never seen by bank staff.", chips: ["g", "Human negotiation", "OTP kept private"] },
+          { t0: 150.3, t1: 154.8, pill: "STEP 08", title: "Disbursal, confirmed in-thread", cap: "Once accepted, the disbursal confirmation lands in the very same conversation Rohan started his call in.", chips: ["g", "Disbursal confirmed"] },
+          { t0: 154.8, t1: 161.5, pill: "STEP 09", title: "Richa resumes, automatically", cap: "The moment servicing begins, the AI takes back over for the routine stuff — like an EMI reminder — freeing Priya for the next escalation.", chips: ["b", "AI resumes automatically", "Human freed up"] },
+          { t0: 161.5, t1: 166.2, pill: "STEP 10", title: "And it isn't only chat that resumes", cap: "Weeks later, Richa calls again — this time just to close out one pending document.", chips: ["b", "AI resumes over voice too"] },
+          { t0: 166.2, t1: 184.6, pill: "STEP 10", title: "A quick, routine nudge", cap: "A short call to close a loose end — nothing that needed a human this time.", live: ["RICHA (AI)", "“We still need your updated address proof to complete your file — could you share that here on WhatsApp?”"], foot: "Logged automatically to the same thread" },
+        ];
+
+        // phone call windows: [start, answered, end, name, letter, subtitle, clock]
+        const CALLS = [
+          { t0: 27.0, ans: 28.2, t1: 57.6, name: "Richa", letter: "R", sub: "Piramal Finance AI Assistant", clock: "10:52" },
+          { t0: 96.4, ans: 97.6, t1: 118.1, name: "Richa", letter: "R", sub: "Piramal Finance AI Assistant", clock: "10:52" },
+          { t0: 128.6, ans: 129.8, t1: 138.8, name: "Priya", letter: "P", sub: "Piramal Finance Relationship Manager", clock: "10:58" },
+          { t0: 166.3, ans: 167.5, t1: 184.6, name: "Richa", letter: "R", sub: "Piramal Finance AI Assistant", clock: "10:52" },
+        ];
+
+        const MSGS = [
+          { t: 58.1, note: "Call transcribed and summarized automatically — added to this thread." },
+          { t: 60.3, lbl: "CONTEXT CARRIED FROM CALL", txt: "Hi Rohan, following up on your call with Richa — a personal loan of ₹8,00,000 for home renovation, pre-qualified up to ₹10,00,000. Let's get your documents sorted here.", tm: "11:04 AM" },
+          { t: 68.8, txt: "Could you share a photo I.D. and your last 3 months' salary slips? I'll open a quick secure form right here.", tm: "11:04 AM" },
+          { t: 75.1, note: "Documents received via WhatsApp Flow — shared without leaving this chat." },
+          { t: 76.1, txt: "Got it, thank you. Verifying now — this stays within our secure sandbox, we never access your gallery.", tm: "11:07 AM" },
+          { t: 77.4, note: "Application submitted to Piramal Finance's underwriting engine for a decision." },
+          { t: 86.5, offer: true, tm: "11:09 AM" },
+          { t: 139.3, note: "Call transcribed and summarized automatically — added to this thread." },
+          { t: 140.0, txt: "Hi Rohan, this is Priya from Piramal Finance. I can see your loan request and the call with Richa. Let me see what I can do on the rate for you.", tm: "2:41 PM" },
+          { t: 143.1, txt: "I can offer 11.0% if you're comfortable moving to a 3 year tenure — works out lower overall.", tm: "2:43 PM" },
+          { t: 144.5, out: true, txt: "That works for me, let's go with that.", tm: "2:44 PM" },
+          { t: 145.5, note: "Identity verified via a private OTP flow — never shown in this chat or to bank staff." },
+          { t: 151.0, lbl: "DISBURSAL CONFIRMED", txt: "₹8,00,000 has been disbursed to your account ending 4471. Your first EMI is due next month.", tm: "3:12 PM" },
+          { t: 156.1, lbl: "AUTOMATED REMINDER", txt: "Hi Rohan, this is a reminder that your EMI of ₹21,742 is due on the 5th. Reply here if you'd like to set up auto-pay.", tm: "Reminder" },
+        ];
+
+        const TAGS = ["New Lead", "Qualify + KYC", "Underwriting", "Offer & Negotiation", "RM Assisted Close", "Disbursed", "Servicing"];
+        const STAGE = [[19.0, 0], [57.6, 1], [77.7, 2], [88.0, 3], [118.1, 4], [151.0, 5], [155.5, 6]];
+
+        // console monitor cards
+        const MONITORS = [
+          { t0: 27.0, t1: 57.6, ans: 28.2, who: "Richa (AI Voice Agent)", tag: "AI HANDLING", lines: [[27.0, "Richa", "Hi Rohan, this is Richa calling from Piramal Finance."], [35.2, "Rohan", "Checking eligibility — ₹8L for home renovation."], [41.5, "Richa", "Pulling up eligibility on your salary account..."], [48.9, "Richa", "Pre-qualified for up to ₹10,00,000."]] },
+          { t0: 96.4, t1: 118.1, ans: 97.6, who: "Richa (AI Voice Agent)", tag: "AI HANDLING", lines: [[97.0, "Richa", "Following up on the offer we sent."], [103.3, "Rohan", "Any flexibility on the interest rate?"], [111.3, "Richa", "Not able to change pricing — routing to an R.M."]] },
+          { t0: 128.6, t1: 138.8, ans: 129.8, who: "Priya (Human RM)", tag: "HUMAN RM", blue: true, lines: [[129.9, "Priya", "This is Priya. I can see the call with Richa and the full lead history."]] },
+          { t0: 166.3, t1: 184.6, ans: 167.5, who: "Richa (AI Voice Agent)", tag: "AI HANDLING", lines: [[166.9, "Richa", "Reminder: still need your updated address proof."], [176.0, "Rohan", "Sure, I will upload it shortly."], [178.8, "Richa", "Sending a secure upload prompt now."]] },
+        ];
+
+        const LIVE_WINDOWS = CALLS.map((c) => [c.t0, c.t1]);
+
+        // ------------------------------------------------------------ build DOM
+        const mid = $("#mid");
+        STEPS.forEach((s, i) => {
+          const grp = el("div", "layer", null, mid);
+          grp.id = "step" + i;
+          s.pillEl = el("div", "abs steppill", s.pill, grp);
+          s.titleEl = el("div", "abs title", s.title, grp);
+          const capTop = s.live ? 462 : null;
+          s.capEl = el("div", "abs cap", s.cap, grp, capTop ? `top:${capTop}px` : "");
+          if (s.live) {
+            s.liveEl = el("div", "abs live", null, grp);
+            el("div", "lh", `<i class="dot"></i>LIVE CALL · ${s.live[0]}`, s.liveEl);
+            const w = el("div", "lw", null, s.liveEl);
+            s.liveBars = [];
+            for (let k = 0; k < 20; k++) s.liveBars.push(el("i", null, null, w));
+            el("div", "lq", s.live[1], s.liveEl);
+            s.footEl = el("div", "abs foot", s.foot, grp);
+          } else {
+            s.chipsEl = el("div", "abs chips", null, grp);
+            s.chips.slice(1).forEach((c) => el("div", "chip " + s.chips[0], c, s.chipsEl));
+          }
+        });
+
+        // call screens
+        const callsHost = $("#calls");
+        CALLS.forEach((c, i) => {
+          const scr = el("div", "layer call", null, callsHost);
+          scr.id = "call" + i;
+          el("div", "abs status", `<span>${c.clock}</span><span>5G</span>`, scr);
+          el("div", "ctop", "INCOMING CALL", scr);
+          el("div", "clogo", `<img src="assets/piramal-logo.png" alt="" />`, scr);
+          const av = el("div", "cav", c.letter, scr);
+          el("div", "cbadge", `<img src="assets/piramal-icon.png" alt="" />`, av);
+          el("div", "cname", c.name, scr);
+          el("div", "csub", c.sub, scr);
+          c.statEl = el("div", "cstat", "Ringing...", scr);
+          const wv = el("div", "cwave", null, scr);
+          c.bars = [];
+          for (let k = 0; k < 13; k++) c.bars.push(el("i", null, null, wv));
+          c.waveEl = wv;
+          el("div", "cbtn dec", `<svg width="26" height="26" viewBox="0 0 24 24"><path fill="#fff" d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08a.99.99 0 0 1 0-1.41C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28a11.27 11.27 0 0 0-2.67-1.85.996.996 0 0 1-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/></svg>`, scr);
+          c.accEl = el("div", "cbtn acc", `<svg width="26" height="26" viewBox="0 0 24 24"><path fill="#fff" d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>`, scr);
+          c.spkEl = el("div", "cbtn spk", `<svg width="26" height="26" viewBox="0 0 24 24"><path fill="#fff" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.47 4.47 0 0 0 2.5-4zM14 3.2v2.1c2.9.9 5 3.5 5 6.7s-2.1 5.8-5 6.7v2.1c4-.9 7-4.5 7-8.8s-3-7.9-7-8.8z"/></svg>`, scr);
+          c.el = scr;
+        });
+
+        // chat thread
+        const thread = $("#thread");
+        MSGS.forEach((m) => {
+          let e;
+          if (m.note) e = el("div", "msg note", m.note, thread);
+          else if (m.offer) {
+            e = el("div", "msg bub offer", null, thread);
+            el("div", "lbl", "PRE-APPROVED OFFER", e);
+            el("div", "offer-card", `<h4>Personal Loan Offer</h4>
+              <div class="offer-row"><span>Amount</span><b>₹8,00,000</b></div>
+              <div class="offer-row"><span>Interest rate</span><b>11.5% p.a.</b></div>
+              <div class="offer-row"><span>Tenure</span><b>4 years</b></div>
+              <div class="offer-row"><span>EMI</span><b>₹20,890 / month</b></div>`, e);
+            el("div", "tm", m.tm, e);
+          } else {
+            e = el("div", "msg bub" + (m.out ? " out" : ""), null, thread);
+            if (m.lbl) el("div", "lbl", m.lbl, e);
+            el("div", "txt", m.txt, e);
+            el("div", "tm", m.tm + (m.out ? "<span>✓✓</span>" : ""), e);
+          }
+          m.el = e;
+        });
+
+        // console tags
+        const tagEls = TAGS.map((t) => el("div", "tg", t, $("#tags")));
+
+        // console cards
+        const cc = $("#ccards");
+        MONITORS.forEach((m) => {
+          const c = el("div", "abs ccard", null, cc);
+          el("div", "ch", `<i class="d"></i>Live Call Monitor`, c);
+          el("div", "ct" + (m.blue ? " blue" : ""), m.tag, c);
+          m.subEl = el("div", "cs", `${m.who}&nbsp;&nbsp;·&nbsp;&nbsp;<span>00:00</span>`, c, "margin-top:12px");
+          m.timerEl = m.subEl.querySelector("span");
+          m.lineEls = m.lines.map((l) => el("div", "cl", `<b>${l[1]}:</b> ${l[2]}`, c));
+          m.el = c;
+        });
+        const cSummary = el("div", "abs ccard", `<div class="ch"><i class="d"></i>Call Summary</div><div class="ct">AI GENERATED</div><div class="cs">Personal loan enquiry, ₹8,00,000 for home renovation. Pre-qualified up to ₹10,00,000 on existing salary account. Next: send onboarding link over WhatsApp.</div>`, cc);
+        const cUW = el("div", "abs ccard", `<div class="ch"><i class="d"></i>Underwriting</div><div class="ct">RULES ENGINE</div><div class="cs">Decision received from Piramal Finance's own rules engine.</div>`, cc);
+        const cElig = el("div", "elig", `<h5>Eligible&nbsp;&nbsp;·&nbsp;&nbsp;₹8,00,000</h5><p>Decisioning performed entirely by the bank's underwriting system. The AI agent only reads the outcome — it cannot approve or override it.</p>`, cUW);
+        const cEsc = el("div", "abs esc", `<h5>Escalation flagged</h5><p>Customer requested a rate exception — outside AI's authority. Routed to an available RM.</p>`, cc);
+        const cTake = el("div", "abs takeover", `<div class="pa">P</div><div><b>Priya Sharma — took over the thread</b><span>Inherited: 2 call transcripts + full chat history</span></div>`, cc, "top:330px");
+        const cRMA = el("div", "abs ccard", `<div class="ch"><i class="d"></i>RM Assisted</div><div class="ct blue">PRIYA SHARMA</div><div class="cs">Negotiating final terms with the customer directly in the WhatsApp thread.</div>`, cc);
+        const cOTP = el("div", "abs otp", `<h5>OTP verification</h5><p>Handled via a separate private channel. Not visible in this chat, not visible to Priya.</p>`, cc);
+        const cServ = el("div", "abs ccard", `<div class="ch"><i class="d"></i>Servicing</div><div class="ct">AI HANDLING</div><div class="cs">Richa has resumed automatically for routine servicing — EMI reminders, statement requests, and follow ups.</div>`, cc);
+
+        // ------------------------------------------------------------ timeline
+        function build() {
+          const tl = gsap.timeline({ paused: true });
+          const D = 194.667;
+
+          // chat-step captions sit vertically centred on y≈611, as in the original
+          STEPS.forEach((s) => { if (!s.live) s.capEl.style.top = Math.round(611 - s.capEl.offsetHeight / 2) + "px"; });
+
+          // generic windowed element: fade in at t0, fade out at t1
+          function win(e, t0, t1, o = {}) {
+            const y = o.y ?? 10, d = o.d ?? 0.4;
+            tl.fromTo(e, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: "power2.out", immediateRender: true }, t0);
+            if (t1 != null) tl.to(e, { opacity: 0, duration: o.out ?? 0.2, ease: "power1.in" }, t1 - (o.out ?? 0.2));
+          }
+          // hard cut windows (sets only)
+          function cut(e, windows) {
+            tl.set(e, { opacity: 0 }, 0);
+            windows.forEach(([a, b]) => { tl.set(e, { opacity: 1 }, a); if (b != null) tl.set(e, { opacity: 0 }, b); });
+          }
+
+          // ---- scene A
+          tl.from("#a-rm", { opacity: 0, x: -30, duration: 0.6, ease: "power2.out" }, 0.1);
+          tl.from("#a-cu", { opacity: 0, x: 30, duration: 0.6, ease: "power2.out" }, 0.1);
+          tl.from("#sceneA .dash", { opacity: 0, duration: 0.6 }, 0.4);
+          tl.from("#sceneA .capA", { opacity: 0, y: 16, duration: 0.6, ease: "power2.out" }, 0.3);
+          tl.from("#a-dark", { opacity: 0, scale: 0.94, duration: 0.5, ease: "back.out(1.6)" }, 2.0);
+          ["#a-t1", "#a-t2", "#a-t3"].forEach((s, i) => tl.from(s, { opacity: 0, y: 10, duration: 0.35, ease: "power2.out" }, 4.0 + i * 0.12));
+          tl.to("#a-in", { opacity: 0, duration: 0.25 }, 12.1);
+
+          // ---- scene B
+          ["#b-p1", "#b-p2", "#b-p3"].forEach((s, i) => tl.from(s, { opacity: 0, x: -20, duration: 0.4, ease: "power2.out" }, 12.35 + i * 0.35));
+          tl.from("#sceneB .capA", { opacity: 0, y: 12, duration: 0.45, ease: "power2.out" }, 12.35);
+          tl.from("#b-arrow", { opacity: 0, x: -10, duration: 0.4 }, 13.6);
+          tl.from("#b-box", { opacity: 0, scale: 0.94, duration: 0.5, ease: "back.out(1.5)" }, 14.0);
+          tl.to("#b-in", { opacity: 0, duration: 0.25 }, 18.85);
+
+          // ---- main in
+          tl.from("#m-in", { opacity: 0, duration: 0.35 }, 19.0);
+
+          // middle steps
+          STEPS.forEach((s, i) => {
+            const grp = document.getElementById("step" + i);
+            const nextSamePill = STEPS[i + 1] && STEPS[i + 1].pill === s.pill;
+            const prevSamePill = STEPS[i - 1] && STEPS[i - 1].pill === s.pill;
+            tl.set(grp, { opacity: 0 }, 0);
+            tl.set(grp, { opacity: 1 }, s.t0);
+            tl.set(grp, { opacity: 0 }, s.t1);
+            if (!prevSamePill) tl.from(s.pillEl, { opacity: 0, duration: 0.3 }, s.t0);
+            tl.from(s.titleEl, { opacity: 0, y: 12, duration: 0.45, ease: "power2.out" }, s.t0);
+            tl.from(s.capEl, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out" }, s.t0 + 0.1);
+            if (s.liveEl) {
+              tl.from(s.liveEl, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out" }, s.t0 + 0.25);
+              tl.from(s.footEl, { opacity: 0, duration: 0.4 }, s.t0 + 0.3);
+            } else {
+              tl.from(s.chipsEl.children, { opacity: 0, y: 8, duration: 0.35, stagger: 0.1, ease: "power2.out" }, s.t0 + 0.35);
+            }
+          });
+
+          // phone modes
+          const callWins = CALLS.map((c) => [c.t0, c.t1]);
+          const waWins = [[0, 27.0], [57.6, 96.4], [118.1, 128.6], [138.8, 166.3]];
+          cut($("#wa"), waWins);
+          CALLS.forEach((c) => {
+            cut(c.el, [[c.t0, c.t1]]);
+            cut(c.accEl, [[c.t0, c.ans]]);
+            cut(c.spkEl, [[c.ans, c.t1]]);
+            cut(c.waveEl, [[c.ans, c.t1]]);
+            tl.from(c.el.querySelector(".cav"), { scale: 0.9, duration: 0.5, ease: "back.out(2)" }, c.t0);
+          });
+          cut($("#lbl-wa"), waWins);
+          cut($("#lbl-call"), callWins);
+          tl.set("#wa-time", { opacity: 1 }, 0);
+
+          // chat thread scroll: align latest bubble bottom to viewport bottom
+          const VIEW = 745, PAD = 16;
+          tl.set("#thread", { y: VIEW }, 0);
+          MSGS.forEach((m) => {
+            const bottom = m.el.offsetTop + m.el.offsetHeight;
+            const y = VIEW - PAD - bottom;
+            tl.to("#thread", { y, duration: 0.45, ease: "power2.out" }, m.t);
+            tl.fromTo(m.el, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", immediateRender: true }, m.t + 0.05);
+          });
+
+          // WhatsApp Flow sheet
+          tl.set("#flow", { yPercent: 130 }, 0);
+          tl.to("#flow", { yPercent: 0, duration: 0.5, ease: "power3.out" }, 71.2);
+          [["#f1ok", "#f1p", "#f1u", 71.8], ["#f2ok", "#f2p", "#f2u", 73.6]].forEach(([ok, p, u, t]) => {
+            tl.set([ok, u], { opacity: 0 }, 0);
+            tl.to(ok, { opacity: 1, duration: 0.25 }, t);
+            tl.to(p, { opacity: 0, duration: 0.2 }, t);
+            tl.to(u, { opacity: 1, duration: 0.2 }, t);
+          });
+          tl.set("#fbtn-on", { opacity: 0 }, 0);
+          tl.to("#fbtn-on", { opacity: 1, duration: 0.25 }, 74.1);
+          tl.to("#flow", { yPercent: 130, duration: 0.45, ease: "power2.in" }, 74.7);
+
+          // console live indicator
+          cut($("#con-live"), LIVE_WINDOWS);
+
+          // stage tags
+          const ACTIVE = { backgroundColor: "#c9381b", color: "#ffffff" };
+          const DONE = { backgroundColor: "#dcf3e8", color: "#1b8f63" };
+          const IDLE = { backgroundColor: "#efeee9", color: "#a3a3a3" };
+          tagEls.forEach((e) => tl.set(e, IDLE, 0));
+          STAGE.forEach(([t, idx]) => {
+            if (idx > 0) tl.to(tagEls[idx - 1], { ...DONE, duration: 0.3 }, t);
+            tl.to(tagEls[idx], { ...ACTIVE, duration: 0.3 }, t);
+          });
+
+          // console cards
+          MONITORS.forEach((m) => {
+            win(m.el, m.t0, m.t1, { out: 0.15 });
+            m.lineEls.forEach((le, k) => tl.from(le, { opacity: 0, y: 6, duration: 0.35, ease: "power2.out" }, m.lines[k][0] + (k === 0 ? 0.2 : 0)));
+          });
+          win(cSummary, 57.6, 60.5);
+          win(cUW, 77.7, 88.0);
+          tl.from(cElig, { opacity: 0, y: 8, duration: 0.4, ease: "power2.out" }, 82.5);
+          win(cEsc, 118.1, 128.6, { out: 0.15 });
+          win(cTake, 121.2, 128.6, { out: 0.15 });
+          win(cRMA, 138.8, 151.0);
+          win(cOTP, 144.1, 152.3);
+          win(cServ, 155.5, 166.3, { out: 0.15 });
+
+          // ---- end card crossfade
+          tl.to("#m-in", { opacity: 0, duration: 0.5, ease: "power1.inOut" }, 184.0);
+          tl.to("#hdr-in", { opacity: 0, duration: 0.5, ease: "power1.inOut" }, 184.0);
+          tl.from("#e-in", { opacity: 0, duration: 0.5, ease: "power1.inOut" }, 184.0);
+          tl.from("#end-logo", { y: 10, duration: 0.6, ease: "power2.out" }, 184.1);
+          tl.from("#end-h", { y: 14, duration: 0.6, ease: "power2.out" }, 184.1);
+          tl.from("#end-s", { y: 10, opacity: 0, duration: 0.5, ease: "power2.out" }, 184.5);
+          tl.from("#end-chips > div", { y: 8, opacity: 0, duration: 0.4, stagger: 0.12, ease: "power2.out" }, 184.8);
+          tl.from("#end-f", { opacity: 0, duration: 0.5 }, 185.5);
+
+          // ---- per-frame state: clocks, timers, waveforms (pure function of t)
+          const mmss = (s) => { s = Math.max(0, Math.floor(s)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); };
+          const wave = (k, t, amp) => { const v = 0.5 + 0.5 * Math.sin(t * 7.3 + k * 1.7) * Math.sin(t * 3.1 + k * 0.9 + 1.3); return Math.max(0.18, v) * amp; };
+          const state = {
+            _t: 0,
+            get t() { return this._t; },
+            set t(v) {
+              this._t = v;
+              $("#wa-time").textContent = v >= 150.3 ? "11:09" : "11:04";
+              CALLS.forEach((c) => {
+                if (v < c.t0 || v > c.t1) return;
+                c.statEl.textContent = v < c.ans ? "Ringing..." : mmss(v - c.ans);
+                c.bars.forEach((b, k) => { b.style.height = (8 + wave(k, v, 32)).toFixed(1) + "px"; });
+              });
+              MONITORS.forEach((m) => { if (v >= m.t0 && v <= m.t1) m.timerEl.textContent = mmss(v - m.ans); });
+              STEPS.forEach((s) => {
+                if (!s.liveBars || v < s.t0 || v > s.t1) return;
+                s.liveBars.forEach((b, k) => { b.style.height = (6 + wave(k + 3, v * 1.15, 22)).toFixed(1) + "px"; });
+              });
+            },
+          };
+          tl.to(state, { t: D, duration: D, ease: "none" }, 0);
+
+          window.__timelines["main"] = tl;
+        }
+
+        document.fonts.ready.then(build);
+      })();
+    </script>
+  </body>
+</html>
