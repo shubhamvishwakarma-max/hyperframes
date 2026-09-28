@@ -8,8 +8,8 @@ export const T = {
   // Scene 1 — hook
   hookStart: 0,
   lakhs: 2.3, // "lakhs of leads"
-  whileHot: 3.35, // "while hot"
-  goCold: 4.05, // "opportunities go cold?"
+  whileHot: 3.45, // "while hot"
+  goCold: 4.3, // "opportunities go cold?"
   hotLeadsDontWait: 3.45,
   // Transition — better way
   betterWay: 4.85,
@@ -34,12 +34,12 @@ export const T = {
   ownershipChanges: 14.35, // "when ownership changes"
   historyPreserved: 15.0,
   zeroContextLoss: 15.05,
-  centralized: 16.05, // "centralized visibility"
+  centralized: 15.75, // "centralized visibility"
   // Scene 4 — impact
   s4Start: 18.05, // "The impact?"
   threeLakh: 19.0, // "three lakh twelve thousand..."
   callsResolved: 20.55,
-  thirtyPercent: 22.95, // "thirty percent"
+  thirtyPercent: 22.25, // "thirty percent"
   scaleOutreach: 24.1,
   // Scene 5 — value
   s5Start: 25.1,

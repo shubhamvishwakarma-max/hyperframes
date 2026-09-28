@@ -13,18 +13,18 @@ const CY = 705;
 type Lead = { product: string; status: string; tone: ChipTone; meta: string; x: number; y: number; from: [number, number]; rot: number; slot: number };
 
 const LEADS: Lead[] = [
-  { product: "BUSINESS LOAN", status: "HOT LEAD", tone: "amber", meta: "2m ago", x: 250, y: -178, from: [900, -500], rot: 1.5, slot: 0 },
-  { product: "PERSONAL LOAN", status: "FOLLOW-UP DUE", tone: "neutral", meta: "1d", x: -272, y: -168, from: [-900, -420], rot: -2, slot: 0 },
-  { product: "LOAN APPLICATION", status: "NO RESPONSE", tone: "neutral", meta: "3d", x: -300, y: 62, from: [-1000, 80], rot: 1.2, slot: 1 },
-  { product: "NEW ENQUIRY", status: "WAITING", tone: "neutral", meta: "5h", x: 316, y: 72, from: [1000, 120], rot: -1.4, slot: 1 },
-  { product: "HOME LOAN", status: "CALLBACK DUE", tone: "neutral", meta: "2d", x: -200, y: 238, from: [-700, 700], rot: -1, slot: 2 },
-  { product: "CREDIT CARD", status: "NO RESPONSE", tone: "neutral", meta: "4d", x: 214, y: 246, from: [800, 700], rot: 2, slot: 2 },
+  { product: "Business loan", status: "Hot lead", tone: "amber", meta: "2m ago", x: 250, y: -178, from: [900, -500], rot: 1.5, slot: 0 },
+  { product: "Personal loan", status: "Follow-up due", tone: "neutral", meta: "1d", x: -272, y: -168, from: [-900, -420], rot: -2, slot: 0 },
+  { product: "Loan application", status: "No response", tone: "neutral", meta: "3d", x: -300, y: 62, from: [-1000, 80], rot: 1.2, slot: 1 },
+  { product: "New enquiry", status: "Waiting", tone: "neutral", meta: "5h", x: 316, y: 72, from: [1000, 120], rot: -1.4, slot: 1 },
+  { product: "Home loan", status: "Callback due", tone: "neutral", meta: "2d", x: -200, y: 238, from: [-700, 700], rot: -1, slot: 2 },
+  { product: "Credit card", status: "No response", tone: "neutral", meta: "4d", x: 214, y: 246, from: [800, 700], rot: 2, slot: 2 },
 ];
 
 export const SLOTS = [
-  { label: "AI VOICE", icon: IconVoice, y: CY - 170 },
-  { label: "WHATSAPP", icon: IconWhatsApp, y: CY },
-  { label: "RIGHT RM", icon: IconUser, y: CY + 170 },
+  { label: "AI Voice", icon: IconVoice, y: CY - 170 },
+  { label: "WhatsApp", icon: IconWhatsApp, y: CY },
+  { label: "Right RM", icon: IconUser, y: CY + 170 },
 ];
 const PILL_W = 330;
 const PILL_H = 88;
@@ -46,7 +46,7 @@ const Pill: React.FC<{ i: number }> = ({ i }) => {
       >
         <Icon size={26} color={i === 2 ? "#fff" : colors.greenDeep} stroke={2.3} />
       </div>
-      <span style={{ fontFamily: fonts.mono, fontWeight: 600, fontSize: 22, letterSpacing: "0.12em", color: colors.ink }}>
+      <span style={{ fontFamily: fonts.mono, fontWeight: 600, fontSize: 22, letterSpacing: "0.01em", color: colors.ink }}>
         {SLOTS[i].label}
       </span>
     </div>
@@ -168,9 +168,9 @@ export const LeadStack: React.FC = () => {
                 <Avatar initials="R" size={50} bg="#2F4A6B" />
                 <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                   <span style={{ fontFamily: fonts.sans, fontWeight: 700, fontSize: 26, color: colors.ink, letterSpacing: "-0.01em" }}>
-                    RAHUL
+                    Rahul
                   </span>
-                  <span style={{ fontFamily: fonts.sans, fontSize: 17, color: colors.inkMuted }}>Relationship Manager</span>
+                  <span style={{ fontFamily: fonts.sans, fontSize: 17, color: colors.inkMuted }}>Relationship manager</span>
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -189,7 +189,7 @@ export const LeadStack: React.FC = () => {
                     fontFamily: fonts.mono,
                     fontWeight: 600,
                     fontSize: 16,
-                    letterSpacing: "0.06em",
+                    letterSpacing: "0.01em",
                     color: "#8A4A12",
                     background: colors.amberTint,
                     borderRadius: 99,
@@ -198,7 +198,7 @@ export const LeadStack: React.FC = () => {
                     fontVariantNumeric: "tabular-nums",
                   }}
                 >
-                  {count} FOLLOW-UPS
+                  {count} follow-ups
                 </span>
               </div>
             </div>
@@ -246,7 +246,7 @@ export const LeadStack: React.FC = () => {
         const h = mix(LEAD_H, PILL_H, m);
         const rot = mix(l.rot * (1 - focus * (isHot ? 1 : 0)), 0, m);
 
-        const hotStatus = ["HOT LEAD", "WAITING", "GOING COLD"][hotState];
+        const hotStatus = ["Hot lead", "Waiting", "Going cold"][hotState];
         const hotTone: ChipTone = ["amber", "neutral", "cold"][hotState] as ChipTone;
         const tint = isHot ? mixColor("#FFFFFF", "#F1F4F6", coldness) : undefined;
 

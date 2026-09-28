@@ -34,7 +34,7 @@ export const StatusChip: React.FC<{
         fontFamily: fonts.mono,
         fontWeight: 600,
         fontSize: size,
-        letterSpacing: "0.08em",
+        letterSpacing: "0.01em",
         lineHeight: 1,
         whiteSpace: "nowrap",
         ...style,

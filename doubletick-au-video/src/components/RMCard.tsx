@@ -60,11 +60,11 @@ export const RMCard: React.FC<{ morph: number; width: number; active?: number }>
             color: colors.ink,
           }}
         >
-          {nameRoll("RAHUL SHARMA", -1, morph)}
-          {nameRoll("PRIYA MEHTA", 1, 1 - morph)}
+          {nameRoll("Rahul Sharma", -1, morph)}
+          {nameRoll("Priya Mehta", 1, 1 - morph)}
         </div>
-        <span style={{ fontFamily: fonts.mono, fontSize: 14, letterSpacing: "0.1em", color: colors.inkMuted }}>
-          ASSIGNED RM
+        <span style={{ fontFamily: fonts.mono, fontSize: 14, letterSpacing: "0.01em", color: colors.inkMuted }}>
+          Assigned RM
         </span>
       </div>
     </div>

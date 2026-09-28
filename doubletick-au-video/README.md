@@ -26,7 +26,7 @@ src/
   components/                    DoubleTickLogo, AULogo, KineticHeadline, LeadCard, LeadStack,
                                  PhoneMockup, PhoneLayer, WhatsAppHeader, VerifiedBadge, ChatBubble,
                                  AIVoiceCard, RMCard, ContextTimeline, MetricCard, WorkflowConnector,
-                                 CTAButton, BrandBar, Background, StatusChip, Icons, Avatar
+                                 CTAButton, BrandBar, Background, StatusChip, Icons, Avatar, Subtitles
 public/
   assets/doubletick-mark.svg                 DoubleTick mark (DT.svg brand asset)
   assets/au-small-finance-bank-logo.png      AU Small Finance Bank mark (see note below)
@@ -34,6 +34,10 @@ public/
 audio-src/                                   original ElevenLabs VO + music takes, pause-squeeze helper
 scripts/build_audio.py                       VO levelling, music ducking, synthesised SFX
 ```
+
+## Subtitles
+
+On-screen text is in sentence case. Burned-in captions (`src/components/Subtitles.tsx`) follow the voiceover phrase by phrase. Cue times come from the measured pause boundaries of the narration. Scene content is scaled to 92% toward the top to leave a clean band for them.
 
 ## Audio
 

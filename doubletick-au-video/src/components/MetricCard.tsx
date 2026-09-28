@@ -39,7 +39,7 @@ const Shell: React.FC<{ width: number; height: number; children: React.ReactNode
 );
 
 const MetaRow: React.FC<{ index: string; tag: string }> = ({ index, tag }) => (
-  <div style={{ display: "flex", justifyContent: "space-between", fontFamily: fonts.mono, fontSize: 15, letterSpacing: "0.1em" }}>
+  <div style={{ display: "flex", justifyContent: "space-between", fontFamily: fonts.mono, fontSize: 15, letterSpacing: "0.01em" }}>
     <span style={{ color: colors.inkMuted }}>{index}</span>
     <span style={{ color: colors.greenDeep }}>{tag}</span>
   </div>
@@ -54,7 +54,7 @@ export const CallsMetric: React.FC<{ at: number; width: number; height: number }
   const ticks = 44;
   return (
     <Shell width={width} height={height} glow={Math.sin(done * Math.PI) * 0.8}>
-      <MetaRow index="01" tag="AI VOICE" />
+      <MetaRow index="01" tag="AI Voice" />
       <div>
         <div
           style={{
@@ -99,9 +99,9 @@ export const CallsMetric: React.FC<{ at: number; width: number; height: number }
         </div>
       </div>
       <div style={{ fontFamily: fonts.sans, fontWeight: 700, fontSize: 30, lineHeight: 1.1, letterSpacing: "-0.01em", color: colors.ink }}>
-        OUTBOUND
+        Outbound
         <br />
-        AI CALLS
+        AI calls
       </div>
     </Shell>
   );
@@ -162,9 +162,9 @@ export const ClosureMetric: React.FC<{ at: number; width: number; height: number
         <span style={{ fontSize: 54, color: colors.green }}>%</span>
       </div>
       <div style={{ fontFamily: fonts.sans, fontWeight: 700, fontSize: 26, lineHeight: 1.15, letterSpacing: "-0.01em", color: colors.ink }}>
-        RM BROADCAST
+        RM Broadcast
         <br />
-        <span style={{ color: colors.greenDeep }}>→</span> CC CLOSURE
+        <span style={{ color: colors.greenDeep }}>→</span> CC closure
       </div>
     </Shell>
   );

@@ -37,7 +37,7 @@ export const LeadCard: React.FC<{
           fontFamily: fonts.mono,
           fontWeight: 600,
           fontSize: 14.5,
-          letterSpacing: "0.1em",
+          letterSpacing: "0.01em",
           color: colors.inkSoft,
         }}
       >

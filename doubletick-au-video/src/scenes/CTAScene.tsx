@@ -16,8 +16,8 @@ export const CTAScene: React.FC = () => {
   return (
     <AbsoluteFill>
       <div style={{ position: "absolute", left: 0, right: 0, top: 318, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-        <MaskedLine text="YOUR HOTTEST LEADS" at={T.ctaStart + 0.12} size={70} align="center" weight={800} />
-        <MaskedLine text="SHOULDN'T HAVE TO WAIT." at={T.ctaStart + 0.24} size={70} align="center" weight={800} color={colors.greenDeep} />
+        <MaskedLine text="Your hottest leads" at={T.ctaStart + 0.12} size={70} align="center" weight={800} />
+        <MaskedLine text="shouldn't have to wait." at={T.ctaStart + 0.24} size={70} align="center" weight={800} color={colors.greenDeep} />
       </div>
       <div
         style={{
@@ -48,7 +48,7 @@ export const CTAScene: React.FC = () => {
           transform: `translateY(${mix(26, 0, btn)}px) scale(${mix(0.9, 1, btn)})`,
         }}
       >
-        <CTAButton label="BOOK A DEMO" shimmerAt={30.1} tapAt={30.95} />
+        <CTAButton label="Book a demo" shimmerAt={30.1} tapAt={30.95} />
       </div>
       <div
         style={{

@@ -14,14 +14,14 @@ export const HookScene: React.FC = () => {
     <AbsoluteFill>
       <AbsoluteFill style={{ transform: `scale(${push})`, transformOrigin: "50% 62%" }}>
         <div style={{ position: "absolute", left: 64, top: 132 }}>
-          <Eyebrow text="THE FOLLOW-UP GAP" at={0.05} exitAt={4.6} color="#8A4A12" />
+          <Eyebrow text="The follow-up gap" at={0.05} exitAt={4.6} color="#8A4A12" />
         </div>
         <div style={{ position: "absolute", left: 64, top: 176 }}>
-          <MaskedLine text="LAKHS OF LEADS." at={0.12} exitAt={4.62} size={72} />
+          <MaskedLine text="Lakhs of leads." at={0.12} exitAt={4.62} size={72} />
         </div>
         <div style={{ position: "absolute", left: 64, top: 256 }}>
           <MaskedLine
-            text="NOT ENOUGH RM BANDWIDTH."
+            text="Not enough RM bandwidth."
             at={0.45}
             exitAt={T.hotLeadsDontWait - 0.05}
             size={62}
@@ -31,7 +31,7 @@ export const HookScene: React.FC = () => {
         </div>
         <div style={{ position: "absolute", left: 64, top: 252 }}>
           <MaskedLine
-            text="HOT LEADS DON'T WAIT."
+            text="Hot leads don't wait."
             at={T.hotLeadsDontWait + 0.12}
             exitAt={4.66}
             size={72}
@@ -57,7 +57,7 @@ export const HookScene: React.FC = () => {
       />
 
       <div style={{ position: "absolute", left: 64, top: 186 }}>
-        <MaskedLine text="THERE'S A BETTER WAY." at={T.betterWay + 0.1} exitAt={5.55} size={70} color={colors.greenDeep} />
+        <MaskedLine text="There's a better way." at={T.betterWay + 0.1} exitAt={5.55} size={70} color={colors.greenDeep} />
       </div>
     </AbsoluteFill>
   );

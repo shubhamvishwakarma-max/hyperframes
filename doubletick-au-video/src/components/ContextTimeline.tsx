@@ -6,11 +6,11 @@ import { IconCheck, IconHistory, IconIntent, IconUser, IconVoice, IconWhatsApp }
 import { StatusChip } from "./StatusChip";
 
 const rows = [
-  { k: "AI VOICE", v: "Connected", icon: IconVoice },
-  { k: "WHATSAPP", v: "Active", icon: IconWhatsApp },
-  { k: "CUSTOMER INTENT", v: "High", icon: IconIntent },
-  { k: "ASSIGNED RM", v: "Priya Mehta", icon: IconUser },
-  { k: "HISTORY", v: "Preserved", icon: IconHistory },
+  { k: "AI Voice", v: "Connected", icon: IconVoice },
+  { k: "WhatsApp", v: "Active", icon: IconWhatsApp },
+  { k: "Customer intent", v: "High", icon: IconIntent },
+  { k: "Assigned RM", v: "Priya Mehta", icon: IconUser },
+  { k: "History", v: "Preserved", icon: IconHistory },
 ];
 
 /** Simplified unified conversation timeline — centralized visibility, not a dashboard. */
@@ -33,11 +33,11 @@ export const ContextTimeline: React.FC<{ at: number; width: number }> = ({ at, w
       >
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <DoubleTickMark size={22} />
-          <span style={{ fontFamily: fonts.mono, fontWeight: 500, fontSize: 15, letterSpacing: "0.1em", color: colors.inkSoft }}>
-            ARJUN MEHTA · TIMELINE
+          <span style={{ fontFamily: fonts.mono, fontWeight: 500, fontSize: 15, letterSpacing: "0.01em", color: colors.inkSoft }}>
+            Arjun Mehta · Timeline
           </span>
         </div>
-        <StatusChip label="LIVE" tone="green" size={13} />
+        <StatusChip label="Live" tone="green" size={13} />
       </div>
       <div style={{ position: "relative" }}>
         <div
@@ -85,7 +85,7 @@ export const ContextTimeline: React.FC<{ at: number; width: number }> = ({ at, w
                 <Icon size={24} color={last ? "#fff" : colors.greenDeep} />
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 5, flex: 1 }}>
-                <span style={{ fontFamily: fonts.mono, fontSize: 14, letterSpacing: "0.1em", color: colors.inkMuted }}>{r.k}</span>
+                <span style={{ fontFamily: fonts.mono, fontSize: 14, letterSpacing: "0.01em", color: colors.inkMuted }}>{r.k}</span>
                 <span style={{ fontFamily: fonts.sans, fontWeight: 600, fontSize: 24, color: colors.ink, letterSpacing: "-0.01em" }}>
                   {r.v}
                 </span>

@@ -20,7 +20,7 @@ export const AIVoiceCard: React.FC = () => {
   const interest = frame >= s(T.interest);
   const connP = prog(frame, T.connected, 0.35);
   const intP = prog(frame, T.interest, 0.4);
-  const status = interest ? "INTEREST DETECTED" : connected ? "CONNECTED" : "CALLING…";
+  const status = interest ? "Interest detected" : connected ? "Connected" : "Calling…";
   const tone = interest ? "solid" : connected ? "green" : "amber";
   const statusSwap = interest ? intP : connected ? connP : prog(frame, T.aiVoice - 0.2, 0.3);
   const secs = Math.max(0, Math.floor((frame - s(T.connected)) / 30));
@@ -43,27 +43,27 @@ export const AIVoiceCard: React.FC = () => {
     >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <StatusChip
-          label="AI VOICE"
+          label="AI Voice"
           tone="green"
           size={15}
           icon={<IconVoice size={16} color={colors.greenInk} stroke={2.4} />}
         />
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <DoubleTickMark size={20} />
-          <span style={{ fontFamily: fonts.mono, fontSize: 13, letterSpacing: "0.08em", color: colors.inkMuted }}>
-            CAMPAIGN
+          <span style={{ fontFamily: fonts.mono, fontSize: 13, letterSpacing: "0.01em", color: colors.inkMuted }}>
+            Campaign
           </span>
         </div>
       </div>
       <div style={{ fontFamily: fonts.sans, fontWeight: 600, fontSize: 25, color: colors.ink, letterSpacing: "-0.02em" }}>
-        Dormant Lead Campaign
+        Dormant lead campaign
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
         <Avatar initials="AM" size={50} bg="#3F5A4C" />
         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
           <span style={{ fontFamily: fonts.sans, fontWeight: 600, fontSize: 21, color: colors.ink }}>Arjun Mehta</span>
-          <span style={{ fontFamily: fonts.mono, fontSize: 13.5, letterSpacing: "0.06em", color: colors.inkMuted }}>
-            {connected ? `LIVE · 00:${String(secs + 4).padStart(2, "0")}` : "RE-ENGAGEMENT CALL"}
+          <span style={{ fontFamily: fonts.mono, fontSize: 13.5, letterSpacing: "0.01em", color: colors.inkMuted }}>
+            {connected ? `Live · 00:${String(secs + 4).padStart(2, "0")}` : "Re-engagement call"}
           </span>
         </div>
       </div>
@@ -94,8 +94,8 @@ export const AIVoiceCard: React.FC = () => {
         >
           <StatusChip label={status} tone={tone} size={15} pulse={connected ? 0 : (Math.sin(frame / 4) + 1) / 2} />
         </div>
-        <span style={{ fontFamily: fonts.mono, fontSize: 13, letterSpacing: "0.06em", color: colors.inkMuted }}>
-          AUTO-DIALED
+        <span style={{ fontFamily: fonts.mono, fontSize: 13, letterSpacing: "0.01em", color: colors.inkMuted }}>
+          Auto-dialed
         </span>
       </div>
     </div>

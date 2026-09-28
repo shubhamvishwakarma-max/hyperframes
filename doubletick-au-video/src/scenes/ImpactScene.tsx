@@ -65,7 +65,7 @@ export const ImpactScene: React.FC = () => {
   return (
     <AbsoluteFill style={{ transform: `scale(${push})`, transformOrigin: "50% 50%" }}>
       <div style={{ position: "absolute", left: 64, top: 132 }}>
-        <Eyebrow text="PROVEN AT SCALE" at={18.15} exitAt={24.75} />
+        <Eyebrow text="Proven at scale" at={18.15} exitAt={24.75} />
       </div>
       <div
         style={{
@@ -91,10 +91,10 @@ export const ImpactScene: React.FC = () => {
       </div>
       <CallParticles />
       <div style={{ position: "absolute", left: 64, top: 622 }}>
-        <MaskedLine text="SCALE OUTREACH." at={21.05} exitAt={24.72} size={92} weight={800} stagger={0.1} />
+        <MaskedLine text="Scale outreach." at={21.05} exitAt={24.72} size={92} weight={800} stagger={0.1} />
       </div>
       <div style={{ position: "absolute", left: 64, top: 724 }}>
-        <MaskedLine text="NOT RM WORKLOAD." at={21.35} exitAt={24.76} size={92} weight={800} color={colors.greenDeep} stagger={0.1} />
+        <MaskedLine text="Not RM workload." at={21.35} exitAt={24.76} size={92} weight={800} color={colors.greenDeep} stagger={0.1} />
       </div>
       <div
         style={{

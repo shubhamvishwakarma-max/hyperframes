@@ -107,7 +107,7 @@ export const Eyebrow: React.FC<{
         fontFamily: fonts.mono,
         fontWeight: 500,
         fontSize: 19,
-        letterSpacing: "0.14em",
+        letterSpacing: "0.01em",
         color,
         opacity: p * (1 - out),
         transform: `translateY(${mix(8, 0, p) - out * 8}px)`,

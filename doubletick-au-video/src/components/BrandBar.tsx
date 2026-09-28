@@ -16,10 +16,10 @@ export const BrandBar: React.FC = () => {
   const auIn = prog(frame, T.auLogo, 0.5);
   const auOut = prog(frame, T.auOut, 0.4, easeIn);
 
-  const h = mix(32, 52, toCenter);
+  const h = mix(32, 48, toCenter);
   const logoW = h * 1.25 + h * 0.22 + h * 0.82 * 5.05; // mark + gap + wordmark width estimate
-  const x = mix(58, 540 - logoW / 2, toCenter);
-  const y = mix(52, 214, toCenter);
+  const x = mix(100, 540 - logoW / 2, toCenter);
+  const y = mix(52, 204, toCenter);
 
   return (
     <>
@@ -29,7 +29,7 @@ export const BrandBar: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          right: 58,
+          right: 100,
           top: 44,
           display: "flex",
           alignItems: "center",
@@ -42,12 +42,12 @@ export const BrandBar: React.FC = () => {
           style={{
             fontFamily: fonts.mono,
             fontSize: 14,
-            letterSpacing: "0.14em",
+            letterSpacing: "0.01em",
             color: colors.inkMuted,
             opacity: prog(frame, T.auLogo + 0.25, 0.4),
           }}
         >
-          CUSTOMER STORY
+          Customer story
         </span>
         <div style={{ width: 1, height: 30, background: colors.borderStrong }} />
         <div

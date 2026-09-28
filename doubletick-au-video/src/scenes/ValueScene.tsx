@@ -6,9 +6,9 @@ import { colors, easeIn, easeInOut, fonts, mix, prog } from "../styles/tokens";
 import { T } from "../timing";
 
 const NODES = [
-  { title: "AI VOICE", desc: "Automated outreach", icon: IconVoice, at: T.automate },
-  { title: "WHATSAPP", desc: "Conversation continues", icon: IconWhatsApp, at: T.preserve },
-  { title: "HIGH INTENT", desc: "Intent surfaced", icon: IconIntent, at: T.startClosing - 0.1 },
+  { title: "AI Voice", desc: "Automated outreach", icon: IconVoice, at: T.automate },
+  { title: "WhatsApp", desc: "Conversation continues", icon: IconWhatsApp, at: T.preserve },
+  { title: "High intent", desc: "Intent surfaced", icon: IconIntent, at: T.startClosing - 0.1 },
   { title: "RM", desc: "Ready to close", icon: IconUser, at: T.focus },
 ];
 const XS = [183, 421, 659, 897];
@@ -79,10 +79,10 @@ export const ValueScene: React.FC = () => {
           whiteSpace: "nowrap",
         }}
       >
-        <WordRoll from="STOP" to="START" at={T.s5Start + 0.12} swapAt={T.startClosing} exitAt={T.ctaStart - 0.2} />
+        <WordRoll from="Stop" to="Start" at={T.s5Start + 0.12} swapAt={T.startClosing} exitAt={T.ctaStart - 0.2} />
         <WordRoll
-          from="CHASING."
-          to="CLOSING."
+          from="chasing."
+          to="closing."
           at={T.s5Start + 0.25}
           swapAt={T.startClosing + 0.08}
           exitAt={T.ctaStart - 0.15}
@@ -142,7 +142,7 @@ export const ValueScene: React.FC = () => {
                   fontFamily: fonts.mono,
                   fontWeight: 600,
                   fontSize: 21,
-                  letterSpacing: "0.12em",
+                  letterSpacing: "0.01em",
                   color: p > 0 ? colors.ink : colors.inkMuted,
                   opacity: nodeIn,
                   whiteSpace: "nowrap",

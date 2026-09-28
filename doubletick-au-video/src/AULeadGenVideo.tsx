@@ -3,6 +3,7 @@ import { AbsoluteFill, Audio, staticFile, useCurrentFrame } from "remotion";
 import { Background } from "./components/Background";
 import { BrandBar } from "./components/BrandBar";
 import { PhoneLayer } from "./components/PhoneLayer";
+import { Subtitles } from "./components/Subtitles";
 import { useBrandFonts } from "./fonts";
 import { CTAScene } from "./scenes/CTAScene";
 import { HookScene } from "./scenes/HookScene";
@@ -25,6 +26,8 @@ export const AULeadGenVideo: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: "#F4EFE6" }}>
       <Background />
+      {/* Scene content is scaled slightly toward the top to reserve a clean band for subtitles. */}
+      <AbsoluteFill style={{ transform: "scale(0.92)", transformOrigin: "540px 100px" }}>
       <Window from={0} to={6.4}>
         <HookScene />
       </Window>
@@ -46,7 +49,9 @@ export const AULeadGenVideo: React.FC = () => {
       <Window from={28.9} to={T.end}>
         <CTAScene />
       </Window>
+      </AbsoluteFill>
       <BrandBar />
+      <Subtitles />
 
       {/* Stems are pre-aligned to the timeline by scripts/build_audio.py (VO offset, music ducking, SFX sync). */}
       <Audio src={staticFile("audio/narration.mp3")} />

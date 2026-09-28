@@ -43,13 +43,13 @@ export const ReengagementScene: React.FC = () => {
   return (
     <AbsoluteFill style={{ transform: `scale(${push})`, transformOrigin: "50% 60%" }}>
       <div style={{ position: "absolute", left: 64, top: 132 }}>
-        <Eyebrow text="AU SMALL FINANCE BANK × DOUBLETICK" at={5.82} exitAt={T.s3Start - 0.35} />
+        <Eyebrow text="AU Small Finance Bank × DoubleTick" at={5.82} exitAt={T.s3Start - 0.35} />
       </div>
       <div style={{ position: "absolute", left: 64, top: 180 }}>
-        <MaskedLine text="RE-ENGAGE THE LEADS" at={5.98} exitAt={T.s3Start - 0.35} size={58} />
+        <MaskedLine text="Re-engage the leads" at={5.98} exitAt={T.s3Start - 0.35} size={58} />
       </div>
       <div style={{ position: "absolute", left: 64, top: 243 }}>
-        <MaskedLine text="YOU ALREADY HAVE." at={6.12} exitAt={T.s3Start - 0.3} size={58} color={colors.inkSoft} weight={600} />
+        <MaskedLine text="you already have." at={6.12} exitAt={T.s3Start - 0.3} size={58} color={colors.inkSoft} weight={600} />
       </div>
       {/* AT SCALE. */}
       <div
@@ -76,7 +76,7 @@ export const ReengagementScene: React.FC = () => {
             whiteSpace: "nowrap",
           }}
         >
-          AT SCALE.
+          At scale.
         </div>
         <div style={{ height: 6, marginTop: 4, width: `${underline * (1 - scOut) * 100}%`, background: colors.green, borderRadius: 6 }} />
       </div>
@@ -129,12 +129,12 @@ export const ReengagementScene: React.FC = () => {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <DoubleTickMark size={20} />
-          <span style={{ fontFamily: fonts.mono, fontSize: 14, letterSpacing: "0.12em", color: colors.inkMuted }}>
-            DOUBLETICK · INTENT SIGNAL
+          <span style={{ fontFamily: fonts.mono, fontSize: 14, letterSpacing: "0.01em", color: colors.inkMuted }}>
+            DoubleTick · Intent signal
           </span>
         </div>
         <StatusChip
-          label="HIGH INTENT"
+          label="High intent"
           tone="solid"
           size={22}
           icon={<IconIntent size={24} color="#fff" stroke={2.6} />}
