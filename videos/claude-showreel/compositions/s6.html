@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s6-root {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+        /* ───────── S6 slam ───────── */
+        #s6-root {
+          z-index: 12;
+        }
+        #s6-shake {
+          position: absolute;
+          inset: 0;
+        }
+        .sw {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+        }
+        .sw-word {
+          display: block;
+          font-size: 330px;
+          line-height: 0.9;
+          letter-spacing: -0.04em;
+          white-space: nowrap;
+        }
+        #sw-frame .sw-word {
+          color: var(--accent);
+        }
+        #sw-purpose {
+          display: block;
+        }
+        #sp-stack {
+          position: absolute;
+          right: 360px;
+          top: 425px;
+          display: grid;
+        }
+        #sp-stack span {
+          grid-area: 1 / 1;
+          font-size: 230px;
+          line-height: 1;
+          letter-spacing: -0.03em;
+          white-space: nowrap;
+        }
+        #sp-base {
+          z-index: 2;
+          color: var(--fg);
+        }
+        #sp-base b {
+          display: inline-block;
+          font-weight: 400;
+        }
+        .sp-copy {
+          z-index: 1;
+          opacity: 0;
+          mix-blend-mode: screen;
+        }
+        #sp-warm {
+          color: var(--accent);
+        }
+        #sp-cool {
+          color: var(--cool);
+        }
+        #sp-dot {
+          position: absolute;
+          left: 1578px;
+          top: 562px;
+          width: 64px;
+          height: 64px;
+          background: var(--accent);
+        }
+        #s6-flash {
+          background: var(--fg);
+          opacity: 0;
+        }
+      </style>
+      <div
+        id="s6-root"
+        class=""
+        data-composition-id="s6"
+        data-width="1920"
+        data-height="1080"
+        data-duration="1.75"
+      >
+        <div id="s6-flash" class="fill"></div>
+        <div id="s6-shake">
+          <div id="sw-every" class="sw"><span class="sw-word">EVERY</span></div>
+          <div id="sw-frame" class="sw"><span class="sw-word">FRAME</span></div>
+          <div id="sw-on" class="sw"><span class="sw-word">ON</span></div>
+          <div id="sw-purpose" class="sw">
+            <div id="sp-stack">
+              <span id="sp-warm" class="sp-copy" aria-hidden="true">PURPOSE</span>
+              <span id="sp-cool" class="sp-copy" aria-hidden="true">PURPOSE</span>
+              <span id="sp-base"><b>P</b><b>U</b><b>R</b><b>P</b><b>O</b><b>S</b><b>E</b></span>
+            </div>
+            <div id="sp-dot"></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          // Motion is authored in REEL time (seconds on the 15s master) so every beat
+          // reads against the whole piece; the timeline is shifted to local time at the end.
+          const T0 = 11.5;
+          const W = 1920;
+          const H = 1080;
+          const FPS = 30;
+          const tl = gsap.timeline({ paused: true });
+
+          // Deterministic hash — never Math.random.
+          const hash = (n) => {
+            const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+            return x - Math.floor(x);
+          };
+          const clamp01 = (v) => Math.min(1, Math.max(0, v));
+          const p3io = gsap.parseEase("power3.inOut");
+          const p3o = gsap.parseEase("power3.out");
+          const p3i = gsap.parseEase("power3.in");
+
+          /* ───────────── S6 · SLAM ───────────── */
+          const BEATS = [11.5, 11.84, 12.18, 12.52];
+          const ids = ["#sw-every", "#sw-frame", "#sw-on", "#sw-purpose"];
+          ids.forEach((sel, i) => {
+            tl.set(sel, { opacity: 1 }, BEATS[i]);
+            if (i < 3) tl.set(sel, { opacity: 0 }, BEATS[i + 1]);
+            tl.fromTo(
+              "#s6-flash",
+              { opacity: 0.16 },
+              { opacity: 0, duration: 0.22, ease: "power2.out", immediateRender: false },
+              BEATS[i],
+            );
+          });
+          tl.set("#s6-flash", { opacity: 0 }, T0);
+          tl.fromTo(
+            "#sw-every .sw-word",
+            { scale: 3.2, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.24, ease: "power4.out" },
+            BEATS[0],
+          );
+          tl.fromTo(
+            "#sw-frame .sw-word",
+            { x: -1500, skewX: 35 },
+            { x: 0, skewX: 0, duration: 0.26, ease: "power4.out" },
+            BEATS[1],
+          );
+          tl.fromTo(
+            "#sw-on .sw-word",
+            { y: 520, rotation: 14 },
+            { y: 0, rotation: 0, duration: 0.26, ease: "back.out(1.8)" },
+            BEATS[2],
+          );
+          tl.fromTo(
+            "#sp-stack",
+            { scaleX: 1.7, opacity: 0 },
+            {
+              scaleX: 1,
+              opacity: 1,
+              duration: 0.3,
+              ease: "power4.out",
+              transformOrigin: "100% 50%",
+            },
+            BEATS[3],
+          );
+          tl.fromTo(
+            "#sp-dot",
+            { scale: 0, rotation: -90 },
+            { scale: 1, rotation: 0, duration: 0.3, ease: "back.out(3)" },
+            BEATS[3] + 0.08,
+          );
+          // chromatic glitch on PURPOSE: quantized, hashed, snaps sharp
+          const copies = gsap.utils.toArray(".sp-copy");
+          const amp = { a: 0 };
+          tl.set(copies, { opacity: 0.85 }, BEATS[3]);
+          tl.fromTo(
+            amp,
+            { a: 1 },
+            {
+              a: 0,
+              duration: 0.42,
+              ease: "power3.in",
+              immediateRender: false,
+              onUpdate: () => {
+                const step = Math.floor(tl.time() / (1 / 20));
+                copies.forEach((el, layer) => {
+                  gsap.set(el, {
+                    x: (hash(step * 13 + layer * 7) * 2 - 1) * 26 * amp.a,
+                    y: (hash(step * 29 + layer * 11) * 2 - 1) * 9 * amp.a,
+                  });
+                });
+              },
+            },
+            BEATS[3],
+          );
+          tl.set(copies, { x: 0, y: 0, opacity: 0 }, BEATS[3] + 0.42);
+          // camera shake: decaying impulse on every beat, hashed per quantized frame
+          const shake = { t: 11.5 };
+          const shakeEl = document.getElementById("s6-shake");
+          tl.fromTo(
+            shake,
+            { t: 11.5 },
+            {
+              t: 13.25,
+              duration: 1.75,
+              ease: "none",
+              onUpdate: () => {
+                const t = shake.t;
+                let a = 0;
+                for (const b of BEATS) if (t >= b) a = Math.max(a, 26 * Math.exp(-(t - b) * 16));
+                const st = Math.floor(t * 30);
+                shakeEl.style.transform = `translate(${((hash(st * 3) * 2 - 1) * a).toFixed(1)}px, ${((hash(st * 7 + 1) * 2 - 1) * a).toFixed(1)}px)`;
+              },
+            },
+            11.5,
+          );
+          // letters of PURPOSE fall away; the square turns into the keyframe diamond
+          tl.to(
+            "#sp-base b",
+            {
+              y: 420,
+              rotation: (i) => (hash(i + 40) * 2 - 1) * 30,
+              opacity: 0,
+              duration: 0.3,
+              ease: "power3.in",
+              stagger: 0.025,
+            },
+            12.95,
+          );
+          tl.to("#sp-dot", { rotation: 45, duration: 0.25, ease: "power2.inOut" }, 12.95);
+
+          tl.shiftChildren(-T0);
+          window.__timelines["s6"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

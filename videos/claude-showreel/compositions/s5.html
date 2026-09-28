@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s5-root {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+        /* ───────── S5 depth assemble ───────── */
+        #s5-root {
+          z-index: 13;
+        }
+        #s5-stage {
+          perspective: 1600px;
+        }
+        #s5-push {
+          position: absolute;
+          inset: 0;
+          transform-style: preserve-3d;
+        }
+        #s5-word {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 300px;
+          display: flex;
+          justify-content: center;
+          gap: 6px;
+          transform-style: preserve-3d;
+        }
+        .tile {
+          display: block;
+          width: 230px;
+          text-align: center;
+          font-size: 300px;
+          line-height: 1;
+          letter-spacing: -0.02em;
+        }
+        .tile.hot {
+          color: var(--accent);
+        }
+        #s5-sub {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 680px;
+          text-align: center;
+          font-size: 50px;
+          letter-spacing: 0.42em;
+          color: var(--fg);
+          font-weight: 700;
+        }
+        #s5-rule {
+          position: absolute;
+          left: 660px;
+          top: 780px;
+          width: 600px;
+          height: 3px;
+          background: var(--accent);
+          transform-origin: 50% 50%;
+        }
+      </style>
+      <div
+        id="s5-root"
+        class=""
+        data-composition-id="s5"
+        data-width="1920"
+        data-height="1080"
+        data-duration="2.15"
+      >
+        <div id="s5-stage" class="fill">
+          <div id="s5-push">
+            <div id="s5-word">
+              <span class="tile">C</span><span class="tile">L</span><span class="tile hot">A</span
+              ><span class="tile">U</span><span class="tile">D</span><span class="tile">E</span>
+            </div>
+          </div>
+        </div>
+        <div id="s5-sub" class="mono">MOTION DESIGNER</div>
+        <div id="s5-rule"></div>
+      </div>
+      <script>
+        (function () {
+          // Motion is authored in REEL time (seconds on the 15s master) so every beat
+          // reads against the whole piece; the timeline is shifted to local time at the end.
+          const T0 = 9.4;
+          const W = 1920;
+          const H = 1080;
+          const FPS = 30;
+          const tl = gsap.timeline({ paused: true });
+
+          // Deterministic hash — never Math.random.
+          const hash = (n) => {
+            const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+            return x - Math.floor(x);
+          };
+          const clamp01 = (v) => Math.min(1, Math.max(0, v));
+          const p3io = gsap.parseEase("power3.inOut");
+          const p3o = gsap.parseEase("power3.out");
+          const p3i = gsap.parseEase("power3.in");
+
+          /* ───────────── S5 · DEPTH ASSEMBLE ───────────── */
+          document.querySelectorAll("#s5-word .tile").forEach((el, i) => {
+            tl.fromTo(
+              el,
+              {
+                x: (hash(i * 3 + 1) * 2 - 1) * 900,
+                y: (hash(i * 5 + 2) * 2 - 1) * 520,
+                z: -700 - hash(i * 7 + 3) * 2200,
+                rotationX: (hash(i * 11 + 4) * 2 - 1) * 200,
+                rotationY: (hash(i * 13 + 5) * 2 - 1) * 200,
+                opacity: 0,
+              },
+              {
+                x: 0,
+                y: 0,
+                z: 0,
+                rotationX: 0,
+                rotationY: 0,
+                opacity: 1,
+                duration: 0.8,
+                ease: "power4.out",
+              },
+              9.4 + i * 0.05,
+            );
+            // exit: fly past the camera
+            tl.to(
+              el,
+              { z: 1400, opacity: 0, duration: 0.24, ease: "power3.in" },
+              11.28 + (i % 3) * 0.03,
+            );
+          });
+          tl.fromTo(
+            "#s5-push",
+            { scale: 1 },
+            { scale: 1.07, duration: 1.9, ease: "sine.inOut" },
+            9.4,
+          );
+          // decode "MOTION DESIGNER"
+          const SUB = "MOTION DESIGNER";
+          const GLYPHS = "ABCDEFGHJKLMNPRSTUVWXYZ#%&/<>*+=0123456789";
+          const subEl = document.getElementById("s5-sub");
+          const dec = { t: 0 };
+          const DEC_START = 10.05;
+          tl.fromTo(
+            dec,
+            { t: 9.4 },
+            {
+              t: 11.55,
+              duration: 2.15,
+              ease: "none",
+              onUpdate: () => {
+                const t = dec.t;
+                const step = Math.floor(t * 24);
+                let out = "";
+                for (let i = 0; i < SUB.length; i++) {
+                  const ch = SUB[i];
+                  const appear = DEC_START + i * 0.025;
+                  const resolve = appear + 0.22 + i * 0.012;
+                  if (ch === " " || t >= resolve) out += t >= appear || ch === " " ? ch : " ";
+                  else if (t >= appear)
+                    out += GLYPHS[Math.floor(hash(step * 31 + i * 17) * GLYPHS.length)];
+                  else out += " ";
+                }
+                if (subEl.textContent !== out) subEl.textContent = out;
+              },
+            },
+            9.4,
+          );
+          tl.fromTo(
+            "#s5-rule",
+            { scaleX: 0 },
+            { scaleX: 1, duration: 0.5, ease: "power4.out" },
+            10.35,
+          );
+          tl.to("#s5-sub, #s5-rule", { opacity: 0, duration: 0.15 }, 11.3);
+
+          tl.shiftChildren(-T0);
+          window.__timelines["s5"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
