@@ -48,6 +48,16 @@ const Row: React.FC<{ label: string; value: React.ReactNode; p?: number; icon?: 
   </div>
 );
 
+/** Small live voice waveform (deterministic, frame-driven). */
+const Wave: React.FC<{ t: number; p: number }> = ({ t, p }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: 2.5, height: 20, opacity: p }}>
+    {Array.from({ length: 9 }).map((_, i) => {
+      const w = 0.5 + 0.5 * Math.sin(t * 10 + i * 1.9) * Math.sin(t * 3.7 + i);
+      return <span key={i} style={{ width: 3, height: 4 + 14 * w * Math.sin(((i + 0.5) / 9) * Math.PI), borderRadius: 2, background: C.accent }} />;
+    })}
+  </div>
+);
+
 export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
   const [auStart] = SECTIONS.au;
   const [pStart, pEnd] = SECTIONS.piramal;
@@ -67,6 +77,10 @@ export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
     easing: (x) => 1 - Math.pow(1 - x, 3),
   });
   const auRm = progressAt(t, cues.auRm, 0.4);
+  const auConnected = progressAt(t, cues.auDoubleTick, 0.3);
+  const auHandoff = progressAt(t, cues.auWhatsApp - 0.9, 0.35);
+  // call screen is up from the start of the AU story until the WhatsApp hand-off
+  const auCall = Math.min(auL, 1 - progressAt(t, cues.auWhatsApp - 0.3, 0.35));
 
   /* ---------------- Piramal cues ---------------- */
   const pLogo = progressAt(t, cues.piramal, 0.4);
@@ -83,13 +97,26 @@ export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
     easing: (x) => 1 - Math.pow(1 - x, 3),
   });
 
-  const heading = (eyebrow: string, title: string, sub: string, o: number) => (
-    <div style={{ position: "absolute", left: 64, top: 128, width: 900, opacity: o, transform: `translateY(${(1 - o) * 14}px)` }}>
+  const heading = (eyebrow: string, title: string, sub: React.ReactNode, o: number, subP: number) => (
+    <div style={{ position: "absolute", left: 64, top: 124, width: 952, opacity: o, transform: `translateY(${(1 - o) * 14}px)` }}>
       <Eyebrow>{eyebrow}</Eyebrow>
-      <div style={{ marginTop: 16, fontSize: 44, fontWeight: 700, letterSpacing: -1.2, lineHeight: 1.08, color: C.ink }}>{title}</div>
-      <div style={{ marginTop: 12, fontSize: 22, fontWeight: 400, color: C.muted }}>{sub}</div>
+      <div style={{ marginTop: 14, fontSize: 44, fontWeight: 700, letterSpacing: -1.2, lineHeight: 1.08, color: C.ink }}>{title}</div>
+      <div
+        style={{
+          marginTop: 14,
+          display: "flex",
+          alignItems: "center",
+          gap: 14,
+          opacity: subP,
+          transform: `translateX(${(1 - subP) * -10}px)`,
+        }}
+      >
+        <span style={{ width: 4, height: 30, borderRadius: 2, background: C.accent, flex: "none" }} />
+        <span style={{ fontSize: 25, fontWeight: 600, letterSpacing: -0.3, color: C.charcoal }}>{sub}</span>
+      </div>
     </div>
   );
+  const G: React.FC<{ children: React.ReactNode }> = ({ children }) => <span style={{ color: C.accent }}>{children}</span>;
 
   const channelRow = (voice: number, wa: number) => (
     <div style={{ display: "flex", gap: 10, marginTop: 12 }}>
@@ -132,12 +159,28 @@ export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
         </div>
       </div>
 
-      {heading("Customer story 01", "Re-engaging dormant leads at scale", "AI Voice + WhatsApp + smart RM routing", Math.min(progressAt(t, auStart + 0.1, 0.4), auL))}
-      {heading("Customer story 02", "AI outreach across the loan lifecycle", "From application follow-ups to collections", Math.min(progressAt(t, pStart + 0.1, 0.4), pL))}
+      {heading(
+        "Customer story 01",
+        "Re-engaging dormant leads at scale",
+        <>
+          <G>AI Voice calls</G> revive cold leads. <G>WhatsApp</G> keeps them talking.
+        </>,
+        Math.min(progressAt(t, auStart + 0.1, 0.4), auL),
+        progressAt(t, auStart + 0.45, 0.4),
+      )}
+      {heading(
+        "Customer story 02",
+        "AI outreach across the loan lifecycle",
+        <>
+          One <G>AI Voice + WhatsApp</G> engine, from applications to collections.
+        </>,
+        Math.min(progressAt(t, pStart + 0.1, 0.4), pL),
+        progressAt(t, pStart + 0.45, 0.4),
+      )}
 
       {/* ---------- persistent phone (left 55%) ---------- */}
       <div style={{ position: "absolute", left: 92, top: 318, opacity: frameIn, transform: `translateY(${(1 - frameIn) * 30}px)` }}>
-        <Phone width={404} height={720}>
+        <Phone width={404} height={640}>
           <div style={{ background: C.waHeader }}>
             <StatusBar dark />
             <div style={{ position: "relative", height: 68 }}>
@@ -162,6 +205,58 @@ export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
                     </div>
                     <div style={{ fontSize: 13, opacity: 0.8 }}>Business account</div>
                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* AU · AI Voice call screen, hands off to WhatsApp */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 10, opacity: auCall, background: "linear-gradient(180deg, #174D3B 0%, #0F3629 100%)", color: "#fff", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <StatusBar dark />
+            <div style={{ marginTop: 26, fontFamily: MONO, fontSize: 13, fontWeight: 600, letterSpacing: 2, color: "#9FD6B8", display: "flex", alignItems: "center", gap: 8 }}>
+              <IconPhone size={14} color="#9FD6B8" /> DOUBLETICK AI VOICE
+            </div>
+            <div style={{ position: "relative", marginTop: 40, width: 118, height: 118 }}>
+              {[0, 1].map((k) => {
+                const ring = ((t - auStart + k * 0.6) % 1.2) / 1.2;
+                return (
+                  <div key={k} style={{ position: "absolute", inset: 0, borderRadius: 59, border: "2px solid rgba(159,214,184,0.6)", transform: `scale(${1 + ring * 0.5})`, opacity: auConnected < 0.5 ? 1 - ring : 0 }} />
+                );
+              })}
+              <div style={{ position: "absolute", inset: 0, borderRadius: 59, boxShadow: "0 0 0 6px rgba(255,255,255,0.08)" }}>
+                <LogoAvatar brand="au" size={118} />
+              </div>
+            </div>
+            <div style={{ marginTop: 22, fontSize: 21, fontWeight: 600, display: "flex", alignItems: "center", gap: 7 }}>
+              AU Small Finance Bank <VerifiedBadge size={19} />
+            </div>
+            <div style={{ position: "relative", height: 26, width: 260, marginTop: 8 }}>
+              <div style={{ position: "absolute", inset: 0, textAlign: "center", fontSize: 17, color: "#C9E6D6", opacity: 1 - auConnected }}>Calling Arjun Mehta…</div>
+              <div style={{ position: "absolute", inset: 0, textAlign: "center", fontSize: 17, color: "#9FD6B8", fontFamily: MONO, fontWeight: 600, letterSpacing: 1, opacity: auConnected }}>
+                CONNECTED · 00:{String(Math.max(0, Math.floor(t - cues.auDoubleTick)) + 1).padStart(2, "0")}
+              </div>
+            </div>
+            {/* live voice waveform */}
+            <div style={{ marginTop: 34, height: 64, display: "flex", alignItems: "center", gap: 5, opacity: 0.35 + 0.65 * auConnected }}>
+              {Array.from({ length: 23 }).map((_, i) => {
+                const env = Math.sin((i / 22) * Math.PI);
+                const wobble = 0.5 + 0.5 * Math.sin(t * 11 + i * 1.7) * Math.sin(t * 4.3 + i * 0.9);
+                const h = 6 + auConnected * env * (10 + 44 * wobble);
+                return <span key={i} style={{ width: 5, height: h, borderRadius: 3, background: i % 3 === 0 ? "#DDE9E1" : "#6FC49A" }} />;
+              })}
+            </div>
+            <div style={{ marginTop: 26, opacity: auHandoff, transform: `translateY(${(1 - auHandoff) * 10}px)`, background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.18)", borderRadius: 999, padding: "9px 16px", fontSize: 15, fontWeight: 600, display: "flex", alignItems: "center", gap: 8 }}>
+              <IconChat size={16} color="#9FD6B8" /> Continuing on WhatsApp →
+            </div>
+            <div style={{ position: "absolute", bottom: 34, display: "flex", gap: 34 }}>
+              {["#2C5E4B", "#2C5E4B", "#C8473A"].map((bg, i) => (
+                <div key={i} style={{ width: 58, height: 58, borderRadius: 29, background: bg, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {i === 2 ? (
+                    <span style={{ transform: "rotate(135deg)", display: "flex" }}><IconPhone size={24} color="#fff" /></span>
+                  ) : i === 0 ? (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0M12 18v3" /></svg>
+                  ) : (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 5L6 9H3v6h3l5 4z" /><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" /></svg>
+                  )}
                 </div>
               ))}
             </div>
@@ -212,7 +307,7 @@ export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
             <div style={{ fontFamily: MONO, fontSize: 13, fontWeight: 600, letterSpacing: 1.4, color: C.muted }}>AU SMALL FINANCE BANK</div>
             <div style={{ fontSize: 22, fontWeight: 600, color: C.ink, marginTop: 4, marginBottom: 8 }}>Dormant Lead Re-engagement</div>
             <Row label="Lead" value={<span style={{ fontSize: 18, fontWeight: 600, color: C.ink }}>Arjun Mehta</span>} icon={<IconBadge size={32}><IconUser size={16} /></IconBadge>} />
-            <Row label="AI Voice" p={auVoice} value={<StatusChip label={auVoice > 0.5 ? "Connected" : "Dialing"} tone={auVoice > 0.5 ? "green" : "neutral"} size={12} />} icon={<IconBadge size={32}><IconPhone size={16} /></IconBadge>} />
+            <Row label="AI Voice" p={auVoice} value={<div style={{ display: "flex", alignItems: "center", gap: 10 }}><Wave t={t} p={auVoice} /><StatusChip label={auVoice > 0.5 ? "Connected" : "Dialing"} tone={auVoice > 0.5 ? "green" : "neutral"} size={12} /></div>} icon={<IconBadge size={32}><IconPhone size={16} /></IconBadge>} />
             <Row label="WhatsApp" p={auWa[0]} value={<StatusChip label={auWa[0] > 0.5 ? "Active" : "Waiting"} tone={auWa[0] > 0.5 ? "green" : "neutral"} size={12} />} icon={<IconBadge size={32}><IconChat size={16} /></IconBadge>} />
             <Row label="Intent" p={auIntent} value={<StatusChip label={auIntent > 0.5 ? "High" : "Detecting"} tone={auIntent > 0.5 ? "solid" : "neutral"} size={12} />} icon={<IconBadge size={32}><IconCheck size={16} color={C.green} /></IconBadge>} />
             <div style={{ marginTop: 8, borderRadius: 14, background: C.green, color: "#fff", padding: "11px 14px", display: "flex", alignItems: "center", gap: 12, opacity: auRm, transform: `translateY(${(1 - auRm) * 10}px) scale(${0.97 + 0.03 * auRm})` }}>
@@ -267,7 +362,7 @@ export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
         </Card>
 
         {/* metric card */}
-        <div style={{ position: "relative", marginTop: 16, height: 230 }}>
+        <div style={{ position: "relative", marginTop: 16, height: 200 }}>
           <div style={{ position: "absolute", inset: 0, opacity: Math.min(auMetric, auL), transform: `translateY(${(1 - auMetric) * 16}px) scale(${0.97 + 0.03 * auMetric})` }}>
             <Card style={{ height: "100%", background: C.ink, border: "none", padding: "30px 30px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <div style={{ fontSize: 64, fontWeight: 700, letterSpacing: -2, color: "#fff", lineHeight: 1 }}>

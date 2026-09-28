@@ -139,7 +139,7 @@ export const Hook: React.FC<{ t: number }> = ({ t }) => {
         style={{
           position: "absolute",
           left: 64,
-          top: 900,
+          top: 800,
           width: 540,
           opacity: lineP,
           transform: `translateY(${(1 - lineP) * 12}px)`,

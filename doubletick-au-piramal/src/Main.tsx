@@ -16,6 +16,7 @@ import { CustomerStory } from "./scenes/CustomerStory";
 import { Solution } from "./scenes/Solution";
 import { Cta } from "./scenes/Cta";
 import audioAssets from "./audio-assets.json";
+import { Captions } from "./Captions";
 
 const FONTS: [string, string, string][] = [
   ["Geist", "fonts/Geist-Regular.woff2", "400"],
@@ -98,6 +99,8 @@ export const Main: React.FC = () => {
       <Section t={t} range={SECTIONS.cta} last>
         <Cta t={t} />
       </Section>
+
+      <Captions t={t} />
 
       {/* persistent DoubleTick logo */}
       <div style={{ position: "absolute", left: 52, top: 42, opacity: logoIn }}>
