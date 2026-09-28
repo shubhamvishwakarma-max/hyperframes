@@ -20,7 +20,7 @@ const OFFSET_SEC = 0.3; // narration starts 0.3s into the film
 
 export const NARRATION = `Still chasing lakhs of leads manually, while hot opportunities go cold before your RMs can follow up?
 
-AU Small Finance Bank uses DoubleTick AI Voice and WhatsApp to re-engage dormant and rejected leads at scale—placing over three lakh twelve thousand outbound AI calls and routing engaged customers to the right RM.
+AU Small Finance Bank uses DoubleTick AI Voice and WhatsApp to re-engage dormant and rejected leads at scale—placing three lakh twelve thousand nine hundred forty-five plus outbound AI calls and routing engaged customers to the right RM.
 
 Piramal Finance uses DoubleTick AI Voice and WhatsApp across the loan lifecycle—from application follow-ups and drop-off recovery to partner engagement and collections—cutting RM response time by ninety percent.
 
@@ -34,7 +34,8 @@ const CUE_PHRASES: [string, string][] = [
   ["au", "AU Small Finance Bank"],
   ["auDoubleTick", "DoubleTick AI Voice"],
   ["auWhatsApp", "WhatsApp"],
-  ["auMetric", "three lakh twelve thousand"],
+  ["auMetric", "placing three lakh"],
+  ["auMetricEnd", "plus outbound"],
   ["auRm", "right RM"],
   ["piramal", "Piramal Finance"],
   ["pDoubleTick", "DoubleTick"],

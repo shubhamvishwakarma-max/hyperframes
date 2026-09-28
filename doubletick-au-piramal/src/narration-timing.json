@@ -1,135 +1,110 @@
 {
-  "source": "elevenlabs:SVdvKlYuyNTd1xzQqLWD (Aaditya K) \u00b7 pause-anchored alignment",
-  "durationSec": 40.95,
+  "source": "elevenlabs:SVdvKlYuyNTd1xzQqLWD (Aaditya K, eleven_multilingual_v2, natural pace) \u00b7 pause-anchored alignment",
+  "durationSec": 45.64,
   "cues": {
     "hook": 0.35,
-    "au": 5.62,
-    "auDoubleTick": 7.29,
-    "auWhatsApp": 8.77,
-    "auMetric": 13.11,
-    "auRm": 16.24,
-    "piramal": 19.24,
-    "pDoubleTick": 20.45,
-    "pChannels": 21.22,
-    "pChip1": 25.26,
-    "pChip2": 26.48,
-    "pChip3": 27.6,
-    "pChip4": 28.91,
-    "pMetric": 29.71,
-    "solution": 33.06,
-    "cta": 39.19
+    "au": 6.27,
+    "auDoubleTick": 8.03,
+    "auWhatsApp": 9.6,
+    "auMetric": 13.86,
+    "auMetricEnd": 17.59,
+    "auRm": 19.09,
+    "piramal": 22.31,
+    "pDoubleTick": 24.38,
+    "pChannels": 25.11,
+    "pChip1": 29.14,
+    "pChip2": 30.54,
+    "pChip3": 31.95,
+    "pChip4": 33.12,
+    "pMetric": 34.02,
+    "solution": 37.35,
+    "cta": 43.67
   },
-  "spans": [
+  "captions": [
     {
       "start": 0.35,
-      "end": 5.24,
-      "text": "Still chasing lakhs of leads manually, while hot opportunities go cold before your RMs can follow up?",
-      "lines": [
-        "Still chasing lakhs of leads manually,",
-        "while hot opportunities go cold",
-        "before your RMs can follow up?"
-      ]
+      "end": 2.36,
+      "text": "Still chasing lakhs of leads manually"
     },
     {
-      "start": 5.62,
-      "end": 12.29,
-      "text": "AU Small Finance Bank uses DoubleTick AI Voice and WhatsApp to re-engage dormant and rejected leads at scale \u2014",
-      "lines": [
-        "AU Small Finance Bank uses DoubleTick",
-        "AI Voice and WhatsApp to re-engage",
-        "dormant and rejected leads at scale \u2014"
-      ]
+      "start": 2.36,
+      "end": 4.19,
+      "text": "while hot opportunities go cold"
     },
     {
-      "start": 12.48,
-      "end": 13.59,
-      "text": "placing over three lakh",
-      "lines": [
-        "placing over three lakh"
-      ]
+      "start": 4.19,
+      "end": 5.75,
+      "text": "before your RMs can follow up?"
     },
     {
-      "start": 13.75,
-      "end": 18.99,
-      "text": "twelve thousand outbound AI calls and routing engaged customers to the right RM.",
-      "lines": [
-        "twelve thousand outbound AI calls",
-        "and routing engaged customers to the right RM."
-      ]
+      "start": 6.27,
+      "end": 8.75,
+      "text": "AU Small Finance Bank uses DoubleTick"
     },
     {
-      "start": 19.24,
-      "end": 21.03,
-      "text": "Piramal Finance uses DoubleTick",
-      "lines": [
-        "Piramal Finance uses DoubleTick"
-      ]
+      "start": 8.75,
+      "end": 11.04,
+      "text": "AI Voice and WhatsApp to re-engage"
     },
     {
-      "start": 21.22,
-      "end": 24.9,
-      "text": "AI Voice and WhatsApp across the loan lifecycle \u2014",
-      "lines": [
-        "AI Voice and WhatsApp",
-        "across the loan lifecycle \u2014"
-      ]
+      "start": 11.04,
+      "end": 13.46,
+      "text": "dormant and rejected leads at scale"
     },
     {
-      "start": 25.03,
-      "end": 27.25,
-      "text": "from application follow-ups and drop-off recovery",
-      "lines": [
-        "from application follow-ups",
-        "and drop-off recovery"
-      ]
+      "start": 13.86,
+      "end": 18.7,
+      "text": "placing 3,12,945+ outbound AI calls"
     },
     {
-      "start": 27.43,
-      "end": 29.53,
-      "text": "to partner engagement and collections \u2014",
-      "lines": [
-        "to partner engagement and collections \u2014"
-      ]
+      "start": 19.09,
+      "end": 21.25,
+      "text": "and routing engaged customers to the right RM."
     },
     {
-      "start": 29.71,
-      "end": 32.6,
-      "text": "cutting RM response time by ninety percent.",
-      "lines": [
-        "cutting RM response time by ninety percent."
-      ]
+      "start": 22.31,
+      "end": 25.11,
+      "text": "Piramal Finance uses DoubleTick"
     },
     {
-      "start": 33.06,
-      "end": 34.32,
-      "text": "Automate outreach.",
-      "lines": [
-        "Automate outreach."
-      ]
+      "start": 25.11,
+      "end": 28.38,
+      "text": "AI Voice and WhatsApp across the loan lifecycle"
     },
     {
-      "start": 34.51,
-      "end": 36.46,
-      "text": "Surface high-intent conversations.",
-      "lines": [
-        "Surface high-intent conversations."
-      ]
+      "start": 28.88,
+      "end": 31.48,
+      "text": "from application follow-ups and drop-off recovery"
     },
     {
-      "start": 36.83,
-      "end": 38.81,
-      "text": "Let your RMs focus on closing.",
-      "lines": [
-        "Let your RMs focus on closing."
-      ]
+      "start": 31.8,
+      "end": 33.78,
+      "text": "to partner engagement and collections"
     },
     {
-      "start": 39.19,
-      "end": 40.64,
-      "text": "Book your DoubleTick demo today.",
-      "lines": [
-        "Book your DoubleTick demo today."
-      ]
+      "start": 34.02,
+      "end": 37.03,
+      "text": "cutting RM response time by ninety percent."
+    },
+    {
+      "start": 37.35,
+      "end": 38.52,
+      "text": "Automate outreach."
+    },
+    {
+      "start": 38.75,
+      "end": 40.81,
+      "text": "Surface high-intent conversations."
+    },
+    {
+      "start": 41.09,
+      "end": 43.3,
+      "text": "Let your RMs focus on closing."
+    },
+    {
+      "start": 43.67,
+      "end": 45.19,
+      "text": "Book your DoubleTick demo today."
     }
   ]
 }

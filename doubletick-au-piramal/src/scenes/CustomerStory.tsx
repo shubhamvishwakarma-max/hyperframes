@@ -71,7 +71,8 @@ export const CustomerStory: React.FC<{ t: number }> = ({ t }) => {
   const auWa = [0, 1, 2].map((i) => progressAt(t, cues.auWhatsApp + i * 0.85, 0.35));
   const auIntent = progressAt(t, cues.auWhatsApp + 2.2, 0.35);
   const auMetric = progressAt(t, cues.auMetric, 0.45);
-  const auCount = interpolate(t, [cues.auMetric, cues.auMetric + 1.3], [0, 312945], {
+  // counts while the full number is spoken, landing on "…forty-five plus"
+  const auCount = interpolate(t, [cues.auMetric, cues.auMetricEnd], [0, 312945], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: (x) => 1 - Math.pow(1 - x, 3),

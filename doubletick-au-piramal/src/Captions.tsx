@@ -5,22 +5,9 @@ import { C, FONT } from "./theme";
 
 type Cue = { start: number; end: number; text: string };
 
-/** Caption lines per narration span, timed proportionally to characters within the span. */
+/** Caption lines with word-aligned timings (see narration-timing.json → captions). */
 const buildCues = (): Cue[] => {
-  const raw: Cue[] = [];
-  for (const span of timing.spans) {
-    // hand-authored line breaks (see narration-timing.json → spans[].lines)
-    const chunks = span.lines;
-    const total = chunks.reduce((n, c) => n + c.length + 1, 0);
-    let acc = 0;
-    for (const c of chunks) {
-      const s = span.start + ((span.end - span.start) * acc) / total;
-      acc += c.length + 1;
-      const e = span.start + ((span.end - span.start) * acc) / total;
-      // a standalone em dash at the end of a line reads as noise in captions
-      raw.push({ start: s, end: e, text: c.replace(/\s*—$/, "") });
-    }
-  }
+  const raw: Cue[] = timing.captions;
   // Hold each line until the next one starts (bridging short pauses), max 0.6s past its end.
   return raw.map((c, i) => ({
     ...c,

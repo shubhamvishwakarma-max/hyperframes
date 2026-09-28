@@ -28,10 +28,10 @@ npm run render                                    # → out/doubletick-au-pirama
 `npm run narration` stops (no substitution) if the exact voice name is not in the ElevenLabs account.
 
 Shipped narration: ElevenLabs "Aaditya K - Deep Voice for Finance & Healthcare Support"
-(`SVdvKlYuyNTd1xzQqLWD`, eleven_multilingual_v2), exact script. Two long paragraph pauses were
-tightened and the take was time-stretched 1.14× (rubberband, pitch/formants preserved) → 40.65 s,
-≈154 wpm. Cues in `src/narration-timing.json` are anchored on the detected pauses of that file.
-Final audio is loudness-normalised to −14 LUFS after render.
+(`SVdvKlYuyNTd1xzQqLWD`, eleven_multilingual_v2) at its natural pace — no time-stretch. The AU
+figure is spoken in full ("three lakh twelve thousand nine hundred forty-five plus") and a 0.9 s
+pause separates the AU and Piramal stories. Cues and subtitles in `src/narration-timing.json` are
+aligned to the pauses of that take. Final audio is loudness-normalised to −14 LUFS after render.
 
 Set `REMOTION_BROWSER` to a local Chromium headless shell if Remotion cannot download its own.
 
