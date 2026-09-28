@@ -1,11 +1,12 @@
 import React from "react";
 import { colors, fonts } from "../styles/tokens";
 
-export type ChipTone = "green" | "amber" | "cold" | "neutral" | "solid";
+export type ChipTone = "green" | "amber" | "red" | "cold" | "neutral" | "solid";
 
 const tones: Record<ChipTone, { bg: string; fg: string; dot: string; border: string }> = {
   green: { bg: colors.greenTint, fg: colors.greenInk, dot: colors.green, border: "rgba(40,179,121,0.25)" },
   amber: { bg: colors.amberTint, fg: "#8A4A12", dot: colors.amber, border: "rgba(201,119,44,0.25)" },
+  red: { bg: colors.redTint, fg: colors.redInk, dot: colors.red, border: "rgba(200,65,47,0.28)" },
   cold: { bg: colors.coldTint, fg: "#40525F", dot: colors.cold, border: "rgba(111,131,148,0.25)" },
   neutral: { bg: colors.surfaceMuted, fg: colors.inkSoft, dot: colors.inkMuted, border: colors.border },
   solid: { bg: colors.greenDeep, fg: "#FFFFFF", dot: "#7BE3B2", border: colors.greenDeep },

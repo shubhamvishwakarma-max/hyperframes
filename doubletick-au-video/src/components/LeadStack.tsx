@@ -13,7 +13,7 @@ const CY = 705;
 type Lead = { product: string; status: string; tone: ChipTone; meta: string; x: number; y: number; from: [number, number]; rot: number; slot: number };
 
 const LEADS: Lead[] = [
-  { product: "Business loan", status: "Hot lead", tone: "amber", meta: "2m ago", x: 250, y: -178, from: [900, -500], rot: 1.5, slot: 0 },
+  { product: "Business loan", status: "Hot lead", tone: "red", meta: "2m ago", x: 250, y: -178, from: [900, -500], rot: 1.5, slot: 0 },
   { product: "Personal loan", status: "Follow-up due", tone: "neutral", meta: "1d", x: -272, y: -168, from: [-900, -420], rot: -2, slot: 0 },
   { product: "Loan application", status: "No response", tone: "neutral", meta: "3d", x: -300, y: 62, from: [-1000, 80], rot: 1.2, slot: 1 },
   { product: "New enquiry", status: "Waiting", tone: "neutral", meta: "5h", x: 316, y: 72, from: [1000, 120], rot: -1.4, slot: 1 },
@@ -180,7 +180,7 @@ export const LeadStack: React.FC = () => {
                       width: `${loadP * 100}%`,
                       height: "100%",
                       borderRadius: 8,
-                      background: load >= 1 ? colors.amber : "#D9A66E",
+                      background: load >= 1 ? colors.red : "#DE8A78",
                     }}
                   />
                 </div>
@@ -190,8 +190,8 @@ export const LeadStack: React.FC = () => {
                     fontWeight: 600,
                     fontSize: 16,
                     letterSpacing: "0.01em",
-                    color: "#8A4A12",
-                    background: colors.amberTint,
+                    color: colors.redInk,
+                    background: colors.redTint,
                     borderRadius: 99,
                     padding: "6px 10px",
                     transform: `scale(${1 + bump * 0.12})`,
@@ -247,7 +247,7 @@ export const LeadStack: React.FC = () => {
         const rot = mix(l.rot * (1 - focus * (isHot ? 1 : 0)), 0, m);
 
         const hotStatus = ["Hot lead", "Waiting", "Going cold"][hotState];
-        const hotTone: ChipTone = ["amber", "neutral", "cold"][hotState] as ChipTone;
+        const hotTone: ChipTone = ["red", "neutral", "cold"][hotState] as ChipTone;
         const tint = isHot ? mixColor("#FFFFFF", "#F1F4F6", coldness) : undefined;
 
         return (

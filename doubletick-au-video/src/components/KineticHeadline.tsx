@@ -92,8 +92,10 @@ export const Eyebrow: React.FC<{
   exitAt?: number;
   color?: string;
   dot?: boolean;
+  dotColor?: string;
+  dotTint?: string;
   style?: React.CSSProperties;
-}> = ({ text, at, exitAt, color = colors.greenDeep, dot = true, style }) => {
+}> = ({ text, at, exitAt, color = colors.greenDeep, dot = true, dotColor = colors.green, dotTint = colors.greenTint, style }) => {
   const frame = useCurrentFrame();
   const p = prog(frame, at, 0.45);
   const out = exitAt === undefined ? 0 : prog(frame, exitAt, 0.3, easeIn);
@@ -120,8 +122,8 @@ export const Eyebrow: React.FC<{
             width: 9,
             height: 9,
             borderRadius: 9,
-            background: colors.green,
-            boxShadow: `0 0 0 5px ${colors.greenTint}`,
+            background: dotColor,
+            boxShadow: `0 0 0 5px ${dotTint}`,
           }}
         />
       )}

@@ -191,7 +191,7 @@ def build_sfx():
     # Scene 6 — CTA
     place(sfx, whoosh(0.9, 0.3, 200, 4800, 0.5), T["ctaStart"] - 0.15)
     place(sfx, chime((1046.5, 1568, 2093), 1.1, 0.3, 0.07), T["ctaStart"] + 0.6)
-    place(sfx, tick(2000, 0.04, 0.32), 30.97)
+    place(sfx, tick(2000, 0.04, 0.32), 31.22)
     return sfx.astype(np.float32)
 
 

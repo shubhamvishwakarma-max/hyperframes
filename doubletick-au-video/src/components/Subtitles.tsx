@@ -24,8 +24,8 @@ const CUES: Array<[number, number, string]> = [
   [22.66, 24.8, "RM Broadcast-to-CC closure."],
   [24.99, 25.6, "Automate outreach."],
   [25.8, 26.52, "Preserve context."],
-  [26.63, 28.64, "Let your RMs focus on conversations that convert."],
-  [29.01, 30.95, "Book your DoubleTick demo today."],
+  [26.63, 29.05, "Let your RMs focus on conversations that convert."],
+  [29.46, 31.53, "Book your DoubleTick demo today."],
 ];
 
 export const Subtitles: React.FC = () => {

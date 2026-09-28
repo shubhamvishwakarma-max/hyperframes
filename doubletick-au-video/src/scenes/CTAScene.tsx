@@ -11,8 +11,8 @@ export const CTAScene: React.FC = () => {
   const sub = prog(frame, T.ctaStart + 0.5, 0.5);
   const btn = prog(frame, T.ctaStart + 0.55, 0.6);
   const url = prog(frame, T.ctaStart + 0.8, 0.5);
-  const cursorIn = prog(frame, 30.35, 0.5);
-  const cursorOut = prog(frame, 31.35, 0.4);
+  const cursorIn = prog(frame, 30.75, 0.5);
+  const cursorOut = prog(frame, 31.6, 0.35);
   return (
     <AbsoluteFill>
       <div style={{ position: "absolute", left: 0, right: 0, top: 318, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -48,7 +48,7 @@ export const CTAScene: React.FC = () => {
           transform: `translateY(${mix(26, 0, btn)}px) scale(${mix(0.9, 1, btn)})`,
         }}
       >
-        <CTAButton label="Book a demo" shimmerAt={30.1} tapAt={30.95} />
+        <CTAButton label="Book a demo" shimmerAt={30.45} tapAt={31.2} />
       </div>
       <div
         style={{
@@ -77,7 +77,7 @@ export const CTAScene: React.FC = () => {
           left: mix(760, 640, cursorIn),
           top: mix(760, 648, cursorIn),
           opacity: cursorIn * (1 - cursorOut),
-          transform: `scale(${1 - 0.12 * prog(frame, 30.95, 0.1) * (1 - prog(frame, 31.07, 0.25))})`,
+          transform: `scale(${1 - 0.12 * prog(frame, 31.2, 0.1) * (1 - prog(frame, 31.32, 0.25))})`,
           filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.25))",
         }}
       >

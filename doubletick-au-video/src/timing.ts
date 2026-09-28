@@ -46,10 +46,10 @@ export const T = {
   automate: 25.25, // "Automate outreach."
   preserve: 26.05, // "Preserve context."
   startClosing: 26.9,
-  focus: 27.55, // "focus on conversations that convert"
+  focus: 27.7, // "focus on conversations that convert"
   // Scene 6 — CTA
-  auOut: 28.95,
-  ctaStart: 29.1,
-  book: 29.28, // "Book your DoubleTick demo today."
+  auOut: 29.35,
+  ctaStart: 29.5,
+  book: 29.74, // "Book your DoubleTick demo today."
   end: 32,
 };

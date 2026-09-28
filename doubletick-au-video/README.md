@@ -41,7 +41,7 @@ On-screen text is in sentence case. Burned-in captions (`src/components/Subtitle
 
 ## Audio
 
-- **Voiceover:** ElevenLabs `eleven_multilingual_v2`, voice "Raj – Indian English Ads & Social", using the supplied script word for word. The natural read ran about 41 s. To fit 30–32 s, pauses longer than 0.2 s were shortened (`audio-src/squeeze.py`) and the take was sped up 1.2× (`atempo`), giving about 31 s.
+- **Voiceover:** ElevenLabs `eleven_multilingual_v2`, voice "Raj – Indian English Ads & Social", using the supplied script word for word. The natural read ran about 41 s. To fit 30–32 s, pauses longer than 0.2 s were shortened (`audio-src/squeeze.py`) and the take was sped up 1.2× (`atempo`). The exception is "Let your RMs focus on conversations that convert.", which is left at natural 1.0× speed. The result is about 31.5 s.
 - **Music:** ElevenLabs `eleven_music_v2`, instrumental (checked with a transcription pass: no vocals). It is delayed 0.4 s so its lift lands on the "better way" transition, and ducked about 8.5 dB whenever the voice is active.
 - **SFX:** synthesised in `build_audio.py` (ticks, message pops, call ring/connect, chimes, whooshes, metric thumps) and placed from `src/timing.ts`.
 
