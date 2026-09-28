@@ -1,0 +1,23 @@
+{
+  "name": "doubletick-au-bank-leadgen",
+  "private": true,
+  "version": "1.0.0",
+  "description": "DoubleTick x AU Small Finance Bank 30s lead-gen video (Remotion)",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render AULeadGenVideo out/doubletick-au-bank-leadgen-30sec.mp4",
+    "still": "remotion still AULeadGenVideo out/still.png"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.529",
+    "@remotion/paths": "4.0.529",
+    "geist": "1.7.2",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.529"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "typescript": "5.8.3"
+  }
+}
