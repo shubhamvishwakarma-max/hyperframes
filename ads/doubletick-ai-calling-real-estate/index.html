@@ -109,9 +109,9 @@
   }
   .island { width: 92px; height: 26px; border-radius: 14px; background: #000; position: absolute; top: 10px; left: 50%; transform: translateX(-50%); }
   .sbar { width: 100%; display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; padding: 0 10px; opacity: .9; }
-  .pstn { margin-top: 30px; font-size: 10.5px; letter-spacing: .14em; color: rgba(255,255,255,.55); display: flex; align-items: center; gap: 6px; }
+  .pstn { margin-top: 54px; font-size: 10.5px; letter-spacing: .14em; color: rgba(255,255,255,.55); display: flex; align-items: center; gap: 6px; }
   .aib { margin-top: 10px; font-size: 11.5px; font-weight: 600; letter-spacing: .04em; background: var(--green); color: #fff; padding: 5px 11px; border-radius: 999px; display: flex; align-items: center; gap: 6px; box-shadow: 0 0 0 4px rgba(0,122,90,.3); }
-  .pav { margin-top: 22px; width: 92px; height: 92px; border-radius: 50%; background: linear-gradient(160deg, #2E4A40, #183229); display: grid; place-items: center; box-shadow: 0 0 0 8px rgba(47,191,143,.12), 0 0 0 18px rgba(47,191,143,.06); }
+  .pav { margin-top: 22px; width: 92px; height: 92px; border-radius: 50%; background: linear-gradient(160deg, #2E4A40, #183229); display: grid; place-items: center; box-shadow: 0 0 0 8px rgba(47,191,143,.12); }
   .olabel { margin-top: 20px; font-size: 10.5px; letter-spacing: .14em; color: rgba(255,255,255,.5); }
   .pname { margin-top: 4px; font-size: 27px; font-weight: 600; letter-spacing: -0.02em; }
   .pstat { margin-top: 6px; font-size: 15px; color: var(--green-2); font-weight: 500; }
@@ -124,7 +124,7 @@
 
   /* front active campaign card */
   .front {
-    left: 150px; top: 420px; width: 300px; padding: 18px 20px; border-radius: 20px; background: #fff; border: 1px solid var(--line);
+    left: 140px; top: 372px; width: 336px; padding: 18px 20px; border-radius: 20px; background: #fff; border: 1px solid var(--line);
     box-shadow: 0 30px 60px -22px rgba(10,26,18,.4), 0 8px 18px -8px rgba(10,26,18,.18);
     display: flex; flex-direction: column; gap: 10px;
   }
@@ -162,12 +162,19 @@
   <p class="sub">Hyper-realistic <b>AI PSTN calls</b> revive old property enquiries, with <b>WhatsApp brochures</b> as fallback.<br/>Every call is logged in your <b>CRM</b>, so brokers only chase buyers ready to visit.</p>
 
   <div class="hero">
-    <div class="rings"><i style="width:520px;height:520px"></i></div>
+    <div class="rings"><i style="width:420px;height:420px;opacity:1"></i><i style="width:600px;height:600px;opacity:0.7"></i><i style="width:780px;height:780px;opacity:0.45"></i></div>
+    <div class="lead" style="left:72px;top:36px;opacity:0.55"><div class="av">PS</div><div><div class="nm">Priya S.</div><div class="dd mono">2BHK · Whitefield</div></div><span class="st q mono">Queued</span></div>
+    <div class="lead" style="left:112px;top:112px;opacity:0.8"><div class="av">AV</div><div><div class="nm">Amit V.</div><div class="dd mono">3BHK · Baner</div></div><span class="st c mono">Calling…</span></div>
+    <div class="lead" style="left:60px;top:188px;opacity:0.45"><div class="av">NR</div><div><div class="nm">Neha R.</div><div class="dd mono">Villa · HSR</div></div><span class="st w mono">Brochure ✓✓</span></div>
+    <div class="lead" style="left:100px;top:264px;opacity:0.7"><div class="av">KP</div><div><div class="nm">Karan P.</div><div class="dd mono">2BHK · Thane</div></div><span class="st c mono">Site visit ✓</span></div>
+    <div class="lead" style="left:764px;top:20px;opacity:0.5"><div class="av">SM</div><div><div class="nm">Sana M.</div><div class="dd mono">Plot · Kharadi</div></div><span class="st q mono">Queued</span></div>
+    <div class="lead" style="left:728px;top:96px;opacity:0.8"><div class="av">VJ</div><div><div class="nm">Vikram J.</div><div class="dd mono">3BHK · Gurugram</div></div><span class="st y mono">Callback</span></div>
+    <div class="lead" style="left:776px;top:172px;opacity:0.45"><div class="av">RD</div><div><div class="nm">Rohit D.</div><div class="dd mono">4BHK · Andheri</div></div><span class="st c mono">Calling…</span></div>
+    <div class="lead" style="left:736px;top:248px;opacity:0.65"><div class="av">MK</div><div><div class="nm">Meera K.</div><div class="dd mono">2BHK · Noida</div></div><span class="st w mono">Brochure ✓✓</span></div>
 
     <div class="phone">
       <div class="screen">
         <div class="island"></div>
-        <div class="sbar mono"><span>11:02</span><span>5G ▮▮▮</span></div>
         <div class="pstn mono">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
           PSTN · OUTBOUND
@@ -191,9 +198,14 @@
     </div>
 
     <div class="front">
-      <div class="t">Old enquiries re-engaged today</div>
+      <div class="r mono"><span class="live"><i></i>Live campaign</span><span style="color:var(--muted)">AI · PSTN</span></div>
+      <div class="t">Old property enquiries re-engaged today</div>
       <div class="big">1,126 <span>/ 2,480 buyers</span></div>
       <div class="bar"><span></span></div>
+      <div class="chips">
+        <span class="chip wa mono"><svg width="14" height="10" viewBox="0 0 16 11" fill="none" stroke="#1A8A47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5"/><path d="M7 8.2l.8.8 6-7.5"/></svg>WA brochure</span>
+        <span class="chip crm mono"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Site visit → CRM</span>
+      </div>
     </div>
 
     <div class="cta">
