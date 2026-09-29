@@ -1,4 +1,4 @@
-"""Build the final soundtrack: original upbeat music bed + VO + SFX.
+"""Build the final soundtrack: original upbeat music bed + SFX (+ optional VO).
 
 Usage: python3 scripts/build_audio.py   (run from the project root, after prep_vo.py)
 Writes assets/audio/mix.wav (48 kHz stereo). Requires numpy, soundfile, ffmpeg.
@@ -10,6 +10,7 @@ import numpy as np
 import soundfile as sf
 
 SR = 48000
+VOICEOVER = False  # True mixes assets/audio/vo.wav in and ducks the music under it
 WARP = json.load(open("assets/audio/warp.json"))
 VO = json.load(open("assets/audio/vo.json"))
 DUR = WARP["end"]
@@ -214,23 +215,24 @@ for at, g in [(DROP, 0.3), (LIFT, 0.35)]:
     place(music, seg, at - len(seg) / SR, g)
 
 # ---------- VO + ducking ----------
-vo = load("assets/audio/vo.wav")
 vo_track = np.zeros((N, 2))
-place(vo_track, vo, 0.0)
-win = int(0.03 * SR)
-env = np.sqrt(np.convolve(vo_track[:, 0] ** 2, np.ones(win) / win, mode="same"))
-env = np.clip(env / (env.max() + 1e-9) * 3, 0, 1)
-dec = 48
-envd = env[::dec]
-smd = np.zeros_like(envd)
-a_att, a_rel = np.exp(-dec / (0.02 * SR)), np.exp(-dec / (0.3 * SR))
-acc = 0.0
-for i, v in enumerate(envd):
-    a = a_att if v > acc else a_rel
-    acc = a * acc + (1 - a) * v
-    smd[i] = acc
-duck = 1 - 0.45 * np.interp(np.arange(N), np.arange(len(smd)) * dec, smd)
-music *= duck[:, None]
+if VOICEOVER:
+    vo = load("assets/audio/vo.wav")
+    place(vo_track, vo, 0.0)
+    win = int(0.03 * SR)
+    env = np.sqrt(np.convolve(vo_track[:, 0] ** 2, np.ones(win) / win, mode="same"))
+    env = np.clip(env / (env.max() + 1e-9) * 3, 0, 1)
+    dec = 48
+    envd = env[::dec]
+    smd = np.zeros_like(envd)
+    a_att, a_rel = np.exp(-dec / (0.02 * SR)), np.exp(-dec / (0.3 * SR))
+    acc = 0.0
+    for i, v in enumerate(envd):
+        a = a_att if v > acc else a_rel
+        acc = a * acc + (1 - a) * v
+        smd[i] = acc
+    duck = 1 - 0.45 * np.interp(np.arange(N), np.arange(len(smd)) * dec, smd)
+    music *= duck[:, None]
 
 # ---------- SFX (authored on the original choreography clock, then warped) ----------
 sfx = np.zeros((N, 2))
@@ -306,7 +308,7 @@ def blip(f, L=0.12):
 place(sfx, blip(660), warp(14.05))  # AI call connects
 place(sfx, blip(880), warp(14.05) + 0.12)
 
-mix = music * 0.42 + vo_track * 1.0 + sfx
+mix = music * (0.42 if VOICEOVER else 0.6) + vo_track * 1.0 + sfx
 mix = np.tanh(mix * 1.1) / 1.1  # gentle soft clip safety
 sf.write("assets/audio/mix_raw.wav", mix.astype(np.float32), SR)
 subprocess.run(
