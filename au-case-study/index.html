@@ -1,0 +1,1856 @@
+<!doctype html>
+<html lang="en" data-resolution="square">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>DoubleTick × AU Small Finance Bank</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        font-weight: 500;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        font-weight: 600;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: "Instrument Serif";
+        src: url("assets/fonts/instrument-serif-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Instrument Serif";
+        src: url("assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+      }
+
+      :root {
+        --bg: #f6f2ea;
+        --bg-2: #efe9dd;
+        --card: #ffffff;
+        --ink: #13201a;
+        --ink-2: #3c4741;
+        --muted: #5f6862;
+        --line: #e4ddcf;
+        --green: #2f7f5b;
+        --green-deep: #137436;
+        --green-pale: #eaf5ee;
+        --green-chip: #d7f9e3;
+        --warm: #a9521f;
+        --warm-pale: #fcefe6;
+        --amber: #8a5c0c;
+        --amber-pale: #fff3dc;
+        --gold: #b98f2f;
+        --au-purple: #6d276d;
+        --au-orange: #ec691f;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+      .stage {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(900px 600px at 12% 0%, rgba(63, 144, 109, 0.07), transparent 60%),
+          radial-gradient(700px 700px at 100% 100%, rgba(185, 143, 47, 0.05), transparent 60%),
+          var(--bg);
+        overflow: hidden;
+      }
+      #s3-stage,
+      #s4-stage,
+      #s5-stage,
+      #kpi-stage,
+      #s9-stage {
+        opacity: 0;
+      }
+      .cam {
+        position: absolute;
+        inset: 0;
+      }
+      .abs {
+        position: absolute;
+      }
+      .serif {
+        font-family: "Instrument Serif", serif;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+      }
+      .w {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: top;
+        padding-bottom: 0.1em;
+        margin-bottom: -0.1em;
+      }
+      .wi {
+        display: inline-block;
+      }
+      .eyebrow {
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--green-deep);
+      }
+      .headline {
+        position: absolute;
+        left: 72px;
+        top: 128px;
+        width: 936px;
+        font-size: 70px;
+        line-height: 1.02;
+        color: var(--ink);
+      }
+      .hl-green {
+        color: var(--green-deep);
+        font-style: italic;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        box-shadow:
+          0 1px 2px rgba(19, 32, 26, 0.04),
+          0 18px 40px -18px rgba(19, 32, 26, 0.18);
+      }
+      .avatar {
+        flex: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ink-2);
+        background: var(--bg-2);
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: 36px;
+        padding: 0 14px;
+        border-radius: 999px;
+        font-size: 17px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .chip.green {
+        background: var(--green-chip);
+        color: var(--green-deep);
+      }
+      .chip.solid {
+        background: var(--green);
+        color: #fff;
+      }
+      .chip.warm {
+        background: var(--warm-pale);
+        color: var(--warm);
+      }
+      .chip.amber {
+        background: var(--amber-pale);
+        color: var(--amber);
+      }
+      .chip.grey {
+        background: #f0ece4;
+        color: var(--muted);
+      }
+      .dot {
+        display: block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      /* ---------- persistent chrome ---------- */
+      #chrome {
+        z-index: 50;
+        pointer-events: none;
+      }
+      #logo {
+        position: absolute;
+        left: 64px;
+        top: 52px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      #logo .word,
+      .lockup .word {
+        font-weight: 700;
+        font-size: 27px;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+      #tag {
+        position: absolute;
+        right: 64px;
+        top: 60px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      #tag .audot {
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--au-orange);
+        box-shadow: 0 0 0 3px rgba(109, 39, 109, 0.18);
+      }
+
+      /* subtitles */
+      .sub {
+        z-index: 60;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 38px;
+        pointer-events: none;
+      }
+      .sub span {
+        display: block;
+        max-width: 880px;
+        padding: 10px 20px 11px;
+        border-radius: 14px;
+        background: rgba(19, 32, 26, 0.84);
+        color: #fff;
+        font-size: 25px;
+        font-weight: 500;
+        line-height: 1.32;
+        text-align: center;
+        letter-spacing: -0.005em;
+      }
+
+      /* ---------- S1 hook ---------- */
+      #s1-rows {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1080px;
+        -webkit-mask-image: linear-gradient(180deg, transparent 8%, #000 30%, #000 72%, transparent 95%);
+        mask-image: linear-gradient(180deg, transparent 8%, #000 30%, #000 72%, transparent 95%);
+        opacity: 0.75;
+      }
+      .rowcol {
+        position: absolute;
+        top: 0;
+        width: 300px;
+      }
+      .lrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 46px;
+        margin-bottom: 12px;
+        padding: 0 14px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(228, 221, 207, 0.9);
+      }
+      .lrow i {
+        display: block;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #e6dfd1;
+        flex: none;
+      }
+      .lrow b {
+        display: block;
+        height: 8px;
+        border-radius: 4px;
+        background: #e3dccd;
+      }
+      .lrow em {
+        display: block;
+        margin-left: auto;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #d8cfbd;
+      }
+      #s1-veil {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(520px 380px at 50% 52%, rgba(246, 242, 234, 0.97) 40%, rgba(246, 242, 234, 0) 100%);
+      }
+      #s1-card {
+        position: absolute;
+        left: 260px;
+        top: 360px;
+        width: 560px;
+        height: 132px;
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        padding: 0 30px;
+      }
+      #s1-card img {
+        display: block;
+        width: 84px;
+        height: 84px;
+        flex: none;
+      }
+      #s1-card .name {
+        font-size: 34px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin-top: 6px;
+      }
+      #s1-big {
+        position: absolute;
+        left: 0;
+        top: 470px;
+        width: 1080px;
+        text-align: center;
+        font-size: 176px;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      #s1-big .leads {
+        font-style: italic;
+        color: var(--green-deep);
+      }
+      #s1-sub {
+        position: absolute;
+        left: 0;
+        top: 676px;
+        width: 1080px;
+        text-align: center;
+        font-size: 38px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        color: var(--ink-2);
+      }
+
+      /* ---------- S2 problem ---------- */
+      .col {
+        position: absolute;
+        top: 392px;
+        width: 296px;
+      }
+      .col-h {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 14px;
+      }
+      .lead {
+        position: relative;
+        height: 70px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 14px;
+        border-radius: 16px;
+        background: var(--card);
+        border: 1px solid var(--line);
+      }
+      .lead .nm {
+        font-size: 19px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .lead .ln {
+        font-size: 16px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .lead .called {
+        position: absolute;
+        right: 12px;
+        top: 21px;
+        height: 28px;
+        padding: 0 10px;
+        font-size: 14px;
+      }
+      #s2-manual {
+        position: absolute;
+        left: 72px;
+        top: 812px;
+        width: 936px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 0 22px;
+        border-radius: 16px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        font-size: 19px;
+        font-weight: 500;
+        color: var(--ink-2);
+      }
+      #s2-bar {
+        position: relative;
+        width: 330px;
+        height: 10px;
+        border-radius: 6px;
+        background: #efe9dd;
+        overflow: hidden;
+      }
+      #s2-bar i {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 330px;
+        height: 10px;
+        border-radius: 6px;
+        background: var(--warm);
+        transform-origin: 0 50%;
+        transform: scaleX(0.02);
+      }
+      .ul {
+        position: relative;
+        display: inline-block;
+      }
+      .ul i {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0.02em;
+        height: 6px;
+        border-radius: 3px;
+        background: var(--warm);
+        transform-origin: 0 50%;
+        transform: scaleX(0);
+      }
+      #s2-focus-bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 296px;
+        height: 70px;
+        border-radius: 16px;
+        background: var(--card);
+        border: 1.5px solid var(--green);
+        transform-origin: 0 50%;
+        opacity: 0;
+      }
+
+      /* ---------- S3 dashboard ---------- */
+      #s3-sub {
+        position: absolute;
+        left: 72px;
+        top: 214px;
+        font-size: 26px;
+        font-weight: 500;
+        color: var(--muted);
+        letter-spacing: -0.01em;
+      }
+      #dash {
+        position: absolute;
+        left: 72px;
+        top: 290px;
+        width: 936px;
+        height: 568px;
+        overflow: hidden;
+      }
+      .d-head {
+        height: 88px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 28px;
+        border-bottom: 1px solid var(--line);
+      }
+      .d-title {
+        font-size: 25px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin-right: 6px;
+      }
+      .d-par {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--ink-2);
+      }
+      .d-tabs {
+        height: 56px;
+        display: flex;
+        align-items: flex-end;
+        gap: 34px;
+        padding: 0 28px;
+        border-bottom: 1px solid var(--line);
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      .d-tabs span {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 48px;
+      }
+      .d-tabs span.on {
+        color: var(--green-deep);
+        font-weight: 600;
+        border-bottom: 3px solid var(--green-deep);
+      }
+      .d-tabs small {
+        font-size: 15px;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: 7px;
+        background: #f0ece4;
+        color: var(--ink-2);
+      }
+      .d-tabs span.on small {
+        background: var(--green-chip);
+        color: var(--green-deep);
+      }
+      .d-th,
+      .d-row {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 0 28px;
+      }
+      .d-th {
+        height: 50px;
+        background: #faf8f4;
+        border-bottom: 1px solid var(--line);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+      .d-row {
+        height: 70px;
+        border-bottom: 1px solid #efe9df;
+        font-size: 19px;
+        color: var(--ink-2);
+      }
+      .c1 {
+        width: 262px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .c2 {
+        width: 178px;
+      }
+      .c3 {
+        position: relative;
+        width: 182px;
+        height: 36px;
+      }
+      .c4 {
+        position: relative;
+        width: 170px;
+        height: 36px;
+      }
+      .c5 {
+        width: 80px;
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        font-weight: 500;
+      }
+      .d-row .nm {
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .c3 .chip,
+      .c4 .chip {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .c4 .dash {
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        color: #b3ab9c;
+      }
+      .c5 {
+        position: relative;
+        height: 24px;
+      }
+      .c5 .dur {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .hide {
+        opacity: 0;
+      }
+
+      /* ---------- S4 AI works ---------- */
+      .panel {
+        position: absolute;
+        top: 318px;
+        height: 368px;
+        padding: 26px 28px;
+      }
+      #s4-call {
+        left: 72px;
+        width: 448px;
+      }
+      #s4-intel {
+        left: 544px;
+        width: 464px;
+      }
+      .p-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .p-top .nm {
+        font-size: 21px;
+        font-weight: 600;
+      }
+      .p-top .meta {
+        font-size: 16px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .live {
+        margin-left: auto;
+        color: var(--green-deep);
+      }
+      #wave {
+        position: absolute;
+        left: 28px;
+        top: 112px;
+        width: 392px;
+        height: 96px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      #wave i {
+        display: block;
+        width: 6px;
+        height: 96px;
+        border-radius: 3px;
+        background: var(--green);
+        transform: scaleY(0.12);
+      }
+      #bubble {
+        position: absolute;
+        left: 28px;
+        top: 232px;
+        width: 392px;
+        padding: 16px 18px;
+        border-radius: 16px;
+        background: var(--bg);
+      }
+      .lbl {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      #bubble .q {
+        margin-top: 6px;
+        font-size: 22px;
+        line-height: 1.3;
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .irow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 66px;
+        border-bottom: 1px solid #efe9df;
+      }
+      .irow:last-child {
+        border-bottom: 0;
+      }
+      .irow .k {
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+      }
+      .flow {
+        position: absolute;
+        left: 72px;
+        top: 740px;
+        width: 936px;
+        height: 72px;
+      }
+      .node {
+        position: absolute;
+        top: 0;
+        width: 196px;
+        height: 72px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 19px;
+        font-weight: 600;
+        color: var(--ink-2);
+        background: var(--card);
+        border: 1px solid var(--line);
+      }
+      .node .on {
+        position: absolute;
+        inset: -1px;
+        border-radius: 18px;
+        background: var(--green);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        opacity: 0;
+      }
+      .link {
+        position: absolute;
+        top: 35px;
+        height: 3px;
+        width: 50px;
+        border-radius: 2px;
+        background: var(--green);
+        transform-origin: 0 50%;
+        transform: scaleX(0);
+      }
+      #token {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow:
+          0 0 0 5px rgba(255, 255, 255, 0.9),
+          0 10px 24px rgba(19, 32, 26, 0.25);
+        opacity: 0;
+      }
+
+      /* ---------- S5 handoff ---------- */
+      .qcard {
+        position: absolute;
+        left: 72px;
+        width: 400px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 14px;
+        border-radius: 14px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .qcard .chip {
+        margin-left: auto;
+        height: 30px;
+        font-size: 15px;
+      }
+      .qcard .avatar {
+        width: 34px;
+        height: 34px;
+        font-size: 13px;
+      }
+      #tray {
+        position: absolute;
+        left: 72px;
+        top: 800px;
+        width: 400px;
+        height: 60px;
+        border-radius: 14px;
+        border: 1.5px dashed #d6ccb9;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 18px;
+        font-size: 17px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      #rm {
+        position: absolute;
+        left: 560px;
+        top: 372px;
+        width: 448px;
+        height: 400px;
+        padding: 28px;
+      }
+      #rm .avatar {
+        width: 56px;
+        height: 56px;
+        font-size: 18px;
+        background: var(--green);
+        color: #fff;
+      }
+      .stat {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        height: 76px;
+        padding-top: 18px;
+        border-bottom: 1px solid #efe9df;
+        font-size: 19px;
+        font-weight: 500;
+        color: var(--ink-2);
+      }
+      .stat:last-child {
+        border-bottom: 0;
+      }
+      .stat b {
+        font-family: "Instrument Serif", serif;
+        font-weight: 400;
+        font-size: 46px;
+        color: var(--ink);
+        line-height: 1;
+      }
+      #toast {
+        position: absolute;
+        left: 604px;
+        top: 300px;
+        width: 360px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 18px;
+        border-radius: 14px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+        box-shadow: 0 16px 30px -12px rgba(19, 32, 26, 0.45);
+      }
+      #toast .dot {
+        color: #6ee7a8;
+      }
+      .marker {
+        position: relative;
+        display: inline-block;
+        isolation: isolate;
+      }
+      .marker i {
+        position: absolute;
+        left: -4px;
+        right: -4px;
+        top: 52%;
+        height: 40%;
+        border-radius: 4px;
+        background: rgba(63, 144, 109, 0.22);
+        transform-origin: 0 50%;
+        transform: scaleX(0);
+        z-index: -1;
+      }
+
+      /* ---------- KPIs ---------- */
+      #k-eyebrow {
+        position: absolute;
+        left: 0;
+        top: 232px;
+        width: 1080px;
+        text-align: center;
+      }
+      .knum {
+        position: absolute;
+        left: 0;
+        top: 292px;
+        width: 1080px;
+        text-align: center;
+        font-size: 196px;
+        line-height: 1.05;
+        white-space: nowrap;
+        color: var(--ink);
+      }
+      .knum .plus {
+        color: var(--green-deep);
+      }
+      .klabel {
+        position: absolute;
+        left: 0;
+        top: 540px;
+        width: 1080px;
+        text-align: center;
+        font-size: 25px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        color: var(--ink-2);
+      }
+      #rings {
+        position: absolute;
+        left: 290px;
+        top: 170px;
+        width: 500px;
+        height: 500px;
+      }
+      #rings i {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 2px solid var(--green);
+        opacity: 0;
+      }
+      #pipe {
+        filter: brightness(1);
+        position: absolute;
+        left: 300px;
+        top: 812px;
+        width: 480px;
+        height: 16px;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #a9d6be, var(--green) 50%, var(--green-deep));
+      }
+      #pipe-l {
+        position: absolute;
+        left: 0;
+        top: 842px;
+        width: 1080px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+      }
+      .mini {
+        position: absolute;
+        width: 132px;
+        height: 42px;
+        border-radius: 12px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 10px;
+        box-shadow: 0 8px 18px -10px rgba(19, 32, 26, 0.25);
+      }
+      .mini i {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--green-chip);
+        flex: none;
+      }
+      .mini b {
+        display: block;
+        height: 7px;
+        width: 70px;
+        border-radius: 4px;
+        background: #e3dccd;
+      }
+      #goldframe {
+        position: absolute;
+        left: 150px;
+        top: 282px;
+        width: 780px;
+        height: 318px;
+      }
+      #recov {
+        position: absolute;
+        left: 350px;
+        top: 668px;
+        width: 380px;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px;
+        border-radius: 16px;
+        background: var(--card);
+        border: 1px solid var(--line);
+      }
+      #recov .nm {
+        font-size: 19px;
+        font-weight: 600;
+      }
+      #recov .ln {
+        font-size: 15px;
+        color: var(--muted);
+      }
+      #recov .st {
+        position: relative;
+        margin-left: auto;
+        width: 124px;
+        height: 34px;
+      }
+      #recov .st .chip {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 34px;
+        font-size: 15px;
+      }
+
+      /* ---------- S9 closing ---------- */
+      #s9-h {
+        position: absolute;
+        left: 0;
+        top: 150px;
+        width: 1080px;
+        text-align: center;
+        font-size: 70px;
+        line-height: 1.04;
+      }
+      .stack {
+        position: absolute;
+        top: 468px;
+        width: 220px;
+        height: 150px;
+      }
+      .stack .sc {
+        position: absolute;
+        left: 0;
+        width: 220px;
+        height: 58px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 12px;
+      }
+      .stack .sc i {
+        display: block;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        flex: none;
+      }
+      .stack .sc b {
+        display: block;
+        height: 8px;
+        border-radius: 4px;
+      }
+      #left-stack .sc {
+        background: #efe9de;
+        border: 1px solid #e2dacb;
+      }
+      #left-stack .sc i,
+      #left-stack .sc b {
+        background: #ddd4c3;
+      }
+      #right-stack .sc {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-left: 5px solid var(--green);
+        box-shadow: 0 10px 22px -14px rgba(19, 32, 26, 0.3);
+      }
+      #right-stack .sc i {
+        background: var(--green-chip);
+      }
+      #right-stack .sc b {
+        background: #d9eadf;
+      }
+      .slabel {
+        position: absolute;
+        top: 650px;
+        width: 260px;
+        text-align: center;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+      }
+      #hub {
+        position: absolute;
+        left: 460px;
+        top: 460px;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        box-shadow:
+          0 0 0 12px rgba(63, 144, 109, 0.12),
+          0 24px 40px -18px rgba(21, 128, 61, 0.55);
+      }
+      #hub i {
+        display: block;
+        width: 7px;
+        height: 64px;
+        border-radius: 4px;
+        background: #fff;
+        transform: scaleY(0.3);
+      }
+      #paths {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1080px;
+      }
+      #hop {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: #cfc6b4;
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9);
+        opacity: 0;
+      }
+      .lockup {
+        position: absolute;
+        left: 0;
+        width: 1080px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #lk-pow {
+        top: 352px;
+        font-size: 22px;
+        font-weight: 500;
+        color: var(--muted);
+        letter-spacing: 0.02em;
+      }
+      #lk-logo {
+        top: 400px;
+        gap: 20px;
+      }
+      #lk-logo .word {
+        font-size: 76px;
+        letter-spacing: -0.035em;
+      }
+      #lk-tag {
+        top: 522px;
+        font-size: 30px;
+        font-weight: 500;
+        color: var(--ink-2);
+        letter-spacing: -0.015em;
+      }
+      #lk-cta {
+        top: 606px;
+      }
+      #lk-cta span {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 66px;
+        padding: 0 34px;
+        border-radius: 999px;
+        background: var(--green);
+        color: #fff;
+        font-size: 23px;
+        font-weight: 600;
+        box-shadow: 0 16px 30px -14px rgba(21, 128, 61, 0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="36.5"
+      data-width="1080"
+      data-height="1080"
+    >
+      <!-- ================= S1 · HOOK ================= -->
+      <section id="s1" class="clip" data-start="0" data-duration="5.3" data-track-index="1" style="z-index: 1">
+        <div class="stage" id="s1-stage">
+          <div class="cam" id="s1-cam">
+            <div id="s1-rows"></div>
+            <div id="s1-veil"></div>
+            <div id="s1-card" class="card">
+              <img src="assets/au-mark.png" alt="AU Small Finance Bank" />
+              <div>
+                <div class="eyebrow">Customer story</div>
+                <div class="name">AU Small Finance Bank</div>
+              </div>
+            </div>
+            <div id="s1-big" class="serif">
+              <span id="s1-num">20,000</span> <span class="leads">leads</span>
+            </div>
+            <div id="s1-sub"><span class="w"><span class="wi">Manual calling couldn’t keep up.</span></span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= S2 · PROBLEM ================= -->
+      <section id="s2" class="clip" data-start="4.55" data-duration="6.4" data-track-index="2" style="z-index: 2">
+        <div class="stage" id="s2-stage">
+          <div class="cam" id="s2-cam">
+            <div class="headline serif split" id="s2-h">
+              Potential customers were going <span class="ul">untouched<i id="s2-ul"></i></span>
+            </div>
+            <div class="col" id="col-a" style="left: 72px">
+              <div class="col-h">REJECTED APPLICATIONS</div>
+              <div class="lead"><div class="avatar">VR</div><div><div class="nm">Vikram Rao</div><div class="ln">Personal Loan</div></div><span class="chip green called hide" id="called-1">✓ Called</span></div>
+              <div class="lead"><div class="avatar">SK</div><div><div class="nm">Sana Khan</div><div class="ln">Home Loan</div></div></div>
+              <div class="lead"><div class="avatar">RJ</div><div><div class="nm">Rohit Jain</div><div class="ln">Business Loan</div></div></div>
+              <div class="lead"><div class="avatar">MI</div><div><div class="nm">Meera Iyer</div><div class="ln">Personal Loan</div></div></div>
+            </div>
+            <div class="col" id="col-b" style="left: 392px">
+              <div class="col-h">CROSS-SELL LEADS</div>
+              <div class="lead"><div class="avatar">AG</div><div><div class="nm">Anjali Gupta</div><div class="ln">Credit Card</div></div></div>
+              <div class="lead"><div class="avatar">DN</div><div><div class="nm">Deepak Nair</div><div class="ln">Gold Loan</div></div><span class="chip green called hide" id="called-2">✓ Called</span></div>
+              <div class="lead"><div class="avatar">PD</div><div><div class="nm">Pooja Das</div><div class="ln">Two-Wheeler Loan</div></div></div>
+              <div class="lead"><div class="avatar">NK</div><div><div class="nm">Nikhil Kapoor</div><div class="ln">Gold Loan</div></div></div>
+            </div>
+            <div class="col" id="col-c" style="left: 712px">
+              <div class="col-h">DORMANT LEADS</div>
+              <div class="lead"><div class="avatar">KB</div><div><div class="nm">Kunal Bose</div><div class="ln">Home Loan</div></div></div>
+              <div class="lead" id="focus-card"><div id="s2-focus-bg"></div><div class="avatar" style="position: relative">AS</div><div style="position: relative"><div class="nm">Amit Sharma</div><div class="ln">Gold Loan</div></div></div>
+              <div class="lead"><div class="avatar">RM</div><div><div class="nm">Ritu Malhotra</div><div class="ln">Gold Loan</div></div></div>
+              <div class="lead"><div class="avatar">FA</div><div><div class="nm">Farah Ali</div><div class="ln">Personal Loan</div></div></div>
+            </div>
+            <div id="s2-manual">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c2622e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+              <span style="font-weight: 600; color: var(--ink)">Manual calling</span>
+              <div id="s2-bar"><i id="s2-bar-fill"></i></div>
+              <span>only a <b style="color: var(--warm)">fraction</b> ever reached</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= S3 · DOUBLETICK AI VOICE ================= -->
+      <section id="s3" class="clip" data-start="10.3" data-duration="4.15" data-track-index="3" style="z-index: 3">
+        <div class="stage" id="s3-stage">
+          <div class="cam" id="s3-cam">
+            <div class="headline serif split" id="s3-h">DoubleTick <span class="hl-green">AI Voice</span></div>
+            <div id="s3-sub"><span class="w"><span class="wi">Outreach at scale</span></span></div>
+            <div id="dash" class="card">
+              <div class="d-head">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3c4741" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+                <span class="d-title">AU Lead Re-engagement</span>
+                <span class="chip green" style="height: 34px; font-size: 16px">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></svg>AI Voice</span>
+                <span class="chip solid" style="height: 34px; font-size: 16px"><span class="dot" id="active-dot"></span>Active</span>
+                <span class="d-par">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3c4741" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13l-3-3M17 17H4l3 3"/></svg>25 parallel calls</span>
+              </div>
+              <div class="d-tabs">
+                <span class="on">All</span>
+                <span>Calling <small>25</small></span>
+                <span>Queued <small>1,204</small></span>
+                <span>Completed <small id="done-count">8,431</small></span>
+              </div>
+              <div class="d-th">
+                <div class="c1">Customer</div>
+                <div class="c2">Loan type</div>
+                <div class="c3" style="height: auto">Call status</div>
+                <div class="c4" style="height: auto">Intent</div>
+                <div class="c5">Duration</div>
+              </div>
+              <div class="d-row" id="r1">
+                <div class="c1"><div class="avatar">AS</div><span class="nm">Amit Sharma</span></div>
+                <div class="c2">Gold Loan</div>
+                <div class="c3"><span class="chip amber st-c"><span class="dot"></span>Calling</span><span class="chip green st-d hide">Completed</span></div>
+                <div class="c4"><span class="dash">—</span><span class="chip solid it hide">High Intent</span></div>
+                <div class="c5"><span class="dur">—</span><span class="dur dv hide">01:18</span></div>
+              </div>
+              <div class="d-row" id="r2">
+                <div class="c1"><div class="avatar">NV</div><span class="nm">Neha Verma</span></div>
+                <div class="c2">Personal Loan</div>
+                <div class="c3"><span class="chip amber st-c"><span class="dot"></span>Calling</span><span class="chip green st-d hide">Completed</span></div>
+                <div class="c4"><span class="dash">—</span><span class="chip warm it hide">Warm</span></div>
+                <div class="c5"><span class="dur">—</span><span class="dur dv hide">00:46</span></div>
+              </div>
+              <div class="d-row" id="r3">
+                <div class="c1"><div class="avatar">RM</div><span class="nm">Rahul Mehta</span></div>
+                <div class="c2">Home Loan</div>
+                <div class="c3"><span class="chip grey st-q">Queued</span><span class="chip amber st-c hide"><span class="dot"></span>Calling</span><span class="chip green st-d hide">Completed</span></div>
+                <div class="c4"><span class="dash">—</span><span class="chip green it hide">✓ Qualified</span></div>
+                <div class="c5"><span class="dur">—</span><span class="dur dv hide">01:34</span></div>
+              </div>
+              <div class="d-row" id="r4">
+                <div class="c1"><div class="avatar">PS</div><span class="nm">Priya Singh</span></div>
+                <div class="c2">Credit Card</div>
+                <div class="c3"><span class="chip grey st-q">Queued</span><span class="chip amber st-c hide"><span class="dot"></span>Calling</span></div>
+                <div class="c4"><span class="dash">—</span></div>
+                <div class="c5"><span class="dur">—</span></div>
+              </div>
+              <div class="d-row" id="r5">
+                <div class="c1"><div class="avatar">KJ</div><span class="nm">Karan Joshi</span></div>
+                <div class="c2">Gold Loan</div>
+                <div class="c3"><span class="chip grey st-q">Queued</span></div>
+                <div class="c4"><span class="dash">—</span></div>
+                <div class="c5"><span class="dur">—</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= S4 · HOW AI WORKS ================= -->
+      <section id="s4" class="clip" data-start="14.0" data-duration="4.85" data-track-index="4" style="z-index: 4">
+        <div class="stage" id="s4-stage">
+          <div class="cam" id="s4-cam">
+            <div class="headline serif" id="s4-h" style="font-size: 66px">
+              <span class="w"><span class="wi">Re-engage.</span></span>
+              <span class="w"><span class="wi">Understand intent.</span></span>
+              <span class="w"><span class="wi hl-green">Qualify.</span></span>
+            </div>
+            <div class="panel card" id="s4-call">
+              <div class="p-top">
+                <div class="avatar">PS</div>
+                <div>
+                  <div class="nm">Priya Singh</div>
+                  <div class="meta">AI Voice call · <span id="call-t">00:04</span></div>
+                </div>
+                <span class="chip green live"><span class="dot" id="live-dot"></span>Live</span>
+              </div>
+              <div id="wave"></div>
+              <div id="bubble">
+                <div class="lbl">Customer · transcribed</div>
+                <div class="q split" id="quote">“I’d like to know about Gold Loan options.”</div>
+              </div>
+            </div>
+            <div class="panel card" id="s4-intel">
+              <div class="p-top" style="margin-bottom: 8px">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#3f906d"><path d="M12 2l1.9 5.6L19.5 9.5 13.9 11.4 12 17l-1.9-5.6L4.5 9.5l5.6-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+                <span style="font-size: 19px; font-weight: 600">Customer intelligence</span>
+              </div>
+              <div class="irow"><span class="k">PRODUCT</span><span class="chip green ic">Gold Loan</span></div>
+              <div class="irow"><span class="k">INTENT</span><span class="chip solid ic">High</span></div>
+              <div class="irow"><span class="k">STATUS</span><span class="chip green ic">✓ Qualified</span></div>
+              <div class="irow"><span class="k">FOLLOW-UP</span><span class="chip green ic">Relationship Manager</span></div>
+            </div>
+            <div class="flow" id="flow">
+              <div class="node" style="left: 0">AI call<span class="on">AI call</span></div>
+              <div class="link" style="left: 200px; width: 50px"></div>
+              <div class="node" style="left: 247px">Intent detected<span class="on">Intent detected</span></div>
+              <div class="link" style="left: 447px; width: 50px"></div>
+              <div class="node" style="left: 493px">Qualified<span class="on">Qualified</span></div>
+              <div class="link" style="left: 693px; width: 50px"></div>
+              <div class="node" style="left: 740px">RM<span class="on">RM</span></div>
+              <div id="token">PS</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= S5 · SALES HANDOFF ================= -->
+      <section id="s5" class="clip" data-start="18.5" data-duration="2.85" data-track-index="5" style="z-index: 5">
+        <div class="stage" id="s5-stage">
+          <div class="cam" id="s5-cam">
+            <div class="headline serif" id="s5-h" style="font-size: 66px">
+              <span class="w"><span class="wi">Only</span></span>
+              <span class="w"><span class="wi"><span class="marker">high-intent<i id="s5-mk"></i></span></span></span>
+              <span class="w"><span class="wi">opportunities</span></span>
+              <span class="w"><span class="wi">reach</span></span>
+              <span class="w"><span class="wi">the</span></span>
+              <span class="w"><span class="wi">sales</span></span>
+              <span class="w"><span class="wi">team</span></span>
+            </div>
+            <div class="qcard" data-k="hi" style="top: 340px"><div class="avatar">PS</div>Priya Singh<span class="chip solid">High</span></div>
+            <div class="qcard" data-k="lo" style="top: 410px"><div class="avatar">TR</div>Tarun Reddy<span class="chip grey">Low</span></div>
+            <div class="qcard" data-k="hi" style="top: 480px"><div class="avatar">AS</div>Amit Sharma<span class="chip solid">High</span></div>
+            <div class="qcard" data-k="hi" style="top: 550px"><div class="avatar">NV</div>Neha Verma<span class="chip warm">Warm</span></div>
+            <div class="qcard" data-k="lo" style="top: 620px"><div class="avatar">IS</div>Isha Sen<span class="chip grey">Low</span></div>
+            <div class="qcard" data-k="hi" style="top: 690px"><div class="avatar">RM</div>Rahul Mehta<span class="chip green">✓ Qualified</span></div>
+            <div id="tray"><span>Auto-categorised · nurture later</span><span class="chip grey" style="height: 30px; font-size: 15px">Low intent</span></div>
+            <div id="rm" class="card">
+              <div class="p-top" style="margin-bottom: 14px">
+                <div class="avatar">RM</div>
+                <div>
+                  <div class="nm" style="font-size: 23px">Relationship Manager</div>
+                  <div class="meta">AU sales team</div>
+                </div>
+              </div>
+              <div class="stat"><span>Qualified leads</span><b id="st-q">8</b></div>
+              <div class="stat"><span>High intent</span><b id="st-h">4</b></div>
+              <div class="stat"><span>Warm</span><b id="st-w">4</b></div>
+            </div>
+            <div id="toast"><span class="dot"></span>New qualified lead · Priya Singh</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= S6–S8 · KPIs ================= -->
+      <section id="kpi" class="clip" data-start="20.9" data-duration="10.45" data-track-index="6" style="z-index: 6">
+        <div class="stage" id="kpi-stage">
+          <div class="cam" id="kpi-cam">
+            <div id="rings"><i></i><i></i><i></i></div>
+            <svg id="goldframe" viewBox="0 0 780 318" fill="none">
+              <rect id="gold-rect" x="2" y="2" width="776" height="314" rx="30" stroke="#b98f2f" stroke-width="2.5" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" />
+            </svg>
+            <div id="k-eyebrow" class="eyebrow">At scale, this delivered</div>
+            <div class="knum serif" id="k1"><span id="k1n">0</span><span class="plus" id="k1p">+</span></div>
+            <div class="klabel" id="k1l">OUTBOUND AI CALLS</div>
+            <div class="knum serif" id="k2"><span id="k2n">4,000</span></div>
+            <div class="klabel" id="k2l">QUALIFIED LEADS GENERATED</div>
+            <div class="knum serif" id="k3"><span id="k3n">1,200</span></div>
+            <div class="klabel" id="k3l">GOLD LOAN LEADS <span style="color: var(--gold)">RECOVERED</span></div>
+            <div id="minis"></div>
+            <div id="recov">
+              <div class="avatar">RM</div>
+              <div><div class="nm">Ritu Malhotra</div><div class="ln">Gold Loan</div></div>
+              <div class="st"><span class="chip grey" id="rv-d">Dormant</span><span class="chip solid hide" id="rv-r">✓ Recovered</span></div>
+            </div>
+            <div id="pipe"></div>
+            <div id="pipe-l">SALES PIPELINE</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= S9 · CLOSING ================= -->
+      <section id="s9" class="clip" data-start="31.0" data-duration="5.5" data-track-index="7" style="z-index: 7">
+        <div class="stage" id="s9-stage">
+          <div class="cam" id="s9-cam">
+            <div id="s9-h" class="serif">
+              <div><span class="w"><span class="wi">From</span></span> <span class="w"><span class="wi">unworked</span></span> <span class="w"><span class="wi">leads</span></span></div>
+              <div><span class="w"><span class="wi">to</span></span> <span class="w"><span class="wi hl-green">sales-ready</span></span> <span class="w"><span class="wi">conversations.</span></span></div>
+            </div>
+            <svg id="paths" viewBox="0 0 1080 1080" fill="none">
+              <path id="p1" d="M330 540 H455" stroke="#3f906d" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 12" />
+              <path id="p2" d="M625 540 H750" stroke="#3f906d" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 12" />
+            </svg>
+            <div class="stack" id="left-stack" style="left: 100px">
+              <div class="sc" style="top: 0; opacity: 0.55"><i></i><b style="width: 110px"></b></div>
+              <div class="sc" style="top: 30px; opacity: 0.7"><i></i><b style="width: 90px"></b></div>
+              <div class="sc" style="top: 60px; opacity: 0.85"><i></i><b style="width: 120px"></b></div>
+              <div class="sc" style="top: 90px"><i></i><b style="width: 100px"></b></div>
+            </div>
+            <div class="slabel" style="left: 80px">UNWORKED LEADS</div>
+            <div id="hub"></div>
+            <div class="slabel" style="left: 410px; color: var(--green-deep)">DOUBLETICK AI VOICE</div>
+            <div class="stack" id="right-stack" style="left: 760px">
+              <div class="sc" style="top: 0"><i></i><b style="width: 110px"></b></div>
+              <div class="sc" style="top: 46px"><i></i><b style="width: 90px"></b></div>
+              <div class="sc" style="top: 92px"><i></i><b style="width: 120px"></b></div>
+            </div>
+            <div class="slabel" style="left: 740px; color: var(--green-deep)">SALES-READY</div>
+            <div id="hop"></div>
+          </div>
+          <div id="lockup">
+            <div class="lockup" id="lk-pow">Powered by</div>
+            <div class="lockup" id="lk-logo">
+              <svg width="92" height="92" viewBox="0 0 34 34"><rect width="34" height="34" rx="9" fill="#3f906d" /><path d="M7 17.5l4.6 4.6L20.5 11.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M16.2 20.6l1.5 1.5L26.6 11.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              <span class="word">DoubleTick</span>
+            </div>
+            <div class="lockup" id="lk-tag">AI Voice for enterprise sales</div>
+            <div class="lockup" id="lk-cta"><span>Book a demo <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= persistent chrome ================= -->
+      <div id="chrome" class="clip" data-start="0" data-duration="36.5" data-track-index="8">
+        <div id="logo">
+          <svg width="40" height="40" viewBox="0 0 34 34"><rect width="34" height="34" rx="9" fill="#3f906d" /><path d="M7 17.5l4.6 4.6L20.5 11.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M16.2 20.6l1.5 1.5L26.6 11.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          <span class="word">DoubleTick</span>
+        </div>
+        <div id="tag"><span class="audot"></span>Customer story · AU Small Finance Bank</div>
+      </div>
+
+      <!-- ================= subtitles (timed to assets/audio/vo.json) ================= -->
+      <div id="sub-1" class="clip sub" data-start="0.31" data-duration="2.95" data-track-index="9"><span>AU Small Finance Bank faced a scale problem.</span></div>
+      <div id="sub-2" class="clip sub" data-start="3.27" data-duration="2.98" data-track-index="9"><span>Lakhs of rejected and cross-sell leads had potential —</span></div>
+      <div id="sub-3" class="clip sub" data-start="6.24" data-duration="4.55" data-track-index="9"><span>but manually calling, qualifying and following up with every customer wasn’t practical.</span></div>
+      <div id="sub-4" class="clip sub" data-start="10.8" data-duration="2.38" data-track-index="9"><span>So they deployed DoubleTick AI Voice.</span></div>
+      <div id="sub-5" class="clip sub" data-start="13.19" data-duration="3.65" data-track-index="9"><span>AI automatically re-engaged customers, understood their requirements,</span></div>
+      <div id="sub-6" class="clip sub" data-start="16.83" data-duration="4.02" data-track-index="9"><span>classified intent and surfaced qualified opportunities for the sales team.</span></div>
+      <div id="sub-7" class="clip sub" data-start="20.86" data-duration="1.45" data-track-index="9"><span>At scale, this delivered:</span></div>
+      <div id="sub-8" class="clip sub" data-start="22.31" data-duration="2.58" data-track-index="9"><span>3.12 lakh+ AI calls,</span></div>
+      <div id="sub-9" class="clip sub" data-start="24.88" data-duration="2.23" data-track-index="9"><span>5,000+ qualified leads,</span></div>
+      <div id="sub-10" class="clip sub" data-start="27.1" data-duration="4.12" data-track-index="9"><span>and 1,726 recovered Gold Loan opportunities.</span></div>
+      <div id="sub-11" class="clip sub" data-start="31.27" data-duration="2.66" data-track-index="9"><span>From unworked leads to sales-ready conversations —</span></div>
+      <div id="sub-12" class="clip sub" data-start="33.92" data-duration="1.54" data-track-index="9"><span>powered by DoubleTick.</span></div>
+
+      <audio id="soundtrack" src="assets/audio/mix.wav" data-start="0" data-duration="36.5" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      // ---------- deterministic helpers ----------
+      function mulberry32(a) {
+        return function () {
+          a |= 0;
+          a = (a + 0x6d2b79f5) | 0;
+          let t = Math.imul(a ^ (a >>> 15), 1 | a);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      const rand = mulberry32(20260629);
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => Array.from(document.querySelectorAll(s));
+      function inr(n) {
+        const s = String(Math.round(n));
+        if (s.length <= 3) return s;
+        const rest = s.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+        return rest + "," + s.slice(-3);
+      }
+      // wrap words of .split elements in mask spans (keeps element children as whole words)
+      function splitWords(el) {
+        const out = document.createDocumentFragment();
+        const wrap = (node) => {
+          const w = document.createElement("span");
+          w.className = "w";
+          const wi = document.createElement("span");
+          wi.className = "wi";
+          wi.appendChild(node);
+          w.appendChild(wi);
+          return w;
+        };
+        Array.from(el.childNodes).forEach((n) => {
+          if (n.nodeType === 3) {
+            n.textContent.split(/(\s+)/).forEach((part) => {
+              if (!part) return;
+              if (/^\s+$/.test(part)) out.appendChild(document.createTextNode(" "));
+              else out.appendChild(wrap(document.createTextNode(part)));
+            });
+          } else {
+            out.appendChild(wrap(n));
+          }
+        });
+        el.innerHTML = "";
+        el.appendChild(out);
+      }
+      $$(".split").forEach(splitWords);
+
+      // S1 background rows (suggest scale through repetition)
+      const rowsEl = $("#s1-rows");
+      [70, 390, 710].forEach((x) => {
+        const col = document.createElement("div");
+        col.className = "rowcol";
+        col.style.left = x + "px";
+        for (let i = 0; i < 40; i++) {
+          const r = document.createElement("div");
+          r.className = "lrow";
+          const a = 70 + Math.floor(rand() * 90);
+          const b = 40 + Math.floor(rand() * 60);
+          r.innerHTML = `<i></i><b style="width:${a}px"></b><b style="width:${b}px;opacity:.6"></b><em></em>`;
+          col.appendChild(r);
+        }
+        rowsEl.appendChild(col);
+      });
+
+      // waveform bars
+      const wave = $("#wave");
+      for (let i = 0; i < 30; i++) wave.appendChild(document.createElement("i"));
+      const waveBars = $$("#wave i");
+      const hub = $("#hub");
+      for (let i = 0; i < 5; i++) hub.appendChild(document.createElement("i"));
+      const hubBars = $$("#hub i");
+
+      // KPI converging mini cards
+      const minis = $("#minis");
+      const miniStart = [];
+      for (let i = 0; i < 10; i++) {
+        const m = document.createElement("div");
+        m.className = "mini";
+        m.innerHTML = "<i></i><b></b>";
+        const side = i % 2 === 0 ? -1 : 1;
+        const x = 540 - 66 + side * (220 + rand() * 230);
+        const y = 640 + rand() * 170;
+        m.style.left = x.toFixed(0) + "px";
+        m.style.top = y.toFixed(0) + "px";
+        miniStart.push({ x, y });
+        minis.appendChild(m);
+      }
+      const miniEls = $$(".mini");
+
+      // ---------- timeline ----------
+      const tl = gsap.timeline({ paused: true });
+      const E = { out: "power3.out", io: "power2.inOut", ex: "expo.out" };
+
+      const uiIn = (t, at, stagger = 0, d = 0.45) =>
+        tl.fromTo(t, { opacity: 0, y: 20, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: d, ease: E.out, stagger }, at);
+      const words = (sel, at, stagger = 0.06, d = 0.75) =>
+        tl.fromTo(sel, { yPercent: 112 }, { yPercent: 0, duration: d, ease: "power4.out", stagger }, at);
+      const counter = (el, from, to, at, d, fmt, ease = "power3.out") => {
+        const o = { v: from };
+        el.textContent = fmt(from);
+        tl.to(o, { v: to, duration: d, ease, onUpdate: () => (el.textContent = fmt(o.v)) }, at);
+      };
+      const waveTween = (bars, at, d, amp = 1, seed = 0) => {
+        const o = { t: 0 };
+        tl.to(
+          o,
+          {
+            t: d,
+            duration: d,
+            ease: "none",
+            onUpdate: () => {
+              bars.forEach((b, i) => {
+                const v =
+                  Math.abs(Math.sin(o.t * 7.3 + i * 0.62 + seed) * Math.sin(o.t * 3.1 + i * 0.27)) * 0.85 +
+                  0.15 * Math.abs(Math.sin(o.t * 13 + i));
+                b.style.transform = `scaleY(${(0.12 + v * 0.88 * amp).toFixed(3)})`;
+              });
+            },
+          },
+          at,
+        );
+      };
+
+      // ===== chrome =====
+      tl.fromTo("#logo", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.8, ease: E.out }, 0.1);
+      tl.fromTo("#tag", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: E.out }, 1.4);
+      tl.to("#tag", { opacity: 0, duration: 0.4 }, 31.0);
+      $$(".sub span").forEach((s) => {
+        const clip = s.parentElement;
+        const st = parseFloat(clip.dataset.start);
+        const du = parseFloat(clip.dataset.duration);
+        tl.fromTo(s, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }, st);
+        tl.to(s, { opacity: 0, duration: 0.15, ease: "power1.in" }, st + du - 0.15);
+      });
+
+      // ===== S1 · hook (0 – 5.3) =====
+      tl.fromTo("#s1-cam", { scale: 1 }, { scale: 1.06, duration: 5.3, ease: "none", transformOrigin: "50% 45%" }, 0);
+      tl.fromTo("#s1-rows .rowcol", { y: 0 }, { y: -1150, duration: 5.3, ease: "power2.in", stagger: 0 }, 0);
+      tl.fromTo("#s1-rows", { opacity: 0 }, { opacity: 0.75, duration: 0.8, ease: "none" }, 0);
+      uiIn("#s1-card", 0.3, 0, 0.6);
+      tl.to("#s1-card", { y: -196, scale: 0.9, duration: 0.8, ease: E.io }, 1.35);
+      tl.fromTo("#s1-big", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: E.out }, 1.45);
+      counter(
+        $("#s1-num"),
+        20000,
+        300000,
+        1.5,
+        1.7,
+        (v) => (v >= 299000 ? "3 lakh+" : v < 100000 ? inr(Math.round(v / 1000) * 1000) : (v / 100000).toFixed(1) + "L"),
+        "power2.inOut",
+      );
+      tl.to("#s1-big", { scale: 1.04, duration: 0.12, ease: "power2.out", yoyo: true, repeat: 1 }, 3.2);
+      words("#s1-sub .wi", 3.35, 0, 0.8);
+      // rows accelerate & the scene is wiped away
+      tl.to("#s1-big, #s1-sub, #s1-card", { opacity: 0.0, duration: 0.5, ease: "power2.in" }, 4.75);
+
+      // ===== S2 · problem (4.55 – 10.95) =====
+      tl.fromTo("#s2-stage", { clipPath: "inset(0% 0% 0% 100%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.7, ease: "power3.inOut" }, 4.55);
+      tl.fromTo("#s2-cam", { x: 60 }, { x: 0, duration: 1.0, ease: E.out }, 4.55);
+      words("#s2-h .wi", 4.8, 0.07);
+      tl.to("#s2-ul", { scaleX: 1, duration: 0.6, ease: E.io }, 6.1);
+      tl.fromTo(".col-h", { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.1 }, 5.3);
+      // cards flow downward, row by row
+      const leadRows = [0, 1, 2, 3].map((r) => ["#col-a", "#col-b", "#col-c"].map((c) => $$(c + " .lead")[r]));
+      leadRows.forEach((row, r) => {
+        tl.fromTo(row, { opacity: 0, y: -36 }, { opacity: 1, y: 0, duration: 0.5, ease: E.out, stagger: 0.07 }, 5.5 + r * 0.2);
+      });
+      uiIn("#s2-manual", 6.4);
+      tl.to("#s2-bar-fill", { scaleX: 0.04, duration: 2.4, ease: "none" }, 6.8);
+      tl.fromTo("#called-1, #called-2", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)", stagger: 0.5 }, 6.9);
+      // the rest go untouched → fade
+      const untouched = $$(".lead").filter((el) => !el.querySelector(".called") && el.id !== "focus-card");
+      tl.to(untouched, { opacity: 0.38, backgroundColor: "#f1ece3", duration: 0.6, ease: "none", stagger: { each: 0.08, from: "random" } }, 7.4);
+      tl.to("#focus-card", { opacity: 0.38, backgroundColor: "#f1ece3", duration: 0.6 }, 7.9);
+      // focus: one dormant card becomes the hero object
+      tl.to(["#s2-h", ".col-h", "#s2-manual", "#called-1", "#called-2"], { opacity: 0, duration: 0.45, ease: "power2.in" }, 9.4);
+      tl.to(untouched.concat($$(".lead").filter((el) => el.querySelector(".called"))), { opacity: 0, y: 14, duration: 0.45, ease: "power2.in", stagger: 0.015 }, 9.4);
+      tl.to("#focus-card", { opacity: 1, backgroundColor: "#ffffff", scale: 1.06, duration: 0.45, ease: E.out }, 9.45);
+      tl.to("#s2-focus-bg", { opacity: 1, duration: 0.3 }, 9.5);
+      // travel to the dashboard row position and stretch into a campaign row
+      tl.to("#focus-card", { x: -640, y: -50, scale: 1, duration: 0.75, ease: "power3.inOut" }, 9.95);
+      tl.to("#s2-focus-bg", { scaleX: 936 / 296, duration: 0.6, ease: "power3.inOut" }, 10.15);
+
+      // ===== S3 · DoubleTick AI Voice (10.3 – 14.45) =====
+      tl.fromTo("#s3-stage", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "none" }, 10.55);
+      tl.fromTo("#dash", { opacity: 0, scale: 0.985 }, { opacity: 1, scale: 1, duration: 0.5, ease: E.out }, 10.55);
+      tl.fromTo("#dash .d-head, #dash .d-tabs, #dash .d-th", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: E.out, stagger: 0.06 }, 10.65);
+      tl.fromTo("#r2, #r3, #r4, #r5", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: E.out, stagger: 0.06 }, 10.8);
+      words("#s3-h .wi", 10.85, 0.08);
+      words("#s3-sub .wi", 11.25, 0, 0.6);
+      tl.fromTo("#active-dot", { opacity: 1 }, { opacity: 0.35, duration: 0.5, yoyo: true, repeat: 6, ease: "sine.inOut" }, 10.6);
+      const toStatus = (row, fromSel, toSel, at) => {
+        tl.to(`${row} ${fromSel}`, { opacity: 0, scale: 0.92, duration: 0.18, ease: "power2.in" }, at);
+        tl.fromTo(`${row} ${toSel}`, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, at + 0.14);
+      };
+      const complete = (row, at) => {
+        toStatus(row, ".st-c", ".st-d", at);
+        tl.to(`${row} .dash`, { opacity: 0, duration: 0.15 }, at + 0.2);
+        tl.fromTo(`${row} .it`, { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.35, ease: E.out }, at + 0.3);
+        tl.to(`${row} .dur:not(.dv)`, { opacity: 0, duration: 0.15 }, at + 0.2);
+        tl.fromTo(`${row} .dv`, { opacity: 0 }, { opacity: 1, duration: 0.3 }, at + 0.3);
+      };
+      complete("#r1", 11.45);
+      toStatus("#r3", ".st-q", ".st-c", 11.8);
+      complete("#r2", 12.15);
+      toStatus("#r4", ".st-q", ".st-c", 12.45);
+      complete("#r3", 12.85);
+      counter($("#done-count"), 8431, 8434, 11.45, 1.6, inr, "steps(3)");
+      tl.fromTo("#r4 .st-c .dot", { opacity: 1 }, { opacity: 0.25, duration: 0.4, yoyo: true, repeat: 3, ease: "sine.inOut" }, 12.6);
+      // hand-off element from S2 disappears once the real row is in place
+      tl.fromTo("#r1", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 10.75);
+      // push into the live "Calling" row
+      tl.to("#r4", { backgroundColor: "#fffaf0", duration: 0.3 }, 13.45);
+      tl.to("#s3-h, #s3-sub", { opacity: 0, y: -12, duration: 0.3, ease: "power2.in" }, 13.35);
+      tl.to("#s3-cam", { scale: 2.3, duration: 0.95, ease: "power3.in", transformOrigin: "540px 743px" }, 13.5);
+      tl.to("#s3-stage", { opacity: 0, duration: 0.35, ease: "none" }, 14.1);
+
+      // ===== S4 · how AI works (14.0 – 18.85) =====
+      tl.fromTo("#s4-stage", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "none" }, 14.0);
+      tl.fromTo("#s4-cam", { scale: 1.12 }, { scale: 1, duration: 0.9, ease: E.ex, transformOrigin: "300px 500px" }, 14.0);
+      uiIn("#s4-call", 14.05, 0, 0.5);
+      waveTween(waveBars, 14.2, 3.2, 1, 0);
+      tl.to(waveBars, { scaleY: 0.12, duration: 0.3, ease: "power2.out" }, 17.45);
+      counter($("#call-t"), 4, 14, 14.2, 3.3, (v) => "00:" + String(Math.floor(v)).padStart(2, "0"), "none");
+      tl.fromTo("#live-dot", { opacity: 1 }, { opacity: 0.3, duration: 0.45, yoyo: true, repeat: 5, ease: "sine.inOut" }, 14.2);
+      tl.fromTo("#bubble", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: E.out }, 14.55);
+      words("#quote .wi", 14.7, 0.07, 0.5);
+      words("#s4-h .wi", 14.3, 0.55, 0.8);
+      uiIn("#s4-intel", 14.9, 0, 0.5);
+      tl.fromTo("#s4-intel .irow", { opacity: 0, x: 16 }, { opacity: 1, x: 0, duration: 0.4, ease: E.out, stagger: 0.38 }, 15.2);
+      tl.fromTo("#s4-intel .ic", { scale: 0.85 }, { scale: 1, duration: 0.4, ease: "back.out(2.2)", stagger: 0.38 }, 15.25);
+      // flow: one node at a time
+      tl.to("#s4-call, #s4-intel", { opacity: 0.5, duration: 0.5, ease: "none" }, 16.75);
+      uiIn("#flow .node", 16.6, 0.07, 0.4);
+      const nodes = $$("#flow .node .on");
+      const links = $$("#flow .link");
+      const nodeX = [0, 247, 493, 740].map((x) => x + 98 - 26); // token centered on node
+      tl.fromTo("#token", { opacity: 0, x: nodeX[0], y: 10, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 16.95);
+      tl.to(nodes[0], { opacity: 1, duration: 0.25 }, 16.95);
+      for (let i = 1; i < 4; i++) {
+        const at = 17.15 + (i - 1) * 0.42;
+        tl.to(links[i - 1], { scaleX: 1, duration: 0.3, ease: E.io }, at);
+        tl.to("#token", { x: nodeX[i], duration: 0.42, ease: "power2.inOut" }, at);
+        tl.to("#token", { y: -30, duration: 0.21, ease: "power1.out", yoyo: true, repeat: 1 }, at);
+        tl.to(nodes[i], { opacity: 1, duration: 0.25 }, at + 0.3);
+      }
+      tl.to("#token", { scale: 1.15, duration: 0.15, yoyo: true, repeat: 1 }, 18.4);
+      tl.to("#s4-stage", { opacity: 0, duration: 0.3, ease: "none" }, 18.55);
+
+      // ===== S5 · sales handoff (18.5 – 21.35) =====
+      tl.fromTo("#s5-stage", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "none" }, 18.5);
+      words("#s5-h .wi", 18.6, 0.05, 0.7);
+      tl.to("#s5-mk", { scaleX: 1, duration: 0.5, ease: E.io }, 19.15);
+      uiIn("#rm", 18.7, 0, 0.5);
+      uiIn(".qcard", 18.75, 0.05, 0.4);
+      uiIn("#tray", 19.0, 0, 0.4);
+      const qcards = $$(".qcard");
+      qcards.forEach((c, i) => {
+        const at = 19.3 + i * 0.16;
+        if (c.dataset.k === "hi") {
+          tl.to(c, { x: 560 + 24 - 72, y: 150 - (parseFloat(c.style.top) - 400) * 0.2, scale: 0.7, opacity: 0, duration: 0.5, ease: "power3.in" }, at);
+        } else {
+          tl.to(c, { y: 800 - parseFloat(c.style.top) + 0, scale: 0.9, opacity: 0, duration: 0.5, ease: "power2.in" }, at);
+        }
+      });
+      counter($("#st-q"), 8, 12, 19.6, 0.9, (v) => String(Math.round(v)), "none");
+      counter($("#st-h"), 4, 7, 19.6, 0.9, (v) => String(Math.round(v)), "none");
+      counter($("#st-w"), 4, 5, 19.9, 0.5, (v) => String(Math.round(v)), "none");
+      tl.fromTo("#toast", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.8)" }, 19.45);
+      // compress toward centre — the KPI emerges from behind
+      tl.to("#s5-cam", { scale: 0.72, opacity: 0, duration: 0.5, ease: "power3.in", transformOrigin: "540px 560px" }, 20.75);
+
+      // ===== KPIs (20.9 – 31.35) =====
+      tl.fromTo("#kpi-stage", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "none" }, 20.9);
+      tl.fromTo("#k-eyebrow", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 21.0);
+      // KPI 1
+      tl.fromTo("#k1", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.7, ease: E.ex }, 21.05);
+      counter($("#k1n"), 0, 312945, 21.2, 1.8, inr, "power3.out");
+      tl.fromTo("#k1p", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 22.95);
+      tl.to("#k1", { scale: 1.035, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 23.0);
+      tl.fromTo("#k1l", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 21.5);
+      $$("#rings i").forEach((r, i) => {
+        tl.fromTo(r, { scale: 0.55, opacity: 0.32 }, { scale: 1.5, opacity: 0, duration: 1.5, ease: "power1.out", repeat: 1 }, 21.3 + i * 0.5);
+      });
+      // KPI 2 — rolling hand-off
+      tl.to("#k1, #k1l", { y: -60, opacity: 0, duration: 0.35, ease: "power2.in" }, 24.75);
+      tl.to("#k-eyebrow", { opacity: 0, duration: 0.3 }, 24.75);
+      tl.fromTo("#k2", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: E.out }, 24.95);
+      counter($("#k2n"), 4000, 5062, 24.95, 1.0, inr, "power3.out");
+      tl.fromTo("#k2l", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: E.out }, 25.1);
+      tl.fromTo("#pipe", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.6, ease: E.io }, 25.0);
+      tl.fromTo("#pipe-l", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 25.3);
+      tl.fromTo(miniEls, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: E.out, stagger: 0.03 }, 25.05);
+      miniEls.forEach((m, i) => {
+        const s = miniStart[i];
+        tl.to(m, { x: 540 - 66 - s.x, y: 812 - 13 - s.y, scale: 0.25, opacity: 0, duration: 0.7, ease: "power3.in" }, 25.5 + i * 0.05);
+      });
+      tl.to("#pipe", { filter: "brightness(1.18)", duration: 0.2, yoyo: true, repeat: 1 }, 26.2);
+      // KPI 3 — recovered gold loan leads
+      tl.to("#k2, #k2l", { y: -60, opacity: 0, duration: 0.35, ease: "power2.in" }, 27.05);
+      tl.fromTo("#k3", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: E.out }, 27.25);
+      counter($("#k3n"), 1200, 1726, 27.3, 1.2, inr, "power3.out");
+      tl.fromTo("#k3l", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: E.out }, 27.45);
+      tl.to("#gold-rect", { strokeDashoffset: 0, duration: 1.0, ease: E.io }, 28.2);
+      tl.fromTo("#recov", { opacity: 0, y: 16 }, { opacity: 0.55, y: 0, duration: 0.45, ease: E.out }, 27.6);
+      tl.to("#recov", { opacity: 1, borderColor: "#3f906d", duration: 0.35 }, 28.55);
+      tl.to("#rv-d", { opacity: 0, duration: 0.2 }, 28.55);
+      tl.fromTo("#rv-r", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 28.65);
+      tl.to("#recov", { y: 132, scale: 0.35, opacity: 0, duration: 0.7, ease: "power3.in" }, 29.5);
+      tl.to("#pipe", { filter: "brightness(1.2)", duration: 0.2, yoyo: true, repeat: 1 }, 30.15);
+      tl.to("#kpi-cam", { scale: 0.94, opacity: 0, duration: 0.45, ease: "power2.in", transformOrigin: "540px 480px" }, 30.9);
+
+      // ===== S9 · closing (31.0 – 36.5) =====
+      tl.fromTo("#s9-stage", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "none" }, 31.0);
+      words("#s9-h .wi", 31.2, 0.09, 0.8);
+      tl.fromTo("#left-stack", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5, ease: E.out }, 31.35);
+      tl.fromTo("#hub", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 31.55);
+      waveTween(hubBars, 31.6, 2.4, 0.9, 1.7);
+      tl.fromTo(".slabel", { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.25 }, 31.6);
+      tl.fromTo("#p1", { strokeDashoffset: 125, opacity: 0 }, { strokeDashoffset: 0, opacity: 1, duration: 0.6, ease: E.io }, 31.9);
+      tl.fromTo("#hop", { opacity: 0, x: 296, y: 523 }, { opacity: 1, duration: 0.2 }, 32.0);
+      tl.to("#hop", { x: 523, duration: 0.55, ease: "power2.inOut" }, 32.05);
+      tl.to("#hop", { opacity: 0, scale: 0.4, duration: 0.2 }, 32.5);
+      tl.fromTo("#p2", { strokeDashoffset: 125, opacity: 0 }, { strokeDashoffset: 0, opacity: 1, duration: 0.6, ease: E.io }, 32.55);
+      tl.fromTo("#right-stack .sc", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: E.out, stagger: 0.15 }, 32.75);
+      // reduce everything → brand lockup
+      tl.to("#s9-cam", { scale: 0.88, opacity: 0, duration: 0.5, ease: "power2.in", transformOrigin: "540px 520px" }, 33.8);
+      tl.fromTo("#lk-pow", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 34.2);
+      tl.fromTo("#lk-logo", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.7, ease: E.ex }, 34.3);
+      tl.fromTo("#lk-tag", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 34.55);
+      tl.fromTo("#lk-cta", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 34.75);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
