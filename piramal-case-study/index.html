@@ -1,0 +1,2319 @@
+<!doctype html>
+<html lang="en" data-resolution="square">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>Piramal Finance × DoubleTick AI Voice — Customer Story</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        src: url("assets/fonts/hedvig-letters-serif-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist-latin.woff2") format("woff2");
+        font-weight: 300 700;
+        font-style: normal;
+        font-display: block;
+      }
+      :root {
+        --canvas: #f6f3ec;
+        --surface: #ffffff;
+        --cream: #efe9dd;
+        --cream-2: #f7f3ea;
+        --line: #e6e0d5;
+        --line-2: #efeae1;
+        --ink: #121417;
+        --ink-2: #444a52;
+        --muted: #6a6f76;
+        --faint: #b7b2a8;
+        --green: #27b378;
+        --green-ink: #147a4f;
+        --green-pale: #e6f4ec;
+        --green-wash: #edf6ef;
+        --blue: #2a62c9;
+        --blue-pale: #e8effc;
+        --warm: #a8511a;
+        --warm-pale: #fcede0;
+        --piramal: #e84224;
+        --piramal-navy: #253746;
+        --serif: "Hedvig Letters Serif", Georgia, serif;
+        --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--canvas);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--canvas);
+        font-family: var(--sans);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+      }
+      #stage {
+        position: absolute;
+        inset: 0;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      .abs {
+        position: absolute;
+      }
+
+      /* ---------- shared type ---------- */
+      .serif {
+        font-family: var(--serif);
+        font-weight: 400;
+        letter-spacing: -0.018em;
+      }
+      .hl .line {
+        display: block;
+        overflow: hidden;
+        padding-bottom: 0.1em;
+        margin-bottom: -0.1em;
+      }
+      .hl .li {
+        display: block;
+        white-space: nowrap;
+      }
+      .eyebrow {
+        font-family: var(--sans);
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .ico {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        flex: none;
+      }
+      .ico svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* ---------- background ---------- */
+      #bg-grid {
+        background-image:
+          linear-gradient(to right, rgba(18, 20, 23, 0.035) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(18, 20, 23, 0.035) 1px, transparent 1px);
+        background-size: 108px 108px;
+        background-position: 55px 0;
+        -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 85%);
+        mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 85%);
+      }
+      #kpi-bg {
+        background: radial-gradient(ellipse 80% 70% at 50% 42%, #eef8f1 0%, #e5f2e9 70%, #e1efe5 100%);
+        clip-path: circle(0% at 50% 45%);
+      }
+
+      /* ---------- chrome ---------- */
+      #logo {
+        left: 52px;
+        top: 44px;
+        height: 28px;
+        width: auto;
+        display: block;
+      }
+      #sec {
+        top: 50px;
+        right: 56px;
+        height: 18px;
+        width: 360px;
+      }
+      #sec .s {
+        position: absolute;
+        right: 0;
+        top: 0;
+        white-space: nowrap;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #5c6168;
+      }
+      #sec .s b {
+        color: var(--green-ink);
+        font-weight: 600;
+        margin-right: 10px;
+      }
+
+      /* ---------- subtitles ---------- */
+      #subs {
+        left: 80px;
+        right: 80px;
+        bottom: 42px;
+        height: 84px;
+      }
+      #subs .sub {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+        font-family: var(--sans);
+        font-size: 30px;
+        line-height: 1.34;
+        font-weight: 500;
+        letter-spacing: -0.005em;
+        color: #1a1d21;
+      }
+
+      /* ---------- generic card bits ---------- */
+      .av {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 600;
+        color: #3d4148;
+        flex: none;
+      }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 26px;
+        padding: 0 10px;
+        border-radius: 999px;
+        font-size: 13.5px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .tag .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .t-pending {
+        background: var(--warm-pale);
+        color: var(--warm);
+      }
+      .t-calling {
+        background: var(--blue-pale);
+        color: var(--blue);
+      }
+      .t-done {
+        background: var(--green-pale);
+        color: var(--green-ink);
+      }
+      .t-queued {
+        background: #f0ede7;
+        color: #62676e;
+      }
+      .t-rm {
+        background: var(--warm-pale);
+        color: var(--warm);
+      }
+
+      /* ---------- SCENE 1 ---------- */
+      #s1-top {
+        left: 56px;
+        top: 116px;
+      }
+      #s1-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--green-ink);
+      }
+      #s1-eyebrow .bar {
+        width: 28px;
+        height: 2px;
+        background: var(--green);
+      }
+      #s1-logo-wrap {
+        margin-top: 18px;
+        height: 60px;
+        width: 140px;
+        overflow: hidden;
+      }
+      #s1-logo {
+        height: 60px;
+        width: auto;
+        display: block;
+      }
+      #s1-field {
+        -webkit-mask-image: linear-gradient(to bottom, transparent 200px, #000 330px, #000 560px, transparent 690px);
+        mask-image: linear-gradient(to bottom, transparent 200px, #000 330px, #000 560px, transparent 690px);
+      }
+      #s1-tilt {
+        left: 540px;
+        top: 445px;
+        width: 0;
+        height: 0;
+      }
+      #s1-grid {
+        position: absolute;
+        left: -890px;
+        top: -330px;
+        width: 1780px;
+        height: 660px;
+      }
+      .mc {
+        position: absolute;
+        width: 206px;
+        height: 72px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: 0 10px 24px -18px rgba(40, 32, 20, 0.35);
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 0 14px;
+      }
+      .mc .sk {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .mc .sk i {
+        display: block;
+        height: 8px;
+        border-radius: 4px;
+        background: #ece7de;
+      }
+      .mc .sk i + i {
+        width: 60%;
+        background: #f2eee7;
+      }
+      .mc .nm {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--ink);
+        white-space: nowrap;
+      }
+      .mc .uc {
+        font-size: 13px;
+        color: var(--muted);
+        white-space: nowrap;
+        margin-top: 2px;
+      }
+      .mc .st {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+      #s1-hl {
+        left: 56px;
+        top: 696px;
+        font-size: 76px;
+        line-height: 1.04;
+      }
+      #s1-hl .l2 {
+        color: var(--ink);
+      }
+      .mark {
+        position: relative;
+        display: inline-block;
+        isolation: isolate;
+      }
+      .mark .u {
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        bottom: 0.08em;
+        height: 0.16em;
+        background: rgba(232, 66, 36, 0.22);
+        border-radius: 2px;
+      }
+      .mark .tx {
+        position: relative;
+      }
+
+      /* ---------- CAMERA (scenes 2-5) ---------- */
+      #cam {
+        transform-origin: 540px 540px;
+      }
+
+      /* ---------- SCENE 2 ---------- */
+      #s2-hl {
+        left: 56px;
+        top: 118px;
+      }
+      #s2-hl .l1 {
+        font-size: 66px;
+        line-height: 1.05;
+        color: var(--ink-2);
+      }
+      #s2-hl .l2 {
+        font-size: 84px;
+        line-height: 1.05;
+        color: var(--ink);
+      }
+      .col-h {
+        position: absolute;
+        top: 338px;
+        width: 230px;
+        height: 34px;
+      }
+      .col-h .lb {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: var(--ink);
+      }
+      .col-h .rule {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 230px;
+        height: 2px;
+        background: var(--ink);
+        transform-origin: left center;
+      }
+      .col-h .base {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 230px;
+        height: 1px;
+        background: var(--line);
+      }
+      .cc {
+        position: absolute;
+        width: 230px;
+        height: 86px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: 0 12px 28px -20px rgba(40, 32, 20, 0.4);
+        padding: 14px 14px 0;
+      }
+      .cc .r1 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .cc .nm {
+        font-size: 17px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .cc .uc {
+        margin-top: 8px;
+        font-size: 15px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .cc .tags,
+      #hero .tags {
+        position: absolute;
+        right: 10px;
+        top: -13px;
+        height: 26px;
+        width: 120px;
+      }
+      .tags .tag {
+        position: absolute;
+        right: 0;
+        top: 0;
+        box-shadow: 0 0 0 3px var(--canvas);
+      }
+      .more {
+        position: absolute;
+        top: 780px;
+        width: 230px;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--warm);
+        letter-spacing: 0.02em;
+      }
+      #agent {
+        left: 700px;
+        top: 214px;
+        width: 324px;
+        height: 64px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        box-shadow: 0 14px 30px -22px rgba(40, 32, 20, 0.45);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px;
+      }
+      #agent .av {
+        width: 38px;
+        height: 38px;
+        background: #efe9dd;
+        color: var(--ink-2);
+        font-size: 19px;
+      }
+      #agent .t1 {
+        font-size: 17px;
+        font-weight: 600;
+      }
+      #agent .t2 {
+        font-size: 14px;
+        color: var(--muted);
+        margin-top: 1px;
+      }
+      #agent .ph {
+        margin-left: auto;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #f3efe8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--ink-2);
+        font-size: 17px;
+      }
+      #s2-svg {
+        overflow: visible;
+      }
+
+      /* ---------- SCENE 3 ---------- */
+      #s3-title {
+        left: 56px;
+        top: 118px;
+        font-size: 68px;
+        line-height: 1.05;
+      }
+      #s3-sub {
+        left: 58px;
+        top: 214px;
+        font-size: 22px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      #panel {
+        left: 56px;
+        top: 300px;
+        width: 968px;
+        height: 508px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 30px 60px -40px rgba(40, 32, 20, 0.45);
+        overflow: hidden;
+      }
+      #panel .ph {
+        height: 76px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 24px;
+        border-bottom: 1px solid var(--line-2);
+      }
+      #panel .ph .back {
+        font-size: 22px;
+        color: var(--ink-2);
+      }
+      #panel .ph .ttl {
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-right: 4px;
+      }
+      .chip-ai {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        height: 30px;
+        padding: 0 11px;
+        border-radius: 8px;
+        background: var(--green-pale);
+        color: var(--green-ink);
+        font-size: 13.5px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        border: 1px solid #c9e9d7;
+      }
+      .chip-active {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: 30px;
+        padding: 0 11px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ink-2);
+      }
+      .chip-active .pd {
+        position: relative;
+        width: 8px;
+        height: 8px;
+      }
+      .chip-active .pd i {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--green);
+      }
+      #panel .ph .meta {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 15px;
+        color: var(--ink-2);
+        font-weight: 500;
+      }
+      #panel .ph .meta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+      }
+      #panel .ph .meta img {
+        height: 18px;
+        width: auto;
+      }
+      #panel .ph .meta .sep {
+        width: 1px;
+        height: 20px;
+        background: var(--line);
+      }
+      #panel .tabs {
+        height: 56px;
+        display: flex;
+        align-items: stretch;
+        gap: 34px;
+        padding: 0 24px;
+        border-bottom: 1px solid var(--line-2);
+      }
+      #panel .tabs .tb {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 17px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      #panel .tabs .tb.on {
+        color: var(--ink);
+      }
+      #panel .tabs .tb.on::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 2px;
+        background: var(--green);
+      }
+      #panel .tabs .n {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: 6px;
+        background: #f1eee8;
+        color: var(--ink-2);
+      }
+      #panel .tabs .tb.on .n {
+        background: var(--green-pale);
+        color: var(--green-ink);
+      }
+      .grid5 {
+        display: grid;
+        grid-template-columns: 176px 238px 176px 190px 1fr;
+        align-items: center;
+      }
+      #panel .th {
+        height: 44px;
+        padding: 0 24px;
+        background: #faf8f3;
+        border-bottom: 1px solid var(--line-2);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+      }
+      #panel .tr {
+        height: 66px;
+        padding: 0 24px;
+        border-bottom: 1px solid var(--line-2);
+        font-size: 17px;
+        color: var(--ink-2);
+      }
+      #panel .tr .cn {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--ink);
+      }
+
+      /* ---------- HERO (shared element) ---------- */
+      #hero {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 230px;
+        height: 86px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: 0 12px 28px -20px rgba(40, 32, 20, 0.4);
+      }
+      #hero .hs {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        border-radius: inherit;
+      }
+      #hero .hs-card {
+        overflow: visible;
+      }
+      #hero .hs-card {
+        padding: 14px 14px 0;
+      }
+      #hero .hs-row {
+        padding: 0 17px;
+        height: 100%;
+        font-size: 17px;
+        color: var(--ink-2);
+        overflow: hidden;
+      }
+      #hero .hs-row .cn {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .stbox {
+        position: relative;
+        height: 28px;
+      }
+      .stbox .tag {
+        position: absolute;
+        left: 0;
+        top: 1px;
+      }
+      #hero .hs-call {
+        padding: 26px 30px;
+        overflow: hidden;
+      }
+      .call-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 15px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .call-top .live {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--green-ink);
+        font-weight: 600;
+      }
+      .call-top .live i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+      .call-mid {
+        position: relative;
+        margin-top: 22px;
+        height: 96px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .party {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .party .big {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: 600;
+      }
+      .party .n1 {
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .party .n2 {
+        font-size: 17px;
+        color: var(--muted);
+        margin-top: 3px;
+      }
+      .party.right {
+        text-align: right;
+      }
+      .agent-dot {
+        background: var(--green);
+        box-shadow: 0 0 0 6px var(--green-pale);
+      }
+      .agent-dot img {
+        width: 36px;
+        height: auto;
+        filter: brightness(0) invert(1);
+      }
+      #wave {
+        position: absolute;
+        left: 322px;
+        top: 24px;
+        width: 300px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      #wave i {
+        display: block;
+        width: 5px;
+        height: 48px;
+        border-radius: 3px;
+        background: var(--green);
+        transform-origin: center center;
+      }
+      .bubble {
+        margin-top: 22px;
+        background: var(--cream-2);
+        border: 1px solid var(--line-2);
+        border-radius: 16px;
+        padding: 16px 22px 18px;
+      }
+      .bubble .lbl {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+      }
+      .bubble .q {
+        margin-top: 6px;
+        font-size: 23px;
+        font-weight: 500;
+        color: var(--ink);
+        letter-spacing: -0.01em;
+      }
+      #hero .hs-mini {
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      #hero .hs-mini .av {
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+      }
+      #hero .hs-mini .n1 {
+        font-size: 19px;
+        font-weight: 600;
+      }
+      #hero .hs-mini .n2 {
+        font-size: 15px;
+        color: var(--muted);
+        margin-top: 3px;
+      }
+
+      /* ---------- SCENE 4 ---------- */
+      #steps {
+        left: 56px;
+        top: 118px;
+        font-size: 58px;
+        line-height: 1.05;
+        display: flex;
+        gap: 26px;
+        white-space: nowrap;
+      }
+      #steps .w {
+        display: block;
+        overflow: hidden;
+        padding-bottom: 0.1em;
+      }
+      #steps .w span {
+        display: block;
+      }
+      .ichip {
+        position: absolute;
+        top: 662px;
+        width: 312px;
+        height: 84px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        box-shadow: 0 16px 30px -24px rgba(40, 32, 20, 0.45);
+        padding: 15px 20px;
+      }
+      .ichip .k {
+        font-size: 13.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+      }
+      .ichip .v {
+        margin-top: 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 23px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .ichip .v i {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      /* ---------- SCENE 5 ---------- */
+      #s5-hl {
+        left: 56px;
+        top: 118px;
+        font-size: 68px;
+        line-height: 1.05;
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        white-space: nowrap;
+      }
+      #s5-hl .arr {
+        width: 64px;
+        height: 64px;
+        color: var(--warm);
+      }
+      #s5-res {
+        left: 548px;
+        top: 330px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 19px;
+        font-weight: 600;
+        color: var(--green-ink);
+      }
+      #s5-res .ck {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--green-pale);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+      }
+      #s5-res .sm {
+        font-weight: 500;
+        color: var(--muted);
+        font-size: 16px;
+      }
+      #exc {
+        left: 56px;
+        top: 460px;
+        width: 440px;
+        height: 198px;
+        background: var(--surface);
+        border: 1px solid #efd7c3;
+        border-radius: 18px;
+        box-shadow: 0 24px 44px -30px rgba(120, 60, 20, 0.45);
+        padding: 22px;
+      }
+      #exc .r1 {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      #exc .av {
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+      }
+      #exc .n1 {
+        font-size: 19px;
+        font-weight: 600;
+      }
+      #exc .n2 {
+        font-size: 15px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      #exc .q {
+        margin-top: 16px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        background: #fbf4ec;
+        font-size: 19px;
+        font-weight: 500;
+        line-height: 1.3;
+        color: var(--ink);
+      }
+      #exc-tag {
+        left: 250px;
+        top: 446px;
+        height: 28px;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        box-shadow: 0 0 0 3px var(--canvas);
+      }
+      #rm {
+        left: 616px;
+        top: 432px;
+        width: 408px;
+        height: 254px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 24px 44px -30px rgba(40, 32, 20, 0.5);
+        overflow: hidden;
+      }
+      #rm .hd {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 22px 22px 16px;
+        border-bottom: 1px solid var(--line-2);
+      }
+      #rm .hd .av {
+        width: 52px;
+        height: 52px;
+        font-size: 18px;
+        background: #f6e3cf;
+        color: #8a4a1a;
+      }
+      #rm .n1 {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      #rm .n2 {
+        font-size: 16px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      #rm .rows {
+        padding: 14px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 17px;
+        font-weight: 500;
+        color: var(--ink-2);
+      }
+      #rm .rows div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      #rm .rows .d {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--warm);
+        margin: 0 3px;
+      }
+      #rm .rows .ico {
+        color: var(--green-ink);
+        font-size: 15px;
+      }
+      #rm-foot {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 52px;
+        background: var(--green-pale);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 22px;
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--green-ink);
+      }
+      #rm-foot .ck {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--green);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+      }
+      #rm-tags {
+        left: 616px;
+        top: 704px;
+        width: 408px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      #rm-tags span {
+        height: 36px;
+        padding: 0 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        display: inline-flex;
+        align-items: center;
+        font-size: 15.5px;
+        font-weight: 500;
+        color: var(--ink-2);
+      }
+      #ghost {
+        left: 330px;
+        top: 538px;
+        height: 40px;
+        padding: 0 14px 0 6px;
+        border-radius: 999px;
+        background: var(--surface);
+        border: 1px solid #efd7c3;
+        box-shadow: 0 12px 24px -14px rgba(120, 60, 20, 0.5);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      #ghost .av {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+      }
+
+      /* ---------- KPI ---------- */
+      #k-eyebrow {
+        left: 0;
+        right: 0;
+        top: 226px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        color: var(--green-ink);
+      }
+      #k-eyebrow .bar {
+        width: 36px;
+        height: 1.5px;
+        background: var(--green);
+        opacity: 0.6;
+      }
+      #k-mask {
+        left: 0;
+        right: 0;
+        top: 292px;
+        height: 270px;
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
+      }
+      .knum {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 270px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--serif);
+        font-size: 236px;
+        letter-spacing: -0.035em;
+        color: var(--ink);
+        overflow: hidden;
+      }
+      .knum .dg {
+        position: relative;
+        display: block;
+        height: 270px;
+      }
+      .knum .strip {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+      }
+      .knum .strip div {
+        height: 270px;
+        line-height: 270px;
+        display: flex;
+        justify-content: center;
+      }
+      .knum .st {
+        display: block;
+        line-height: 270px;
+      }
+      .knum .sfx {
+        display: block;
+        line-height: 270px;
+        color: #1f9763;
+      }
+      .klabel {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 584px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        line-height: 1.45;
+        color: var(--ink-2);
+      }
+      #rings {
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1080px;
+      }
+      #funnel {
+        left: 0;
+        right: 0;
+        top: 716px;
+        height: 60px;
+      }
+      #funnel .fc {
+        position: absolute;
+        top: 8px;
+        width: 128px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 12px;
+      }
+      #funnel .fc .av {
+        width: 22px;
+        height: 22px;
+      }
+      #funnel .fc i {
+        display: block;
+        flex: 1;
+        height: 7px;
+        border-radius: 4px;
+        background: #e9e4db;
+      }
+      #funnel-done {
+        position: absolute;
+        left: 430px;
+        top: 0;
+        width: 220px;
+        height: 60px;
+        border-radius: 16px;
+        background: var(--green);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 21px;
+        font-weight: 600;
+        box-shadow: 0 16px 30px -18px rgba(23, 138, 89, 0.7);
+      }
+      #prog {
+        left: 190px;
+        top: 732px;
+        width: 700px;
+        height: 60px;
+      }
+      #prog .track {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 700px;
+        height: 6px;
+        border-radius: 3px;
+        background: rgba(23, 138, 89, 0.14);
+      }
+      #prog .fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 700px;
+        height: 6px;
+        border-radius: 3px;
+        background: var(--green);
+        transform-origin: left center;
+      }
+      #prog .knob {
+        position: absolute;
+        left: 355px;
+        top: -7px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #fff;
+        border: 5px solid var(--green);
+      }
+      #prog .ends {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 22px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+
+      /* ---------- SCENE 9 ---------- */
+      #s9-hl {
+        left: 56px;
+        top: 118px;
+        font-size: 64px;
+        line-height: 1.06;
+      }
+      #s9-hl .em {
+        color: var(--green-ink);
+      }
+      .mess {
+        position: absolute;
+        width: 250px;
+        height: 72px;
+        border-radius: 14px;
+        background: #f1ede5;
+        border: 1px dashed #d8d1c4;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 0 14px;
+      }
+      .mess .av {
+        background: #e4ded2;
+      }
+      .mess .sk {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .mess .sk i {
+        display: block;
+        height: 8px;
+        border-radius: 4px;
+        background: #e1dace;
+      }
+      .mess .sk i + i {
+        width: 55%;
+      }
+      .mess .q {
+        font-size: 14px;
+        font-weight: 600;
+        color: #736d64;
+      }
+      .org {
+        position: absolute;
+        left: 612px;
+        width: 412px;
+        height: 72px;
+        border-radius: 14px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: 0 14px 28px -22px rgba(40, 32, 20, 0.45);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px;
+      }
+      .org .nm {
+        font-size: 17px;
+        font-weight: 600;
+      }
+      .org .tag {
+        margin-left: auto;
+        height: 30px;
+        font-size: 14.5px;
+      }
+      .s9-lbl {
+        position: absolute;
+        top: 770px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+      }
+      #beam {
+        left: 539px;
+        top: 360px;
+        width: 2px;
+        height: 400px;
+        background: linear-gradient(to bottom, transparent, var(--green) 20%, var(--green) 80%, transparent);
+        transform-origin: center top;
+      }
+      #node {
+        left: 508px;
+        top: 528px;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 0 8px rgba(39, 179, 120, 0.16);
+      }
+      #node img {
+        width: 36px;
+        height: auto;
+        filter: brightness(0) invert(1);
+      }
+      #ripple {
+        left: 440px;
+        top: 460px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 2px solid var(--green);
+      }
+      #end-eyebrow {
+        left: 56px;
+        top: 296px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      #end-eyebrow img {
+        height: 22px;
+        width: auto;
+      }
+      #end-rule {
+        left: 56px;
+        top: 612px;
+        width: 968px;
+        height: 1px;
+        background: var(--line);
+        transform-origin: left center;
+      }
+      #end-lock {
+        left: 56px;
+        top: 652px;
+        width: 968px;
+        height: 120px;
+      }
+      #end-lock .lg {
+        position: absolute;
+        left: 0;
+        top: 6px;
+        height: 46px;
+        width: auto;
+      }
+      #end-lock .ds {
+        position: absolute;
+        left: 2px;
+        top: 74px;
+        font-size: 21px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      #end-lock .cta {
+        position: absolute;
+        right: 0;
+        top: 10px;
+        height: 60px;
+        padding: 0 28px;
+        border-radius: 999px;
+        background: var(--green);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        box-shadow: 0 16px 30px -18px rgba(23, 138, 89, 0.75);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="46"
+      data-width="1080"
+      data-height="1080"
+    >
+      <div id="stage" class="clip" data-start="0" data-duration="46" data-track-index="0">
+        <div id="bg-grid" class="layer"></div>
+        <div id="kpi-bg" class="layer"></div>
+
+        <!-- SCENE 1 — hook -->
+        <div id="s1" class="layer">
+          <div id="s1-field" class="layer">
+            <div id="s1-tilt" class="abs"><div id="s1-grid"></div></div>
+          </div>
+          <div id="s1-top" class="abs">
+            <div id="s1-eyebrow" class="eyebrow"><span class="bar"></span><span>Customer story · Piramal Finance</span></div>
+            <div id="s1-logo-wrap"><img id="s1-logo" src="assets/img/piramal-logo.png" alt="Piramal" /></div>
+          </div>
+          <div id="s1-hl" class="abs serif hl">
+            <span class="line"><span class="li">Thousands of follow-ups.</span></span>
+            <span class="line"><span class="li l2">One growing <span class="mark"><span class="u"></span><span class="tx">bottleneck.</span></span></span></span>
+          </div>
+        </div>
+
+        <!-- CAMERA: scenes 2–5 share one space so the hero card can travel -->
+        <div id="cam" class="layer">
+          <!-- SCENE 2 — manual follow-up problem -->
+          <div id="s2" class="layer">
+            <div id="s2-hl" class="abs serif hl">
+              <span class="line"><span class="li l1">Manual follow-ups</span></span>
+              <span class="line"><span class="li l2">couldn’t scale.</span></span>
+            </div>
+            <div id="s2-cols" class="layer"></div>
+            <svg id="s2-svg" class="layer" width="1080" height="1080" viewBox="0 0 1080 1080">
+              <line id="s2-line" x1="862" y1="278" x2="862" y2="278" stroke="#2f6bd8" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round" />
+              <circle id="s2-end" cx="862" cy="278" r="6" fill="#2f6bd8" />
+            </svg>
+            <div id="agent" class="abs">
+              <div class="av"><span class="ico" data-ico="user"></span></div>
+              <div>
+                <div class="t1">Manual calling</div>
+                <div class="t2">One customer at a time</div>
+              </div>
+              <div class="ph"><span class="ico" data-ico="phone"></span></div>
+            </div>
+          </div>
+
+          <!-- SCENE 3 — campaign UI -->
+          <div id="s3" class="layer">
+            <div id="panel" class="abs">
+              <div class="ph">
+                <span class="back ico" data-ico="back"></span>
+                <span class="ttl">Piramal Loan Follow-up</span>
+                <span class="chip-ai"><span class="ico" data-ico="wave"></span>AI VOICE</span>
+                <span class="chip-active"><span class="pd"><i class="ring"></i><i></i></span>Active</span>
+                <div class="meta">
+                  <span><img src="assets/img/piramal-mark.png" alt="" />Piramal Finance</span>
+                  <i class="sep"></i>
+                  <span><span class="ico" data-ico="parallel"></span>25 parallel</span>
+                </div>
+              </div>
+              <div class="tabs">
+                <div class="tb on">Calling <span class="n">24</span></div>
+                <div class="tb">Queued <span class="n">184</span></div>
+                <div class="tb">Completed <span class="n">612</span></div>
+              </div>
+              <div class="th grid5"><div>STATUS</div><div>CUSTOMER</div><div>USE CASE</div><div>INTENT</div><div>DURATION</div></div>
+              <div id="rows"></div>
+            </div>
+          </div>
+
+          <!-- SCENE 5 — handoff (lives in camera space) -->
+          <div id="s5" class="layer">
+            <svg id="s5-svg" class="layer" width="1080" height="1080" viewBox="0 0 1080 1080">
+              <line id="res-line" x1="484" y1="348" x2="536" y2="348" stroke="#9fd6bb" stroke-width="2" stroke-dasharray="4 6" />
+              <path id="rm-path" d="M 504 559 L 600 559" fill="none" stroke="#c9621c" stroke-width="2.5" stroke-linecap="round" />
+              <path id="rm-head" d="M 590 551 L 601 559 L 590 567" fill="none" stroke="#c9621c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div id="s5-res" class="abs">
+              <span class="ck"><span class="ico" data-ico="check"></span></span>Resolved by AI<span class="sm">· no human needed</span>
+            </div>
+            <div id="exc" class="abs">
+              <div class="r1">
+                <div class="av" style="background: #f3e1e8">AS</div>
+                <div>
+                  <div class="n1">Aditi Shah</div>
+                  <div class="n2">Payment follow-up</div>
+                </div>
+              </div>
+              <div class="q">“Needs repayment restructuring guidance.”</div>
+            </div>
+            <div id="exc-tag" class="abs tag t-rm"><span class="dot"></span>NEEDS HUMAN SUPPORT</div>
+            <div id="rm" class="abs">
+              <div class="hd">
+                <div class="av">KI</div>
+                <div>
+                  <div class="n1">Kavya Iyer</div>
+                  <div class="n2">Relationship Manager</div>
+                </div>
+              </div>
+              <div class="rows">
+                <div><i class="d"></i>Priority case</div>
+                <div><span class="ico" data-ico="check"></span>Customer context ready</div>
+              </div>
+              <div id="rm-foot"><span class="ck"><span class="ico" data-ico="check"></span></span>Assigned to RM</div>
+            </div>
+            <div id="rm-tags" class="abs"><span>Payment issue</span><span>High priority</span><span>Conversation summary</span></div>
+            <div id="ghost" class="abs"><div class="av" style="background: #f3e1e8">AS</div>Aditi Shah</div>
+          </div>
+
+          <!-- HERO: pending card → campaign row → AI call → resolved card -->
+          <div id="hero">
+            <div class="hs hs-card">
+              <div class="r1" style="display: flex; align-items: center; gap: 10px">
+                <div class="av" style="background: #f8e3d2">RM</div>
+                <div style="font-size: 17px; font-weight: 600; white-space: nowrap">Rohan Mehta</div>
+              </div>
+              <div style="margin-top: 8px; font-size: 15px; color: var(--muted); white-space: nowrap">Pending income proof</div>
+              <div class="tags">
+                <span class="tag t-pending" data-k="pending"><span class="dot"></span>Pending</span>
+              </div>
+            </div>
+            <div class="hs hs-row grid5">
+              <div class="stbox">
+                <span class="tag t-calling" data-k="calling"><span class="dot"></span>Calling…</span>
+                <span class="tag t-done" data-k="connected"><span class="dot"></span>Connected</span>
+              </div>
+              <div class="cn">Rohan Mehta</div>
+              <div>Documents</div>
+              <div style="color: var(--faint)">—</div>
+              <div style="color: var(--faint)">—</div>
+            </div>
+            <div class="hs hs-call">
+              <div class="call-top">
+                <span class="live"><i></i>Connected · Live call</span>
+                <span>Piramal Loan Follow-up</span>
+              </div>
+              <div class="call-mid">
+                <div class="party">
+                  <div class="big" style="background: #f8e3d2; color: #7a4a26">RM</div>
+                  <div>
+                    <div class="n1">Rohan Mehta</div>
+                    <div class="n2">Document follow-up</div>
+                  </div>
+                </div>
+                <div id="wave"></div>
+                <div class="party right">
+                  <div>
+                    <div class="n1">AI Voice Agent</div>
+                    <div class="n2">DoubleTick</div>
+                  </div>
+                  <div class="big agent-dot"><img src="assets/img/doubletick-mark.png" alt="" /></div>
+                </div>
+              </div>
+              <div class="bubble">
+                <div class="lbl">CUSTOMER · LIVE TRANSCRIPT</div>
+                <div class="q">“I still need to submit my income documents.”</div>
+              </div>
+            </div>
+            <div class="hs hs-mini">
+              <div class="av" style="background: #f8e3d2">RM</div>
+              <div>
+                <div class="n1">Rohan Mehta</div>
+                <div class="n2">Will submit · Callback tomorrow</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCENE 3/4 overlays (outside camera so they stay put during push-ins) -->
+        <div id="s3-title" class="abs serif hl"><span class="line"><span class="li">DoubleTick AI Voice</span></span></div>
+        <div id="s3-sub" class="abs">Automated outreach at scale</div>
+        <div id="steps" class="abs serif">
+          <span class="w"><span>Reach.</span></span>
+          <span class="w"><span>Understand.</span></span>
+          <span class="w"><span>Capture intent.</span></span>
+        </div>
+        <div id="ichips" class="layer">
+          <div class="ichip" style="left: 56px"><div class="k">DOCUMENT</div><div class="v"><i style="background: var(--warm)"></i>Pending</div></div>
+          <div class="ichip" style="left: 384px"><div class="k">INTENT</div><div class="v"><i style="background: var(--green)"></i>Will submit</div></div>
+          <div class="ichip" style="left: 712px"><div class="k">CALLBACK</div><div class="v"><i style="background: var(--blue)"></i>Tomorrow</div></div>
+        </div>
+        <div id="s5-hl" class="abs serif">
+          <span class="w1">Complex cases</span>
+          <span class="arr ico" data-ico="arrowR"></span>
+          <span class="w2">RM</span>
+        </div>
+
+        <!-- KPI SCENES 6–8 -->
+        <div id="kpi" class="layer">
+          <svg id="rings" class="abs" viewBox="0 0 1080 1080">
+            <circle class="rg" cx="540" cy="427" r="200" fill="none" stroke="#27b378" stroke-width="1.5" />
+            <circle class="rg" cx="540" cy="427" r="200" fill="none" stroke="#27b378" stroke-width="1.5" />
+            <circle class="rg" cx="540" cy="427" r="200" fill="none" stroke="#27b378" stroke-width="1.5" />
+            <circle class="rg" cx="540" cy="427" r="200" fill="none" stroke="#27b378" stroke-width="1.5" />
+          </svg>
+          <div id="k-eyebrow" class="abs eyebrow"><span class="bar"></span><span>At scale</span><span class="bar"></span></div>
+          <div id="k-mask" class="abs">
+            <div id="n1" class="knum"></div>
+            <div id="n2" class="knum"></div>
+            <div id="n3" class="knum"></div>
+          </div>
+          <div id="l1" class="klabel">CALLS ATTEMPTED</div>
+          <div id="l2" class="klabel">COMPLETED CUSTOMER<br />CONVERSATIONS</div>
+          <div id="l3" class="klabel">DOCUMENT FOLLOW-UP<br />CONNECT RATE</div>
+          <div id="funnel" class="abs">
+            <div id="funnel-done"><span class="ico" data-ico="check"></span>Completed</div>
+          </div>
+          <div id="prog" class="abs">
+            <div class="track"></div>
+            <div class="fill"></div>
+            <div class="knob"></div>
+            <div class="ends"><span>0%</span><span>100%</span></div>
+          </div>
+        </div>
+
+        <!-- SCENE 9 — transformation + end frame -->
+        <div id="s9" class="layer">
+          <div id="s9-hl" class="abs serif hl">
+            <span class="line"><span class="li l1">From manual follow-ups</span></span>
+            <span class="line"><span class="li l2">to <span class="em">intelligent conversations.</span></span></span>
+          </div>
+          <div id="s9-cmp" class="layer">
+            <div id="s9-left" class="layer"></div>
+            <div id="s9-right" class="layer"></div>
+            <div class="s9-lbl" id="lbl-man" style="left: 56px; color: var(--muted)">MANUAL FOLLOW-UPS</div>
+            <div class="s9-lbl" id="lbl-int" style="left: 612px; color: var(--green-ink)">INTELLIGENT CONVERSATIONS</div>
+            <div id="beam" class="abs"></div>
+            <div id="ripple" class="abs"></div>
+            <div id="node" class="abs"><img src="assets/img/doubletick-mark.png" alt="" /></div>
+          </div>
+          <div id="end-eyebrow" class="abs eyebrow"><img src="assets/img/piramal-mark.png" alt="" /><span>Customer story · Piramal Finance</span></div>
+          <div id="end-rule" class="abs"></div>
+          <div id="end-lock" class="abs">
+            <img class="lg" src="assets/img/doubletick-logo.png" alt="DoubleTick" />
+            <div class="ds">Powered by DoubleTick · AI Voice for enterprise teams</div>
+            <div class="cta">Book a demo<span class="ico" data-ico="arrowR"></span></div>
+          </div>
+        </div>
+
+        <!-- CHROME -->
+        <img id="logo" class="abs" src="assets/img/doubletick-logo.png" alt="DoubleTick" />
+        <div id="sec" class="abs">
+          <div class="s" id="sec1"><b>01</b>The challenge</div>
+          <div class="s" id="sec2"><b>02</b>The solution</div>
+          <div class="s" id="sec3"><b>03</b>The impact</div>
+        </div>
+        <div id="subs" class="abs"></div>
+      </div>
+
+      <audio id="vo" class="clip" src="assets/audio/voiceover.wav" data-start="0" data-duration="44.43" data-track-index="10" data-volume="1.23"></audio>
+      <audio id="music" class="clip" src="assets/audio/music.wav" data-start="0" data-duration="46" data-track-index="11" data-volume="1.23"></audio>
+      <audio id="sfx" class="clip" src="assets/audio/sfx.wav" data-start="0" data-duration="46" data-track-index="12" data-volume="1.23"></audio>
+    </div>
+
+    <script>
+      (function () {
+        const $ = (s, r) => (r || document).querySelector(s);
+        const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+        const mk = (tag, cls, html) => {
+          const e = document.createElement(tag);
+          if (cls) e.className = cls;
+          if (html != null) e.innerHTML = html;
+          return e;
+        };
+
+        // ---------- icons ----------
+        const SV = (p, w) =>
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' +
+          (w || 2) +
+          '" stroke-linecap="round" stroke-linejoin="round">' +
+          p +
+          "</svg>";
+        const ICON = {
+          check: SV('<path d="M5 12.5l4.2 4.2L19 7"/>', 2.8),
+          phone: SV(
+            '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>'
+          ),
+          back: SV('<path d="M19 12H5M11 18l-6-6 6-6"/>'),
+          parallel: SV('<path d="M4 8h15l-3.5-3.5M20 16H5l3.5 3.5"/>'),
+          user: SV('<circle cx="12" cy="8" r="4"/><path d="M4 21c1.6-4 4.6-6 8-6s6.4 2 8 6"/>'),
+          wave: SV('<path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4"/>', 2.4),
+          arrowR: SV('<path d="M4 12h16M14 6l6 6-6 6"/>', 2.2),
+        };
+        $$("[data-ico]").forEach((e) => (e.innerHTML = ICON[e.dataset.ico]));
+
+        const AVC = ["#f8e3d2", "#e3eefc", "#e6f4ec", "#f3e1e8", "#efe9dd", "#e9e3f6", "#fdf0cf", "#dff2f2"];
+
+        // ---------- SCENE 1: card field ----------
+        const COLS = 8,
+          ROWS = 7,
+          CW = 206,
+          CH = 72,
+          GX = 18,
+          GY = 16;
+        const grid = $("#s1-grid");
+        const rich = [
+          ["Rohan Mehta", "Income proof pending"],
+          ["Aditi Shah", "EMI due this week"],
+          ["Arjun Nair", "Application incomplete"],
+          ["Simran Rao", "Partner follow-up"],
+          ["Neha Kapoor", "KYC re-upload"],
+        ];
+        const cells = [];
+        for (let r = 0; r < ROWS; r++)
+          for (let c = 0; c < COLS; c++) {
+            const off = r % 2 ? 60 : 0;
+            const x = c * (CW + GX) + off - 30;
+            const y = r * (CH + GY);
+            const dx = x + CW / 2 - 890,
+              dy = y + CH / 2 - 330;
+            cells.push({ x, y, d: Math.hypot(dx, dy * 1.6) + ((c * 37 + r * 91) % 23) });
+          }
+        cells.sort((a, b) => a.d - b.d);
+        const stColors = ["#f0b58a", "#c9c3b8", "#9ccfb5", "#c9c3b8", "#f0b58a", "#a8c1ef"];
+        cells.forEach((cell, i) => {
+          const card = mk("div", "mc");
+          card.style.left = cell.x + "px";
+          card.style.top = cell.y + "px";
+          const av = '<div class="av" style="background:' + AVC[i % AVC.length] + '"></div>';
+          if (i < rich.length) {
+            const ini = rich[i][0].split(" ").map((s) => s[0]).join("");
+            card.innerHTML =
+              '<div class="av" style="background:' + AVC[i % AVC.length] + '">' + ini + "</div>" +
+              '<div><div class="nm">' + rich[i][0] + '</div><div class="uc">' + rich[i][1] + "</div></div>";
+          } else {
+            card.innerHTML = av + '<div class="sk"><i></i><i></i></div>';
+          }
+          const st = mk("i", "st");
+          st.style.background = stColors[i % stColors.length];
+          card.appendChild(st);
+          grid.appendChild(card);
+          cell.el = card;
+        });
+
+        // ---------- SCENE 2: columns ----------
+        const colX = [56, 302, 548, 794];
+        const slotY = [388, 486, 584, 682];
+        const COLS2 = [
+          { label: "DOCUMENTS", cards: [null, ["Neha Kapoor", "KYC re-upload"], ["Farhan Ali", "Bank statement due"], ["Isha Verma", "Address proof"]] },
+          { label: "PAYMENTS", cards: [["Karan Iyer", "EMI follow-up"], ["Meera Pillai", "Missed payment"], ["Rahul Bose", "Bounce charge query"], ["Tara Singh", "Part-payment"]] },
+          { label: "DROP-OFFS", cards: [["Pooja Menon", "Application incomplete"], ["Vivek Rao", "Left at e-sign"], ["Ananya Das", "Offer not accepted"], ["Sahil Jain", "Docs step dropped"]] },
+          { label: "PARTNERS", cards: [["Dev Malhotra", "Programme follow-up"], ["Nisha Gupta", "Lead status update"], ["Amit Khanna", "Payout query"], ["Riya Sethi", "Onboarding pending"]] },
+        ];
+        const colsWrap = $("#s2-cols");
+        const S2 = { heads: [], cards: [], more: [] };
+        COLS2.forEach((col, ci) => {
+          const h = mk("div", "col-h", '<div class="lb">' + col.label + '</div><i class="base"></i><i class="rule"></i>');
+          h.style.left = colX[ci] + "px";
+          colsWrap.appendChild(h);
+          S2.heads.push(h);
+          S2.cards.push([]);
+          col.cards.forEach((cd, si) => {
+            if (!cd) {
+              S2.cards[ci].push(null);
+              return;
+            }
+            const ini = cd[0].split(" ").map((s) => s[0]).join("");
+            const c = mk(
+              "div",
+              "cc",
+              '<div class="r1"><div class="av" style="background:' + AVC[(ci * 3 + si) % AVC.length] + '">' + ini +
+                '</div><div class="nm">' + cd[0] + '</div></div><div class="uc">' + cd[1] + "</div>" +
+                '<div class="tags">' +
+                '<span class="tag t-pending" data-k="pending"><span class="dot"></span>Pending</span>' +
+                '<span class="tag t-calling" data-k="calling"><span class="dot"></span>Calling…</span>' +
+                '<span class="tag t-done" data-k="done"><span class="dot"></span>Done</span>' +
+                "</div>"
+            );
+            c.style.left = colX[ci] + "px";
+            c.style.top = slotY[si] + "px";
+            colsWrap.appendChild(c);
+            S2.cards[ci].push(c);
+          });
+          const more = mk("div", "more", ["+ 1,240 waiting", "+ 860 waiting", "+ 1,020 waiting", "+ 410 waiting"][ci]);
+          more.style.left = colX[ci] + "px";
+          colsWrap.appendChild(more);
+          S2.more.push(more);
+        });
+
+        // ---------- SCENE 3: table rows ----------
+        const ROWDATA = [
+          null,
+          ["done", "Completed", "Aditi Shah", "Payment", "Resolved", "52s"],
+          ["done", "Completed", "Arjun Nair", "Drop-off", "Interested", "1m 06s"],
+          ["calling", "Calling…", "Simran Rao", "Partner", "—", "—"],
+          ["queued", "Queued", "Vikram Joshi", "Payment", "—", "—"],
+        ];
+        const rowsWrap = $("#rows");
+        const ROWS3 = [];
+        ROWDATA.forEach((rd) => {
+          const r = mk("div", "tr grid5");
+          if (rd) {
+            const dim = rd[4] === "—" ? ' style="color:var(--faint)"' : "";
+            r.innerHTML =
+              '<div class="stbox"><span class="tag t-' + rd[0] + '"><span class="dot"></span>' + rd[1] + "</span>" +
+              (rd[2] === "Vikram Joshi" ? '<span class="tag t-calling" data-k="calling"><span class="dot"></span>Calling…</span>' : "") +
+              '</div><div class="cn">' + rd[2] + "</div><div>" + rd[3] + "</div><div" + dim + ">" + rd[4] + "</div><div" + dim + ">" + rd[5] + "</div>";
+          }
+          rowsWrap.appendChild(r);
+          ROWS3.push(r);
+        });
+
+        // ---------- SCENE 4: waveform ----------
+        const wave = $("#wave");
+        const BARS = 24;
+        for (let i = 0; i < BARS; i++) wave.appendChild(mk("i"));
+
+        // ---------- SCENE 9: messy vs organized ----------
+        const MESS = [
+          [70, 368, -7, "No answer"],
+          [210, 452, 5, "Callback?"],
+          [60, 548, 3, "Pending"],
+          [218, 628, -5, "Missed"],
+          [96, 688, 8, ""],
+        ];
+        MESS.forEach((m, i) => {
+          const c = mk("div", "mess", '<div class="av"></div><div class="sk"><i></i><i></i></div>' + (m[3] ? '<div class="q">' + m[3] + "</div>" : ""));
+          c.style.left = m[0] + "px";
+          c.style.top = m[1] + "px";
+          $("#s9-left").appendChild(c);
+        });
+        const ORG = [
+          ["Rohan Mehta", "t-done", "Connected", "#f8e3d2"],
+          ["Aditi Shah", "t-rm", "RM assigned", "#f3e1e8"],
+          ["Arjun Nair", "t-done", "Completed", "#e3eefc"],
+          ["Simran Rao", "t-calling", "Resolved", "#e6f4ec"],
+        ];
+        ORG.forEach((o, i) => {
+          const ini = o[0].split(" ").map((s) => s[0]).join("");
+          const c = mk(
+            "div",
+            "org",
+            '<div class="av" style="width:38px;height:38px;font-size:14px;background:' + o[3] + '">' + ini + '</div><div class="nm">' + o[0] +
+              '</div><span class="tag ' + o[1] + '"><span class="dot"></span>' + o[2] + "</span>"
+          );
+          c.style.top = 372 + i * 88 + "px";
+          $("#s9-right").appendChild(c);
+        });
+
+        // ---------- KPI odometers ----------
+        const DW = { 0: 0.6, 1: 0.357, 2: 0.502, 3: 0.503, 4: 0.552, 5: 0.505, 6: 0.54, 7: 0.472, 8: 0.538, 9: 0.542 };
+        const LH = 270;
+        function odometer(host, spec) {
+          // spec: array of digits (numbers) or static strings
+          const strips = [];
+          spec.forEach((s) => {
+            if (typeof s === "number") {
+              const dg = mk("span", "dg");
+              dg.style.width = DW[s] * 0.965 + "em";
+              const strip = mk("div", "strip");
+              for (let k = 0; k < 20; k++) strip.appendChild(mk("div", null, String(k % 10)));
+              dg.appendChild(strip);
+              host.appendChild(dg);
+              strips.push({ strip, target: s });
+            } else {
+              host.appendChild(mk("span", s === "+" || s === "%" ? "sfx" : "st", s));
+            }
+          });
+          return strips;
+        }
+        const OD1 = odometer($("#n1"), [5, ",", 7, 0, 4, "+"]);
+        const OD2 = odometer($("#n2"), [1, ",", 3, 4, 3]);
+        const OD3 = odometer($("#n3"), [5, 1, ".", 6, "%"]);
+        const sfx1 = $("#n1 .sfx"),
+          sfx3 = $("#n3 .sfx");
+
+        // funnel mini cards
+        const fun = $("#funnel");
+        const FX = [120, 262, 404, 548, 690, 832];
+        FX.forEach((x, i) => {
+          const c = mk("div", "fc", '<div class="av" style="background:' + AVC[i] + '"></div><i></i>');
+          c.style.left = x + "px";
+          fun.insertBefore(c, $("#funnel-done"));
+        });
+
+        // ---------- subtitles ----------
+        const SUBS = [
+          [0.1, 3.02, "Piramal Finance was managing thousands of conversations"],
+          [3.02, 4.75, "across the loan lifecycle."],
+          [4.95, 7.66, "But manually following up on pending documents,"],
+          [7.66, 11.2, "payments, dropped applications and channel partners"],
+          [11.26, 13.6, "was difficult to scale consistently."],
+          [13.88, 17.05, "So they deployed DoubleTick AI Voice."],
+          [17.15, 19.5, "AI automatically reached customers,"],
+          [19.5, 22.2, "understood their requirements, captured intent"],
+          [22.2, 25.78, "and escalated complex conversations to the right RM."],
+          [25.88, 27.76, "At scale, this delivered:"],
+          [27.76, 31.12, "5,704+ calls attempted,"],
+          [31.18, 35.3, "1,343 completed customer conversations,"],
+          [35.4, 39.1, "and a 51.6% document follow-up connect rate."],
+          [39.22, 43.3, "From manual follow-ups to intelligent, scalable conversations."],
+        ];
+        const subsWrap = $("#subs");
+        const SUBEL = SUBS.map((s) => {
+          const e = mk("div", "sub", s[2]);
+          subsWrap.appendChild(e);
+          return e;
+        });
+
+        // =====================================================================
+        // TIMELINE
+        // =====================================================================
+        const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+        const E = { out: "expo.out", io: "power3.inOut", soft: "power2.out", in: "power2.in" };
+
+        // ---------- initial states ----------
+        gsap.set(["#s2", "#s3", "#s5", "#kpi", "#s9", "#s3-title", "#s3-sub", "#steps", "#ichips", "#s5-hl"], { opacity: 0 });
+        gsap.set("#s3-title .li", { yPercent: 110 });
+        gsap.set("#logo", { opacity: 0, y: 8 });
+        gsap.set(".sub", { opacity: 0 });
+        gsap.set("#sec .s", { opacity: 0, y: 6 });
+        gsap.set("#s1-eyebrow", { opacity: 0, y: 10 });
+        gsap.set("#s1-logo-wrap", { clipPath: "inset(0% 100% 0% 0%)" });
+        gsap.set("#s1-logo", { scale: 1.12, transformOrigin: "0% 50%" });
+        gsap.set("#s1-tilt", { rotationX: 30, rotationZ: -9, transformPerspective: 1500, scale: 1.02 });
+        gsap.set(".mc", { opacity: 0, scale: 0.86, y: 16 });
+        gsap.set("#s1-hl .li", { yPercent: 108 });
+        gsap.set("#s1-hl .u", { scaleX: 0, transformOrigin: "0% 50%" });
+        // scene 2
+        gsap.set("#s2-hl .li", { yPercent: 110 });
+        gsap.set(".col-h", { opacity: 0.28 });
+        gsap.set(".col-h .rule", { scaleX: 0 });
+        gsap.set(".cc, .more", { opacity: 0 });
+        gsap.set(".cc .tag, #hero .hs-card .tag", { opacity: 0, scale: 0.7, transformOrigin: "100% 50%" });
+        gsap.set("#agent", { opacity: 0, y: 12 });
+        gsap.set("#s2-line, #s2-end", { opacity: 0 });
+        gsap.set("#hero", { opacity: 0, x: 56, y: 388 });
+        gsap.set("#hero .hs-row, #hero .hs-call, #hero .hs-mini", { opacity: 0 });
+        gsap.set("#hero .hs-row .tag", { opacity: 0 });
+        // scene 3
+        gsap.set("#panel", { opacity: 0, scale: 0.97, transformOrigin: "50% 35%" });
+        gsap.set("#panel .ph > *, #panel .tabs, #panel .th", { opacity: 0 });
+        gsap.set(ROWS3.slice(1), { opacity: 0, y: 10 });
+        gsap.set(ROWS3[4].querySelectorAll(".tag")[1], { opacity: 0 });
+        gsap.set(".chip-active .ring", { opacity: 0.6, scale: 1 });
+        // scene 4
+        gsap.set("#steps .w span", { yPercent: 110 });
+        gsap.set(".ichip", { opacity: 0, y: 18 });
+        gsap.set("#hero .bubble", { opacity: 0, y: 12 });
+        gsap.set("#wave i", { scaleY: 0.08 });
+        // scene 5
+        gsap.set("#s5-hl > *", { opacity: 0, y: 26 });
+        gsap.set("#s5-res", { opacity: 0, x: -10 });
+        gsap.set("#res-line", { opacity: 0 });
+        gsap.set("#exc", { opacity: 0, y: 22 });
+        gsap.set("#exc-tag", { opacity: 0, scale: 0.7, transformOrigin: "50% 50%" });
+        gsap.set("#rm", { opacity: 0, x: 24 });
+        gsap.set("#rm-foot", { yPercent: 100 });
+        gsap.set("#rm-tags span", { opacity: 0, y: 10 });
+        gsap.set("#rm-path", { strokeDasharray: 100, strokeDashoffset: 100 });
+        gsap.set("#rm-head", { opacity: 0 });
+        gsap.set("#ghost", { opacity: 0 });
+        // kpi
+        gsap.set("#k-eyebrow", { opacity: 0, y: 10 });
+        gsap.set("#n1", { yPercent: 0 });
+        gsap.set(["#n2", "#n3"], { yPercent: 100, visibility: "hidden" });
+        gsap.set("#k-mask", { opacity: 0 });
+        [OD1, OD2, OD3].forEach((od) => od.forEach((o) => gsap.set(o.strip, { y: 0 })));
+        gsap.set([sfx1, sfx3], { opacity: 0, scale: 0.6, transformOrigin: "20% 60%" });
+        gsap.set(".klabel", { opacity: 0, y: 14 });
+        gsap.set(".rg", { opacity: 0, scale: 0.6, transformOrigin: "540px 427px" });
+        gsap.set("#funnel .fc", { opacity: 0, y: 10 });
+        gsap.set("#funnel-done", { opacity: 0, scale: 0.8 });
+        gsap.set("#prog", { opacity: 0 });
+        gsap.set("#prog .fill", { scaleX: 0 });
+        gsap.set("#prog .knob", { x: -355 });
+        // scene 9
+        gsap.set("#s9-hl .li", { yPercent: 110 });
+        gsap.set(".mess", { opacity: 0, y: 16 });
+        gsap.set(".org", { opacity: 0, x: -150, rotation: -4 });
+        gsap.set(".org .tag", { opacity: 0, scale: 0.8, transformOrigin: "100% 50%" });
+        gsap.set(".s9-lbl", { opacity: 0, y: 8 });
+        gsap.set("#beam", { scaleY: 0, opacity: 0 });
+        gsap.set("#node", { scale: 0, opacity: 0 });
+        gsap.set("#ripple", { scale: 0.3, opacity: 0 });
+        gsap.set("#end-eyebrow", { opacity: 0, y: 10 });
+        gsap.set("#end-rule", { scaleX: 0 });
+        gsap.set("#end-lock > *", { opacity: 0, y: 14 });
+
+        // ---------- helpers ----------
+        const tagSwap = (card, k, t) => {
+          const tags = card.querySelectorAll(".tag");
+          tags.forEach((tg) => {
+            if (tg.dataset.k === k) tl.to(tg, { opacity: 1, scale: 1, duration: 0.28, ease: "back.out(1.6)" }, t);
+            else tl.to(tg, { opacity: 0, scale: 0.7, duration: 0.18, ease: E.in }, t);
+          });
+        };
+        const secIn = (id, t) => {
+          tl.to("#sec .s:not(" + id + ")", { opacity: 0, y: -6, duration: 0.22, ease: E.in }, t);
+          tl.to(id, { opacity: 1, y: 0, duration: 0.5, ease: E.out }, t + 0.3);
+        };
+
+        // ---------- chrome ----------
+        tl.to("#logo", { opacity: 1, y: 0, duration: 0.7, ease: E.out }, 0.1);
+
+        // ---------- subtitles ----------
+        SUBS.forEach((s, i) => {
+          tl.to(SUBEL[i], { opacity: 1, duration: 0.18, ease: "none" }, s[0]);
+          tl.to(SUBEL[i], { opacity: 0, duration: 0.16, ease: "none" }, s[1] - 0.16);
+        });
+
+        // =========== SCENE 1 (0 – 4.9) ===========
+        tl.to("#s1-eyebrow", { opacity: 1, y: 0, duration: 0.6, ease: E.out }, 0.2);
+        tl.to("#s1-logo-wrap", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.9, ease: "expo.inOut" }, 0.35);
+        tl.to("#s1-logo", { scale: 1, duration: 1.2, ease: E.out }, 0.35);
+        // cards: 5 → 12 → 30+
+        cells.forEach((cell, i) => {
+          let t;
+          if (i < 5) t = 0.55 + i * 0.1;
+          else if (i < 12) t = 1.2 + (i - 5) * 0.06;
+          else t = 1.62 + (i - 12) * 0.018;
+          tl.to(cell.el, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: E.out }, t);
+        });
+        tl.to("#s1-grid", { x: -70, y: -24, duration: 4.9, ease: "none" }, 0);
+        tl.to("#s1-tilt", { scale: 1.1, duration: 4.45, ease: "power1.inOut" }, 0);
+        // headline
+        tl.to("#s1-hl .line:nth-child(1) .li", { yPercent: 0, duration: 0.6, ease: E.out }, 1.45);
+        tl.to("#s1-hl .line:nth-child(2) .li", { yPercent: 0, duration: 0.6, ease: E.out }, 1.78);
+        tl.to("#s1-hl .u", { scaleX: 1, duration: 0.7, ease: E.io }, 2.45);
+        // exit to scene 2
+        tl.to("#s1-top, #s1-hl", { opacity: 0, y: -16, duration: 0.45, ease: E.in }, 4.5);
+        tl.to("#s1-tilt", { rotationX: 0, rotationZ: 0, scale: 0.92, duration: 0.8, ease: E.io }, 4.45);
+        tl.to("#s1-field", { opacity: 0, duration: 0.5, ease: "power1.in" }, 4.75);
+
+        // =========== SCENE 2 (4.9 – 13.7) ===========
+        tl.set("#s2", { opacity: 1 }, 4.8);
+        secIn("#sec1", 4.8);
+        // cards sort into four columns (slot 0 + 1 land together)
+        const s2Initial = [];
+        for (let ci = 0; ci < 4; ci++) for (let si = 0; si < 2; si++) s2Initial.push([ci, si]);
+        s2Initial.forEach(([ci, si], k) => {
+          const c = S2.cards[ci][si];
+          const t = 4.95 + (si * 4 + ci) * 0.045;
+          if (!c) return;
+          tl.fromTo(c, { opacity: 0, scale: 0.9, y: -30 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: E.out, immediateRender: false }, t);
+        });
+        // hero is the Rohan card in DOCUMENTS slot 0
+        tl.fromTo("#hero", { opacity: 0, scale: 0.9, y: 358 }, { opacity: 1, scale: 1, y: 388, duration: 0.5, ease: E.out, immediateRender: false }, 4.95);
+        tl.to("#s2-hl .l1", { yPercent: 0, duration: 0.6, ease: E.out }, 5.3);
+        // headers light up as they are spoken
+        [6.93, 7.72, 8.72, 10.15].forEach((t, ci) => {
+          tl.to(S2.heads[ci], { opacity: 1, duration: 0.25, ease: "none" }, t - 0.05);
+          tl.to(S2.heads[ci].querySelector(".rule"), { scaleX: 1, duration: 0.45, ease: E.out }, t - 0.05);
+        });
+        // manual agent
+        tl.to("#agent", { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 5.75);
+        const tgt = (ci, si) => [colX[ci] + 115, slotY[si]];
+        const lineTo = (ci, si, t) => {
+          const [x, y] = tgt(ci, si);
+          tl.to("#s2-line", { attr: { x2: x, y2: y - 13 }, duration: 0.5, ease: E.io }, t);
+          tl.to("#s2-end", { attr: { cx: x, cy: y - 13 }, duration: 0.5, ease: E.io }, t);
+        };
+        tl.to("#s2-line, #s2-end", { opacity: 1, duration: 0.2 }, 6.1);
+        lineTo(0, 1, 6.1);
+        tagSwap(S2.cards[0][1], "calling", 6.5);
+        tagSwap(S2.cards[0][1], "done", 7.75);
+        lineTo(1, 0, 7.95);
+        tagSwap(S2.cards[1][0], "calling", 8.35);
+        tagSwap(S2.cards[1][0], "done", 9.85);
+        lineTo(2, 0, 10.05);
+        tagSwap(S2.cards[2][0], "calling", 10.45);
+        // volume keeps arriving
+        const arrivals = [
+          [0, 2, 7.0], [1, 2, 7.35], [2, 2, 7.9], [3, 2, 8.3],
+          [0, 3, 10.35], [1, 3, 10.6], [2, 3, 10.85], [3, 3, 11.1],
+        ];
+        arrivals.forEach(([ci, si, t]) => {
+          tl.fromTo(S2.cards[ci][si], { opacity: 0, y: 26, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: E.out, immediateRender: false }, t);
+        });
+        // pending spreads
+        const pend = [
+          [3, 0, 8.7], [1, 1, 9.1], [2, 1, 9.45], [0, 2, 9.75], [3, 1, 10.1],
+          [1, 2, 11.0], [2, 2, 11.3], [3, 2, 11.55], [0, 3, 12.0], [1, 3, 12.2], [2, 3, 12.4], [3, 3, 12.6],
+        ];
+        pend.forEach(([ci, si, t]) => tagSwap(S2.cards[ci][si], "pending", t));
+        tl.to("#hero .hs-card .tag", { opacity: 1, scale: 1, duration: 0.28, ease: "back.out(1.6)" }, 9.3);
+        S2.more.forEach((m, i) => tl.to(m, { opacity: 1, duration: 0.4 }, 11.4 + i * 0.1));
+        tl.to("#s2-hl .l2", { yPercent: 0, duration: 0.65, ease: E.out }, 11.6);
+        // transition: select Rohan's pending card, everything else recedes
+        const s2Others = ["#s2-cols", "#agent", "#s2-svg", "#s2-hl"];
+        tl.to("#hero", { boxShadow: "0 28px 50px -24px rgba(40,32,20,0.45)", y: 382, duration: 0.45, ease: E.soft }, 12.95);
+        tl.to(s2Others, { opacity: 0, duration: 0.5, ease: "power1.in" }, 13.05);
+        tl.to("#cam", { scale: 1.035, duration: 0.7, ease: E.io }, 12.9);
+        tl.to("#cam", { scale: 1, duration: 0.8, ease: E.io }, 13.6);
+        // morph into first campaign row
+        tl.to("#hero", { x: 64, y: 478, width: 952, height: 62, borderRadius: 10, backgroundColor: "#f3faf6", borderColor: "#cfe9dc", boxShadow: "0 0px 0px 0 rgba(40,32,20,0)", duration: 0.85, ease: E.io }, 13.4);
+        tl.to("#hero .hs-card", { opacity: 0, duration: 0.22, ease: "none" }, 13.42);
+        tl.to("#hero .hs-row", { opacity: 1, duration: 0.3, ease: "none" }, 13.6);
+        tl.set("#hero .hs-row [data-k=calling]", { opacity: 1 }, 13.6);
+        tl.set("#s2", { opacity: 0 }, 13.9);
+
+        // =========== SCENE 3 (13.7 – 17.1) ===========
+        tl.set("#s3", { opacity: 1 }, 13.55);
+        secIn("#sec2", 13.7);
+        tl.to("#panel", { opacity: 1, scale: 1, duration: 0.7, ease: E.out }, 13.5);
+        tl.to("#panel .ph > *", { opacity: 1, duration: 0.35, stagger: 0.05, ease: "none" }, 13.72);
+        tl.to("#panel .tabs, #panel .th", { opacity: 1, duration: 0.35, stagger: 0.08, ease: "none" }, 13.8);
+        ROWS3.slice(1).forEach((r, i) => tl.to(r, { opacity: 1, y: 0, duration: 0.45, ease: E.out }, 13.95 + i * 0.08));
+        // live indicators
+        tl.to(".chip-active .ring", { scale: 2.6, opacity: 0, duration: 1.1, ease: "power1.out", repeat: 2 }, 14.3);
+        tl.to("#hero .hs-row [data-k=calling] .dot", { opacity: 0.25, duration: 0.45, yoyo: true, repeat: 5, ease: "sine.inOut" }, 14.2);
+        tl.to(ROWS3[4].querySelectorAll(".tag")[0], { opacity: 0, duration: 0.2 }, 16.2);
+        tl.to(ROWS3[4].querySelectorAll(".tag")[1], { opacity: 1, duration: 0.25 }, 16.25);
+        // titles
+        tl.set(["#s3-title", "#s3-sub"], { opacity: 1 }, 15.0);
+        gsap.set("#s3-sub", { y: 10 });
+        tl.to("#s3-title .li", { yPercent: 0, duration: 0.65, ease: E.out }, 15.15);
+        tl.fromTo("#s3-sub", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: E.out, immediateRender: false }, 15.75);
+
+        // =========== SCENE 4 (17.1 – 22.2) ===========
+        tl.to(["#s3-title", "#s3-sub"], { opacity: 0, y: -12, duration: 0.4, ease: E.in }, 17.05);
+        tl.to(ROWS3.slice(1), { opacity: 0.3, duration: 0.5, ease: "none" }, 17.25);
+        tl.to("#cam", { scale: 1.1, transformOrigin: "540px 509px", duration: 1.1, ease: E.io }, 17.2);
+        tl.set("#steps", { opacity: 1 }, 17.4);
+        tl.to("#steps .w:nth-child(1) span", { yPercent: 0, duration: 0.55, ease: E.out }, 18.3);
+        // connected
+        tl.to("#hero .hs-row [data-k=calling]", { opacity: 0, duration: 0.15 }, 18.46);
+        tl.fromTo("#hero .hs-row [data-k=connected]", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.7)", immediateRender: false }, 18.48);
+        // row → call card
+        tl.to("#panel", { opacity: 0, duration: 0.45, ease: "none" }, 18.75);
+        tl.to("#cam", { scale: 1, duration: 0.8, ease: E.io }, 18.8);
+        tl.to("#hero", { x: 56, y: 292, width: 968, height: 338, borderRadius: 22, backgroundColor: "#ffffff", borderColor: "#e6e0d5", boxShadow: "0 34px 60px -38px rgba(40,32,20,0.5)", duration: 0.8, ease: E.io }, 18.8);
+        tl.to("#hero .hs-row", { opacity: 0, duration: 0.2, ease: "none" }, 18.82);
+        tl.to("#hero .hs-call", { opacity: 1, duration: 0.35, ease: "none" }, 18.92);
+        tl.set("#s3", { opacity: 0 }, 19.3);
+        // waveform (deterministic keyframes)
+        const W0 = 19.35,
+          W1 = 22.2,
+          STEP = 0.11;
+        $$("#wave i").forEach((b, i) => {
+          let k = 0;
+          for (let t = W0; t < W1; t += STEP, k++) {
+            const env = 0.35 + 0.65 * Math.abs(Math.sin(k * 0.31 + 0.4)) * (t > 19.6 && t < 21.6 ? 1 : 0.55);
+            const v = 0.12 + 0.88 * env * Math.abs(Math.sin(i * 1.73 + k * 0.97) * Math.cos(i * 0.41 - k * 0.53));
+            const shape = 1 - Math.pow((i - (BARS - 1) / 2) / (BARS / 2), 2) * 0.55;
+            tl.to(b, { scaleY: Math.max(0.08, v * shape), duration: STEP, ease: "sine.inOut" }, t);
+          }
+        });
+        // understand
+        tl.to("#steps .w:nth-child(1) span", { color: "#a3a7ad", duration: 0.4, ease: "none" }, 19.5);
+        tl.to("#steps .w:nth-child(2) span", { yPercent: 0, duration: 0.55, ease: E.out }, 19.55);
+        tl.to("#hero .bubble", { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 19.7);
+        // capture intent chips
+        [20.3, 20.72, 21.14].forEach((t, i) => tl.to($$(".ichip")[i], { opacity: 1, y: 0, duration: 0.45, ease: E.out }, t));
+        tl.set("#ichips", { opacity: 1 }, 20.2);
+        tl.to("#steps .w:nth-child(2) span", { color: "#a3a7ad", duration: 0.4, ease: "none" }, 21.0);
+        tl.to("#steps .w:nth-child(3) span", { yPercent: 0, duration: 0.55, ease: E.out }, 21.05);
+
+        // =========== SCENE 5 (22.2 – 25.8) ===========
+        tl.to("#steps", { opacity: 0, y: -14, duration: 0.35, ease: E.in }, 22.2);
+        tl.to(".ichip", { opacity: 0, y: -40, scale: 0.9, duration: 0.45, ease: E.in, stagger: 0.04 }, 22.25);
+        tl.to("#hero", { x: 56, y: 302, width: 420, height: 92, borderRadius: 16, boxShadow: "0 16px 30px -24px rgba(40,32,20,0.45)", duration: 0.75, ease: E.io }, 22.3);
+        tl.to("#hero .hs-call", { opacity: 0, duration: 0.17, ease: "none" }, 22.28);
+        tl.to("#hero .hs-mini", { opacity: 1, duration: 0.3, ease: "none" }, 22.52);
+        tl.set("#s5", { opacity: 1 }, 22.3);
+        tl.set("#s5-hl", { opacity: 1 }, 22.3);
+        tl.to("#s5-hl .w1", { opacity: 1, y: 0, duration: 0.6, ease: E.out }, 22.5);
+        tl.to("#s5-hl .arr", { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 23.4);
+        tl.to("#s5-hl .w2", { opacity: 1, y: 0, duration: 0.6, ease: E.out }, 24.95);
+        tl.to("#res-line", { opacity: 1, duration: 0.3 }, 22.95);
+        tl.to("#s5-res", { opacity: 1, x: 0, duration: 0.5, ease: E.out }, 23.0);
+        tl.to("#exc", { opacity: 1, y: 0, duration: 0.55, ease: E.out }, 23.1);
+        tl.to("#exc-tag", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.7)" }, 23.55);
+        // the AI-resolved path steps back
+        tl.to(["#hero", "#s5-res", "#res-line"], { opacity: 0.5, duration: 0.5, ease: "none" }, 23.6);
+        tl.to("#rm-path", { strokeDashoffset: 0, duration: 0.45, ease: E.io }, 23.7);
+        tl.to("#rm-head", { opacity: 1, duration: 0.15 }, 24.1);
+        tl.to("#rm", { opacity: 1, x: 0, duration: 0.55, ease: E.out }, 23.85);
+        tl.to("#ghost", { opacity: 1, duration: 0.2, ease: "none" }, 24.3);
+        tl.to("#ghost", { x: 330, y: -60, scale: 0.8, duration: 0.6, ease: E.io }, 24.35);
+        tl.to("#ghost", { opacity: 0, duration: 0.14, ease: "none" }, 24.72);
+        tl.to("#rm", { boxShadow: "0 30px 60px -30px rgba(23,138,89,0.45)", borderColor: "#bfe5d0", duration: 0.4 }, 24.9);
+        tl.to("#rm-foot", { yPercent: 0, duration: 0.4, ease: E.out }, 25.02);
+        tl.to("#rm-tags span", { opacity: 1, y: 0, duration: 0.35, stagger: 0.09, ease: E.out }, 25.1);
+
+        // =========== SCENE 6 (25.8 – 31) KPI 1 ===========
+        tl.to("#cam", { scale: 0.86, opacity: 0, transformOrigin: "540px 540px", duration: 0.6, ease: E.io }, 25.6);
+        tl.to("#s5-hl", { opacity: 0, y: -14, duration: 0.4, ease: E.in }, 25.6);
+        tl.to("#kpi-bg", { clipPath: "circle(80% at 50% 45%)", duration: 0.9, ease: E.io }, 25.7);
+        tl.set("#kpi", { opacity: 1 }, 25.8);
+        secIn("#sec3", 25.9);
+        tl.to("#k-eyebrow", { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 26.0);
+        tl.to("#k-mask", { opacity: 0.14, duration: 0.6, ease: "none" }, 26.35);
+        tl.to("#k-mask", { opacity: 1, duration: 0.3, ease: "none" }, 27.72);
+        const roll = (od, t0, lands, spins) => {
+          od.forEach((o, i) => {
+            const idx = 10 * (spins[i] || 0) + o.target; // ≤ 19
+            tl.fromTo(o.strip, { y: 0 }, { y: -Math.min(19, idx) * LH, duration: lands[i] - t0, ease: "power3.out", immediateRender: false }, t0);
+          });
+        };
+        roll(OD1, 27.82, [29.4, 29.52, 29.58, 29.62], [0, 1, 1, 1]);
+        tl.to(sfx1, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 29.62);
+        tl.to("#l1", { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 30.0);
+        $$(".rg").forEach((r, i) => {
+          tl.fromTo(r, { opacity: 0.36, scale: 0.6 }, { opacity: 0, scale: 1.45, duration: 1.8, ease: "power1.out", immediateRender: false }, 27.9 + i * 0.45);
+          tl.fromTo(r, { opacity: 0.36, scale: 0.6 }, { opacity: 0, scale: 1.45, duration: 1.8, ease: "power1.out", immediateRender: false }, 29.62 + i * 0.3);
+        });
+
+        // =========== SCENE 7 (31 – 35.3) KPI 2 ===========
+        tl.set("#n2", { visibility: "visible" }, 31.05);
+        tl.to("#n1", { yPercent: -100, duration: 0.55, ease: E.io }, 31.1);
+        tl.set("#n1", { visibility: "hidden" }, 31.7);
+        tl.to("#n2", { yPercent: 0, duration: 0.55, ease: E.io }, 31.1);
+        tl.to("#l1", { opacity: 0, y: -12, duration: 0.3, ease: E.in }, 31.1);
+        roll(OD2, 31.2, [31.5, 32.0, 32.6, 32.98], [0, 1, 1, 1]);
+        tl.to("#l2", { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 33.2);
+        $$("#funnel .fc").forEach((c, i) => tl.to(c, { opacity: 1, y: 0, duration: 0.35, ease: E.out }, 33.45 + i * 0.05));
+        $$("#funnel .fc").forEach((c, i) => tl.to(c, { x: 430 + 46 - FX[i], opacity: 0, scale: 0.7, duration: 0.55, ease: E.io }, 34.05 + Math.abs(i - 2.5) * 0.06));
+        tl.to("#funnel-done", { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 34.45);
+
+        // =========== SCENE 8 (35.3 – 39) KPI 3 ===========
+        tl.set("#n3", { visibility: "visible" }, 35.25);
+        tl.to("#n2", { yPercent: -100, duration: 0.55, ease: E.io }, 35.3);
+        tl.set("#n2", { visibility: "hidden" }, 35.9);
+        tl.to("#n3", { yPercent: 0, duration: 0.55, ease: E.io }, 35.3);
+        tl.to(["#l2", "#funnel"], { opacity: 0, y: -12, duration: 0.3, ease: E.in }, 35.3);
+        roll(OD3, 35.4, [36.0, 36.35, 36.8], [0, 1, 1]);
+        tl.to(sfx3, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 36.9);
+        tl.to("#prog", { opacity: 1, duration: 0.3 }, 35.8);
+        tl.to("#prog .fill", { scaleX: 0.516, duration: 1.2, ease: "power2.out" }, 35.9);
+        tl.to("#prog .knob", { x: 0.516 * 700 - 10 - 355, duration: 1.2, ease: "power2.out" }, 35.9);
+        tl.to("#l3", { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 37.3);
+
+        // =========== SCENE 9 (39 – 46) ===========
+        tl.to("#kpi", { opacity: 0, scale: 0.96, transformOrigin: "540px 480px", duration: 0.5, ease: E.in }, 38.95);
+        tl.to("#kpi-bg", { clipPath: "circle(0% at 50% 45%)", duration: 0.8, ease: E.io }, 39.0);
+        tl.to("#sec3", { opacity: 0, duration: 0.3 }, 39.0);
+        tl.set("#s9", { opacity: 1 }, 39.2);
+        tl.to("#s9-hl .l1", { yPercent: 0, duration: 0.6, ease: E.out }, 39.3);
+        $$(".mess").forEach((m, i) => tl.to(m, { opacity: 0.85, y: 0, rotation: MESS[i][2], duration: 0.5, ease: E.out }, 39.45 + i * 0.07));
+        tl.to("#lbl-man", { opacity: 1, y: 0, duration: 0.4 }, 39.8);
+        // AI voice pulse through the centre
+        tl.to("#beam", { opacity: 1, scaleY: 1, duration: 0.5, ease: E.io }, 40.5);
+        tl.to("#node", { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 40.62);
+        tl.set("#ripple", { opacity: 0.7 }, 40.78);
+        tl.to("#ripple", { scale: 2.6, opacity: 0, duration: 1.1, ease: "power2.out" }, 40.8);
+        tl.to("#s9-hl .l1", { opacity: 0.35, duration: 0.5, ease: "none" }, 40.7);
+        tl.to("#s9-hl .l2", { yPercent: 0, duration: 0.65, ease: E.out }, 40.75);
+        tl.to(".mess", { opacity: 0.45, duration: 0.5, ease: "none" }, 40.8);
+        $$(".org").forEach((o, i) => {
+          tl.to(o, { opacity: 1, x: 0, rotation: 0, duration: 0.7, ease: E.out }, 40.95 + i * 0.13);
+          tl.to(o.querySelector(".tag"), { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, 41.35 + i * 0.16);
+        });
+        tl.to("#lbl-int", { opacity: 1, y: 0, duration: 0.4 }, 41.9);
+        // end frame
+        tl.to("#s9-cmp", { opacity: 0, y: 10, duration: 0.5, ease: E.in }, 43.25);
+        tl.to("#s9-hl", { y: 232, duration: 0.9, ease: E.io }, 43.45);
+        tl.to("#s9-hl .l1", { opacity: 0.4, duration: 0.3 }, 43.45);
+        tl.to("#end-eyebrow", { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 43.9);
+        tl.to("#end-rule", { scaleX: 1, duration: 0.8, ease: E.io }, 43.95);
+        tl.to("#end-lock > *", { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: E.out }, 44.15);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
