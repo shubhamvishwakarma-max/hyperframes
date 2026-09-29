@@ -23,8 +23,12 @@ All customer, RM and campaign data on screen is fictional. No phone numbers are 
 ## Audio
 
 - `assets/audio/voiceover-original.mp3` is the file as supplied. `voiceover.wav` is the same take with light processing only: 75 Hz high-pass, small EQ, mild de-ess, 2.2:1 compression, and gain to −17 LUFS. Duration and timing are unchanged; the render's VO lag measures 0.00 ms.
-- `music.wav` and `sfx.wav` are original and synthesised offline by `scripts/build_audio.py` (seeded, deterministic). No catalogue or AI music service was reachable from the build environment. The music is ducked against the voiceover envelope, with extra dips under "So they deployed DoubleTick AI Voice" and each KPI line.
-- Final mix: −15.3 LUFS integrated, −1.6 dBFS peak.
+- `music.wav` and `sfx.wav` are original and synthesised offline by `scripts/build_audio.py` (seeded, deterministic). No catalogue or AI music service was reachable from the build environment.
+  - **Music:** an upbeat 120 BPM four-on-the-floor track in D major (I–V–vi–IV). It has a 16th-note pluck hook, offbeat bass with sidechain pump, and claps and hats. Snare-roll builds and crashes hit the drops at 13.9 s (DoubleTick AI Voice) and 25.9 s (KPIs), and a big D-chord resolve lands at 43.9 s.
+  - **Ducking:** the music ducks against the voiceover envelope, with extra dips under the solution line and each KPI.
+  - **SFX:** layered impacts (sub boom, punch body, transient crack and tail, plus a tonal chord on the big ones), with risers cresting on the headline beats, "DoubleTick AI Voice", each KPI and the end lockup.
+  - **Peak limiter:** a look-ahead limiter pulls down only the music and SFX wherever the summed mix would pass −1.8 dBFS. The voiceover is never touched.
+- Final mix: −15.0 LUFS integrated, −1.8 dBFS peak.
 
 ## Rebuild
 
