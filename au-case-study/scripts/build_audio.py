@@ -10,7 +10,7 @@ import numpy as np
 import soundfile as sf
 
 SR = 48000
-VOICEOVER = False  # True mixes assets/audio/vo.wav in and ducks the music under it
+VOICEOVER = False  # vo.wav is timed to the 41.6s cut; re-run prep_vo/retime before enabling
 WARP = json.load(open("assets/audio/warp.json"))
 VO = json.load(open("assets/audio/vo.json"))
 DUR = WARP["end"]
@@ -20,12 +20,6 @@ BEAT = 60 / BPM
 BAR = BEAT * 4
 rng = np.random.default_rng(7)
 
-# section markers, all on the bar grid
-DROP = VO[3]["start"]  # "But they deployed DoubleTick AI Voice"
-LIFT = DROP + 6 * BAR  # KPI section ("At scale, this delivered")
-OUTRO = DROP + 13 * BAR  # brand lockup
-ORIGIN = DROP - 7 * BAR  # bar 0 of the chord grid (before t=0)
-
 
 def warp(t):
     o, n = WARP["old"], WARP["new"]
@@ -33,6 +27,13 @@ def warp(t):
         if t <= o[i + 1]:
             return n[i] + (t - o[i]) / (o[i + 1] - o[i]) * (n[i + 1] - n[i])
     return n[-1] + (t - o[-1])
+
+
+# section markers, all on the bar grid
+DROP = warp(10.84)  # DoubleTick AI Voice reveal
+LIFT = DROP + 6 * BAR  # KPI section
+OUTRO = DROP + 43 * BEAT  # brand lockup (lands on the logo beat)
+ORIGIN = DROP - 7 * BAR  # bar 0 of the chord grid (before t=0)
 
 
 def load(path, gain=1.0):
