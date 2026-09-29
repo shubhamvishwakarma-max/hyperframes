@@ -1968,15 +1968,14 @@
         // ---------- initial states ----------
         gsap.set(["#s2", "#s3", "#s5", "#kpi", "#s9", "#s3-title", "#s3-sub", "#steps", "#ichips", "#s5-hl"], { opacity: 0 });
         gsap.set("#s3-title .li", { yPercent: 110 });
-        gsap.set("#logo", { opacity: 0, y: 8 });
+        gsap.set("#logo", { opacity: 0.15, y: 6 });
         gsap.set(".sub", { opacity: 0 });
         gsap.set("#sec .s", { opacity: 0, y: 6 });
-        gsap.set("#s1-eyebrow", { opacity: 0, y: 10 });
-        gsap.set("#s1-logo-wrap", { clipPath: "inset(0% 100% 0% 0%)" });
-        gsap.set("#s1-logo", { scale: 1.12, transformOrigin: "0% 50%" });
+        gsap.set("#s1-eyebrow", { y: 6 });
+                gsap.set("#s1-logo", { scale: 1.05, transformOrigin: "0% 50%" });
         gsap.set("#s1-tilt", { rotationX: 30, rotationZ: -9, transformPerspective: 1500, scale: 1.02 });
         gsap.set(".mc", { opacity: 0, scale: 0.86, y: 16 });
-        gsap.set("#s1-hl .li", { yPercent: 108 });
+        gsap.set("#s1-hl", { y: 16 });
         gsap.set("#s1-hl .u", { scaleX: 0, transformOrigin: "0% 50%" });
         // scene 2
         gsap.set("#s2-hl .li", { yPercent: 110 });
@@ -2053,7 +2052,7 @@
         };
 
         // ---------- chrome ----------
-        tl.to("#logo", { opacity: 1, y: 0, duration: 0.7, ease: E.out }, 0.1);
+        tl.to("#logo", { opacity: 1, y: 0, duration: 0.45, ease: E.out }, 0);
 
         // ---------- subtitles ----------
         SUBS.forEach((s, i) => {
@@ -2062,22 +2061,20 @@
         });
 
         // =========== SCENE 1 (0 – 4.9) ===========
-        tl.to("#s1-eyebrow", { opacity: 1, y: 0, duration: 0.6, ease: E.out }, 0.2);
-        tl.to("#s1-logo-wrap", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.9, ease: "expo.inOut" }, 0.35);
-        tl.to("#s1-logo", { scale: 1, duration: 1.2, ease: E.out }, 0.35);
-        // cards: 5 → 12 → 30+
+        tl.to("#s1-eyebrow", { y: 0, duration: 1.6, ease: E.soft }, 0);
+                tl.to("#s1-logo", { scale: 1, duration: 1.8, ease: E.soft }, 0);
+        // cards: the first 12 are already there; the rest keep multiplying outward
         cells.forEach((cell, i) => {
-          let t;
-          if (i < 5) t = 0.55 + i * 0.1;
-          else if (i < 12) t = 1.2 + (i - 5) * 0.06;
-          else t = 1.62 + (i - 12) * 0.018;
-          tl.to(cell.el, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: E.out }, t);
+          if (i < 12) {
+            gsap.set(cell.el, { opacity: 1, scale: 1, y: 0 });
+            return;
+          }
+          tl.to(cell.el, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: E.out }, 0.1 + (i - 12) * 0.028);
         });
         tl.to("#s1-grid", { x: -70, y: -24, duration: 4.9, ease: "none" }, 0);
         tl.to("#s1-tilt", { scale: 1.1, duration: 4.45, ease: "power1.inOut" }, 0);
         // headline
-        tl.to("#s1-hl .line:nth-child(1) .li", { yPercent: 0, duration: 0.6, ease: E.out }, 1.45);
-        tl.to("#s1-hl .line:nth-child(2) .li", { yPercent: 0, duration: 0.6, ease: E.out }, 1.78);
+        tl.to("#s1-hl", { y: 0, duration: 2.2, ease: E.soft }, 0);
         tl.to("#s1-hl .u", { scaleX: 1, duration: 0.7, ease: E.io }, 2.45);
         // exit to scene 2
         tl.to("#s1-top, #s1-hl", { opacity: 0, y: -16, duration: 0.45, ease: E.in }, 4.5);

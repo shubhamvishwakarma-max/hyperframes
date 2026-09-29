@@ -10,7 +10,7 @@ The supplied ElevenLabs voiceover is the master track, and it runs 44.4 s. Becau
 
 | Scene | Time | Beat |
 | --- | --- | --- |
-| 01 Hook | 0.0 – 4.9 | Piramal Finance established; cards multiply 5 → 12 → 30+ |
+| 01 Hook | 0.0 – 4.9 | Hook, Piramal logo and 12 cards on screen from frame 0; cards keep multiplying outward |
 | 02 Problem | 4.9 – 13.7 | Four use-case columns; one manual caller vs. growing pending queue |
 | 03 Solution | 13.7 – 17.1 | Pending card morphs into the Piramal Loan Follow-up campaign row |
 | 04 Outreach | 17.1 – 22.2 | Row → live AI call → transcript → intent chips (Reach / Understand / Capture intent) |

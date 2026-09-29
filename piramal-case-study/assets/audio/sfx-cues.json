@@ -1,163 +1,138 @@
 [
  {
-  "t": 0.3,
+  "t": 0.04,
   "db": -15,
   "name": "open"
  },
  {
-  "t": 0.57,
-  "db": -22,
-  "name": "card"
- },
- {
-  "t": 0.67,
-  "db": -22,
-  "name": "card"
- },
- {
-  "t": 0.77,
-  "db": -22,
-  "name": "card"
- },
- {
-  "t": 0.87,
-  "db": -22,
-  "name": "card"
- },
- {
-  "t": 0.97,
-  "db": -22,
-  "name": "card"
- },
- {
-  "t": 1.22,
-  "db": -25,
-  "name": "card"
- },
- {
-  "t": 1.28,
-  "db": -25,
-  "name": "card"
- },
- {
-  "t": 1.34,
-  "db": -25,
-  "name": "card"
- },
- {
-  "t": 1.4,
-  "db": -25,
-  "name": "card"
- },
- {
-  "t": 1.46,
-  "db": -25,
-  "name": "card"
- },
- {
-  "t": 1.52,
-  "db": -25,
-  "name": "card"
- },
- {
-  "t": 1.58,
-  "db": -25,
-  "name": "card"
- },
- {
-  "t": 1.62,
-  "db": -31,
-  "name": "cards-scale"
- },
- {
-  "t": 1.665,
-  "db": -30,
-  "name": "cards-scale"
- },
- {
-  "t": 1.71,
+  "t": 0.12,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 1.755,
-  "db": -31,
+  "t": 0.176,
+  "db": -28,
   "name": "cards-scale"
  },
  {
-  "t": 1.8,
-  "db": -30,
+  "t": 0.232,
+  "db": -27,
   "name": "cards-scale"
  },
  {
-  "t": 1.845,
+  "t": 0.288,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 1.89,
-  "db": -31,
+  "t": 0.344,
+  "db": -28,
   "name": "cards-scale"
  },
  {
-  "t": 1.935,
-  "db": -30,
+  "t": 0.4,
+  "db": -27,
   "name": "cards-scale"
  },
  {
-  "t": 1.98,
+  "t": 0.456,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 2.025,
-  "db": -31,
+  "t": 0.512,
+  "db": -28,
   "name": "cards-scale"
  },
  {
-  "t": 2.07,
-  "db": -30,
+  "t": 0.568,
+  "db": -27,
   "name": "cards-scale"
  },
  {
-  "t": 2.115,
+  "t": 0.624,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 2.16,
-  "db": -31,
+  "t": 0.68,
+  "db": -28,
   "name": "cards-scale"
  },
  {
-  "t": 2.205,
-  "db": -30,
+  "t": 0.736,
+  "db": -27,
   "name": "cards-scale"
  },
  {
-  "t": 2.25,
+  "t": 0.792,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 2.295,
-  "db": -31,
+  "t": 0.848,
+  "db": -28,
   "name": "cards-scale"
  },
  {
-  "t": 2.34,
-  "db": -30,
+  "t": 0.904,
+  "db": -27,
   "name": "cards-scale"
  },
  {
-  "t": 2.385,
+  "t": 0.96,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 1.4,
-  "db": -22,
-  "name": "headline"
+  "t": 1.016,
+  "db": -28,
+  "name": "cards-scale"
+ },
+ {
+  "t": 1.072,
+  "db": -27,
+  "name": "cards-scale"
+ },
+ {
+  "t": 1.128,
+  "db": -29,
+  "name": "cards-scale"
+ },
+ {
+  "t": 1.184,
+  "db": -28,
+  "name": "cards-scale"
+ },
+ {
+  "t": 1.24,
+  "db": -27,
+  "name": "cards-scale"
+ },
+ {
+  "t": 1.296,
+  "db": -29,
+  "name": "cards-scale"
+ },
+ {
+  "t": 0.2,
+  "db": -25,
+  "name": "card"
+ },
+ {
+  "t": 0.46,
+  "db": -25,
+  "name": "card"
+ },
+ {
+  "t": 0.8,
+  "db": -25,
+  "name": "card"
+ },
+ {
+  "t": 1.15,
+  "db": -25,
+  "name": "card"
  },
  {
   "t": 1.85,

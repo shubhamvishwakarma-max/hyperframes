@@ -516,13 +516,11 @@ def hit(t, size, gain_db, root=None, riser=None, name="hit"):
 
 
 # SCENE 1 — hook: land the brand + story fast
-hit(0.3, 0.6, -15, 62, name="open")
-card_times = [0.55 + i * 0.1 for i in range(5)] + [1.2 + i * 0.06 for i in range(7)]
-for k, t in enumerate(card_times):
-    ev(t + 0.02, s_tap(), -22 - (k > 4) * 3, (-0.5 + (k * 0.37) % 1.0), "card")
-for k in range(18):
-    ev(1.62 + k * 0.045, s_tick(2400 + (k % 4) * 350, 0.003), -31 + (k % 3), (k % 5 - 2) * 0.2, "cards-scale")
-ev(1.4, s_whoosh(0.45, 300, 4000), -22, 0, "headline")
+hit(0.04, 0.6, -15, 62, name="open")
+for k in range(22):  # cards keep multiplying outward (0.1 – 1.3 s)
+    ev(0.12 + k * 0.056, s_tick(2400 + (k % 4) * 350, 0.003), -29 + (k % 3), (k % 5 - 2) * 0.2, "cards-scale")
+for k, t in enumerate((0.2, 0.46, 0.8, 1.15)):
+    ev(t, s_tap(), -25, (-0.4, 0.3, -0.2, 0.4)[k], "card")
 hit(2.45, 0.8, -13, 57, riser=0.6, name="bottleneck")
 ev(4.3, s_whoosh(0.7, 300, 6000), -19, 0.2, "to-problem")
 
