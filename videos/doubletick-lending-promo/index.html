@@ -1,0 +1,1035 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>DoubleTick — Built for lending at scale</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      :root {
+        --bg: #07120e;
+        --surface: #0f1f19;
+        --line: #1d3329;
+        --fg: #eef5f1;
+        --muted: #9fb5aa;
+        --accent: #2bc37f;
+        --accent-deep: #1a8f5c;
+        --loss: #ff8a73;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: Montserrat, sans-serif;
+      }
+
+      /* ---------- persistent background ---------- */
+      .bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(43, 195, 127, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(43, 195, 127, 0.05) 1px, transparent 1px);
+        background-size: 96px 96px;
+      }
+      .bg-glow {
+        position: absolute;
+        width: 1400px;
+        height: 1400px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(43, 195, 127, 0.16) 0%, rgba(43, 195, 127, 0) 62%);
+      }
+      #glow-a {
+        left: 900px;
+        top: -420px;
+      }
+      #glow-b {
+        left: -600px;
+        top: 380px;
+        opacity: 0.7;
+      }
+
+      /* ---------- scenes ---------- */
+      .scene {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+      }
+      .copy {
+        position: absolute;
+        left: 120px;
+        top: 0;
+        bottom: 0;
+        width: 740px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 28px;
+      }
+      .label {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: 22px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .label .rule {
+        display: block;
+        width: 44px;
+        height: 3px;
+        background: var(--accent);
+      }
+      .label img {
+        display: block;
+        height: 26px;
+        width: auto;
+      }
+      .headline {
+        font-weight: 900;
+        font-size: 76px;
+        line-height: 1.02;
+        letter-spacing: -0.035em;
+        color: var(--fg);
+      }
+      .headline .accent {
+        color: var(--accent);
+      }
+      .body {
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 400;
+        font-size: 30px;
+        line-height: 1.4;
+        color: var(--muted);
+        max-width: 640px;
+      }
+      .line {
+        display: block;
+      }
+      .nw {
+        white-space: nowrap;
+      }
+
+      /* footage windows: a fixed crop of the demo recording */
+      .shot {
+        position: absolute;
+        overflow: hidden;
+        background: #f3efec;
+        box-shadow:
+          0 40px 90px rgba(0, 0, 0, 0.55),
+          0 0 0 1px rgba(255, 255, 255, 0.06);
+      }
+      .shot .cam {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 50%;
+      }
+      .shot video {
+        position: absolute;
+        display: block;
+      }
+      .phone {
+        background: #0c0f12;
+      }
+
+      .chip {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 26px;
+        border-radius: 999px;
+        background: var(--surface);
+        border: 1px solid rgba(43, 195, 127, 0.45);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: 22px;
+        letter-spacing: 0.06em;
+        color: var(--fg);
+        white-space: nowrap;
+      }
+      .dot {
+        display: block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      /* ---------- S1 problem ---------- */
+      #s1 .copy {
+        width: 840px;
+      }
+      #s1 .headline {
+        font-size: 66px;
+      }
+      #s1-h1,
+      #s1-h2,
+      #s1-h3 {
+        display: block;
+      }
+      #s1-h3 {
+        color: var(--loss);
+      }
+      .lead-card {
+        position: absolute;
+        left: 1010px;
+        top: 300px;
+        width: 780px;
+        padding: 44px 48px;
+        border-radius: 28px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5);
+      }
+      .lead-top {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+      .avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        background: #1b3a2d;
+        color: var(--accent);
+        font-weight: 900;
+        font-size: 34px;
+      }
+      .lead-name {
+        font-weight: 700;
+        font-size: 40px;
+        letter-spacing: -0.02em;
+      }
+      .lead-meta {
+        margin-top: 6px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 22px;
+        color: var(--muted);
+      }
+      .lead-amount {
+        margin-top: 36px;
+        font-weight: 900;
+        font-size: 64px;
+        letter-spacing: -0.03em;
+      }
+      .lead-amount-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 22px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .lead-foot {
+        margin-top: 36px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .timer {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 24px;
+        color: var(--muted);
+      }
+      #s1-timer {
+        font-weight: 700;
+        color: var(--fg);
+      }
+      .status {
+        position: relative;
+        width: 250px;
+        height: 52px;
+      }
+      .status span {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: 20px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      #s1-new {
+        background: rgba(43, 195, 127, 0.14);
+        color: var(--accent);
+      }
+      #s1-lost {
+        background: rgba(255, 138, 115, 0.14);
+        color: var(--loss);
+        opacity: 0;
+      }
+
+      /* ---------- S2 question ---------- */
+      #s2 .q {
+        position: absolute;
+        left: 160px;
+        right: 160px;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 36px;
+      }
+      #s2 .headline {
+        font-size: 124px;
+        line-height: 1;
+      }
+      #s2 .word {
+        display: inline-block;
+      }
+
+      /* ---------- S5 documents ---------- */
+      .docs {
+        position: absolute;
+        left: 1300px;
+        top: 330px;
+        width: 500px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .doc {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 26px 30px;
+        border-radius: 20px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+        font-weight: 700;
+        font-size: 30px;
+      }
+      .tick {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #04110b;
+        font-size: 26px;
+        font-weight: 900;
+      }
+
+      /* ---------- S6a eligibility ---------- */
+      .uw {
+        position: absolute;
+        left: 960px;
+        top: 250px;
+        width: 840px;
+        padding: 44px 48px;
+        border-radius: 28px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5);
+      }
+      .uw-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: 22px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .uw-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 22px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 30px;
+        font-weight: 400;
+      }
+      .uw-row b {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 22px;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+      }
+      .uw-rows {
+        margin-top: 18px;
+      }
+      .uw-result {
+        margin-top: 34px;
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+      .uw-result .big {
+        font-weight: 900;
+        font-size: 72px;
+        letter-spacing: -0.03em;
+        color: var(--accent);
+      }
+      .uw-result .tick {
+        width: 72px;
+        height: 72px;
+        font-size: 42px;
+      }
+      .uw-result .note {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 22px;
+        color: var(--muted);
+      }
+
+      #s7b-body {
+        font-size: 58px;
+        margin-top: 10px;
+      }
+
+      /* ---------- S7a ---------- */
+      #s7a .q {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #s7a .headline {
+        font-size: 150px;
+      }
+
+      /* ---------- S8 journey ---------- */
+      .journey {
+        position: absolute;
+        left: 200px;
+        width: 1520px;
+        top: 330px;
+        height: 260px;
+      }
+      .track {
+        position: absolute;
+        left: 90px;
+        right: 90px;
+        top: 86px;
+        height: 6px;
+        background: var(--line);
+        border-radius: 3px;
+      }
+      .track-fill {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: var(--accent);
+        border-radius: 3px;
+        transform-origin: 0 50%;
+      }
+      .nodes {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: space-between;
+      }
+      .node {
+        width: 260px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+      }
+      .node-dot {
+        position: relative;
+        width: 178px;
+        height: 178px;
+        border-radius: 50%;
+        background: var(--surface);
+        border: 3px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: 44px;
+        color: var(--muted);
+      }
+      .node-on {
+        position: absolute;
+        inset: -3px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #04110b;
+        opacity: 0;
+      }
+      .node-name {
+        font-weight: 900;
+        font-size: 40px;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+      }
+      #s8-title {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 720px;
+        text-align: center;
+        font-size: 92px;
+      }
+
+      /* ---------- S9 end card ---------- */
+      .endcard {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 44px;
+      }
+      #s9-logo {
+        display: block;
+        width: 900px;
+        height: auto;
+      }
+      #s9-tag {
+        font-weight: 900;
+        font-size: 76px;
+        letter-spacing: -0.035em;
+      }
+      .cta {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 28px 52px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #04110b;
+        font-weight: 900;
+        font-size: 44px;
+        letter-spacing: -0.02em;
+        box-shadow: 0 30px 80px rgba(43, 195, 127, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="43"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- persistent background -->
+      <div class="bg-grid"></div>
+      <div id="glow-a" class="bg-glow"></div>
+      <div id="glow-b" class="bg-glow"></div>
+
+      <!-- S1 · 0.00 the enquiry that goes cold -->
+      <div id="s1" class="scene">
+        <div class="copy">
+          <div class="label" id="s1-label"><span class="rule"></span>Inbound enquiry</div>
+          <div class="headline">
+            <span id="s1-h1">A <span class="nw">personal-loan</span> enquiry comes in…</span>
+            <span id="s1-h2">Your RM responds late —</span>
+            <span id="s1-h3">and the opportunity is gone.</span>
+          </div>
+        </div>
+        <div class="lead-card" id="s1-card">
+          <div class="lead-top">
+            <div class="avatar">RK</div>
+            <div>
+              <div class="lead-name">Rahul K.</div>
+              <div class="lead-meta">Website form · just now</div>
+            </div>
+          </div>
+          <div class="lead-amount">
+            <div class="lead-amount-label">Personal loan</div>
+            <div id="s1-amount">₹5,00,000</div>
+          </div>
+          <div class="lead-foot">
+            <div class="timer">RM response · <span id="s1-timer">0h 00m</span></div>
+            <div class="status">
+              <span id="s1-new">New lead</span>
+              <span id="s1-lost">Lead lost</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S2 · 7.02 the question -->
+      <div id="s2" class="scene">
+        <div class="q">
+          <div class="label"><span class="rule"></span>Ask yourself</div>
+          <div class="headline" id="s2-q">
+            <span class="word">How</span> <span class="word">often</span>
+            <span class="word">does</span> <span class="word">this</span>
+            <span class="word">happen</span> <span class="word">in</span>
+            <span class="word">your</span> <span class="word accent">lending</span>
+            <span class="word accent">funnel?</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- S3 · 9.90 AI Voice calls within seconds -->
+      <div id="s3" class="scene">
+        <div class="copy">
+          <div class="label" id="s3-label">
+            <img src="assets/doubletick-tick.png" alt="" />With DoubleTick
+          </div>
+          <div class="headline" id="s3-h">
+            <span class="line">AI Voice calls</span>
+            <span class="line accent">within seconds.</span>
+          </div>
+          <div class="body" id="s3-body">…and understands the customer's requirement.</div>
+        </div>
+        <div class="shot phone" id="s3-phone" data-crop="phone" data-scale="0.92" style="left: 900px; top: 140px">
+          <div class="cam">
+            <video
+              id="v3-phone"
+              class="clip"
+              src="assets/demo.mp4"
+              data-start="9.85"
+              data-duration="4.7"
+              data-media-start="70.3"
+              data-track-index="1"
+              muted
+              playsinline
+            ></video>
+          </div>
+        </div>
+        <div class="chip" id="s3-chip" style="left: 1310px; top: 330px">
+          <span class="dot"></span>AI Voice · live call
+        </div>
+        <div class="shot" id="s3-transcript" data-crop="transcript" data-scale="1.15" style="left: 1310px; top: 560px">
+          <div class="cam">
+            <video
+              id="v3-transcript"
+              class="clip"
+              src="assets/demo.mp4"
+              data-start="12.8"
+              data-duration="1.75"
+              data-media-start="83"
+              data-track-index="2"
+              muted
+              playsinline
+            ></video>
+          </div>
+        </div>
+      </div>
+
+      <!-- S4 · 14.68 moves to WhatsApp with context -->
+      <div id="s4" class="scene">
+        <div class="copy">
+          <div class="label"><span class="rule"></span>Voice → WhatsApp</div>
+          <div class="headline">
+            <span class="line">Moves them to WhatsApp —</span>
+            <span class="line accent" id="s4-accent">with full context intact.</span>
+          </div>
+        </div>
+        <div class="shot phone" id="s4-phone" data-crop="phone" data-scale="0.8" style="left: 880px; top: 193px">
+          <div class="cam">
+            <video
+              id="v4-phone"
+              class="clip"
+              src="assets/demo.mp4"
+              data-start="14.6"
+              data-duration="3.8"
+              data-media-start="99"
+              data-track-index="1"
+              muted
+              playsinline
+            ></video>
+          </div>
+        </div>
+        <div class="shot" id="s4-desk" data-crop="desk" data-scale="0.8" style="left: 1230px; top: 197px">
+          <div class="cam">
+            <video
+              id="v4-desk"
+              class="clip"
+              src="assets/demo.mp4"
+              data-start="14.55"
+              data-duration="3.85"
+              data-media-start="98.95"
+              data-track-index="2"
+              muted
+              playsinline
+            ></video>
+          </div>
+        </div>
+        <div class="chip" id="s4-chip" style="left: 1290px; top: 900px">
+          <span class="dot"></span>AI call summary saved to the lead
+        </div>
+      </div>
+
+      <!-- S5 · 18.52 documents in-chat -->
+      <div id="s5" class="scene">
+        <div class="copy">
+          <div class="label"><span class="rule"></span>In-chat collection</div>
+          <div class="headline">
+            <span class="line">Documents,</span>
+            <span class="line accent">collected <span class="nw">in-chat.</span></span>
+          </div>
+        </div>
+        <div class="shot phone" id="s5-phone" data-crop="phone" data-scale="0.9" style="left: 880px; top: 150px">
+          <div class="cam">
+            <video
+              id="v5-phone"
+              class="clip"
+              src="assets/demo.mp4"
+              data-start="18.45"
+              data-duration="2.5"
+              data-media-start="112.5"
+              data-track-index="1"
+              muted
+              playsinline
+            ></video>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="doc" id="s5-d1">PAN &amp; KYC <span class="tick">✓</span></div>
+          <div class="doc" id="s5-d2">Salary slips <span class="tick">✓</span></div>
+          <div class="doc" id="s5-d3">Bank statement <span class="tick">✓</span></div>
+        </div>
+      </div>
+
+      <!-- S6a · 21.04 eligibility from underwriting -->
+      <div id="s6a" class="scene">
+        <div class="copy">
+          <div class="label"><span class="rule"></span>Eligibility</div>
+          <div class="headline">
+            <span class="line">Straight from the bank's</span>
+            <span class="line accent">underwriting system.</span>
+          </div>
+        </div>
+        <div class="uw" id="s6-card">
+          <div class="uw-head"><span>Underwriting check</span><span>Personal loan</span></div>
+          <div class="uw-rows">
+            <div class="uw-row" id="s6-r1"><span>Documents from chat</span><b>SENT</b></div>
+            <div class="uw-row" id="s6-r2"><span>Bank underwriting system</span><b>CHECKED</b></div>
+          </div>
+          <div class="uw-result" id="s6-result">
+            <span class="tick">✓</span>
+            <div>
+              <div class="big">Eligible</div>
+              <div class="note">Shared back to the customer on WhatsApp</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S6b · 23.70 AI follow-up -->
+      <div id="s6b" class="scene">
+        <div class="copy">
+          <div class="label"><span class="rule"></span>Follow-up</div>
+          <div class="headline">
+            <span class="line">AI follows up —</span>
+            <span class="line accent">automatically.</span>
+          </div>
+        </div>
+        <div class="shot phone" id="s6b-phone" data-crop="phone" data-scale="0.9" style="left: 1000px; top: 150px">
+          <div class="cam">
+            <video
+              id="v6b-phone"
+              class="clip"
+              src="assets/demo.mp4"
+              data-start="23.65"
+              data-duration="2.45"
+              data-media-start="18.5"
+              data-track-index="1"
+              muted
+              playsinline
+            ></video>
+          </div>
+        </div>
+        <div class="chip" id="s6b-chip" style="left: 1300px; top: 780px">
+          <span class="dot"></span>Nudge sent · no RM needed
+        </div>
+      </div>
+
+      <!-- S7a · 26.19 need human help? -->
+      <div id="s7a" class="scene">
+        <div class="q">
+          <div class="headline" id="s7a-h">Need <span class="accent">human</span> help?</div>
+        </div>
+      </div>
+
+      <!-- S7b · 27.40 RM takes over -->
+      <div id="s7b" class="scene">
+        <div class="copy">
+          <div class="label"><span class="rule"></span>Human handover</div>
+          <div class="headline">
+            <span class="line">The right RM takes over —</span>
+            <span class="line accent" id="s7b-body">with the complete conversation history.</span>
+          </div>
+        </div>
+        <div class="shot phone" id="s7b-phone" data-crop="phone" data-scale="0.8" style="left: 880px; top: 193px">
+          <div class="cam">
+            <video
+              id="v7b-phone"
+              class="clip"
+              src="assets/demo.mp4"
+              data-start="27.4"
+              data-duration="3.75"
+              data-media-start="53.5"
+              data-track-index="1"
+              muted
+              playsinline
+            ></video>
+          </div>
+        </div>
+        <div class="shot" id="s7b-desk" data-crop="desk" data-scale="0.8" style="left: 1230px; top: 197px">
+          <div class="cam">
+            <video
+              id="v7b-desk"
+              class="clip"
+              src="assets/demo.mp4"
+              data-start="27.35"
+              data-duration="3.8"
+              data-media-start="53.45"
+              data-track-index="2"
+              muted
+              playsinline
+            ></video>
+          </div>
+        </div>
+      </div>
+
+      <!-- S8 · 31.26 one connected journey -->
+      <div id="s8" class="scene">
+        <div class="journey">
+          <div class="track"><span class="track-fill" id="s8-fill"></span></div>
+          <div class="nodes">
+            <div class="node" id="s8-n1">
+              <div class="node-dot">01<span class="node-on">01</span></div>
+              <div class="node-name">Enquiry</div>
+            </div>
+            <div class="node" id="s8-n2">
+              <div class="node-dot">02<span class="node-on">02</span></div>
+              <div class="node-name">Eligibility</div>
+            </div>
+            <div class="node" id="s8-n3">
+              <div class="node-dot">03<span class="node-on">03</span></div>
+              <div class="node-name">Follow-up</div>
+            </div>
+            <div class="node" id="s8-n4">
+              <div class="node-dot">04<span class="node-on">04</span></div>
+              <div class="node-name">Disbursal</div>
+            </div>
+          </div>
+        </div>
+        <div class="headline" id="s8-title">One connected <span class="accent">lending journey.</span></div>
+      </div>
+
+      <!-- S9 · 37.43 end card -->
+      <div id="s9" class="scene">
+        <div class="endcard">
+          <img id="s9-logo" src="assets/doubletick-logo-light.png" alt="DoubleTick" />
+          <div id="s9-tag">Built for lending at scale.</div>
+          <div class="cta" id="s9-cta">Apply for your free pilot today <span>→</span></div>
+        </div>
+      </div>
+
+      <audio
+        id="voiceover"
+        src="assets/voiceover.mp3"
+        data-start="0"
+        data-duration="42.45"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+    </div>
+
+    <script>
+      // Fixed crop regions inside the 1920x1080 demo recording.
+      const CROPS = {
+        phone: { x: 100, y: 104, w: 406, h: 868, r: 64 },
+        desk: { x: 1093, y: 113, w: 727, h: 857, r: 18 },
+        transcript: { x: 1106, y: 688, w: 422, h: 212, r: 14 },
+      };
+      document.querySelectorAll(".shot").forEach((shot) => {
+        const c = CROPS[shot.dataset.crop];
+        const s = Number(shot.dataset.scale);
+        shot.style.width = `${c.w * s}px`;
+        shot.style.height = `${c.h * s}px`;
+        shot.style.borderRadius = `${c.r * s}px`;
+        const v = shot.querySelector("video");
+        v.style.left = `${-c.x * s}px`;
+        v.style.top = `${-c.y * s}px`;
+        v.style.width = `${1920 * s}px`;
+        v.style.height = `${1080 * s}px`;
+      });
+
+      const tl = gsap.timeline({ paused: true });
+
+      // Ambient background (finite, seek-safe).
+      tl.to("#glow-a", { x: -160, y: 90, scale: 1.12, duration: 43, ease: "sine.inOut" }, 0);
+      tl.to("#glow-b", { x: 220, y: -60, scale: 0.9, duration: 43, ease: "sine.inOut" }, 0);
+
+      const sceneIn = (id, t, d = 0.3) => tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: d, ease: "power2.out" }, t);
+      const sceneOut = (id, t, d = 0.25) => tl.to(id, { opacity: 0, duration: d, ease: "power2.in" }, t);
+      const rise = (sel, t, extra = {}) =>
+        tl.fromTo(sel, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", ...extra }, t);
+      const pop = (sel, t) =>
+        tl.fromTo(sel, { y: 60, scale: 0.94, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.7, ease: "expo.out" }, t);
+      const push = (sel, t, d, to = 1.06) => tl.fromTo(`${sel} .cam`, { scale: 1 }, { scale: to, duration: d, ease: "sine.inOut" }, t);
+
+      // S1 — 0.00 → 6.90
+      sceneIn("#s1", 0, 0.2);
+      rise("#s1-label", 0.05);
+      rise("#s1-h1", 0.12);
+      pop("#s1-card", 0.35);
+      rise("#s1-h2", 2.63);
+      tl.to("#s1-h1", { opacity: 0.35, duration: 0.4 }, 2.63);
+      const clock = { m: 0 };
+      tl.to(
+        clock,
+        {
+          m: 227,
+          duration: 1.9,
+          ease: "power2.in",
+          onUpdate: () => {
+            const m = Math.round(clock.m);
+            document.getElementById("s1-timer").textContent = `${Math.floor(m / 60)}h ${String(m % 60).padStart(2, "0")}m`;
+          },
+        },
+        2.7,
+      );
+      tl.to("#s1-timer", { color: "#ff8a73", duration: 0.3 }, 4.3);
+      rise("#s1-h3", 4.59);
+      tl.to("#s1-h2", { opacity: 0.35, duration: 0.4 }, 4.59);
+      tl.to("#s1-new", { opacity: 0, duration: 0.25 }, 4.65);
+      tl.fromTo("#s1-lost", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 4.65);
+      tl.to("#s1-card", { opacity: 0.45, y: 20, filter: "grayscale(1)", duration: 1.2, ease: "power2.out" }, 4.8);
+      sceneOut("#s1", 6.7);
+
+      // S2 — 7.02 → 9.80
+      sceneIn("#s2", 7.0, 0.2);
+      tl.fromTo("#s2 .word", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", stagger: 0.16 }, 7.05);
+      tl.fromTo("#s2 .q", { scale: 1 }, { scale: 1.04, duration: 2.8, ease: "none" }, 7.0);
+      sceneOut("#s2", 9.6);
+
+      // S3 — 9.85 → 14.55
+      sceneIn("#s3", 9.85);
+      rise("#s3-label", 9.9);
+      rise("#s3-h", 10.83);
+      pop("#s3-phone", 9.95);
+      push("#s3-phone", 9.95, 4.6, 1.05);
+      tl.fromTo("#s3-chip", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 10.9);
+      tl.to("#s3-chip", { y: -90, duration: 0.5, ease: "power2.inOut" }, 12.75);
+      pop("#s3-transcript", 12.8);
+      rise("#s3-body", 12.87);
+      sceneOut("#s3", 14.35);
+
+      // S4 — 14.68 → 18.40
+      sceneIn("#s4", 14.6);
+      pop("#s4-phone", 14.65);
+      pop("#s4-desk", 14.8);
+      push("#s4-desk", 14.8, 3.6, 1.05);
+      rise("#s4 .line:first-child", 14.7);
+      rise("#s4-accent", 16.31);
+      tl.fromTo("#s4-chip", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "back.out(1.6)" }, 16.4);
+      sceneOut("#s4", 18.2);
+
+      // S5 — 18.52 → 20.95
+      sceneIn("#s5", 18.45);
+      rise("#s5 .headline", 18.5);
+      pop("#s5-phone", 18.5);
+      push("#s5-phone", 18.5, 2.5, 1.06);
+      tl.fromTo(
+        ["#s5-d1", "#s5-d2", "#s5-d3"],
+        { x: 60, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.45, ease: "power3.out", stagger: 0.28 },
+        18.9,
+      );
+      tl.fromTo(
+        "#s5 .tick",
+        { scale: 0 },
+        { scale: 1, duration: 0.35, ease: "back.out(2.5)", stagger: 0.28 },
+        19.2,
+      );
+      sceneOut("#s5", 20.75);
+
+      // S6a — 21.04 → 23.60
+      sceneIn("#s6a", 20.95);
+      rise("#s6a .headline", 21.04);
+      pop("#s6-card", 21.1);
+      rise("#s6-r1", 21.45);
+      rise("#s6-r2", 21.9);
+      tl.fromTo("#s6-result", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.8)" }, 22.5);
+      sceneOut("#s6a", 23.4);
+
+      // S6b — 23.70 → 26.10
+      sceneIn("#s6b", 23.6);
+      rise("#s6b .line:first-child", 23.7);
+      rise("#s6b .accent", 24.4);
+      pop("#s6b-phone", 23.7);
+      push("#s6b-phone", 23.7, 2.4, 1.05);
+      tl.fromTo("#s6b-chip", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 24.6);
+      sceneOut("#s6b", 25.9);
+
+      // S7a — 26.19 → 27.35
+      sceneIn("#s7a", 26.1, 0.15);
+      tl.fromTo("#s7a-h", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "expo.out" }, 26.15);
+      sceneOut("#s7a", 27.15, 0.2);
+
+      // S7b — 27.40 → 31.15
+      sceneIn("#s7b", 27.35);
+      rise("#s7b .line:first-child", 27.4);
+      pop("#s7b-phone", 27.45);
+      pop("#s7b-desk", 27.6);
+      push("#s7b-desk", 27.6, 3.5, 1.05);
+      rise("#s7b-body", 28.94);
+      sceneOut("#s7b", 30.95);
+
+      // S8 — 31.26 → 37.35
+      sceneIn("#s8", 31.1);
+      tl.fromTo(".node", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", stagger: 0.08 }, 31.15);
+      tl.set("#s8-fill", { scaleX: 0 }, 31.1);
+      const beats = [31.26, 32.31, 33.35, 34.18];
+      beats.forEach((t, i) => {
+        tl.fromTo(`#s8-n${i + 1} .node-on`, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, t);
+        tl.fromTo(`#s8-n${i + 1} .node-name`, { color: "#eef5f1" }, { color: "#2bc37f", duration: 0.3 }, t);
+        if (i > 0) tl.to("#s8-fill", { scaleX: i / 3, duration: 0.45, ease: "power2.inOut" }, t - 0.2);
+      });
+      rise("#s8-title", 35.27);
+      tl.to(".journey", { y: -30, duration: 0.6, ease: "power2.out" }, 35.2);
+      sceneOut("#s8", 37.15);
+
+      // S9 — 37.43 → 43.00
+      sceneIn("#s9", 37.3);
+      tl.fromTo("#s9-logo", { scale: 0.9, opacity: 0, y: 30 }, { scale: 1, opacity: 1, y: 0, duration: 0.8, ease: "expo.out" }, 37.4);
+      rise("#s9-tag", 38.37);
+      tl.fromTo("#s9-cta", { y: 40, scale: 0.9, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.7)" }, 40.55);
+      tl.to("#s9-cta", { scale: 1.04, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, 41.4);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
