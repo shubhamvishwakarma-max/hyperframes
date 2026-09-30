@@ -115,9 +115,7 @@
         position: absolute;
         inset: 0;
         opacity: 0;
-        background:
-          radial-gradient(760px 620px at 50% 38%, rgba(214, 64, 64, 0.1), transparent 72%),
-          linear-gradient(180deg, #fbefed 0%, #f7e3e1 100%);
+        background: radial-gradient(circle at 50% 46%, #fdf8f7 0%, #fbeeec 38%, #f6dedb 72%, #efcdc9 100%);
       }
       #neg-hit {
         position: absolute;
@@ -2132,6 +2130,8 @@
           tl.set($("#lead"), { filter: "grayscale(0) blur(0px)" }, 0);
           const h1a = split($("#h1a"));
           const h1c = split($("#h1c"));
+          h1c[1].style.color = "#b42318";
+          h1c[2].style.color = "#b42318";
           words(h1a, 0.18, 0.08);
           settle($("#h1a"), 0.18);
           words(h1c, 2.62, 0.08);
