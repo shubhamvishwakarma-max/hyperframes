@@ -1,0 +1,5 @@
+renders/work-*
+renders/.*transaction*
+renders/draft.mp4
+snapshots/
+.lufs_tmp.wav

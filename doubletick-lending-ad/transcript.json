@@ -1,0 +1,608 @@
+[
+  {
+    "id": "w0",
+    "text": "A",
+    "start": 0,
+    "end": 0.24
+  },
+  {
+    "id": "w1",
+    "text": "personal",
+    "start": 0.24,
+    "end": 0.56
+  },
+  {
+    "id": "w2",
+    "text": "loan",
+    "start": 0.56,
+    "end": 0.96
+  },
+  {
+    "id": "w3",
+    "text": "inquir",
+    "start": 0.96,
+    "end": 1.44
+  },
+  {
+    "id": "w4",
+    "text": "comes",
+    "start": 1.44,
+    "end": 1.92
+  },
+  {
+    "id": "w5",
+    "text": "in.",
+    "start": 1.92,
+    "end": 2.4
+  },
+  {
+    "id": "w6",
+    "text": "Your",
+    "start": 2.4,
+    "end": 2.72
+  },
+  {
+    "id": "w7",
+    "text": "RM",
+    "start": 2.72,
+    "end": 3.28
+  },
+  {
+    "id": "w8",
+    "text": "responds",
+    "start": 3.28,
+    "end": 3.84
+  },
+  {
+    "id": "w9",
+    "text": "late,",
+    "start": 3.84,
+    "end": 4.48
+  },
+  {
+    "id": "w10",
+    "text": "and",
+    "start": 4.48,
+    "end": 4.72
+  },
+  {
+    "id": "w11",
+    "text": "the",
+    "start": 4.72,
+    "end": 4.96
+  },
+  {
+    "id": "w12",
+    "text": "opportunity",
+    "start": 4.96,
+    "end": 5.6
+  },
+  {
+    "id": "w13",
+    "text": "is",
+    "start": 5.6,
+    "end": 5.92
+  },
+  {
+    "id": "w14",
+    "text": "gone.",
+    "start": 5.92,
+    "end": 6.72
+  },
+  {
+    "id": "w15",
+    "text": "How",
+    "start": 6.72,
+    "end": 7.12
+  },
+  {
+    "id": "w16",
+    "text": "often",
+    "start": 7.12,
+    "end": 7.44
+  },
+  {
+    "id": "w17",
+    "text": "does",
+    "start": 7.44,
+    "end": 7.68
+  },
+  {
+    "id": "w18",
+    "text": "this",
+    "start": 7.68,
+    "end": 7.84
+  },
+  {
+    "id": "w19",
+    "text": "happen",
+    "start": 7.84,
+    "end": 8.16
+  },
+  {
+    "id": "w20",
+    "text": "in",
+    "start": 8.16,
+    "end": 8.32
+  },
+  {
+    "id": "w21",
+    "text": "your",
+    "start": 8.32,
+    "end": 8.48
+  },
+  {
+    "id": "w22",
+    "text": "lending",
+    "start": 8.48,
+    "end": 8.88
+  },
+  {
+    "id": "w23",
+    "text": "funnel?",
+    "start": 8.88,
+    "end": 9.6
+  },
+  {
+    "id": "w24",
+    "text": "With",
+    "start": 9.6,
+    "end": 9.92
+  },
+  {
+    "id": "w25",
+    "text": "DoubleTick,",
+    "start": 9.92,
+    "end": 10.8
+  },
+  {
+    "id": "w26",
+    "text": "AI",
+    "start": 10.8,
+    "end": 11.12
+  },
+  {
+    "id": "w27",
+    "text": "Voice",
+    "start": 11.12,
+    "end": 11.52
+  },
+  {
+    "id": "w28",
+    "text": "calls",
+    "start": 11.52,
+    "end": 11.84
+  },
+  {
+    "id": "w29",
+    "text": "within",
+    "start": 11.84,
+    "end": 12.16
+  },
+  {
+    "id": "w30",
+    "text": "seconds,",
+    "start": 12.16,
+    "end": 12.88
+  },
+  {
+    "id": "w31",
+    "text": "understands",
+    "start": 12.88,
+    "end": 13.28
+  },
+  {
+    "id": "w32",
+    "text": "the",
+    "start": 13.28,
+    "end": 13.44
+  },
+  {
+    "id": "w33",
+    "text": "customer's",
+    "start": 13.44,
+    "end": 14.08
+  },
+  {
+    "id": "w34",
+    "text": "requirement,",
+    "start": 14.08,
+    "end": 14.72
+  },
+  {
+    "id": "w35",
+    "text": "and",
+    "start": 14.72,
+    "end": 14.88
+  },
+  {
+    "id": "w36",
+    "text": "moves",
+    "start": 14.88,
+    "end": 15.28
+  },
+  {
+    "id": "w37",
+    "text": "them",
+    "start": 15.28,
+    "end": 15.44
+  },
+  {
+    "id": "w38",
+    "text": "to",
+    "start": 15.44,
+    "end": 15.6
+  },
+  {
+    "id": "w39",
+    "text": "WhatsApp",
+    "start": 15.6,
+    "end": 16.16
+  },
+  {
+    "id": "w40",
+    "text": "with",
+    "start": 16.24,
+    "end": 16.48
+  },
+  {
+    "id": "w41",
+    "text": "the",
+    "start": 16.48,
+    "end": 16.64
+  },
+  {
+    "id": "w42",
+    "text": "full",
+    "start": 16.64,
+    "end": 17.04
+  },
+  {
+    "id": "w43",
+    "text": "context",
+    "start": 17.04,
+    "end": 17.6
+  },
+  {
+    "id": "w44",
+    "text": "intact.",
+    "start": 17.6,
+    "end": 18.4
+  },
+  {
+    "id": "w45",
+    "text": "Documents",
+    "start": 18.4,
+    "end": 19.04
+  },
+  {
+    "id": "w46",
+    "text": "are",
+    "start": 19.04,
+    "end": 19.2
+  },
+  {
+    "id": "w47",
+    "text": "collected",
+    "start": 19.2,
+    "end": 19.68
+  },
+  {
+    "id": "w48",
+    "text": "directly",
+    "start": 19.68,
+    "end": 20.16
+  },
+  {
+    "id": "w49",
+    "text": "in",
+    "start": 20.16,
+    "end": 20.32
+  },
+  {
+    "id": "w50",
+    "text": "chat.",
+    "start": 20.32,
+    "end": 20.96
+  },
+  {
+    "id": "w51",
+    "text": "Eligibility",
+    "start": 20.96,
+    "end": 21.68
+  },
+  {
+    "id": "w52",
+    "text": "comes",
+    "start": 21.68,
+    "end": 21.84
+  },
+  {
+    "id": "w53",
+    "text": "from",
+    "start": 21.84,
+    "end": 22
+  },
+  {
+    "id": "w54",
+    "text": "the",
+    "start": 22,
+    "end": 22.08
+  },
+  {
+    "id": "w55",
+    "text": "bank's",
+    "start": 22.08,
+    "end": 22.56
+  },
+  {
+    "id": "w56",
+    "text": "underwriting",
+    "start": 22.56,
+    "end": 23.28
+  },
+  {
+    "id": "w57",
+    "text": "system,",
+    "start": 23.28,
+    "end": 23.68
+  },
+  {
+    "id": "w58",
+    "text": "and",
+    "start": 23.68,
+    "end": 23.84
+  },
+  {
+    "id": "w59",
+    "text": "AI",
+    "start": 23.84,
+    "end": 24.32
+  },
+  {
+    "id": "w60",
+    "text": "follows",
+    "start": 24.32,
+    "end": 24.64
+  },
+  {
+    "id": "w61",
+    "text": "up",
+    "start": 24.8,
+    "end": 24.96
+  },
+  {
+    "id": "w62",
+    "text": "automatically.",
+    "start": 24.96,
+    "end": 26
+  },
+  {
+    "id": "w63",
+    "text": "Need",
+    "start": 26,
+    "end": 26.4
+  },
+  {
+    "id": "w64",
+    "text": "human",
+    "start": 26.4,
+    "end": 26.72
+  },
+  {
+    "id": "w65",
+    "text": "help?",
+    "start": 26.72,
+    "end": 27.28
+  },
+  {
+    "id": "w66",
+    "text": "The",
+    "start": 27.28,
+    "end": 27.44
+  },
+  {
+    "id": "w67",
+    "text": "right",
+    "start": 27.44,
+    "end": 27.6
+  },
+  {
+    "id": "w68",
+    "text": "RM",
+    "start": 27.84,
+    "end": 28.32
+  },
+  {
+    "id": "w69",
+    "text": "takes",
+    "start": 28.32,
+    "end": 28.64
+  },
+  {
+    "id": "w70",
+    "text": "over",
+    "start": 28.64,
+    "end": 28.88
+  },
+  {
+    "id": "w71",
+    "text": "with",
+    "start": 28.88,
+    "end": 29.12
+  },
+  {
+    "id": "w72",
+    "text": "the",
+    "start": 29.12,
+    "end": 29.28
+  },
+  {
+    "id": "w73",
+    "text": "complete",
+    "start": 29.28,
+    "end": 29.68
+  },
+  {
+    "id": "w74",
+    "text": "conversation",
+    "start": 29.68,
+    "end": 30.4
+  },
+  {
+    "id": "w75",
+    "text": "history.",
+    "start": 30.4,
+    "end": 31.12
+  },
+  {
+    "id": "w76",
+    "text": "From",
+    "start": 31.12,
+    "end": 31.44
+  },
+  {
+    "id": "w77",
+    "text": "inquiry",
+    "start": 31.44,
+    "end": 32.08
+  },
+  {
+    "id": "w78",
+    "text": "to",
+    "start": 32.16,
+    "end": 32.4
+  },
+  {
+    "id": "w79",
+    "text": "eligibility",
+    "start": 32.4,
+    "end": 33.12
+  },
+  {
+    "id": "w80",
+    "text": "to",
+    "start": 33.2,
+    "end": 33.44
+  },
+  {
+    "id": "w81",
+    "text": "follow",
+    "start": 33.44,
+    "end": 33.84
+  },
+  {
+    "id": "w82",
+    "text": "up",
+    "start": 33.84,
+    "end": 34
+  },
+  {
+    "id": "w83",
+    "text": "to",
+    "start": 34.08,
+    "end": 34.32
+  },
+  {
+    "id": "w84",
+    "text": "dispersal.",
+    "start": 34.32,
+    "end": 35.28
+  },
+  {
+    "id": "w85",
+    "text": "One",
+    "start": 35.28,
+    "end": 35.68
+  },
+  {
+    "id": "w86",
+    "text": "connected",
+    "start": 35.68,
+    "end": 36.24
+  },
+  {
+    "id": "w87",
+    "text": "lending",
+    "start": 36.24,
+    "end": 36.72
+  },
+  {
+    "id": "w88",
+    "text": "journey.",
+    "start": 36.72,
+    "end": 37.36
+  },
+  {
+    "id": "w89",
+    "text": "DoubleTick,",
+    "start": 37.36,
+    "end": 38.4
+  },
+  {
+    "id": "w90",
+    "text": "built",
+    "start": 38.4,
+    "end": 38.72
+  },
+  {
+    "id": "w91",
+    "text": "for",
+    "start": 38.72,
+    "end": 38.96
+  },
+  {
+    "id": "w92",
+    "text": "lending",
+    "start": 38.96,
+    "end": 39.44
+  },
+  {
+    "id": "w93",
+    "text": "at",
+    "start": 39.44,
+    "end": 39.68
+  },
+  {
+    "id": "w94",
+    "text": "scale.",
+    "start": 39.68,
+    "end": 40.4
+  },
+  {
+    "id": "w95",
+    "text": "Apply",
+    "start": 40.4,
+    "end": 40.8
+  },
+  {
+    "id": "w96",
+    "text": "for",
+    "start": 40.8,
+    "end": 40.96
+  },
+  {
+    "id": "w97",
+    "text": "your",
+    "start": 40.96,
+    "end": 41.12
+  },
+  {
+    "id": "w98",
+    "text": "free",
+    "start": 41.12,
+    "end": 41.44
+  },
+  {
+    "id": "w99",
+    "text": "pilot",
+    "start": 41.44,
+    "end": 41.92
+  },
+  {
+    "id": "w100",
+    "text": "today.",
+    "start": 41.92,
+    "end": 42.32
+  }
+]
