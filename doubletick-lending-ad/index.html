@@ -110,6 +110,37 @@
         inset: 0;
         transform-origin: 50% 50%;
       }
+      /* negative grade for the problem hook: blush base, red bloom, soft vignette */
+      #neg {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        background:
+          radial-gradient(760px 620px at 50% 38%, rgba(214, 64, 64, 0.1), transparent 72%),
+          linear-gradient(180deg, #fbefed 0%, #f7e3e1 100%);
+      }
+      #neg-hit {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        background: radial-gradient(620px 420px at 50% 64%, rgba(212, 48, 52, 0.2), transparent 70%);
+      }
+      #neg-vig {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(900px 900px at 50% 50%, transparent 55%, rgba(150, 40, 40, 0.12) 100%);
+      }
+      #sol-bloom {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 1400px;
+        height: 1400px;
+        margin: -700px 0 0 -700px;
+        border-radius: 50%;
+        background: radial-gradient(closest-side, rgba(39, 179, 120, 0.16), rgba(39, 179, 120, 0.05) 60%, transparent 100%);
+        opacity: 0;
+      }
 
       /* ---------- logo ---------- */
       #logo-wrap {
@@ -252,12 +283,12 @@
         background: #d69a3a;
       }
       .st-lost {
-        background: #eef0ee;
-        color: var(--grey);
+        background: #fde8e7;
+        color: #b42318;
         opacity: 0;
       }
       .st-lost i {
-        background: var(--grey2);
+        background: #e5484d;
       }
       .lead-bot {
         margin-top: 20px;
@@ -299,6 +330,7 @@
       }
       #rm-none {
         opacity: 0;
+        color: #b42318;
       }
       .timer-box {
         text-align: right;
@@ -1640,6 +1672,8 @@
 
     <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1080" data-duration="43.5">
       <div id="bg"><div id="bg-grid"></div></div>
+      <div id="neg"><div id="neg-hit"></div><div id="neg-vig"></div></div>
+      <div id="sol-bloom"></div>
 
       <div id="cam">
         <!-- ============ SCENE 1 — THE LOST OPPORTUNITY ============ -->
@@ -2080,6 +2114,19 @@
           // light chat chrome sits under the dark call screen until the morph
           tl.fromTo([$("#wahead"), $("#sbar-l"), $("#chat"), $("#inputbar")], { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 14.86);
 
+          // negative grade: present from frame 0, deepens as the lead goes cold
+          const neg = $("#neg");
+          tl.fromTo(neg, { opacity: 0.55 }, { opacity: 0.8, duration: 4.4, ease: "power1.in" }, 0);
+          tl.to(neg, { opacity: 1, duration: 0.25, ease: "power2.out" }, 5.88);
+          tl.fromTo($("#neg-hit"), { opacity: 0 }, { opacity: 1, duration: 0.18, ease: "power3.out" }, 5.9);
+          tl.to($("#neg-hit"), { opacity: 0.55, duration: 0.9, ease: "power2.out" }, 6.1);
+          tl.to($("#neg-hit"), { opacity: 0, duration: 0.4 }, 6.75);
+          tl.to(neg, { opacity: 0.6, duration: 0.6, ease: "power2.inOut" }, 6.8);
+          // solution: red washes out, a soft green bloom arrives with "With DoubleTick"
+          tl.to(neg, { opacity: 0, duration: 0.42, ease: "power2.in" }, 9.34);
+          tl.fromTo($("#sol-bloom"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.9, ease: "expo.out" }, 9.7);
+          tl.to($("#sol-bloom"), { opacity: 0, duration: 1.2, ease: "power2.inOut" }, 10.9);
+
           // ================= SCENE 1 =================
           pop($("#lead"), 0, { y: 14, s: 0.98, d: 0.45, e: "expo.out", o0: 0.6 });
           tl.set($("#lead"), { filter: "grayscale(0) blur(0px)" }, 0);
@@ -2107,6 +2154,8 @@
           );
           tl.fromTo(timerEl, { scale: 1 }, { scale: 1.08, duration: 0.18, yoyo: true, repeat: 1, transformOrigin: "100% 50%", ease: "power2.out" }, 4.55);
           // status active -> cooling -> lost
+          tl.to($("#timer"), { color: "#b42318", duration: 1.4, ease: "power1.in" }, 3.0);
+          tl.to($("#lead"), { borderColor: "#f2cfcc", boxShadow: "0 1px 2px rgba(120,20,20,0.05), 0 18px 44px -18px rgba(160,30,30,0.28)", duration: 0.6 }, 5.9);
           fadeOut($(".st-active"), 2.9, 0.3);
           pop($(".st-cool"), 2.95, { y: 6, s: 0.9, d: 0.35 });
           fadeOut($(".st-cool"), 5.86, 0.2);
@@ -2120,6 +2169,7 @@
           tl.to($("#h1"), { opacity: 0, duration: 0.01 }, 4.95);
           const h1b = split($("#h1b"));
           tl.fromTo(h1b[0], { yPercent: 118 }, { yPercent: 0, duration: 0.6, ease: "expo.out" }, 4.96);
+          h1b[1].style.color = "#b42318";
           tl.fromTo(h1b[1].parentNode, { scale: 1.35, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "power4.out", transformOrigin: "50% 60%" }, 5.9);
           tl.fromTo($("#h1b"), { scale: 1 }, { scale: 0.985, duration: 0.08, yoyo: true, repeat: 1, ease: "power2.out" }, 5.92);
           // clear
@@ -2137,7 +2187,8 @@
             tl.fromTo(d, { x: -20, opacity: 0 }, { opacity: 1, duration: 0.25 }, 7.0 + i * 0.28);
             if (i === 2) {
               tl.to(d, { x: 330, duration: 1.3, ease: "power1.inOut" }, 7.0 + i * 0.28);
-              tl.to(d, { y: 90, opacity: 0, backgroundColor: "#b9bfc6", boxShadow: "0 0 0 5px rgba(0,0,0,0)", duration: 0.7, ease: "power2.in" }, 8.62);
+              tl.to(d, { backgroundColor: "#e5484d", boxShadow: "0 0 0 6px rgba(229,72,77,0.18)", duration: 0.2 }, 8.5);
+              tl.to(d, { y: 90, opacity: 0, duration: 0.7, ease: "power2.in" }, 8.66);
             } else {
               tl.to(d, { x: 700, duration: 2.1, ease: "none" }, 7.0 + i * 0.28);
               tl.to(d, { opacity: 0, duration: 0.3 }, 7.0 + i * 0.28 + 1.8);
