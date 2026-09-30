@@ -1,0 +1,2504 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>DoubleTick — BFSI Governed Onboarding</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        src: url("assets/fonts/HedvigLettersSerif-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        src: url("assets/fonts/HedvigLettersSerif-latin-ext.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/Geist-latin.woff2") format("woff2");
+        font-weight: 100 900;
+        font-display: block;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/Geist-latin-ext.woff2") format("woff2");
+        font-weight: 100 900;
+        font-display: block;
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Geist Mono";
+        src: url("assets/fonts/GeistMono-latin.woff2") format("woff2");
+        font-weight: 100 900;
+        font-display: block;
+      }
+
+      :root {
+        --bg: #f7f6f1;
+        --ink: #16191b;
+        --ink-2: #3b4145;
+        --muted: #5f666b;
+        --cold: #858b86;
+        --line: #e4e2da;
+        --track: #d9d7cf;
+        --surface: #ffffff;
+        --surface-2: #f3f2ec;
+        --green: #29b278;
+        --green-deep: #13774f;
+        --green-cta: #1b8a5a;
+        --green-soft: #e4f4ec;
+        --wa-bg: #efe9e0;
+        --wa-out: #d9fdd3;
+        --wa-btn: #007a63;
+        --wa-meta: #5b6b73;
+        --blue: #1d9bf0;
+        --serif: "Hedvig Letters Serif", Georgia, serif;
+        --sans: "Geist", "Noto Color Emoji", system-ui, sans-serif;
+        --mono: "Geist Mono", ui-monospace, monospace;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg);
+        font-family: var(--sans);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+      }
+      .abs {
+        position: absolute;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* ---------- background ---------- */
+      #grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.6;
+        background-image: url("assets/brand/grain.png");
+        background-size: 256px 256px;
+      }
+      #glow {
+        position: absolute;
+        left: 240px;
+        top: 20px;
+        width: 1060px;
+        height: 1060px;
+        border-radius: 50%;
+        background: radial-gradient(circle at center, rgba(41, 178, 120, 0.16) 0%, rgba(41, 178, 120, 0.06) 38%, rgba(41, 178, 120, 0) 66%);
+        opacity: 0;
+      }
+      #vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 45%, rgba(0, 0, 0, 0) 55%, rgba(60, 55, 40, 0.07) 100%);
+      }
+
+      /* ---------- masthead ---------- */
+      #masthead {
+        position: absolute;
+        left: 465px;
+        top: 58px;
+        width: 150px;
+        height: 19px;
+      }
+      #masthead img {
+        display: block;
+        width: 150px;
+        height: 19px;
+      }
+
+      /* ---------- headlines ---------- */
+      .hl {
+        position: absolute;
+        font-family: var(--serif);
+        font-weight: 400;
+        color: var(--ink);
+        letter-spacing: -0.018em;
+      }
+      .hl .ln {
+        display: block;
+        overflow: hidden;
+        padding: 0.04em 0 0.12em;
+        margin-bottom: -0.12em;
+      }
+      .hl .ln > span {
+        display: block;
+        will-change: transform;
+      }
+      .hl.center {
+        text-align: center;
+      }
+      .hl .small {
+        color: var(--ink-2);
+      }
+      .hl .g {
+        color: var(--green-deep);
+      }
+      .kicker {
+        position: absolute;
+        font-family: var(--mono);
+        font-size: 17px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      /* ---------- journey ---------- */
+      #journey {
+        position: absolute;
+        inset: 0;
+      }
+      .j-bar {
+        position: absolute;
+        left: 150px;
+        top: 518px;
+        width: 780px;
+        height: 4px;
+        border-radius: 2px;
+      }
+      #j-track {
+        background: var(--track);
+      }
+      #j-fill {
+        background: var(--green);
+        transform-origin: 0 50%;
+      }
+      #j-tip {
+        position: absolute;
+        left: 142px;
+        top: 512px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 6px rgba(41, 178, 120, 0.18);
+      }
+      .jn {
+        position: absolute;
+        top: 498px;
+        width: 44px;
+        height: 44px;
+        margin-left: -22px;
+      }
+      .jn .ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--surface);
+        border: 3px solid var(--track);
+      }
+      .jn .fillc {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--green);
+        opacity: 0;
+      }
+      .jn .pulse {
+        position: absolute;
+        inset: -10px;
+        border-radius: 50%;
+        border: 2px solid var(--green);
+        opacity: 0;
+      }
+      .jn svg.ck {
+        position: absolute;
+        left: 11px;
+        top: 11px;
+        width: 22px;
+        height: 22px;
+        opacity: 0;
+      }
+      .jn .spin {
+        position: absolute;
+        inset: 4px;
+        border-radius: 50%;
+        border: 3px solid rgba(41, 178, 120, 0.2);
+        border-top-color: var(--green);
+        opacity: 0;
+      }
+      .jl {
+        position: absolute;
+        top: 556px;
+        width: 220px;
+        margin-left: -110px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--ink);
+        line-height: 1.15;
+      }
+      .jl .st {
+        display: block;
+        margin-top: 6px;
+        font-family: var(--mono);
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        height: 20px;
+        position: relative;
+      }
+      .jl .st span {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+      }
+
+      /* ---------- customer card ---------- */
+      #card {
+        position: absolute;
+        left: 270px;
+        top: 650px;
+        width: 540px;
+        height: 124px;
+        border-radius: 24px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: 0 18px 40px -22px rgba(30, 30, 20, 0.28), 0 2px 6px rgba(30, 30, 20, 0.04);
+        display: flex;
+        align-items: center;
+        padding: 0 26px;
+        gap: 18px;
+      }
+      .avatar {
+        flex: 0 0 auto;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #efe7da;
+        color: #6b5a3e;
+        font-weight: 600;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #card .who {
+        flex: 1 1 auto;
+      }
+      #card .name {
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      #card .meta {
+        margin-top: 4px;
+        font-size: 20px;
+        color: var(--muted);
+      }
+      #card .last {
+        margin-top: 6px;
+        font-family: var(--mono);
+        font-size: 14px;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        text-transform: uppercase;
+        position: relative;
+        height: 18px;
+        width: 250px;
+      }
+      #card .last span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        white-space: nowrap;
+      }
+      .pill {
+        position: relative;
+        flex: 0 0 auto;
+        width: 168px;
+        height: 42px;
+        border-radius: 21px;
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+      }
+      .pill .pd {
+        position: absolute;
+        left: 16px;
+        top: 15px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+      .pill .pt {
+        position: absolute;
+        left: 36px;
+        top: 9px;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--ink-2);
+        white-space: nowrap;
+      }
+      #gdot {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 12px;
+        height: 12px;
+        margin: -6px 0 0 -6px;
+        border-radius: 50%;
+        background: #9aa09b;
+        opacity: 0;
+      }
+
+      /* ---------- left column lists ---------- */
+      .ticks {
+        position: absolute;
+        left: 82px;
+        top: 640px;
+        width: 420px;
+      }
+      .ticks .row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        height: 52px;
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--ink-2);
+      }
+      .cb {
+        flex: 0 0 auto;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--green-soft);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cb svg {
+        width: 17px;
+        height: 17px;
+      }
+      .note {
+        position: absolute;
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--ink-2);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      /* ---------- WhatsApp phone ---------- */
+      #phone {
+        position: absolute;
+        left: 544px;
+        top: 124px;
+        width: 460px;
+        height: 752px;
+      }
+      #phone-shadow {
+        position: absolute;
+        inset: 18px 14px -6px 14px;
+        border-radius: 44px;
+        background: rgba(40, 36, 24, 0.3);
+        filter: blur(26px);
+        opacity: 0;
+      }
+      #phone-inner {
+        position: absolute;
+        inset: 0;
+        border-radius: 40px;
+        overflow: hidden;
+        background: var(--wa-bg);
+        border: 1px solid rgba(20, 20, 10, 0.08);
+        clip-path: circle(0px at 50% 50%);
+      }
+      .wa-head {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 84px;
+        background: #ffffff;
+        border-bottom: 1px solid #e9e6df;
+        display: flex;
+        align-items: center;
+        padding: 0 18px 0 12px;
+        gap: 10px;
+        z-index: 3;
+      }
+      .wa-head .back {
+        width: 22px;
+        height: 22px;
+      }
+      .bank-av {
+        flex: 0 0 auto;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: #123a63;
+        color: #fff;
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.04em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .wa-head .t {
+        flex: 1 1 auto;
+      }
+      .wa-head .n {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 22px;
+        font-weight: 600;
+        color: #111b21;
+      }
+      .wa-head .s {
+        font-size: 15px;
+        color: var(--wa-meta);
+        margin-top: 2px;
+      }
+      .badge {
+        display: inline-block;
+        width: 21px;
+        height: 21px;
+        flex: 0 0 auto;
+      }
+      .wa-head .ic {
+        width: 24px;
+        height: 24px;
+        margin-left: 16px;
+      }
+      .wa-body {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 84px;
+        height: 602px;
+        overflow: hidden;
+      }
+      .wa-body .paper {
+        position: absolute;
+        inset: 0;
+        opacity: 0.5;
+        background-image: radial-gradient(rgba(120, 100, 70, 0.1) 1.2px, transparent 1.3px);
+        background-size: 22px 22px;
+      }
+      #stack {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .msg {
+        position: relative;
+        max-width: 350px;
+        align-self: flex-start;
+      }
+      .msg.out {
+        align-self: flex-end;
+      }
+      .bub {
+        position: relative;
+        background: #ffffff;
+        border-radius: 4px 16px 16px 16px;
+        padding: 10px 14px 24px 14px;
+        font-size: 20px;
+        line-height: 1.32;
+        color: #111b21;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+        min-width: 120px;
+      }
+      .out .bub {
+        background: var(--wa-out);
+        border-radius: 16px 4px 16px 16px;
+      }
+      .bub .tm {
+        position: absolute;
+        right: 12px;
+        bottom: 5px;
+        font-size: 13px;
+        color: var(--wa-meta);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .bub .tm svg {
+        width: 18px;
+        height: 12px;
+      }
+      .bub .from {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 3px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .ai-tag {
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        padding: 2px 6px;
+        border-radius: 6px;
+        background: #e8eefc;
+        color: #2a4a9c;
+      }
+      .btns {
+        margin-top: 3px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .wbtn {
+        position: relative;
+        height: 48px;
+        border-radius: 12px;
+        background: #ffffff;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        font-size: 19px;
+        font-weight: 500;
+        color: var(--wa-btn);
+        overflow: hidden;
+      }
+      .wbtn svg {
+        width: 20px;
+        height: 20px;
+        position: relative;
+      }
+      .wbtn span {
+        position: relative;
+      }
+      .wbtn .hb {
+        position: absolute;
+        inset: 0;
+        background: #dff3ea;
+        opacity: 0;
+      }
+      .chip {
+        align-self: center;
+        max-width: 380px;
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 6px 12px;
+        font-size: 15px;
+        color: #3b4a52;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        white-space: nowrap;
+      }
+      .chip svg {
+        width: 15px;
+        height: 15px;
+      }
+      .chip.date {
+        font-size: 14px;
+        color: var(--wa-meta);
+        background: rgba(255, 255, 255, 0.85);
+      }
+      .doc {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(0, 0, 0, 0.04);
+        border-radius: 10px;
+        padding: 10px 12px;
+        margin-bottom: 2px;
+      }
+      .pdf {
+        flex: 0 0 auto;
+        width: 38px;
+        height: 46px;
+        border-radius: 6px;
+        background: #c8372d;
+        color: #fff;
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 600;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 6px;
+      }
+      .doc .dn {
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .doc .ds {
+        font-size: 14px;
+        color: var(--wa-meta);
+        margin-top: 2px;
+      }
+      .wa-foot {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 66px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 12px;
+        z-index: 2;
+      }
+      .wa-foot .inp {
+        flex: 1 1 auto;
+        height: 46px;
+        border-radius: 23px;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        font-size: 18px;
+        color: #7b8a92;
+        gap: 10px;
+      }
+      .wa-foot .mic {
+        flex: 0 0 auto;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: #1daa61;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #wa-call {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        top: 94px;
+        height: 72px;
+        border-radius: 18px;
+        background: #ffffff;
+        box-shadow: 0 10px 26px -12px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.06);
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+        gap: 12px;
+        z-index: 4;
+        opacity: 0;
+      }
+      #wa-call .cicon {
+        flex: 0 0 auto;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #1daa61;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #wa-call .ct {
+        flex: 1 1 auto;
+      }
+      #wa-call .cn {
+        font-size: 17px;
+        font-weight: 600;
+        color: #111b21;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      #wa-call .cs {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--wa-meta);
+        margin-top: 3px;
+        letter-spacing: 0.04em;
+        position: relative;
+        height: 16px;
+        width: 150px;
+      }
+      #wa-call .cs span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        white-space: nowrap;
+      }
+      #wave {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        height: 36px;
+      }
+      #wave i {
+        display: block;
+        width: 4px;
+        height: 30px;
+        border-radius: 2px;
+        background: #1daa61;
+        transform-origin: 50% 50%;
+      }
+      #wa-dim {
+        position: absolute;
+        inset: 0;
+        background: rgba(10, 20, 20, 0.32);
+        opacity: 0;
+        z-index: 5;
+      }
+      #wa-sheet {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 540px;
+        background: #ffffff;
+        border-radius: 26px 26px 0 0;
+        z-index: 6;
+        padding: 12px 26px 0;
+      }
+      #wa-sheet .handle {
+        width: 44px;
+        height: 5px;
+        border-radius: 3px;
+        background: #d6d9da;
+        margin: 0 auto 14px;
+      }
+      #wa-sheet .sh-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #3b4a52;
+      }
+      #wa-sheet .sh-top .x {
+        margin-left: auto;
+        width: 20px;
+        height: 20px;
+      }
+      #wa-sheet h3 {
+        margin-top: 18px;
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        color: #111b21;
+      }
+      #wa-sheet .stp {
+        margin-top: 10px;
+        font-family: var(--mono);
+        font-size: 14px;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+      }
+      .segs {
+        margin-top: 10px;
+        display: flex;
+        gap: 6px;
+      }
+      .segs i {
+        display: block;
+        flex: 1 1 0;
+        height: 6px;
+        border-radius: 3px;
+        background: #e6e8e8;
+        position: relative;
+        overflow: hidden;
+      }
+      .segs i b {
+        position: absolute;
+        inset: 0;
+        background: var(--green);
+        transform-origin: 0 50%;
+      }
+      .frow {
+        margin-top: 16px;
+        height: 62px;
+        border-radius: 14px;
+        border: 1px solid #e7e8e6;
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+        gap: 12px;
+        font-size: 19px;
+        font-weight: 500;
+        color: #111b21;
+      }
+      .frow + .frow {
+        margin-top: 10px;
+      }
+      .frow .fr {
+        margin-left: auto;
+        position: relative;
+        width: 118px;
+        height: 30px;
+      }
+      .tag {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 30px;
+        border-radius: 15px;
+        padding: 0 12px;
+        font-size: 15px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+      .tag.amber {
+        background: #fff3d6;
+        color: #8a5a00;
+      }
+      .tag.ok {
+        background: var(--green-soft);
+        color: var(--green-deep);
+      }
+      .tag svg {
+        width: 13px;
+        height: 13px;
+      }
+      .oc {
+        flex: 0 0 auto;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 2.5px dashed #d7a33b;
+      }
+      .fbtn {
+        position: absolute;
+        left: 26px;
+        right: 26px;
+        top: 402px;
+        height: 58px;
+        border-radius: 29px;
+        background: #157a52;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .fbtn svg {
+        width: 20px;
+        height: 20px;
+      }
+      .upl {
+        position: absolute;
+        left: 26px;
+        right: 26px;
+        top: 312px;
+        height: 76px;
+        border-radius: 14px;
+        background: #f5f6f4;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 14px;
+        opacity: 0;
+      }
+      .upl .ut {
+        flex: 1 1 auto;
+      }
+      .upl .un {
+        font-size: 17px;
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+      }
+      .upl .pct {
+        font-family: var(--mono);
+        font-size: 14px;
+        color: var(--muted);
+        position: relative;
+        width: 110px;
+        height: 18px;
+        text-align: right;
+      }
+      .upl .pct span {
+        position: absolute;
+        right: 0;
+        top: 0;
+        white-space: nowrap;
+      }
+      .upl .bar {
+        margin-top: 9px;
+        height: 5px;
+        border-radius: 3px;
+        background: #e1e4e2;
+        position: relative;
+        overflow: hidden;
+      }
+      .upl .bar b {
+        position: absolute;
+        inset: 0;
+        background: var(--green);
+        transform-origin: 0 50%;
+      }
+      .sh-foot {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 480px;
+        text-align: center;
+        font-size: 14px;
+        color: var(--wa-meta);
+      }
+      #tap {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 56px;
+        height: 56px;
+        margin: -28px 0 0 -28px;
+        border-radius: 50%;
+        background: rgba(20, 30, 30, 0.16);
+        border: 2px solid rgba(255, 255, 255, 0.9);
+        opacity: 0;
+        z-index: 9;
+      }
+      .consent .bub {
+        padding-bottom: 12px;
+      }
+      .consent .cbtn {
+        margin-top: 10px;
+        height: 46px;
+        border-radius: 12px;
+        border: 1.5px solid #cfe7dc;
+        position: relative;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .consent .cbtn span {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .consent .cbtn .a {
+        color: var(--wa-btn);
+      }
+      .consent .cbtn .b {
+        color: var(--green-deep);
+        background: var(--green-soft);
+        border-radius: 11px;
+        opacity: 0;
+      }
+      .consent .cbtn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* ---------- governance panel ---------- */
+      .panel {
+        position: absolute;
+        border-radius: 26px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: 0 24px 50px -30px rgba(30, 30, 20, 0.35), 0 2px 6px rgba(30, 30, 20, 0.04);
+      }
+      #wf {
+        left: 450px;
+        top: 282px;
+        width: 554px;
+        height: 336px;
+      }
+      .ph {
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 19px;
+        font-weight: 600;
+      }
+      .ph img {
+        width: 26px;
+        height: 14px;
+      }
+      .ph .k {
+        margin-left: auto;
+        font-family: var(--mono);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+      }
+      .view {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+      #wfdoc {
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        top: 66px;
+        height: 246px;
+        border-radius: 18px;
+        background: var(--surface-2);
+        border: 1px solid #ebe9e2;
+        padding: 16px 18px;
+      }
+      #wfdoc .dhead {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      #wfdoc .dhead .dn {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      #wfdoc .dhead .ds {
+        font-size: 14px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .fields {
+        margin-top: 14px;
+        border-top: 1px solid #e3e1da;
+      }
+      .fld {
+        display: flex;
+        align-items: center;
+        height: 44px;
+        border-bottom: 1px solid #e9e7e0;
+        font-size: 17px;
+        color: var(--muted);
+      }
+      .fld .v {
+        margin-left: auto;
+        font-family: var(--mono);
+        font-size: 19px;
+        color: var(--ink);
+        letter-spacing: 0.04em;
+        position: relative;
+        display: flex;
+      }
+      .fld .v.plain {
+        font-family: var(--sans);
+        letter-spacing: 0;
+        font-weight: 500;
+      }
+      .ch {
+        position: relative;
+        display: inline-block;
+        width: 0.6em;
+        height: 1.35em;
+        overflow: hidden;
+      }
+      .ch i {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-style: normal;
+        width: 100%;
+        text-align: center;
+      }
+      .ch i.m {
+        color: var(--green-deep);
+      }
+      .sweep {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 70px;
+        background: linear-gradient(90deg, rgba(41, 178, 120, 0), rgba(41, 178, 120, 0.28), rgba(41, 178, 120, 0));
+        opacity: 0;
+      }
+      .shield-tag {
+        position: absolute;
+        right: 18px;
+        top: 20px;
+        height: 30px;
+        border-radius: 15px;
+        padding: 0 12px;
+        background: var(--green-soft);
+        color: var(--green-deep);
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        opacity: 0;
+      }
+      .shield-tag svg {
+        width: 15px;
+        height: 15px;
+      }
+      #agentv {
+        opacity: 0;
+      }
+      .ag-row {
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        top: 64px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .ag-av {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #dfe9f7;
+        color: #24477a;
+        font-weight: 600;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ag-row .an {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .ag-row .ar {
+        font-size: 15px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .ag-row .online {
+        margin-left: auto;
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        color: var(--green-deep);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .ag-row .online i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+      .ctx {
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        top: 128px;
+        height: 104px;
+        border-radius: 16px;
+        background: var(--surface-2);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 14px 18px;
+        row-gap: 10px;
+      }
+      .ctx .c .l {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+      .ctx .c .v {
+        font-size: 17px;
+        font-weight: 500;
+        margin-top: 2px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .ctx .c .v svg {
+        width: 15px;
+        height: 15px;
+      }
+      #frow {
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        top: 244px;
+        height: 70px;
+        border-radius: 16px;
+        border: 1px solid #e6e4dd;
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+        gap: 12px;
+        background: #fff;
+      }
+      #frow .fn {
+        font-size: 18px;
+        font-weight: 500;
+      }
+      #frow .fs {
+        font-size: 14px;
+        color: var(--green-deep);
+        margin-top: 2px;
+        position: relative;
+        height: 18px;
+        width: 250px;
+      }
+      #frow .fs span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      #frow .fs svg {
+        width: 13px;
+        height: 13px;
+      }
+      #dl {
+        margin-left: auto;
+        position: relative;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--surface-2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #dl svg {
+        width: 22px;
+        height: 22px;
+      }
+      #dl .slash {
+        position: absolute;
+        left: 8px;
+        top: 20px;
+        width: 28px;
+        height: 2.5px;
+        border-radius: 2px;
+        background: #9aa09b;
+        transform-origin: 50% 50%;
+      }
+      #gov {
+        left: 450px;
+        top: 634px;
+        width: 554px;
+        height: 226px;
+        padding: 18px 24px 0;
+      }
+      #gov .gk {
+        font-family: var(--mono);
+        font-size: 14px;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      #gov .gk img {
+        width: 24px;
+        height: 13px;
+      }
+      .grow {
+        margin-top: 10px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 22px;
+        font-weight: 500;
+        color: var(--ink);
+        border-top: 1px solid #efede7;
+        padding-top: 8px;
+      }
+      .grow:first-of-type {
+        border-top: none;
+      }
+      .grow .gi {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: var(--surface-2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .grow .gi svg {
+        width: 19px;
+        height: 19px;
+      }
+      .grow .gc {
+        margin-left: auto;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .grow .gc svg {
+        width: 16px;
+        height: 16px;
+      }
+      #route {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1080px;
+        overflow: visible;
+      }
+      #cust-lbl {
+        position: absolute;
+        left: 80px;
+        top: 866px;
+        width: 340px;
+        text-align: center;
+      }
+      #morph {
+        position: absolute;
+        left: 474px;
+        top: 526px;
+        width: 506px;
+        height: 70px;
+        border-radius: 16px;
+        background: var(--green-soft);
+        opacity: 0;
+      }
+
+      /* ---------- follow-up card ---------- */
+      #fu {
+        position: absolute;
+        left: 586px;
+        top: 282px;
+        width: 414px;
+        border-radius: 22px;
+        background: var(--wa-bg);
+        box-shadow: 0 22px 44px -24px rgba(30, 30, 20, 0.4), 0 1px 3px rgba(0, 0, 0, 0.06);
+        border: 1px solid rgba(20, 20, 10, 0.06);
+        overflow: hidden;
+        opacity: 0;
+      }
+      #fu .fh {
+        height: 54px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 0 14px;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      #fu .fh .bank-av {
+        width: 34px;
+        height: 34px;
+        font-size: 11px;
+      }
+      #fu .fb {
+        padding: 10px 12px 12px;
+      }
+      #fu .bub {
+        font-size: 18px;
+      }
+      #fu .wbtn {
+        height: 42px;
+        font-size: 17px;
+      }
+      #rider {
+        position: absolute;
+        left: 0;
+        top: 448px;
+        width: 44px;
+        height: 44px;
+        margin-left: -22px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2.5px solid var(--green);
+        color: #6b5a3e;
+        font-size: 15px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        box-shadow: 0 8px 18px -10px rgba(0, 0, 0, 0.35);
+      }
+
+      /* ---------- scene 8 ---------- */
+      .n8 {
+        position: absolute;
+        top: 578px;
+        width: 40px;
+        height: 40px;
+        margin-left: -20px;
+        border-radius: 50%;
+        background: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        box-shadow: 0 0 0 6px rgba(41, 178, 120, 0.14);
+      }
+      .n8 svg {
+        width: 20px;
+        height: 20px;
+      }
+      .l8 {
+        position: absolute;
+        top: 634px;
+        width: 160px;
+        margin-left: -80px;
+        text-align: center;
+        font-size: 21px;
+        font-weight: 500;
+        color: var(--ink-2);
+        opacity: 0;
+      }
+      .pt8 {
+        position: absolute;
+        left: 0;
+        top: 593px;
+        width: 14px;
+        height: 14px;
+        margin-left: -7px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 3px solid #29b278;
+        opacity: 0;
+      }
+      #ge {
+        position: absolute;
+        left: 340px;
+        top: 520px;
+        width: 400px;
+        text-align: center;
+        font-family: var(--mono);
+        font-size: 15px;
+        letter-spacing: 0.18em;
+        color: var(--green-deep);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        opacity: 0;
+      }
+      #ge svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* ---------- brand + CTA ---------- */
+      #biglogo {
+        position: absolute;
+        left: 260px;
+        top: 360px;
+        width: 560px;
+        height: 71px;
+        opacity: 0;
+      }
+      #biglogo img {
+        display: block;
+        width: 560px;
+        height: 71px;
+        clip-path: inset(0 76.8% 0 0);
+      }
+      #tagline {
+        position: absolute;
+        left: 90px;
+        right: 90px;
+        top: 700px;
+        text-align: center;
+        font-size: 26px;
+        font-weight: 500;
+        color: var(--ink-2);
+        letter-spacing: 0.01em;
+      }
+      #tagline b {
+        color: var(--green);
+        font-weight: 600;
+        margin: 0 14px;
+      }
+      #tagline span {
+        display: inline-block;
+      }
+      #cta {
+        position: absolute;
+        left: 290px;
+        top: 588px;
+        width: 500px;
+        height: 90px;
+        border-radius: 45px;
+        background: var(--green-cta);
+        color: #ffffff;
+        font-size: 31px;
+        font-weight: 600;
+        letter-spacing: -0.005em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        box-shadow: 0 18px 36px -18px rgba(19, 119, 79, 0.65);
+        opacity: 0;
+      }
+      #cta svg {
+        width: 28px;
+        height: 28px;
+      }
+      #cta-ring {
+        position: absolute;
+        left: 290px;
+        top: 588px;
+        width: 500px;
+        height: 90px;
+        border-radius: 45px;
+        border: 2px solid var(--green);
+        opacity: 0;
+      }
+      #cta-sub {
+        position: absolute;
+        left: 90px;
+        right: 90px;
+        top: 716px;
+        text-align: center;
+        font-size: 24px;
+        color: var(--muted);
+        opacity: 0;
+      }
+      #cta-line {
+        position: absolute;
+        left: 240px;
+        top: 800px;
+        width: 600px;
+        height: 3px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, rgba(41, 178, 120, 0), var(--green) 25%, var(--green) 75%, rgba(41, 178, 120, 0));
+        transform-origin: 50% 50%;
+        opacity: 0;
+      }
+      #cta-dot {
+        position: absolute;
+        left: 240px;
+        top: 797px;
+        width: 9px;
+        height: 9px;
+        margin-left: -4px;
+        border-radius: 50%;
+        background: #bfeed7;
+        opacity: 0;
+      }
+
+      /* ---------- subtitles ---------- */
+      #subs {
+        position: absolute;
+        left: 80px;
+        right: 80px;
+        bottom: 66px;
+        height: 118px;
+      }
+      .sub {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+        font-family: var(--sans);
+        font-weight: 500;
+        font-size: 46px;
+        line-height: 1.2;
+        letter-spacing: -0.012em;
+        color: #1c2023;
+        opacity: 0;
+      }
+      .sub em {
+        font-style: normal;
+        color: var(--green-deep);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="43.5" data-width="1080" data-height="1080">
+      <!-- background -->
+      <div id="bg" class="layer">
+        <div id="glow"></div>
+        <div id="grain"></div>
+        <div id="vignette"></div>
+      </div>
+
+      <!-- journey (scene 1, 3-5, 7-8) -->
+      <div id="journey">
+        <div id="j-track" class="j-bar"></div>
+        <div id="j-fill" class="j-bar"></div>
+        <div id="j-tip"></div>
+        <div class="jn" id="n1" style="left: 150px"><div class="pulse"></div><div class="ring"></div><div class="fillc"></div><div class="spin"></div><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        <div class="jn" id="n2" style="left: 345px"><div class="pulse"></div><div class="ring"></div><div class="fillc"></div><div class="spin"></div><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        <div class="jn" id="n3" style="left: 540px"><div class="pulse"></div><div class="ring"></div><div class="fillc"></div><div class="spin"></div><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        <div class="jn" id="n4" style="left: 735px"><div class="pulse"></div><div class="ring"></div><div class="fillc"></div><div class="spin"></div><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        <div class="jn" id="n5" style="left: 930px"><div class="pulse"></div><div class="ring"></div><div class="fillc"></div><div class="spin"></div><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        <div class="jl" data-layout-allow-overlap id="l1" style="left: 150px"><span class="nm" style="position: relative; display: block; height: 28px"><span class="a" style="position: absolute; left: -40px; right: -40px">Application</span></span><span class="st"><span class="a">Started</span><span class="b" style="opacity: 0">Submitted</span></span></div>
+        <div class="jl" data-layout-allow-overlap id="l2" style="left: 345px">KYC<span class="st"><span class="a">&nbsp;</span><span class="b" style="opacity: 0">Resumed</span><span class="c" style="opacity: 0">Verified</span></span></div>
+        <div class="jl" data-layout-allow-overlap id="l3" style="left: 540px">Documents<span class="st"><span class="a">&nbsp;</span><span class="b" style="opacity: 0">Received</span></span></div>
+        <div class="jl" data-layout-allow-overlap id="l4" style="left: 735px">Verification<span class="st"><span class="a">&nbsp;</span><span class="b" style="opacity: 0">Processing…</span><span class="c" style="opacity: 0">Verified</span></span></div>
+        <div class="jl" data-layout-allow-overlap id="l5" style="left: 930px"><span class="nm" style="position: relative; display: block; height: 28px"><span class="a" style="position: absolute; left: 0; right: 0">Approved</span><span class="b" style="position: absolute; left: 0; right: 0; opacity: 0">Follow-up</span></span><span class="st"><span class="a">&nbsp;</span><span class="b" style="opacity: 0">Scheduled</span></span></div>
+        <div id="rider">AS</div>
+      </div>
+
+      <!-- customer card -->
+      <div id="card">
+        <div class="avatar">AS</div>
+        <div class="who">
+          <div class="name">Ananya Sharma</div>
+          <div class="meta">Personal Loan · ₹8,00,000</div>
+          <div class="last"><span class="a">KYC pending · Active now</span><span class="b" style="opacity: 0">KYC pending · 2 days idle</span><span class="c" style="opacity: 0">KYC pending · 9 days idle</span></div>
+        </div>
+        <div class="pill" id="pill" data-layout-allow-overlap>
+          <div class="pd" id="pd"></div>
+          <div class="pt"><span class="a">In progress</span></div>
+          <div class="pt"><span class="b" style="opacity: 0">Waiting</span></div>
+          <div class="pt"><span class="c" style="opacity: 0">Inactive</span></div>
+          <div class="pt"><span class="d" style="opacity: 0">No activity</span></div>
+        </div>
+      </div>
+
+      <!-- scene 1 headline -->
+      <div class="hl center" id="h1" style="left: 80px; right: 80px; top: 180px">
+        <span class="ln" style="font-size: 50px; line-height: 1.1"><span class="small">Onboarding stalls.</span></span>
+        <span class="ln" style="font-size: 84px; line-height: 1.08"><span id="h1b">Applications go cold.</span></span>
+      </div>
+
+      <!-- scene 2 headline -->
+      <div class="hl center" id="h2" style="left: 60px; right: 60px; top: 196px">
+        <span class="ln" style="font-size: 74px; line-height: 1.08"><span>Does your onboarding</span></span>
+        <span class="ln" style="font-size: 74px; line-height: 1.08"><span>journey <span id="silent" style="display: inline-block; margin: 0 0.14em"><span class="sc" style="display:inline-block">g</span><span class="sc" style="display:inline-block">o</span><span class="sc" style="display:inline-block">&nbsp;</span><span class="sc" style="display:inline-block">s</span><span class="sc" style="display:inline-block">i</span><span class="sc" style="display:inline-block">l</span><span class="sc" style="display:inline-block">e</span><span class="sc" style="display:inline-block">n</span><span class="sc" style="display:inline-block">t</span></span> too?</span></span>
+      </div>
+
+      <div id="gdot"></div>
+
+      <!-- scene 3-5 left column -->
+      <div class="hl" id="h3" style="left: 80px; width: 440px; top: 176px">
+        <span class="ln" style="font-size: 40px; line-height: 1.12"><span class="small">When onboarding stops,</span></span>
+        <span class="ln" style="font-size: 56px; line-height: 1.06"><span><span class="g">WhatsApp</span> keeps</span></span>
+        <span class="ln" style="font-size: 56px; line-height: 1.06"><span>it moving.</span></span>
+      </div>
+      <div class="ticks" id="ticks">
+        <div class="row"><div class="cb"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#13774f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>Same application</div>
+        <div class="row"><div class="cb"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#13774f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>On verified WhatsApp</div>
+        <div class="row"><div class="cb"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#13774f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>No restart. No re-entry.</div>
+      </div>
+      <div class="hl" id="h4" style="left: 80px; width: 450px; top: 176px">
+        <span class="ln" style="font-size: 52px; line-height: 1.08"><span>Help.</span></span>
+        <span class="ln" style="font-size: 52px; line-height: 1.08"><span>Human support.</span></span>
+        <span class="ln" style="font-size: 52px; line-height: 1.08"><span class="g">Or the next step.</span></span>
+      </div>
+      <div class="note" id="n-inside" style="left: 82px; top: 640px">
+        <div class="cb" style="width: 34px; height: 34px"><svg viewBox="0 0 24 24" style="width: 19px; height: 19px"><path d="M12 3.5a8.5 8.5 0 0 0-7.4 12.7L3.5 20.5l4.4-1.1A8.5 8.5 0 1 0 12 3.5z" fill="none" stroke="#13774f" stroke-width="2" stroke-linejoin="round" /></svg></div>
+        All inside WhatsApp.
+      </div>
+      <div class="hl" id="h5" style="left: 80px; width: 440px; top: 176px">
+        <span class="ln" style="font-size: 58px; line-height: 1.06"><span>Continue</span></span>
+        <span class="ln" style="font-size: 58px; line-height: 1.06"><span>exactly where</span></span>
+        <span class="ln" style="font-size: 58px; line-height: 1.06"><span class="g">they stopped.</span></span>
+      </div>
+      <div class="note" id="n-resume" style="left: 82px; top: 640px; flex-direction: column; align-items: flex-start; gap: 6px">
+        <span style="font-family: var(--mono); font-size: 15px; letter-spacing: 0.14em; color: var(--muted)">RESUMED AT</span>
+        <span>KYC · Step 2 of 4</span>
+      </div>
+
+      <!-- scene 6 headline -->
+      <div class="hl center" id="h6" style="left: 70px; right: 70px; top: 130px">
+        <span class="ln" style="font-size: 58px; line-height: 1.08"><span>Governed from document <span class="g">to decision.</span></span></span>
+      </div>
+
+      <!-- routed line doc → workflow -->
+      <svg id="route" viewBox="0 0 1080 1080">
+        <path id="route-p" d="M 420 700 C 440 700, 440 450, 470 450" fill="none" stroke="#29b278" stroke-width="3" stroke-linecap="round" />
+      </svg>
+
+      <!-- governed workflow panel -->
+      <div class="panel" id="wf">
+        <div class="view" id="docv" data-layout-allow-overlap>
+          <div class="ph"><img src="assets/brand/doubletick-icon.png" alt="" />Governed workflow<span class="k">ABC BANK</span></div>
+          <div id="wfdoc">
+            <div class="dhead">
+              <div class="pdf">PDF</div>
+              <div>
+                <div class="dn">Address_Proof.pdf</div>
+                <div class="ds">From Ananya Sharma · via WhatsApp</div>
+              </div>
+            </div>
+            <div class="shield-tag" id="shield"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.4-3 8.1-7 9.5-4-1.4-7-5.1-7-9.5V6l7-3z" fill="none" stroke="#13774f" stroke-width="2.2" stroke-linejoin="round" /><path d="M8.8 12.2l2.3 2.3 4.3-4.5" fill="none" stroke="#13774f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Protected</div>
+            <div class="fields">
+              <div class="fld">Name<span class="v plain">Ananya Sharma</span></div>
+              <div class="fld">PAN<span class="v" id="v-pan" data-layout-allow-overlap data-layout-allow-overflow></span></div>
+              <div class="fld" style="border-bottom: none">Mobile<span class="v" id="v-mob" data-layout-allow-overlap data-layout-allow-overflow></span></div>
+            </div>
+            <div class="sweep" id="sweep"></div>
+          </div>
+        </div>
+        <div class="view" id="agentv" data-layout-allow-overlap>
+          <div class="ph">Onboarding workspace<span class="k">ABC BANK</span></div>
+          <div class="ag-row">
+            <div class="ag-av">R</div>
+            <div>
+              <div class="an">Rohan</div>
+              <div class="ar">Onboarding Specialist</div>
+            </div>
+            <div class="online"><i></i>ASSIGNED</div>
+          </div>
+          <div class="ctx">
+            <div class="c"><div class="l">Customer</div><div class="v">Ananya Sharma</div></div>
+            <div class="c"><div class="l">Application</div><div class="v">Personal Loan · ₹8L</div></div>
+            <div class="c"><div class="l">KYC</div><div class="v">Pending document</div></div>
+            <div class="c"><div class="l">Consent</div><div class="v"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#13774f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>Captured</div></div>
+          </div>
+          <div id="frow">
+            <div class="pdf" style="width: 32px; height: 40px; font-size: 10px">PDF</div>
+            <div>
+              <div class="fn">Address proof received</div>
+              <div class="fs"><span class="a"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#13774f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>Address_Proof.pdf</span><span class="b" style="opacity: 0"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.4-3 8.1-7 9.5-4-1.4-7-5.1-7-9.5V6l7-3z" fill="none" stroke="#13774f" stroke-width="2.4" stroke-linejoin="round" /></svg>Available securely in workflow</span></div>
+            </div>
+            <div id="dl"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="#3b4145" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg><div class="slash"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="gov">
+        <div class="gk"><i style="display: block; width: 24px; height: 13px; background: url(assets/brand/doubletick-icon.png) center / contain no-repeat"></i>GOVERNED ONBOARDING</div>
+        <div class="grow" id="g1">
+          <div class="gi"><svg viewBox="0 0 24 24"><path d="M7 3.5h7l4 4v13H7z" fill="none" stroke="#3b4145" stroke-width="2" stroke-linejoin="round" /><path d="M9.8 13.2l2 2 3.6-3.8" fill="none" stroke="#13774f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+          Consent captured
+          <div class="gc"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        </div>
+        <div class="grow" id="g2">
+          <div class="gi"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.4-3 8.1-7 9.5-4-1.4-7-5.1-7-9.5V6l7-3z" fill="none" stroke="#3b4145" stroke-width="2" stroke-linejoin="round" /></svg></div>
+          Sensitive data protected
+          <div class="gc"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        </div>
+        <div class="grow" id="g3">
+          <div class="gi"><svg viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5" fill="none" stroke="#3b4145" stroke-width="2" /><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="#3b4145" stroke-width="2" /></svg></div>
+          Documents controlled
+          <div class="gc"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        </div>
+      </div>
+      <div class="kicker" id="cust-lbl">Customer · WhatsApp</div>
+      <div id="morph"></div>
+
+      <!-- WhatsApp phone -->
+      <div id="phone">
+        <div id="phone-shadow"></div>
+        <div id="phone-inner">
+          <div class="wa-head">
+            <svg class="back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="#3b4a52" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            <div class="bank-av">ABC</div>
+            <div class="t">
+              <div class="n">ABC Bank <svg class="badge" data-badge viewBox="0 0 24 24"></svg></div>
+              <div class="s">Official business account</div>
+            </div>
+            <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="10" rx="2.5" fill="none" stroke="#3b4a52" stroke-width="2" /><path d="M15 10.5l5-3v9l-5-3" fill="none" stroke="#3b4a52" stroke-width="2" stroke-linejoin="round" /></svg>
+            <svg class="ic" viewBox="0 0 24 24"><path d="M6.6 3.8l2.6-.3 1.6 4.2-1.9 1.3a11 11 0 0 0 6.1 6.1l1.3-1.9 4.2 1.6-.3 2.6a2 2 0 0 1-2.1 1.8C10.4 18.8 5.2 13.6 4.8 5.9a2 2 0 0 1 1.8-2.1z" fill="none" stroke="#3b4a52" stroke-width="2" stroke-linejoin="round" /></svg>
+          </div>
+          <div class="wa-body">
+            <div class="paper"></div>
+            <div id="stack">
+              <div class="chip date" id="m0">Today</div>
+              <div class="msg" id="m1"><div class="bub">Hi Ananya 👋<span class="tm">10:42</span></div></div>
+              <div class="msg" id="m2"><div class="bub">Your <b style="font-weight: 600">Personal Loan</b> application is still incomplete. Let's continue from where you left off.<span class="tm">10:42</span></div></div>
+              <div class="msg" id="m2b" style="width: 350px; margin-top: -5px">
+                <div class="btns">
+                  <div class="wbtn" id="b-cont"><div class="hb"></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="#007a63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg><span>Continue application</span></div>
+                  <div class="wbtn"><div class="hb"></div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="#007a63" stroke-width="2" /><path d="M9.6 9.6a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.7-.9 1.3v.6M12 16.8v.2" fill="none" stroke="#007a63" stroke-width="2" stroke-linecap="round" /></svg><span>Need help?</span></div>
+                </div>
+              </div>
+              <div class="msg out" id="m3"><div class="bub" style="padding-right: 78px; padding-bottom: 10px">Continue application<span class="tm">10:43 <svg viewBox="0 0 18 12"><path d="M1 6.5l3 3L10 2.5M7 9.5L13 2.5M10.5 9.2l.4.3L17 2.5" fill="none" stroke="#53bdeb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div></div>
+              <div class="msg" id="m4" style="width: 350px">
+                <div class="bub" style="padding-bottom: 12px"><div style="font-weight: 600">How would you like to continue?</div><div style="font-size: 16px; color: #5b6b73; margin-top: 2px">Choose one option</div></div>
+                <div class="btns">
+                  <div class="wbtn" id="o1"><div class="hb"></div><svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 0 0-7 11.8L4 20l4.3-1A8 8 0 1 0 12 4z" fill="none" stroke="#007a63" stroke-width="2" stroke-linejoin="round" /><path d="M8.5 11h7M8.5 14h4.5" stroke="#007a63" stroke-width="2" stroke-linecap="round" /></svg><span>Ask a question</span></div>
+                  <div class="wbtn" id="o2"><div class="hb"></div><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.8" fill="none" stroke="#007a63" stroke-width="2" /><path d="M4.5 20c.8-3.8 3.8-6 7.5-6s6.7 2.2 7.5 6" fill="none" stroke="#007a63" stroke-width="2" stroke-linecap="round" /></svg><span>Talk to an agent</span></div>
+                  <div class="wbtn" id="o3"><div class="hb"></div><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.5" fill="none" stroke="#007a63" stroke-width="2" /><circle cx="8.5" cy="11" r="2" fill="none" stroke="#007a63" stroke-width="1.8" /><path d="M6 15.5c.5-1.2 1.4-1.8 2.5-1.8s2 .6 2.5 1.8M13.5 10h4.5M13.5 13.5h3" stroke="#007a63" stroke-width="1.8" stroke-linecap="round" fill="none" /></svg><span>Continue KYC</span></div>
+                </div>
+              </div>
+              <div class="msg out" id="m5"><div class="bub" style="padding-bottom: 22px">Which document can I upload as address proof?<span class="tm">10:43 <svg viewBox="0 0 18 12"><path d="M1 6.5l3 3L10 2.5M7 9.5L13 2.5M10.5 9.2l.4.3L17 2.5" fill="none" stroke="#53bdeb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div></div>
+              <div class="msg" id="m6"><div class="bub"><div class="from" style="color: #2a4a9c">ABC Bank <span class="ai-tag">AI ASSISTANT</span></div>Your Aadhaar, passport or a supported address document can be used.<span class="tm">10:43</span></div></div>
+              <div class="chip" id="m7"><svg viewBox="0 0 24 24"><path d="M6.6 3.8l2.6-.3 1.6 4.2-1.9 1.3a11 11 0 0 0 6.1 6.1l1.3-1.9 4.2 1.6-.3 2.6a2 2 0 0 1-2.1 1.8C10.4 18.8 5.2 13.6 4.8 5.9a2 2 0 0 1 1.8-2.1z" fill="none" stroke="#1daa61" stroke-width="2.2" stroke-linejoin="round" /></svg>AI assistance completed · 00:42</div>
+              <div class="chip" id="m8"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.8" fill="none" stroke="#3b4a52" stroke-width="2" /><path d="M4.5 20c.8-3.8 3.8-6 7.5-6s6.7 2.2 7.5 6" fill="none" stroke="#3b4a52" stroke-width="2" stroke-linecap="round" /></svg><b style="font-weight: 600">Rohan</b> joined · Onboarding Specialist</div>
+              <div class="msg" id="m9"><div class="bub"><div class="from" style="color: #b5540f">Rohan · ABC Bank</div>Hi Ananya, I can help you finish this.<span class="tm">10:44</span></div></div>
+              <div class="msg out" id="m10"><div class="bub" style="padding-right: 78px; padding-bottom: 10px">Continue KYC<span class="tm">10:44 <svg viewBox="0 0 18 12"><path d="M1 6.5l3 3L10 2.5M7 9.5L13 2.5M10.5 9.2l.4.3L17 2.5" fill="none" stroke="#53bdeb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div></div>
+              <div class="msg out" id="m11"><div class="bub" style="width: 300px; padding: 6px 6px 24px"><div class="doc"><div class="pdf">PDF</div><div><div class="dn">Address_Proof.pdf</div><div class="ds">1 page · 1.2 MB</div></div></div><span class="tm">10:45 <svg viewBox="0 0 18 12"><path d="M1 6.5l3 3L10 2.5M7 9.5L13 2.5M10.5 9.2l.4.3L17 2.5" fill="none" stroke="#53bdeb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div></div>
+              <div class="msg consent" id="m12" style="width: 350px"><div class="bub">I consent to ABC Bank using these documents to process my application.<div class="cbtn" id="c-btn"><span class="a">I Agree</span><span class="b"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#13774f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>Consent captured</span></div></div></div>
+            </div>
+          </div>
+          <div class="wa-foot">
+            <div class="inp"><svg viewBox="0 0 24 24" style="width: 22px; height: 22px"><circle cx="12" cy="12" r="8.5" fill="none" stroke="#7b8a92" stroke-width="1.8" /><path d="M8.8 14.2c.8 1 1.9 1.6 3.2 1.6s2.4-.6 3.2-1.6M9 10h.01M15 10h.01" stroke="#7b8a92" stroke-width="2" stroke-linecap="round" fill="none" /></svg>Message</div>
+            <div class="mic"><svg viewBox="0 0 24 24" style="width: 22px; height: 22px"><rect x="9" y="3.5" width="6" height="11" rx="3" fill="#fff" /><path d="M6 11.5a6 6 0 0 0 12 0M12 17.5V21" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" /></svg></div>
+          </div>
+
+          <div id="wa-call">
+            <div class="cicon"><svg viewBox="0 0 24 24" style="width: 22px; height: 22px"><path d="M6.6 3.8l2.6-.3 1.6 4.2-1.9 1.3a11 11 0 0 0 6.1 6.1l1.3-1.9 4.2 1.6-.3 2.6a2 2 0 0 1-2.1 1.8C10.4 18.8 5.2 13.6 4.8 5.9a2 2 0 0 1 1.8-2.1z" fill="#fff" /></svg></div>
+            <div class="ct">
+              <div class="cn">ABC Bank AI Assistant <svg class="badge" data-badge viewBox="0 0 24 24" style="width: 17px; height: 17px"></svg></div>
+              <div class="cs" id="call-t"><span>AI ASSISTANT · 00:17</span><span style="opacity: 0">AI ASSISTANT · 00:18</span><span style="opacity: 0">AI ASSISTANT · 00:19</span></div>
+            </div>
+            <div id="wave"></div>
+          </div>
+
+          <div id="wa-dim"></div>
+          <div id="wa-sheet">
+            <div class="handle"></div>
+            <div class="sh-top"><div class="bank-av" style="width: 26px; height: 26px; font-size: 8px">ABC</div>ABC Bank <svg class="badge" data-badge viewBox="0 0 24 24" style="width: 16px; height: 16px"></svg><svg class="x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="#5b6b73" stroke-width="2.2" stroke-linecap="round" /></svg></div>
+            <h3>Complete your KYC</h3>
+            <div class="stp">KYC · STEP 2 OF 4</div>
+            <div class="segs"><i><b></b></i><i><b></b></i><i><b id="seg3"></b></i><i><b id="seg4"></b></i></div>
+            <div class="frow"><div class="cb" style="width: 26px; height: 26px; background: #29b278"><svg viewBox="0 0 24 24" style="width: 15px; height: 15px"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>PAN<div class="fr"><div class="tag ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#13774f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" /></svg>Verified</div></div></div>
+            <div class="frow"><div class="oc" id="addr-oc"></div>Address proof<div class="fr"><div class="tag amber" id="t-pend">Pending</div><div class="tag ok" id="t-recv" style="opacity: 0"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#13774f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" /></svg>Received</div></div></div>
+            <div class="upl" id="upl">
+              <div class="pdf" style="width: 34px; height: 42px; font-size: 10px">PDF</div>
+              <div class="ut">
+                <div class="un">Address_Proof.pdf<span class="pct" id="pct"><span>0%</span><span style="opacity: 0">45%</span><span style="opacity: 0">100%</span></span></div>
+                <div class="bar"><b id="upbar"></b></div>
+              </div>
+            </div>
+            <div class="fbtn" id="fbtn"><svg viewBox="0 0 24 24"><path d="M12 16V5m0 0L7.5 9.5M12 5l4.5 4.5M5 19.5h14" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" /></svg><span id="fbtn-a">Upload document</span></div>
+            <div class="sh-foot">Managed by ABC Bank · Powered by WhatsApp Flows</div>
+          </div>
+          <div id="tap"></div>
+        </div>
+      </div>
+
+      <!-- follow-up WhatsApp -->
+      <div id="fu">
+        <div class="fh"><div class="bank-av">ABC</div>ABC Bank <svg class="badge" data-badge viewBox="0 0 24 24" style="width: 18px; height: 18px"></svg></div>
+        <div class="fb">
+          <div class="bub">Hi Ananya, your documents have been verified. Your next onboarding step is ready.<span class="tm">11:02</span></div>
+          <div class="btns" style="flex-direction: row">
+            <div class="wbtn" style="flex: 1 1 0"><span>Continue</span></div>
+            <div class="wbtn" style="flex: 1 1 0"><span>Need help?</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- scene 7 headline -->
+      <div class="hl center" id="h7" style="left: 50px; right: 50px; top: 150px">
+        <span class="ln" style="font-size: 46px; line-height: 1.1"><span id="h7a"></span></span>
+      </div>
+
+      <!-- scene 8 -->
+      <div id="s8">
+        <div id="ge"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.4-3 8.1-7 9.5-4-1.4-7-5.1-7-9.5V6l7-3z" fill="none" stroke="#13774f" stroke-width="2.2" stroke-linejoin="round" /><path d="M8.8 12.2l2.3 2.3 4.3-4.5" fill="none" stroke="#13774f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>GOVERNED END-TO-END</div>
+      </div>
+      <div class="hl center" id="h8" style="left: 60px; right: 60px; top: 232px">
+        <span class="ln" style="font-size: 56px; line-height: 1.1"><span class="small">One journey.</span></span>
+        <span class="ln" style="font-size: 92px; line-height: 1.06"><span>Governed <span class="g">end to end.</span></span></span>
+      </div>
+
+      <!-- scene 9 / CTA -->
+      <div id="collapse" class="j-bar" style="top: 598px; background: var(--green); transform-origin: 50% 50%; opacity: 0"></div>
+      <div id="cdot" class="abs" style="left: 532px; top: 592px; width: 16px; height: 16px; border-radius: 50%; background: var(--green); opacity: 0"></div>
+      <div id="biglogo"><img id="biglogo-img" src="assets/brand/doubletick-logo-dark.png" alt="DoubleTick" /></div>
+      <div class="hl center" id="h9" style="left: 60px; right: 60px; top: 492px">
+        <span class="ln" style="font-size: 70px; line-height: 1.08"><span>Built for BFSI</span></span>
+        <span class="ln" style="font-size: 70px; line-height: 1.08"><span class="g">onboarding at scale.</span></span>
+      </div>
+      <div id="tagline"><span>WhatsApp</span><b>·</b><span>AI</span><b>·</b><span>Agents</span><b>·</b><span>Governance</span></div>
+
+      <div class="hl center" id="h10" style="left: 60px; right: 60px; top: 330px">
+        <span class="ln" style="font-size: 72px; line-height: 1.08"><span>Turn stalled onboarding</span></span>
+        <span class="ln" style="font-size: 72px; line-height: 1.08"><span>into <span class="g">connected journeys.</span></span></span>
+      </div>
+      <div id="cta-ring"></div>
+      <div id="cta">Apply for a Free Pilot<svg viewBox="0 0 24 24"><path d="M5 12h13m0 0l-5.5-5.5M18 12l-5.5 5.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+      <div id="cta-sub">Built for BFSI teams operating at scale.</div>
+      <div id="cta-line"></div>
+      <div id="cta-dot"></div>
+
+      <!-- masthead -->
+      <div id="masthead"><img src="assets/brand/doubletick-logo-dark.png" alt="DoubleTick" /></div>
+
+      <!-- subtitles -->
+      <div id="subs"></div>
+
+      <!-- audio -->
+      <audio id="vo" src="assets/audio/voiceover.mp3" data-start="0" data-duration="39.08" data-track-index="10" data-volume="1"></audio>
+      <audio id="music" src="assets/audio/music-bed.wav" data-start="0" data-duration="43.5" data-track-index="11" data-volume="1" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;vo&quot;],&quot;strength&quot;:0.55}" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n1&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:250,&quot;gain&quot;:-5.4,&quot;q&quot;:1.76}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n2&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:1000,&quot;gain&quot;:-5.4,&quot;q&quot;:1.76}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n3&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:1600,&quot;gain&quot;:-10.8,&quot;q&quot;:1.76}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n4&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:2500,&quot;gain&quot;:-5.4,&quot;q&quot;:1.76}},{&quot;type&quot;:&quot;gain&quot;,&quot;id&quot;:&quot;n5&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;gain&quot;:0}}]}" data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;fx.n1.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.043,&quot;v&quot;:0},{&quot;t&quot;:0.14,&quot;v&quot;:-1.2},{&quot;t&quot;:0.238,&quot;v&quot;:-0.8},{&quot;t&quot;:0.336,&quot;v&quot;:-0.6},{&quot;t&quot;:0.433,&quot;v&quot;:-0.4},{&quot;t&quot;:0.531,&quot;v&quot;:-1.6},{&quot;t&quot;:0.727,&quot;v&quot;:-1.5},{&quot;t&quot;:0.824,&quot;v&quot;:-1},{&quot;t&quot;:0.922,&quot;v&quot;:-0.7},{&quot;t&quot;:1.02,&quot;v&quot;:-0.5},{&quot;t&quot;:1.215,&quot;v&quot;:-0.6},{&quot;t&quot;:1.313,&quot;v&quot;:-2.8},{&quot;t&quot;:1.411,&quot;v&quot;:-3.9},{&quot;t&quot;:1.508,&quot;v&quot;:-4.5},{&quot;t&quot;:1.606,&quot;v&quot;:-3.1},{&quot;t&quot;:1.704,&quot;v&quot;:-4.5},{&quot;t&quot;:1.801,&quot;v&quot;:-3.5},{&quot;t&quot;:1.899,&quot;v&quot;:-2.9},{&quot;t&quot;:1.997,&quot;v&quot;:-2},{&quot;t&quot;:2.095,&quot;v&quot;:-1.4},{&quot;t&quot;:2.192,&quot;v&quot;:-1},{&quot;t&quot;:2.29,&quot;v&quot;:-0.6},{&quot;t&quot;:2.485,&quot;v&quot;:-0.3},{&quot;t&quot;:2.583,&quot;v&quot;:0},{&quot;t&quot;:2.681,&quot;v&quot;:0},{&quot;t&quot;:2.779,&quot;v&quot;:-1.5},{&quot;t&quot;:2.876,&quot;v&quot;:-1.1},{&quot;t&quot;:2.974,&quot;v&quot;:-0.7},{&quot;t&quot;:3.169,&quot;v&quot;:-0.3},{&quot;t&quot;:3.267,&quot;v&quot;:-3.6},{&quot;t&quot;:3.365,&quot;v&quot;:-2.4},{&quot;t&quot;:3.462,&quot;v&quot;:-3.8},{&quot;t&quot;:3.56,&quot;v&quot;:-2.7},{&quot;t&quot;:3.658,&quot;v&quot;:-1.9},{&quot;t&quot;:3.756,&quot;v&quot;:-1.3},{&quot;t&quot;:3.853,&quot;v&quot;:-0.9},{&quot;t&quot;:3.951,&quot;v&quot;:-2.3},{&quot;t&quot;:4.049,&quot;v&quot;:-2.9},{&quot;t&quot;:4.146,&quot;v&quot;:-2.1},{&quot;t&quot;:4.244,&quot;v&quot;:-1.4},{&quot;t&quot;:4.342,&quot;v&quot;:-1},{&quot;t&quot;:4.44,&quot;v&quot;:-0.6},{&quot;t&quot;:4.733,&quot;v&quot;:-0.2},{&quot;t&quot;:4.83,&quot;v&quot;:0},{&quot;t&quot;:4.928,&quot;v&quot;:0},{&quot;t&quot;:5.026,&quot;v&quot;:-0.6},{&quot;t&quot;:5.123,&quot;v&quot;:-2},{&quot;t&quot;:5.221,&quot;v&quot;:-2.7},{&quot;t&quot;:5.417,&quot;v&quot;:-2.3},{&quot;t&quot;:5.514,&quot;v&quot;:-2},{&quot;t&quot;:5.612,&quot;v&quot;:-2.5},{&quot;t&quot;:5.71,&quot;v&quot;:-2.3},{&quot;t&quot;:5.807,&quot;v&quot;:-1.6},{&quot;t&quot;:5.905,&quot;v&quot;:-3.4},{&quot;t&quot;:6.003,&quot;v&quot;:-4.4},{&quot;t&quot;:6.101,&quot;v&quot;:-4.1},{&quot;t&quot;:6.198,&quot;v&quot;:-3.6},{&quot;t&quot;:6.296,&quot;v&quot;:-4.1},{&quot;t&quot;:6.394,&quot;v&quot;:-2.8},{&quot;t&quot;:6.589,&quot;v&quot;:-3.2},{&quot;t&quot;:6.687,&quot;v&quot;:-4.1},{&quot;t&quot;:6.785,&quot;v&quot;:-2.8},{&quot;t&quot;:6.882,&quot;v&quot;:-3.9},{&quot;t&quot;:6.98,&quot;v&quot;:-2.7},{&quot;t&quot;:7.078,&quot;v&quot;:-1.8},{&quot;t&quot;:7.175,&quot;v&quot;:-1.2},{&quot;t&quot;:7.273,&quot;v&quot;:-0.8},{&quot;t&quot;:7.371,&quot;v&quot;:-0.6},{&quot;t&quot;:7.468,&quot;v&quot;:-0.4},{&quot;t&quot;:7.566,&quot;v&quot;:-2.4},{&quot;t&quot;:7.664,&quot;v&quot;:-4.1},{&quot;t&quot;:7.762,&quot;v&quot;:-2.8},{&quot;t&quot;:7.859,&quot;v&quot;:-2.2},{&quot;t&quot;:7.957,&quot;v&quot;:-3.9},{&quot;t&quot;:8.055,&quot;v&quot;:-3.4},{&quot;t&quot;:8.152,&quot;v&quot;:-3},{&quot;t&quot;:8.25,&quot;v&quot;:-2.3},{&quot;t&quot;:8.348,&quot;v&quot;:-1.5},{&quot;t&quot;:8.446,&quot;v&quot;:-1},{&quot;t&quot;:8.543,&quot;v&quot;:-3.7},{&quot;t&quot;:8.641,&quot;v&quot;:-3.6},{&quot;t&quot;:8.739,&quot;v&quot;:-2.8},{&quot;t&quot;:8.836,&quot;v&quot;:-3.8},{&quot;t&quot;:8.934,&quot;v&quot;:-3.1},{&quot;t&quot;:9.032,&quot;v&quot;:-2.5},{&quot;t&quot;:9.13,&quot;v&quot;:-1.7},{&quot;t&quot;:9.227,&quot;v&quot;:-1.2},{&quot;t&quot;:9.325,&quot;v&quot;:-1.1},{&quot;t&quot;:9.423,&quot;v&quot;:-0.7},{&quot;t&quot;:9.716,&quot;v&quot;:-0.2},{&quot;t&quot;:9.813,&quot;v&quot;:0},{&quot;t&quot;:9.911,&quot;v&quot;:-0.9},{&quot;t&quot;:10.302,&quot;v&quot;:-0.5},{&quot;t&quot;:10.4,&quot;v&quot;:-0.3},{&quot;t&quot;:10.497,&quot;v&quot;:-3.4},{&quot;t&quot;:10.595,&quot;v&quot;:-2.5},{&quot;t&quot;:10.888,&quot;v&quot;:-2.4},{&quot;t&quot;:10.986,&quot;v&quot;:-3.5},{&quot;t&quot;:11.084,&quot;v&quot;:-4.5},{&quot;t&quot;:11.181,&quot;v&quot;:-4.2},{&quot;t&quot;:11.279,&quot;v&quot;:-2.8},{&quot;t&quot;:11.377,&quot;v&quot;:-3.6},{&quot;t&quot;:11.475,&quot;v&quot;:-3.4},{&quot;t&quot;:11.572,&quot;v&quot;:-2.9},{&quot;t&quot;:11.67,&quot;v&quot;:-2.1},{&quot;t&quot;:11.768,&quot;v&quot;:-1.4},{&quot;t&quot;:12.061,&quot;v&quot;:-1.3},{&quot;t&quot;:12.159,&quot;v&quot;:-1.9},{&quot;t&quot;:12.256,&quot;v&quot;:-1.8},{&quot;t&quot;:12.354,&quot;v&quot;:-1.3},{&quot;t&quot;:12.647,&quot;v&quot;:-0.9},{&quot;t&quot;:12.745,&quot;v&quot;:-0.7},{&quot;t&quot;:12.842,&quot;v&quot;:-0.5},{&quot;t&quot;:12.94,&quot;v&quot;:-2.4},{&quot;t&quot;:13.038,&quot;v&quot;:-3},{&quot;t&quot;:13.136,&quot;v&quot;:-2},{&quot;t&quot;:13.233,&quot;v&quot;:-1.8},{&quot;t&quot;:13.331,&quot;v&quot;:-1.2},{&quot;t&quot;:13.624,&quot;v&quot;:-0.9},{&quot;t&quot;:13.722,&quot;v&quot;:-0.6},{&quot;t&quot;:13.917,&quot;v&quot;:-0.3},{&quot;t&quot;:14.015,&quot;v&quot;:0},{&quot;t&quot;:14.113,&quot;v&quot;:0},{&quot;t&quot;:14.21,&quot;v&quot;:-3.1},{&quot;t&quot;:14.308,&quot;v&quot;:-4},{&quot;t&quot;:14.406,&quot;v&quot;:-2.7},{&quot;t&quot;:14.504,&quot;v&quot;:-1.8},{&quot;t&quot;:14.601,&quot;v&quot;:-1.6},{&quot;t&quot;:14.699,&quot;v&quot;:-1.1},{&quot;t&quot;:14.797,&quot;v&quot;:-2.7},{&quot;t&quot;:14.894,&quot;v&quot;:-1.9},{&quot;t&quot;:14.992,&quot;v&quot;:-1.3},{&quot;t&quot;:15.09,&quot;v&quot;:-1.8},{&quot;t&quot;:15.187,&quot;v&quot;:-2},{&quot;t&quot;:15.285,&quot;v&quot;:-1.3},{&quot;t&quot;:15.383,&quot;v&quot;:-0.9},{&quot;t&quot;:15.481,&quot;v&quot;:-0.6},{&quot;t&quot;:15.578,&quot;v&quot;:-2.9},{&quot;t&quot;:15.676,&quot;v&quot;:-4.4},{&quot;t&quot;:15.774,&quot;v&quot;:-5.3},{&quot;t&quot;:15.871,&quot;v&quot;:-3.9},{&quot;t&quot;:15.969,&quot;v&quot;:-4.4},{&quot;t&quot;:16.067,&quot;v&quot;:-3.8},{&quot;t&quot;:16.165,&quot;v&quot;:-3.1},{&quot;t&quot;:16.36,&quot;v&quot;:-2.9},{&quot;t&quot;:16.458,&quot;v&quot;:-1.9},{&quot;t&quot;:16.555,&quot;v&quot;:-1.3},{&quot;t&quot;:16.653,&quot;v&quot;:-0.9},{&quot;t&quot;:16.751,&quot;v&quot;:-0.6},{&quot;t&quot;:16.849,&quot;v&quot;:-2.6},{&quot;t&quot;:17.142,&quot;v&quot;:-2.5},{&quot;t&quot;:17.239,&quot;v&quot;:-1.9},{&quot;t&quot;:17.435,&quot;v&quot;:-1.7},{&quot;t&quot;:17.532,&quot;v&quot;:-1.4},{&quot;t&quot;:17.63,&quot;v&quot;:-2.9},{&quot;t&quot;:17.728,&quot;v&quot;:-4.2},{&quot;t&quot;:17.826,&quot;v&quot;:-4.1},{&quot;t&quot;:17.923,&quot;v&quot;:-2.8},{&quot;t&quot;:18.021,&quot;v&quot;:-2.5},{&quot;t&quot;:18.119,&quot;v&quot;:-1.7},{&quot;t&quot;:18.216,&quot;v&quot;:-1.2},{&quot;t&quot;:18.412,&quot;v&quot;:-0.9},{&quot;t&quot;:18.51,&quot;v&quot;:-4.3},{&quot;t&quot;:18.607,&quot;v&quot;:-3.8},{&quot;t&quot;:18.705,&quot;v&quot;:-2.7},{&quot;t&quot;:18.803,&quot;v&quot;:-1.8},{&quot;t&quot;:18.9,&quot;v&quot;:-4.4},{&quot;t&quot;:18.998,&quot;v&quot;:-3},{&quot;t&quot;:19.096,&quot;v&quot;:-3.9},{&quot;t&quot;:19.194,&quot;v&quot;:-3.9},{&quot;t&quot;:19.291,&quot;v&quot;:-3.3},{&quot;t&quot;:19.389,&quot;v&quot;:-2.3},{&quot;t&quot;:19.487,&quot;v&quot;:-1.9},{&quot;t&quot;:19.584,&quot;v&quot;:-1.3},{&quot;t&quot;:19.682,&quot;v&quot;:-0.9},{&quot;t&quot;:19.78,&quot;v&quot;:-0.6},{&quot;t&quot;:19.975,&quot;v&quot;:-0.3},{&quot;t&quot;:20.073,&quot;v&quot;:0},{&quot;t&quot;:20.171,&quot;v&quot;:-2.7},{&quot;t&quot;:20.268,&quot;v&quot;:-2.7},{&quot;t&quot;:20.366,&quot;v&quot;:-3.3},{&quot;t&quot;:20.464,&quot;v&quot;:-3.6},{&quot;t&quot;:20.561,&quot;v&quot;:-4.3},{&quot;t&quot;:20.659,&quot;v&quot;:-3.1},{&quot;t&quot;:20.757,&quot;v&quot;:-3.1},{&quot;t&quot;:20.855,&quot;v&quot;:-2.2},{&quot;t&quot;:20.952,&quot;v&quot;:-1.5},{&quot;t&quot;:21.05,&quot;v&quot;:-4.5},{&quot;t&quot;:21.148,&quot;v&quot;:-4.1},{&quot;t&quot;:21.245,&quot;v&quot;:-3.6},{&quot;t&quot;:21.343,&quot;v&quot;:-2.8},{&quot;t&quot;:21.441,&quot;v&quot;:-4.4},{&quot;t&quot;:21.538,&quot;v&quot;:-3.4},{&quot;t&quot;:21.636,&quot;v&quot;:-2.6},{&quot;t&quot;:21.832,&quot;v&quot;:-2.7},{&quot;t&quot;:21.929,&quot;v&quot;:-1.8},{&quot;t&quot;:22.027,&quot;v&quot;:-1.2},{&quot;t&quot;:22.222,&quot;v&quot;:-1},{&quot;t&quot;:22.32,&quot;v&quot;:-0.7},{&quot;t&quot;:22.516,&quot;v&quot;:-0.3},{&quot;t&quot;:22.613,&quot;v&quot;:-3},{&quot;t&quot;:22.711,&quot;v&quot;:-2.7},{&quot;t&quot;:22.809,&quot;v&quot;:-2.2},{&quot;t&quot;:22.906,&quot;v&quot;:-1.9},{&quot;t&quot;:23.004,&quot;v&quot;:-1.3},{&quot;t&quot;:23.102,&quot;v&quot;:-1.2},{&quot;t&quot;:23.2,&quot;v&quot;:-0.8},{&quot;t&quot;:23.493,&quot;v&quot;:-0.6},{&quot;t&quot;:23.59,&quot;v&quot;:-1.4},{&quot;t&quot;:23.688,&quot;v&quot;:-0.9},{&quot;t&quot;:23.786,&quot;v&quot;:-0.6},{&quot;t&quot;:23.981,&quot;v&quot;:-0.3},{&quot;t&quot;:24.079,&quot;v&quot;:0},{&quot;t&quot;:24.177,&quot;v&quot;:-1},{&quot;t&quot;:24.274,&quot;v&quot;:-1.6},{&quot;t&quot;:24.372,&quot;v&quot;:-2.8},{&quot;t&quot;:24.47,&quot;v&quot;:-2.2},{&quot;t&quot;:24.567,&quot;v&quot;:-1.5},{&quot;t&quot;:24.665,&quot;v&quot;:-3.8},{&quot;t&quot;:24.861,&quot;v&quot;:-3.8},{&quot;t&quot;:24.958,&quot;v&quot;:-2.6},{&quot;t&quot;:25.056,&quot;v&quot;:-1.7},{&quot;t&quot;:25.154,&quot;v&quot;:-1.7},{&quot;t&quot;:25.251,&quot;v&quot;:-1.1},{&quot;t&quot;:25.447,&quot;v&quot;:-1.3},{&quot;t&quot;:25.545,&quot;v&quot;:-2.5},{&quot;t&quot;:25.642,&quot;v&quot;:-1.7},{&quot;t&quot;:25.74,&quot;v&quot;:-1.5},{&quot;t&quot;:25.838,&quot;v&quot;:-1},{&quot;t&quot;:25.935,&quot;v&quot;:-0.7},{&quot;t&quot;:26.033,&quot;v&quot;:-0.5},{&quot;t&quot;:26.229,&quot;v&quot;:-0.8},{&quot;t&quot;:26.326,&quot;v&quot;:-4.3},{&quot;t&quot;:26.424,&quot;v&quot;:-3.2},{&quot;t&quot;:26.522,&quot;v&quot;:-4.3},{&quot;t&quot;:26.619,&quot;v&quot;:-3.6},{&quot;t&quot;:26.717,&quot;v&quot;:-3.3},{&quot;t&quot;:26.815,&quot;v&quot;:-2.3},{&quot;t&quot;:26.912,&quot;v&quot;:-1.5},{&quot;t&quot;:27.01,&quot;v&quot;:-1.8},{&quot;t&quot;:27.108,&quot;v&quot;:-4.3},{&quot;t&quot;:27.206,&quot;v&quot;:-3.2},{&quot;t&quot;:27.303,&quot;v&quot;:-2.2},{&quot;t&quot;:27.401,&quot;v&quot;:-1.9},{&quot;t&quot;:27.499,&quot;v&quot;:-3.8},{&quot;t&quot;:27.596,&quot;v&quot;:-4.1},{&quot;t&quot;:27.694,&quot;v&quot;:-4.6},{&quot;t&quot;:27.792,&quot;v&quot;:-4.2},{&quot;t&quot;:27.89,&quot;v&quot;:-2.8},{&quot;t&quot;:27.987,&quot;v&quot;:-2.6},{&quot;t&quot;:28.085,&quot;v&quot;:-3.6},{&quot;t&quot;:28.183,&quot;v&quot;:-3.1},{&quot;t&quot;:28.28,&quot;v&quot;:-2.1},{&quot;t&quot;:28.378,&quot;v&quot;:-1.4},{&quot;t&quot;:28.476,&quot;v&quot;:-3},{&quot;t&quot;:28.573,&quot;v&quot;:-2},{&quot;t&quot;:28.671,&quot;v&quot;:-1.4},{&quot;t&quot;:28.769,&quot;v&quot;:-0.9},{&quot;t&quot;:28.867,&quot;v&quot;:-0.6},{&quot;t&quot;:28.964,&quot;v&quot;:-0.4},{&quot;t&quot;:29.062,&quot;v&quot;:-3.2},{&quot;t&quot;:29.16,&quot;v&quot;:-3.3},{&quot;t&quot;:29.257,&quot;v&quot;:-2.3},{&quot;t&quot;:29.355,&quot;v&quot;:-1.5},{&quot;t&quot;:29.453,&quot;v&quot;:-1},{&quot;t&quot;:29.551,&quot;v&quot;:-0.7},{&quot;t&quot;:29.648,&quot;v&quot;:-0.5},{&quot;t&quot;:29.746,&quot;v&quot;:-0.3},{&quot;t&quot;:29.844,&quot;v&quot;:-3.5},{&quot;t&quot;:29.941,&quot;v&quot;:-2.4},{&quot;t&quot;:30.039,&quot;v&quot;:-1.9},{&quot;t&quot;:30.137,&quot;v&quot;:-1.3},{&quot;t&quot;:30.235,&quot;v&quot;:-0.9},{&quot;t&quot;:30.332,&quot;v&quot;:-0.8},{&quot;t&quot;:30.528,&quot;v&quot;:-0.4},{&quot;t&quot;:30.625,&quot;v&quot;:-0.2},{&quot;t&quot;:30.723,&quot;v&quot;:-3.4},{&quot;t&quot;:30.821,&quot;v&quot;:-2.3},{&quot;t&quot;:30.919,&quot;v&quot;:-1.6},{&quot;t&quot;:31.016,&quot;v&quot;:-2.4},{&quot;t&quot;:31.212,&quot;v&quot;:-2},{&quot;t&quot;:31.309,&quot;v&quot;:-1.4},{&quot;t&quot;:31.407,&quot;v&quot;:-0.9},{&quot;t&quot;:31.505,&quot;v&quot;:-0.6},{&quot;t&quot;:31.602,&quot;v&quot;:-1.2},{&quot;t&quot;:31.7,&quot;v&quot;:-0.9},{&quot;t&quot;:31.798,&quot;v&quot;:-0.6},{&quot;t&quot;:31.896,&quot;v&quot;:-2.9},{&quot;t&quot;:31.993,&quot;v&quot;:-2.9},{&quot;t&quot;:32.091,&quot;v&quot;:-1.9},{&quot;t&quot;:32.189,&quot;v&quot;:-1.3},{&quot;t&quot;:32.286,&quot;v&quot;:-0.9},{&quot;t&quot;:32.384,&quot;v&quot;:-0.6},{&quot;t&quot;:32.58,&quot;v&quot;:-0.3},{&quot;t&quot;:32.677,&quot;v&quot;:-2},{&quot;t&quot;:32.775,&quot;v&quot;:-3.4},{&quot;t&quot;:32.873,&quot;v&quot;:-3},{&quot;t&quot;:32.97,&quot;v&quot;:-2.4},{&quot;t&quot;:33.068,&quot;v&quot;:-2.6},{&quot;t&quot;:33.166,&quot;v&quot;:-4.9},{&quot;t&quot;:33.264,&quot;v&quot;:-3.3},{&quot;t&quot;:33.361,&quot;v&quot;:-2.2},{&quot;t&quot;:33.459,&quot;v&quot;:-1.5},{&quot;t&quot;:33.557,&quot;v&quot;:-2.1},{&quot;t&quot;:33.654,&quot;v&quot;:-1.4},{&quot;t&quot;:33.85,&quot;v&quot;:-1.7},{&quot;t&quot;:33.947,&quot;v&quot;:-3.2},{&quot;t&quot;:34.045,&quot;v&quot;:-2.2},{&quot;t&quot;:34.143,&quot;v&quot;:-2.9},{&quot;t&quot;:34.241,&quot;v&quot;:-2},{&quot;t&quot;:34.338,&quot;v&quot;:-1.3},{&quot;t&quot;:34.436,&quot;v&quot;:-1.2},{&quot;t&quot;:34.534,&quot;v&quot;:-0.8},{&quot;t&quot;:34.631,&quot;v&quot;:-2.3},{&quot;t&quot;:34.729,&quot;v&quot;:-4.4},{&quot;t&quot;:34.827,&quot;v&quot;:-3.5},{&quot;t&quot;:34.925,&quot;v&quot;:-3.1},{&quot;t&quot;:35.022,&quot;v&quot;:-2.3},{&quot;t&quot;:35.12,&quot;v&quot;:-1.6},{&quot;t&quot;:35.218,&quot;v&quot;:-1.1},{&quot;t&quot;:35.315,&quot;v&quot;:-0.7},{&quot;t&quot;:35.413,&quot;v&quot;:-0.5},{&quot;t&quot;:35.511,&quot;v&quot;:-1.4},{&quot;t&quot;:35.608,&quot;v&quot;:-1.9},{&quot;t&quot;:35.706,&quot;v&quot;:-3.2},{&quot;t&quot;:35.804,&quot;v&quot;:-2.8},{&quot;t&quot;:35.902,&quot;v&quot;:-1.9},{&quot;t&quot;:35.999,&quot;v&quot;:-1.3},{&quot;t&quot;:36.097,&quot;v&quot;:-0.9},{&quot;t&quot;:36.195,&quot;v&quot;:-0.6},{&quot;t&quot;:36.488,&quot;v&quot;:-0.5},{&quot;t&quot;:36.586,&quot;v&quot;:-3.4},{&quot;t&quot;:36.683,&quot;v&quot;:-2.6},{&quot;t&quot;:36.781,&quot;v&quot;:-1.8},{&quot;t&quot;:36.879,&quot;v&quot;:-3.8},{&quot;t&quot;:36.976,&quot;v&quot;:-2.6},{&quot;t&quot;:37.074,&quot;v&quot;:-3.5},{&quot;t&quot;:37.172,&quot;v&quot;:-2.4},{&quot;t&quot;:37.27,&quot;v&quot;:-1.8},{&quot;t&quot;:37.465,&quot;v&quot;:-1.4},{&quot;t&quot;:37.563,&quot;v&quot;:-1.1},{&quot;t&quot;:37.66,&quot;v&quot;:-2.9},{&quot;t&quot;:37.758,&quot;v&quot;:-4.8},{&quot;t&quot;:37.856,&quot;v&quot;:-4.5},{&quot;t&quot;:37.953,&quot;v&quot;:-4.1},{&quot;t&quot;:38.149,&quot;v&quot;:-4.1},{&quot;t&quot;:38.247,&quot;v&quot;:-2.8},{&quot;t&quot;:38.344,&quot;v&quot;:-2.4},{&quot;t&quot;:38.442,&quot;v&quot;:-1.6},{&quot;t&quot;:38.54,&quot;v&quot;:-1.1},{&quot;t&quot;:38.637,&quot;v&quot;:-2.8},{&quot;t&quot;:38.735,&quot;v&quot;:-2.1},{&quot;t&quot;:38.833,&quot;v&quot;:-1.4},{&quot;t&quot;:38.931,&quot;v&quot;:-1},{&quot;t&quot;:39.028,&quot;v&quot;:-0.6},{&quot;t&quot;:39.079,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n2.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.238,&quot;v&quot;:0},{&quot;t&quot;:0.336,&quot;v&quot;:-1.6},{&quot;t&quot;:0.433,&quot;v&quot;:-1.1},{&quot;t&quot;:0.531,&quot;v&quot;:-0.8},{&quot;t&quot;:0.629,&quot;v&quot;:-0.5},{&quot;t&quot;:0.824,&quot;v&quot;:-0.2},{&quot;t&quot;:0.922,&quot;v&quot;:0},{&quot;t&quot;:1.02,&quot;v&quot;:0},{&quot;t&quot;:1.117,&quot;v&quot;:-2.5},{&quot;t&quot;:1.215,&quot;v&quot;:-1.7},{&quot;t&quot;:1.313,&quot;v&quot;:-1.1},{&quot;t&quot;:1.411,&quot;v&quot;:-0.8},{&quot;t&quot;:1.508,&quot;v&quot;:-0.5},{&quot;t&quot;:1.606,&quot;v&quot;:-2.3},{&quot;t&quot;:1.704,&quot;v&quot;:-1.5},{&quot;t&quot;:1.899,&quot;v&quot;:-1.1},{&quot;t&quot;:1.997,&quot;v&quot;:-0.7},{&quot;t&quot;:2.29,&quot;v&quot;:-0.2},{&quot;t&quot;:2.388,&quot;v&quot;:0},{&quot;t&quot;:2.876,&quot;v&quot;:0},{&quot;t&quot;:2.974,&quot;v&quot;:-1.7},{&quot;t&quot;:3.072,&quot;v&quot;:-1.1},{&quot;t&quot;:3.169,&quot;v&quot;:-0.8},{&quot;t&quot;:3.267,&quot;v&quot;:-0.5},{&quot;t&quot;:3.462,&quot;v&quot;:-0.2},{&quot;t&quot;:3.56,&quot;v&quot;:-1.2},{&quot;t&quot;:3.658,&quot;v&quot;:-1.1},{&quot;t&quot;:3.756,&quot;v&quot;:-0.7},{&quot;t&quot;:3.853,&quot;v&quot;:-1.8},{&quot;t&quot;:3.951,&quot;v&quot;:-1.2},{&quot;t&quot;:4.146,&quot;v&quot;:-0.8},{&quot;t&quot;:4.244,&quot;v&quot;:-0.5},{&quot;t&quot;:4.44,&quot;v&quot;:-0.2},{&quot;t&quot;:4.537,&quot;v&quot;:0},{&quot;t&quot;:4.928,&quot;v&quot;:0},{&quot;t&quot;:5.026,&quot;v&quot;:-1},{&quot;t&quot;:5.123,&quot;v&quot;:-0.7},{&quot;t&quot;:5.221,&quot;v&quot;:-0.5},{&quot;t&quot;:5.319,&quot;v&quot;:-2.6},{&quot;t&quot;:5.417,&quot;v&quot;:-2.5},{&quot;t&quot;:5.514,&quot;v&quot;:-3.9},{&quot;t&quot;:5.612,&quot;v&quot;:-2.7},{&quot;t&quot;:5.71,&quot;v&quot;:-3},{&quot;t&quot;:5.807,&quot;v&quot;:-2},{&quot;t&quot;:5.905,&quot;v&quot;:-1.4},{&quot;t&quot;:6.003,&quot;v&quot;:-1.2},{&quot;t&quot;:6.101,&quot;v&quot;:-0.8},{&quot;t&quot;:6.198,&quot;v&quot;:-0.5},{&quot;t&quot;:6.296,&quot;v&quot;:-2.5},{&quot;t&quot;:6.394,&quot;v&quot;:-1.7},{&quot;t&quot;:6.491,&quot;v&quot;:-2.5},{&quot;t&quot;:6.589,&quot;v&quot;:-1.7},{&quot;t&quot;:6.687,&quot;v&quot;:-1.1},{&quot;t&quot;:6.882,&quot;v&quot;:-0.7},{&quot;t&quot;:6.98,&quot;v&quot;:-0.4},{&quot;t&quot;:7.762,&quot;v&quot;:-0.2},{&quot;t&quot;:7.859,&quot;v&quot;:-2.2},{&quot;t&quot;:7.957,&quot;v&quot;:-2.1},{&quot;t&quot;:8.055,&quot;v&quot;:-1.6},{&quot;t&quot;:8.152,&quot;v&quot;:-1.1},{&quot;t&quot;:8.25,&quot;v&quot;:-0.7},{&quot;t&quot;:8.348,&quot;v&quot;:-0.5},{&quot;t&quot;:8.446,&quot;v&quot;:-0.3},{&quot;t&quot;:8.543,&quot;v&quot;:-2.8},{&quot;t&quot;:8.641,&quot;v&quot;:-1.9},{&quot;t&quot;:8.739,&quot;v&quot;:-2.2},{&quot;t&quot;:8.836,&quot;v&quot;:-3.1},{&quot;t&quot;:8.934,&quot;v&quot;:-2.3},{&quot;t&quot;:9.032,&quot;v&quot;:-3},{&quot;t&quot;:9.13,&quot;v&quot;:-2},{&quot;t&quot;:9.227,&quot;v&quot;:-1.4},{&quot;t&quot;:9.325,&quot;v&quot;:-2.9},{&quot;t&quot;:9.423,&quot;v&quot;:-2.7},{&quot;t&quot;:9.52,&quot;v&quot;:-2.4},{&quot;t&quot;:9.618,&quot;v&quot;:-1.6},{&quot;t&quot;:9.716,&quot;v&quot;:-1.1},{&quot;t&quot;:9.813,&quot;v&quot;:-0.7},{&quot;t&quot;:9.911,&quot;v&quot;:-0.5},{&quot;t&quot;:10.009,&quot;v&quot;:-1.5},{&quot;t&quot;:10.204,&quot;v&quot;:-1.1},{&quot;t&quot;:10.302,&quot;v&quot;:-2.2},{&quot;t&quot;:10.4,&quot;v&quot;:-1.8},{&quot;t&quot;:10.497,&quot;v&quot;:-1.2},{&quot;t&quot;:10.595,&quot;v&quot;:-0.8},{&quot;t&quot;:10.693,&quot;v&quot;:-0.7},{&quot;t&quot;:10.986,&quot;v&quot;:-0.2},{&quot;t&quot;:11.084,&quot;v&quot;:0},{&quot;t&quot;:11.279,&quot;v&quot;:0},{&quot;t&quot;:11.377,&quot;v&quot;:-3.9},{&quot;t&quot;:11.475,&quot;v&quot;:-2.7},{&quot;t&quot;:11.572,&quot;v&quot;:-1.8},{&quot;t&quot;:11.67,&quot;v&quot;:-1.3},{&quot;t&quot;:11.768,&quot;v&quot;:-0.9},{&quot;t&quot;:11.865,&quot;v&quot;:-0.6},{&quot;t&quot;:12.061,&quot;v&quot;:-0.3},{&quot;t&quot;:12.159,&quot;v&quot;:0},{&quot;t&quot;:12.354,&quot;v&quot;:0},{&quot;t&quot;:12.452,&quot;v&quot;:-1},{&quot;t&quot;:12.647,&quot;v&quot;:-0.6},{&quot;t&quot;:12.745,&quot;v&quot;:-4},{&quot;t&quot;:12.842,&quot;v&quot;:-2.7},{&quot;t&quot;:12.94,&quot;v&quot;:-1.8},{&quot;t&quot;:13.038,&quot;v&quot;:-4.8},{&quot;t&quot;:13.136,&quot;v&quot;:-3.3},{&quot;t&quot;:13.233,&quot;v&quot;:-2.8},{&quot;t&quot;:13.331,&quot;v&quot;:-1.9},{&quot;t&quot;:13.429,&quot;v&quot;:-1.3},{&quot;t&quot;:13.624,&quot;v&quot;:-1.1},{&quot;t&quot;:13.722,&quot;v&quot;:-0.7},{&quot;t&quot;:14.015,&quot;v&quot;:-0.2},{&quot;t&quot;:14.113,&quot;v&quot;:0},{&quot;t&quot;:14.21,&quot;v&quot;:0},{&quot;t&quot;:14.308,&quot;v&quot;:-0.8},{&quot;t&quot;:14.406,&quot;v&quot;:-2.7},{&quot;t&quot;:14.504,&quot;v&quot;:-1.8},{&quot;t&quot;:14.601,&quot;v&quot;:-1.2},{&quot;t&quot;:14.699,&quot;v&quot;:-0.8},{&quot;t&quot;:14.797,&quot;v&quot;:-2.5},{&quot;t&quot;:14.894,&quot;v&quot;:-1.7},{&quot;t&quot;:14.992,&quot;v&quot;:-1.2},{&quot;t&quot;:15.09,&quot;v&quot;:-0.8},{&quot;t&quot;:15.187,&quot;v&quot;:-0.5},{&quot;t&quot;:15.383,&quot;v&quot;:-0.2},{&quot;t&quot;:15.481,&quot;v&quot;:0},{&quot;t&quot;:15.774,&quot;v&quot;:0},{&quot;t&quot;:15.871,&quot;v&quot;:-0.8},{&quot;t&quot;:16.165,&quot;v&quot;:-0.5},{&quot;t&quot;:16.262,&quot;v&quot;:-0.3},{&quot;t&quot;:16.751,&quot;v&quot;:0},{&quot;t&quot;:16.849,&quot;v&quot;:-2.4},{&quot;t&quot;:17.044,&quot;v&quot;:-2.6},{&quot;t&quot;:17.142,&quot;v&quot;:-1.8},{&quot;t&quot;:17.239,&quot;v&quot;:-1.2},{&quot;t&quot;:17.63,&quot;v&quot;:-0.8},{&quot;t&quot;:17.728,&quot;v&quot;:-0.5},{&quot;t&quot;:17.923,&quot;v&quot;:-0.2},{&quot;t&quot;:18.021,&quot;v&quot;:-1.3},{&quot;t&quot;:18.119,&quot;v&quot;:-0.9},{&quot;t&quot;:18.216,&quot;v&quot;:-0.6},{&quot;t&quot;:18.412,&quot;v&quot;:-0.3},{&quot;t&quot;:18.51,&quot;v&quot;:-1.6},{&quot;t&quot;:18.607,&quot;v&quot;:-1.3},{&quot;t&quot;:18.705,&quot;v&quot;:-2.4},{&quot;t&quot;:18.803,&quot;v&quot;:-1.8},{&quot;t&quot;:18.9,&quot;v&quot;:-1.2},{&quot;t&quot;:18.998,&quot;v&quot;:-0.8},{&quot;t&quot;:19.096,&quot;v&quot;:-4.2},{&quot;t&quot;:19.194,&quot;v&quot;:-2.8},{&quot;t&quot;:19.291,&quot;v&quot;:-4.3},{&quot;t&quot;:19.389,&quot;v&quot;:-2.9},{&quot;t&quot;:19.487,&quot;v&quot;:-2},{&quot;t&quot;:19.584,&quot;v&quot;:-1.4},{&quot;t&quot;:19.682,&quot;v&quot;:-0.9},{&quot;t&quot;:19.78,&quot;v&quot;:-0.6},{&quot;t&quot;:19.975,&quot;v&quot;:-0.3},{&quot;t&quot;:20.073,&quot;v&quot;:0},{&quot;t&quot;:20.171,&quot;v&quot;:0},{&quot;t&quot;:20.268,&quot;v&quot;:-4.7},{&quot;t&quot;:20.366,&quot;v&quot;:-3.1},{&quot;t&quot;:20.464,&quot;v&quot;:-2.4},{&quot;t&quot;:20.561,&quot;v&quot;:-1.6},{&quot;t&quot;:20.659,&quot;v&quot;:-1.1},{&quot;t&quot;:20.952,&quot;v&quot;:-0.8},{&quot;t&quot;:21.05,&quot;v&quot;:-0.5},{&quot;t&quot;:21.148,&quot;v&quot;:-1.3},{&quot;t&quot;:21.245,&quot;v&quot;:-2.5},{&quot;t&quot;:21.343,&quot;v&quot;:-1.7},{&quot;t&quot;:21.441,&quot;v&quot;:-3.1},{&quot;t&quot;:21.538,&quot;v&quot;:-2.7},{&quot;t&quot;:21.636,&quot;v&quot;:-2.4},{&quot;t&quot;:21.734,&quot;v&quot;:-1.6},{&quot;t&quot;:21.832,&quot;v&quot;:-2.9},{&quot;t&quot;:21.929,&quot;v&quot;:-1.9},{&quot;t&quot;:22.027,&quot;v&quot;:-1.3},{&quot;t&quot;:22.125,&quot;v&quot;:-1.8},{&quot;t&quot;:22.222,&quot;v&quot;:-1.2},{&quot;t&quot;:22.32,&quot;v&quot;:-0.8},{&quot;t&quot;:22.418,&quot;v&quot;:-0.6},{&quot;t&quot;:23.2,&quot;v&quot;:-0.2},{&quot;t&quot;:23.297,&quot;v&quot;:0},{&quot;t&quot;:23.395,&quot;v&quot;:-2.3},{&quot;t&quot;:23.493,&quot;v&quot;:-1.6},{&quot;t&quot;:23.59,&quot;v&quot;:-1.1},{&quot;t&quot;:23.688,&quot;v&quot;:-0.7},{&quot;t&quot;:23.786,&quot;v&quot;:-0.5},{&quot;t&quot;:23.981,&quot;v&quot;:-0.2},{&quot;t&quot;:24.079,&quot;v&quot;:0},{&quot;t&quot;:24.177,&quot;v&quot;:-0.5},{&quot;t&quot;:24.763,&quot;v&quot;:-0.3},{&quot;t&quot;:24.861,&quot;v&quot;:-1.5},{&quot;t&quot;:24.958,&quot;v&quot;:-1},{&quot;t&quot;:25.056,&quot;v&quot;:-0.7},{&quot;t&quot;:25.154,&quot;v&quot;:-0.5},{&quot;t&quot;:25.349,&quot;v&quot;:-0.2},{&quot;t&quot;:25.447,&quot;v&quot;:0},{&quot;t&quot;:25.545,&quot;v&quot;:-1.2},{&quot;t&quot;:25.642,&quot;v&quot;:-0.8},{&quot;t&quot;:25.74,&quot;v&quot;:-0.5},{&quot;t&quot;:25.935,&quot;v&quot;:-0.2},{&quot;t&quot;:26.033,&quot;v&quot;:0},{&quot;t&quot;:26.131,&quot;v&quot;:0},{&quot;t&quot;:26.229,&quot;v&quot;:-1},{&quot;t&quot;:26.326,&quot;v&quot;:-0.7},{&quot;t&quot;:26.424,&quot;v&quot;:-0.5},{&quot;t&quot;:26.619,&quot;v&quot;:-0.2},{&quot;t&quot;:26.717,&quot;v&quot;:0},{&quot;t&quot;:26.912,&quot;v&quot;:0},{&quot;t&quot;:27.01,&quot;v&quot;:-3.3},{&quot;t&quot;:27.108,&quot;v&quot;:-2.8},{&quot;t&quot;:27.206,&quot;v&quot;:-1.9},{&quot;t&quot;:27.303,&quot;v&quot;:-1.3},{&quot;t&quot;:27.401,&quot;v&quot;:-0.9},{&quot;t&quot;:27.499,&quot;v&quot;:-2.7},{&quot;t&quot;:27.596,&quot;v&quot;:-3.7},{&quot;t&quot;:27.694,&quot;v&quot;:-3.6},{&quot;t&quot;:27.792,&quot;v&quot;:-2.9},{&quot;t&quot;:27.89,&quot;v&quot;:-1.9},{&quot;t&quot;:28.085,&quot;v&quot;:-1.6},{&quot;t&quot;:28.183,&quot;v&quot;:-1.1},{&quot;t&quot;:28.28,&quot;v&quot;:-2.6},{&quot;t&quot;:28.378,&quot;v&quot;:-1.7},{&quot;t&quot;:28.476,&quot;v&quot;:-1.2},{&quot;t&quot;:28.573,&quot;v&quot;:-0.8},{&quot;t&quot;:28.671,&quot;v&quot;:-0.5},{&quot;t&quot;:28.867,&quot;v&quot;:-0.2},{&quot;t&quot;:28.964,&quot;v&quot;:0},{&quot;t&quot;:29.062,&quot;v&quot;:-3.4},{&quot;t&quot;:29.16,&quot;v&quot;:-2.3},{&quot;t&quot;:29.257,&quot;v&quot;:-1.5},{&quot;t&quot;:29.355,&quot;v&quot;:-1.3},{&quot;t&quot;:29.453,&quot;v&quot;:-3.8},{&quot;t&quot;:29.551,&quot;v&quot;:-2.9},{&quot;t&quot;:29.648,&quot;v&quot;:-1.9},{&quot;t&quot;:29.746,&quot;v&quot;:-1.3},{&quot;t&quot;:29.844,&quot;v&quot;:-0.9},{&quot;t&quot;:29.941,&quot;v&quot;:-0.6},{&quot;t&quot;:30.039,&quot;v&quot;:-4.5},{&quot;t&quot;:30.137,&quot;v&quot;:-3},{&quot;t&quot;:30.235,&quot;v&quot;:-2.1},{&quot;t&quot;:30.332,&quot;v&quot;:-1.9},{&quot;t&quot;:30.43,&quot;v&quot;:-1.3},{&quot;t&quot;:30.528,&quot;v&quot;:-0.8},{&quot;t&quot;:30.821,&quot;v&quot;:-0.4},{&quot;t&quot;:30.919,&quot;v&quot;:-2.5},{&quot;t&quot;:31.016,&quot;v&quot;:-2},{&quot;t&quot;:31.114,&quot;v&quot;:-1.5},{&quot;t&quot;:31.212,&quot;v&quot;:-1},{&quot;t&quot;:31.407,&quot;v&quot;:-0.6},{&quot;t&quot;:31.505,&quot;v&quot;:-0.4},{&quot;t&quot;:31.602,&quot;v&quot;:-1.8},{&quot;t&quot;:31.7,&quot;v&quot;:-1.2},{&quot;t&quot;:31.798,&quot;v&quot;:-0.8},{&quot;t&quot;:31.896,&quot;v&quot;:-4},{&quot;t&quot;:31.993,&quot;v&quot;:-3.7},{&quot;t&quot;:32.091,&quot;v&quot;:-3.4},{&quot;t&quot;:32.189,&quot;v&quot;:-2.3},{&quot;t&quot;:32.286,&quot;v&quot;:-1.6},{&quot;t&quot;:32.384,&quot;v&quot;:-1.1},{&quot;t&quot;:32.482,&quot;v&quot;:-0.7},{&quot;t&quot;:32.58,&quot;v&quot;:-0.5},{&quot;t&quot;:32.677,&quot;v&quot;:-0.3},{&quot;t&quot;:32.775,&quot;v&quot;:-1.8},{&quot;t&quot;:32.97,&quot;v&quot;:-1.5},{&quot;t&quot;:33.068,&quot;v&quot;:-1.3},{&quot;t&quot;:33.361,&quot;v&quot;:-1},{&quot;t&quot;:33.459,&quot;v&quot;:-0.7},{&quot;t&quot;:33.752,&quot;v&quot;:-0.2},{&quot;t&quot;:33.85,&quot;v&quot;:-1.3},{&quot;t&quot;:33.947,&quot;v&quot;:-3.8},{&quot;t&quot;:34.045,&quot;v&quot;:-3.5},{&quot;t&quot;:34.143,&quot;v&quot;:-2.4},{&quot;t&quot;:34.241,&quot;v&quot;:-1.6},{&quot;t&quot;:34.338,&quot;v&quot;:-4.2},{&quot;t&quot;:34.436,&quot;v&quot;:-2.8},{&quot;t&quot;:34.534,&quot;v&quot;:-2.1},{&quot;t&quot;:34.631,&quot;v&quot;:-1.4},{&quot;t&quot;:34.729,&quot;v&quot;:-1},{&quot;t&quot;:34.827,&quot;v&quot;:-0.7},{&quot;t&quot;:35.12,&quot;v&quot;:-0.2},{&quot;t&quot;:35.218,&quot;v&quot;:0},{&quot;t&quot;:35.511,&quot;v&quot;:0},{&quot;t&quot;:35.608,&quot;v&quot;:-0.8},{&quot;t&quot;:35.706,&quot;v&quot;:-2.6},{&quot;t&quot;:35.804,&quot;v&quot;:-2.6},{&quot;t&quot;:35.902,&quot;v&quot;:-1.8},{&quot;t&quot;:35.999,&quot;v&quot;:-1.2},{&quot;t&quot;:36.097,&quot;v&quot;:-0.8},{&quot;t&quot;:36.195,&quot;v&quot;:-0.5},{&quot;t&quot;:36.39,&quot;v&quot;:-0.3},{&quot;t&quot;:36.488,&quot;v&quot;:0},{&quot;t&quot;:36.586,&quot;v&quot;:-0.8},{&quot;t&quot;:36.781,&quot;v&quot;:-0.4},{&quot;t&quot;:36.879,&quot;v&quot;:-4},{&quot;t&quot;:36.976,&quot;v&quot;:-2.7},{&quot;t&quot;:37.074,&quot;v&quot;:-1.8},{&quot;t&quot;:37.172,&quot;v&quot;:-1.6},{&quot;t&quot;:37.27,&quot;v&quot;:-1.1},{&quot;t&quot;:37.367,&quot;v&quot;:-0.8},{&quot;t&quot;:37.465,&quot;v&quot;:-2.7},{&quot;t&quot;:37.856,&quot;v&quot;:-2.3},{&quot;t&quot;:37.953,&quot;v&quot;:-4},{&quot;t&quot;:38.051,&quot;v&quot;:-2.7},{&quot;t&quot;:38.149,&quot;v&quot;:-1.9},{&quot;t&quot;:38.344,&quot;v&quot;:-1.5},{&quot;t&quot;:38.442,&quot;v&quot;:-1},{&quot;t&quot;:38.54,&quot;v&quot;:-0.7},{&quot;t&quot;:38.637,&quot;v&quot;:-0.5},{&quot;t&quot;:38.833,&quot;v&quot;:-0.2},{&quot;t&quot;:38.931,&quot;v&quot;:0},{&quot;t&quot;:39.028,&quot;v&quot;:0},{&quot;t&quot;:39.079,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n3.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.043,&quot;v&quot;:0},{&quot;t&quot;:0.14,&quot;v&quot;:-5.3},{&quot;t&quot;:0.238,&quot;v&quot;:-5.1},{&quot;t&quot;:0.336,&quot;v&quot;:-6.7},{&quot;t&quot;:0.433,&quot;v&quot;:-4.5},{&quot;t&quot;:0.531,&quot;v&quot;:-3.3},{&quot;t&quot;:0.629,&quot;v&quot;:-3.1},{&quot;t&quot;:0.727,&quot;v&quot;:-2.7},{&quot;t&quot;:0.824,&quot;v&quot;:-1.8},{&quot;t&quot;:0.922,&quot;v&quot;:-1.4},{&quot;t&quot;:1.02,&quot;v&quot;:-0.9},{&quot;t&quot;:1.117,&quot;v&quot;:-6.3},{&quot;t&quot;:1.215,&quot;v&quot;:-4.2},{&quot;t&quot;:1.313,&quot;v&quot;:-3.3},{&quot;t&quot;:1.411,&quot;v&quot;:-3.2},{&quot;t&quot;:1.508,&quot;v&quot;:-2.1},{&quot;t&quot;:1.606,&quot;v&quot;:-1.4},{&quot;t&quot;:1.704,&quot;v&quot;:-1},{&quot;t&quot;:1.801,&quot;v&quot;:-0.7},{&quot;t&quot;:2.095,&quot;v&quot;:-0.2},{&quot;t&quot;:2.192,&quot;v&quot;:-3.2},{&quot;t&quot;:2.29,&quot;v&quot;:-2.8},{&quot;t&quot;:2.388,&quot;v&quot;:-1.9},{&quot;t&quot;:2.485,&quot;v&quot;:-1.3},{&quot;t&quot;:2.681,&quot;v&quot;:-1.2},{&quot;t&quot;:2.779,&quot;v&quot;:-0.8},{&quot;t&quot;:2.876,&quot;v&quot;:-0.6},{&quot;t&quot;:2.974,&quot;v&quot;:-6.1},{&quot;t&quot;:3.072,&quot;v&quot;:-5},{&quot;t&quot;:3.169,&quot;v&quot;:-3.4},{&quot;t&quot;:3.267,&quot;v&quot;:-2.3},{&quot;t&quot;:3.365,&quot;v&quot;:-3.2},{&quot;t&quot;:3.462,&quot;v&quot;:-2.1},{&quot;t&quot;:3.56,&quot;v&quot;:-1.5},{&quot;t&quot;:3.658,&quot;v&quot;:-1},{&quot;t&quot;:3.756,&quot;v&quot;:-0.7},{&quot;t&quot;:3.853,&quot;v&quot;:-0.4},{&quot;t&quot;:4.146,&quot;v&quot;:0},{&quot;t&quot;:4.244,&quot;v&quot;:-1.6},{&quot;t&quot;:4.342,&quot;v&quot;:-1.1},{&quot;t&quot;:4.44,&quot;v&quot;:-0.7},{&quot;t&quot;:4.537,&quot;v&quot;:-0.5},{&quot;t&quot;:4.733,&quot;v&quot;:-0.2},{&quot;t&quot;:4.83,&quot;v&quot;:0},{&quot;t&quot;:4.928,&quot;v&quot;:0},{&quot;t&quot;:5.026,&quot;v&quot;:-8.1},{&quot;t&quot;:5.123,&quot;v&quot;:-6},{&quot;t&quot;:5.221,&quot;v&quot;:-4},{&quot;t&quot;:5.319,&quot;v&quot;:-2.7},{&quot;t&quot;:5.417,&quot;v&quot;:-2.4},{&quot;t&quot;:5.514,&quot;v&quot;:-1.8},{&quot;t&quot;:5.612,&quot;v&quot;:-1.2},{&quot;t&quot;:5.71,&quot;v&quot;:-0.8},{&quot;t&quot;:5.807,&quot;v&quot;:-0.5},{&quot;t&quot;:5.905,&quot;v&quot;:-0.4},{&quot;t&quot;:6.003,&quot;v&quot;:-3.4},{&quot;t&quot;:6.101,&quot;v&quot;:-2.3},{&quot;t&quot;:6.198,&quot;v&quot;:-1.6},{&quot;t&quot;:6.296,&quot;v&quot;:-1.1},{&quot;t&quot;:6.394,&quot;v&quot;:-0.7},{&quot;t&quot;:6.491,&quot;v&quot;:-5.6},{&quot;t&quot;:6.589,&quot;v&quot;:-4.5},{&quot;t&quot;:6.687,&quot;v&quot;:-3},{&quot;t&quot;:6.785,&quot;v&quot;:-2.4},{&quot;t&quot;:6.882,&quot;v&quot;:-1.6},{&quot;t&quot;:6.98,&quot;v&quot;:-1.1},{&quot;t&quot;:7.078,&quot;v&quot;:-0.7},{&quot;t&quot;:7.175,&quot;v&quot;:-0.5},{&quot;t&quot;:7.371,&quot;v&quot;:-0.2},{&quot;t&quot;:7.468,&quot;v&quot;:0},{&quot;t&quot;:7.566,&quot;v&quot;:0},{&quot;t&quot;:7.664,&quot;v&quot;:-5.5},{&quot;t&quot;:7.762,&quot;v&quot;:-3.8},{&quot;t&quot;:7.859,&quot;v&quot;:-9.1},{&quot;t&quot;:7.957,&quot;v&quot;:-6.1},{&quot;t&quot;:8.055,&quot;v&quot;:-5.2},{&quot;t&quot;:8.152,&quot;v&quot;:-5},{&quot;t&quot;:8.25,&quot;v&quot;:-3.4},{&quot;t&quot;:8.348,&quot;v&quot;:-2.5},{&quot;t&quot;:8.446,&quot;v&quot;:-1.7},{&quot;t&quot;:8.543,&quot;v&quot;:-7},{&quot;t&quot;:8.641,&quot;v&quot;:-5.1},{&quot;t&quot;:8.739,&quot;v&quot;:-3.5},{&quot;t&quot;:8.836,&quot;v&quot;:-3.3},{&quot;t&quot;:8.934,&quot;v&quot;:-2.2},{&quot;t&quot;:9.032,&quot;v&quot;:-3.9},{&quot;t&quot;:9.13,&quot;v&quot;:-2.6},{&quot;t&quot;:9.227,&quot;v&quot;:-2},{&quot;t&quot;:9.325,&quot;v&quot;:-3.5},{&quot;t&quot;:9.423,&quot;v&quot;:-2.4},{&quot;t&quot;:9.52,&quot;v&quot;:-1.6},{&quot;t&quot;:9.618,&quot;v&quot;:-1.1},{&quot;t&quot;:9.716,&quot;v&quot;:-0.8},{&quot;t&quot;:9.813,&quot;v&quot;:-0.5},{&quot;t&quot;:9.911,&quot;v&quot;:-1},{&quot;t&quot;:10.009,&quot;v&quot;:-7.8},{&quot;t&quot;:10.107,&quot;v&quot;:-6.4},{&quot;t&quot;:10.204,&quot;v&quot;:-4.5},{&quot;t&quot;:10.302,&quot;v&quot;:-3},{&quot;t&quot;:10.4,&quot;v&quot;:-6.4},{&quot;t&quot;:10.497,&quot;v&quot;:-4.8},{&quot;t&quot;:10.595,&quot;v&quot;:-4.1},{&quot;t&quot;:10.693,&quot;v&quot;:-3.2},{&quot;t&quot;:10.791,&quot;v&quot;:-2.1},{&quot;t&quot;:10.888,&quot;v&quot;:-1.4},{&quot;t&quot;:10.986,&quot;v&quot;:-1},{&quot;t&quot;:11.084,&quot;v&quot;:-0.7},{&quot;t&quot;:11.572,&quot;v&quot;:-0.4},{&quot;t&quot;:11.67,&quot;v&quot;:-4.4},{&quot;t&quot;:11.768,&quot;v&quot;:-2.9},{&quot;t&quot;:11.865,&quot;v&quot;:-2},{&quot;t&quot;:11.963,&quot;v&quot;:-1.4},{&quot;t&quot;:12.061,&quot;v&quot;:-2.3},{&quot;t&quot;:12.159,&quot;v&quot;:-4.5},{&quot;t&quot;:12.256,&quot;v&quot;:-3},{&quot;t&quot;:12.354,&quot;v&quot;:-2.1},{&quot;t&quot;:12.452,&quot;v&quot;:-6.2},{&quot;t&quot;:12.549,&quot;v&quot;:-8},{&quot;t&quot;:12.647,&quot;v&quot;:-5.7},{&quot;t&quot;:12.745,&quot;v&quot;:-4.9},{&quot;t&quot;:12.842,&quot;v&quot;:-4.1},{&quot;t&quot;:12.94,&quot;v&quot;:-2.7},{&quot;t&quot;:13.038,&quot;v&quot;:-2.4},{&quot;t&quot;:13.136,&quot;v&quot;:-1.6},{&quot;t&quot;:13.233,&quot;v&quot;:-9.5},{&quot;t&quot;:13.331,&quot;v&quot;:-6.4},{&quot;t&quot;:13.429,&quot;v&quot;:-4.8},{&quot;t&quot;:13.526,&quot;v&quot;:-6.7},{&quot;t&quot;:13.624,&quot;v&quot;:-4.5},{&quot;t&quot;:13.722,&quot;v&quot;:-3.1},{&quot;t&quot;:13.82,&quot;v&quot;:-2.1},{&quot;t&quot;:13.917,&quot;v&quot;:-1.4},{&quot;t&quot;:14.015,&quot;v&quot;:-0.9},{&quot;t&quot;:14.113,&quot;v&quot;:-0.6},{&quot;t&quot;:14.21,&quot;v&quot;:-7},{&quot;t&quot;:14.308,&quot;v&quot;:-8},{&quot;t&quot;:14.406,&quot;v&quot;:-8.8},{&quot;t&quot;:14.504,&quot;v&quot;:-6},{&quot;t&quot;:14.601,&quot;v&quot;:-5.4},{&quot;t&quot;:14.699,&quot;v&quot;:-3.7},{&quot;t&quot;:14.797,&quot;v&quot;:-8.3},{&quot;t&quot;:14.894,&quot;v&quot;:-5.8},{&quot;t&quot;:14.992,&quot;v&quot;:-4},{&quot;t&quot;:15.09,&quot;v&quot;:-3.7},{&quot;t&quot;:15.187,&quot;v&quot;:-2.5},{&quot;t&quot;:15.285,&quot;v&quot;:-1.7},{&quot;t&quot;:15.383,&quot;v&quot;:-1.1},{&quot;t&quot;:15.481,&quot;v&quot;:-3.5},{&quot;t&quot;:15.578,&quot;v&quot;:-3.5},{&quot;t&quot;:15.676,&quot;v&quot;:-3},{&quot;t&quot;:15.774,&quot;v&quot;:-2.1},{&quot;t&quot;:15.871,&quot;v&quot;:-2.2},{&quot;t&quot;:15.969,&quot;v&quot;:-5.8},{&quot;t&quot;:16.067,&quot;v&quot;:-8.7},{&quot;t&quot;:16.165,&quot;v&quot;:-6},{&quot;t&quot;:16.262,&quot;v&quot;:-4},{&quot;t&quot;:16.36,&quot;v&quot;:-5.9},{&quot;t&quot;:16.458,&quot;v&quot;:-4},{&quot;t&quot;:16.555,&quot;v&quot;:-2.7},{&quot;t&quot;:16.653,&quot;v&quot;:-1.8},{&quot;t&quot;:16.751,&quot;v&quot;:-1.2},{&quot;t&quot;:16.849,&quot;v&quot;:-0.8},{&quot;t&quot;:16.946,&quot;v&quot;:-0.6},{&quot;t&quot;:17.044,&quot;v&quot;:-5.5},{&quot;t&quot;:17.142,&quot;v&quot;:-3.7},{&quot;t&quot;:17.239,&quot;v&quot;:-3.1},{&quot;t&quot;:17.337,&quot;v&quot;:-2.1},{&quot;t&quot;:17.435,&quot;v&quot;:-6.4},{&quot;t&quot;:17.532,&quot;v&quot;:-5},{&quot;t&quot;:17.63,&quot;v&quot;:-4.7},{&quot;t&quot;:17.728,&quot;v&quot;:-3.1},{&quot;t&quot;:17.826,&quot;v&quot;:-2.1},{&quot;t&quot;:17.923,&quot;v&quot;:-1.4},{&quot;t&quot;:18.021,&quot;v&quot;:-7},{&quot;t&quot;:18.119,&quot;v&quot;:-4.7},{&quot;t&quot;:18.216,&quot;v&quot;:-3.2},{&quot;t&quot;:18.314,&quot;v&quot;:-2.2},{&quot;t&quot;:18.412,&quot;v&quot;:-1.6},{&quot;t&quot;:18.51,&quot;v&quot;:-7.4},{&quot;t&quot;:18.607,&quot;v&quot;:-6.6},{&quot;t&quot;:18.705,&quot;v&quot;:-6.5},{&quot;t&quot;:18.803,&quot;v&quot;:-5.4},{&quot;t&quot;:18.9,&quot;v&quot;:-3.9},{&quot;t&quot;:18.998,&quot;v&quot;:-2.7},{&quot;t&quot;:19.096,&quot;v&quot;:-2.1},{&quot;t&quot;:19.194,&quot;v&quot;:-1.4},{&quot;t&quot;:19.291,&quot;v&quot;:-0.9},{&quot;t&quot;:19.389,&quot;v&quot;:-0.6},{&quot;t&quot;:19.487,&quot;v&quot;:-5},{&quot;t&quot;:19.584,&quot;v&quot;:-4},{&quot;t&quot;:19.682,&quot;v&quot;:-2.7},{&quot;t&quot;:19.78,&quot;v&quot;:-1.8},{&quot;t&quot;:19.877,&quot;v&quot;:-1.2},{&quot;t&quot;:19.975,&quot;v&quot;:-0.8},{&quot;t&quot;:20.073,&quot;v&quot;:-0.6},{&quot;t&quot;:20.171,&quot;v&quot;:-5.5},{&quot;t&quot;:20.268,&quot;v&quot;:-4.4},{&quot;t&quot;:20.366,&quot;v&quot;:-3.3},{&quot;t&quot;:20.464,&quot;v&quot;:-2.2},{&quot;t&quot;:20.561,&quot;v&quot;:-1.7},{&quot;t&quot;:20.659,&quot;v&quot;:-1.6},{&quot;t&quot;:20.757,&quot;v&quot;:-1.1},{&quot;t&quot;:20.855,&quot;v&quot;:-0.7},{&quot;t&quot;:20.952,&quot;v&quot;:-0.5},{&quot;t&quot;:21.05,&quot;v&quot;:-0.3},{&quot;t&quot;:21.148,&quot;v&quot;:-3.9},{&quot;t&quot;:21.245,&quot;v&quot;:-2.7},{&quot;t&quot;:21.343,&quot;v&quot;:-1.9},{&quot;t&quot;:21.441,&quot;v&quot;:-6.4},{&quot;t&quot;:21.538,&quot;v&quot;:-4.3},{&quot;t&quot;:21.636,&quot;v&quot;:-4.1},{&quot;t&quot;:21.734,&quot;v&quot;:-2.7},{&quot;t&quot;:21.832,&quot;v&quot;:-1.9},{&quot;t&quot;:21.929,&quot;v&quot;:-1.3},{&quot;t&quot;:22.027,&quot;v&quot;:-0.8},{&quot;t&quot;:22.222,&quot;v&quot;:-0.4},{&quot;t&quot;:22.32,&quot;v&quot;:-0.3},{&quot;t&quot;:22.516,&quot;v&quot;:0},{&quot;t&quot;:22.613,&quot;v&quot;:-8.3},{&quot;t&quot;:22.711,&quot;v&quot;:-5.6},{&quot;t&quot;:22.906,&quot;v&quot;:-5.2},{&quot;t&quot;:23.004,&quot;v&quot;:-3.5},{&quot;t&quot;:23.102,&quot;v&quot;:-2.4},{&quot;t&quot;:23.2,&quot;v&quot;:-1.6},{&quot;t&quot;:23.297,&quot;v&quot;:-2.4},{&quot;t&quot;:23.395,&quot;v&quot;:-8.6},{&quot;t&quot;:23.493,&quot;v&quot;:-5.8},{&quot;t&quot;:23.59,&quot;v&quot;:-5.7},{&quot;t&quot;:23.688,&quot;v&quot;:-3.8},{&quot;t&quot;:23.786,&quot;v&quot;:-2.6},{&quot;t&quot;:23.884,&quot;v&quot;:-1.8},{&quot;t&quot;:23.981,&quot;v&quot;:-1.2},{&quot;t&quot;:24.079,&quot;v&quot;:-0.8},{&quot;t&quot;:24.177,&quot;v&quot;:-6.3},{&quot;t&quot;:24.274,&quot;v&quot;:-6.2},{&quot;t&quot;:24.372,&quot;v&quot;:-5.5},{&quot;t&quot;:24.47,&quot;v&quot;:-5.5},{&quot;t&quot;:24.567,&quot;v&quot;:-3.7},{&quot;t&quot;:24.665,&quot;v&quot;:-3.3},{&quot;t&quot;:24.763,&quot;v&quot;:-2.2},{&quot;t&quot;:24.861,&quot;v&quot;:-5.2},{&quot;t&quot;:24.958,&quot;v&quot;:-3.5},{&quot;t&quot;:25.056,&quot;v&quot;:-2.4},{&quot;t&quot;:25.154,&quot;v&quot;:-1.6},{&quot;t&quot;:25.251,&quot;v&quot;:-1.4},{&quot;t&quot;:25.349,&quot;v&quot;:-0.9},{&quot;t&quot;:25.447,&quot;v&quot;:-2.4},{&quot;t&quot;:25.545,&quot;v&quot;:-5.9},{&quot;t&quot;:25.642,&quot;v&quot;:-4},{&quot;t&quot;:25.74,&quot;v&quot;:-3.4},{&quot;t&quot;:25.838,&quot;v&quot;:-2.3},{&quot;t&quot;:25.935,&quot;v&quot;:-1.5},{&quot;t&quot;:26.033,&quot;v&quot;:-1},{&quot;t&quot;:26.131,&quot;v&quot;:-0.7},{&quot;t&quot;:26.229,&quot;v&quot;:-6.7},{&quot;t&quot;:26.326,&quot;v&quot;:-6},{&quot;t&quot;:26.424,&quot;v&quot;:-4.1},{&quot;t&quot;:26.522,&quot;v&quot;:-2.7},{&quot;t&quot;:26.619,&quot;v&quot;:-1.9},{&quot;t&quot;:26.717,&quot;v&quot;:-1.9},{&quot;t&quot;:26.815,&quot;v&quot;:-1.3},{&quot;t&quot;:26.912,&quot;v&quot;:-0.9},{&quot;t&quot;:27.01,&quot;v&quot;:-3.5},{&quot;t&quot;:27.108,&quot;v&quot;:-2.4},{&quot;t&quot;:27.206,&quot;v&quot;:-1.6},{&quot;t&quot;:27.303,&quot;v&quot;:-1.1},{&quot;t&quot;:27.401,&quot;v&quot;:-5.6},{&quot;t&quot;:27.499,&quot;v&quot;:-9.5},{&quot;t&quot;:27.596,&quot;v&quot;:-6.5},{&quot;t&quot;:27.694,&quot;v&quot;:-4.4},{&quot;t&quot;:27.792,&quot;v&quot;:-3},{&quot;t&quot;:27.89,&quot;v&quot;:-2},{&quot;t&quot;:27.987,&quot;v&quot;:-7.6},{&quot;t&quot;:28.085,&quot;v&quot;:-5.5},{&quot;t&quot;:28.183,&quot;v&quot;:-3.9},{&quot;t&quot;:28.28,&quot;v&quot;:-3.2},{&quot;t&quot;:28.378,&quot;v&quot;:-2.1},{&quot;t&quot;:28.476,&quot;v&quot;:-1.4},{&quot;t&quot;:28.573,&quot;v&quot;:-1},{&quot;t&quot;:28.671,&quot;v&quot;:-0.7},{&quot;t&quot;:28.964,&quot;v&quot;:-0.2},{&quot;t&quot;:29.062,&quot;v&quot;:-6.6},{&quot;t&quot;:29.16,&quot;v&quot;:-4.5},{&quot;t&quot;:29.257,&quot;v&quot;:-3.1},{&quot;t&quot;:29.355,&quot;v&quot;:-2.5},{&quot;t&quot;:29.453,&quot;v&quot;:-2.3},{&quot;t&quot;:29.551,&quot;v&quot;:-3.1},{&quot;t&quot;:29.648,&quot;v&quot;:-2.1},{&quot;t&quot;:29.746,&quot;v&quot;:-1.4},{&quot;t&quot;:29.844,&quot;v&quot;:-4.3},{&quot;t&quot;:29.941,&quot;v&quot;:-2.9},{&quot;t&quot;:30.039,&quot;v&quot;:-2.8},{&quot;t&quot;:30.137,&quot;v&quot;:-2.1},{&quot;t&quot;:30.235,&quot;v&quot;:-1.8},{&quot;t&quot;:30.332,&quot;v&quot;:-5.5},{&quot;t&quot;:30.43,&quot;v&quot;:-3.7},{&quot;t&quot;:30.528,&quot;v&quot;:-2.5},{&quot;t&quot;:30.625,&quot;v&quot;:-1.7},{&quot;t&quot;:30.723,&quot;v&quot;:-5.1},{&quot;t&quot;:30.821,&quot;v&quot;:-3.4},{&quot;t&quot;:30.919,&quot;v&quot;:-8.7},{&quot;t&quot;:31.016,&quot;v&quot;:-8.3},{&quot;t&quot;:31.114,&quot;v&quot;:-7.5},{&quot;t&quot;:31.212,&quot;v&quot;:-5.1},{&quot;t&quot;:31.309,&quot;v&quot;:-3.5},{&quot;t&quot;:31.407,&quot;v&quot;:-2.5},{&quot;t&quot;:31.505,&quot;v&quot;:-1.7},{&quot;t&quot;:31.602,&quot;v&quot;:-8.4},{&quot;t&quot;:31.7,&quot;v&quot;:-6.2},{&quot;t&quot;:31.798,&quot;v&quot;:-4.2},{&quot;t&quot;:31.896,&quot;v&quot;:-2.8},{&quot;t&quot;:31.993,&quot;v&quot;:-1.9},{&quot;t&quot;:32.091,&quot;v&quot;:-1.3},{&quot;t&quot;:32.189,&quot;v&quot;:-0.9},{&quot;t&quot;:32.286,&quot;v&quot;:-0.6},{&quot;t&quot;:32.482,&quot;v&quot;:-0.3},{&quot;t&quot;:32.58,&quot;v&quot;:0},{&quot;t&quot;:32.775,&quot;v&quot;:0},{&quot;t&quot;:32.873,&quot;v&quot;:-5.6},{&quot;t&quot;:32.97,&quot;v&quot;:-3.8},{&quot;t&quot;:33.068,&quot;v&quot;:-4.5},{&quot;t&quot;:33.166,&quot;v&quot;:-3.3},{&quot;t&quot;:33.264,&quot;v&quot;:-4.8},{&quot;t&quot;:33.361,&quot;v&quot;:-3.3},{&quot;t&quot;:33.459,&quot;v&quot;:-4},{&quot;t&quot;:33.557,&quot;v&quot;:-2.7},{&quot;t&quot;:33.654,&quot;v&quot;:-1.8},{&quot;t&quot;:33.752,&quot;v&quot;:-1.2},{&quot;t&quot;:33.85,&quot;v&quot;:-6.7},{&quot;t&quot;:33.947,&quot;v&quot;:-4.7},{&quot;t&quot;:34.045,&quot;v&quot;:-3.7},{&quot;t&quot;:34.143,&quot;v&quot;:-2.6},{&quot;t&quot;:34.241,&quot;v&quot;:-1.8},{&quot;t&quot;:34.338,&quot;v&quot;:-1.5},{&quot;t&quot;:34.436,&quot;v&quot;:-1},{&quot;t&quot;:34.534,&quot;v&quot;:-0.7},{&quot;t&quot;:34.631,&quot;v&quot;:-3.6},{&quot;t&quot;:34.729,&quot;v&quot;:-2.5},{&quot;t&quot;:34.827,&quot;v&quot;:-6.1},{&quot;t&quot;:34.925,&quot;v&quot;:-6.1},{&quot;t&quot;:35.022,&quot;v&quot;:-4.1},{&quot;t&quot;:35.12,&quot;v&quot;:-2.8},{&quot;t&quot;:35.218,&quot;v&quot;:-1.9},{&quot;t&quot;:35.315,&quot;v&quot;:-1.3},{&quot;t&quot;:35.413,&quot;v&quot;:-0.9},{&quot;t&quot;:35.511,&quot;v&quot;:-0.6},{&quot;t&quot;:35.608,&quot;v&quot;:-6.8},{&quot;t&quot;:35.706,&quot;v&quot;:-5.2},{&quot;t&quot;:35.804,&quot;v&quot;:-3.5},{&quot;t&quot;:35.902,&quot;v&quot;:-2.4},{&quot;t&quot;:35.999,&quot;v&quot;:-1.6},{&quot;t&quot;:36.097,&quot;v&quot;:-1.1},{&quot;t&quot;:36.195,&quot;v&quot;:-0.7},{&quot;t&quot;:36.292,&quot;v&quot;:-0.5},{&quot;t&quot;:36.488,&quot;v&quot;:-0.2},{&quot;t&quot;:36.586,&quot;v&quot;:-8.3},{&quot;t&quot;:36.683,&quot;v&quot;:-7.3},{&quot;t&quot;:36.781,&quot;v&quot;:-5.9},{&quot;t&quot;:36.879,&quot;v&quot;:-4},{&quot;t&quot;:36.976,&quot;v&quot;:-2.7},{&quot;t&quot;:37.074,&quot;v&quot;:-1.8},{&quot;t&quot;:37.172,&quot;v&quot;:-4.2},{&quot;t&quot;:37.27,&quot;v&quot;:-4.2},{&quot;t&quot;:37.367,&quot;v&quot;:-4.9},{&quot;t&quot;:37.465,&quot;v&quot;:-6},{&quot;t&quot;:37.563,&quot;v&quot;:-7.7},{&quot;t&quot;:37.66,&quot;v&quot;:-5.2},{&quot;t&quot;:37.758,&quot;v&quot;:-3.5},{&quot;t&quot;:37.856,&quot;v&quot;:-2.4},{&quot;t&quot;:37.953,&quot;v&quot;:-1.6},{&quot;t&quot;:38.051,&quot;v&quot;:-1.7},{&quot;t&quot;:38.149,&quot;v&quot;:-1.1},{&quot;t&quot;:38.247,&quot;v&quot;:-3.3},{&quot;t&quot;:38.344,&quot;v&quot;:-5.5},{&quot;t&quot;:38.442,&quot;v&quot;:-3.7},{&quot;t&quot;:38.54,&quot;v&quot;:-2.9},{&quot;t&quot;:38.637,&quot;v&quot;:-2.1},{&quot;t&quot;:38.735,&quot;v&quot;:-1.4},{&quot;t&quot;:38.833,&quot;v&quot;:-1},{&quot;t&quot;:38.931,&quot;v&quot;:-0.6},{&quot;t&quot;:39.028,&quot;v&quot;:-0.4},{&quot;t&quot;:39.079,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n4.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.043,&quot;v&quot;:0},{&quot;t&quot;:0.14,&quot;v&quot;:-0.6},{&quot;t&quot;:0.238,&quot;v&quot;:-0.4},{&quot;t&quot;:0.336,&quot;v&quot;:-2.3},{&quot;t&quot;:0.433,&quot;v&quot;:-1.6},{&quot;t&quot;:0.531,&quot;v&quot;:-1.1},{&quot;t&quot;:0.629,&quot;v&quot;:-0.7},{&quot;t&quot;:0.727,&quot;v&quot;:-2.7},{&quot;t&quot;:0.824,&quot;v&quot;:-1.8},{&quot;t&quot;:0.922,&quot;v&quot;:-1.4},{&quot;t&quot;:1.02,&quot;v&quot;:-1},{&quot;t&quot;:1.117,&quot;v&quot;:-2.4},{&quot;t&quot;:1.215,&quot;v&quot;:-1.6},{&quot;t&quot;:1.313,&quot;v&quot;:-3.6},{&quot;t&quot;:1.411,&quot;v&quot;:-2.7},{&quot;t&quot;:1.508,&quot;v&quot;:-1.8},{&quot;t&quot;:1.606,&quot;v&quot;:-1.2},{&quot;t&quot;:1.704,&quot;v&quot;:-0.8},{&quot;t&quot;:1.801,&quot;v&quot;:-0.6},{&quot;t&quot;:1.899,&quot;v&quot;:-0.4},{&quot;t&quot;:1.997,&quot;v&quot;:-1.3},{&quot;t&quot;:2.29,&quot;v&quot;:-0.9},{&quot;t&quot;:2.388,&quot;v&quot;:-0.6},{&quot;t&quot;:2.583,&quot;v&quot;:-0.3},{&quot;t&quot;:2.681,&quot;v&quot;:0},{&quot;t&quot;:2.779,&quot;v&quot;:0},{&quot;t&quot;:2.876,&quot;v&quot;:-2.4},{&quot;t&quot;:3.267,&quot;v&quot;:-2.8},{&quot;t&quot;:3.365,&quot;v&quot;:-5},{&quot;t&quot;:3.462,&quot;v&quot;:-3.4},{&quot;t&quot;:3.56,&quot;v&quot;:-2.3},{&quot;t&quot;:3.658,&quot;v&quot;:-1.8},{&quot;t&quot;:3.756,&quot;v&quot;:-1.3},{&quot;t&quot;:3.853,&quot;v&quot;:-0.9},{&quot;t&quot;:3.951,&quot;v&quot;:-0.6},{&quot;t&quot;:4.146,&quot;v&quot;:-0.3},{&quot;t&quot;:4.244,&quot;v&quot;:0},{&quot;t&quot;:4.928,&quot;v&quot;:0},{&quot;t&quot;:5.026,&quot;v&quot;:-2.1},{&quot;t&quot;:5.123,&quot;v&quot;:-1.5},{&quot;t&quot;:5.221,&quot;v&quot;:-2.6},{&quot;t&quot;:5.319,&quot;v&quot;:-2},{&quot;t&quot;:5.417,&quot;v&quot;:-1.4},{&quot;t&quot;:5.514,&quot;v&quot;:-0.9},{&quot;t&quot;:5.612,&quot;v&quot;:-0.6},{&quot;t&quot;:5.71,&quot;v&quot;:-0.4},{&quot;t&quot;:5.807,&quot;v&quot;:-2.6},{&quot;t&quot;:5.905,&quot;v&quot;:-2},{&quot;t&quot;:6.101,&quot;v&quot;:-1.7},{&quot;t&quot;:6.198,&quot;v&quot;:-1.1},{&quot;t&quot;:6.296,&quot;v&quot;:-0.8},{&quot;t&quot;:6.394,&quot;v&quot;:-0.6},{&quot;t&quot;:6.491,&quot;v&quot;:-2.1},{&quot;t&quot;:6.589,&quot;v&quot;:-1.5},{&quot;t&quot;:6.687,&quot;v&quot;:-1},{&quot;t&quot;:6.785,&quot;v&quot;:-2.9},{&quot;t&quot;:6.882,&quot;v&quot;:-2.3},{&quot;t&quot;:6.98,&quot;v&quot;:-1.5},{&quot;t&quot;:7.078,&quot;v&quot;:-1},{&quot;t&quot;:7.175,&quot;v&quot;:-0.7},{&quot;t&quot;:7.273,&quot;v&quot;:-0.5},{&quot;t&quot;:7.468,&quot;v&quot;:-0.2},{&quot;t&quot;:7.566,&quot;v&quot;:0},{&quot;t&quot;:7.664,&quot;v&quot;:-2.6},{&quot;t&quot;:7.762,&quot;v&quot;:-1.8},{&quot;t&quot;:7.859,&quot;v&quot;:-3},{&quot;t&quot;:7.957,&quot;v&quot;:-2.1},{&quot;t&quot;:8.055,&quot;v&quot;:-2.2},{&quot;t&quot;:8.152,&quot;v&quot;:-2.6},{&quot;t&quot;:8.25,&quot;v&quot;:-2.4},{&quot;t&quot;:8.348,&quot;v&quot;:-1.8},{&quot;t&quot;:8.446,&quot;v&quot;:-1.2},{&quot;t&quot;:8.543,&quot;v&quot;:-3.2},{&quot;t&quot;:8.641,&quot;v&quot;:-2.3},{&quot;t&quot;:8.739,&quot;v&quot;:-1.6},{&quot;t&quot;:8.836,&quot;v&quot;:-1.1},{&quot;t&quot;:9.032,&quot;v&quot;:-0.8},{&quot;t&quot;:9.13,&quot;v&quot;:-0.6},{&quot;t&quot;:9.227,&quot;v&quot;:-0.7},{&quot;t&quot;:9.325,&quot;v&quot;:-1.2},{&quot;t&quot;:9.423,&quot;v&quot;:-0.8},{&quot;t&quot;:9.52,&quot;v&quot;:-0.5},{&quot;t&quot;:9.813,&quot;v&quot;:-0.2},{&quot;t&quot;:9.911,&quot;v&quot;:-1},{&quot;t&quot;:10.009,&quot;v&quot;:-2.2},{&quot;t&quot;:10.107,&quot;v&quot;:-1.8},{&quot;t&quot;:10.204,&quot;v&quot;:-1.5},{&quot;t&quot;:10.302,&quot;v&quot;:-1},{&quot;t&quot;:10.4,&quot;v&quot;:-1.5},{&quot;t&quot;:10.693,&quot;v&quot;:-1.2},{&quot;t&quot;:10.791,&quot;v&quot;:-3.4},{&quot;t&quot;:10.888,&quot;v&quot;:-3.4},{&quot;t&quot;:10.986,&quot;v&quot;:-2.3},{&quot;t&quot;:11.084,&quot;v&quot;:-4.1},{&quot;t&quot;:11.181,&quot;v&quot;:-4.1},{&quot;t&quot;:11.279,&quot;v&quot;:-3.4},{&quot;t&quot;:11.377,&quot;v&quot;:-2.4},{&quot;t&quot;:11.572,&quot;v&quot;:-2.8},{&quot;t&quot;:11.67,&quot;v&quot;:-1.9},{&quot;t&quot;:11.768,&quot;v&quot;:-1.3},{&quot;t&quot;:11.865,&quot;v&quot;:-0.9},{&quot;t&quot;:11.963,&quot;v&quot;:-2.3},{&quot;t&quot;:12.061,&quot;v&quot;:-3},{&quot;t&quot;:12.159,&quot;v&quot;:-2.7},{&quot;t&quot;:12.256,&quot;v&quot;:-1.8},{&quot;t&quot;:12.354,&quot;v&quot;:-1.2},{&quot;t&quot;:12.452,&quot;v&quot;:-1.9},{&quot;t&quot;:12.549,&quot;v&quot;:-3.2},{&quot;t&quot;:12.647,&quot;v&quot;:-2.4},{&quot;t&quot;:12.745,&quot;v&quot;:-2.3},{&quot;t&quot;:12.842,&quot;v&quot;:-3.2},{&quot;t&quot;:12.94,&quot;v&quot;:-2.2},{&quot;t&quot;:13.038,&quot;v&quot;:-2.6},{&quot;t&quot;:13.136,&quot;v&quot;:-1.7},{&quot;t&quot;:13.233,&quot;v&quot;:-2.6},{&quot;t&quot;:13.331,&quot;v&quot;:-1.7},{&quot;t&quot;:13.429,&quot;v&quot;:-1.2},{&quot;t&quot;:13.526,&quot;v&quot;:-2.3},{&quot;t&quot;:13.624,&quot;v&quot;:-1.5},{&quot;t&quot;:13.722,&quot;v&quot;:-1},{&quot;t&quot;:13.82,&quot;v&quot;:-0.7},{&quot;t&quot;:13.917,&quot;v&quot;:-0.5},{&quot;t&quot;:14.113,&quot;v&quot;:-0.2},{&quot;t&quot;:14.21,&quot;v&quot;:-4.2},{&quot;t&quot;:14.308,&quot;v&quot;:-4.7},{&quot;t&quot;:14.406,&quot;v&quot;:-4.4},{&quot;t&quot;:14.504,&quot;v&quot;:-3},{&quot;t&quot;:14.601,&quot;v&quot;:-2.4},{&quot;t&quot;:14.699,&quot;v&quot;:-1.6},{&quot;t&quot;:14.797,&quot;v&quot;:-3},{&quot;t&quot;:14.992,&quot;v&quot;:-2.6},{&quot;t&quot;:15.09,&quot;v&quot;:-2.1},{&quot;t&quot;:15.187,&quot;v&quot;:-1.4},{&quot;t&quot;:15.285,&quot;v&quot;:-0.9},{&quot;t&quot;:15.383,&quot;v&quot;:-0.6},{&quot;t&quot;:15.481,&quot;v&quot;:-0.5},{&quot;t&quot;:15.578,&quot;v&quot;:-2.1},{&quot;t&quot;:15.676,&quot;v&quot;:-3.5},{&quot;t&quot;:15.774,&quot;v&quot;:-2.6},{&quot;t&quot;:15.871,&quot;v&quot;:-2.1},{&quot;t&quot;:15.969,&quot;v&quot;:-2.3},{&quot;t&quot;:16.067,&quot;v&quot;:-3},{&quot;t&quot;:16.36,&quot;v&quot;:-3.3},{&quot;t&quot;:16.458,&quot;v&quot;:-2.3},{&quot;t&quot;:16.555,&quot;v&quot;:-1.6},{&quot;t&quot;:16.653,&quot;v&quot;:-1.1},{&quot;t&quot;:16.751,&quot;v&quot;:-0.7},{&quot;t&quot;:16.849,&quot;v&quot;:-0.5},{&quot;t&quot;:16.946,&quot;v&quot;:-0.3},{&quot;t&quot;:17.044,&quot;v&quot;:-1.8},{&quot;t&quot;:17.142,&quot;v&quot;:-1.2},{&quot;t&quot;:17.239,&quot;v&quot;:-3},{&quot;t&quot;:17.337,&quot;v&quot;:-2},{&quot;t&quot;:17.435,&quot;v&quot;:-1.5},{&quot;t&quot;:17.532,&quot;v&quot;:-1},{&quot;t&quot;:17.63,&quot;v&quot;:-2.2},{&quot;t&quot;:17.728,&quot;v&quot;:-3.2},{&quot;t&quot;:17.826,&quot;v&quot;:-2.2},{&quot;t&quot;:17.923,&quot;v&quot;:-1.6},{&quot;t&quot;:18.021,&quot;v&quot;:-3.4},{&quot;t&quot;:18.119,&quot;v&quot;:-2.3},{&quot;t&quot;:18.216,&quot;v&quot;:-1.5},{&quot;t&quot;:18.314,&quot;v&quot;:-1},{&quot;t&quot;:18.412,&quot;v&quot;:-1.8},{&quot;t&quot;:18.51,&quot;v&quot;:-3.3},{&quot;t&quot;:18.607,&quot;v&quot;:-2.4},{&quot;t&quot;:18.705,&quot;v&quot;:-4.2},{&quot;t&quot;:18.803,&quot;v&quot;:-3.7},{&quot;t&quot;:18.9,&quot;v&quot;:-4.9},{&quot;t&quot;:18.998,&quot;v&quot;:-3.3},{&quot;t&quot;:19.096,&quot;v&quot;:-2.5},{&quot;t&quot;:19.194,&quot;v&quot;:-1.7},{&quot;t&quot;:19.487,&quot;v&quot;:-1.4},{&quot;t&quot;:19.584,&quot;v&quot;:-1},{&quot;t&quot;:19.682,&quot;v&quot;:-0.6},{&quot;t&quot;:19.78,&quot;v&quot;:-0.4},{&quot;t&quot;:20.073,&quot;v&quot;:0},{&quot;t&quot;:20.171,&quot;v&quot;:-2.6},{&quot;t&quot;:20.268,&quot;v&quot;:-3.1},{&quot;t&quot;:20.366,&quot;v&quot;:-3.5},{&quot;t&quot;:20.464,&quot;v&quot;:-2.4},{&quot;t&quot;:20.561,&quot;v&quot;:-1.6},{&quot;t&quot;:20.659,&quot;v&quot;:-1.3},{&quot;t&quot;:20.757,&quot;v&quot;:-0.9},{&quot;t&quot;:21.05,&quot;v&quot;:-0.9},{&quot;t&quot;:21.148,&quot;v&quot;:-2.6},{&quot;t&quot;:21.245,&quot;v&quot;:-2.1},{&quot;t&quot;:21.343,&quot;v&quot;:-1.4},{&quot;t&quot;:21.441,&quot;v&quot;:-2.3},{&quot;t&quot;:21.538,&quot;v&quot;:-1.7},{&quot;t&quot;:21.636,&quot;v&quot;:-1.8},{&quot;t&quot;:21.734,&quot;v&quot;:-1.2},{&quot;t&quot;:22.222,&quot;v&quot;:-0.8},{&quot;t&quot;:22.32,&quot;v&quot;:-0.5},{&quot;t&quot;:22.516,&quot;v&quot;:-0.2},{&quot;t&quot;:22.613,&quot;v&quot;:-3.9},{&quot;t&quot;:22.711,&quot;v&quot;:-2.6},{&quot;t&quot;:22.906,&quot;v&quot;:-2.6},{&quot;t&quot;:23.004,&quot;v&quot;:-2},{&quot;t&quot;:23.102,&quot;v&quot;:-1.7},{&quot;t&quot;:23.2,&quot;v&quot;:-1.3},{&quot;t&quot;:23.297,&quot;v&quot;:-2.8},{&quot;t&quot;:23.395,&quot;v&quot;:-2.8},{&quot;t&quot;:23.493,&quot;v&quot;:-1.9},{&quot;t&quot;:23.59,&quot;v&quot;:-1.9},{&quot;t&quot;:23.688,&quot;v&quot;:-1.3},{&quot;t&quot;:23.786,&quot;v&quot;:-0.9},{&quot;t&quot;:23.884,&quot;v&quot;:-0.6},{&quot;t&quot;:24.079,&quot;v&quot;:-0.3},{&quot;t&quot;:24.177,&quot;v&quot;:-2.5},{&quot;t&quot;:24.274,&quot;v&quot;:-1.8},{&quot;t&quot;:24.47,&quot;v&quot;:-1.9},{&quot;t&quot;:24.567,&quot;v&quot;:-1.3},{&quot;t&quot;:24.665,&quot;v&quot;:-3.3},{&quot;t&quot;:24.763,&quot;v&quot;:-2.5},{&quot;t&quot;:24.861,&quot;v&quot;:-2.5},{&quot;t&quot;:24.958,&quot;v&quot;:-1.7},{&quot;t&quot;:25.056,&quot;v&quot;:-1.1},{&quot;t&quot;:25.154,&quot;v&quot;:-3.4},{&quot;t&quot;:25.251,&quot;v&quot;:-2.4},{&quot;t&quot;:25.349,&quot;v&quot;:-1.7},{&quot;t&quot;:25.447,&quot;v&quot;:-1.1},{&quot;t&quot;:25.545,&quot;v&quot;:-2.9},{&quot;t&quot;:25.642,&quot;v&quot;:-2},{&quot;t&quot;:25.74,&quot;v&quot;:-2.1},{&quot;t&quot;:25.838,&quot;v&quot;:-1.4},{&quot;t&quot;:25.935,&quot;v&quot;:-0.9},{&quot;t&quot;:26.033,&quot;v&quot;:-0.6},{&quot;t&quot;:26.131,&quot;v&quot;:-0.4},{&quot;t&quot;:26.229,&quot;v&quot;:-2.5},{&quot;t&quot;:26.424,&quot;v&quot;:-2.9},{&quot;t&quot;:26.522,&quot;v&quot;:-4.1},{&quot;t&quot;:26.619,&quot;v&quot;:-3.9},{&quot;t&quot;:26.717,&quot;v&quot;:-2.6},{&quot;t&quot;:26.815,&quot;v&quot;:-2},{&quot;t&quot;:26.912,&quot;v&quot;:-1.3},{&quot;t&quot;:27.108,&quot;v&quot;:-1},{&quot;t&quot;:27.206,&quot;v&quot;:-3},{&quot;t&quot;:27.303,&quot;v&quot;:-2},{&quot;t&quot;:27.401,&quot;v&quot;:-2.5},{&quot;t&quot;:27.499,&quot;v&quot;:-2.5},{&quot;t&quot;:27.596,&quot;v&quot;:-1.7},{&quot;t&quot;:27.694,&quot;v&quot;:-1.3},{&quot;t&quot;:27.792,&quot;v&quot;:-0.9},{&quot;t&quot;:27.89,&quot;v&quot;:-0.8},{&quot;t&quot;:27.987,&quot;v&quot;:-2.8},{&quot;t&quot;:28.085,&quot;v&quot;:-1.9},{&quot;t&quot;:28.183,&quot;v&quot;:-1.4},{&quot;t&quot;:28.378,&quot;v&quot;:-1.2},{&quot;t&quot;:28.476,&quot;v&quot;:-2.3},{&quot;t&quot;:28.573,&quot;v&quot;:-1.9},{&quot;t&quot;:28.671,&quot;v&quot;:-1.3},{&quot;t&quot;:28.769,&quot;v&quot;:-0.9},{&quot;t&quot;:28.867,&quot;v&quot;:-0.6},{&quot;t&quot;:28.964,&quot;v&quot;:-0.4},{&quot;t&quot;:29.062,&quot;v&quot;:-1.4},{&quot;t&quot;:29.257,&quot;v&quot;:-1.6},{&quot;t&quot;:29.355,&quot;v&quot;:-3.9},{&quot;t&quot;:29.453,&quot;v&quot;:-3.3},{&quot;t&quot;:29.551,&quot;v&quot;:-3.6},{&quot;t&quot;:29.648,&quot;v&quot;:-2.5},{&quot;t&quot;:29.746,&quot;v&quot;:-2.9},{&quot;t&quot;:29.844,&quot;v&quot;:-3.5},{&quot;t&quot;:29.941,&quot;v&quot;:-2.4},{&quot;t&quot;:30.137,&quot;v&quot;:-2.6},{&quot;t&quot;:30.235,&quot;v&quot;:-1.8},{&quot;t&quot;:30.332,&quot;v&quot;:-1.3},{&quot;t&quot;:30.43,&quot;v&quot;:-0.9},{&quot;t&quot;:30.528,&quot;v&quot;:-0.6},{&quot;t&quot;:30.625,&quot;v&quot;:-0.4},{&quot;t&quot;:30.723,&quot;v&quot;:-2.8},{&quot;t&quot;:30.821,&quot;v&quot;:-1.9},{&quot;t&quot;:30.919,&quot;v&quot;:-3.3},{&quot;t&quot;:31.114,&quot;v&quot;:-3},{&quot;t&quot;:31.212,&quot;v&quot;:-2.7},{&quot;t&quot;:31.309,&quot;v&quot;:-3.7},{&quot;t&quot;:31.407,&quot;v&quot;:-3.8},{&quot;t&quot;:31.505,&quot;v&quot;:-2.5},{&quot;t&quot;:31.602,&quot;v&quot;:-3.7},{&quot;t&quot;:31.7,&quot;v&quot;:-2.5},{&quot;t&quot;:31.798,&quot;v&quot;:-1.7},{&quot;t&quot;:32.091,&quot;v&quot;:-1.4},{&quot;t&quot;:32.189,&quot;v&quot;:-0.9},{&quot;t&quot;:32.286,&quot;v&quot;:-0.6},{&quot;t&quot;:32.384,&quot;v&quot;:-0.4},{&quot;t&quot;:32.97,&quot;v&quot;:0},{&quot;t&quot;:33.068,&quot;v&quot;:-2.7},{&quot;t&quot;:33.166,&quot;v&quot;:-1.9},{&quot;t&quot;:33.264,&quot;v&quot;:-4.2},{&quot;t&quot;:33.361,&quot;v&quot;:-2.8},{&quot;t&quot;:33.459,&quot;v&quot;:-3.4},{&quot;t&quot;:33.557,&quot;v&quot;:-2.3},{&quot;t&quot;:33.654,&quot;v&quot;:-1.6},{&quot;t&quot;:33.752,&quot;v&quot;:-1.1},{&quot;t&quot;:33.85,&quot;v&quot;:-3},{&quot;t&quot;:33.947,&quot;v&quot;:-2.5},{&quot;t&quot;:34.045,&quot;v&quot;:-2.4},{&quot;t&quot;:34.143,&quot;v&quot;:-1.6},{&quot;t&quot;:34.241,&quot;v&quot;:-1.1},{&quot;t&quot;:34.534,&quot;v&quot;:-1.3},{&quot;t&quot;:34.631,&quot;v&quot;:-3.1},{&quot;t&quot;:34.729,&quot;v&quot;:-2.2},{&quot;t&quot;:34.827,&quot;v&quot;:-3.7},{&quot;t&quot;:34.925,&quot;v&quot;:-3.2},{&quot;t&quot;:35.022,&quot;v&quot;:-2.6},{&quot;t&quot;:35.12,&quot;v&quot;:-1.7},{&quot;t&quot;:35.218,&quot;v&quot;:-1.2},{&quot;t&quot;:35.315,&quot;v&quot;:-0.8},{&quot;t&quot;:35.413,&quot;v&quot;:-0.5},{&quot;t&quot;:35.511,&quot;v&quot;:-0.4},{&quot;t&quot;:35.608,&quot;v&quot;:-2.8},{&quot;t&quot;:35.804,&quot;v&quot;:-2.6},{&quot;t&quot;:35.902,&quot;v&quot;:-2},{&quot;t&quot;:35.999,&quot;v&quot;:-1.6},{&quot;t&quot;:36.097,&quot;v&quot;:-1.1},{&quot;t&quot;:36.195,&quot;v&quot;:-0.7},{&quot;t&quot;:36.292,&quot;v&quot;:-0.5},{&quot;t&quot;:36.488,&quot;v&quot;:-0.2},{&quot;t&quot;:36.586,&quot;v&quot;:-3.9},{&quot;t&quot;:36.683,&quot;v&quot;:-3},{&quot;t&quot;:36.781,&quot;v&quot;:-2.5},{&quot;t&quot;:36.879,&quot;v&quot;:-1.8},{&quot;t&quot;:36.976,&quot;v&quot;:-1.2},{&quot;t&quot;:37.074,&quot;v&quot;:-3.4},{&quot;t&quot;:37.172,&quot;v&quot;:-3.2},{&quot;t&quot;:37.27,&quot;v&quot;:-2.6},{&quot;t&quot;:37.367,&quot;v&quot;:-1.9},{&quot;t&quot;:37.465,&quot;v&quot;:-2.1},{&quot;t&quot;:37.563,&quot;v&quot;:-2.6},{&quot;t&quot;:37.66,&quot;v&quot;:-1.8},{&quot;t&quot;:37.758,&quot;v&quot;:-1.3},{&quot;t&quot;:37.953,&quot;v&quot;:-0.9},{&quot;t&quot;:38.051,&quot;v&quot;:-3},{&quot;t&quot;:38.149,&quot;v&quot;:-2},{&quot;t&quot;:38.344,&quot;v&quot;:-2.1},{&quot;t&quot;:38.442,&quot;v&quot;:-1.5},{&quot;t&quot;:38.54,&quot;v&quot;:-1},{&quot;t&quot;:38.637,&quot;v&quot;:-2.6},{&quot;t&quot;:38.735,&quot;v&quot;:-3},{&quot;t&quot;:38.833,&quot;v&quot;:-2},{&quot;t&quot;:38.931,&quot;v&quot;:-1.4},{&quot;t&quot;:39.028,&quot;v&quot;:-0.9},{&quot;t&quot;:39.079,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n5.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.336,&quot;v&quot;:0},{&quot;t&quot;:0.433,&quot;v&quot;:-0.9},{&quot;t&quot;:0.531,&quot;v&quot;:-0.9},{&quot;t&quot;:0.629,&quot;v&quot;:-2.8},{&quot;t&quot;:0.727,&quot;v&quot;:-2.7},{&quot;t&quot;:0.824,&quot;v&quot;:-9.1},{&quot;t&quot;:0.922,&quot;v&quot;:-8.9},{&quot;t&quot;:1.02,&quot;v&quot;:-10.9},{&quot;t&quot;:1.117,&quot;v&quot;:-10.7},{&quot;t&quot;:1.215,&quot;v&quot;:-12.8},{&quot;t&quot;:1.313,&quot;v&quot;:-12.3},{&quot;t&quot;:1.411,&quot;v&quot;:-11.8},{&quot;t&quot;:1.508,&quot;v&quot;:-11.4},{&quot;t&quot;:1.606,&quot;v&quot;:-11},{&quot;t&quot;:1.704,&quot;v&quot;:-10.6},{&quot;t&quot;:1.801,&quot;v&quot;:-10.2},{&quot;t&quot;:1.899,&quot;v&quot;:-9.9},{&quot;t&quot;:1.997,&quot;v&quot;:-9.7},{&quot;t&quot;:2.095,&quot;v&quot;:-9.4},{&quot;t&quot;:2.192,&quot;v&quot;:-12.7},{&quot;t&quot;:2.388,&quot;v&quot;:-12.6},{&quot;t&quot;:2.485,&quot;v&quot;:-12.1},{&quot;t&quot;:2.583,&quot;v&quot;:-11.6},{&quot;t&quot;:2.681,&quot;v&quot;:-13},{&quot;t&quot;:2.779,&quot;v&quot;:-12.5},{&quot;t&quot;:2.876,&quot;v&quot;:-12},{&quot;t&quot;:2.974,&quot;v&quot;:-11.6},{&quot;t&quot;:3.072,&quot;v&quot;:-11.3},{&quot;t&quot;:3.169,&quot;v&quot;:-11.2},{&quot;t&quot;:3.267,&quot;v&quot;:-10.8},{&quot;t&quot;:3.365,&quot;v&quot;:-10.3},{&quot;t&quot;:3.462,&quot;v&quot;:-10},{&quot;t&quot;:3.56,&quot;v&quot;:-9.6},{&quot;t&quot;:3.658,&quot;v&quot;:-9.4},{&quot;t&quot;:3.756,&quot;v&quot;:-12.7},{&quot;t&quot;:4.049,&quot;v&quot;:-12.4},{&quot;t&quot;:4.146,&quot;v&quot;:-12},{&quot;t&quot;:4.244,&quot;v&quot;:-13},{&quot;t&quot;:4.342,&quot;v&quot;:-12.5},{&quot;t&quot;:4.44,&quot;v&quot;:-12},{&quot;t&quot;:4.537,&quot;v&quot;:-11.5},{&quot;t&quot;:4.635,&quot;v&quot;:-11.1},{&quot;t&quot;:4.733,&quot;v&quot;:-10.6},{&quot;t&quot;:4.83,&quot;v&quot;:-10.2},{&quot;t&quot;:4.928,&quot;v&quot;:-9.8},{&quot;t&quot;:5.026,&quot;v&quot;:-9.4},{&quot;t&quot;:5.123,&quot;v&quot;:-9},{&quot;t&quot;:5.319,&quot;v&quot;:-8.6},{&quot;t&quot;:5.417,&quot;v&quot;:-8.3},{&quot;t&quot;:5.514,&quot;v&quot;:-8},{&quot;t&quot;:5.612,&quot;v&quot;:-7.7},{&quot;t&quot;:5.71,&quot;v&quot;:-7.4},{&quot;t&quot;:5.807,&quot;v&quot;:-7.1},{&quot;t&quot;:5.905,&quot;v&quot;:-6.8},{&quot;t&quot;:6.003,&quot;v&quot;:-6.6},{&quot;t&quot;:6.101,&quot;v&quot;:-6.3},{&quot;t&quot;:6.198,&quot;v&quot;:-6.1},{&quot;t&quot;:6.296,&quot;v&quot;:-5.8},{&quot;t&quot;:6.394,&quot;v&quot;:-5.6},{&quot;t&quot;:6.491,&quot;v&quot;:-5.4},{&quot;t&quot;:6.589,&quot;v&quot;:-5.1},{&quot;t&quot;:6.882,&quot;v&quot;:-4.7},{&quot;t&quot;:6.98,&quot;v&quot;:-4.5},{&quot;t&quot;:7.175,&quot;v&quot;:-4.2},{&quot;t&quot;:7.273,&quot;v&quot;:-4},{&quot;t&quot;:7.468,&quot;v&quot;:-3.7},{&quot;t&quot;:7.566,&quot;v&quot;:-7.1},{&quot;t&quot;:7.762,&quot;v&quot;:-6.8},{&quot;t&quot;:7.859,&quot;v&quot;:-12.3},{&quot;t&quot;:7.957,&quot;v&quot;:-13.1},{&quot;t&quot;:8.446,&quot;v&quot;:-12.7},{&quot;t&quot;:8.543,&quot;v&quot;:-12.6},{&quot;t&quot;:8.641,&quot;v&quot;:-13.1},{&quot;t&quot;:13.722,&quot;v&quot;:-12.7},{&quot;t&quot;:13.82,&quot;v&quot;:-12.2},{&quot;t&quot;:13.917,&quot;v&quot;:-11.7},{&quot;t&quot;:14.015,&quot;v&quot;:-11.2},{&quot;t&quot;:14.113,&quot;v&quot;:-12.9},{&quot;t&quot;:15.285,&quot;v&quot;:-12.7},{&quot;t&quot;:15.383,&quot;v&quot;:-12.2},{&quot;t&quot;:15.481,&quot;v&quot;:-13.1},{&quot;t&quot;:15.871,&quot;v&quot;:-12.9},{&quot;t&quot;:15.969,&quot;v&quot;:-12.4},{&quot;t&quot;:16.067,&quot;v&quot;:-12.3},{&quot;t&quot;:16.165,&quot;v&quot;:-13.1},{&quot;t&quot;:16.555,&quot;v&quot;:-12.7},{&quot;t&quot;:16.653,&quot;v&quot;:-12.2},{&quot;t&quot;:16.751,&quot;v&quot;:-13.1},{&quot;t&quot;:19.682,&quot;v&quot;:-12.7},{&quot;t&quot;:19.78,&quot;v&quot;:-12.2},{&quot;t&quot;:19.877,&quot;v&quot;:-11.7},{&quot;t&quot;:19.975,&quot;v&quot;:-11.2},{&quot;t&quot;:20.073,&quot;v&quot;:-12.9},{&quot;t&quot;:22.222,&quot;v&quot;:-12.7},{&quot;t&quot;:22.32,&quot;v&quot;:-12.2},{&quot;t&quot;:22.418,&quot;v&quot;:-11.7},{&quot;t&quot;:22.516,&quot;v&quot;:-11.2},{&quot;t&quot;:22.613,&quot;v&quot;:-12.9},{&quot;t&quot;:23.786,&quot;v&quot;:-12.7},{&quot;t&quot;:23.884,&quot;v&quot;:-12.2},{&quot;t&quot;:23.981,&quot;v&quot;:-11.7},{&quot;t&quot;:24.079,&quot;v&quot;:-13},{&quot;t&quot;:24.177,&quot;v&quot;:-12.8},{&quot;t&quot;:24.274,&quot;v&quot;:-12.5},{&quot;t&quot;:24.372,&quot;v&quot;:-13.1},{&quot;t&quot;:25.935,&quot;v&quot;:-12.7},{&quot;t&quot;:26.033,&quot;v&quot;:-12.2},{&quot;t&quot;:26.131,&quot;v&quot;:-11.7},{&quot;t&quot;:26.229,&quot;v&quot;:-13},{&quot;t&quot;:28.671,&quot;v&quot;:-12.6},{&quot;t&quot;:28.769,&quot;v&quot;:-12.1},{&quot;t&quot;:28.867,&quot;v&quot;:-11.6},{&quot;t&quot;:28.964,&quot;v&quot;:-11.2},{&quot;t&quot;:29.062,&quot;v&quot;:-12.9},{&quot;t&quot;:30.528,&quot;v&quot;:-12.7},{&quot;t&quot;:30.625,&quot;v&quot;:-12.2},{&quot;t&quot;:30.723,&quot;v&quot;:-13.1},{&quot;t&quot;:32.286,&quot;v&quot;:-13.1},{&quot;t&quot;:32.384,&quot;v&quot;:-12.6},{&quot;t&quot;:32.482,&quot;v&quot;:-12.1},{&quot;t&quot;:32.58,&quot;v&quot;:-11.6},{&quot;t&quot;:32.677,&quot;v&quot;:-13},{&quot;t&quot;:35.218,&quot;v&quot;:-12.7},{&quot;t&quot;:35.315,&quot;v&quot;:-12.2},{&quot;t&quot;:35.413,&quot;v&quot;:-11.7},{&quot;t&quot;:35.511,&quot;v&quot;:-13},{&quot;t&quot;:36.097,&quot;v&quot;:-12.7},{&quot;t&quot;:36.195,&quot;v&quot;:-12.2},{&quot;t&quot;:36.292,&quot;v&quot;:-11.7},{&quot;t&quot;:36.39,&quot;v&quot;:-11.2},{&quot;t&quot;:36.488,&quot;v&quot;:-12.9},{&quot;t&quot;:38.931,&quot;v&quot;:-12.7},{&quot;t&quot;:39.028,&quot;v&quot;:-12.2},{&quot;t&quot;:39.126,&quot;v&quot;:-11.7},{&quot;t&quot;:39.224,&quot;v&quot;:-11.2},{&quot;t&quot;:39.321,&quot;v&quot;:-10.8},{&quot;t&quot;:39.419,&quot;v&quot;:-10.3},{&quot;t&quot;:39.517,&quot;v&quot;:-9.9},{&quot;t&quot;:39.615,&quot;v&quot;:-9.5},{&quot;t&quot;:39.712,&quot;v&quot;:-9.2},{&quot;t&quot;:39.81,&quot;v&quot;:-8.8},{&quot;t&quot;:39.908,&quot;v&quot;:-8.4},{&quot;t&quot;:40.005,&quot;v&quot;:-8.1},{&quot;t&quot;:40.103,&quot;v&quot;:-7.8},{&quot;t&quot;:40.201,&quot;v&quot;:-7.5},{&quot;t&quot;:40.299,&quot;v&quot;:-7.2},{&quot;t&quot;:40.396,&quot;v&quot;:-6.9},{&quot;t&quot;:40.494,&quot;v&quot;:-6.6},{&quot;t&quot;:40.592,&quot;v&quot;:-6.3},{&quot;t&quot;:40.689,&quot;v&quot;:-6.1},{&quot;t&quot;:40.787,&quot;v&quot;:-5.8},{&quot;t&quot;:40.982,&quot;v&quot;:-5.4},{&quot;t&quot;:41.08,&quot;v&quot;:-5.2},{&quot;t&quot;:41.276,&quot;v&quot;:-4.8},{&quot;t&quot;:41.373,&quot;v&quot;:-4.6},{&quot;t&quot;:41.569,&quot;v&quot;:-4.2},{&quot;t&quot;:41.666,&quot;v&quot;:-4.1},{&quot;t&quot;:41.96,&quot;v&quot;:-3.6},{&quot;t&quot;:42.057,&quot;v&quot;:-3.4},{&quot;t&quot;:42.35,&quot;v&quot;:-3},{&quot;t&quot;:42.448,&quot;v&quot;:-2.9},{&quot;t&quot;:42.839,&quot;v&quot;:-2.5},{&quot;t&quot;:42.937,&quot;v&quot;:-2.4},{&quot;t&quot;:43.327,&quot;v&quot;:-2},{&quot;t&quot;:43.425,&quot;v&quot;:-1.9},{&quot;t&quot;:44.109,&quot;v&quot;:-1.5},{&quot;t&quot;:44.207,&quot;v&quot;:-1.4},{&quot;t&quot;:45.379,&quot;v&quot;:-0.9},{&quot;t&quot;:45.477,&quot;v&quot;:-0.8},{&quot;t&quot;:47.529,&quot;v&quot;:-0.4},{&quot;t&quot;:47.627,&quot;v&quot;:-0.3},{&quot;t&quot;:48.799,&quot;v&quot;:-0.2},{&quot;t&quot;:48.897,&quot;v&quot;:0}]}]}"></audio>
+      <audio id="sfx" src="assets/audio/sfx.wav" data-start="0" data-duration="43.5" data-track-index="12" data-volume="1"></audio>
+    </div>
+
+    <script>
+/* DoubleTick — BFSI governed onboarding. One paused GSAP timeline, seek-safe, deterministic. */
+(function () {
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+  const GREEN = "#29b278";
+  const COLD = "#858b86";
+  const INK = "#16191b";
+
+  /* ---------- static builders (run once, before the timeline) ---------- */
+
+  // Verified badge: scalloped blue seal + white check (drawn, deterministic).
+  function badgeMarkup() {
+    const pts = [];
+    const N = 96;
+    for (let i = 0; i <= N; i++) {
+      const a = (i / N) * Math.PI * 2;
+      const r = 10.6 + 0.95 * Math.cos(a * 12);
+      pts.push((12 + r * Math.cos(a)).toFixed(2) + "," + (12 + r * Math.sin(a)).toFixed(2));
+    }
+    return (
+      '<path d="M' + pts.join(" L") + ' Z" fill="#1d9bf0"/>' +
+      '<path d="M7.6 12.3l3 3 5.8-6.2" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>'
+    );
+  }
+  $$("svg[data-badge]").forEach((s) => (s.innerHTML = badgeMarkup()));
+
+  // Masked fields — one cell per character, raw + masked glyph stacked.
+  function maskField(el, raw, masked) {
+    el.innerHTML = raw
+      .split("")
+      .map((c, i) => {
+        const m = masked[i];
+        return '<span class="ch"><i class="r">' + c + "</i>" + (m !== c ? '<i class="m">' + m + "</i>" : "") + "</span>";
+      })
+      .join("");
+  }
+  maskField($("#v-pan"), "ABCDE1234F", "AB•••••34F");
+  maskField($("#v-mob"), "9876543221", "98••••••21");
+
+  // Voice waveform bars.
+  const wave = $("#wave");
+  for (let i = 0; i < 14; i++) wave.appendChild(document.createElement("i"));
+
+  // Scene 7 headline: KYC → Documents → Verification → Follow-up
+  const arrow =
+    '<svg viewBox="0 0 40 24" style="display:inline-block;width:0.8em;height:0.5em;margin:0 0.18em;vertical-align:0.08em"><path d="M2 12h32m0 0l-8-8m8 8l-8 8" fill="none" stroke="#29b278" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  $("#h7a").innerHTML = ["KYC", "Documents", "Verification", "Follow-up"]
+    .map((w, i) => (i ? '<span class="w7" style="display:inline-block">' + arrow + "</span>" : "") + '<span class="w7" style="display:inline-block">' + w + "</span>")
+    .join("");
+
+  // Scene 8 nodes / labels / particles
+  const S8 = ["Customer", "WhatsApp", "KYC", "Documents", "Verification", "Agent"];
+  const s8 = $("#s8");
+  const ck = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  S8.forEach((name, i) => {
+    const x = 150 + i * 156;
+    const n = document.createElement("div");
+    n.className = "n8";
+    n.style.left = x + "px";
+    n.innerHTML = ck;
+    s8.appendChild(n);
+    const l = document.createElement("div");
+    l.className = "l8";
+    l.style.left = x + "px";
+    l.textContent = name;
+    s8.appendChild(l);
+  });
+  for (let i = 0; i < 7; i++) {
+    const p = document.createElement("div");
+    p.className = "pt8";
+    s8.appendChild(p);
+  }
+
+  // Subtitles — phrase timings measured from the supplied voiceover waveform.
+  const SUBS = [
+    [0.12, 2.32, "The customer gets stuck during <em>onboarding</em>,"],
+    [2.66, 4.3, "and the application goes cold."],
+    [4.95, 7.08, "Does your onboarding journey go silent too?"],
+    [7.52, 9.7, "With DoubleTick, when onboarding stalls,"],
+    [9.8, 11.25, "the customer is re-engaged"],
+    [11.25, 13.8, "on the institution's <em>verified WhatsApp</em> account."],
+    [14.1, 16.6, "They can ask a question, continue with an agent,"],
+    [16.74, 19.7, "or complete the pending step directly on WhatsApp."],
+    [20.05, 22.3, "Documents move into a <em>governed workflow</em>."],
+    [22.55, 23.85, "<em>Consent</em> is captured."],
+    [24.05, 25.95, "Sensitive data stays <em>protected</em>."],
+    [26.2, 28.7, "And agents don't need to download files locally."],
+    [29.0, 32.45, "From KYC and documents to verification and follow-ups,"],
+    [32.62, 35.25, "one connected, governed onboarding journey."],
+    [35.45, 36.35, "DoubleTick."],
+    [36.45, 39.1, "Built for <em>BFSI onboarding</em> at scale."],
+  ];
+  const subsEl = $("#subs");
+  SUBS.forEach((s, i) => {
+    const d = document.createElement("div");
+    d.className = "sub";
+    d.id = "sub" + i;
+    d.innerHTML = s[2];
+    subsEl.appendChild(d);
+  });
+
+  /* ---------- geometry helpers (offset chains ignore transforms) ---------- */
+  function rel(el, anc) {
+    let x = 0;
+    let y = 0;
+    let n = el;
+    while (n && n !== anc) {
+      x += n.offsetLeft;
+      y += n.offsetTop;
+      n = n.offsetParent;
+    }
+    return { x, y, w: el.offsetWidth, h: el.offsetHeight };
+  }
+
+  function build() {
+    const tl = gsap.timeline({ paused: true });
+    const root = $("#root");
+
+    /* ---------- reusable motion ---------- */
+    function linesIn(sel, t, stagger = 0.12, dur = 0.95) {
+      const lines = $$(sel + " .ln > span");
+      tl.fromTo(
+        lines,
+        { yPercent: 112, scale: 1.02, opacity: 0, filter: "blur(8px)", transformOrigin: "50% 100%" },
+        { yPercent: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: dur, ease: "expo.out", stagger },
+        t,
+      );
+    }
+    function linesOut(sel, t, dur = 0.42) {
+      const lines = $$(sel + " .ln > span");
+      tl.fromTo(lines, { yPercent: 0, opacity: 1, filter: "blur(0px)" }, { yPercent: -60, opacity: 0, filter: "blur(6px)", duration: dur, ease: "power3.in", stagger: 0.05, immediateRender: false }, t);
+    }
+    function fadeIn(el, t, o = {}) {
+      tl.fromTo(el, { opacity: 0, y: o.y ?? 12, x: o.x ?? 0, scale: o.s ?? 1 }, { opacity: 1, y: 0, x: 0, scale: 1, duration: o.d ?? 0.6, ease: o.e ?? "power3.out", stagger: o.st ?? 0 }, t);
+    }
+    function fadeOut(el, t, o = {}) {
+      tl.fromTo(el, { opacity: o.from ?? 1 }, { opacity: 0, y: o.y ?? 0, scale: o.s ?? 1, duration: o.d ?? 0.35, ease: o.e ?? "power2.in", immediateRender: false }, t);
+    }
+    function swap(a, b, t, d = 0.28) {
+      tl.fromTo(a, { opacity: 1, y: 0 }, { opacity: 0, y: -8, duration: d, ease: "power2.in", immediateRender: false }, t);
+      tl.fromTo(b, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: d + 0.1, ease: "power3.out" }, t + d * 0.6);
+    }
+    function nodeCheck(n, t, big = true) {
+      const f = n.querySelector(".fillc");
+      const c = n.querySelector(".ck");
+      const p = n.querySelector(".pulse");
+      tl.fromTo(f, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(1.6)" }, t);
+      tl.fromTo(c, { opacity: 0, scale: 0.5, rotation: -12 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(1.8)" }, t + 0.08);
+      if (big) tl.fromTo(p, { opacity: 0.7, scale: 0.7 }, { opacity: 0, scale: 1.5, duration: 0.8, ease: "power2.out" }, t + 0.05);
+    }
+
+    /* ================= GLOBAL ================= */
+    tl.fromTo("#masthead", { opacity: 0, y: -6 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.1);
+    tl.fromTo("#glow", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 1.6, ease: "sine.out" }, 7.6);
+
+    /* ================= SCENE 1 — onboarding stalls (0 → 4.6) ================= */
+    const nodes = ["#n1", "#n2", "#n3", "#n4", "#n5"].map((s) => $(s));
+    const labels = ["#l1", "#l2", "#l3", "#l4", "#l5"].map((s) => $(s));
+    const SPAN = 780;
+    const STALL = 112 / SPAN; // stops midway between Application and KYC
+
+    tl.fromTo("#j-track", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 1.0, ease: "power2.out" }, 0.1);
+    tl.fromTo(nodes, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)", stagger: 0.07 }, 0.18);
+    tl.fromTo(labels, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.07 }, 0.3);
+    nodeCheck(nodes[0], 0.5);
+    tl.fromTo("#card", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, ease: "expo.out" }, 0.62);
+
+    // progress moves, then physically slows, then stops
+    tl.set("#j-fill", { scaleX: 0 }, 0);
+    tl.set("#j-tip", { opacity: 0, x: 0 }, 0);
+    tl.to("#j-tip", { opacity: 1, duration: 0.2 }, 0.9);
+    tl.to("#j-fill", { scaleX: 0.1, duration: 0.65, ease: "none" }, 0.95);
+    tl.to("#j-tip", { x: 0.1 * SPAN, duration: 0.65, ease: "none" }, 0.95);
+    tl.to("#j-fill", { scaleX: STALL, duration: 0.8, ease: "power2.out" }, 1.6);
+    tl.to("#j-tip", { x: STALL * SPAN, duration: 0.8, ease: "power2.out" }, 1.6);
+    // tip keeps breathing for a beat after the stop, then goes still
+    tl.fromTo("#j-tip", { scale: 1 }, { scale: 1.3, duration: 0.22, ease: "sine.inOut", yoyo: true, repeat: 3 }, 1.0);
+    tl.fromTo("#j-tip", { scale: 1.3 }, { scale: 1, duration: 0.5, ease: "sine.out", immediateRender: false }, 2.4 + 0.22 * 0);
+    // status: In progress → Waiting → Inactive
+    swap("#pill .a", "#pill .b", 2.4);
+    swap("#card .last .a", "#card .last .b", 2.4);
+    tl.to("#pd", { backgroundColor: "#d7a33b", duration: 0.3 }, 2.45);
+    swap("#pill .b", "#pill .c", 3.4);
+    swap("#card .last .b", "#card .last .c", 3.4);
+    tl.to("#pd", { backgroundColor: "#9aa09b", duration: 0.3 }, 3.45);
+    // green loses saturation
+    tl.to(["#j-fill", "#j-tip"], { backgroundColor: "#b3b8b2", duration: 1.6, ease: "sine.inOut" }, 2.6);
+    tl.to("#j-tip", { boxShadow: "0 0 0 6px rgba(150,155,150,0.0)", duration: 1.2 }, 2.6);
+    tl.to("#n1 .fillc", { backgroundColor: "#a3b3aa", duration: 1.6, ease: "sine.inOut" }, 2.7);
+
+    // headline
+    tl.set("#h1b", { color: INK }, 0);
+    linesIn("#h1", 1.5, 0.5);
+    tl.to("#h1b", { color: COLD, duration: 1.8, ease: "sine.inOut" }, 2.3);
+    linesOut("#h1", 4.45);
+
+    /* ================= SCENE 2 — go silent (4.6 → 7.5) ================= */
+    tl.fromTo("#journey", { opacity: 1, scale: 1, filter: "blur(0px)" }, { opacity: 0.42, scale: 0.97, filter: "blur(1.5px)", duration: 1.2, ease: "power2.inOut", immediateRender: false }, 4.55);
+    tl.fromTo("#card", { opacity: 1, filter: "blur(0px)" }, { opacity: 0.55, filter: "blur(1px)", duration: 1.2, ease: "power2.inOut", immediateRender: false }, 4.55);
+    linesIn("#h2", 4.8, 0.42, 1.0);
+    tl.fromTo("#silent", { opacity: 1, color: INK, filter: "blur(0px)" }, { opacity: 0.62, color: COLD, filter: "blur(1.2px)", duration: 1.1, ease: "sine.inOut", immediateRender: false }, 5.95);
+    $$("#silent .sc").forEach((c, i) => tl.fromTo(c, { x: 0 }, { x: (i - 4) * 3, duration: 1.1, ease: "sine.inOut", immediateRender: false }, 5.95));
+    tl.to("#journey", { opacity: 0.3, duration: 0.8, ease: "sine.inOut" }, 5.95);
+    swap("#pill .c", "#pill .d", 6.0);
+
+    // the inactive dot — overlay it on the pill dot so it survives the dim
+    const pdPos = rel($("#pd"), root);
+    const gx = pdPos.x + pdPos.w / 2;
+    const gy = pdPos.y + pdPos.h / 2;
+    tl.set("#gdot", { x: gx, y: gy, opacity: 0, backgroundColor: "#9aa09b" }, 0);
+    tl.set("#pd", { opacity: 1 }, 0);
+    tl.set("#gdot", { opacity: 1 }, 4.7);
+    tl.set("#pd", { opacity: 0 }, 4.7);
+    tl.fromTo("#gdot", { opacity: 1 }, { opacity: 0.25, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 3, immediateRender: false }, 4.75);
+    tl.to("#gdot", { opacity: 1, duration: 0.2 }, 5.95);
+    linesOut("#h2", 7.08, 0.4);
+    // dot turns green → travels → becomes WhatsApp
+    tl.to("#gdot", { backgroundColor: GREEN, scale: 1.6, duration: 0.12, ease: "back.out(2)" }, 7.18);
+    tl.to("#gdot", { x: 774, y: 500, scale: 2.2, duration: 0.36, ease: "power2.inOut" }, 7.3);
+    tl.to("#gdot", { opacity: 0, duration: 0.15 }, 7.64);
+    tl.to("#card", { opacity: 0, y: 24, duration: 0.4, ease: "power2.in" }, 7.25);
+    tl.to(["#n3", "#n4", "#n5", "#l3", "#l4", "#l5"], { opacity: 0, duration: 0.35, ease: "power2.in" }, 7.25);
+    tl.to("#journey", { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.8, ease: "power2.out" }, 7.4);
+
+    /* ================= SCENE 3 — WhatsApp re-engagement (7.5 → 13.9) ================= */
+    tl.fromTo("#phone-inner", { clipPath: "circle(9px at 50% 50%)" }, { clipPath: "circle(460px at 50% 50%)", duration: 0.85, ease: "expo.out" }, 7.56);
+    tl.fromTo("#phone", { scale: 0.94 }, { scale: 1, duration: 1.3, ease: "expo.out" }, 7.56);
+    tl.fromTo("#phone-shadow", { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "sine.out" }, 7.8);
+
+    // chat scroll model: stack bottom-anchored; items below the fold until they arrive
+    const stack = $("#stack");
+    const GAP = 8;
+    const ARR = [
+      ["#m1", 8.3],
+      ["#m2", 9.9],
+      ["#m2b", 11.6],
+      ["#m3", 13.85],
+      ["#m4", 14.05],
+      ["#m5", 14.5],
+      ["#m6", 14.9],
+      ["#m7", 15.8],
+      ["#m8", 16.02],
+      ["#m9", 16.26],
+      ["#m10", 17.0],
+      ["#m11", 19.95],
+      ["#m12", 22.45],
+    ].map(([s, t]) => ({ el: $(s), t }));
+    const hOf = (el) => el.offsetHeight + (parseFloat(getComputedStyle(el).marginTop) || 0) + GAP;
+    const remaining = (k) => ARR.slice(k).reduce((a, it) => a + hOf(it.el), 0); // offset while items k.. are not yet in
+    const stackH = stack.offsetHeight;
+    const BODY_H = 602;
+    const stackYAt = (k) => remaining(k); // after item k-1 arrived
+    tl.set(stack, { y: stackYAt(0) }, 0);
+    ARR.forEach((it, k) => {
+      const out = it.el.classList.contains("out");
+      tl.set(it.el, { opacity: 0 }, 0);
+      tl.to(stack, { y: stackYAt(k + 1), duration: 0.5, ease: "power3.out" }, it.t);
+      tl.fromTo(it.el, { opacity: 0, y: 14, scale: 0.96, transformOrigin: out ? "100% 100%" : "0% 100%" }, { opacity: 1, y: 0, scale: 1, duration: 0.44, ease: "back.out(1.3)", immediateRender: false }, it.t + 0.04);
+    });
+    // phone-local position of any element inside the stack, after item k arrived
+    function inPhone(el, k) {
+      const r = rel(el, stack);
+      const top = 84 + (BODY_H - 14 - stackH) + stackYAt(k + 1);
+      return { x: 14 + r.x + r.w / 2, y: top + r.y + r.h / 2, w: r.w, h: r.h };
+    }
+    function tapAt(el, k, t) {
+      const p = inPhone(el, k);
+      tl.set("#tap", { x: p.x, y: p.y }, t - 0.01);
+      tl.fromTo("#tap", { opacity: 0.95, scale: 0.55 }, { opacity: 0, scale: 1.25, duration: 0.5, ease: "power2.out", immediateRender: false }, t);
+    }
+    function hilite(btn, t, off) {
+      const hb = btn.querySelector(".hb");
+      tl.fromTo(hb, { opacity: 0 }, { opacity: 1, duration: 0.18, ease: "power2.out", immediateRender: false }, t);
+      tl.fromTo(btn, { scale: 1 }, { scale: 0.97, duration: 0.09, ease: "power2.out", yoyo: true, repeat: 1, immediateRender: false }, t);
+      if (off) tl.to(hb, { opacity: 0, duration: 0.3, ease: "power2.out" }, off);
+    }
+
+    // the broken line reconnects — through WhatsApp
+    tl.to(["#j-fill", "#j-tip"], { backgroundColor: GREEN, duration: 0.7, ease: "sine.out" }, 8.55);
+    tl.to("#j-tip", { boxShadow: "0 0 0 6px rgba(41,178,120,0.18)", duration: 0.6 }, 8.55);
+    tl.to("#n1 .fillc", { backgroundColor: GREEN, duration: 0.7 }, 8.55);
+    tl.to("#j-fill", { scaleX: (544 - 150) / SPAN, duration: 1.25, ease: "power2.inOut" }, 8.7);
+    tl.to("#j-tip", { x: 544 - 150, duration: 1.25, ease: "power2.inOut" }, 8.7);
+    tl.to("#j-tip", { opacity: 0, duration: 0.2 }, 9.8);
+    tl.to("#n2 .ring", { borderColor: GREEN, duration: 0.3 }, 9.15);
+    tl.fromTo("#n2 .pulse", { opacity: 0.7, scale: 0.7 }, { opacity: 0, scale: 1.5, duration: 0.8, ease: "power2.out", immediateRender: false }, 9.15);
+
+    linesIn("#h3", 10.0, 0.14);
+    fadeIn($$("#ticks .row"), 11.3, { x: -18, y: 0, d: 0.55, st: 0.16, e: "expo.out" });
+    tapAt($("#b-cont"), 2, 13.55);
+    hilite($("#b-cont"), 13.55);
+    fadeOut("#ticks", 13.6, { d: 0.3 });
+    linesOut("#h3", 13.7);
+
+    /* ================= SCENE 4 — three options (13.9 → 17.0) ================= */
+    linesIn("#h4", 14.12, 0.11, 0.85);
+    fadeIn("#n-inside", 15.1, { y: 10, d: 0.6 });
+    tapAt($("#o1"), 4, 14.3);
+    hilite($("#o1"), 14.3, 15.45);
+    // AI voice — call banner, waveform, then a record in the thread
+    tl.fromTo("#wa-call", { opacity: 0, y: -18, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "expo.out" }, 15.02);
+    const bars = $$("#wave i");
+    tl.set(bars, { scaleY: 0.18 }, 0);
+    bars.forEach((b, i) => {
+      for (let k = 0; k < 7; k++) {
+        const h = 0.22 + 0.78 * Math.abs(Math.sin(i * 1.7 + k * 2.3) * Math.cos(i * 0.6 + k));
+        tl.to(b, { scaleY: h, duration: 0.1, ease: "sine.inOut" }, 15.08 + k * 0.1);
+      }
+      tl.to(b, { scaleY: 0.18, duration: 0.12 }, 15.8);
+    });
+    swap("#call-t span:nth-child(1)", "#call-t span:nth-child(2)", 15.25, 0.12);
+    swap("#call-t span:nth-child(2)", "#call-t span:nth-child(3)", 15.55, 0.12);
+    tl.to("#wa-call", { opacity: 0, y: -14, scale: 0.97, duration: 0.25, ease: "power2.in" }, 15.78);
+    tapAt($("#o2"), 6, 15.46);
+    hilite($("#o2"), 15.46, 16.75);
+    tapAt($("#o3"), 9, 16.8);
+    hilite($("#o3"), 16.8, 17.5);
+
+    /* ================= SCENE 5 — complete the pending step (17.0 → 20.0) ================= */
+    linesOut("#h4", 16.95, 0.38);
+    fadeOut("#n-inside", 16.95, { d: 0.3 });
+    linesIn("#h5", 17.2, 0.12);
+    fadeIn("#n-resume", 17.7, { y: 10, d: 0.6 });
+    swap("#l2 .st .a", "#l2 .st .b", 17.4);
+    tl.fromTo("#n2 .pulse", { opacity: 0.8, scale: 0.7 }, { opacity: 0, scale: 1.6, duration: 0.9, ease: "power2.out", repeat: 1, immediateRender: false }, 17.4);
+
+    tl.set("#wa-sheet", { yPercent: 100 }, 0);
+    tl.set(["#seg3", "#seg4", "#upbar"], { scaleX: 0 }, 0);
+    tl.fromTo("#wa-dim", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "sine.out", immediateRender: false }, 17.12);
+    tl.to("#wa-sheet", { yPercent: 0, duration: 0.65, ease: "expo.out" }, 17.12);
+    // upload tap (sheet top = 752 - 540 = 212)
+    const fb = rel($("#fbtn"), $("#wa-sheet"));
+    tl.set("#tap", { x: fb.x + fb.w / 2, y: 212 + fb.y + fb.h / 2 }, 18.19);
+    tl.fromTo("#tap", { opacity: 0.95, scale: 0.55 }, { opacity: 0, scale: 1.25, duration: 0.5, ease: "power2.out", immediateRender: false }, 18.2);
+    tl.fromTo("#fbtn", { scale: 1 }, { scale: 0.97, duration: 0.09, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, 18.2);
+    tl.to("#fbtn", { opacity: 0.45, duration: 0.3 }, 18.45);
+    fadeIn("#upl", 18.38, { y: 10, d: 0.45, e: "back.out(1.3)" });
+    tl.to("#upbar", { scaleX: 0.45, duration: 0.42, ease: "power1.inOut" }, 18.5);
+    swap("#pct span:nth-child(1)", "#pct span:nth-child(2)", 18.62, 0.12);
+    tl.to("#upbar", { scaleX: 1, duration: 0.45, ease: "power2.out" }, 18.92);
+    swap("#pct span:nth-child(2)", "#pct span:nth-child(3)", 19.2, 0.12);
+    swap("#t-pend", "#t-recv", 19.4, 0.2);
+    tl.to("#addr-oc", { borderColor: GREEN, borderStyle: "solid", backgroundColor: GREEN, duration: 0.3 }, 19.45);
+    tl.to("#fbtn", { opacity: 1, duration: 0.3 }, 19.5);
+    tl.to("#seg3", { scaleX: 1, duration: 0.45, ease: "power2.out" }, 19.5);
+    tl.to("#wa-sheet", { yPercent: 100, duration: 0.45, ease: "power3.in" }, 19.72);
+    tl.to("#wa-dim", { opacity: 0, duration: 0.35 }, 19.8);
+    linesOut("#h5", 19.9, 0.4);
+    fadeOut("#n-resume", 19.9, { d: 0.3 });
+    tl.to("#journey", { opacity: 0, duration: 0.4, ease: "power2.in" }, 19.95);
+
+    /* ================= SCENE 6 — governed workflow (20.0 → 28.7) ================= */
+    const PS = 0.74;
+    const PCX = 250;
+    const PCY = 575;
+    tl.to("#phone", { x: PCX - 774, y: PCY - 500, scale: PS, duration: 1.0, ease: "power3.inOut" }, 20.1);
+    tl.to("#glow", { x: -300, y: 60, duration: 1.4, ease: "sine.inOut" }, 20.1);
+    const toScreen = (p) => ({ x: PCX + (p.x - 230) * PS, y: PCY + (p.y - 376) * PS });
+    linesIn("#h6", 20.85, 0.1);
+    fadeIn("#cust-lbl", 20.7, { y: 8, d: 0.5 });
+    fadeIn("#wf", 20.6, { x: 30, y: 0, d: 0.7, e: "expo.out" });
+    fadeIn("#gov", 20.8, { x: 30, y: 0, d: 0.7, e: "expo.out" });
+    tl.set(["#g1", "#g2", "#g3"], { opacity: 0.3 }, 0);
+    tl.set(["#g1 .gc", "#g2 .gc", "#g3 .gc"], { scale: 0, opacity: 0 }, 0);
+
+    // the document travels as one object: WhatsApp bubble → governed workflow
+    const docP = toScreen(inPhone($("#m11 .doc"), 11));
+    const WFX = 450 + 24 + 253;
+    const WFY = 282 + 66 + 123;
+    const route = $("#route-p");
+    route.setAttribute("d", "M " + 424 + " " + docP.y + " C " + 444 + " " + docP.y + ", " + 400 + " " + WFY + ", " + 452 + " " + WFY);
+    const RL = route.getTotalLength();
+    tl.set(route, { strokeDasharray: RL, strokeDashoffset: RL, opacity: 1 }, 0);
+    tl.to(route, { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, 20.85);
+    tl.fromTo("#wfdoc", { x: docP.x - WFX, y: docP.y - WFY, scale: 0.42, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 1.1, ease: "power3.inOut" }, 20.9);
+    tl.fromTo("#m11", { opacity: 1 }, { opacity: 0.45, duration: 0.4, immediateRender: false }, 21.0);
+    tl.to(route, { opacity: 0.35, duration: 0.6 }, 21.9);
+
+    // consent is captured
+    const cb = $("#c-btn");
+    tapAt(cb, 12, 22.95);
+    tl.fromTo(cb, { scale: 1 }, { scale: 0.97, duration: 0.09, yoyo: true, repeat: 1, immediateRender: false }, 22.95);
+    swap("#c-btn .a", "#c-btn .b", 23.02, 0.2);
+    function govRow(id, t) {
+      tl.to(id, { opacity: 1, duration: 0.3, ease: "power2.out" }, t);
+      tl.to(id + " .gc", { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2)" }, t + 0.05);
+    }
+    govRow("#g1", 23.15);
+
+    // sensitive data protected — fields mask themselves
+    const fldRow = (el) => rel(el.closest(".fld"), $("#wfdoc"));
+    const panRow = fldRow($("#v-pan"));
+    const mobRow = fldRow($("#v-mob"));
+    tl.set("#sweep", { x: 250, y: 0, top: panRow.y, height: panRow.h, opacity: 0 }, 0);
+    tl.to("#sweep", { opacity: 1, duration: 0.1 }, 24.1);
+    tl.to("#sweep", { x: 520, duration: 0.42, ease: "power1.inOut" }, 24.1);
+    tl.set("#sweep", { x: 250, top: mobRow.y }, 24.53);
+    tl.to("#sweep", { x: 520, duration: 0.42, ease: "power1.inOut" }, 24.54);
+    tl.to("#sweep", { opacity: 0, duration: 0.12 }, 24.9);
+    function maskChars(sel, t) {
+      $$(sel + " .ch").forEach((c, i) => {
+        const m = c.querySelector(".m");
+        if (!m) return;
+        const r = c.querySelector(".r");
+        tl.fromTo(r, { yPercent: 0, opacity: 1 }, { yPercent: -100, opacity: 0, duration: 0.2, ease: "power2.in", immediateRender: false }, t + i * 0.03);
+        tl.fromTo(m, { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.24, ease: "power2.out" }, t + i * 0.03 + 0.06);
+      });
+    }
+    maskChars("#v-pan", 24.18);
+    maskChars("#v-mob", 24.6);
+    fadeIn("#shield", 24.75, { s: 0.85, y: 0, d: 0.4, e: "back.out(1.8)" });
+    govRow("#g2", 24.9);
+
+    // agents don't download files locally — institution-side workspace
+    tl.to("#docv", { opacity: 0, y: -12, duration: 0.3, ease: "power2.in" }, 26.1);
+    tl.fromTo("#agentv", { opacity: 0 }, { opacity: 1, duration: 0.2, immediateRender: false }, 26.28);
+    fadeIn(["#agentv .ph", "#agentv .ag-row", "#agentv .ctx", "#frow"], 26.28, { y: 14, d: 0.5, st: 0.1, e: "expo.out" });
+    tl.set("#dl .slash", { rotation: -45, scaleX: 0 }, 0);
+    tl.to("#dl", { opacity: 0.5, duration: 0.3 }, 27.3);
+    tl.to("#dl .slash", { scaleX: 1, duration: 0.3, ease: "power2.out" }, 27.32);
+    swap("#frow .fs .a", "#frow .fs .b", 27.6, 0.24);
+    govRow("#g3", 27.95);
+
+    /* ---- transition: document becomes progress ---- */
+    tl.fromTo("#morph", { opacity: 0 }, { opacity: 1, duration: 0.15, immediateRender: false }, 28.42);
+    tl.to("#morph", { x: -324, y: -8, width: 195, height: 4, borderRadius: 2, backgroundColor: GREEN, duration: 0.62, ease: "power3.inOut" }, 28.55);
+    tl.to(["#phone", "#cust-lbl"], { opacity: 0, duration: 0.35, ease: "power2.in" }, 28.45);
+    tl.to(["#wf", "#gov"], { opacity: 0, scale: 0.97, duration: 0.35, ease: "power2.in" }, 28.5);
+    tl.to("#route", { opacity: 0, duration: 0.3 }, 28.4);
+    linesOut("#h6", 28.4, 0.36);
+    tl.to("#glow", { x: 0, y: 0, opacity: 0.8, duration: 1.2, ease: "sine.inOut" }, 28.6);
+
+    /* ================= SCENE 7 — connected journey (28.9 → 32.7) ================= */
+    tl.set("#j-fill", { scaleX: 195 / SPAN }, 28.8);
+    tl.set(["#n3", "#n4", "#n5", "#l3", "#l4", "#l5"], { opacity: 1 }, 28.8);
+    tl.set(["#l2 .st .b"], { opacity: 0 }, 28.8);
+    swap("#l5 .nm .a", "#l5 .nm .b", 28.7, 0.01);
+    tl.to("#journey", { opacity: 1, duration: 0.35, ease: "sine.out" }, 28.85);
+    tl.to("#morph", { opacity: 0, duration: 0.2 }, 29.12);
+    tl.fromTo("#rider", { opacity: 0, x: 345, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.6)", immediateRender: false }, 29.0);
+    const fillTo = (s, t, d, e = "power2.inOut") => {
+      tl.to("#j-fill", { scaleX: s, duration: d, ease: e }, t);
+      tl.to("#rider", { x: 150 + s * SPAN, duration: d, ease: e }, t);
+    };
+    nodeCheck(nodes[1], 29.05);
+    tl.to("#l2 .st .c", { opacity: 1, duration: 0.3 }, 29.12);
+    fillTo(0.5, 29.12, 0.55);
+    nodeCheck(nodes[2], 29.66);
+    tl.to("#l3 .st .b", { opacity: 1, duration: 0.3 }, 29.72);
+    fillTo(0.75, 30.05, 0.65);
+    tl.fromTo("#n4 .spin", { opacity: 0, rotation: 0 }, { opacity: 1, rotation: 360, duration: 0.55, ease: "none", immediateRender: false }, 30.7);
+    tl.to("#n4 .spin", { rotation: 720, duration: 0.5, ease: "none" }, 31.25);
+    tl.to("#n4 .spin", { opacity: 0, duration: 0.15 }, 31.26);
+    tl.to("#l4 .st .b", { opacity: 1, duration: 0.25 }, 30.72);
+    nodeCheck(nodes[3], 31.2);
+    swap("#l4 .st .b", "#l4 .st .c", 31.22, 0.2);
+    fillTo(1, 31.25, 0.4, "power2.out");
+    nodeCheck(nodes[4], 31.63);
+    tl.to("#l5 .st .b", { opacity: 1, duration: 0.3 }, 31.68);
+    tl.to("#rider", { opacity: 0, scale: 0.7, duration: 0.3 }, 31.7);
+    // headline built with the narration
+    tl.set("#h7 .ln > span", { yPercent: 0 }, 0);
+    const w7 = $$("#h7 .w7");
+    const W7T = [29.02, 29.6, 29.6, 30.7, 30.7, 31.58, 31.58];
+    w7.forEach((w, i) => tl.fromTo(w, { opacity: 0, y: 18, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, W7T[i] + (i % 2 ? 0 : 0.06)));
+    // follow-up stays on WhatsApp
+    tl.fromTo("#fu", { opacity: 0, y: 14, scale: 0.92, transformOrigin: "80% 100%" }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.4)", immediateRender: false }, 31.78);
+    tl.to("#fu", { opacity: 0, y: -10, scale: 0.97, duration: 0.3, ease: "power2.in" }, 32.72);
+    tl.fromTo("#h7 .ln > span", { opacity: 1, filter: "blur(0px)", scaleX: 1, scale: 1 }, { opacity: 0, scaleX: 0.9, scale: 0.94, filter: "blur(5px)", duration: 0.45, ease: "power3.in", immediateRender: false }, 32.55);
+
+    /* ================= SCENE 8 — one journey (32.8 → 35.2) ================= */
+    tl.to([...nodes, ...labels], { opacity: 0, scale: 0.85, duration: 0.3, ease: "power2.in", stagger: 0.02 }, 32.7);
+    tl.to(["#j-fill", "#j-track"], { y: 80, duration: 0.55, ease: "power3.inOut" }, 32.78);
+    tl.to("#j-track", { opacity: 0, duration: 0.4 }, 32.78);
+    linesIn("#h8", 32.92, 0.5, 1.0);
+    const n8 = $$(".n8");
+    const l8 = $$(".l8");
+    tl.fromTo(n8, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.7)", stagger: 0.07 }, 33.05);
+    tl.fromTo(l8, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out", stagger: 0.07 }, 33.15);
+    fadeIn("#ge", 33.5, { y: 6, d: 0.5 });
+    // context particles — they travel between stages and never reset mid-line
+    $$(".pt8").forEach((p, i) => {
+      const t0 = 33.3 + i * 0.26;
+      tl.fromTo(p, { x: 150, opacity: 0 }, { x: 930, duration: 1.9, ease: "none", immediateRender: false }, t0);
+      tl.to(p, { opacity: 0.95, duration: 0.2 }, t0);
+      tl.to(p, { opacity: 0, duration: 0.2 }, Math.min(t0 + 1.7, 35.0));
+    });
+    tl.set(".pt8", { opacity: 0 }, 0);
+
+    /* ================= SCENE 9 — brand (35.1 → 39.0) ================= */
+    linesOut("#h8", 34.95, 0.38);
+    tl.to(["#ge", ...n8, ...l8], { opacity: 0, duration: 0.25, ease: "power2.in" }, 35.0);
+    tl.to("#masthead", { opacity: 0, y: -6, duration: 0.3 }, 35.0);
+    tl.set("#collapse", { opacity: 1 }, 35.2);
+    tl.set("#j-fill", { opacity: 0 }, 35.2);
+    tl.fromTo("#collapse", { scaleX: 1 }, { scaleX: 0.02, duration: 0.36, ease: "power3.in", immediateRender: false }, 35.2);
+    tl.set("#collapse", { opacity: 0 }, 35.56);
+    tl.fromTo("#cdot", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1.2, duration: 0.06, immediateRender: false }, 35.5);
+    tl.to("#cdot", { y: -205, scale: 2.4, duration: 0.3, ease: "power2.out" }, 35.56);
+    tl.to("#cdot", { opacity: 0, duration: 0.15 }, 35.78);
+    const ICON_SHIFT = 280 - (464 / 2000) * 560 * 0.5; // icon centred first
+    tl.fromTo("#biglogo", { opacity: 0, x: ICON_SHIFT, scale: 0.55 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out", immediateRender: false }, 35.7);
+    tl.set("#biglogo", { opacity: 0, x: ICON_SHIFT }, 0);
+    tl.to("#biglogo", { x: 0, duration: 0.85, ease: "power3.inOut" }, 36.0);
+    tl.fromTo("#biglogo-img", { clipPath: "inset(0% 76.8% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.85, ease: "power3.inOut" }, 36.0);
+    tl.to("#glow", { opacity: 0.55, duration: 1.0 }, 35.3);
+    linesIn("#h9", 36.5, 0.14);
+    tl.fromTo("#tagline span, #tagline b", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.06 }, 37.25);
+
+    /* ================= CTA (39.0 → 43.5) ================= */
+    linesOut("#h9", 38.95, 0.38);
+    tl.to("#tagline", { opacity: 0, y: 8, duration: 0.3, ease: "power2.in" }, 38.95);
+    tl.to("#biglogo", { y: -233, scale: 0.62, duration: 0.95, ease: "power3.inOut" }, 39.0);
+    linesIn("#h10", 39.35, 0.15);
+    tl.fromTo("#cta", { opacity: 0, y: 18, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "expo.out" }, 40.0);
+    tl.fromTo("#cta", { scale: 1 }, { scale: 0.965, duration: 0.11, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, 40.72);
+    tl.fromTo("#cta-ring", { opacity: 0.8, scale: 1 }, { opacity: 0, scale: 1.16, duration: 0.9, ease: "power2.out", immediateRender: false }, 40.78);
+    tl.fromTo("#cta-ring", { opacity: 0.6, scale: 1 }, { opacity: 0, scale: 1.16, duration: 0.9, ease: "power2.out", immediateRender: false }, 42.2);
+    tl.set("#cta-ring", { opacity: 0 }, 0);
+    fadeIn("#cta-sub", 40.8, { y: 8, d: 0.6 });
+    tl.fromTo("#cta-line", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 1.1, ease: "expo.out" }, 41.0);
+    tl.fromTo("#cta-dot", { opacity: 0, x: 60 }, { opacity: 1, x: 300, duration: 1.0, ease: "sine.in", immediateRender: false }, 41.3);
+    tl.to("#cta-dot", { x: 540, duration: 1.0, ease: "sine.out" }, 42.3);
+    tl.to("#cta-dot", { opacity: 0, duration: 0.3 }, 43.0);
+    tl.set("#cta-dot", { opacity: 0 }, 0);
+
+    /* ================= SUBTITLES ================= */
+    SUBS.forEach((s, i) => {
+      const el = "#sub" + i;
+      tl.fromTo(el, { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: 0.14, ease: "power1.out" }, s[0]);
+      tl.to(el, { opacity: 0, duration: 0.12, ease: "power1.in" }, s[1]);
+    });
+
+    // hidden until their scene
+    ["#h1", "#h2", "#h3", "#h4", "#h5", "#h6", "#h7", "#h8", "#h9", "#h10"].forEach((h) => tl.set(h, { opacity: 1 }, 0));
+    tl.set(["#wf", "#gov", "#cust-lbl", "#fu", "#n-inside", "#n-resume", "#ticks .row", "#upl", "#shield"], { opacity: 0 }, 0);
+    tl.set(["#h7 .w7"], { opacity: 0 }, 0);
+
+    tl.seek(0);
+    window.__timelines["main"] = tl;
+    if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+  }
+
+  document.fonts.ready.then(build);
+})();
+
+    </script>
+  </body>
+</html>

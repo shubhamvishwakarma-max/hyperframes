@@ -1,0 +1,5 @@
+snapshots/
+renders/master-raw.mp4
+renders/draft.mp4
+node_modules/
+.hyperframes/
