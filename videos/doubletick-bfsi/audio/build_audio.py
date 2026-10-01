@@ -578,9 +578,9 @@ def build_sfx():
     place(bus, s_ping(), t7 + 3.25, 0.4)
     # scene 8 — one line connects everything
     t8 = t7 + 4.2
-    place(bus, s_rise(0.75), t8 + 0.3, 0.9)
-    place(bus, s_tick(2600, 0.5), t8 + 0.85, 0.3, pan=-0.3)
-    place(bus, s_tick(2300, 0.5), t8 + 1.35, 0.3, pan=0.3)
+    place(bus, s_rise(0.65), t8 + 0.25, 0.9)
+    place(bus, s_tick(2600, 0.5), t8 + 0.7, 0.3, pan=-0.3)
+    place(bus, s_tick(2300, 0.5), t8 + 0.92, 0.3, pan=0.3)
     # scene 9 — brand + CTA
     place(bus, s_resolve(), t9 + 0.72, 0.8)
     place(bus, s_tap(), t10 + 0.85, 0.3)

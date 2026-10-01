@@ -562,7 +562,7 @@
         width: 38px;
         height: 46px;
         border-radius: 6px;
-        background: #e5483d;
+        background: #c8372d;
         color: #fff;
         font-size: 10.5px;
         font-weight: 700;
@@ -1286,14 +1286,35 @@
         z-index: 5;
         overflow: visible;
       }
-      #pathsTop {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 1080px;
-        height: 1080px;
-        z-index: 24;
-        overflow: visible;
+      .rail {
+        fill: none;
+        stroke: #27b378;
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .rail-glow {
+        fill: none;
+        stroke: #27b378;
+        stroke-width: 14;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0.13;
+      }
+      .rhead {
+        fill: #ffffff;
+        stroke: #27b378;
+        stroke-width: 3.5;
+      }
+      .rnode {
+        fill: #27b378;
+        stroke: #ffffff;
+        stroke-width: 3;
+      }
+      .pulse {
+        fill: #27b378;
+        stroke: #ffffff;
+        stroke-width: 2.5;
       }
       .lbl {
         position: absolute;
@@ -1429,45 +1450,25 @@
       <div id="glow"></div>
 
       <svg id="paths" viewBox="0 0 1080 1080">
-        <path
-          id="pFlow"
-          d="M 352 640 L 470 650 C 600 720, 700 470, 860 556"
-          fill="none"
-          stroke="#27B378"
-          stroke-width="3"
-          stroke-linecap="round"
-        />
-        <path
-          id="pRoute"
-          d="M 604 662 C 606 700, 600 720, 600 752"
-          fill="none"
-          stroke="#27B378"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-dasharray="2 9"
-          opacity="0"
-        />
-        <path
-          id="pSys"
-          d="M 340 600 C 420 600, 440 590, 540 590 C 640 590, 720 560, 814 560"
-          fill="none"
-          stroke="#27B378"
-          stroke-width="3"
-          stroke-linecap="butt"
-          stroke-linejoin="miter"
-        />
-        <circle id="pulse1" r="7" cx="0" cy="0" fill="#27B378" opacity="0" />
-        <circle id="pulse2" r="7" cx="0" cy="0" fill="#27B378" opacity="0" />
-      </svg>
-      <svg id="pathsTop" viewBox="0 0 1080 1080">
+        <!-- the green rail: tangent-continuous curves, drawn end to end -->
         <path
           id="pRedirect"
-          d="M 584 615 C 700 640, 730 820, 560 845 C 380 870, 290 720, 330 540 C 370 360, 520 250, 540 90"
-          fill="none"
-          stroke="#27B378"
-          stroke-width="3.5"
-          stroke-linecap="round"
+          class="rail"
+          d="M 600 570 C 660 470, 650 330, 600 240 C 575 195, 545 150, 540 100"
         />
+        <path
+          id="pFlow"
+          class="rail"
+          d="M 360 612 C 450 612, 480 690, 560 690 C 640 690, 630 588, 696 588"
+        />
+        <path id="pRoute" class="rail" d="M 0 0 C 0 0, 0 0, 0 0" />
+        <path
+          id="pSys"
+          class="rail"
+          d="M 215 420 C 215 330, 420 404, 540 404 C 660 404, 870 330, 870 490"
+        />
+        <circle id="pulse1" class="pulse" r="7" cx="0" cy="0" opacity="0" />
+        <circle id="pulse2" class="pulse" r="7" cx="0" cy="0" opacity="0" />
       </svg>
 
       <img id="logoTop" src="assets/brand/doubletick-logo.png" alt="DoubleTick" />
@@ -2384,7 +2385,12 @@
         });
 
         // chat history scrolls up under the WhatsApp header, like a real thread
-        $$("#chat *").forEach((el) => el.setAttribute("data-layout-allow-occlusion", ""));
+        $$("#chat *").forEach((el) => {
+          el.setAttribute("data-layout-allow-occlusion", "");
+          el.setAttribute("data-layout-allow-overlap", "");
+        });
+        // the WhatsApp call screen deliberately covers the chat while the call runs
+        $$("#call *").forEach((el) => el.setAttribute("data-layout-allow-overlap", ""));
 
         // layout measurement (static layout, no transforms involved)
         const chat = $("#chat");
@@ -2434,6 +2440,94 @@
           const j = Math.min(i + 1, arr.length - 1);
           const k = f - i;
           return [arr[i][0] + (arr[j][0] - arr[i][0]) * k, arr[i][1] + (arr[j][1] - arr[i][1]) * k];
+        };
+        // --- the green rail: glow under-stroke, travelling head, end nodes ---
+        const NS = "http://www.w3.org/2000/svg";
+        const rail = (id) => {
+          const p = document.getElementById(id);
+          const svg = p.ownerSVGElement;
+          const glow = p.cloneNode();
+          glow.id = id + "G";
+          glow.setAttribute("class", "rail-glow");
+          svg.insertBefore(glow, p);
+          const L = p.getTotalLength();
+          const { pts } = pathPts(id, 300);
+          const dot = (r, cls, at) => {
+            const c = document.createElementNS(NS, "circle");
+            c.setAttribute("r", r);
+            c.setAttribute("class", cls);
+            c.setAttribute("cx", at[0]);
+            c.setAttribute("cy", at[1]);
+            svg.appendChild(c);
+            gsap.set(c, { opacity: 0, scale: 0.3, transformOrigin: "50% 50%" });
+            return c;
+          };
+          const r = {
+            p,
+            glow,
+            L,
+            pts,
+            n0: dot(6, "rnode", pts[0]),
+            n1: dot(6, "rnode", pts[pts.length - 1]),
+            head: dot(7, "rhead", pts[0]),
+          };
+          // hidden until drawn: a fully offset dash still paints its round caps
+          gsap.set([p, glow], {
+            strokeDasharray: L + " " + L,
+            strokeDashoffset: L,
+            visibility: "hidden",
+          });
+          return r;
+        };
+        const drawRail = (r, t, dur, ease = "power2.inOut") => {
+          const o = { u: 0 };
+          tl.set([r.p, r.glow], { visibility: "visible" }, t);
+          tl.to(r.n0, { opacity: 1, scale: 1, duration: 0.28, ease: "back.out(2.5)" }, t);
+          tl.to(r.head, { opacity: 1, scale: 1, duration: 0.12 }, t);
+          tl.to(
+            o,
+            {
+              u: 1,
+              duration: dur,
+              ease,
+              onUpdate: () => {
+                gsap.set([r.p, r.glow], { strokeDashoffset: r.L * (1 - o.u) });
+                const [x, y] = sampleAt(r.pts, o.u);
+                gsap.set(r.head, { attr: { cx: x, cy: y } });
+              },
+            },
+            t,
+          );
+          tl.to(r.head, { opacity: 0, scale: 0.4, duration: 0.14 }, t + dur - 0.06);
+          tl.to(
+            r.n1,
+            { opacity: 1, scale: 1, duration: 0.32, ease: "back.out(2.5)" },
+            t + dur - 0.06,
+          );
+        };
+        // the line flows on into its destination: erased from its start
+        const retractRail = (r, t, dur) => {
+          const o = { u: 0 };
+          tl.to(
+            o,
+            {
+              u: 1,
+              duration: dur,
+              ease: "power2.in",
+              onUpdate: () => gsap.set([r.p, r.glow], { strokeDashoffset: -r.L * o.u }),
+            },
+            t,
+          );
+          tl.to(r.n0, { opacity: 0, scale: 0.3, duration: 0.2 }, t);
+          tl.to(r.n1, { opacity: 0, scale: 0.3, duration: 0.25 }, t + dur - 0.1);
+          tl.set([r.p, r.glow], { visibility: "hidden" }, t + dur);
+        };
+        const tangentAt = (pts, u) => {
+          const i = Math.min(Math.floor(u * (pts.length - 1)), pts.length - 2);
+          const dx = pts[i + 1][0] - pts[i][0];
+          const dy = pts[i + 1][1] - pts[i][1];
+          const m = Math.hypot(dx, dy) || 1;
+          return [dx / m, dy / m];
         };
         const drawPrep = (id) => {
           const p = document.getElementById(id);
@@ -2651,8 +2745,7 @@
         const tf = appEnd;
         // redirect: the document bends away along a DoubleTick-green line
         const tr = t2 + 3.4;
-        const LR = drawPrep("pRedirect");
-        const red = pathPts("pRedirect", 240);
+        const red = rail("pRedirect");
         hlOut("#h2", tr - 0.05);
         ["#g1", "#g2", "#g3"].forEach((sel, i) => {
           tl.to(
@@ -2662,24 +2755,27 @@
           );
         });
         tl.to("#rmPhone", { opacity: 0.0, x: 40, duration: 0.45, ease: "power2.in" }, tr + 0.1);
-        tl.to("#pRedirect", { strokeDashoffset: 0, duration: 0.62, ease: "power2.inOut" }, tr);
+        // the path bends away from the RM phone and rises to DoubleTick
+        drawRail(red, tr + 0.02, 0.7);
         const follow = { u: 0 };
+        const off0 = [584 - red.pts[0][0], 615 - red.pts[0][1]];
         tl.to(
           follow,
           {
             u: 1,
-            duration: 0.78,
+            duration: 0.8,
             ease: "power2.inOut",
             onUpdate: () => {
               const [px, py] = sampleAt(red.pts, follow.u);
-              gsap.set("#docA", { x: px - 540, y: py - 600 });
+              const k = (1 - follow.u) ** 2;
+              gsap.set("#docA", { x: px + off0[0] * k - 540, y: py + off0[1] * k - 600 });
             },
           },
           tr + 0.1,
         );
-        tl.to("#docA", { scale: 0.22, duration: 0.78, ease: "power2.in" }, tr + 0.1);
-        tl.to("#docA", { opacity: 0, duration: 0.18 }, tr + 0.72);
-        tl.to("#pRedirect", { strokeDashoffset: -LR, duration: 0.5, ease: "power2.in" }, tr + 0.7);
+        tl.to("#docA", { scale: 0.2, duration: 0.8, ease: "power2.in" }, tr + 0.1);
+        tl.to("#docA", { opacity: 0, duration: 0.16 }, tr + 0.76);
+        retractRail(red, tr + 0.82, 0.38);
         // the line lands on DoubleTick
         tl.to("#logoTop", { scale: 1.12, duration: 0.18, ease: "power2.out" }, tr + 0.86);
         tl.to("#logoTop", { scale: 1, duration: 0.45, ease: "back.out(2)" }, tr + 1.04);
@@ -2863,14 +2959,14 @@
           { x: 215 - 540, y: 20, scale: 0.55, opacity: 0.6, duration: 0.8, ease: "power3.inOut" },
           tdet + 0.1,
         );
-        // document comes forward (foreground)
-        const P0 = [470, 650],
-          P1 = [600, 720],
-          P2 = [700, 470],
-          P3 = [860, 556];
+        // the rail: phone → controlled workflow (one smooth curve, end to end)
+        const flow = rail("pFlow");
+        const U0 = 0.1;
+        const [fx0, fy0] = sampleAt(flow.pts, U0);
+        // document comes forward onto the rail (foreground)
         tl.to(
           "#docB",
-          { x: P0[0] - 540, y: P0[1] - 600, scale: 1.08, duration: 0.65, ease: "power3.out" },
+          { x: fx0 - 540, y: fy0 - 600, scale: 1.08, duration: 0.65, ease: "power3.out" },
           tdet + 0.12,
         );
         // institutional destination
@@ -2883,29 +2979,31 @@
           t5 + 0.25,
         );
         tl.to("#perimRect", { strokeDasharray: "6 7", duration: 0.01 }, t5 + 1.16);
-        const LF = drawPrep("pFlow");
-        tl.to("#pFlow", { strokeDashoffset: 0, duration: 0.85, ease: "power2.inOut" }, t5 + 0.3);
-        // travel along the bezier: foreground → centre → container
-        const bez = (u, a, b, c, d) =>
-          (1 - u) ** 3 * a + 3 * (1 - u) ** 2 * u * b + 3 * (1 - u) * u * u * c + u ** 3 * d;
-        const trav = { u: 0 };
-        const tt0 = t5 + 0.62;
+        drawRail(flow, t5 + 0.25, 0.9);
+        // the document rides the rail: foreground → centre → workflow edge → inside
+        const trav = { u: U0 };
+        const tt0 = t5 + 0.7;
         const tt1 = t5 + 3.42;
+        const tEdge = tt1 - 0.5;
         tl.to(
           trav,
           {
             u: 1,
-            duration: tt1 - tt0,
+            duration: tEdge - tt0,
             ease: "power1.inOut",
             onUpdate: () => {
               const u = trav.u;
-              const x = bez(u, P0[0], P1[0], P2[0], P3[0]);
-              const y = bez(u, P0[1], P1[1], P2[1], P3[1]);
-              const s = u < 0.5 ? 1.08 - 0.18 * (u / 0.5) : 0.9 - 0.3 * ((u - 0.5) / 0.5);
-              gsap.set("#docB", { x: x - 540, y: y - 600, scale: s });
+              const [x, y] = sampleAt(flow.pts, u);
+              const k = (u - U0) / (1 - U0);
+              gsap.set("#docB", { x: x - 540, y: y - 600, scale: 1.08 - 0.33 * k });
             },
           },
           tt0,
+        );
+        tl.to(
+          "#docB",
+          { x: 860 - 540, y: 556 - 600, scale: 0.62, duration: 0.5, ease: "power2.inOut" },
+          tEdge,
         );
         // 1. consent attaches
         gsap.set("#chipConsent", { y: -26, scale: 1.25 });
@@ -2937,20 +3035,38 @@
 
         // scene 06 — the RM phone is not the destination
         const t6 = t5 + 2.25;
-        tl.to("#rmPhone", { x: -220, y: 211.6, scale: 0.42, duration: 0.01 }, t6 - 0.1);
+        tl.to("#rmPhone", { x: -180, y: 211.6, scale: 0.42, duration: 0.01 }, t6 - 0.1);
         tl.to("#rmPhone", { opacity: 1, duration: 0.35, ease: "power2.out" }, t6);
-        drawPrep("pRoute");
-        tl.to("#pRoute", { opacity: 1, duration: 0.01 }, t6 + 0.25);
-        tl.to("#pRoute", { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, t6 + 0.25);
-        // ... disabled
-        tl.to("#pRoute", { stroke: "#B9B4AA", duration: 0.25 }, t6 + 0.75);
+        // a branch off the rail toward the RM phone — drawn, then switched off
+        const UB = 0.34;
+        const [bx, by] = sampleAt(flow.pts, UB);
+        const [tx, ty] = tangentAt(flow.pts, UB);
+        const rmTop = [640, 732];
+        $("#pRoute").setAttribute(
+          "d",
+          `M ${bx} ${by} C ${bx + tx * 70} ${by + ty * 70}, ${rmTop[0]} ${rmTop[1] - 70}, ${rmTop[0]} ${rmTop[1]}`,
+        );
+        const route = rail("pRoute");
+        tl.to(route.p, { opacity: 1, duration: 0.01 }, t6 + 0.2);
+        drawRail(route, t6 + 0.2, 0.45, "power2.out");
+        // ... disabled: grey, dashed, crossed
+        tl.to(route.p, { stroke: "#B9B4AA", duration: 0.25 }, t6 + 0.75);
+        tl.to([route.n0, route.n1], { fill: "#B9B4AA", duration: 0.25 }, t6 + 0.75);
+        tl.to(
+          route.p,
+          { strokeDasharray: "2 10", strokeDashoffset: 0, strokeWidth: 3, duration: 0.01 },
+          t6 + 0.75,
+        );
+        tl.to(route.glow, { opacity: 0, duration: 0.2 }, t6 + 0.75);
+        const rmid = route.pts[Math.floor(route.pts.length * 0.5)];
+        gsap.set("#routeX", { x: rmid[0] - 604, y: rmid[1] - 704 });
         gsap.set("#routeX", { scale: 0.5 });
         tl.to("#routeX", { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)" }, t6 + 0.75);
         tl.to("#rmPhone", { opacity: 0.45, duration: 0.3 }, t6 + 0.8);
-        gsap.set("#localNote", { x: -8 });
-        tl.to("#localNote", { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, t6 + 0.9);
+        gsap.set("#localNote", { x: 30 });
+        tl.to("#localNote", { opacity: 1, x: 38, duration: 0.35, ease: "power3.out" }, t6 + 0.9);
         // arrival in the controlled workflow
-        tl.to("#docB", { scale: 0.58, duration: 0.12, ease: "power2.in" }, tt1);
+        tl.to("#docB", { scale: 0.58, duration: 0.1, ease: "power2.in" }, tt1);
         tl.to("#docB", { scale: 0.6, duration: 0.3, ease: "back.out(3)" }, tt1 + 0.12);
         tl.to(
           "#wf .box",
@@ -2973,11 +3089,11 @@
           tl.to(el, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, tt1 + 0.2 + i * 0.12);
         });
         tl.to(
-          ["#rmPhone", "#pRoute", "#routeX", "#localNote"],
+          ["#rmPhone", route.p, route.n0, route.n1, "#routeX", "#localNote"],
           { opacity: 0, duration: 0.4 },
           t5 + 4.3,
         );
-        tl.to("#pFlow", { opacity: 0, duration: 0.4 }, t5 + 4.3);
+        retractRail(flow, t5 + 3.3, 0.6);
 
         // =================================================================
         // SCENE 07 — human handoff: context travels, the document stays   (29.3 → 33.5)
@@ -3055,9 +3171,20 @@
         tl.to(["#wf", "#docB", "#rm"], { opacity: 1, duration: 0.5 }, t8 + 0.1);
         tl.to("#rmStatus", { opacity: 0, duration: 0.3 }, t8);
         tl.to(["#lbCust", "#lbWf"], { opacity: 1, duration: 0.4 }, t8 + 0.45);
-        const LS = drawPrep("pSys");
-        tl.to("#pSys", { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, t8 + 0.35);
-        const sys = pathPts("pSys", 200);
+        const sysR = rail("pSys");
+        drawRail(sysR, t8 + 0.25, 0.6);
+        const sys = { pts: sysR.pts };
+        // a third node where the line meets the workflow
+        const nMid = sysR.n0.cloneNode();
+        const mid = sampleAt(sysR.pts, 0.5);
+        sysR.p.ownerSVGElement.appendChild(nMid);
+        gsap.set(nMid, {
+          attr: { cx: 540, cy: 404 },
+          opacity: 0,
+          scale: 0.3,
+          transformOrigin: "50% 50%",
+        });
+        tl.to(nMid, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)" }, t8 + 0.62);
         const pulse = (id, t, dir) => {
           const o = { u: 0 };
           tl.to(id, { opacity: 1, duration: 0.08 }, t);
@@ -3065,7 +3192,7 @@
             o,
             {
               u: 1,
-              duration: 0.55,
+              duration: 0.5,
               ease: "power1.inOut",
               onUpdate: () => {
                 const [x, y] = sampleAt(sys.pts, dir > 0 ? o.u : 1 - o.u);
@@ -3076,8 +3203,8 @@
           );
           tl.to(id, { opacity: 0, duration: 0.1 }, t + 0.5);
         };
-        pulse("#pulse1", t8 + 0.62, 1);
-        pulse("#pulse2", t8 + 1.0, -1);
+        pulse("#pulse1", t8 + 0.7, 1);
+        pulse("#pulse2", t8 + 0.92, -1);
         gsap.set(["#pulse1", "#pulse2"], { attr: { cx: sys.pts[0][0], cy: sys.pts[0][1] } });
 
         // =================================================================
@@ -3091,20 +3218,33 @@
         );
         tl.to("#phone", { scale: 0.46, duration: 0.4, ease: "power2.in" }, t9 - 0.05);
         tl.to("#wf", { scale: 0.94, duration: 0.4, ease: "power2.in" }, t9 - 0.05);
+        // the connecting line curves into a large check, then resolves into the logo mark
+        tl.to(
+          [sysR.n0, sysR.n1, nMid, sysR.glow],
+          { opacity: 0, scale: 0.3, duration: 0.25 },
+          t9 - 0.05,
+        );
+        const BIG_TICK = "M 333 550 C 366 582, 398 614, 431 646 C 503 575, 576 504, 648 433";
         const V_TICK =
           "M 297.2 540.9 C 306.4 549.9, 315.5 558.8, 324.7 567.8 C 344.9 547.9, 365.2 528.0, 385.4 508.1";
+        tl.to(sysR.p, { strokeLinecap: "butt", strokeLinejoin: "miter", duration: 0.01 }, t9);
         tl.to(
-          "#pSys",
-          { attr: { d: V_TICK }, strokeWidth: 11, duration: 0.7, ease: "power3.inOut" },
-          t9 + 0.1,
+          sysR.p,
+          { attr: { d: BIG_TICK }, strokeWidth: 30, duration: 0.5, ease: "power3.inOut" },
+          t9,
+        );
+        tl.to(
+          sysR.p,
+          { attr: { d: V_TICK }, strokeWidth: 11, duration: 0.4, ease: "power3.inOut" },
+          t9 + 0.5,
         );
         gsap.set("#logoBig", { clipPath: "inset(0% 76.5% 0% 0%)" });
-        tl.to("#logoBig", { opacity: 1, duration: 0.15 }, t9 + 0.72);
-        tl.to("#pSys", { opacity: 0, duration: 0.2 }, t9 + 0.8);
+        tl.to("#logoBig", { opacity: 1, duration: 0.12 }, t9 + 0.84);
+        tl.to(sysR.p, { opacity: 0, duration: 0.15 }, t9 + 0.9);
         tl.to(
           "#logoBig",
-          { clipPath: "inset(0% 0% 0% 0%)", duration: 0.55, ease: "power3.out" },
-          t9 + 0.8,
+          { clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "power3.out" },
+          t9 + 0.9,
         );
         // logo settles at the top for the CTA
         const t10 = V[7];
