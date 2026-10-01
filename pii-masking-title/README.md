@@ -29,3 +29,14 @@ Nothing else was changed:
 5. **`scripts/composite.py`.** Places the new text over the clean plate. ffmpeg then joins the result to the untouched intro and copies the original audio.
 
 To align the 2 lines with the bottom of the original 3-line block instead of the top, render with `--variables '{"anchor":"bottom"}'`.
+
+## Extended original (+2s hold)
+
+`doubletick-mcp-original-extended-9s.mp4` is the uploaded original ("How to connect DoubleTick with Claude via MCP server?") lengthened from 7s to 9s:
+
+- **Frames 0–167:** unchanged from the source.
+- **Frames 168–215 (2s), video:** the title and logo stay where they are while the background glows keep moving. The glows come from the clean plate on an eased time curve that drifts and settles, so they never freeze or jump. The source's own text pixels are kept (`scripts/extend_hold.py`).
+- **Audio:**
+  - Exactly one bar (1.882s, about 127 BPM) is repeated at 6.355s. The splice sits in the micro-gap just before a beat, with a 10ms equal-power crossfade.
+  - The copied bar starts after the 4.1s transition hit, so that sound isn't repeated.
+  - The track's original ending then plays out at about 8.55s, and the clip runs in silence until 9s.
