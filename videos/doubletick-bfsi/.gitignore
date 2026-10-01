@@ -1,0 +1,7 @@
+node_modules/
+.scratch/
+.hyperframes/
+snapshots/
+renders/*
+!renders/DoubleTick_BFSI_Intent_to_Action_1080x1080.mp4
+__pycache__/

@@ -1,0 +1,2071 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>DoubleTick BFSI — Intent to Action</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        font-style: normal;
+        font-weight: 400;
+        font-display: block;
+        src: url("assets/fonts/HedvigLettersSerif-latin-5.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        font-style: normal;
+        font-weight: 400;
+        font-display: block;
+        src: url("assets/fonts/HedvigLettersSerif-latin-ext-4.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Geist";
+        font-style: normal;
+        font-weight: 400 600;
+        font-display: block;
+        src: url("assets/fonts/Geist-latin-1.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: "Geist";
+        font-style: normal;
+        font-weight: 400 600;
+        font-display: block;
+        src: url("assets/fonts/Geist-latin-ext-0.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Geist Mono";
+        font-style: normal;
+        font-weight: 400 500;
+        font-display: block;
+        src: url("assets/fonts/GeistMono-latin-3.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: "Geist Mono";
+        font-style: normal;
+        font-weight: 400 500;
+        font-display: block;
+        src: url("assets/fonts/GeistMono-latin-ext-2.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      :root {
+        --paper: #f5f3ee;
+        --white: #ffffff;
+        --ink: #1b211f;
+        --ink-2: #4a514e;
+        --grey: #5f6662;
+        --hair: #d8d5cd;
+        --night: #0f1412;
+        --green: #27b177; /* DoubleTick green, sampled from the official logo */
+        --green-deep: #0f7446; /* text-safe green for small text */
+        --green-lg: #13804f; /* large-text green on paper */
+        --green-soft: #e3f4ea;
+        --amber: #a8681c;
+        --amber-soft: #f6ead6;
+        --wa-chat: #efeae2;
+        --wa-out: #d9fdd3;
+        --wa-teal: #00705c;
+        --wa-tick: #53bdeb;
+        --wa-badge: #1d8cf8;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--paper);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--paper);
+        font-family: "Geist", sans-serif;
+        color: var(--ink);
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+      .abs {
+        position: absolute;
+      }
+      /* zero-size anchor: children centre on the anchor point */
+      .anchor {
+        position: absolute;
+        width: 0;
+        height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .anchor > * {
+        flex: none;
+      }
+      .serif {
+        font-family: "Hedvig Letters Serif", serif;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+      }
+      .mono {
+        font-family: "Geist Mono", monospace;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .headline {
+        position: absolute;
+        font-family: "Hedvig Letters Serif", serif;
+        line-height: 1.06;
+        letter-spacing: -0.025em;
+        color: var(--ink);
+      }
+      .ln {
+        display: block;
+        overflow: hidden;
+        padding-bottom: 0.1em;
+        margin-bottom: -0.1em;
+      }
+      .ln > span {
+        display: inline-block;
+      }
+      .g {
+        color: var(--green-deep);
+      }
+
+      /* ---------- persistent canvas ---------- */
+      #bg {
+        position: absolute;
+        inset: 0;
+        background: var(--paper);
+        overflow: hidden;
+      }
+      #grid {
+        position: absolute;
+        inset: -60px;
+        background-image:
+          linear-gradient(rgba(27, 33, 31, 0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(27, 33, 31, 0.045) 1px, transparent 1px);
+        background-size: 60px 60px;
+      }
+      #glow {
+        position: absolute;
+        left: 120px;
+        top: 80px;
+        width: 900px;
+        height: 900px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 65%);
+      }
+      #logoTop,
+      #logoTopLight {
+        position: absolute;
+        left: 472px;
+        top: 44px;
+        width: 136px;
+        height: auto;
+        z-index: 50;
+      }
+      #logoTopLight {
+        opacity: 0;
+      }
+
+      /* ---------- subtitles ---------- */
+      .sub {
+        z-index: 60;
+      }
+      p.sub {
+        position: absolute;
+        inset: auto 70px 46px 70px;
+        top: auto;
+        z-index: 60;
+        font-family: "Geist", sans-serif;
+        font-weight: 500;
+        font-size: 46px;
+        line-height: 1.24;
+        letter-spacing: -0.012em;
+        text-align: center;
+        color: var(--ink);
+      }
+      .sub.dark {
+        color: #f4f2ec;
+      }
+      .sub b {
+        font-weight: 500;
+        color: var(--green-lg);
+      }
+      .sub.dark b {
+        color: #5fd39c;
+      }
+
+      /* ---------- scene 1/2 : funnel ---------- */
+      #world {
+        position: absolute;
+        inset: 0;
+      }
+      #world {
+        -webkit-mask-image: linear-gradient(180deg, transparent 0, transparent 318px, #000 430px);
+        mask-image: linear-gradient(180deg, transparent 0, transparent 318px, #000 430px);
+      }
+      #world svg {
+        position: absolute;
+        inset: 0;
+        overflow: visible;
+      }
+      .chip {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 38px;
+        padding: 0 16px;
+        border-radius: 19px;
+        font-family: "Geist", sans-serif;
+        font-weight: 500;
+        font-size: 19px;
+        white-space: nowrap;
+        background: var(--white);
+        color: var(--ink);
+        box-shadow:
+          0 1px 0 rgba(27, 33, 31, 0.06),
+          0 6px 18px rgba(27, 33, 31, 0.08);
+      }
+      .chip.green {
+        background: var(--green-soft);
+        color: var(--green-deep);
+      }
+      .chip.solid {
+        background: var(--green-deep);
+        color: #fff;
+      }
+      .chip .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      /* ---------- scene 3 : drop-offs ---------- */
+      .icoCircle {
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        background: var(--white);
+        border: 2px solid var(--ink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(27, 33, 31, 0.08);
+      }
+      .ring {
+        position: absolute;
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        border: 2px solid var(--green);
+      }
+      .colLabel {
+        width: 220px;
+        text-align: center;
+      }
+      .colLabel .t {
+        font-family: "Geist", sans-serif;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 1.15;
+        color: var(--ink);
+      }
+      .colLabel .s {
+        margin-top: 8px;
+        font-family: "Geist Mono", monospace;
+        font-size: 15px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--grey);
+      }
+      .bar {
+        width: 196px;
+        height: 14px;
+        border-radius: 7px;
+        background: #e2dfd7;
+        overflow: hidden;
+        position: relative;
+      }
+      .bar i {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 196px;
+        height: 14px;
+        border-radius: 7px;
+        background: var(--green);
+        transform-origin: 0 50%;
+      }
+      .doc {
+        width: 104px;
+        height: 132px;
+        border-radius: 12px;
+        background: var(--white);
+        border: 2px solid var(--ink);
+        position: relative;
+        box-shadow: 0 10px 30px rgba(27, 33, 31, 0.08);
+      }
+      .doc .l {
+        position: absolute;
+        left: 18px;
+        height: 6px;
+        border-radius: 3px;
+        background: #d9d6ce;
+      }
+      .statusChip {
+        height: 30px;
+        padding: 0 12px;
+        border-radius: 15px;
+        font-family: "Geist Mono", monospace;
+        font-size: 14px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+      .statusChip.amber {
+        background: var(--amber-soft);
+        color: var(--amber);
+      }
+      .statusChip.green {
+        background: var(--green-soft);
+        color: var(--green-deep);
+      }
+      .morpher {
+        position: absolute;
+        background: var(--white);
+        border: 2px solid var(--ink);
+      }
+
+      /* ---------- WhatsApp card ---------- */
+      #cardWrap {
+        position: absolute;
+        left: 56px;
+        top: 150px;
+        width: 500px;
+        height: 730px;
+      }
+      #card {
+        position: absolute;
+        inset: 0;
+        border-radius: 34px;
+        overflow: hidden;
+        background: var(--wa-chat);
+        box-shadow:
+          0 2px 0 rgba(27, 33, 31, 0.04),
+          0 30px 70px rgba(27, 33, 31, 0.16);
+        font-family: "Geist", sans-serif;
+      }
+      .wa-head {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 88px;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        padding: 0 18px 0 14px;
+        gap: 12px;
+        border-bottom: 1px solid #e9e6df;
+        z-index: 3;
+      }
+      .wa-av {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #1e3a64;
+        color: #fff;
+        font-weight: 600;
+        font-size: 15px;
+        letter-spacing: 0.02em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      .wa-name {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 600;
+        font-size: 22px;
+        color: #111b21;
+      }
+      .wa-sub {
+        position: relative;
+        height: 20px;
+        margin-top: 3px;
+        font-size: 15.5px;
+        color: #54656f;
+        white-space: nowrap;
+      }
+      .wa-sub span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .wa-chat {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 88px;
+        bottom: 70px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 0 16px 10px;
+        overflow: hidden;
+        background-color: var(--wa-chat);
+        background-image: radial-gradient(rgba(0, 0, 0, 0.035) 1.2px, transparent 1.3px);
+        background-size: 22px 22px;
+      }
+      .m {
+        display: grid;
+        grid-template-rows: 0fr;
+      }
+      .m > .mi {
+        min-height: 0;
+        overflow: hidden;
+      }
+      .row {
+        display: flex;
+        padding-top: 8px;
+      }
+      .row.out {
+        justify-content: flex-end;
+      }
+      .row.center {
+        justify-content: center;
+      }
+      .bub {
+        max-width: 384px;
+        padding: 9px 12px 8px;
+        border-radius: 12px;
+        font-size: 20.5px;
+        line-height: 1.32;
+        color: #111b21;
+        background: #ffffff;
+        box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+        position: relative;
+      }
+      .row.out .bub {
+        background: var(--wa-out);
+      }
+      .bub .meta {
+        float: right;
+        margin: 8px 0 -4px 12px;
+        font-size: 13px;
+        color: #54626a;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+      }
+      .bub .who {
+        font-size: 15.5px;
+        font-weight: 600;
+        color: #1a6a93;
+        margin-bottom: 2px;
+      }
+      .bub .who.ai {
+        color: #0b6a4d;
+      }
+      .btns {
+        margin-top: 4px;
+        width: 330px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .btn {
+        height: 44px;
+        border-radius: 10px;
+        background: #ffffff;
+        color: var(--wa-teal);
+        font-size: 19px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+        position: relative;
+        overflow: hidden;
+      }
+      .btn .press {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 128, 105, 0.14);
+        opacity: 0;
+      }
+      .sys {
+        padding: 6px 12px;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #54656f;
+        font-size: 15.5px;
+        box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .sys.yellow {
+        background: #fff6d6;
+        color: #5c4a14;
+      }
+      .typing {
+        display: flex;
+        gap: 5px;
+        padding: 14px 16px;
+      }
+      .typing i {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #8696a0;
+      }
+      .wa-compose {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 12px;
+        background: var(--wa-chat);
+      }
+      .wa-input {
+        flex: 1;
+        height: 48px;
+        border-radius: 24px;
+        background: #fff;
+        color: #66737b;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        padding: 0 18px;
+      }
+      .wa-mic {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #00a884;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #callOverlay {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        background: linear-gradient(180deg, #0b141a 0%, #111d24 100%);
+        clip-path: circle(0px at 250px 640px);
+        color: #e9edef;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #callOverlay .enc {
+        margin-top: 46px;
+        font-size: 14px;
+        color: #8696a0;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      #callOverlay .cav {
+        margin-top: 48px;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #1e3a64;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 30px;
+        color: #fff;
+      }
+      #callOverlay .cname {
+        margin-top: 22px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 28px;
+        font-weight: 600;
+      }
+      #callOverlay .crole {
+        margin-top: 6px;
+        font-size: 17px;
+        color: #8696a0;
+      }
+      #callOverlay .ctime {
+        margin-top: 10px;
+        font-family: "Geist Mono", monospace;
+        font-size: 18px;
+        color: #e9edef;
+      }
+      #wave {
+        margin-top: 46px;
+        height: 90px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      #wave i {
+        display: block;
+        width: 6px;
+        height: 90px;
+        border-radius: 3px;
+        background: #25d366;
+      }
+      #callOverlay .cbtns {
+        position: absolute;
+        bottom: 48px;
+        display: flex;
+        gap: 34px;
+      }
+      #callOverlay .cb {
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        background: #233138;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #callOverlay .cb.end {
+        background: #ea0038;
+      }
+
+      /* ---------- right column copy ---------- */
+      .rcol {
+        position: absolute;
+        left: 612px;
+        width: 420px;
+      }
+      .statusRow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Geist Mono", monospace;
+        font-size: 15px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ink-2);
+        height: 30px;
+      }
+      .statusRow i {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+      }
+      .small {
+        font-family: "Geist", sans-serif;
+        font-weight: 500;
+        font-size: 21px;
+        color: var(--ink-2);
+      }
+      .node {
+        border-radius: 50%;
+        background: var(--white);
+        border: 2px solid var(--ink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 24px rgba(27, 33, 31, 0.08);
+      }
+      .nodeLabel {
+        font-family: "Geist", sans-serif;
+        font-weight: 500;
+        font-size: 22px;
+        color: var(--ink);
+        white-space: nowrap;
+        text-align: center;
+      }
+      .nodeSub {
+        font-family: "Geist Mono", monospace;
+        font-size: 14px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--green-deep);
+        white-space: nowrap;
+        text-align: center;
+      }
+
+      /* ---------- outcomes (dark) ---------- */
+      #nightFill {
+        position: absolute;
+        left: 940px;
+        top: 570px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--night);
+      }
+      .bigline {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        text-align: center;
+        font-family: "Hedvig Letters Serif", serif;
+        font-size: 104px;
+        line-height: 1.02;
+        letter-spacing: -0.03em;
+        color: #f4f2ec;
+      }
+      #paperWipe {
+        position: absolute;
+        inset: 0;
+        background: var(--paper);
+        clip-path: circle(0px at 540px 700px);
+      }
+
+      /* ---------- CTA ---------- */
+      #cta-btn {
+        height: 92px;
+        padding: 0 50px;
+        border-radius: 46px;
+        background: var(--green-deep);
+        color: #ffffff;
+        font-family: "Geist", sans-serif;
+        font-weight: 600;
+        font-size: 34px;
+        letter-spacing: -0.01em;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        white-space: nowrap;
+        box-shadow: 0 18px 40px rgba(19, 128, 79, 0.28);
+        position: relative;
+        overflow: hidden;
+      }
+      #cta-shine {
+        position: absolute;
+        top: -20px;
+        left: -120px;
+        width: 90px;
+        height: 140px;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0));
+        transform: rotate(18deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="47"
+      data-width="1080"
+      data-height="1080"
+      data-fps="30"
+    >
+      <!-- persistent canvas -->
+      <div id="bg">
+        <div id="grid"></div>
+        <div id="glow"></div>
+      </div>
+
+      <!-- ================= SCENE 1–2 : funnel / losing intent ================= -->
+      <section id="s-funnel" class="clip" data-start="0" data-duration="6.6" data-track-index="1">
+        <div id="world">
+          <svg id="funnelSvg" width="1080" height="1080" viewBox="0 0 1080 1080">
+            <g id="guides" fill="none" stroke="#cfcbc2" stroke-width="1.6"></g>
+            <path id="trail" fill="none" stroke="#27b177" stroke-width="3.2" stroke-linecap="round" />
+            <g id="greyDots" fill="#a6aaa5"></g>
+            <circle id="convRing" cx="0" cy="0" r="30" fill="#ffffff" stroke="#bdb9b0" stroke-width="2" />
+            <circle id="convCore" cx="0" cy="0" r="7" fill="#d6d3cb" />
+            <g id="frags" stroke="#27b177" stroke-width="3.2" stroke-linecap="round" opacity="0">
+              <line id="frag1" x1="0" y1="0" x2="0" y2="0" />
+              <line id="frag2" x1="0" y1="0" x2="0" y2="0" />
+            </g>
+            <circle id="dotHalo" cx="0" cy="0" r="16" fill="#27b177" opacity="0" />
+            <circle id="dotHalo2" cx="0" cy="0" r="16" fill="none" stroke="#27b177" stroke-width="2" opacity="0" />
+            <circle id="greenDot" cx="0" cy="0" r="12" fill="#27b177" />
+          </svg>
+          <div id="convLabelA" class="anchor" style="left: 0; top: 0"><div id="convLabel" class="mono" style="font-size: 14px; color: #5f6662">Conversion</div></div>
+          <div id="intentChipA" class="anchor" style="left: 0; top: 0"><div id="intentChip" class="chip green"><span class="dot"></span>High intent</div></div>
+          <div id="hereA" class="anchor" style="left: 0; top: 0; justify-content: flex-start">
+            <div id="hereWord" class="serif" style="font-size: 76px; line-height: 1; color: var(--ink); padding-left: 40px">here.</div>
+          </div>
+        </div>
+        <div id="h1" class="headline" style="left: 80px; top: 128px; font-size: 74px">
+          <span class="ln"><span>Your next customer</span></span>
+          <span class="ln"><span>may already be</span></span>
+        </div>
+        <div id="h2" class="headline" style="left: 80px; top: 128px; font-size: 74px">
+          <span class="ln"><span id="h2a">Intent is there.</span></span>
+          <span class="ln"><span id="h2b">Conversion isn't.</span></span>
+        </div>
+      </section>
+
+      <!-- ================= SCENE 3 : four drop-offs ================= -->
+      <section id="s-drop" class="clip" data-start="5.7" data-duration="7.2" data-track-index="2">
+        <svg id="colSvg" class="abs" style="left: 0; top: 0; overflow: visible" width="1080" height="1080" viewBox="0 0 1080 1080"></svg>
+        <div id="morph" class="morpher" style="opacity: 0; left: 0; top: 0"></div>
+
+        <!-- col 1: missed call -->
+        <div id="c1" class="anchor" style="left: 180px; top: 470px">
+          <div id="c1ring1" class="ring" style="opacity: 0"></div>
+          <div id="c1ring2" class="ring" style="opacity: 0"></div>
+          <div id="c1ico" class="icoCircle">
+            <svg width="54" height="54" viewBox="0 0 24 24">
+              <path
+                id="c1glyph"
+                fill="#1b211f"
+                d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.6 21 3 13.4 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="anchor" style="left: 180px; top: 600px">
+          <div id="c1lab" class="colLabel"><div class="t">Missed call</div><div class="s">No answer</div></div>
+        </div>
+
+        <!-- col 2: abandoned application -->
+        <div id="c2" class="anchor" style="left: 420px; top: 470px">
+          <div id="c2box" style="position: relative; width: 196px; height: 110px">
+            <div id="c2pct" class="abs" style="left: 0; right: 0; top: 0; text-align: center; font-family: 'Geist Mono', monospace; font-size: 46px; font-weight: 500; color: var(--ink)">68%</div>
+            <div class="bar abs" style="left: 0; top: 76px"><i id="c2fill"></i></div>
+          </div>
+        </div>
+        <div class="anchor" style="left: 420px; top: 600px">
+          <div id="c2lab" class="colLabel"><div class="t">Application abandoned</div><div class="s">Stalled at 72%</div></div>
+        </div>
+
+        <!-- col 3: pending document -->
+        <div id="c3" class="anchor" style="left: 660px; top: 470px">
+          <div id="c3doc" class="doc">
+            <div class="l" style="top: 26px; width: 50px; background: #b9b6ad"></div>
+            <div class="l" style="top: 46px; width: 66px"></div>
+            <div class="l" style="top: 62px; width: 58px"></div>
+            <div class="l" style="top: 78px; width: 66px"></div>
+            <div id="c3up" class="abs" style="right: -16px; bottom: -14px; width: 40px; height: 40px; border-radius: 50%; background: var(--amber-soft); border: 2px solid #ffffff; display: flex; align-items: center; justify-content: center">
+              <svg width="20" height="20" viewBox="0 0 24 24"><path id="c3arrow" d="M12 19V6M6 11l6-6 6 6" fill="none" stroke="#a8681c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </div>
+          </div>
+        </div>
+        <div class="anchor" style="left: 660px; top: 600px">
+          <div id="c3lab" class="colLabel"><div class="t">Pending document</div><div class="s">Awaiting upload</div></div>
+        </div>
+
+        <!-- col 4: delayed follow-up -->
+        <div id="c4" class="anchor" style="left: 900px; top: 470px">
+          <div id="c4ico" class="icoCircle" style="position: relative">
+            <svg width="128" height="128" viewBox="0 0 128 128" class="abs" style="left: -2px; top: -2px">
+              <g stroke="#1b211f" stroke-width="3" stroke-linecap="round">
+                <line x1="64" y1="22" x2="64" y2="28" />
+                <line x1="106" y1="64" x2="100" y2="64" />
+                <line x1="64" y1="106" x2="64" y2="100" />
+                <line x1="22" y1="64" x2="28" y2="64" />
+                <line id="c4hour" x1="64" y1="64" x2="64" y2="44" stroke-width="4" />
+                <line id="c4min" x1="64" y1="64" x2="64" y2="34" />
+              </g>
+              <circle cx="64" cy="64" r="4.5" fill="#1b211f" />
+            </svg>
+          </div>
+        </div>
+        <div class="anchor" style="left: 900px; top: 600px">
+          <div id="c4lab" class="colLabel"><div class="t">Delayed follow-up</div><div class="s" id="c4s">Callback · 4:30 PM</div></div>
+        </div>
+        <div class="anchor" style="left: 900px; top: 388px">
+          <div id="c4over" class="statusChip amber" style="opacity: 0">Overdue</div>
+        </div>
+        <div class="anchor" style="left: 660px; top: 388px">
+          <div id="c3pend" class="statusChip amber" style="opacity: 0">Pending</div>
+        </div>
+
+        <div id="h3" class="headline" style="left: 0; right: 0; top: 140px; text-align: center; font-size: 66px">
+          <span class="ln"><span>Different drop-offs.</span></span>
+          <span class="ln"><span>Same lost intent.</span></span>
+        </div>
+      </section>
+
+      <!-- ================= SCENE 4–6 : WhatsApp + AI + RM ================= -->
+      <section id="s-wa" class="clip" data-start="11.9" data-duration="17.5" data-track-index="3">
+        <svg id="convSvg" class="abs" style="left: 0; top: 0; overflow: visible" width="1080" height="1080" viewBox="0 0 1080 1080">
+          <g id="convPaths" fill="none" stroke-width="2.4" stroke-linecap="round"></g>
+          <g id="convEnds"></g>
+          <!-- RM handoff journey -->
+          <line id="rmTrack" x1="170" y1="600" x2="860" y2="600" stroke="#cfcbc2" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round" opacity="0" />
+          <line id="rmLine" x1="170" y1="600" x2="860" y2="600" stroke="#27b177" stroke-width="3" stroke-linecap="round" />
+        </svg>
+
+        <!-- notification seed -->
+        <div class="anchor" style="left: 540px; top: 640px">
+          <div id="notif" style="width: 84px; height: 84px; border-radius: 26px; background: var(--green); display: flex; align-items: center; justify-content: center; box-shadow: 0 14px 34px rgba(39, 177, 119, 0.35); position: relative; opacity: 0">
+            <svg width="46" height="46" viewBox="0 0 24 24">
+              <path fill="#ffffff" d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" />
+              <path fill="#27b177" d="M9.2 8.1c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.9 4.5 3.9 2.2.9 2.7.7 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3l-1.7-.8c-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.3-.1-1.1-.4-2-1.3-.7-.7-1.2-1.5-1.4-1.7-.1-.3 0-.4.1-.5l.4-.5.3-.4c.1-.2 0-.3 0-.5l-.7-1.8z" />
+            </svg>
+            <div style="position: absolute; right: -8px; top: -8px; width: 28px; height: 28px; border-radius: 50%; background: #ffffff; color: var(--green-deep); font-weight: 600; font-size: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12)">1</div>
+          </div>
+        </div>
+
+        <div id="custTag" class="abs mono" style="left: 64px; top: 112px; font-size: 14px; color: var(--grey); display: flex; align-items: center; gap: 8px">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: block"></span>Ananya Sharma · Mumbai
+        </div>
+
+        <div id="cardWrap">
+          <div id="card">
+            <div class="wa-head">
+              <svg width="22" height="22" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="#54656f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              <div class="wa-av">ABC</div>
+              <div style="flex: 1; min-width: 0">
+                <div class="wa-name">ABC Bank <svg class="badge" width="20" height="20" viewBox="0 0 24 24"></svg></div>
+                <div class="wa-sub">
+                  <span id="sub0">Business account</span>
+                  <span id="sub1" style="opacity: 0; color: #0b6a4d"
+                    ><svg width="15" height="15" viewBox="0 0 24 24"><path fill="#0b6a4d" d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9z" /></svg>AI Assistant</span
+                  >
+                  <span id="sub2" style="opacity: 0; color: #1a6a93">Rohan · Relationship Manager</span>
+                </div>
+              </div>
+              <svg width="24" height="24" viewBox="0 0 24 24" style="margin-right: 14px"><path fill="#54656f" d="M15 8v8H5V8h10m1-2H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4V7a1 1 0 0 0-1-1z" /></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24"><path fill="#54656f" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.6 21 3 13.4 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" /></svg>
+            </div>
+
+            <div class="wa-chat" id="chat">
+              <div class="row center" style="padding-top: 0; padding-bottom: 2px"><div class="sys" style="font-size: 14px">Today</div></div>
+              <div class="m" id="m1">
+                <div class="mi">
+                  <div class="row"><div class="bub">Hi Ananya, looks like your application is still incomplete.<span class="meta">6:42 PM</span></div></div>
+                </div>
+              </div>
+              <div class="m" id="m2">
+                <div class="mi">
+                  <div class="row"><div class="bub" style="min-width: 330px">Would you like to continue?<span class="meta">6:42 PM</span></div></div>
+                  <div class="btns">
+                    <div class="btn"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M9 14l-4-4 4-4M5 10h9a5 5 0 0 1 0 10h-2" fill="none" stroke="#008069" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Continue application</div>
+                    <div class="btn" id="btnHelp"><div class="press" id="pressHelp"></div><svg width="18" height="18" viewBox="0 0 24 24"><path d="M9 14l-4-4 4-4M5 10h9a5 5 0 0 1 0 10h-2" fill="none" stroke="#008069" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Need help</div>
+                    <div class="btn"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M9 14l-4-4 4-4M5 10h9a5 5 0 0 1 0 10h-2" fill="none" stroke="#008069" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Talk to us</div>
+                  </div>
+                </div>
+              </div>
+              <div class="m" id="m3">
+                <div class="mi">
+                  <div class="row out"><div class="bub">Can I still continue my application?<span class="meta">6:44 PM <svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 6.5l3 3 6-7M7 9.5l1 0.8 6-7.3" fill="none" stroke="#53bdeb" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div></div>
+                </div>
+              </div>
+              <div class="m" id="mTyping">
+                <div class="mi">
+                  <div class="row"><div class="bub typing"><i id="ty1"></i><i id="ty2"></i><i id="ty3"></i></div></div>
+                </div>
+              </div>
+              <div class="m" id="m4">
+                <div class="mi">
+                  <div class="row"><div class="bub"><div class="who ai">AI Assistant</div>Yes. I can help you continue from where you stopped.<span class="meta">6:44 PM</span></div></div>
+                </div>
+              </div>
+              <div class="m" id="m5">
+                <div class="mi">
+                  <div class="row"><div class="bub" style="min-width: 330px">What do you need?<span class="meta">6:44 PM</span></div></div>
+                  <div class="btns">
+                    <div class="btn" id="btnPL"><div class="press" id="pressPL"></div>Personal Loan</div>
+                    <div class="btn">Home Loan</div>
+                    <div class="btn">Other</div>
+                  </div>
+                </div>
+              </div>
+              <div class="m" id="m6">
+                <div class="mi">
+                  <div class="row out"><div class="bub">Personal Loan<span class="meta">6:44 PM <svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 6.5l3 3 6-7M7 9.5l1 0.8 6-7.3" fill="none" stroke="#53bdeb" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div></div>
+                </div>
+              </div>
+              <div class="m" id="m7">
+                <div class="mi">
+                  <div class="row"><div class="bub">Approx. amount?<span class="meta">6:45 PM</span></div></div>
+                </div>
+              </div>
+              <div class="m" id="m8">
+                <div class="mi">
+                  <div class="row out"><div class="bub">₹8L<span class="meta">6:45 PM <svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 6.5l3 3 6-7M7 9.5l1 0.8 6-7.3" fill="none" stroke="#53bdeb" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div></div>
+                </div>
+              </div>
+              <div class="m" id="m9">
+                <div class="mi">
+                  <div class="row"><div class="bub" style="min-width: 330px">Need to talk instead?<span class="meta">6:45 PM</span></div></div>
+                  <div class="btns">
+                    <div class="btn" id="btnCall"><div class="press" id="pressCall"></div><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#008069" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.6 21 3 13.4 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" /></svg>Call AI Assistant</div>
+                  </div>
+                </div>
+              </div>
+              <div class="m" id="m10">
+                <div class="mi">
+                  <div class="row center">
+                    <div class="sys"><svg width="15" height="15" viewBox="0 0 24 24"><path fill="#54656f" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.6 21 3 13.4 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" /></svg>Voice call · 00:12</div>
+                  </div>
+                </div>
+              </div>
+              <div class="m" id="m11">
+                <div class="mi">
+                  <div class="row"><div class="bub"><div class="who ai">AI Assistant</div>Noted: you need it this month.<span class="meta">6:46 PM</span></div></div>
+                  <div class="row center" style="padding-top: 6px"><div class="sys" style="font-size: 14px; color: #0b6a4d">✓ Conversation updated</div></div>
+                </div>
+              </div>
+              <div class="m" id="m12">
+                <div class="mi">
+                  <div class="row center"><div class="sys yellow">Rohan joined the conversation</div></div>
+                </div>
+              </div>
+              <div class="m" id="m13">
+                <div class="mi">
+                  <div class="row"><div class="bub"><div class="who">Rohan · RM</div>Hi Ananya, I have your application details. Let me help you with the next step.<span class="meta">6:47 PM</span></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="wa-compose">
+              <div class="wa-input">Message</div>
+              <div class="wa-mic">
+                <svg width="22" height="22" viewBox="0 0 24 24"><path fill="#ffffff" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-2.1a7 7 0 0 0 6-6.9h-2z" /></svg>
+              </div>
+            </div>
+
+            <div id="callOverlay" data-layout-allow-overlap>
+              <div class="enc" data-layout-allow-overlap><svg width="12" height="12" viewBox="0 0 24 24"><path fill="#8696a0" d="M17 9V7a5 5 0 0 0-10 0v2H5v12h14V9h-2zM9 7a3 3 0 0 1 6 0v2H9V7z" /></svg>End-to-end encrypted</div>
+              <div class="cav" data-layout-allow-overlap>ABC</div>
+              <div class="cname" data-layout-allow-overlap>ABC Bank <svg class="badge" width="24" height="24" viewBox="0 0 24 24"></svg></div>
+              <div class="crole" data-layout-allow-overlap>AI Assistant · WhatsApp voice call</div>
+              <div class="ctime" id="ctime" data-layout-allow-overlap>00:11</div>
+              <div id="wave"></div>
+              <div class="cbtns">
+                <div class="cb"><svg width="26" height="26" viewBox="0 0 24 24"><path fill="#e9edef" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-2.1a7 7 0 0 0 6-6.9h-2z" /></svg></div>
+                <div class="cb end"><svg width="28" height="28" viewBox="0 0 24 24"><path fill="#ffffff" d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85a1 1 0 0 1-1.41-.02L.29 13.08a1 1 0 0 1 0-1.41C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67a1 1 0 0 1 0 1.41l-2.48 2.48a1 1 0 0 1-1.41.02 11.3 11.3 0 0 0-2.67-1.85 1 1 0 0 1-.56-.9v-3.1A15.3 15.3 0 0 0 12 9z" /></svg></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- thread node (card collapsed) -->
+        <div class="anchor" style="left: 170px; top: 600px">
+          <div id="threadNode" class="node" style="width: 76px; height: 76px; border-color: var(--green); opacity: 0">
+            <svg width="34" height="34" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="#13804f" stroke-width="2" stroke-linejoin="round" /><path d="M8 9h8M8 12h5" stroke="#13804f" stroke-width="2" stroke-linecap="round" /></svg>
+          </div>
+        </div>
+        <div class="anchor" style="left: 170px; top: 668px"><div id="threadLab" class="nodeSub" style="opacity: 0; color: var(--grey)">Same thread</div></div>
+
+        <!-- RM node -->
+        <div class="anchor" style="left: 860px; top: 600px">
+          <div id="rmNode" class="node" style="width: 112px; height: 112px; opacity: 0; position: relative">
+            <svg width="56" height="56" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4" fill="none" stroke="#1b211f" stroke-width="1.8" /><path d="M4.5 20c.8-3.7 3.9-6 7.5-6s6.7 2.3 7.5 6" fill="none" stroke="#1b211f" stroke-width="1.8" stroke-linecap="round" /></svg>
+          </div>
+        </div>
+        <div class="anchor" style="left: 860px; top: 600px"><div id="rmRing" class="ring" style="width: 112px; height: 112px; opacity: 0; border-width: 3px"></div></div>
+        <div class="anchor" style="left: 860px; top: 690px">
+          <div id="rmLab" style="opacity: 0; display: flex; align-items: center; gap: 10px">
+            <span class="nodeLabel">Rohan</span><span class="statusChip green" style="height: 28px">RM</span>
+          </div>
+        </div>
+        <div class="anchor" style="left: 860px; top: 740px"><div id="rmJoined" class="nodeSub" style="opacity: 0">✓ Rohan joined</div></div>
+
+        <!-- right column: S4 -->
+        <div id="h4" class="headline rcol" style="top: 214px; font-size: 60px">
+          <span class="ln"><span>Bring intent</span></span>
+          <span class="ln"><span>back into</span></span>
+          <span class="ln"><span>conversation.</span></span>
+        </div>
+        <div class="rcol" style="top: 452px">
+          <div id="st1" class="statusRow" style="opacity: 0"><i style="background: #c98a3a"></i>Drop-off detected</div>
+          <div id="st2" class="statusRow" style="opacity: 0; color: var(--green-deep)"><i style="background: var(--green)"></i>Conversation restarted</div>
+        </div>
+
+        <!-- right column: S5 -->
+        <div id="h5" class="headline rcol" style="top: 214px; font-size: 60px">
+          <span class="ln"><span>AI handles</span></span>
+          <span class="ln"><span>the first mile.</span></span>
+        </div>
+        <div id="aqu" class="rcol small" style="top: 368px; display: flex; gap: 12px; opacity: 0">
+          <span id="aq1">Answer</span><span style="color: #b1b4b0">·</span><span id="aq2">Understand</span><span style="color: #b1b4b0">·</span><span id="aq3">Qualify</span>
+        </div>
+        <div id="ch1A" class="anchor" style="left: 800px; top: 560px"><div id="ch1" data-layout-allow-overlap class="chip" style="opacity: 0"><span class="dot" style="color: var(--green)"></span>Personal Loan</div></div>
+        <div id="ch2A" class="anchor" style="left: 800px; top: 640px"><div id="ch2" data-layout-allow-overlap class="chip" style="opacity: 0"><span class="dot" style="color: var(--green)"></span>₹8L</div></div>
+        <div id="ch3A" class="anchor" style="left: 800px; top: 720px"><div id="ch3" data-layout-allow-overlap class="chip" style="opacity: 0"><span class="dot" style="color: var(--green)"></span>This month</div></div>
+        <div id="qualA" class="anchor" style="left: 800px; top: 640px">
+          <div id="qual" data-layout-allow-overlap class="chip solid" style="opacity: 0; height: 46px; font-size: 22px; padding: 0 22px; border-radius: 23px">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>Qualified
+          </div>
+        </div>
+        <div id="convoA" class="anchor" style="left: 800px; top: 640px">
+          <div id="convo" data-layout-allow-overlap style="opacity: 0; width: 40px; height: 40px; border-radius: 50%; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(27, 33, 31, 0.1)">
+            <svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="#13804f" stroke-width="2.2" stroke-linejoin="round" /></svg>
+          </div>
+        </div>
+
+        <!-- right column: S6 -->
+        <div id="h6" class="headline rcol" style="top: 214px; font-size: 64px">
+          <span class="ln"><span>Right RM.</span></span>
+          <span class="ln"><span>Full context.</span></span>
+        </div>
+        <div id="h6s" class="rcol small" style="top: 384px; opacity: 0">No restart. No repetition.</div>
+      </section>
+
+      <!-- ================= SCENE 7–8 : connected governed journey ================= -->
+      <section id="s-gov" class="clip" data-start="28.4" data-duration="6.6" data-track-index="4">
+        <svg id="govSvg" class="abs" style="left: 0; top: 0; overflow: visible" width="1080" height="1080" viewBox="0 0 1080 1080">
+          <rect id="halo" x="62" y="500" width="956" height="236" rx="118" fill="none" stroke="#27b177" stroke-width="1.6" opacity="0" />
+          <line id="govBase" x1="110" y1="600" x2="970" y2="600" stroke="#cfcbc2" stroke-width="2.4" stroke-dasharray="3 10" stroke-linecap="round" />
+          <g id="govSegs" stroke="#27b177" stroke-width="3.4" stroke-linecap="round"></g>
+          <circle id="govStart" cx="110" cy="600" r="13" fill="#1b211f" />
+          <circle id="govEndRing" cx="970" cy="600" r="30" fill="#ffffff" stroke="#bdb9b0" stroke-width="2.4" />
+          <circle id="govEndArc" cx="970" cy="600" r="30" fill="none" stroke="#27b177" stroke-width="4" transform="rotate(-90 970 600)" />
+          <path id="govEndCheck" d="M958 600l8 8 16-17" fill="none" stroke="#13804f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          <circle id="govDotHalo" cx="110" cy="600" r="20" fill="#27b177" opacity="0" />
+          <circle id="govDot" cx="110" cy="600" r="10" fill="#27b177" opacity="0" />
+        </svg>
+        <div class="anchor" style="left: 110px; top: 652px"><div id="govStartLab" class="nodeSub" style="color: var(--grey)">Customer</div></div>
+        <div class="anchor" style="left: 970px; top: 660px"><div id="govEndLab" class="nodeSub" style="color: var(--grey)">Completed</div></div>
+        <div class="anchor" style="left: 540px; top: 470px">
+          <div id="haloLab" class="mono" style="font-size: 15px; color: var(--green-deep); opacity: 0; display: flex; align-items: center; gap: 8px">
+            <span style="width: 18px; height: 1.5px; background: var(--green); display: block"></span>Governed end to end<span style="width: 18px; height: 1.5px; background: var(--green); display: block"></span>
+          </div>
+        </div>
+
+        <!-- four interaction symbols -->
+        <div id="g1A" class="anchor" style="left: 290px; top: 600px">
+          <div id="g1" class="node" style="width: 86px; height: 86px">
+            <svg width="40" height="40" viewBox="0 0 24 24"><path fill="#1b211f" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.6 21 3 13.4 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" /></svg>
+          </div>
+        </div>
+        <div id="g2A" class="anchor" style="left: 455px; top: 600px">
+          <div id="g2" class="node" style="width: 86px; height: 86px; border-radius: 18px; position: relative">
+            <svg width="36" height="44" viewBox="0 0 18 22"><path d="M2 1h9l5 5v15H2z" fill="none" stroke="#1b211f" stroke-width="1.6" stroke-linejoin="round" /><path d="M5 10h8M5 13.5h8M5 17h5" stroke="#1b211f" stroke-width="1.4" stroke-linecap="round" /></svg>
+            <div id="g2check" class="abs" style="right: -10px; top: -10px; width: 30px; height: 30px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; border: 2px solid #fff; opacity: 0">
+              <svg width="16" height="16" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </div>
+          </div>
+        </div>
+        <div id="g3A" class="anchor" style="left: 625px; top: 600px">
+          <div id="g3" class="node" style="width: 86px; height: 86px">
+            <svg width="44" height="44" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#1b211f" stroke-width="1.7" /><path d="M7.5 12.3l3 3 6-6.3" fill="none" stroke="#1b211f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </div>
+        </div>
+        <div id="g4A" class="anchor" style="left: 790px; top: 600px">
+          <div id="g4" class="node" style="width: 86px; height: 86px">
+            <svg width="44" height="44" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#1b211f" stroke-width="1.7" /><path d="M12 7v5.2l3.4 2" fill="none" stroke="#1b211f" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </div>
+        </div>
+        <div class="anchor" style="left: 290px; top: 678px"><div id="g1l" class="nodeLabel">Call</div></div>
+        <div class="anchor" style="left: 455px; top: 678px"><div id="g2l" class="nodeLabel">Document</div></div>
+        <div class="anchor" style="left: 625px; top: 678px"><div id="g3l" class="nodeLabel">Consent</div></div>
+        <div class="anchor" style="left: 790px; top: 678px"><div id="g4l" class="nodeLabel">Follow-up</div></div>
+        <div class="anchor" style="left: 625px; top: 710px"><div id="g3s" class="nodeSub">Captured ✓</div></div>
+        <div class="anchor" style="left: 790px; top: 710px"><div id="g4s" class="nodeSub">Scheduled ✓</div></div>
+
+        <div id="h7" class="headline" style="left: 0; right: 0; top: 150px; text-align: center; font-size: 66px">
+          <span class="ln"><span>Every interaction.</span></span>
+          <span class="ln"><span>One connected journey.</span></span>
+        </div>
+        <div id="nightFill"></div>
+      </section>
+
+      <!-- ================= SCENE 9 : outcomes (dark) ================= -->
+      <section id="s-out" class="clip" data-start="34.7" data-duration="4.32" data-track-index="5">
+        <div class="abs" style="inset: 0; background: var(--night)"></div>
+        <svg id="outSvg" class="abs" style="left: 0; top: 0; overflow: visible" width="1080" height="1080" viewBox="0 0 1080 1080">
+          <g id="outLines" stroke-width="2.4" stroke-linecap="round"></g>
+          <g id="outNodes"></g>
+        </svg>
+        <div id="o1" class="bigline" style="top: 300px"><span class="ln"><span>Fewer drop-offs.</span></span></div>
+        <div id="o2" class="bigline" style="top: 300px"><span class="ln"><span>Faster handoffs.</span></span></div>
+        <div id="o3" class="bigline" style="top: 248px"><span class="ln"><span>More completed</span></span><span class="ln"><span>journeys.</span></span></div>
+        <div class="anchor" style="left: 540px; top: 760px">
+          <div id="ctxZip" class="chip solid" style="opacity: 0; height: 36px; font-size: 17px">Full context</div>
+        </div>
+        <div id="paperWipe"></div>
+      </section>
+
+      <!-- ================= SCENE 10 : intent → action ================= -->
+      <section id="s-act" class="clip" data-start="38.98" data-duration="3.42" data-track-index="6">
+        <svg id="actSvg" class="abs" style="left: 0; top: 0; overflow: visible" width="1080" height="1080" viewBox="0 0 1080 1080">
+          <line id="actBase" x1="150" y1="650" x2="930" y2="650" stroke="#cfcbc2" stroke-width="2.4" stroke-dasharray="3 10" stroke-linecap="round" />
+          <path id="actLine" d="M150 650 L540 650 L930 650" fill="none" stroke="#27b177" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="10" />
+          <circle id="actIntent" cx="150" cy="650" r="13" fill="#6f7672" />
+          <circle id="actRing" cx="930" cy="650" r="32" fill="#ffffff" stroke="#bdb9b0" stroke-width="2.4" />
+          <circle id="actFill" cx="930" cy="650" r="32" fill="#27b177" opacity="0" />
+        </svg>
+        <div class="anchor" style="left: 150px; top: 702px"><div id="actIntentLab" class="nodeLabel" style="color: var(--ink-2)">Intent</div></div>
+        <div class="anchor" style="left: 930px; top: 712px"><div id="actActionLab" class="nodeLabel" style="color: var(--green-deep)">Action</div></div>
+        <div class="anchor" style="left: 340px; top: 650px">
+          <div id="an1" class="node" style="width: 70px; height: 70px">
+            <svg width="30" height="30" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="#1b211f" stroke-width="1.8" stroke-linejoin="round" /></svg>
+          </div>
+        </div>
+        <div class="anchor" style="left: 540px; top: 650px">
+          <div id="an2" class="node" style="width: 70px; height: 70px">
+            <svg width="30" height="30" viewBox="0 0 24 24"><path d="M12 2.5l2.1 6.4 6.4 2.1-6.4 2.1L12 19.5l-2.1-6.4L3.5 11l6.4-2.1z" fill="none" stroke="#1b211f" stroke-width="1.7" stroke-linejoin="round" /></svg>
+          </div>
+        </div>
+        <div class="anchor" style="left: 740px; top: 650px">
+          <div id="an3" class="node" style="width: 70px; height: 70px">
+            <svg width="32" height="32" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4" fill="none" stroke="#1b211f" stroke-width="1.8" /><path d="M4.5 20c.8-3.7 3.9-6 7.5-6s6.7 2.3 7.5 6" fill="none" stroke="#1b211f" stroke-width="1.8" stroke-linecap="round" /></svg>
+          </div>
+        </div>
+        <div class="anchor" style="left: 340px; top: 708px"><div id="an1l" class="nodeSub" style="color: var(--grey)">WhatsApp</div></div>
+        <div class="anchor" style="left: 540px; top: 708px"><div id="an2l" class="nodeSub" style="color: var(--grey)">AI</div></div>
+        <div class="anchor" style="left: 740px; top: 708px"><div id="an3l" class="nodeSub" style="color: var(--grey)">RM</div></div>
+
+        <div id="h10" class="headline" style="left: 0; right: 0; top: 168px; text-align: center; font-size: 92px">
+          <span class="ln"><span>Turn intent</span></span>
+          <span class="ln"><span>into <span id="actionWord">action.</span></span></span>
+        </div>
+        <div class="anchor" style="left: 540px; top: 418px"><div id="withDT" class="small" style="font-size: 26px; color: var(--ink-2)">with DoubleTick</div></div>
+      </section>
+
+      <!-- ================= SCENE 11 + CTA ================= -->
+      <section id="s-cta" class="clip" data-start="40.9" data-duration="6.1" data-track-index="7">
+        <div id="bigLogo" class="abs" style="left: 260px; top: 424px; width: 560px; height: 72px">
+          <img id="logoMark" src="assets/logo-dark.webp" class="abs" style="left: 0; top: 0; width: 560px; height: auto; clip-path: inset(0 76.4% 0 0)" alt="" />
+          <img id="logoWord" src="assets/logo-dark.webp" class="abs" style="left: 0; top: 0; width: 560px; height: auto; clip-path: inset(0% 100% 0% 23.6%)" alt="DoubleTick" />
+        </div>
+        <div class="anchor" style="left: 540px; top: 556px"><div id="tagline" class="mono" style="font-size: 18px; color: var(--ink-2); opacity: 0">WhatsApp · AI · RMs · Governance</div></div>
+        <div id="hCta" class="headline" style="left: 0; right: 0; top: 336px; text-align: center; font-size: 66px">
+          <span class="ln"><span>Don't lose</span></span>
+          <span class="ln"><span>the intent you already have.</span></span>
+        </div>
+        <div class="anchor" style="left: 540px; top: 640px">
+          <div id="cta-btn"><div id="cta-shine"></div>Apply for a Free Pilot <span id="cta-arrow" style="display: inline-block">→</span></div>
+        </div>
+        <div class="anchor" style="left: 540px; top: 752px"><div id="ctaMicro" class="small" style="font-size: 22px; opacity: 0">Built for BFSI teams operating at scale.</div></div>
+        <svg id="morphSvg" class="abs" style="left: 0; top: 0; overflow: visible" width="1080" height="1080" viewBox="0 0 1080 1080">
+          <path id="logoV" d="M150 650 L540 650 L930 650" fill="none" stroke="#27b177" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="10" opacity="0" />
+        </svg>
+      </section>
+
+      <!-- persistent small logo -->
+      <img id="logoTop" src="assets/logo-dark.webp" alt="DoubleTick" />
+      <img id="logoTopLight" src="assets/logo-light.webp" alt="" />
+
+      <!-- ================= subtitles ================= -->
+      <div id="subs" style="position: absolute; inset: 0; z-index: 60; pointer-events: none">
+      <p id="subp-0" class="clip sub" data-start="0.1" data-duration="2.95" data-track-index="10">Your next customer may already be in your funnel.</p>
+      <p id="subp-1" class="clip sub" data-start="3.43" data-duration="2.42" data-track-index="10">You're just losing them before they convert.</p>
+      <p id="subp-2" class="clip sub" data-start="6.38" data-duration="0.97" data-track-index="10">A <b>missed call</b>.</p>
+      <p id="subp-3" class="clip sub" data-start="7.5" data-duration="1.48" data-track-index="10">An abandoned application.</p>
+      <p id="subp-4" class="clip sub" data-start="9.15" data-duration="1.33" data-track-index="10">A pending document.</p>
+      <p id="subp-5" class="clip sub" data-start="10.65" data-duration="1.43" data-track-index="10">A delayed follow-up.</p>
+      <p id="subp-6" class="clip sub" data-start="12.2" data-duration="2.35" data-track-index="10">With DoubleTick, <b>WhatsApp</b> automatically</p>
+      <p id="subp-7" class="clip sub" data-start="14.55" data-duration="2.55" data-track-index="10">re-engages customers when they drop off.</p>
+      <p id="subp-8" class="clip sub" data-start="17.25" data-duration="1.57" data-track-index="10"><b>AI</b> answers questions,</p>
+      <p id="subp-9" class="clip sub" data-start="18.82" data-duration="2.78" data-track-index="10">captures intent and qualifies the opportunity.</p>
+      <p id="subp-10" class="clip sub" data-start="21.81" data-duration="1.47" data-track-index="10">When human help is needed,</p>
+      <p id="subp-11" class="clip sub" data-start="23.28" data-duration="1.77" data-track-index="10">the <b>right RM</b> takes over —</p>
+      <p id="subp-12" class="clip sub" data-start="25.1" data-duration="3.65" data-track-index="10">with the full conversation and customer context already available.</p>
+      <p id="subp-13" class="clip sub" data-start="28.96" data-duration="2.82" data-track-index="10">Calls, documents, consent and follow-ups</p>
+      <p id="subp-14" class="clip sub" data-start="31.78" data-duration="2.72" data-track-index="10">stay connected in one <b>governed journey</b>.</p>
+      <p id="subp-15" class="clip sub dark" data-start="34.55" data-duration="1.13" data-track-index="10">Fewer drop-offs.</p>
+      <p id="subp-16" class="clip sub dark" data-start="35.68" data-duration="1.25" data-track-index="10">Faster handoffs.</p>
+      <p id="subp-17" class="clip sub dark" data-start="36.93" data-duration="1.82" data-track-index="10">More completed journeys.</p>
+      <p id="subp-18" class="clip sub" data-start="38.85" data-duration="3.05" data-track-index="10">Turn customer <b>intent into action</b> with DoubleTick.</p>
+      <p id="subp-19" class="clip sub" data-start="42.1" data-duration="2.5" data-track-index="10">Apply for Free Pilot Today.</p>
+      </div>
+
+      <!-- ================= audio ================= -->
+      <audio id="vo" src="assets/vo.mp3" data-start="0" data-duration="44.04" data-track-index="20" data-volume="2.8"></audio>
+      <audio id="music" src="assets/music.wav" data-start="0" data-duration="47" data-track-index="21" data-volume="0.42" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;vo&quot;],&quot;strength&quot;:0.5}" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n1&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:250,&quot;gain&quot;:-5,&quot;q&quot;:1.7}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n2&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:1000,&quot;gain&quot;:-5,&quot;q&quot;:1.7}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n3&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:1600,&quot;gain&quot;:-10,&quot;q&quot;:1.7}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n4&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:2500,&quot;gain&quot;:-5,&quot;q&quot;:1.7}},{&quot;type&quot;:&quot;gain&quot;,&quot;id&quot;:&quot;n5&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;gain&quot;:0}}]}" data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;fx.n1.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.043,&quot;v&quot;:0},{&quot;t&quot;:0.153,&quot;v&quot;:-3},{&quot;t&quot;:0.263,&quot;v&quot;:-2.8},{&quot;t&quot;:0.373,&quot;v&quot;:-2.3},{&quot;t&quot;:0.483,&quot;v&quot;:-1.5},{&quot;t&quot;:0.593,&quot;v&quot;:-1},{&quot;t&quot;:0.703,&quot;v&quot;:-0.6},{&quot;t&quot;:0.814,&quot;v&quot;:-0.4},{&quot;t&quot;:1.364,&quot;v&quot;:0},{&quot;t&quot;:1.474,&quot;v&quot;:-1.4},{&quot;t&quot;:1.584,&quot;v&quot;:-2.2},{&quot;t&quot;:1.695,&quot;v&quot;:-1.4},{&quot;t&quot;:1.805,&quot;v&quot;:-0.9},{&quot;t&quot;:1.915,&quot;v&quot;:-0.6},{&quot;t&quot;:2.025,&quot;v&quot;:-1.3},{&quot;t&quot;:2.135,&quot;v&quot;:-3.4},{&quot;t&quot;:2.245,&quot;v&quot;:-3.8},{&quot;t&quot;:2.355,&quot;v&quot;:-2.9},{&quot;t&quot;:2.465,&quot;v&quot;:-1.9},{&quot;t&quot;:2.576,&quot;v&quot;:-1.2},{&quot;t&quot;:2.686,&quot;v&quot;:-1.9},{&quot;t&quot;:2.796,&quot;v&quot;:-1.2},{&quot;t&quot;:2.906,&quot;v&quot;:-0.8},{&quot;t&quot;:3.016,&quot;v&quot;:-0.5},{&quot;t&quot;:3.236,&quot;v&quot;:-0.2},{&quot;t&quot;:3.346,&quot;v&quot;:0},{&quot;t&quot;:3.567,&quot;v&quot;:-0.2},{&quot;t&quot;:3.677,&quot;v&quot;:-3.1},{&quot;t&quot;:3.787,&quot;v&quot;:-2},{&quot;t&quot;:4.007,&quot;v&quot;:-2.1},{&quot;t&quot;:4.117,&quot;v&quot;:-2.6},{&quot;t&quot;:4.227,&quot;v&quot;:-1.9},{&quot;t&quot;:4.338,&quot;v&quot;:-2.5},{&quot;t&quot;:4.448,&quot;v&quot;:-1.8},{&quot;t&quot;:4.558,&quot;v&quot;:-1.7},{&quot;t&quot;:4.668,&quot;v&quot;:-1.1},{&quot;t&quot;:4.778,&quot;v&quot;:-0.7},{&quot;t&quot;:4.888,&quot;v&quot;:-0.5},{&quot;t&quot;:5.108,&quot;v&quot;:-0.2},{&quot;t&quot;:5.219,&quot;v&quot;:-1},{&quot;t&quot;:5.549,&quot;v&quot;:-0.6},{&quot;t&quot;:5.659,&quot;v&quot;:-0.4},{&quot;t&quot;:6.32,&quot;v&quot;:0},{&quot;t&quot;:6.43,&quot;v&quot;:-2.5},{&quot;t&quot;:6.54,&quot;v&quot;:-4.7},{&quot;t&quot;:6.65,&quot;v&quot;:-3},{&quot;t&quot;:6.76,&quot;v&quot;:-2},{&quot;t&quot;:6.87,&quot;v&quot;:-1.9},{&quot;t&quot;:6.981,&quot;v&quot;:-1.2},{&quot;t&quot;:7.091,&quot;v&quot;:-0.8},{&quot;t&quot;:7.201,&quot;v&quot;:-0.5},{&quot;t&quot;:7.421,&quot;v&quot;:-0.2},{&quot;t&quot;:7.531,&quot;v&quot;:-1.6},{&quot;t&quot;:7.641,&quot;v&quot;:-3.5},{&quot;t&quot;:8.082,&quot;v&quot;:-3.5},{&quot;t&quot;:8.192,&quot;v&quot;:-2.2},{&quot;t&quot;:8.302,&quot;v&quot;:-2.1},{&quot;t&quot;:8.412,&quot;v&quot;:-1.4},{&quot;t&quot;:8.632,&quot;v&quot;:-0.9},{&quot;t&quot;:8.743,&quot;v&quot;:-0.6},{&quot;t&quot;:8.963,&quot;v&quot;:-0.3},{&quot;t&quot;:9.073,&quot;v&quot;:0},{&quot;t&quot;:9.183,&quot;v&quot;:-1.9},{&quot;t&quot;:9.293,&quot;v&quot;:-1.2},{&quot;t&quot;:9.513,&quot;v&quot;:-0.9},{&quot;t&quot;:9.624,&quot;v&quot;:-2.2},{&quot;t&quot;:9.844,&quot;v&quot;:-2.4},{&quot;t&quot;:9.954,&quot;v&quot;:-1.5},{&quot;t&quot;:10.064,&quot;v&quot;:-1.4},{&quot;t&quot;:10.174,&quot;v&quot;:-0.9},{&quot;t&quot;:10.284,&quot;v&quot;:-0.6},{&quot;t&quot;:10.394,&quot;v&quot;:-0.4},{&quot;t&quot;:10.725,&quot;v&quot;:0},{&quot;t&quot;:10.835,&quot;v&quot;:-1.4},{&quot;t&quot;:10.945,&quot;v&quot;:-0.9},{&quot;t&quot;:11.055,&quot;v&quot;:-0.6},{&quot;t&quot;:11.496,&quot;v&quot;:-0.3},{&quot;t&quot;:11.606,&quot;v&quot;:0},{&quot;t&quot;:12.156,&quot;v&quot;:0},{&quot;t&quot;:12.267,&quot;v&quot;:-3.6},{&quot;t&quot;:12.377,&quot;v&quot;:-2.3},{&quot;t&quot;:12.487,&quot;v&quot;:-1.5},{&quot;t&quot;:12.597,&quot;v&quot;:-3.4},{&quot;t&quot;:12.707,&quot;v&quot;:-2.2},{&quot;t&quot;:12.817,&quot;v&quot;:-2.1},{&quot;t&quot;:12.927,&quot;v&quot;:-1.3},{&quot;t&quot;:13.037,&quot;v&quot;:-0.9},{&quot;t&quot;:13.148,&quot;v&quot;:-0.7},{&quot;t&quot;:14.139,&quot;v&quot;:-0.4},{&quot;t&quot;:14.249,&quot;v&quot;:-2.3},{&quot;t&quot;:14.469,&quot;v&quot;:-2.2},{&quot;t&quot;:14.579,&quot;v&quot;:-3.4},{&quot;t&quot;:14.689,&quot;v&quot;:-4},{&quot;t&quot;:14.799,&quot;v&quot;:-3.6},{&quot;t&quot;:14.91,&quot;v&quot;:-2.3},{&quot;t&quot;:15.02,&quot;v&quot;:-1.7},{&quot;t&quot;:15.13,&quot;v&quot;:-1.2},{&quot;t&quot;:15.24,&quot;v&quot;:-0.8},{&quot;t&quot;:15.35,&quot;v&quot;:-2.4},{&quot;t&quot;:15.46,&quot;v&quot;:-3},{&quot;t&quot;:15.57,&quot;v&quot;:-2.5},{&quot;t&quot;:15.68,&quot;v&quot;:-1.6},{&quot;t&quot;:15.791,&quot;v&quot;:-2.8},{&quot;t&quot;:15.901,&quot;v&quot;:-1.8},{&quot;t&quot;:16.011,&quot;v&quot;:-2.7},{&quot;t&quot;:16.121,&quot;v&quot;:-2.3},{&quot;t&quot;:16.231,&quot;v&quot;:-1.8},{&quot;t&quot;:16.341,&quot;v&quot;:-1.3},{&quot;t&quot;:16.561,&quot;v&quot;:-0.9},{&quot;t&quot;:16.672,&quot;v&quot;:-0.6},{&quot;t&quot;:16.892,&quot;v&quot;:-0.2},{&quot;t&quot;:17.002,&quot;v&quot;:0},{&quot;t&quot;:17.553,&quot;v&quot;:0},{&quot;t&quot;:17.663,&quot;v&quot;:-2},{&quot;t&quot;:17.773,&quot;v&quot;:-3},{&quot;t&quot;:17.883,&quot;v&quot;:-2.8},{&quot;t&quot;:17.993,&quot;v&quot;:-1.8},{&quot;t&quot;:18.103,&quot;v&quot;:-1.1},{&quot;t&quot;:18.213,&quot;v&quot;:-0.7},{&quot;t&quot;:18.323,&quot;v&quot;:-0.5},{&quot;t&quot;:18.434,&quot;v&quot;:-0.3},{&quot;t&quot;:18.544,&quot;v&quot;:0},{&quot;t&quot;:18.874,&quot;v&quot;:0},{&quot;t&quot;:18.984,&quot;v&quot;:-0.5},{&quot;t&quot;:19.094,&quot;v&quot;:-0.3},{&quot;t&quot;:19.204,&quot;v&quot;:-1},{&quot;t&quot;:19.425,&quot;v&quot;:-0.8},{&quot;t&quot;:19.535,&quot;v&quot;:-0.5},{&quot;t&quot;:19.755,&quot;v&quot;:-0.2},{&quot;t&quot;:19.865,&quot;v&quot;:0},{&quot;t&quot;:20.636,&quot;v&quot;:0},{&quot;t&quot;:20.746,&quot;v&quot;:-3},{&quot;t&quot;:20.856,&quot;v&quot;:-2.1},{&quot;t&quot;:21.187,&quot;v&quot;:-1.7},{&quot;t&quot;:21.297,&quot;v&quot;:-1.2},{&quot;t&quot;:21.407,&quot;v&quot;:-0.8},{&quot;t&quot;:21.517,&quot;v&quot;:-0.5},{&quot;t&quot;:21.847,&quot;v&quot;:-0.9},{&quot;t&quot;:21.958,&quot;v&quot;:-2.7},{&quot;t&quot;:22.068,&quot;v&quot;:-1.9},{&quot;t&quot;:22.178,&quot;v&quot;:-1.2},{&quot;t&quot;:22.398,&quot;v&quot;:-0.8},{&quot;t&quot;:22.508,&quot;v&quot;:-0.5},{&quot;t&quot;:22.728,&quot;v&quot;:-0.2},{&quot;t&quot;:22.839,&quot;v&quot;:0},{&quot;t&quot;:22.949,&quot;v&quot;:-0.6},{&quot;t&quot;:23.059,&quot;v&quot;:-2.7},{&quot;t&quot;:23.169,&quot;v&quot;:-1.8},{&quot;t&quot;:23.279,&quot;v&quot;:-1.1},{&quot;t&quot;:23.389,&quot;v&quot;:-2.1},{&quot;t&quot;:23.499,&quot;v&quot;:-2.6},{&quot;t&quot;:23.609,&quot;v&quot;:-2.6},{&quot;t&quot;:23.72,&quot;v&quot;:-1.7},{&quot;t&quot;:23.83,&quot;v&quot;:-1.1},{&quot;t&quot;:23.94,&quot;v&quot;:-2.2},{&quot;t&quot;:24.05,&quot;v&quot;:-2.8},{&quot;t&quot;:24.16,&quot;v&quot;:-3.6},{&quot;t&quot;:24.27,&quot;v&quot;:-2.3},{&quot;t&quot;:24.38,&quot;v&quot;:-1.8},{&quot;t&quot;:24.49,&quot;v&quot;:-1.2},{&quot;t&quot;:24.601,&quot;v&quot;:-1.7},{&quot;t&quot;:24.711,&quot;v&quot;:-1.1},{&quot;t&quot;:24.821,&quot;v&quot;:-0.7},{&quot;t&quot;:24.931,&quot;v&quot;:-0.5},{&quot;t&quot;:25.041,&quot;v&quot;:-0.3},{&quot;t&quot;:25.151,&quot;v&quot;:0},{&quot;t&quot;:25.482,&quot;v&quot;:0},{&quot;t&quot;:25.592,&quot;v&quot;:-2.5},{&quot;t&quot;:25.702,&quot;v&quot;:-1.6},{&quot;t&quot;:25.812,&quot;v&quot;:-1},{&quot;t&quot;:25.922,&quot;v&quot;:-0.7},{&quot;t&quot;:26.032,&quot;v&quot;:-0.4},{&quot;t&quot;:26.363,&quot;v&quot;:-0.5},{&quot;t&quot;:26.473,&quot;v&quot;:-1.6},{&quot;t&quot;:26.583,&quot;v&quot;:-1.1},{&quot;t&quot;:26.693,&quot;v&quot;:-0.8},{&quot;t&quot;:26.803,&quot;v&quot;:-0.6},{&quot;t&quot;:27.023,&quot;v&quot;:-0.3},{&quot;t&quot;:27.133,&quot;v&quot;:-2.9},{&quot;t&quot;:27.244,&quot;v&quot;:-2.5},{&quot;t&quot;:27.354,&quot;v&quot;:-1.6},{&quot;t&quot;:27.464,&quot;v&quot;:-1},{&quot;t&quot;:27.574,&quot;v&quot;:-1.3},{&quot;t&quot;:27.684,&quot;v&quot;:-2.6},{&quot;t&quot;:27.794,&quot;v&quot;:-1.7},{&quot;t&quot;:27.904,&quot;v&quot;:-3.2},{&quot;t&quot;:28.014,&quot;v&quot;:-2.4},{&quot;t&quot;:28.235,&quot;v&quot;:-2.1},{&quot;t&quot;:28.345,&quot;v&quot;:-1.3},{&quot;t&quot;:28.455,&quot;v&quot;:-0.9},{&quot;t&quot;:28.565,&quot;v&quot;:-0.6},{&quot;t&quot;:28.785,&quot;v&quot;:-0.2},{&quot;t&quot;:28.895,&quot;v&quot;:0},{&quot;t&quot;:29.006,&quot;v&quot;:-2.7},{&quot;t&quot;:29.116,&quot;v&quot;:-1.7},{&quot;t&quot;:29.226,&quot;v&quot;:-1.1},{&quot;t&quot;:29.336,&quot;v&quot;:-0.7},{&quot;t&quot;:29.446,&quot;v&quot;:-0.5},{&quot;t&quot;:29.556,&quot;v&quot;:-0.3},{&quot;t&quot;:29.666,&quot;v&quot;:-2.1},{&quot;t&quot;:29.776,&quot;v&quot;:-1.3},{&quot;t&quot;:29.887,&quot;v&quot;:-0.9},{&quot;t&quot;:29.997,&quot;v&quot;:-0.8},{&quot;t&quot;:30.107,&quot;v&quot;:-0.5},{&quot;t&quot;:30.217,&quot;v&quot;:-0.3},{&quot;t&quot;:30.327,&quot;v&quot;:-1.9},{&quot;t&quot;:30.437,&quot;v&quot;:-1.2},{&quot;t&quot;:30.547,&quot;v&quot;:-1.1},{&quot;t&quot;:30.657,&quot;v&quot;:-0.7},{&quot;t&quot;:30.768,&quot;v&quot;:-0.5},{&quot;t&quot;:30.878,&quot;v&quot;:-1.4},{&quot;t&quot;:30.988,&quot;v&quot;:-2.9},{&quot;t&quot;:31.098,&quot;v&quot;:-1.9},{&quot;t&quot;:31.208,&quot;v&quot;:-1.2},{&quot;t&quot;:31.318,&quot;v&quot;:-2.7},{&quot;t&quot;:31.428,&quot;v&quot;:-2.6},{&quot;t&quot;:31.538,&quot;v&quot;:-1.7},{&quot;t&quot;:31.649,&quot;v&quot;:-1.1},{&quot;t&quot;:31.759,&quot;v&quot;:-0.7},{&quot;t&quot;:31.869,&quot;v&quot;:-0.6},{&quot;t&quot;:32.089,&quot;v&quot;:-0.4},{&quot;t&quot;:32.199,&quot;v&quot;:-3.7},{&quot;t&quot;:32.309,&quot;v&quot;:-2.4},{&quot;t&quot;:32.419,&quot;v&quot;:-1.7},{&quot;t&quot;:32.53,&quot;v&quot;:-1.1},{&quot;t&quot;:32.64,&quot;v&quot;:-0.7},{&quot;t&quot;:32.75,&quot;v&quot;:-0.5},{&quot;t&quot;:32.86,&quot;v&quot;:-0.5},{&quot;t&quot;:32.97,&quot;v&quot;:-1.3},{&quot;t&quot;:33.08,&quot;v&quot;:-0.8},{&quot;t&quot;:33.19,&quot;v&quot;:-2.9},{&quot;t&quot;:33.3,&quot;v&quot;:-2.9},{&quot;t&quot;:33.411,&quot;v&quot;:-1.8},{&quot;t&quot;:33.521,&quot;v&quot;:-1.2},{&quot;t&quot;:33.631,&quot;v&quot;:-0.8},{&quot;t&quot;:33.741,&quot;v&quot;:-1.9},{&quot;t&quot;:33.851,&quot;v&quot;:-1.2},{&quot;t&quot;:33.961,&quot;v&quot;:-1.8},{&quot;t&quot;:34.071,&quot;v&quot;:-1.4},{&quot;t&quot;:34.181,&quot;v&quot;:-0.9},{&quot;t&quot;:34.292,&quot;v&quot;:-0.6},{&quot;t&quot;:34.402,&quot;v&quot;:-0.4},{&quot;t&quot;:34.622,&quot;v&quot;:0},{&quot;t&quot;:34.732,&quot;v&quot;:-1.8},{&quot;t&quot;:34.842,&quot;v&quot;:-1.2},{&quot;t&quot;:34.952,&quot;v&quot;:-1.5},{&quot;t&quot;:35.062,&quot;v&quot;:-2.4},{&quot;t&quot;:35.173,&quot;v&quot;:-1.5},{&quot;t&quot;:35.283,&quot;v&quot;:-1},{&quot;t&quot;:35.393,&quot;v&quot;:-0.6},{&quot;t&quot;:35.503,&quot;v&quot;:-0.4},{&quot;t&quot;:36.274,&quot;v&quot;:0},{&quot;t&quot;:36.384,&quot;v&quot;:-1},{&quot;t&quot;:36.604,&quot;v&quot;:-0.8},{&quot;t&quot;:36.714,&quot;v&quot;:-0.5},{&quot;t&quot;:36.935,&quot;v&quot;:-0.2},{&quot;t&quot;:37.045,&quot;v&quot;:0},{&quot;t&quot;:37.155,&quot;v&quot;:-3.1},{&quot;t&quot;:37.265,&quot;v&quot;:-2},{&quot;t&quot;:37.375,&quot;v&quot;:-1.3},{&quot;t&quot;:37.485,&quot;v&quot;:-1},{&quot;t&quot;:37.595,&quot;v&quot;:-0.7},{&quot;t&quot;:37.705,&quot;v&quot;:-3.7},{&quot;t&quot;:37.816,&quot;v&quot;:-3.7},{&quot;t&quot;:37.926,&quot;v&quot;:-2.7},{&quot;t&quot;:38.036,&quot;v&quot;:-2.6},{&quot;t&quot;:38.146,&quot;v&quot;:-2.1},{&quot;t&quot;:38.256,&quot;v&quot;:-1.3},{&quot;t&quot;:38.366,&quot;v&quot;:-0.9},{&quot;t&quot;:38.476,&quot;v&quot;:-0.6},{&quot;t&quot;:38.697,&quot;v&quot;:-0.2},{&quot;t&quot;:38.807,&quot;v&quot;:0},{&quot;t&quot;:38.917,&quot;v&quot;:0},{&quot;t&quot;:39.027,&quot;v&quot;:-3.5},{&quot;t&quot;:39.137,&quot;v&quot;:-2.2},{&quot;t&quot;:39.247,&quot;v&quot;:-1.4},{&quot;t&quot;:39.357,&quot;v&quot;:-0.9},{&quot;t&quot;:39.467,&quot;v&quot;:-0.7},{&quot;t&quot;:39.578,&quot;v&quot;:-1.3},{&quot;t&quot;:39.688,&quot;v&quot;:-3.5},{&quot;t&quot;:39.798,&quot;v&quot;:-3.3},{&quot;t&quot;:39.908,&quot;v&quot;:-3},{&quot;t&quot;:40.018,&quot;v&quot;:-2},{&quot;t&quot;:40.128,&quot;v&quot;:-2.5},{&quot;t&quot;:40.238,&quot;v&quot;:-1.6},{&quot;t&quot;:40.348,&quot;v&quot;:-1},{&quot;t&quot;:40.789,&quot;v&quot;:-0.8},{&quot;t&quot;:40.899,&quot;v&quot;:-0.5},{&quot;t&quot;:41.009,&quot;v&quot;:-3.9},{&quot;t&quot;:41.119,&quot;v&quot;:-2.5},{&quot;t&quot;:41.229,&quot;v&quot;:-3.6},{&quot;t&quot;:41.34,&quot;v&quot;:-2.6},{&quot;t&quot;:41.45,&quot;v&quot;:-1.6},{&quot;t&quot;:41.56,&quot;v&quot;:-1.1},{&quot;t&quot;:41.67,&quot;v&quot;:-0.7},{&quot;t&quot;:41.78,&quot;v&quot;:-0.4},{&quot;t&quot;:42.331,&quot;v&quot;:0},{&quot;t&quot;:42.441,&quot;v&quot;:-2.5},{&quot;t&quot;:42.551,&quot;v&quot;:-1.6},{&quot;t&quot;:42.661,&quot;v&quot;:-2.8},{&quot;t&quot;:42.771,&quot;v&quot;:-1.8},{&quot;t&quot;:42.881,&quot;v&quot;:-1.2},{&quot;t&quot;:42.991,&quot;v&quot;:-3},{&quot;t&quot;:43.102,&quot;v&quot;:-1.9},{&quot;t&quot;:43.212,&quot;v&quot;:-1.2},{&quot;t&quot;:43.322,&quot;v&quot;:-0.8},{&quot;t&quot;:43.432,&quot;v&quot;:-0.5},{&quot;t&quot;:43.542,&quot;v&quot;:-0.5},{&quot;t&quot;:43.652,&quot;v&quot;:-2.6},{&quot;t&quot;:43.762,&quot;v&quot;:-1.7},{&quot;t&quot;:43.872,&quot;v&quot;:-1.1},{&quot;t&quot;:43.983,&quot;v&quot;:-0.7},{&quot;t&quot;:44.042,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n2.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.153,&quot;v&quot;:0},{&quot;t&quot;:0.263,&quot;v&quot;:-2.3},{&quot;t&quot;:0.373,&quot;v&quot;:-1.8},{&quot;t&quot;:0.483,&quot;v&quot;:-1.2},{&quot;t&quot;:0.593,&quot;v&quot;:-0.8},{&quot;t&quot;:0.703,&quot;v&quot;:-2.2},{&quot;t&quot;:0.814,&quot;v&quot;:-1.4},{&quot;t&quot;:1.034,&quot;v&quot;:-1.2},{&quot;t&quot;:1.144,&quot;v&quot;:-0.8},{&quot;t&quot;:1.695,&quot;v&quot;:-0.4},{&quot;t&quot;:1.805,&quot;v&quot;:-0.3},{&quot;t&quot;:2.245,&quot;v&quot;:0},{&quot;t&quot;:2.355,&quot;v&quot;:-1.1},{&quot;t&quot;:2.465,&quot;v&quot;:-0.7},{&quot;t&quot;:2.576,&quot;v&quot;:-1.6},{&quot;t&quot;:2.686,&quot;v&quot;:-1.5},{&quot;t&quot;:2.796,&quot;v&quot;:-1},{&quot;t&quot;:2.906,&quot;v&quot;:-0.6},{&quot;t&quot;:3.016,&quot;v&quot;:-0.4},{&quot;t&quot;:4.007,&quot;v&quot;:0},{&quot;t&quot;:4.117,&quot;v&quot;:-1.3},{&quot;t&quot;:4.227,&quot;v&quot;:-0.8},{&quot;t&quot;:4.338,&quot;v&quot;:-0.5},{&quot;t&quot;:4.448,&quot;v&quot;:-0.3},{&quot;t&quot;:6.32,&quot;v&quot;:0},{&quot;t&quot;:6.43,&quot;v&quot;:-2.3},{&quot;t&quot;:6.54,&quot;v&quot;:-1.5},{&quot;t&quot;:6.65,&quot;v&quot;:-1},{&quot;t&quot;:6.76,&quot;v&quot;:-0.6},{&quot;t&quot;:6.87,&quot;v&quot;:-2},{&quot;t&quot;:6.981,&quot;v&quot;:-1.3},{&quot;t&quot;:7.091,&quot;v&quot;:-0.8},{&quot;t&quot;:7.201,&quot;v&quot;:-0.5},{&quot;t&quot;:7.311,&quot;v&quot;:-0.3},{&quot;t&quot;:7.421,&quot;v&quot;:-0.2},{&quot;t&quot;:7.531,&quot;v&quot;:-1.3},{&quot;t&quot;:7.641,&quot;v&quot;:-2.2},{&quot;t&quot;:7.862,&quot;v&quot;:-2.2},{&quot;t&quot;:7.972,&quot;v&quot;:-1.7},{&quot;t&quot;:8.082,&quot;v&quot;:-1.1},{&quot;t&quot;:8.302,&quot;v&quot;:-0.7},{&quot;t&quot;:8.412,&quot;v&quot;:-0.5},{&quot;t&quot;:8.522,&quot;v&quot;:-0.3},{&quot;t&quot;:8.632,&quot;v&quot;:0},{&quot;t&quot;:9.073,&quot;v&quot;:0},{&quot;t&quot;:9.183,&quot;v&quot;:-1.6},{&quot;t&quot;:9.293,&quot;v&quot;:-1.1},{&quot;t&quot;:9.513,&quot;v&quot;:-0.9},{&quot;t&quot;:9.624,&quot;v&quot;:-0.5},{&quot;t&quot;:9.734,&quot;v&quot;:-0.4},{&quot;t&quot;:9.844,&quot;v&quot;:-2.6},{&quot;t&quot;:9.954,&quot;v&quot;:-1.7},{&quot;t&quot;:10.064,&quot;v&quot;:-1.1},{&quot;t&quot;:10.174,&quot;v&quot;:-0.7},{&quot;t&quot;:10.284,&quot;v&quot;:-0.4},{&quot;t&quot;:11.275,&quot;v&quot;:0},{&quot;t&quot;:11.386,&quot;v&quot;:-3.5},{&quot;t&quot;:11.496,&quot;v&quot;:-3.1},{&quot;t&quot;:11.606,&quot;v&quot;:-2.3},{&quot;t&quot;:11.716,&quot;v&quot;:-1.5},{&quot;t&quot;:11.826,&quot;v&quot;:-1},{&quot;t&quot;:11.936,&quot;v&quot;:-0.6},{&quot;t&quot;:12.046,&quot;v&quot;:-0.4},{&quot;t&quot;:12.156,&quot;v&quot;:-0.3},{&quot;t&quot;:12.267,&quot;v&quot;:-1.7},{&quot;t&quot;:12.377,&quot;v&quot;:-1.1},{&quot;t&quot;:12.487,&quot;v&quot;:-2.8},{&quot;t&quot;:12.597,&quot;v&quot;:-2.7},{&quot;t&quot;:12.707,&quot;v&quot;:-1.8},{&quot;t&quot;:12.817,&quot;v&quot;:-1.1},{&quot;t&quot;:12.927,&quot;v&quot;:-0.7},{&quot;t&quot;:13.037,&quot;v&quot;:-0.5},{&quot;t&quot;:13.148,&quot;v&quot;:-0.3},{&quot;t&quot;:13.258,&quot;v&quot;:-3.6},{&quot;t&quot;:13.368,&quot;v&quot;:-2.3},{&quot;t&quot;:13.478,&quot;v&quot;:-2.5},{&quot;t&quot;:13.588,&quot;v&quot;:-1.6},{&quot;t&quot;:13.698,&quot;v&quot;:-1},{&quot;t&quot;:13.808,&quot;v&quot;:-3.8},{&quot;t&quot;:13.918,&quot;v&quot;:-2.9},{&quot;t&quot;:14.029,&quot;v&quot;:-2.3},{&quot;t&quot;:14.139,&quot;v&quot;:-2},{&quot;t&quot;:14.249,&quot;v&quot;:-1.3},{&quot;t&quot;:14.359,&quot;v&quot;:-0.8},{&quot;t&quot;:14.469,&quot;v&quot;:-0.5},{&quot;t&quot;:14.579,&quot;v&quot;:-0.3},{&quot;t&quot;:15.35,&quot;v&quot;:-0.3},{&quot;t&quot;:15.46,&quot;v&quot;:-1.7},{&quot;t&quot;:15.57,&quot;v&quot;:-1.1},{&quot;t&quot;:15.791,&quot;v&quot;:-0.7},{&quot;t&quot;:15.901,&quot;v&quot;:-0.4},{&quot;t&quot;:16.341,&quot;v&quot;:0},{&quot;t&quot;:16.451,&quot;v&quot;:-3.2},{&quot;t&quot;:16.561,&quot;v&quot;:-2.1},{&quot;t&quot;:16.672,&quot;v&quot;:-2},{&quot;t&quot;:16.782,&quot;v&quot;:-1.3},{&quot;t&quot;:16.892,&quot;v&quot;:-0.8},{&quot;t&quot;:17.112,&quot;v&quot;:-0.4},{&quot;t&quot;:17.222,&quot;v&quot;:-0.2},{&quot;t&quot;:17.332,&quot;v&quot;:-0.8},{&quot;t&quot;:17.442,&quot;v&quot;:-3},{&quot;t&quot;:17.553,&quot;v&quot;:-2.4},{&quot;t&quot;:17.663,&quot;v&quot;:-2.6},{&quot;t&quot;:17.773,&quot;v&quot;:-1.7},{&quot;t&quot;:17.883,&quot;v&quot;:-1.1},{&quot;t&quot;:18.434,&quot;v&quot;:-0.7},{&quot;t&quot;:18.544,&quot;v&quot;:-0.5},{&quot;t&quot;:18.654,&quot;v&quot;:-0.3},{&quot;t&quot;:18.764,&quot;v&quot;:0},{&quot;t&quot;:18.874,&quot;v&quot;:0},{&quot;t&quot;:18.984,&quot;v&quot;:-1.3},{&quot;t&quot;:19.094,&quot;v&quot;:-0.8},{&quot;t&quot;:19.204,&quot;v&quot;:-0.5},{&quot;t&quot;:19.315,&quot;v&quot;:-0.3},{&quot;t&quot;:19.425,&quot;v&quot;:-0.2},{&quot;t&quot;:19.535,&quot;v&quot;:-1.2},{&quot;t&quot;:19.645,&quot;v&quot;:-0.7},{&quot;t&quot;:19.865,&quot;v&quot;:-0.3},{&quot;t&quot;:19.975,&quot;v&quot;:-1.8},{&quot;t&quot;:20.085,&quot;v&quot;:-1.2},{&quot;t&quot;:20.196,&quot;v&quot;:-1},{&quot;t&quot;:20.306,&quot;v&quot;:-3.5},{&quot;t&quot;:20.416,&quot;v&quot;:-2.3},{&quot;t&quot;:20.526,&quot;v&quot;:-2.2},{&quot;t&quot;:20.636,&quot;v&quot;:-1.4},{&quot;t&quot;:20.746,&quot;v&quot;:-0.9},{&quot;t&quot;:20.856,&quot;v&quot;:-2.7},{&quot;t&quot;:20.966,&quot;v&quot;:-1.7},{&quot;t&quot;:21.077,&quot;v&quot;:-1.1},{&quot;t&quot;:21.187,&quot;v&quot;:-0.7},{&quot;t&quot;:21.297,&quot;v&quot;:-0.5},{&quot;t&quot;:21.407,&quot;v&quot;:-0.3},{&quot;t&quot;:21.517,&quot;v&quot;:0},{&quot;t&quot;:21.737,&quot;v&quot;:0},{&quot;t&quot;:21.847,&quot;v&quot;:-1.2},{&quot;t&quot;:21.958,&quot;v&quot;:-1.1},{&quot;t&quot;:22.068,&quot;v&quot;:-0.7},{&quot;t&quot;:22.398,&quot;v&quot;:-0.4},{&quot;t&quot;:22.508,&quot;v&quot;:-1.4},{&quot;t&quot;:22.618,&quot;v&quot;:-0.9},{&quot;t&quot;:22.728,&quot;v&quot;:-0.6},{&quot;t&quot;:22.949,&quot;v&quot;:-0.3},{&quot;t&quot;:23.059,&quot;v&quot;:0},{&quot;t&quot;:23.389,&quot;v&quot;:0},{&quot;t&quot;:23.499,&quot;v&quot;:-2},{&quot;t&quot;:23.609,&quot;v&quot;:-2.6},{&quot;t&quot;:23.72,&quot;v&quot;:-2.1},{&quot;t&quot;:23.83,&quot;v&quot;:-1.3},{&quot;t&quot;:23.94,&quot;v&quot;:-3},{&quot;t&quot;:24.05,&quot;v&quot;:-2.2},{&quot;t&quot;:24.16,&quot;v&quot;:-1.4},{&quot;t&quot;:24.27,&quot;v&quot;:-0.9},{&quot;t&quot;:24.38,&quot;v&quot;:-0.6},{&quot;t&quot;:24.49,&quot;v&quot;:-0.4},{&quot;t&quot;:24.601,&quot;v&quot;:-2},{&quot;t&quot;:24.711,&quot;v&quot;:-1.9},{&quot;t&quot;:24.821,&quot;v&quot;:-1.2},{&quot;t&quot;:24.931,&quot;v&quot;:-0.8},{&quot;t&quot;:25.041,&quot;v&quot;:-0.5},{&quot;t&quot;:25.261,&quot;v&quot;:-0.3},{&quot;t&quot;:25.371,&quot;v&quot;:0},{&quot;t&quot;:25.482,&quot;v&quot;:0},{&quot;t&quot;:25.592,&quot;v&quot;:-3.1},{&quot;t&quot;:25.702,&quot;v&quot;:-2.4},{&quot;t&quot;:25.812,&quot;v&quot;:-3.1},{&quot;t&quot;:25.922,&quot;v&quot;:-2.1},{&quot;t&quot;:26.032,&quot;v&quot;:-1.4},{&quot;t&quot;:26.142,&quot;v&quot;:-0.9},{&quot;t&quot;:26.252,&quot;v&quot;:-0.6},{&quot;t&quot;:26.803,&quot;v&quot;:-0.6},{&quot;t&quot;:26.913,&quot;v&quot;:-2.2},{&quot;t&quot;:27.023,&quot;v&quot;:-1.8},{&quot;t&quot;:27.133,&quot;v&quot;:-1.4},{&quot;t&quot;:27.244,&quot;v&quot;:-1.1},{&quot;t&quot;:27.354,&quot;v&quot;:-0.7},{&quot;t&quot;:27.574,&quot;v&quot;:-0.3},{&quot;t&quot;:27.684,&quot;v&quot;:-2.5},{&quot;t&quot;:27.794,&quot;v&quot;:-1.7},{&quot;t&quot;:27.904,&quot;v&quot;:-1.8},{&quot;t&quot;:28.014,&quot;v&quot;:-1.2},{&quot;t&quot;:28.125,&quot;v&quot;:-0.8},{&quot;t&quot;:28.235,&quot;v&quot;:-0.5},{&quot;t&quot;:28.345,&quot;v&quot;:-0.3},{&quot;t&quot;:28.455,&quot;v&quot;:-1.4},{&quot;t&quot;:28.565,&quot;v&quot;:-0.9},{&quot;t&quot;:28.675,&quot;v&quot;:-0.6},{&quot;t&quot;:28.895,&quot;v&quot;:-0.2},{&quot;t&quot;:29.006,&quot;v&quot;:-2.7},{&quot;t&quot;:29.116,&quot;v&quot;:-1.9},{&quot;t&quot;:29.336,&quot;v&quot;:-1.5},{&quot;t&quot;:29.446,&quot;v&quot;:-1},{&quot;t&quot;:29.556,&quot;v&quot;:-0.6},{&quot;t&quot;:29.666,&quot;v&quot;:-3.8},{&quot;t&quot;:29.776,&quot;v&quot;:-2.4},{&quot;t&quot;:29.887,&quot;v&quot;:-1.7},{&quot;t&quot;:29.997,&quot;v&quot;:-1.1},{&quot;t&quot;:30.107,&quot;v&quot;:-0.7},{&quot;t&quot;:30.217,&quot;v&quot;:-0.5},{&quot;t&quot;:30.327,&quot;v&quot;:-0.3},{&quot;t&quot;:30.437,&quot;v&quot;:0},{&quot;t&quot;:30.547,&quot;v&quot;:-0.9},{&quot;t&quot;:30.657,&quot;v&quot;:-0.6},{&quot;t&quot;:30.768,&quot;v&quot;:-0.4},{&quot;t&quot;:30.878,&quot;v&quot;:-2.2},{&quot;t&quot;:30.988,&quot;v&quot;:-1.4},{&quot;t&quot;:31.098,&quot;v&quot;:-0.9},{&quot;t&quot;:31.208,&quot;v&quot;:-3.8},{&quot;t&quot;:31.318,&quot;v&quot;:-3.5},{&quot;t&quot;:31.428,&quot;v&quot;:-3.2},{&quot;t&quot;:31.538,&quot;v&quot;:-2.1},{&quot;t&quot;:31.649,&quot;v&quot;:-1.3},{&quot;t&quot;:31.759,&quot;v&quot;:-0.9},{&quot;t&quot;:31.869,&quot;v&quot;:-0.6},{&quot;t&quot;:32.309,&quot;v&quot;:-0.3},{&quot;t&quot;:32.419,&quot;v&quot;:0},{&quot;t&quot;:32.97,&quot;v&quot;:0},{&quot;t&quot;:33.08,&quot;v&quot;:-1.1},{&quot;t&quot;:33.19,&quot;v&quot;:-2.1},{&quot;t&quot;:33.3,&quot;v&quot;:-1.4},{&quot;t&quot;:33.411,&quot;v&quot;:-0.9},{&quot;t&quot;:33.521,&quot;v&quot;:-2.5},{&quot;t&quot;:33.631,&quot;v&quot;:-2.2},{&quot;t&quot;:33.741,&quot;v&quot;:-1.4},{&quot;t&quot;:33.851,&quot;v&quot;:-0.9},{&quot;t&quot;:33.961,&quot;v&quot;:-0.6},{&quot;t&quot;:34.181,&quot;v&quot;:-0.2},{&quot;t&quot;:34.292,&quot;v&quot;:0},{&quot;t&quot;:34.732,&quot;v&quot;:0},{&quot;t&quot;:34.842,&quot;v&quot;:-1.3},{&quot;t&quot;:34.952,&quot;v&quot;:-0.8},{&quot;t&quot;:35.062,&quot;v&quot;:-3.2},{&quot;t&quot;:35.173,&quot;v&quot;:-2.1},{&quot;t&quot;:35.283,&quot;v&quot;:-2.7},{&quot;t&quot;:35.393,&quot;v&quot;:-1.7},{&quot;t&quot;:35.503,&quot;v&quot;:-1.1},{&quot;t&quot;:35.613,&quot;v&quot;:-0.7},{&quot;t&quot;:35.723,&quot;v&quot;:-0.5},{&quot;t&quot;:35.833,&quot;v&quot;:-0.3},{&quot;t&quot;:35.943,&quot;v&quot;:-3.8},{&quot;t&quot;:36.054,&quot;v&quot;:-2.4},{&quot;t&quot;:36.274,&quot;v&quot;:-2.2},{&quot;t&quot;:36.384,&quot;v&quot;:-1.6},{&quot;t&quot;:36.494,&quot;v&quot;:-1.3},{&quot;t&quot;:36.604,&quot;v&quot;:-0.8},{&quot;t&quot;:36.714,&quot;v&quot;:-0.5},{&quot;t&quot;:36.824,&quot;v&quot;:-0.3},{&quot;t&quot;:38.807,&quot;v&quot;:0},{&quot;t&quot;:38.917,&quot;v&quot;:-1.4},{&quot;t&quot;:39.137,&quot;v&quot;:-1},{&quot;t&quot;:39.247,&quot;v&quot;:-2.3},{&quot;t&quot;:39.357,&quot;v&quot;:-1.5},{&quot;t&quot;:39.467,&quot;v&quot;:-2},{&quot;t&quot;:39.578,&quot;v&quot;:-1.3},{&quot;t&quot;:39.688,&quot;v&quot;:-0.8},{&quot;t&quot;:39.908,&quot;v&quot;:-0.4},{&quot;t&quot;:40.018,&quot;v&quot;:-0.3},{&quot;t&quot;:40.348,&quot;v&quot;:0},{&quot;t&quot;:40.459,&quot;v&quot;:-1.8},{&quot;t&quot;:40.569,&quot;v&quot;:-1.2},{&quot;t&quot;:40.679,&quot;v&quot;:-0.8},{&quot;t&quot;:40.789,&quot;v&quot;:-0.5},{&quot;t&quot;:40.899,&quot;v&quot;:-0.3},{&quot;t&quot;:41.009,&quot;v&quot;:-1.4},{&quot;t&quot;:41.119,&quot;v&quot;:-0.9},{&quot;t&quot;:41.229,&quot;v&quot;:-2.2},{&quot;t&quot;:41.34,&quot;v&quot;:-2.8},{&quot;t&quot;:41.45,&quot;v&quot;:-1.8},{&quot;t&quot;:41.56,&quot;v&quot;:-1.2},{&quot;t&quot;:41.67,&quot;v&quot;:-0.7},{&quot;t&quot;:41.89,&quot;v&quot;:-0.3},{&quot;t&quot;:42,&quot;v&quot;:0},{&quot;t&quot;:42.221,&quot;v&quot;:0},{&quot;t&quot;:42.331,&quot;v&quot;:-4.5},{&quot;t&quot;:42.441,&quot;v&quot;:-3.7},{&quot;t&quot;:42.551,&quot;v&quot;:-2.4},{&quot;t&quot;:42.661,&quot;v&quot;:-1.7},{&quot;t&quot;:42.771,&quot;v&quot;:-1.1},{&quot;t&quot;:42.881,&quot;v&quot;:-0.7},{&quot;t&quot;:42.991,&quot;v&quot;:-0.5},{&quot;t&quot;:43.102,&quot;v&quot;:-1.5},{&quot;t&quot;:43.212,&quot;v&quot;:-2.3},{&quot;t&quot;:43.322,&quot;v&quot;:-1.6},{&quot;t&quot;:43.432,&quot;v&quot;:-1.1},{&quot;t&quot;:43.542,&quot;v&quot;:-0.7},{&quot;t&quot;:43.652,&quot;v&quot;:-0.6},{&quot;t&quot;:43.872,&quot;v&quot;:-0.2},{&quot;t&quot;:43.983,&quot;v&quot;:0},{&quot;t&quot;:44.042,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n3.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.043,&quot;v&quot;:0},{&quot;t&quot;:0.153,&quot;v&quot;:-4.2},{&quot;t&quot;:0.263,&quot;v&quot;:-3.4},{&quot;t&quot;:0.373,&quot;v&quot;:-4.8},{&quot;t&quot;:0.483,&quot;v&quot;:-4.8},{&quot;t&quot;:0.593,&quot;v&quot;:-4.3},{&quot;t&quot;:0.703,&quot;v&quot;:-7},{&quot;t&quot;:0.814,&quot;v&quot;:-4.5},{&quot;t&quot;:0.924,&quot;v&quot;:-3.7},{&quot;t&quot;:1.034,&quot;v&quot;:-2.4},{&quot;t&quot;:1.144,&quot;v&quot;:-1.5},{&quot;t&quot;:1.254,&quot;v&quot;:-1},{&quot;t&quot;:1.364,&quot;v&quot;:-0.6},{&quot;t&quot;:1.474,&quot;v&quot;:-0.4},{&quot;t&quot;:1.584,&quot;v&quot;:-0.4},{&quot;t&quot;:1.695,&quot;v&quot;:-1.5},{&quot;t&quot;:1.805,&quot;v&quot;:-1.3},{&quot;t&quot;:1.915,&quot;v&quot;:-0.9},{&quot;t&quot;:2.245,&quot;v&quot;:-0.5},{&quot;t&quot;:2.355,&quot;v&quot;:-0.3},{&quot;t&quot;:2.465,&quot;v&quot;:0},{&quot;t&quot;:2.576,&quot;v&quot;:-2.3},{&quot;t&quot;:2.686,&quot;v&quot;:-1.5},{&quot;t&quot;:2.796,&quot;v&quot;:-1},{&quot;t&quot;:2.906,&quot;v&quot;:-0.6},{&quot;t&quot;:3.016,&quot;v&quot;:-0.4},{&quot;t&quot;:3.457,&quot;v&quot;:0},{&quot;t&quot;:3.567,&quot;v&quot;:-1.5},{&quot;t&quot;:3.677,&quot;v&quot;:-3.8},{&quot;t&quot;:3.787,&quot;v&quot;:-2.5},{&quot;t&quot;:3.897,&quot;v&quot;:-1.7},{&quot;t&quot;:4.007,&quot;v&quot;:-1.1},{&quot;t&quot;:4.117,&quot;v&quot;:-0.7},{&quot;t&quot;:4.227,&quot;v&quot;:-2.5},{&quot;t&quot;:4.338,&quot;v&quot;:-1.6},{&quot;t&quot;:4.448,&quot;v&quot;:-4.7},{&quot;t&quot;:4.558,&quot;v&quot;:-3},{&quot;t&quot;:4.668,&quot;v&quot;:-2.6},{&quot;t&quot;:4.778,&quot;v&quot;:-1.6},{&quot;t&quot;:4.888,&quot;v&quot;:-1.1},{&quot;t&quot;:4.998,&quot;v&quot;:-0.7},{&quot;t&quot;:5.108,&quot;v&quot;:-0.4},{&quot;t&quot;:5.219,&quot;v&quot;:-2.4},{&quot;t&quot;:5.329,&quot;v&quot;:-1.5},{&quot;t&quot;:5.439,&quot;v&quot;:-1},{&quot;t&quot;:5.549,&quot;v&quot;:-1.4},{&quot;t&quot;:5.659,&quot;v&quot;:-1.7},{&quot;t&quot;:5.769,&quot;v&quot;:-1.1},{&quot;t&quot;:5.879,&quot;v&quot;:-0.7},{&quot;t&quot;:5.989,&quot;v&quot;:-0.4},{&quot;t&quot;:6.32,&quot;v&quot;:0},{&quot;t&quot;:6.43,&quot;v&quot;:-2.6},{&quot;t&quot;:6.54,&quot;v&quot;:-3.8},{&quot;t&quot;:6.65,&quot;v&quot;:-3.2},{&quot;t&quot;:6.76,&quot;v&quot;:-3.7},{&quot;t&quot;:6.87,&quot;v&quot;:-2.4},{&quot;t&quot;:6.981,&quot;v&quot;:-1.5},{&quot;t&quot;:7.091,&quot;v&quot;:-1},{&quot;t&quot;:7.201,&quot;v&quot;:-0.6},{&quot;t&quot;:7.311,&quot;v&quot;:-0.4},{&quot;t&quot;:7.421,&quot;v&quot;:-0.3},{&quot;t&quot;:7.531,&quot;v&quot;:-7.1},{&quot;t&quot;:7.641,&quot;v&quot;:-9.3},{&quot;t&quot;:7.751,&quot;v&quot;:-9},{&quot;t&quot;:7.862,&quot;v&quot;:-8.3},{&quot;t&quot;:7.972,&quot;v&quot;:-7.5},{&quot;t&quot;:8.082,&quot;v&quot;:-5.4},{&quot;t&quot;:8.192,&quot;v&quot;:-4.6},{&quot;t&quot;:8.302,&quot;v&quot;:-4.4},{&quot;t&quot;:8.412,&quot;v&quot;:-2.8},{&quot;t&quot;:8.522,&quot;v&quot;:-1.8},{&quot;t&quot;:8.632,&quot;v&quot;:-1.2},{&quot;t&quot;:8.743,&quot;v&quot;:-0.8},{&quot;t&quot;:8.853,&quot;v&quot;:-0.5},{&quot;t&quot;:9.073,&quot;v&quot;:-0.2},{&quot;t&quot;:9.183,&quot;v&quot;:-1.5},{&quot;t&quot;:9.293,&quot;v&quot;:-0.9},{&quot;t&quot;:9.403,&quot;v&quot;:-4.6},{&quot;t&quot;:9.513,&quot;v&quot;:-2.9},{&quot;t&quot;:9.624,&quot;v&quot;:-1.9},{&quot;t&quot;:9.734,&quot;v&quot;:-1.2},{&quot;t&quot;:9.954,&quot;v&quot;:-0.9},{&quot;t&quot;:10.064,&quot;v&quot;:-0.6},{&quot;t&quot;:10.284,&quot;v&quot;:-0.2},{&quot;t&quot;:10.394,&quot;v&quot;:0},{&quot;t&quot;:10.615,&quot;v&quot;:0},{&quot;t&quot;:10.725,&quot;v&quot;:-5.1},{&quot;t&quot;:10.835,&quot;v&quot;:-3.8},{&quot;t&quot;:10.945,&quot;v&quot;:-3.2},{&quot;t&quot;:11.055,&quot;v&quot;:-2.4},{&quot;t&quot;:11.165,&quot;v&quot;:-2},{&quot;t&quot;:11.275,&quot;v&quot;:-1.3},{&quot;t&quot;:11.386,&quot;v&quot;:-0.8},{&quot;t&quot;:11.496,&quot;v&quot;:-0.5},{&quot;t&quot;:11.606,&quot;v&quot;:-0.3},{&quot;t&quot;:12.156,&quot;v&quot;:0},{&quot;t&quot;:12.267,&quot;v&quot;:-7.3},{&quot;t&quot;:12.377,&quot;v&quot;:-4.7},{&quot;t&quot;:12.487,&quot;v&quot;:-9.3},{&quot;t&quot;:12.597,&quot;v&quot;:-6},{&quot;t&quot;:12.707,&quot;v&quot;:-4},{&quot;t&quot;:12.817,&quot;v&quot;:-3},{&quot;t&quot;:12.927,&quot;v&quot;:-1.9},{&quot;t&quot;:13.037,&quot;v&quot;:-1.3},{&quot;t&quot;:13.148,&quot;v&quot;:-0.8},{&quot;t&quot;:13.258,&quot;v&quot;:-0.5},{&quot;t&quot;:13.368,&quot;v&quot;:-0.3},{&quot;t&quot;:13.478,&quot;v&quot;:-7},{&quot;t&quot;:13.588,&quot;v&quot;:-4.5},{&quot;t&quot;:13.698,&quot;v&quot;:-2.9},{&quot;t&quot;:13.808,&quot;v&quot;:-2.4},{&quot;t&quot;:13.918,&quot;v&quot;:-4.1},{&quot;t&quot;:14.029,&quot;v&quot;:-3.2},{&quot;t&quot;:14.139,&quot;v&quot;:-5.1},{&quot;t&quot;:14.249,&quot;v&quot;:-3.3},{&quot;t&quot;:14.359,&quot;v&quot;:-2.1},{&quot;t&quot;:14.469,&quot;v&quot;:-2.2},{&quot;t&quot;:14.579,&quot;v&quot;:-1.4},{&quot;t&quot;:14.689,&quot;v&quot;:-0.9},{&quot;t&quot;:14.799,&quot;v&quot;:-0.6},{&quot;t&quot;:15.02,&quot;v&quot;:-0.3},{&quot;t&quot;:15.13,&quot;v&quot;:-5.7},{&quot;t&quot;:15.24,&quot;v&quot;:-3.7},{&quot;t&quot;:15.35,&quot;v&quot;:-3.7},{&quot;t&quot;:15.46,&quot;v&quot;:-3.2},{&quot;t&quot;:15.57,&quot;v&quot;:-2.1},{&quot;t&quot;:15.68,&quot;v&quot;:-3.1},{&quot;t&quot;:15.791,&quot;v&quot;:-2},{&quot;t&quot;:15.901,&quot;v&quot;:-1.3},{&quot;t&quot;:16.011,&quot;v&quot;:-0.8},{&quot;t&quot;:16.121,&quot;v&quot;:-2.9},{&quot;t&quot;:16.231,&quot;v&quot;:-2.5},{&quot;t&quot;:16.341,&quot;v&quot;:-1.6},{&quot;t&quot;:16.451,&quot;v&quot;:-1.5},{&quot;t&quot;:16.561,&quot;v&quot;:-1},{&quot;t&quot;:16.672,&quot;v&quot;:-0.6},{&quot;t&quot;:16.782,&quot;v&quot;:-0.4},{&quot;t&quot;:17.222,&quot;v&quot;:0},{&quot;t&quot;:17.332,&quot;v&quot;:-2.1},{&quot;t&quot;:17.442,&quot;v&quot;:-7.5},{&quot;t&quot;:17.553,&quot;v&quot;:-5.9},{&quot;t&quot;:17.663,&quot;v&quot;:-4.6},{&quot;t&quot;:17.773,&quot;v&quot;:-2.9},{&quot;t&quot;:17.883,&quot;v&quot;:-5.4},{&quot;t&quot;:17.993,&quot;v&quot;:-3.5},{&quot;t&quot;:18.103,&quot;v&quot;:-2.6},{&quot;t&quot;:18.213,&quot;v&quot;:-5.9},{&quot;t&quot;:18.323,&quot;v&quot;:-3.8},{&quot;t&quot;:18.434,&quot;v&quot;:-4.5},{&quot;t&quot;:18.544,&quot;v&quot;:-2.9},{&quot;t&quot;:18.654,&quot;v&quot;:-1.9},{&quot;t&quot;:18.764,&quot;v&quot;:-1.2},{&quot;t&quot;:18.874,&quot;v&quot;:-0.8},{&quot;t&quot;:18.984,&quot;v&quot;:-6.4},{&quot;t&quot;:19.094,&quot;v&quot;:-4.2},{&quot;t&quot;:19.204,&quot;v&quot;:-4.1},{&quot;t&quot;:19.315,&quot;v&quot;:-5.7},{&quot;t&quot;:19.425,&quot;v&quot;:-3.7},{&quot;t&quot;:19.535,&quot;v&quot;:-5.9},{&quot;t&quot;:19.645,&quot;v&quot;:-3.8},{&quot;t&quot;:19.755,&quot;v&quot;:-2.4},{&quot;t&quot;:19.865,&quot;v&quot;:-1.6},{&quot;t&quot;:19.975,&quot;v&quot;:-7},{&quot;t&quot;:20.085,&quot;v&quot;:-4.5},{&quot;t&quot;:20.196,&quot;v&quot;:-3.3},{&quot;t&quot;:20.306,&quot;v&quot;:-2.5},{&quot;t&quot;:20.416,&quot;v&quot;:-1.6},{&quot;t&quot;:20.526,&quot;v&quot;:-6.6},{&quot;t&quot;:20.636,&quot;v&quot;:-4.6},{&quot;t&quot;:20.746,&quot;v&quot;:-3},{&quot;t&quot;:20.856,&quot;v&quot;:-1.9},{&quot;t&quot;:20.966,&quot;v&quot;:-1.7},{&quot;t&quot;:21.077,&quot;v&quot;:-3.2},{&quot;t&quot;:21.187,&quot;v&quot;:-4.2},{&quot;t&quot;:21.297,&quot;v&quot;:-2.7},{&quot;t&quot;:21.407,&quot;v&quot;:-1.7},{&quot;t&quot;:21.517,&quot;v&quot;:-1.1},{&quot;t&quot;:21.627,&quot;v&quot;:-0.7},{&quot;t&quot;:21.737,&quot;v&quot;:-0.5},{&quot;t&quot;:21.847,&quot;v&quot;:-8.6},{&quot;t&quot;:21.958,&quot;v&quot;:-5.5},{&quot;t&quot;:22.068,&quot;v&quot;:-4},{&quot;t&quot;:22.178,&quot;v&quot;:-2.6},{&quot;t&quot;:22.288,&quot;v&quot;:-2.1},{&quot;t&quot;:22.398,&quot;v&quot;:-4.1},{&quot;t&quot;:22.508,&quot;v&quot;:-5.9},{&quot;t&quot;:22.618,&quot;v&quot;:-3.8},{&quot;t&quot;:22.728,&quot;v&quot;:-4.6},{&quot;t&quot;:22.839,&quot;v&quot;:-3},{&quot;t&quot;:22.949,&quot;v&quot;:-1.9},{&quot;t&quot;:23.059,&quot;v&quot;:-4.6},{&quot;t&quot;:23.169,&quot;v&quot;:-3},{&quot;t&quot;:23.279,&quot;v&quot;:-1.9},{&quot;t&quot;:23.389,&quot;v&quot;:-3},{&quot;t&quot;:23.499,&quot;v&quot;:-3.7},{&quot;t&quot;:23.609,&quot;v&quot;:-3.1},{&quot;t&quot;:23.72,&quot;v&quot;:-6},{&quot;t&quot;:23.83,&quot;v&quot;:-3.9},{&quot;t&quot;:23.94,&quot;v&quot;:-3.7},{&quot;t&quot;:24.05,&quot;v&quot;:-5.2},{&quot;t&quot;:24.16,&quot;v&quot;:-4.2},{&quot;t&quot;:24.27,&quot;v&quot;:-2.7},{&quot;t&quot;:24.38,&quot;v&quot;:-1.7},{&quot;t&quot;:24.49,&quot;v&quot;:-1.1},{&quot;t&quot;:24.601,&quot;v&quot;:-0.7},{&quot;t&quot;:24.711,&quot;v&quot;:-0.5},{&quot;t&quot;:24.821,&quot;v&quot;:-0.3},{&quot;t&quot;:24.931,&quot;v&quot;:0},{&quot;t&quot;:25.261,&quot;v&quot;:0},{&quot;t&quot;:25.371,&quot;v&quot;:-0.8},{&quot;t&quot;:25.482,&quot;v&quot;:-0.5},{&quot;t&quot;:25.592,&quot;v&quot;:-0.3},{&quot;t&quot;:25.812,&quot;v&quot;:-0.5},{&quot;t&quot;:25.922,&quot;v&quot;:-2.5},{&quot;t&quot;:26.032,&quot;v&quot;:-1.8},{&quot;t&quot;:26.142,&quot;v&quot;:-1.2},{&quot;t&quot;:26.252,&quot;v&quot;:-2.8},{&quot;t&quot;:26.363,&quot;v&quot;:-4},{&quot;t&quot;:26.473,&quot;v&quot;:-3.2},{&quot;t&quot;:26.583,&quot;v&quot;:-5.1},{&quot;t&quot;:26.693,&quot;v&quot;:-3.4},{&quot;t&quot;:26.803,&quot;v&quot;:-3.1},{&quot;t&quot;:26.913,&quot;v&quot;:-2.5},{&quot;t&quot;:27.023,&quot;v&quot;:-1.6},{&quot;t&quot;:27.133,&quot;v&quot;:-1},{&quot;t&quot;:27.244,&quot;v&quot;:-3.7},{&quot;t&quot;:27.354,&quot;v&quot;:-3.4},{&quot;t&quot;:27.464,&quot;v&quot;:-2.7},{&quot;t&quot;:27.574,&quot;v&quot;:-1.8},{&quot;t&quot;:27.684,&quot;v&quot;:-1.1},{&quot;t&quot;:27.794,&quot;v&quot;:-0.7},{&quot;t&quot;:27.904,&quot;v&quot;:-6.1},{&quot;t&quot;:28.014,&quot;v&quot;:-3.9},{&quot;t&quot;:28.345,&quot;v&quot;:-3.5},{&quot;t&quot;:28.455,&quot;v&quot;:-2.2},{&quot;t&quot;:28.565,&quot;v&quot;:-1.4},{&quot;t&quot;:28.675,&quot;v&quot;:-0.9},{&quot;t&quot;:28.785,&quot;v&quot;:-0.6},{&quot;t&quot;:29.006,&quot;v&quot;:-0.2},{&quot;t&quot;:29.116,&quot;v&quot;:0},{&quot;t&quot;:29.556,&quot;v&quot;:0},{&quot;t&quot;:29.666,&quot;v&quot;:-1.6},{&quot;t&quot;:29.776,&quot;v&quot;:-1},{&quot;t&quot;:30.107,&quot;v&quot;:-0.7},{&quot;t&quot;:30.217,&quot;v&quot;:-0.4},{&quot;t&quot;:30.327,&quot;v&quot;:-5.5},{&quot;t&quot;:30.437,&quot;v&quot;:-3.5},{&quot;t&quot;:30.547,&quot;v&quot;:-6.9},{&quot;t&quot;:30.657,&quot;v&quot;:-5.3},{&quot;t&quot;:30.768,&quot;v&quot;:-3.7},{&quot;t&quot;:30.878,&quot;v&quot;:-8.8},{&quot;t&quot;:30.988,&quot;v&quot;:-6.2},{&quot;t&quot;:31.098,&quot;v&quot;:-4},{&quot;t&quot;:31.208,&quot;v&quot;:-2.6},{&quot;t&quot;:31.318,&quot;v&quot;:-1.6},{&quot;t&quot;:31.428,&quot;v&quot;:-1.3},{&quot;t&quot;:31.538,&quot;v&quot;:-0.9},{&quot;t&quot;:31.649,&quot;v&quot;:-0.6},{&quot;t&quot;:31.759,&quot;v&quot;:-0.4},{&quot;t&quot;:31.979,&quot;v&quot;:-0.2},{&quot;t&quot;:32.089,&quot;v&quot;:-3.3},{&quot;t&quot;:32.199,&quot;v&quot;:-3.2},{&quot;t&quot;:32.309,&quot;v&quot;:-2.1},{&quot;t&quot;:32.419,&quot;v&quot;:-1.6},{&quot;t&quot;:32.64,&quot;v&quot;:-1.2},{&quot;t&quot;:32.75,&quot;v&quot;:-0.8},{&quot;t&quot;:32.86,&quot;v&quot;:-0.5},{&quot;t&quot;:32.97,&quot;v&quot;:-0.3},{&quot;t&quot;:33.08,&quot;v&quot;:-0.2},{&quot;t&quot;:33.19,&quot;v&quot;:-2.4},{&quot;t&quot;:33.3,&quot;v&quot;:-1.5},{&quot;t&quot;:33.631,&quot;v&quot;:-1.4},{&quot;t&quot;:33.741,&quot;v&quot;:-0.9},{&quot;t&quot;:33.851,&quot;v&quot;:-0.6},{&quot;t&quot;:33.961,&quot;v&quot;:-5.2},{&quot;t&quot;:34.071,&quot;v&quot;:-3.3},{&quot;t&quot;:34.181,&quot;v&quot;:-2.1},{&quot;t&quot;:34.292,&quot;v&quot;:-1.4},{&quot;t&quot;:34.402,&quot;v&quot;:-0.9},{&quot;t&quot;:34.512,&quot;v&quot;:-0.6},{&quot;t&quot;:34.622,&quot;v&quot;:-0.4},{&quot;t&quot;:34.732,&quot;v&quot;:-1.7},{&quot;t&quot;:34.842,&quot;v&quot;:-1.1},{&quot;t&quot;:34.952,&quot;v&quot;:-4.2},{&quot;t&quot;:35.062,&quot;v&quot;:-4},{&quot;t&quot;:35.173,&quot;v&quot;:-2.6},{&quot;t&quot;:35.283,&quot;v&quot;:-1.7},{&quot;t&quot;:35.393,&quot;v&quot;:-1.1},{&quot;t&quot;:35.503,&quot;v&quot;:-0.7},{&quot;t&quot;:35.613,&quot;v&quot;:-0.4},{&quot;t&quot;:35.833,&quot;v&quot;:0},{&quot;t&quot;:35.943,&quot;v&quot;:-2.5},{&quot;t&quot;:36.054,&quot;v&quot;:-1.6},{&quot;t&quot;:36.164,&quot;v&quot;:-8.3},{&quot;t&quot;:36.274,&quot;v&quot;:-7.7},{&quot;t&quot;:36.384,&quot;v&quot;:-6.7},{&quot;t&quot;:36.494,&quot;v&quot;:-5.6},{&quot;t&quot;:36.604,&quot;v&quot;:-3.6},{&quot;t&quot;:36.714,&quot;v&quot;:-2.3},{&quot;t&quot;:36.824,&quot;v&quot;:-1.5},{&quot;t&quot;:36.935,&quot;v&quot;:-1},{&quot;t&quot;:37.045,&quot;v&quot;:-0.6},{&quot;t&quot;:37.155,&quot;v&quot;:-0.4},{&quot;t&quot;:37.265,&quot;v&quot;:-0.3},{&quot;t&quot;:37.375,&quot;v&quot;:-5.1},{&quot;t&quot;:37.485,&quot;v&quot;:-3.3},{&quot;t&quot;:37.595,&quot;v&quot;:-2.1},{&quot;t&quot;:37.705,&quot;v&quot;:-1.4},{&quot;t&quot;:37.816,&quot;v&quot;:-2.7},{&quot;t&quot;:37.926,&quot;v&quot;:-1.8},{&quot;t&quot;:38.036,&quot;v&quot;:-6.4},{&quot;t&quot;:38.146,&quot;v&quot;:-5.4},{&quot;t&quot;:38.256,&quot;v&quot;:-3.5},{&quot;t&quot;:38.366,&quot;v&quot;:-2.2},{&quot;t&quot;:38.476,&quot;v&quot;:-1.4},{&quot;t&quot;:38.586,&quot;v&quot;:-0.9},{&quot;t&quot;:38.697,&quot;v&quot;:-0.6},{&quot;t&quot;:38.807,&quot;v&quot;:-0.4},{&quot;t&quot;:38.917,&quot;v&quot;:-8.9},{&quot;t&quot;:39.027,&quot;v&quot;:-8.3},{&quot;t&quot;:39.137,&quot;v&quot;:-6.8},{&quot;t&quot;:39.247,&quot;v&quot;:-6.4},{&quot;t&quot;:39.357,&quot;v&quot;:-4.4},{&quot;t&quot;:39.467,&quot;v&quot;:-4},{&quot;t&quot;:39.578,&quot;v&quot;:-2.6},{&quot;t&quot;:39.688,&quot;v&quot;:-1.6},{&quot;t&quot;:39.798,&quot;v&quot;:-2.7},{&quot;t&quot;:39.908,&quot;v&quot;:-2.4},{&quot;t&quot;:40.018,&quot;v&quot;:-1.6},{&quot;t&quot;:40.128,&quot;v&quot;:-1},{&quot;t&quot;:40.238,&quot;v&quot;:-1},{&quot;t&quot;:40.348,&quot;v&quot;:-1.7},{&quot;t&quot;:40.459,&quot;v&quot;:-6.1},{&quot;t&quot;:40.569,&quot;v&quot;:-4.2},{&quot;t&quot;:40.679,&quot;v&quot;:-5.5},{&quot;t&quot;:40.789,&quot;v&quot;:-3.6},{&quot;t&quot;:40.899,&quot;v&quot;:-2.3},{&quot;t&quot;:41.009,&quot;v&quot;:-6.4},{&quot;t&quot;:41.119,&quot;v&quot;:-4.1},{&quot;t&quot;:41.229,&quot;v&quot;:-8.3},{&quot;t&quot;:41.34,&quot;v&quot;:-5.4},{&quot;t&quot;:41.45,&quot;v&quot;:-3.5},{&quot;t&quot;:41.56,&quot;v&quot;:-3},{&quot;t&quot;:41.67,&quot;v&quot;:-1.9},{&quot;t&quot;:41.78,&quot;v&quot;:-1.2},{&quot;t&quot;:41.89,&quot;v&quot;:-0.8},{&quot;t&quot;:42,&quot;v&quot;:-0.5},{&quot;t&quot;:42.221,&quot;v&quot;:-0.2},{&quot;t&quot;:42.331,&quot;v&quot;:-3},{&quot;t&quot;:42.441,&quot;v&quot;:-6.6},{&quot;t&quot;:42.551,&quot;v&quot;:-4.5},{&quot;t&quot;:42.661,&quot;v&quot;:-5.4},{&quot;t&quot;:42.771,&quot;v&quot;:-3.6},{&quot;t&quot;:42.881,&quot;v&quot;:-2.4},{&quot;t&quot;:42.991,&quot;v&quot;:-1.5},{&quot;t&quot;:43.102,&quot;v&quot;:-1},{&quot;t&quot;:43.212,&quot;v&quot;:-6.9},{&quot;t&quot;:43.322,&quot;v&quot;:-7.2},{&quot;t&quot;:43.432,&quot;v&quot;:-4.6},{&quot;t&quot;:43.542,&quot;v&quot;:-7.5},{&quot;t&quot;:43.652,&quot;v&quot;:-6.8},{&quot;t&quot;:43.762,&quot;v&quot;:-4.4},{&quot;t&quot;:43.872,&quot;v&quot;:-2.8},{&quot;t&quot;:43.983,&quot;v&quot;:-1.8},{&quot;t&quot;:44.042,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n4.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.043,&quot;v&quot;:0},{&quot;t&quot;:0.153,&quot;v&quot;:-2},{&quot;t&quot;:0.263,&quot;v&quot;:-1.6},{&quot;t&quot;:0.373,&quot;v&quot;:-2.5},{&quot;t&quot;:0.483,&quot;v&quot;:-1.9},{&quot;t&quot;:0.593,&quot;v&quot;:-1.9},{&quot;t&quot;:0.703,&quot;v&quot;:-3.2},{&quot;t&quot;:0.814,&quot;v&quot;:-2.5},{&quot;t&quot;:0.924,&quot;v&quot;:-2},{&quot;t&quot;:1.034,&quot;v&quot;:-1.3},{&quot;t&quot;:1.144,&quot;v&quot;:-0.8},{&quot;t&quot;:1.254,&quot;v&quot;:-2.8},{&quot;t&quot;:1.364,&quot;v&quot;:-1.8},{&quot;t&quot;:1.474,&quot;v&quot;:-1.2},{&quot;t&quot;:1.695,&quot;v&quot;:-1.1},{&quot;t&quot;:1.805,&quot;v&quot;:-3},{&quot;t&quot;:1.915,&quot;v&quot;:-2.8},{&quot;t&quot;:2.025,&quot;v&quot;:-2.1},{&quot;t&quot;:2.135,&quot;v&quot;:-3},{&quot;t&quot;:2.245,&quot;v&quot;:-2.6},{&quot;t&quot;:2.355,&quot;v&quot;:-1.7},{&quot;t&quot;:2.465,&quot;v&quot;:-1.4},{&quot;t&quot;:2.576,&quot;v&quot;:-1.1},{&quot;t&quot;:2.686,&quot;v&quot;:-0.7},{&quot;t&quot;:2.796,&quot;v&quot;:-0.5},{&quot;t&quot;:2.906,&quot;v&quot;:-0.3},{&quot;t&quot;:3.016,&quot;v&quot;:0},{&quot;t&quot;:3.457,&quot;v&quot;:-0.4},{&quot;t&quot;:3.567,&quot;v&quot;:-0.9},{&quot;t&quot;:3.677,&quot;v&quot;:-2.6},{&quot;t&quot;:3.787,&quot;v&quot;:-1.9},{&quot;t&quot;:4.227,&quot;v&quot;:-1.8},{&quot;t&quot;:4.338,&quot;v&quot;:-1.2},{&quot;t&quot;:4.448,&quot;v&quot;:-2.2},{&quot;t&quot;:4.558,&quot;v&quot;:-1.4},{&quot;t&quot;:4.778,&quot;v&quot;:-1.2},{&quot;t&quot;:4.888,&quot;v&quot;:-0.8},{&quot;t&quot;:4.998,&quot;v&quot;:-0.5},{&quot;t&quot;:5.108,&quot;v&quot;:-1.3},{&quot;t&quot;:5.219,&quot;v&quot;:-1.2},{&quot;t&quot;:5.329,&quot;v&quot;:-0.8},{&quot;t&quot;:5.549,&quot;v&quot;:-0.8},{&quot;t&quot;:5.659,&quot;v&quot;:-2.3},{&quot;t&quot;:5.769,&quot;v&quot;:-1.5},{&quot;t&quot;:5.879,&quot;v&quot;:-1},{&quot;t&quot;:5.989,&quot;v&quot;:-0.6},{&quot;t&quot;:6.1,&quot;v&quot;:-0.4},{&quot;t&quot;:6.32,&quot;v&quot;:0},{&quot;t&quot;:6.43,&quot;v&quot;:-2.6},{&quot;t&quot;:6.76,&quot;v&quot;:-2.2},{&quot;t&quot;:6.87,&quot;v&quot;:-1.6},{&quot;t&quot;:6.981,&quot;v&quot;:-1},{&quot;t&quot;:7.091,&quot;v&quot;:-0.7},{&quot;t&quot;:7.201,&quot;v&quot;:-0.4},{&quot;t&quot;:7.421,&quot;v&quot;:0},{&quot;t&quot;:7.531,&quot;v&quot;:-3},{&quot;t&quot;:7.641,&quot;v&quot;:-4},{&quot;t&quot;:7.751,&quot;v&quot;:-3.7},{&quot;t&quot;:7.862,&quot;v&quot;:-3},{&quot;t&quot;:7.972,&quot;v&quot;:-2.7},{&quot;t&quot;:8.082,&quot;v&quot;:-2},{&quot;t&quot;:8.412,&quot;v&quot;:-2},{&quot;t&quot;:8.522,&quot;v&quot;:-2.7},{&quot;t&quot;:8.632,&quot;v&quot;:-3.7},{&quot;t&quot;:8.743,&quot;v&quot;:-2.4},{&quot;t&quot;:8.853,&quot;v&quot;:-1.5},{&quot;t&quot;:8.963,&quot;v&quot;:-1},{&quot;t&quot;:9.293,&quot;v&quot;:-0.6},{&quot;t&quot;:9.403,&quot;v&quot;:-3.4},{&quot;t&quot;:9.513,&quot;v&quot;:-2.2},{&quot;t&quot;:9.624,&quot;v&quot;:-2.4},{&quot;t&quot;:9.734,&quot;v&quot;:-1.6},{&quot;t&quot;:9.844,&quot;v&quot;:-1.6},{&quot;t&quot;:9.954,&quot;v&quot;:-2.6},{&quot;t&quot;:10.064,&quot;v&quot;:-1.8},{&quot;t&quot;:10.174,&quot;v&quot;:-1.2},{&quot;t&quot;:10.394,&quot;v&quot;:-0.8},{&quot;t&quot;:10.505,&quot;v&quot;:-0.5},{&quot;t&quot;:10.615,&quot;v&quot;:-0.3},{&quot;t&quot;:10.725,&quot;v&quot;:-2.6},{&quot;t&quot;:10.945,&quot;v&quot;:-2.3},{&quot;t&quot;:11.055,&quot;v&quot;:-3.9},{&quot;t&quot;:11.165,&quot;v&quot;:-3.1},{&quot;t&quot;:11.275,&quot;v&quot;:-2.2},{&quot;t&quot;:11.386,&quot;v&quot;:-1.9},{&quot;t&quot;:11.496,&quot;v&quot;:-1.7},{&quot;t&quot;:11.606,&quot;v&quot;:-1.1},{&quot;t&quot;:11.716,&quot;v&quot;:-0.7},{&quot;t&quot;:11.826,&quot;v&quot;:-0.5},{&quot;t&quot;:11.936,&quot;v&quot;:-0.3},{&quot;t&quot;:12.046,&quot;v&quot;:0},{&quot;t&quot;:12.156,&quot;v&quot;:0},{&quot;t&quot;:12.267,&quot;v&quot;:-3.5},{&quot;t&quot;:12.377,&quot;v&quot;:-2.4},{&quot;t&quot;:12.597,&quot;v&quot;:-2.3},{&quot;t&quot;:12.707,&quot;v&quot;:-1.8},{&quot;t&quot;:12.817,&quot;v&quot;:-3.6},{&quot;t&quot;:12.927,&quot;v&quot;:-2.7},{&quot;t&quot;:13.037,&quot;v&quot;:-1.8},{&quot;t&quot;:13.148,&quot;v&quot;:-1.1},{&quot;t&quot;:13.258,&quot;v&quot;:-0.7},{&quot;t&quot;:13.368,&quot;v&quot;:-0.6},{&quot;t&quot;:13.478,&quot;v&quot;:-2},{&quot;t&quot;:13.588,&quot;v&quot;:-1.3},{&quot;t&quot;:13.698,&quot;v&quot;:-0.8},{&quot;t&quot;:13.808,&quot;v&quot;:-2},{&quot;t&quot;:14.029,&quot;v&quot;:-1.6},{&quot;t&quot;:14.139,&quot;v&quot;:-3},{&quot;t&quot;:14.469,&quot;v&quot;:-2.9},{&quot;t&quot;:14.579,&quot;v&quot;:-3.8},{&quot;t&quot;:14.689,&quot;v&quot;:-3.2},{&quot;t&quot;:14.799,&quot;v&quot;:-4},{&quot;t&quot;:14.91,&quot;v&quot;:-2.9},{&quot;t&quot;:15.02,&quot;v&quot;:-2.2},{&quot;t&quot;:15.13,&quot;v&quot;:-1.6},{&quot;t&quot;:15.35,&quot;v&quot;:-1.2},{&quot;t&quot;:15.46,&quot;v&quot;:-0.8},{&quot;t&quot;:15.901,&quot;v&quot;:-0.4},{&quot;t&quot;:16.011,&quot;v&quot;:-0.3},{&quot;t&quot;:16.121,&quot;v&quot;:-2.6},{&quot;t&quot;:16.231,&quot;v&quot;:-3},{&quot;t&quot;:16.341,&quot;v&quot;:-2},{&quot;t&quot;:16.451,&quot;v&quot;:-1.4},{&quot;t&quot;:16.561,&quot;v&quot;:-0.9},{&quot;t&quot;:16.672,&quot;v&quot;:-0.6},{&quot;t&quot;:17.002,&quot;v&quot;:-0.3},{&quot;t&quot;:17.112,&quot;v&quot;:0},{&quot;t&quot;:17.222,&quot;v&quot;:0},{&quot;t&quot;:17.332,&quot;v&quot;:-4.3},{&quot;t&quot;:17.442,&quot;v&quot;:-3.7},{&quot;t&quot;:17.553,&quot;v&quot;:-3.6},{&quot;t&quot;:17.663,&quot;v&quot;:-3},{&quot;t&quot;:17.773,&quot;v&quot;:-2},{&quot;t&quot;:17.883,&quot;v&quot;:-2.4},{&quot;t&quot;:17.993,&quot;v&quot;:-1.5},{&quot;t&quot;:18.103,&quot;v&quot;:-1.2},{&quot;t&quot;:18.213,&quot;v&quot;:-2.8},{&quot;t&quot;:18.323,&quot;v&quot;:-2.2},{&quot;t&quot;:18.434,&quot;v&quot;:-2.4},{&quot;t&quot;:18.544,&quot;v&quot;:-1.5},{&quot;t&quot;:18.654,&quot;v&quot;:-1.1},{&quot;t&quot;:18.764,&quot;v&quot;:-0.7},{&quot;t&quot;:18.874,&quot;v&quot;:-2.5},{&quot;t&quot;:19.204,&quot;v&quot;:-2.1},{&quot;t&quot;:19.315,&quot;v&quot;:-3.1},{&quot;t&quot;:19.425,&quot;v&quot;:-2},{&quot;t&quot;:19.535,&quot;v&quot;:-3.2},{&quot;t&quot;:19.645,&quot;v&quot;:-2},{&quot;t&quot;:19.755,&quot;v&quot;:-1.3},{&quot;t&quot;:19.865,&quot;v&quot;:-0.8},{&quot;t&quot;:19.975,&quot;v&quot;:-3.3},{&quot;t&quot;:20.085,&quot;v&quot;:-2.2},{&quot;t&quot;:20.196,&quot;v&quot;:-1.4},{&quot;t&quot;:20.306,&quot;v&quot;:-2.4},{&quot;t&quot;:20.416,&quot;v&quot;:-1.8},{&quot;t&quot;:20.526,&quot;v&quot;:-2.8},{&quot;t&quot;:20.636,&quot;v&quot;:-1.9},{&quot;t&quot;:20.746,&quot;v&quot;:-3.5},{&quot;t&quot;:20.856,&quot;v&quot;:-2.6},{&quot;t&quot;:20.966,&quot;v&quot;:-2.1},{&quot;t&quot;:21.077,&quot;v&quot;:-2.3},{&quot;t&quot;:21.187,&quot;v&quot;:-2.7},{&quot;t&quot;:21.297,&quot;v&quot;:-2.6},{&quot;t&quot;:21.407,&quot;v&quot;:-1.9},{&quot;t&quot;:21.517,&quot;v&quot;:-1.2},{&quot;t&quot;:21.627,&quot;v&quot;:-0.8},{&quot;t&quot;:21.737,&quot;v&quot;:-0.5},{&quot;t&quot;:21.847,&quot;v&quot;:-3.9},{&quot;t&quot;:21.958,&quot;v&quot;:-2.9},{&quot;t&quot;:22.068,&quot;v&quot;:-2.7},{&quot;t&quot;:22.178,&quot;v&quot;:-2.4},{&quot;t&quot;:22.508,&quot;v&quot;:-2.4},{&quot;t&quot;:22.618,&quot;v&quot;:-1.6},{&quot;t&quot;:22.839,&quot;v&quot;:-1.9},{&quot;t&quot;:22.949,&quot;v&quot;:-2.5},{&quot;t&quot;:23.059,&quot;v&quot;:-3.2},{&quot;t&quot;:23.169,&quot;v&quot;:-2},{&quot;t&quot;:23.279,&quot;v&quot;:-1.3},{&quot;t&quot;:23.389,&quot;v&quot;:-1.2},{&quot;t&quot;:23.499,&quot;v&quot;:-0.8},{&quot;t&quot;:23.609,&quot;v&quot;:-0.6},{&quot;t&quot;:23.72,&quot;v&quot;:-3.7},{&quot;t&quot;:23.83,&quot;v&quot;:-3},{&quot;t&quot;:23.94,&quot;v&quot;:-2.9},{&quot;t&quot;:24.05,&quot;v&quot;:-2},{&quot;t&quot;:24.27,&quot;v&quot;:-1.8},{&quot;t&quot;:24.38,&quot;v&quot;:-3.5},{&quot;t&quot;:24.49,&quot;v&quot;:-2.5},{&quot;t&quot;:24.601,&quot;v&quot;:-2.3},{&quot;t&quot;:24.711,&quot;v&quot;:-1.8},{&quot;t&quot;:24.821,&quot;v&quot;:-1.1},{&quot;t&quot;:24.931,&quot;v&quot;:-0.7},{&quot;t&quot;:25.041,&quot;v&quot;:-0.5},{&quot;t&quot;:25.261,&quot;v&quot;:-0.5},{&quot;t&quot;:25.371,&quot;v&quot;:-1.1},{&quot;t&quot;:25.482,&quot;v&quot;:-0.7},{&quot;t&quot;:25.592,&quot;v&quot;:-0.4},{&quot;t&quot;:25.812,&quot;v&quot;:-0.4},{&quot;t&quot;:25.922,&quot;v&quot;:-1.5},{&quot;t&quot;:26.032,&quot;v&quot;:-1.2},{&quot;t&quot;:26.142,&quot;v&quot;:-3.3},{&quot;t&quot;:26.252,&quot;v&quot;:-3.3},{&quot;t&quot;:26.363,&quot;v&quot;:-2.5},{&quot;t&quot;:26.473,&quot;v&quot;:-1.8},{&quot;t&quot;:26.583,&quot;v&quot;:-1.6},{&quot;t&quot;:26.693,&quot;v&quot;:-1.3},{&quot;t&quot;:27.023,&quot;v&quot;:-0.9},{&quot;t&quot;:27.133,&quot;v&quot;:-0.6},{&quot;t&quot;:27.244,&quot;v&quot;:-2.8},{&quot;t&quot;:27.354,&quot;v&quot;:-2.1},{&quot;t&quot;:27.464,&quot;v&quot;:-1.7},{&quot;t&quot;:27.574,&quot;v&quot;:-1.1},{&quot;t&quot;:27.684,&quot;v&quot;:-0.7},{&quot;t&quot;:27.794,&quot;v&quot;:-0.4},{&quot;t&quot;:27.904,&quot;v&quot;:-3},{&quot;t&quot;:28.014,&quot;v&quot;:-3.5},{&quot;t&quot;:28.125,&quot;v&quot;:-2.9},{&quot;t&quot;:28.345,&quot;v&quot;:-2.8},{&quot;t&quot;:28.455,&quot;v&quot;:-1.9},{&quot;t&quot;:28.565,&quot;v&quot;:-1.2},{&quot;t&quot;:28.675,&quot;v&quot;:-0.8},{&quot;t&quot;:28.785,&quot;v&quot;:-0.5},{&quot;t&quot;:28.895,&quot;v&quot;:-0.3},{&quot;t&quot;:29.006,&quot;v&quot;:-2.1},{&quot;t&quot;:29.116,&quot;v&quot;:-1.3},{&quot;t&quot;:29.226,&quot;v&quot;:-0.9},{&quot;t&quot;:29.336,&quot;v&quot;:-0.7},{&quot;t&quot;:29.556,&quot;v&quot;:-0.3},{&quot;t&quot;:29.666,&quot;v&quot;:-2.5},{&quot;t&quot;:29.776,&quot;v&quot;:-3.2},{&quot;t&quot;:29.887,&quot;v&quot;:-2.4},{&quot;t&quot;:29.997,&quot;v&quot;:-1.6},{&quot;t&quot;:30.107,&quot;v&quot;:-1},{&quot;t&quot;:30.217,&quot;v&quot;:-0.6},{&quot;t&quot;:30.327,&quot;v&quot;:-2.3},{&quot;t&quot;:30.437,&quot;v&quot;:-1.5},{&quot;t&quot;:30.547,&quot;v&quot;:-2.7},{&quot;t&quot;:30.657,&quot;v&quot;:-1.9},{&quot;t&quot;:30.768,&quot;v&quot;:-1.9},{&quot;t&quot;:30.878,&quot;v&quot;:-3.7},{&quot;t&quot;:30.988,&quot;v&quot;:-2.4},{&quot;t&quot;:31.098,&quot;v&quot;:-1.5},{&quot;t&quot;:31.318,&quot;v&quot;:-1.4},{&quot;t&quot;:31.428,&quot;v&quot;:-2.2},{&quot;t&quot;:31.538,&quot;v&quot;:-1.4},{&quot;t&quot;:31.649,&quot;v&quot;:-0.9},{&quot;t&quot;:31.759,&quot;v&quot;:-0.8},{&quot;t&quot;:31.869,&quot;v&quot;:-2.5},{&quot;t&quot;:31.979,&quot;v&quot;:-1.9},{&quot;t&quot;:32.089,&quot;v&quot;:-2.1},{&quot;t&quot;:32.199,&quot;v&quot;:-1.4},{&quot;t&quot;:32.309,&quot;v&quot;:-1.2},{&quot;t&quot;:32.419,&quot;v&quot;:-2},{&quot;t&quot;:32.53,&quot;v&quot;:-1.9},{&quot;t&quot;:32.64,&quot;v&quot;:-1.2},{&quot;t&quot;:32.97,&quot;v&quot;:-0.9},{&quot;t&quot;:33.08,&quot;v&quot;:-0.6},{&quot;t&quot;:33.3,&quot;v&quot;:-0.2},{&quot;t&quot;:33.411,&quot;v&quot;:-1.4},{&quot;t&quot;:33.521,&quot;v&quot;:-2.3},{&quot;t&quot;:33.631,&quot;v&quot;:-1.6},{&quot;t&quot;:33.741,&quot;v&quot;:-1.1},{&quot;t&quot;:33.851,&quot;v&quot;:-1},{&quot;t&quot;:33.961,&quot;v&quot;:-2.6},{&quot;t&quot;:34.071,&quot;v&quot;:-1.7},{&quot;t&quot;:34.181,&quot;v&quot;:-1.5},{&quot;t&quot;:34.292,&quot;v&quot;:-0.9},{&quot;t&quot;:34.402,&quot;v&quot;:-0.6},{&quot;t&quot;:34.512,&quot;v&quot;:-0.4},{&quot;t&quot;:34.622,&quot;v&quot;:-0.3},{&quot;t&quot;:34.732,&quot;v&quot;:-3.8},{&quot;t&quot;:34.842,&quot;v&quot;:-2.9},{&quot;t&quot;:35.062,&quot;v&quot;:-2.5},{&quot;t&quot;:35.173,&quot;v&quot;:-1.6},{&quot;t&quot;:35.283,&quot;v&quot;:-1.2},{&quot;t&quot;:35.393,&quot;v&quot;:-0.8},{&quot;t&quot;:35.503,&quot;v&quot;:-0.5},{&quot;t&quot;:35.613,&quot;v&quot;:-0.3},{&quot;t&quot;:35.723,&quot;v&quot;:-0.2},{&quot;t&quot;:35.833,&quot;v&quot;:-0.9},{&quot;t&quot;:35.943,&quot;v&quot;:-1.5},{&quot;t&quot;:36.054,&quot;v&quot;:-1.3},{&quot;t&quot;:36.164,&quot;v&quot;:-3.6},{&quot;t&quot;:36.274,&quot;v&quot;:-3.3},{&quot;t&quot;:36.384,&quot;v&quot;:-2.3},{&quot;t&quot;:36.494,&quot;v&quot;:-1.9},{&quot;t&quot;:36.604,&quot;v&quot;:-1.2},{&quot;t&quot;:36.714,&quot;v&quot;:-0.8},{&quot;t&quot;:36.824,&quot;v&quot;:-0.5},{&quot;t&quot;:37.045,&quot;v&quot;:-0.2},{&quot;t&quot;:37.155,&quot;v&quot;:0},{&quot;t&quot;:37.265,&quot;v&quot;:0},{&quot;t&quot;:37.375,&quot;v&quot;:-0.8},{&quot;t&quot;:37.485,&quot;v&quot;:-0.5},{&quot;t&quot;:37.595,&quot;v&quot;:-2.4},{&quot;t&quot;:37.705,&quot;v&quot;:-4.7},{&quot;t&quot;:37.816,&quot;v&quot;:-4.2},{&quot;t&quot;:37.926,&quot;v&quot;:-2.7},{&quot;t&quot;:38.036,&quot;v&quot;:-3.6},{&quot;t&quot;:38.146,&quot;v&quot;:-3.1},{&quot;t&quot;:38.256,&quot;v&quot;:-2.7},{&quot;t&quot;:38.366,&quot;v&quot;:-1.8},{&quot;t&quot;:38.476,&quot;v&quot;:-1.1},{&quot;t&quot;:38.586,&quot;v&quot;:-0.7},{&quot;t&quot;:38.697,&quot;v&quot;:-0.5},{&quot;t&quot;:38.807,&quot;v&quot;:-0.3},{&quot;t&quot;:38.917,&quot;v&quot;:-4.2},{&quot;t&quot;:39.027,&quot;v&quot;:-2.7},{&quot;t&quot;:39.137,&quot;v&quot;:-2.2},{&quot;t&quot;:39.467,&quot;v&quot;:-1.8},{&quot;t&quot;:39.578,&quot;v&quot;:-2.7},{&quot;t&quot;:39.688,&quot;v&quot;:-1.7},{&quot;t&quot;:39.798,&quot;v&quot;:-2.7},{&quot;t&quot;:39.908,&quot;v&quot;:-2.1},{&quot;t&quot;:40.018,&quot;v&quot;:-2},{&quot;t&quot;:40.128,&quot;v&quot;:-1.3},{&quot;t&quot;:40.348,&quot;v&quot;:-1.2},{&quot;t&quot;:40.459,&quot;v&quot;:-2},{&quot;t&quot;:40.569,&quot;v&quot;:-3.8},{&quot;t&quot;:40.679,&quot;v&quot;:-3.4},{&quot;t&quot;:40.789,&quot;v&quot;:-2.2},{&quot;t&quot;:40.899,&quot;v&quot;:-1.4},{&quot;t&quot;:41.009,&quot;v&quot;:-4.3},{&quot;t&quot;:41.119,&quot;v&quot;:-2.8},{&quot;t&quot;:41.229,&quot;v&quot;:-4.3},{&quot;t&quot;:41.34,&quot;v&quot;:-3.9},{&quot;t&quot;:41.45,&quot;v&quot;:-2.5},{&quot;t&quot;:41.56,&quot;v&quot;:-2.4},{&quot;t&quot;:41.67,&quot;v&quot;:-1.6},{&quot;t&quot;:41.78,&quot;v&quot;:-1},{&quot;t&quot;:41.89,&quot;v&quot;:-0.7},{&quot;t&quot;:42,&quot;v&quot;:-0.4},{&quot;t&quot;:42.221,&quot;v&quot;:0},{&quot;t&quot;:42.331,&quot;v&quot;:-2.8},{&quot;t&quot;:42.551,&quot;v&quot;:-2.4},{&quot;t&quot;:42.661,&quot;v&quot;:-3.4},{&quot;t&quot;:42.771,&quot;v&quot;:-2.6},{&quot;t&quot;:42.881,&quot;v&quot;:-2.1},{&quot;t&quot;:42.991,&quot;v&quot;:-3.8},{&quot;t&quot;:43.102,&quot;v&quot;:-2.7},{&quot;t&quot;:43.212,&quot;v&quot;:-3.3},{&quot;t&quot;:43.322,&quot;v&quot;:-3.3},{&quot;t&quot;:43.432,&quot;v&quot;:-2.1},{&quot;t&quot;:43.542,&quot;v&quot;:-4.2},{&quot;t&quot;:43.652,&quot;v&quot;:-4.3},{&quot;t&quot;:43.762,&quot;v&quot;:-3.4},{&quot;t&quot;:43.872,&quot;v&quot;:-2.2},{&quot;t&quot;:43.983,&quot;v&quot;:-1.4},{&quot;t&quot;:44.042,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n5.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.263,&quot;v&quot;:0},{&quot;t&quot;:0.373,&quot;v&quot;:-3.7},{&quot;t&quot;:0.483,&quot;v&quot;:-11.1},{&quot;t&quot;:0.593,&quot;v&quot;:-11.9},{&quot;t&quot;:1.254,&quot;v&quot;:-11.8},{&quot;t&quot;:1.364,&quot;v&quot;:-11.3},{&quot;t&quot;:1.474,&quot;v&quot;:-11.9},{&quot;t&quot;:3.016,&quot;v&quot;:-11.5},{&quot;t&quot;:3.126,&quot;v&quot;:-10.9},{&quot;t&quot;:3.236,&quot;v&quot;:-10.5},{&quot;t&quot;:3.346,&quot;v&quot;:-10},{&quot;t&quot;:3.457,&quot;v&quot;:-11.8},{&quot;t&quot;:5.769,&quot;v&quot;:-11.5},{&quot;t&quot;:5.879,&quot;v&quot;:-10.9},{&quot;t&quot;:5.989,&quot;v&quot;:-10.5},{&quot;t&quot;:6.1,&quot;v&quot;:-10},{&quot;t&quot;:6.21,&quot;v&quot;:-9.5},{&quot;t&quot;:6.32,&quot;v&quot;:-9.1},{&quot;t&quot;:6.43,&quot;v&quot;:-11.7},{&quot;t&quot;:7.201,&quot;v&quot;:-11.5},{&quot;t&quot;:7.311,&quot;v&quot;:-10.9},{&quot;t&quot;:7.421,&quot;v&quot;:-10.5},{&quot;t&quot;:7.531,&quot;v&quot;:-11.8},{&quot;t&quot;:7.751,&quot;v&quot;:-11.5},{&quot;t&quot;:7.862,&quot;v&quot;:-11.1},{&quot;t&quot;:7.972,&quot;v&quot;:-11.9},{&quot;t&quot;:8.853,&quot;v&quot;:-11.5},{&quot;t&quot;:8.963,&quot;v&quot;:-10.9},{&quot;t&quot;:9.073,&quot;v&quot;:-10.5},{&quot;t&quot;:9.183,&quot;v&quot;:-11.8},{&quot;t&quot;:10.394,&quot;v&quot;:-11.5},{&quot;t&quot;:10.505,&quot;v&quot;:-10.9},{&quot;t&quot;:10.615,&quot;v&quot;:-10.5},{&quot;t&quot;:10.725,&quot;v&quot;:-11.8},{&quot;t&quot;:11.716,&quot;v&quot;:-11.5},{&quot;t&quot;:11.826,&quot;v&quot;:-10.9},{&quot;t&quot;:11.936,&quot;v&quot;:-10.5},{&quot;t&quot;:12.046,&quot;v&quot;:-10},{&quot;t&quot;:12.156,&quot;v&quot;:-9.5},{&quot;t&quot;:12.267,&quot;v&quot;:-11.7},{&quot;t&quot;:16.892,&quot;v&quot;:-11.5},{&quot;t&quot;:17.002,&quot;v&quot;:-10.9},{&quot;t&quot;:17.112,&quot;v&quot;:-10.5},{&quot;t&quot;:17.222,&quot;v&quot;:-11.8},{&quot;t&quot;:21.517,&quot;v&quot;:-11.5},{&quot;t&quot;:21.627,&quot;v&quot;:-10.9},{&quot;t&quot;:21.737,&quot;v&quot;:-10.5},{&quot;t&quot;:21.847,&quot;v&quot;:-11.8},{&quot;t&quot;:23.169,&quot;v&quot;:-11.5},{&quot;t&quot;:23.279,&quot;v&quot;:-10.9},{&quot;t&quot;:23.389,&quot;v&quot;:-11.9},{&quot;t&quot;:24.931,&quot;v&quot;:-11.5},{&quot;t&quot;:25.041,&quot;v&quot;:-10.9},{&quot;t&quot;:25.151,&quot;v&quot;:-11.9},{&quot;t&quot;:28.565,&quot;v&quot;:-11.5},{&quot;t&quot;:28.675,&quot;v&quot;:-10.9},{&quot;t&quot;:28.785,&quot;v&quot;:-10.5},{&quot;t&quot;:28.895,&quot;v&quot;:-10},{&quot;t&quot;:29.006,&quot;v&quot;:-11.8},{&quot;t&quot;:32.64,&quot;v&quot;:-11.5},{&quot;t&quot;:32.75,&quot;v&quot;:-10.9},{&quot;t&quot;:32.86,&quot;v&quot;:-11.9},{&quot;t&quot;:34.292,&quot;v&quot;:-11.5},{&quot;t&quot;:34.402,&quot;v&quot;:-10.9},{&quot;t&quot;:34.512,&quot;v&quot;:-10.5},{&quot;t&quot;:34.622,&quot;v&quot;:-11.8},{&quot;t&quot;:35.613,&quot;v&quot;:-11.5},{&quot;t&quot;:35.723,&quot;v&quot;:-10.9},{&quot;t&quot;:35.833,&quot;v&quot;:-11.9},{&quot;t&quot;:36.824,&quot;v&quot;:-11.5},{&quot;t&quot;:36.935,&quot;v&quot;:-10.9},{&quot;t&quot;:37.045,&quot;v&quot;:-11.9},{&quot;t&quot;:38.586,&quot;v&quot;:-11.5},{&quot;t&quot;:38.697,&quot;v&quot;:-10.9},{&quot;t&quot;:38.807,&quot;v&quot;:-10.5},{&quot;t&quot;:38.917,&quot;v&quot;:-11.8},{&quot;t&quot;:40.899,&quot;v&quot;:-11.5},{&quot;t&quot;:41.009,&quot;v&quot;:-11.3},{&quot;t&quot;:41.119,&quot;v&quot;:-11.9},{&quot;t&quot;:41.78,&quot;v&quot;:-11.5},{&quot;t&quot;:41.89,&quot;v&quot;:-10.9},{&quot;t&quot;:42,&quot;v&quot;:-10.5},{&quot;t&quot;:42.11,&quot;v&quot;:-11.8},{&quot;t&quot;:43.432,&quot;v&quot;:-11.4},{&quot;t&quot;:43.542,&quot;v&quot;:-11},{&quot;t&quot;:43.652,&quot;v&quot;:-10.7},{&quot;t&quot;:43.762,&quot;v&quot;:-11.9},{&quot;t&quot;:43.872,&quot;v&quot;:-11.3},{&quot;t&quot;:43.983,&quot;v&quot;:-10.8},{&quot;t&quot;:44.093,&quot;v&quot;:-10.3},{&quot;t&quot;:44.203,&quot;v&quot;:-9.9},{&quot;t&quot;:44.313,&quot;v&quot;:-9.4},{&quot;t&quot;:44.423,&quot;v&quot;:-9},{&quot;t&quot;:44.533,&quot;v&quot;:-8.6},{&quot;t&quot;:44.643,&quot;v&quot;:-8.2},{&quot;t&quot;:44.753,&quot;v&quot;:-7.8},{&quot;t&quot;:44.864,&quot;v&quot;:-7.5},{&quot;t&quot;:44.974,&quot;v&quot;:-7.2},{&quot;t&quot;:45.084,&quot;v&quot;:-6.8},{&quot;t&quot;:45.194,&quot;v&quot;:-6.5},{&quot;t&quot;:45.304,&quot;v&quot;:-6.2},{&quot;t&quot;:45.414,&quot;v&quot;:-6},{&quot;t&quot;:45.524,&quot;v&quot;:-5.7},{&quot;t&quot;:45.634,&quot;v&quot;:-5.4},{&quot;t&quot;:45.855,&quot;v&quot;:-5},{&quot;t&quot;:45.965,&quot;v&quot;:-4.7},{&quot;t&quot;:46.185,&quot;v&quot;:-4.3},{&quot;t&quot;:46.295,&quot;v&quot;:-4.1},{&quot;t&quot;:46.626,&quot;v&quot;:-3.6},{&quot;t&quot;:46.736,&quot;v&quot;:-3.4},{&quot;t&quot;:47.066,&quot;v&quot;:-3},{&quot;t&quot;:47.176,&quot;v&quot;:-2.9},{&quot;t&quot;:47.507,&quot;v&quot;:-2.5},{&quot;t&quot;:47.617,&quot;v&quot;:-2.4},{&quot;t&quot;:48.057,&quot;v&quot;:-2},{&quot;t&quot;:48.167,&quot;v&quot;:-1.9},{&quot;t&quot;:48.718,&quot;v&quot;:-1.5},{&quot;t&quot;:48.828,&quot;v&quot;:-1.4},{&quot;t&quot;:50.039,&quot;v&quot;:-0.9},{&quot;t&quot;:50.15,&quot;v&quot;:-0.8},{&quot;t&quot;:52.132,&quot;v&quot;:-0.4},{&quot;t&quot;:52.242,&quot;v&quot;:-0.3},{&quot;t&quot;:53.453,&quot;v&quot;:-0.2},{&quot;t&quot;:53.563,&quot;v&quot;:0}]}]}"></audio>
+      <audio id="sfx" src="assets/sfx.wav" data-start="0" data-duration="47" data-track-index="22" data-volume="0.75"></audio>
+    </div>
+
+    <script>
+      (function () {
+        // verified badges (scalloped rosette, generated once)
+        function badgePath(cx, cy, R, r, n) {
+          let d = "";
+          for (let k = 0; k < n * 2; k++) {
+            const a = (Math.PI * k) / n - Math.PI / 2;
+            const rr = k % 2 ? r : R;
+            d += (k ? "L" : "M") + (cx + Math.cos(a) * rr).toFixed(2) + " " + (cy + Math.sin(a) * rr).toFixed(2);
+          }
+          return d + "Z";
+        }
+        document.querySelectorAll("svg.badge").forEach((s) => {
+          s.innerHTML =
+            '<path fill="#1d8cf8" stroke="#1d8cf8" stroke-width="1.2" stroke-linejoin="round" d="' +
+            badgePath(12, 12, 11, 9.4, 12) +
+            '"/><path d="M7.6 12.3l3 3 5.8-6.2" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>';
+        });
+
+        // waveform bars
+        const wave = document.getElementById("wave");
+        for (let i = 0; i < 26; i++) {
+          const b = document.createElement("i");
+          wave.appendChild(b);
+        }
+      })();
+
+      function build() {
+        const tl = gsap.timeline({ paused: true });
+        const $ = (s) => document.querySelector(s);
+        const ns = "http://www.w3.org/2000/svg";
+        const G = "#27b177";
+
+        // ---------- helpers
+        function lines(sel) {
+          return gsap.utils.toArray(sel + " .ln > span");
+        }
+        function reveal(sel, t, opts = {}) {
+          const els = lines(sel);
+          tl.fromTo(
+            els,
+            { yPercent: 108, opacity: 0, filter: "blur(6px)" },
+            {
+              yPercent: 0,
+              opacity: 1,
+              filter: "blur(0px)",
+              duration: opts.dur || 0.7,
+              ease: "expo.out",
+              stagger: opts.stagger == null ? 0.09 : opts.stagger,
+            },
+            t,
+          );
+        }
+        function revealEls(els, t, dur = 0.7) {
+          tl.fromTo(els, { yPercent: 108, opacity: 0, filter: "blur(6px)" }, { yPercent: 0, opacity: 1, filter: "blur(0px)", duration: dur, ease: "expo.out", stagger: 0.09 }, t);
+        }
+        function conceal(sel, t, dur = 0.45) {
+          tl.to(lines(sel), { yPercent: -105, opacity: 0, duration: dur, ease: "power3.in", stagger: 0.04 }, t);
+        }
+        function fadeIn(el, t, d = 0.4, from = {}) {
+          tl.fromTo(el, Object.assign({ opacity: 0, y: 10 }, from), { opacity: 1, y: 0, x: 0, scale: 1, duration: d, ease: "power3.out" }, t);
+        }
+        function fadeOut(el, t, d = 0.3, to = {}) {
+          tl.to(el, Object.assign({ opacity: 0, duration: d, ease: "power2.in" }, to), t);
+        }
+        function grow(m, t, d = 0.55, ease = "expo.out") {
+          tl.fromTo(m, { gridTemplateRows: "0fr", opacity: 0 }, { gridTemplateRows: "1fr", opacity: 1, duration: d, ease }, t);
+        }
+        function popIn(el, t, d = 0.45) {
+          tl.fromTo(el, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: d, ease: "back.out(1.6)" }, t);
+        }
+
+        // ---------- subtitles: phrase-level rise
+        document.querySelectorAll(".sub").forEach((s, i) => {
+          const st = parseFloat(s.getAttribute("data-start"));
+          tl.fromTo("#subp-" + i, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, st);
+        });
+
+        // ---------- ambient background
+        tl.fromTo("#glow", { x: -40, y: 10 }, { x: 60, y: -30, duration: 47, ease: "sine.inOut" }, 0);
+        tl.fromTo("#grid", { x: 0, y: 0 }, { x: -30, y: -20, duration: 47, ease: "none" }, 0);
+
+        // =====================================================================
+        // SCENE 1–2 : funnel
+        // =====================================================================
+        const guides = $("#guides");
+        const XS = [150, 335, 540, 745, 930];
+        const CONV = { x: 780, y: 812 };
+        const paths = XS.map((x) => {
+          const p = document.createElementNS(ns, "path");
+          const c2x = CONV.x + (x - 540) * 0.16;
+          p.setAttribute("d", `M${x} 330 C${x} 590, ${c2x} 600, ${CONV.x} ${CONV.y}`);
+          guides.appendChild(p);
+          return p;
+        });
+        const lens = paths.map((p) => p.getTotalLength());
+        // pre-sample each path for deterministic lookups
+        const SAMPLES = 400;
+        const lut = paths.map((p, i) => {
+          const arr = [];
+          for (let k = 0; k <= SAMPLES; k++) {
+            const pt = p.getPointAtLength((lens[i] * k) / SAMPLES);
+            arr.push([pt.x, pt.y]);
+          }
+          return arr;
+        });
+        function at(i, f) {
+          f = Math.max(0, Math.min(1, f));
+          const k = f * SAMPLES;
+          const a = Math.floor(k);
+          const b = Math.min(SAMPLES, a + 1);
+          const u = k - a;
+          return [lut[i][a][0] + (lut[i][b][0] - lut[i][a][0]) * u, lut[i][a][1] + (lut[i][b][1] - lut[i][a][1]) * u];
+        }
+        $("#convRing").setAttribute("cx", CONV.x);
+        $("#convRing").setAttribute("cy", CONV.y);
+        $("#convCore").setAttribute("cx", CONV.x);
+        $("#convCore").setAttribute("cy", CONV.y);
+        gsap.set("#convLabelA", { x: CONV.x, y: CONV.y + 52 });
+
+        // guide lines draw in
+        paths.forEach((p, i) => {
+          p.style.strokeDasharray = lens[i];
+          tl.fromTo(p, { strokeDashoffset: lens[i] }, { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut" }, 0.0 + i * 0.06);
+        });
+        tl.fromTo(["#convRing", "#convCore"], { opacity: 0, scale: 0.6, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 0.5);
+        fadeIn("#convLabel", 0.8, 0.5);
+
+        // anonymous grey customer dots
+        const greyG = $("#greyDots");
+        const GD = [
+          [0, -0.4, 2.8],
+          [1, -0.1, 3.0],
+          [3, 0.15, 2.7],
+          [4, 0.35, 3.1],
+          [0, 0.9, 2.9],
+          [3, 1.1, 3.0],
+          [1, 1.6, 2.6],
+          [4, 1.9, 2.8],
+          [2, 2.6, 2.6],
+          [1, 3.0, 2.8],
+        ];
+        GD.forEach(([pi, t0, d], k) => {
+          const c = document.createElementNS(ns, "circle");
+          c.setAttribute("r", k % 3 === 0 ? 7 : 6);
+          greyG.appendChild(c);
+          const st = { f: 0 };
+          const startT = Math.max(0, t0);
+          const f0 = t0 < 0 ? -t0 / d : 0;
+          const upd = () => {
+            const [x, y] = at(pi, st.f);
+            c.setAttribute("cx", x.toFixed(2));
+            c.setAttribute("cy", y.toFixed(2));
+            c.setAttribute("opacity", (st.f < 0.08 ? st.f / 0.08 : st.f > 0.78 ? Math.max(0, (1 - st.f) / 0.22) : 1).toFixed(3));
+          };
+          st.f = f0;
+          upd();
+          tl.fromTo(st, { f: f0 }, { f: 1, duration: d * (1 - f0), ease: "none", onUpdate: upd }, startT);
+        });
+        tl.to("#greyDots", { filter: "blur(2.2px)", opacity: 0.55, duration: 1.2, ease: "power2.inOut" }, 1.4);
+        tl.to("#guides", { opacity: 0.55, duration: 1.2 }, 1.6);
+
+        // green intent dot along the centre path (index 2)
+        const GP = 2;
+        const dot = { f: 0 };
+        const trail = $("#trail");
+        trail.setAttribute("d", paths[GP].getAttribute("d"));
+        const TL = lens[GP];
+        trail.style.strokeDasharray = TL;
+        trail.style.strokeDashoffset = TL;
+        const dotEls = ["#greenDot", "#dotHalo", "#dotHalo2"].map((s) => $(s));
+        function placeDot() {
+          const [x, y] = at(GP, dot.f);
+          dotEls.forEach((e) => {
+            e.setAttribute("cx", x.toFixed(2));
+            e.setAttribute("cy", y.toFixed(2));
+          });
+          gsap.set("#intentChipA", { x: x - 40, y: y - 50 });
+          gsap.set("#hereA", { x: x + 18, y: y - 6 });
+          trail.style.strokeDashoffset = (TL * (1 - dot.f)).toFixed(2);
+        }
+        placeDot();
+        tl.fromTo("#greenDot", { attr: { r: 0 } }, { attr: { r: 12 }, duration: 0.5, ease: "back.out(2)" }, 0.25);
+        tl.fromTo("#dotHalo2", { attr: { r: 12 }, opacity: 0.8 }, { attr: { r: 44 }, opacity: 0, duration: 1.0, ease: "power2.out" }, 0.35);
+        tl.fromTo("#dotHalo", { opacity: 0 }, { opacity: 0.16, duration: 0.6 }, 0.4);
+        tl.fromTo(dot, { f: 0 }, { f: 0.5, duration: 2.0, ease: "power2.inOut", onUpdate: placeDot }, 0.35);
+        tl.fromTo("#dotHalo", { attr: { r: 16 } }, { attr: { r: 24 }, duration: 0.9, ease: "sine.inOut", yoyo: true, repeat: 3 }, 1.0);
+        fadeIn("#intentChip", 1.15, 0.45, { scale: 0.85, y: 6 });
+        tl.fromTo("#dotHalo2", { attr: { r: 12 }, opacity: 0.7 }, { attr: { r: 40 }, opacity: 0, duration: 0.9, ease: "power2.out", immediateRender: false }, 2.3);
+
+        // camera follows the dot
+        tl.fromTo("#world", { scale: 1, x: 0, y: 0, transformOrigin: "540px 560px" }, { scale: 1.08, x: -50, y: -40, duration: 5.0, ease: "power1.inOut" }, 0.3);
+
+        // headline S1
+        reveal("#h1", 0.12);
+        tl.fromTo("#hereWord", { opacity: 0, y: 18, filter: "blur(5px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 2.32);
+
+        // S2: losing intent
+        conceal("#h1", 3.25);
+        fadeOut("#hereWord", 3.25, 0.3);
+        fadeOut("#intentChip", 4.4, 0.3);
+        tl.to(dot, { f: 0.9, duration: 1.6, ease: "power2.inOut", onUpdate: placeDot }, 3.35);
+        revealEls(["#h2a"], 3.48);
+        // break @ 5.12
+        const BRK = at(GP, 0.84);
+        const B2 = at(GP, 0.88);
+        $("#frag1").setAttribute("x1", BRK[0]);
+        $("#frag1").setAttribute("y1", BRK[1]);
+        $("#frag1").setAttribute("x2", (BRK[0] + B2[0]) / 2);
+        $("#frag1").setAttribute("y2", (BRK[1] + B2[1]) / 2);
+        $("#frag2").setAttribute("x1", (BRK[0] + B2[0]) / 2 + 2);
+        $("#frag2").setAttribute("y1", (BRK[1] + B2[1]) / 2 + 2);
+        $("#frag2").setAttribute("x2", B2[0]);
+        $("#frag2").setAttribute("y2", B2[1]);
+        tl.set("#frags", { opacity: 1 }, 5.12);
+        tl.to("#frag1", { x: -10, y: 8, rotation: -24, transformOrigin: "50% 50%", opacity: 0, duration: 0.7, ease: "power2.out" }, 5.12);
+        tl.to("#frag2", { x: 12, y: 14, rotation: 30, transformOrigin: "50% 50%", opacity: 0, duration: 0.7, ease: "power2.out" }, 5.12);
+        const brk = { f: 0.9 };
+        tl.to(
+          brk,
+          {
+            f: 0.8,
+            duration: 0.6,
+            ease: "power3.out",
+            onUpdate: () => {
+              trail.style.strokeDashoffset = (TL * (1 - brk.f)).toFixed(2);
+            },
+          },
+          5.12,
+        );
+        tl.to(dotEls, { x: -26, y: -16, duration: 0.9, ease: "power3.out" }, 5.12);
+        tl.to("#greenDot", { attr: { fill: "#9fb8aa" }, duration: 0.6 }, 5.2);
+        tl.to("#dotHalo", { opacity: 0, duration: 0.4 }, 5.12);
+        // "Conversion isn't." arrives with an interruption
+        tl.fromTo("#h2b", { opacity: 0, yPercent: 108 }, { opacity: 1, yPercent: 38, duration: 0.18, ease: "power3.out" }, 5.0);
+        tl.to("#h2b", { x: 7, duration: 0.05, ease: "none" }, 5.16);
+        tl.to("#h2b", { x: -4, duration: 0.05, ease: "none" }, 5.21);
+        tl.to("#h2b", { x: 0, yPercent: 0, duration: 0.45, ease: "expo.out" }, 5.28);
+        // exit to drop-offs
+        tl.to("#world", { opacity: 0, filter: "blur(4px)", duration: 0.5, ease: "power2.in" }, 5.85);
+        conceal("#h2", 5.95);
+
+        // =====================================================================
+        // SCENE 3 : four drop-offs
+        // =====================================================================
+        const colSvg = $("#colSvg");
+        const CX = [180, 420, 660, 900];
+        // break point on screen (world scale/translate at ~5.8s ≈ 1.1, -60,-70 around 540,560)
+        const S = 1.08;
+        const bpx = 540 + (BRK[0] - 540) * S - 50;
+        const bpy = 560 + (BRK[1] - 560) * S - 40;
+        const cols = CX.map((x, i) => {
+          const g = document.createElementNS(ns, "g");
+          g.setAttribute("stroke", "#c9c5bc");
+          g.setAttribute("stroke-width", "2.2");
+          g.setAttribute("stroke-linecap", "round");
+          const mk = (x1, y1, x2, y2) => {
+            const l = document.createElementNS(ns, "line");
+            l.setAttribute("x1", x1);
+            l.setAttribute("y1", y1);
+            l.setAttribute("x2", x2);
+            l.setAttribute("y2", y2);
+            g.appendChild(l);
+            return l;
+          };
+          const top = mk(x, 300, x, 392);
+          const lowA = mk(x, 668, x, 742);
+          const lowB = mk(x, 742, x, 820);
+          colSvg.appendChild(g);
+          return { g, top, lowA, lowB };
+        });
+        cols.forEach((c, i) => {
+          tl.fromTo(
+            c.g,
+            { x: bpx - CX[i], y: bpy - 560, scaleY: 0.05, opacity: 0, svgOrigin: CX[i] + " 560" },
+            { x: 0, y: 0, scaleY: 1, opacity: 1, duration: 0.75, ease: "expo.out" },
+            5.95 + i * 0.05,
+          );
+        });
+        function breakCol(i, t) {
+          tl.to(cols[i].lowB, { y: 16, x: i % 2 ? 5 : -5, rotation: i % 2 ? 5 : -5, svgOrigin: CX[i] + " 742", duration: 0.5, ease: "power3.out" }, t);
+          tl.to(cols[i].lowB, { attr: { stroke: "#ddd9d0" }, duration: 0.4 }, t);
+        }
+
+        // col1: missed call
+        popIn("#c1ico", 6.2, 0.45);
+        tl.fromTo("#c1ring1", { scale: 1, opacity: 0.9 }, { scale: 1.75, opacity: 0, duration: 0.55, ease: "power2.out", immediateRender: false }, 6.42);
+        tl.fromTo("#c1ring2", { scale: 1, opacity: 0.9 }, { scale: 1.75, opacity: 0, duration: 0.55, ease: "power2.out", immediateRender: false }, 6.72);
+        tl.to("#c1ico", { borderColor: G, duration: 0.2 }, 6.4);
+        tl.to("#c1ico", { borderColor: "#9a9e99", scale: 0.92, duration: 0.3, ease: "power3.inOut" }, 7.02);
+        tl.to("#c1glyph", { attr: { fill: "#8d918c" }, duration: 0.3 }, 7.02);
+        fadeIn("#c1lab", 6.5, 0.4);
+        breakCol(0, 7.1);
+
+        // morph: circle -> progress bar (col2)
+        const MOR = $("#morph");
+        function morph(t, from, to, d = 0.32) {
+          tl.set(MOR, { opacity: 1, x: from.x - from.w / 2, y: from.y - from.h / 2, width: from.w, height: from.h, borderRadius: from.r, borderColor: from.c || "#1b211f" }, t);
+          tl.to(MOR, { x: to.x - to.w / 2, y: to.y - to.h / 2, width: to.w, height: to.h, borderRadius: to.r, borderColor: to.c || "#1b211f", duration: d, ease: "expo.inOut" }, t);
+          tl.set(MOR, { opacity: 0 }, t + d);
+        }
+        morph(7.3, { x: 180, y: 470, w: 118, h: 118, r: 59, c: "#9a9e99" }, { x: 420, y: 508, w: 196, h: 14, r: 7 });
+        tl.fromTo("#c2box", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 7.6);
+        const pct = { v: 68 };
+        const pctEl = $("#c2pct");
+        const pctUpd = () => {
+          pctEl.textContent = Math.round(pct.v) + "%";
+        };
+        tl.fromTo("#c2fill", { scaleX: 0.6 }, { scaleX: 0.68, duration: 0.35, ease: "power2.out" }, 7.62);
+        tl.to("#c2fill", { scaleX: 0.7, duration: 0.3, ease: "power2.inOut" }, 8.0);
+        tl.to("#c2fill", { scaleX: 0.72, duration: 0.42, ease: "power4.out" }, 8.3);
+        tl.fromTo(pct, { v: 68 }, { v: 68, duration: 0.01, onUpdate: pctUpd }, 7.6);
+        tl.to(pct, { v: 70, duration: 0.3, ease: "steps(2)", onUpdate: pctUpd }, 8.0);
+        tl.to(pct, { v: 72, duration: 0.3, ease: "steps(2)", onUpdate: pctUpd }, 8.3);
+        tl.to("#c2fill", { backgroundColor: "#a9aca6", duration: 0.4 }, 8.62);
+        tl.to("#c2pct", { color: "#8d918c", duration: 0.4 }, 8.62);
+        fadeIn("#c2lab", 7.75, 0.4);
+        breakCol(1, 8.8);
+
+        // morph: bar -> document (col3)
+        morph(8.98, { x: 420, y: 508, w: 196, h: 14, r: 7, c: "#a9aca6" }, { x: 660, y: 470, w: 104, h: 132, r: 12 });
+        tl.fromTo("#c3doc", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 9.28);
+        tl.fromTo("#c3up", { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(2)" }, 9.3);
+        tl.fromTo("#c3arrow", { y: 4 }, { y: -3, duration: 0.22, ease: "power2.out" }, 9.6);
+        tl.to("#c3arrow", { y: 0, duration: 0.3, ease: "power2.in" }, 9.82);
+        popIn("#c3pend", 9.5, 0.4);
+        fadeIn("#c3lab", 9.35, 0.4);
+        tl.to("#c3doc", { borderColor: "#9a9e99", duration: 0.4 }, 10.1);
+        breakCol(2, 10.3);
+
+        // morph: document -> clock (col4)
+        morph(10.46, { x: 660, y: 470, w: 104, h: 132, r: 12, c: "#9a9e99" }, { x: 900, y: 470, w: 128, h: 128, r: 64 });
+        tl.fromTo("#c4ico", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 10.76);
+        fadeIn("#c4lab", 10.8, 0.4);
+        tl.fromTo("#c4min", { rotation: 0, svgOrigin: "64 64" }, { rotation: 720, svgOrigin: "64 64", duration: 0.8, ease: "power2.inOut" }, 10.85);
+        tl.fromTo("#c4hour", { rotation: 0, svgOrigin: "64 64" }, { rotation: 60, svgOrigin: "64 64", duration: 0.8, ease: "power2.inOut" }, 10.85);
+        tl.to("#c4ico", { borderColor: "#c98a3a", duration: 0.3 }, 11.5);
+        tl.fromTo("#c4ico", { scale: 1 }, { scale: 1.06, duration: 0.11, yoyo: true, repeat: 1, ease: "sine.inOut" }, 11.46);
+        popIn("#c4over", 11.52, 0.4);
+        breakCol(3, 11.65);
+
+        // summary + settle
+        reveal("#h3", 11.1, { stagger: 0.12 });
+        tl.to(["#c1ico", "#c2box", "#c3doc", "#c4ico"], { scale: 0.86, duration: 0.3, ease: "power3.inOut" }, 11.72);
+
+        // exit: everything gathers toward the centre
+        conceal("#h3", 12.25);
+        tl.to(["#c1lab", "#c2lab", "#c3lab", "#c4lab", "#c3pend", "#c4over"], { opacity: 0, y: -10, duration: 0.3, ease: "power2.in" }, 12.0);
+        tl.to(["#c1ico", "#c2box", "#c3doc", "#c4ico"], { scale: 0.18, opacity: 0, duration: 0.45, ease: "power3.in" }, 12.05);
+        tl.to(colSvg, { opacity: 0, duration: 0.4 }, 12.1);
+
+        // =====================================================================
+        // SCENE 4 : broken paths converge into WhatsApp
+        // =====================================================================
+        const M = { x: 540, y: 640 };
+        const convG = $("#convPaths");
+        const endsG = $("#convEnds");
+        const conv = CX.map((x, i) => {
+          const p = document.createElementNS(ns, "path");
+          p.setAttribute("stroke", "#c9c5bc");
+          convG.appendChild(p);
+          const e = document.createElementNS(ns, "circle");
+          e.setAttribute("r", "8");
+          e.setAttribute("cx", x);
+          e.setAttribute("cy", 470);
+          e.setAttribute("fill", "#9a9e99");
+          endsG.appendChild(e);
+          return { p, e, x };
+        });
+        const cs = { k: 0, gap: 1 };
+        function drawConv() {
+          conv.forEach((c, i) => {
+            const ang = Math.atan2(470 - M.y, c.x - M.x);
+            const gap = 16 + cs.gap * 26;
+            const ex = M.x + Math.cos(ang) * gap;
+            const ey = M.y + Math.sin(ang) * gap;
+            const sx = c.x;
+            const sy = 470;
+            // partial draw by k
+            const k = cs.k;
+            const tx = sx + (ex - sx) * k;
+            const ty = sy + (ey - sy) * k;
+            c.p.setAttribute("d", `M${sx} ${sy} C${sx} ${sy + 120 * k}, ${tx + (sx - tx) * 0.2} ${ty}, ${tx.toFixed(1)} ${ty.toFixed(1)}`);
+          });
+        }
+        drawConv();
+        tl.fromTo(endsG, { opacity: 0 }, { opacity: 1, duration: 0.3 }, 11.95);
+        tl.fromTo(cs, { k: 0 }, { k: 1, duration: 0.55, ease: "power3.inOut", onUpdate: drawConv }, 12.0);
+        popIn("#notif", 12.52, 0.5);
+        tl.to(cs, { gap: 0, duration: 0.3, ease: "power3.out", onUpdate: drawConv }, 12.62);
+        conv.forEach((c, i) => {
+          tl.to(c.p, { attr: { stroke: G }, duration: 0.15 }, 12.66 + i * 0.07);
+          tl.to(c.e, { attr: { fill: G }, duration: 0.15 }, 12.66 + i * 0.07);
+        });
+        // notification blooms into the WhatsApp conversation card
+        tl.fromTo(
+          "#cardWrap",
+          { x: 540 - 306, y: 640 - 515, scale: 0.12, opacity: 0, transformOrigin: "50% 50%" },
+          { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.7, ease: "expo.out" },
+          12.92,
+        );
+        tl.to("#notif", { x: -234, y: -125, scale: 0.6, opacity: 0, duration: 0.5, ease: "expo.out" }, 12.92);
+        tl.to([convG, endsG], { opacity: 0, duration: 0.45, ease: "power2.inOut" }, 13.25);
+        fadeIn("#custTag", 13.3, 0.5);
+        reveal("#h4", 13.35);
+        fadeIn("#st1", 13.75, 0.35, { x: -8, y: 0 });
+        fadeIn("#st2", 14.05, 0.35, { x: -8, y: 0 });
+        grow("#m1", 13.45);
+        grow("#m2", 14.15, 0.65);
+        // Ananya taps "Need help"
+        tl.fromTo("#pressHelp", { opacity: 0 }, { opacity: 1, duration: 0.1, yoyo: true, repeat: 1 }, 15.5);
+        tl.fromTo("#btnHelp", { scale: 1 }, { scale: 0.97, duration: 0.1, yoyo: true, repeat: 1 }, 15.5);
+        grow("#m3", 15.75);
+        tl.to("#sub0", { opacity: 0, y: -8, duration: 0.3 }, 16.3);
+        tl.fromTo("#sub1", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 16.38);
+        grow("#mTyping", 16.4, 0.35);
+        ["#ty1", "#ty2", "#ty3"].forEach((d, i) => {
+          tl.fromTo(d, { y: 0, opacity: 0.45 }, { y: -5, opacity: 1, duration: 0.18, yoyo: true, repeat: 3, ease: "sine.inOut" }, 16.55 + i * 0.1);
+        });
+
+        // =====================================================================
+        // SCENE 5 : AI answers, captures intent, qualifies (+ voice moment)
+        // =====================================================================
+        conceal("#h4", 16.9);
+        fadeOut(["#st1", "#st2"], 16.9, 0.3);
+        tl.to("#mTyping", { gridTemplateRows: "0fr", opacity: 0, duration: 0.25, ease: "power2.in" }, 17.18);
+        grow("#m4", 17.28);
+        reveal("#h5", 17.3);
+        tl.to("#aqu", { opacity: 1, duration: 0.4 }, 17.55);
+        tl.fromTo("#aq1", { color: "#4a514e" }, { color: "#0f7446", duration: 0.3 }, 17.55);
+        grow("#m5", 17.95, 0.6);
+        tl.fromTo("#pressPL", { opacity: 0 }, { opacity: 1, duration: 0.1, yoyo: true, repeat: 1 }, 18.42);
+        tl.fromTo("#btnPL", { scale: 1 }, { scale: 0.97, duration: 0.1, yoyo: true, repeat: 1 }, 18.42);
+        grow("#m6", 18.6);
+        tl.fromTo("#ch1", { x: -330, y: 200, scale: 0.6, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.6, ease: "expo.out" }, 18.78);
+        tl.to("#aq2", { color: "#0f7446", duration: 0.3 }, 18.9);
+        grow("#m7", 18.98);
+        grow("#m8", 19.33);
+        tl.fromTo("#ch2", { x: -330, y: 130, scale: 0.6, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.6, ease: "expo.out" }, 19.5);
+        grow("#m9", 19.72, 0.5);
+        tl.fromTo("#pressCall", { opacity: 0 }, { opacity: 1, duration: 0.1, yoyo: true, repeat: 1 }, 20.02);
+        tl.fromTo("#btnCall", { scale: 1 }, { scale: 0.97, duration: 0.1, yoyo: true, repeat: 1 }, 20.02);
+        // chat morphs into native WhatsApp voice surface
+        tl.fromTo("#callOverlay", { clipPath: "circle(0px at 210px 600px)" }, { clipPath: "circle(900px at 210px 600px)", duration: 0.42, ease: "expo.inOut" }, 20.12);
+        const bars = gsap.utils.toArray("#wave i");
+        const wv = { t: 0 };
+        const waveUpd = () => {
+          bars.forEach((b, i) => {
+            const v =
+              0.18 +
+              0.82 *
+                Math.abs(Math.sin(wv.t * 7.1 + i * 0.61) * 0.6 + Math.sin(wv.t * 11.3 + i * 1.37) * 0.4) *
+                (0.55 + 0.45 * Math.sin((i / (bars.length - 1)) * Math.PI));
+            b.style.transform = "scaleY(" + v.toFixed(3) + ")";
+          });
+        };
+        waveUpd();
+        tl.fromTo(wv, { t: 0 }, { t: 1.2, duration: 1.2, ease: "none", onUpdate: waveUpd }, 20.2);
+        const ctEl = $("#ctime");
+        const ct = { v: 11 };
+        tl.fromTo(ct, { v: 11 }, { v: 12, duration: 0.6, ease: "steps(1)", onUpdate: () => (ctEl.textContent = "00:" + Math.round(ct.v)) }, 20.2);
+        tl.to("#callOverlay", { clipPath: "circle(0px at 210px 600px)", duration: 0.38, ease: "expo.inOut" }, 21.08);
+        tl.to(["#chat", ".wa-head"], { opacity: 0, duration: 0.05 }, 20.5);
+        tl.to(["#chat", ".wa-head"], { opacity: 1, duration: 0.05 }, 21.06);
+        grow("#m10", 21.3, 0.4);
+        grow("#m11", 21.42, 0.5);
+        tl.fromTo("#ch3", { x: -330, y: 60, scale: 0.6, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.34, ease: "expo.out" }, 21.55);
+        tl.to("#aq3", { color: "#0f7446", duration: 0.3 }, 20.0);
+        // merge into Qualified
+        tl.to("#ch1", { y: 80, scale: 0.5, opacity: 0, duration: 0.35, ease: "power3.in" }, 21.9);
+        tl.to("#ch3", { y: -80, scale: 0.5, opacity: 0, duration: 0.35, ease: "power3.in" }, 21.9);
+        tl.to("#ch2", { scale: 0.5, opacity: 0, duration: 0.3, ease: "power3.in" }, 21.95);
+        tl.fromTo("#qual", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.8)" }, 22.12);
+
+        // =====================================================================
+        // SCENE 6 : human handoff — the right RM joins the same thread
+        // =====================================================================
+        conceal("#h5", 22.3);
+        tl.to("#aqu", { opacity: 0, duration: 0.3 }, 22.3);
+        // card collapses into a thread node
+        tl.to("#cardWrap", { x: 170 - 306, y: 600 - 515, scale: 0.1, opacity: 0, duration: 0.6, ease: "expo.inOut" }, 22.45);
+        tl.to("#custTag", { opacity: 0, duration: 0.3 }, 22.45);
+        popIn("#threadNode", 22.85, 0.45);
+        fadeIn("#threadLab", 23.0, 0.4);
+        tl.fromTo("#rmTrack", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 22.8);
+        popIn("#rmNode", 23.05, 0.5);
+        fadeIn("#rmLab", 23.25, 0.4);
+        // qualified chip drops onto the journey and travels to Rohan
+        const L0 = 170,
+          L1 = 860;
+        $("#rmLine").style.strokeDasharray = "690";
+        tl.fromTo("#rmLine", { strokeDashoffset: 690 }, { strokeDashoffset: 690, duration: 0.01 }, 0);
+        tl.to("#qualA", { x: -500, y: -40, duration: 0.55, ease: "expo.inOut" }, 22.75);
+        tl.to("#qual", { scale: 0.86, duration: 0.55, ease: "expo.inOut" }, 22.75);
+        tl.set("#ch1A", { x: -500, y: 40 }, 23.2);
+        tl.set("#ch2A", { x: -500, y: -40 }, 23.2);
+        tl.set("#ch3A", { x: -500, y: -120 }, 23.2);
+        tl.set(["#ch1", "#ch2", "#ch3"], { x: 0, y: 0, scale: 0.8, opacity: 0 }, 23.2);
+        tl.set("#convoA", { x: -500, y: -40 }, 23.2);
+        tl.to("#qualA", { x: 60, duration: 1.0, ease: "power3.inOut" }, 23.35);
+        tl.to("#rmLine", { strokeDashoffset: 0, duration: 1.0, ease: "power3.inOut" }, 23.35);
+        const trailCh = ["#ch1", "#ch2", "#ch3"];
+        trailCh.forEach((c, i) => {
+          tl.set(c, { opacity: 1, scale: 0.8 }, 23.4 + i * 0.08);
+          tl.to(c + "A", { x: -100, y: [-80, -110, -140][i], duration: 1.0, ease: "power3.inOut" }, 23.42 + i * 0.08);
+        });
+        tl.to("#convo", { opacity: 1, duration: 0.2 }, 23.5);
+        tl.to("#convoA", { x: -6, y: 12, duration: 1.0, ease: "power3.inOut" }, 23.6);
+        tl.to("#qual", { scale: 0.3, opacity: 0, duration: 0.25, ease: "power3.in" }, 24.28);
+        tl.to("#rmNode", { borderColor: G, duration: 0.2 }, 24.4);
+        tl.fromTo("#rmRing", { scale: 1, opacity: 0.9 }, { scale: 1.6, opacity: 0, duration: 0.7, ease: "power2.out", immediateRender: false }, 24.4);
+        fadeIn("#rmJoined", 24.62, 0.35);
+        revealEls([lines("#h6")[0]], 23.38);
+        // Rohan joins the same conversation: thread re-expands
+        tl.to(["#ch1", "#ch2", "#ch3", "#convo", "#rmLab", "#rmJoined", "#threadLab"], { opacity: 0, duration: 0.3 }, 25.0);
+        tl.to("#rmNode", { x: -560, y: 100, scale: 0.3, opacity: 0, duration: 0.55, ease: "expo.inOut" }, 25.05);
+        tl.to(["#rmLine", "#rmTrack"], { opacity: 0, duration: 0.35 }, 25.05);
+        tl.to("#threadNode", { scale: 0.4, opacity: 0, duration: 0.3 }, 25.1);
+        tl.to("#cardWrap", { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.65, ease: "expo.out" }, 25.12);
+        tl.to("#custTag", { opacity: 1, duration: 0.3 }, 25.3);
+        tl.to("#sub1", { opacity: 0, y: -8, duration: 0.3 }, 25.4);
+        tl.fromTo("#sub2", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 25.48);
+        grow("#m12", 25.45, 0.45);
+        grow("#m13", 26.0, 0.6);
+        tl.fromTo(lines("#h6")[1], { yPercent: 108, opacity: 0, filter: "blur(6px)" }, { yPercent: 0, opacity: 1, filter: "blur(0px)", duration: 0.7, ease: "expo.out" }, 25.2);
+        fadeIn("#h6s", 26.5, 0.5);
+
+        // =====================================================================
+        // SCENE 7 : calls, documents, consent and follow-ups — one governed journey
+        // =====================================================================
+        conceal("#h6", 28.3);
+        fadeOut("#h6s", 28.3, 0.3);
+        fadeOut("#custTag", 28.3, 0.3);
+        tl.to("#cardWrap", { x: 540 - 306, y: 600 - 515, scaleX: 1.72, scaleY: 0.004, duration: 0.55, ease: "expo.inOut" }, 28.42);
+        tl.to("#cardWrap", { opacity: 0, duration: 0.15 }, 28.95);
+        reveal("#h7", 29.0);
+        tl.fromTo("#govBase", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 28.85);
+        tl.fromTo(["#govStart", "#govEndRing"], { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 28.9);
+        fadeIn(["#govStartLab", "#govEndLab"], 29.0, 0.4);
+        const govArc = $("#govEndArc");
+        const arcLen = 2 * Math.PI * 30;
+        govArc.style.strokeDasharray = arcLen;
+        govArc.style.strokeDashoffset = arcLen;
+        $("#govEndCheck").style.strokeDasharray = 40;
+        $("#govEndCheck").style.strokeDashoffset = 40;
+        const GX = [110, 290, 455, 625, 790, 970];
+        const segs = [];
+        for (let i = 0; i < 5; i++) {
+          const l = document.createElementNS(ns, "line");
+          const a = GX[i] + (i === 0 ? 13 : 43);
+          const b = GX[i + 1] - (i === 4 ? 30 : 43);
+          l.setAttribute("x1", a);
+          l.setAttribute("x2", b);
+          l.setAttribute("y1", 600);
+          l.setAttribute("y2", 600);
+          l.style.strokeDasharray = b - a;
+          l.style.strokeDashoffset = b - a;
+          $("#govSegs").appendChild(l);
+          segs.push(l);
+        }
+        const govIn = [
+          ["#g1", "#g1l", 29.0, -90],
+          ["#g2", "#g2l", 29.58, 90],
+          ["#g3", "#g3l", 30.3, -90],
+          ["#g4", "#g4l", 30.9, 90],
+        ];
+        govIn.forEach(([n, l, t, dy], i) => {
+          tl.fromTo(n, { y: dy, opacity: 0, scale: 0.8 }, { y: 0, opacity: 1, scale: 1, duration: 0.42, ease: "expo.out" }, t);
+          tl.fromTo(n, { borderColor: "#1b211f" }, { borderColor: G, duration: 0.2, yoyo: true, repeat: 1 }, t + 0.38);
+          fadeIn(l, t + 0.12, 0.35);
+          tl.to(segs[i], { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, t + 0.32);
+        });
+        tl.fromTo("#g2check", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2.2)" }, 29.98);
+        fadeIn("#g3s", 30.55, 0.35);
+        fadeIn("#g4s", 31.15, 0.35);
+        tl.to(segs[4], { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 31.45);
+        tl.to("#govBase", { opacity: 0, duration: 0.4 }, 31.6);
+        // governance perimeter passes around the whole journey
+        const haloLen = 2 * (956 - 236) + Math.PI * 236;
+        $("#halo").style.strokeDasharray = haloLen;
+        tl.fromTo("#halo", { strokeDashoffset: haloLen, opacity: 0.9 }, { strokeDashoffset: 0, opacity: 0.9, duration: 1.1, ease: "power2.inOut" }, 32.25);
+        tl.to("#halo", { opacity: 0.35, duration: 0.6 }, 33.4);
+        fadeIn("#haloLab", 32.5, 0.45);
+        // SCENE 8 (folded in): the same intent dot travels through every node
+        const gd = { x: 110 };
+        const gdUpd = () => {
+          $("#govDot").setAttribute("cx", gd.x.toFixed(1));
+          $("#govDotHalo").setAttribute("cx", gd.x.toFixed(1));
+        };
+        tl.fromTo("#govDot", { opacity: 0, attr: { r: 0 } }, { opacity: 1, attr: { r: 10 }, duration: 0.25 }, 33.1);
+        tl.fromTo("#govDotHalo", { opacity: 0 }, { opacity: 0.2, duration: 0.25 }, 33.1);
+        tl.fromTo(gd, { x: 110 }, { x: 970, duration: 1.1, ease: "power2.inOut", onUpdate: gdUpd }, 33.2);
+        ["#g1", "#g2", "#g3", "#g4"].forEach((n, i) => {
+          const tt = 33.2 + [0.33, 0.52, 0.7, 0.87][i];
+          tl.fromTo(n, { scale: 1 }, { scale: 1.1, duration: 0.1, yoyo: true, repeat: 1, ease: "sine.inOut" }, tt);
+        });
+        tl.to(govArc, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, 34.2);
+        tl.to("#govEndCheck", { strokeDashoffset: 0, duration: 0.25, ease: "power2.out" }, 34.35);
+        tl.to("#govEndLab", { color: "#0f7446", duration: 0.2 }, 34.3);
+        // completed node expands to fill the frame (masked transition)
+        tl.fromTo("#nightFill", { scale: 0, opacity: 1 }, { scale: 48, duration: 0.55, ease: "expo.in" }, 34.3);
+
+        // =====================================================================
+        // SCENE 9 : outcomes (dark, typographic)
+        // =====================================================================
+        tl.to("#logoTop", { opacity: 0, duration: 0.2 }, 34.6);
+        tl.to("#logoTopLight", { opacity: 1, duration: 0.2 }, 34.6);
+        const outL = $("#outLines");
+        const OY = [612, 662, 712, 762, 812];
+        const outPieces = OY.map((y, i) => {
+          const gx = 360 + ((i * 137) % 380);
+          const a = document.createElementNS(ns, "line");
+          a.setAttribute("x1", 150);
+          a.setAttribute("x2", gx - 14);
+          a.setAttribute("y1", y);
+          a.setAttribute("y2", y);
+          a.setAttribute("stroke", "#3c4541");
+          const b = document.createElementNS(ns, "line");
+          b.setAttribute("x1", gx + 14);
+          b.setAttribute("x2", 930);
+          b.setAttribute("y1", y + 6);
+          b.setAttribute("y2", y + 6);
+          b.setAttribute("stroke", "#3c4541");
+          outL.appendChild(a);
+          outL.appendChild(b);
+          return { a, b, gx, y };
+        });
+        tl.fromTo(outL, { opacity: 0 }, { opacity: 1, duration: 0.3 }, 34.7);
+        reveal("#o1", 34.68, { dur: 0.6 });
+        outPieces.forEach((p, i) => {
+          const t = 34.98 + i * 0.12;
+          tl.to(p.a, { attr: { x2: p.gx, stroke: G }, duration: 0.22, ease: "power3.out" }, t);
+          tl.to(p.b, { attr: { x1: p.gx, y1: p.y, y2: p.y, stroke: G }, duration: 0.22, ease: "power3.out" }, t);
+        });
+        // fewer drop-offs -> faster handoffs: lines condense into AI -> RM
+        tl.to(lines("#o1"), { yPercent: -110, opacity: 0, duration: 0.42, ease: "power3.in" }, 35.6);
+        reveal("#o2", 35.74, { dur: 0.6 });
+        tl.to(outL, { scaleY: 0, opacity: 0, svgOrigin: "540 712", duration: 0.35, ease: "power3.in" }, 35.6);
+        const outN = $("#outNodes");
+        const NX = [220, 380, 540, 700, 860];
+        const ny = 712;
+        const rings = NX.map((x, i) => {
+          const g = document.createElementNS(ns, "g");
+          const c = document.createElementNS(ns, "circle");
+          c.setAttribute("cx", x);
+          c.setAttribute("cy", ny);
+          c.setAttribute("r", 30);
+          c.setAttribute("fill", "none");
+          c.setAttribute("stroke", "#3c4541");
+          c.setAttribute("stroke-width", 2.4);
+          const arc = document.createElementNS(ns, "circle");
+          arc.setAttribute("cx", x);
+          arc.setAttribute("cy", ny);
+          arc.setAttribute("r", 30);
+          arc.setAttribute("fill", "none");
+          arc.setAttribute("stroke", G);
+          arc.setAttribute("stroke-width", 4);
+          arc.setAttribute("transform", `rotate(-90 ${x} ${ny})`);
+          arc.style.strokeDasharray = arcLen;
+          arc.style.strokeDashoffset = arcLen;
+          const ck = document.createElementNS(ns, "path");
+          ck.setAttribute("d", `M${x - 11} ${ny + 1}l7 7 15-16`);
+          ck.setAttribute("fill", "none");
+          ck.setAttribute("stroke", G);
+          ck.setAttribute("stroke-width", 4);
+          ck.setAttribute("stroke-linecap", "round");
+          ck.setAttribute("stroke-linejoin", "round");
+          ck.style.strokeDasharray = 36;
+          ck.style.strokeDashoffset = 36;
+          const lab = document.createElementNS(ns, "text");
+          lab.setAttribute("x", x);
+          lab.setAttribute("y", ny + 7);
+          lab.setAttribute("text-anchor", "middle");
+          lab.setAttribute("font-family", "Geist Mono, monospace");
+          lab.setAttribute("font-size", "17");
+          lab.setAttribute("fill", "#e9e7e1");
+          lab.textContent = i === 1 ? "AI" : i === 3 ? "RM" : "";
+          g.appendChild(c);
+          g.appendChild(arc);
+          g.appendChild(ck);
+          g.appendChild(lab);
+          outN.appendChild(g);
+          return { g, c, arc, ck, lab, x };
+        });
+        const handoff = document.createElementNS(ns, "line");
+        handoff.setAttribute("x1", 410);
+        handoff.setAttribute("x2", 670);
+        handoff.setAttribute("y1", ny);
+        handoff.setAttribute("y2", ny);
+        handoff.setAttribute("stroke", "#3c4541");
+        handoff.setAttribute("stroke-width", 2.4);
+        outN.insertBefore(handoff, outN.firstChild);
+        rings.forEach((r) => tl.set(r.g, { opacity: 0 }, 0));
+        tl.fromTo([rings[1].g, rings[3].g, handoff], { opacity: 0, scale: 0.6, svgOrigin: "540 712" }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out" }, 35.85);
+        tl.set("#ctxZip", { y: -48 }, 0);
+        tl.fromTo("#ctxZip", { x: -160, opacity: 0 }, { x: -160, opacity: 1, duration: 0.1 }, 36.04);
+        tl.to("#ctxZip", { x: 160, duration: 0.32, ease: "expo.inOut" }, 36.15);
+        tl.to(handoff, { attr: { stroke: G }, duration: 0.2 }, 36.25);
+        tl.to("#ctxZip", { opacity: 0, scale: 0.6, duration: 0.2 }, 36.55);
+        // faster handoffs -> more completed journeys: nodes multiply into completion rings
+        tl.to(lines("#o2"), { yPercent: -110, opacity: 0, duration: 0.42, ease: "power3.in" }, 36.85);
+        reveal("#o3", 36.98, { dur: 0.6, stagger: 0.1 });
+        tl.to(handoff, { opacity: 0, duration: 0.25 }, 36.95);
+        tl.to([rings[1].lab, rings[3].lab], { opacity: 0, duration: 0.2 }, 36.95);
+        rings.forEach((r, i) => {
+          if (i !== 1 && i !== 3) tl.fromTo(r.g, { opacity: 0, scale: 0.4, svgOrigin: `${r.x} ${ny}` }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 37.0 + Math.abs(i - 2) * 0.05);
+          tl.to(r.arc, { strokeDashoffset: 0, duration: 0.42, ease: "power2.inOut" }, 37.2 + i * 0.14);
+          tl.to(r.ck, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, 37.5 + i * 0.14);
+        });
+        // circle wipe back to paper from the centre ring
+        tl.fromTo("#paperWipe", { clipPath: "circle(0px at 540px 712px)" }, { clipPath: "circle(1100px at 540px 712px)", duration: 0.42, ease: "power2.in" }, 38.55);
+        tl.to("#logoTopLight", { opacity: 0, duration: 0.2 }, 38.95);
+        tl.to("#logoTop", { opacity: 1, duration: 0.2 }, 38.95);
+
+        // =====================================================================
+        // SCENE 10 : intent -> action
+        // =====================================================================
+        const actLine = $("#actLine");
+        actLine.style.strokeDasharray = "780";
+        tl.fromTo(actLine, { strokeDashoffset: 780 }, { strokeDashoffset: 780, duration: 0.01 }, 0);
+        reveal("#h10", 39.05, { stagger: 0.12 });
+        tl.fromTo(["#actIntent"], { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.35, ease: "back.out(2)" }, 39.05);
+        fadeIn("#actIntentLab", 39.1, 0.35);
+        tl.fromTo("#actBase", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 39.05);
+        tl.fromTo("#actRing", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.35, ease: "back.out(2)" }, 39.15);
+        tl.to("#actIntent", { attr: { fill: G }, duration: 0.3 }, 39.3);
+        tl.to(actLine, { strokeDashoffset: 0, duration: 1.05, ease: "power2.inOut" }, 39.3);
+        ["#an1", "#an2", "#an3"].forEach((n, i) => {
+          const t = 39.3 + [0.32, 0.55, 0.78][i];
+          tl.fromTo(n, { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, t - 0.2);
+          tl.to(n, { borderColor: G, duration: 0.15 }, t);
+          fadeIn(["#an1l", "#an2l", "#an3l"][i], t - 0.12, 0.3);
+        });
+        tl.to("#actFill", { opacity: 1, duration: 0.25 }, 40.33);
+        tl.fromTo("#actFill", { scale: 0.4, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.35, ease: "back.out(2)" }, 40.33);
+        fadeIn("#actActionLab", 40.35, 0.3);
+        tl.to("#actionWord", { color: "#13804f", duration: 0.45, ease: "power2.out" }, 40.35);
+        fadeIn("#withDT", 40.6, 0.45);
+
+        // brand transition: the green journey line becomes the DoubleTick mark
+        const fade10 = ["#h10", "#withDT", "#actBase", "#actIntent", "#actRing", "#actFill", "#an1", "#an2", "#an3", "#an1l", "#an2l", "#an3l", "#actIntentLab", "#actActionLab"];
+        tl.to(fade10, { opacity: 0, duration: 0.35, ease: "power2.in" }, 41.0);
+        tl.to("#logoTop", { opacity: 0, duration: 0.3 }, 41.0);
+        tl.set("#logoV", { opacity: 1 }, 40.98);
+        tl.set(actLine, { opacity: 0 }, 40.98);
+        // logo 560px wide at (260,424.5); mark geometry measured from the official asset (scale 0.28)
+        const LS = 0.28,
+          LX = 260,
+          LY = 424.5;
+        const P = (x, y) => (LX + x * LS).toFixed(1) + " " + (LY + y * LS).toFixed(1);
+        tl.to("#logoV", { attr: { d: `M${P(133, 129.5)} L${P(231, 225.5)} L${P(448, 13.5)}`, "stroke-width": 39 * LS }, duration: 0.6, ease: "expo.inOut" }, 41.02);
+        tl.fromTo("#logoMark", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 41.55);
+        tl.to("#logoV", { opacity: 0, duration: 0.2 }, 41.62);
+        tl.fromTo("#logoWord", { clipPath: "inset(0% 100% 0% 23.6%)" }, { clipPath: "inset(0% 0% 0% 23.6%)", duration: 0.55, ease: "expo.out" }, 41.6);
+        tl.fromTo("#tagline", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 41.75);
+
+        // =====================================================================
+        // SCENE 11 + CTA
+        // =====================================================================
+        tl.to("#tagline", { opacity: 0, duration: 0.25 }, 42.3);
+        tl.to("#bigLogo", { y: 166 - 460, scale: 0.5, transformOrigin: "50% 50%", duration: 0.7, ease: "expo.inOut" }, 42.25);
+        reveal("#hCta", 42.5, { stagger: 0.12 });
+        tl.fromTo("#cta-btn", { y: 24, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" }, 42.9);
+        tl.fromTo("#cta-arrow", { x: 0 }, { x: 6, duration: 0.5, yoyo: true, repeat: 5, ease: "sine.inOut" }, 43.4);
+        fadeIn("#ctaMicro", 43.3, 0.5);
+        tl.fromTo("#cta-shine", { x: 0 }, { x: 640, duration: 0.9, ease: "power2.inOut" }, 44.2);
+        tl.fromTo("#cta-btn", { boxShadow: "0 18px 40px rgba(19,128,79,0.28)" }, { boxShadow: "0 22px 54px rgba(19,128,79,0.38)", duration: 1.2, yoyo: true, repeat: 1, ease: "sine.inOut" }, 44.4);
+
+        return tl;
+      }
+
+      document.fonts.ready.then(() => {
+        const tl = build();
+        window.__timelines["main"] = tl;
+        if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+      });
+    </script>
+  </body>
+</html>
