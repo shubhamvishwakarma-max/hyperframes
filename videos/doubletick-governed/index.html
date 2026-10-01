@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>DoubleTick — Governed System</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/Geist-latin.woff2") format("woff2");
+        font-weight: 100 900;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Geist Mono";
+        src: url("assets/fonts/GeistMono-latin.woff2") format("woff2");
+        font-weight: 100 900;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        src: url("assets/fonts/HedvigLettersSerif-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      :root {
+        --bg: #f3f0ea;
+        --ink: #17191c;
+        --char: #2a2e33;
+        --grey: #5f6469;
+        --green: #27b378;
+        --green-d: #0f7a4b;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg);
+        font-family: "Geist", sans-serif;
+        color: var(--ink);
+      }
+      svg {
+        display: block;
+      }
+
+      /* ---------- set: warm room light ---------- */
+      #bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          900px 700px at 62% 38%,
+          #fbf9f5 0%,
+          var(--bg) 55%,
+          #e9e5dd 100%
+        );
+      }
+      .shade {
+        position: absolute;
+        width: 1900px;
+        height: 230px;
+        left: -420px;
+        background: rgba(70, 60, 40, 0.085);
+        filter: blur(46px);
+        transform-origin: 50% 50%;
+      }
+      #shade1 {
+        top: 330px;
+        rotate: -31deg;
+      }
+      #shade2 {
+        top: 720px;
+        rotate: -31deg;
+        height: 150px;
+        background: rgba(70, 60, 40, 0.06);
+      }
+      #leak {
+        position: absolute;
+        top: -60px;
+        left: 860px;
+        width: 260px;
+        height: 1200px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0),
+          rgba(255, 186, 120, 0.32),
+          rgba(255, 245, 190, 0.3),
+          rgba(150, 225, 255, 0.28),
+          rgba(255, 255, 255, 0)
+        );
+        filter: blur(18px);
+        rotate: 8deg;
+        opacity: 0;
+        z-index: 40;
+      }
+      #grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.07;
+        mix-blend-mode: multiply;
+        z-index: 45;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.45  0 0 0 0 0.4  0 0 0 0.9 0'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+      }
+
+      /* ---------- the 3D world ---------- */
+      #world {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+      }
+      #net {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1080px;
+      }
+      .tile {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 120px;
+        height: 146px;
+        border-radius: 7px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow:
+          0 1px 0 rgba(0, 0, 0, 0.04),
+          0 16px 30px -18px rgba(30, 30, 20, 0.45);
+        opacity: 0;
+      }
+      .t-rm .ph {
+        height: 112px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .t-rm .ph i {
+        display: block;
+        width: 74px;
+        height: 74px;
+        margin-bottom: -18px;
+        border-radius: 50% 50% 18px 18px;
+        background: rgba(255, 255, 255, 0.55);
+      }
+      .t-rm .ph b {
+        position: absolute;
+        top: 22px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: "Hedvig Letters Serif", serif;
+        font-weight: 400;
+        font-size: 40px;
+        color: rgba(23, 25, 28, 0.82);
+      }
+      .t-rm .nm,
+      .t-doc .nm,
+      .t-chip .nm {
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--ink);
+        white-space: nowrap;
+      }
+      .t-rm .nm span {
+        font-family: "Geist Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        color: var(--grey);
+      }
+      .t-doc .pg {
+        position: relative;
+        height: 112px;
+        background: #f7f5f0;
+        padding: 16px 14px;
+      }
+      .t-doc .ic {
+        width: 30px;
+        height: 36px;
+        border-radius: 5px;
+        background: #e3f3ea;
+        color: var(--green-d);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .t-doc .ic svg {
+        width: 17px;
+        height: 17px;
+      }
+      .t-doc .ln {
+        height: 6px;
+        border-radius: 3px;
+        background: #e4e0d7;
+        margin-top: 9px;
+      }
+      .t-chat {
+        background: #efeae2;
+      }
+      .t-chat .hd {
+        height: 30px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 0 8px;
+        background: #fff;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .t-chat .hd i {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: #22416a;
+        flex: none;
+      }
+      .t-chat .hd svg {
+        width: 11px;
+        height: 11px;
+      }
+      .t-chat .bb {
+        padding: 9px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .t-chat .b {
+        height: 15px;
+        border-radius: 5px;
+        background: #fff;
+        width: 78%;
+      }
+      .t-chat .b.o {
+        align-self: flex-end;
+        background: #d9fdd3;
+        width: 64%;
+      }
+      .t-chat .b.s {
+        width: 50%;
+      }
+      .t-chat .b.d {
+        align-self: flex-end;
+        width: 70%;
+        height: 26px;
+        background: #d9fdd3;
+      }
+      .t-chip .big {
+        height: 112px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e8f5ee;
+        color: var(--green-d);
+        font-family: "Geist Mono", monospace;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .t-chip .big svg {
+        width: 42px;
+        height: 42px;
+      }
+
+      /* ---------- kinetic type ---------- */
+      .kw {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 500px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 76px;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        color: var(--ink);
+        perspective: 700px;
+        z-index: 20;
+      }
+      .kw span {
+        display: inline-block;
+        opacity: 0;
+        transform-origin: 50% 80%;
+      }
+
+      /* ---------- selection frame ---------- */
+      .guide {
+        position: absolute;
+        background: rgba(42, 46, 51, 0.38);
+        opacity: 0;
+        z-index: 22;
+      }
+      .guide.h {
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1px;
+      }
+      .guide.v {
+        left: 0;
+        top: 0;
+        width: 1px;
+        height: 1080px;
+      }
+      .hdl {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 11px;
+        height: 11px;
+        margin: -5px 0 0 -5px;
+        background: #fff;
+        border: 1.5px solid var(--char);
+        opacity: 0;
+        z-index: 24;
+      }
+      #pane {
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.34);
+        backdrop-filter: blur(18px) saturate(1.15);
+        -webkit-backdrop-filter: blur(18px) saturate(1.15);
+        clip-path: inset(540px 540px 540px 540px);
+        opacity: 0;
+        z-index: 21;
+      }
+      #seed {
+        position: absolute;
+        left: 534px;
+        top: 534px;
+        width: 12px;
+        height: 12px;
+        background: var(--green);
+        border: 2px solid #fff;
+        opacity: 0;
+        z-index: 25;
+      }
+      #gt {
+        top: 502px;
+        font-size: 70px;
+        z-index: 26;
+      }
+
+      /* ---------- logo reveal ---------- */
+      #markSvg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1080px;
+        z-index: 30;
+        overflow: visible;
+      }
+      #logo {
+        position: absolute;
+        left: 220px;
+        top: 499.4px;
+        width: 640px;
+        height: 81.3px;
+        opacity: 0;
+        z-index: 31;
+      }
+      #tag {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 622px;
+        text-align: center;
+        font-size: 25px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        color: var(--grey);
+        opacity: 0;
+        z-index: 31;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="10"
+      data-width="1080"
+      data-height="1080"
+    >
+      <div id="bg"></div>
+      <div class="shade" id="shade1"></div>
+      <div class="shade" id="shade2"></div>
+
+      <div id="world">
+        <canvas id="net" width="1080" height="1080"></canvas>
+        <div id="tiles"></div>
+      </div>
+
+      <div class="kw" id="w1">Every chat.</div>
+      <div class="kw" id="w2">Every document.</div>
+
+      <div id="pane"></div>
+      <div class="guide h" id="gT"></div>
+      <div class="guide h" id="gB"></div>
+      <div class="guide v" id="gL"></div>
+      <div class="guide v" id="gR"></div>
+      <div class="hdl" id="h0"></div>
+      <div class="hdl" id="h1"></div>
+      <div class="hdl" id="h2"></div>
+      <div class="hdl" id="h3"></div>
+      <div id="seed"></div>
+      <div class="kw" id="gt">Governed by design.</div>
+
+      <svg id="markSvg" viewBox="0 0 1080 1080"></svg>
+      <img id="logo" src="assets/brand/doubletick-logo.png" alt="DoubleTick" />
+      <div id="tag">Governed WhatsApp journeys for BFSI.</div>
+
+      <div id="leak"></div>
+      <div id="grain"></div>
+
+      <audio
+        id="score"
+        src="assets/audio/score.wav"
+        data-start="0"
+        data-duration="10"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+    </div>
+
+    <script>
+      const END = 10;
+      const INK = "#17191C";
+      const TINTS = ["#1E8A5C", "#9A6E1C", "#2F67A6", "#17855A", "#8C6A1E"];
+
+      function build() {
+        const tl = gsap.timeline({ paused: true });
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+        // ---------------------------------------------------------------
+        // deterministic world
+        // ---------------------------------------------------------------
+        let seed = 20261001;
+        const rnd = () => {
+          seed |= 0;
+          seed = (seed + 0x6d2b79f5) | 0;
+          let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+        const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+        const lerp = (a, b, k) => a + (b - a) * k;
+        const smooth = (a, b, t) => {
+          const k = clamp((t - a) / (b - a), 0, 1);
+          return k * k * (3 - 2 * k);
+        };
+        const expoOut = (k) => (k >= 1 ? 1 : 1 - Math.pow(2, -10 * k));
+
+        // plexus nodes + nearest-neighbour edges
+        const nodes = [];
+        for (let i = 0; i < 92; i++) {
+          nodes.push({
+            x: (rnd() * 2 - 1) * 1150,
+            y: (rnd() * 2 - 1) * 820,
+            z: (rnd() * 2 - 1) * 720,
+            g: rnd() < 0.16,
+          });
+        }
+        const edges = [];
+        const seen = new Set();
+        nodes.forEach((a, i) => {
+          const d = nodes
+            .map((b, j) => [j, (a.x - b.x) ** 2 + (a.y - b.y) ** 2 + (a.z - b.z) ** 2])
+            .filter(([j]) => j !== i)
+            .sort((p, q) => p[1] - q[1])
+            .slice(0, 3);
+          d.forEach(([j]) => {
+            const k = i < j ? i + "-" + j : j + "-" + i;
+            if (!seen.has(k)) {
+              seen.add(k);
+              edges.push([i, j, (i + j) % 7 === 0]);
+            }
+          });
+        });
+
+        // governed tiles: chats, documents, RMs, controls
+        const CK =
+          '<svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        const DOC =
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l4 4v14H7z" stroke-linejoin="round"/><path d="M14 3v4h4" /></svg>';
+        const BADGE =
+          '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#1D9BF0"/><path d="M7.6 12.4l3 3 5.9-6.3" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        const PAST = ["#d8e9df", "#ece2d1", "#dbe3ee", "#e8dde5", "#e1e8d5", "#efe4d4", "#d9e6e6"];
+        const spec = [
+          ["rm", "R", "Rohan"],
+          ["doc", "PAN Card"],
+          ["chat", "ABC Bank"],
+          ["chip", CK, "Consent"],
+          ["rm", "P", "Priya"],
+          ["doc", "Bank Statement"],
+          ["chat", "ABC Bank", 1],
+          ["chip", "•••• 4821", "Masked"],
+          ["rm", "A", "Arjun"],
+          ["doc", "Income Proof"],
+          ["chat", "ABC Bank"],
+          ["chip", CK, "Verified"],
+          ["rm", "M", "Meera"],
+          ["doc", "KYC"],
+          ["chat", "ABC Bank", 1],
+          ["chip", "LOG", "Audit trail"],
+          ["rm", "K", "Kabir"],
+          ["doc", "Form 16"],
+          ["chat", "ABC Bank"],
+          ["chip", "RM", "Access"],
+          ["rm", "S", "Sana"],
+          ["doc", "Salary Slip"],
+          ["chat", "ABC Bank", 1],
+          ["chip", CK, "Policy"],
+          ["rm", "V", "Vikram"],
+          ["doc", "Address Proof"],
+        ];
+        const tilesEl = $("#tiles");
+        const tiles = spec.map((s, i) => {
+          const el = document.createElement("div");
+          el.className = "tile t-" + s[0];
+          if (s[0] === "rm") {
+            el.innerHTML = `<div class="ph" style="background:${PAST[i % PAST.length]}"><b>${s[1]}</b><i></i></div><div class="nm">${s[2]} <span>RM</span></div>`;
+          } else if (s[0] === "doc") {
+            el.innerHTML = `<div class="pg"><div class="ic">${DOC}</div><div class="ln" style="width:86%"></div><div class="ln" style="width:62%"></div><div class="ln" style="width:74%"></div></div><div class="nm">${s[1]}</div>`;
+          } else if (s[0] === "chat") {
+            el.innerHTML = `<div class="hd"><i></i>${s[1]}${BADGE}</div><div class="bb"><div class="b"></div><div class="b ${s[2] ? "d" : "o"}"></div><div class="b s"></div><div class="b o"></div></div>`;
+          } else {
+            el.innerHTML = `<div class="big">${s[1]}</div><div class="nm">${s[2]}</div>`;
+          }
+          tilesEl.appendChild(el);
+          // tiles sit at different depths and pass in front of each other by design
+          [el, ...el.querySelectorAll("*")].forEach((n) => {
+            n.setAttribute("data-layout-allow-occlusion", "");
+            n.setAttribute("data-layout-allow-overlap", "");
+          });
+          // radial target around the hub (flattened in depth)
+          const th = rnd() * Math.PI * 2;
+          const ph = (rnd() * 2 - 1) * 0.55;
+          const r = 300 + rnd() * 360;
+          return {
+            el,
+            dir: {
+              x: Math.cos(th) * Math.cos(ph),
+              y: Math.sin(th) * Math.cos(ph) * 0.92,
+              z: Math.sin(ph) * 1.4,
+            },
+            r,
+            t0: 2.12 + i * 0.03,
+            ph: rnd() * 6.28,
+          };
+        });
+
+        // camera through time
+        const F = 900;
+        const cam = (t) => {
+          let D;
+          if (t < 2.1) D = lerp(1180, 980, smooth(0, 2.1, t));
+          else if (t < 5.0) D = lerp(980, 760, smooth(2.1, 5.0, t));
+          else D = lerp(760, 470, smooth(5.0, 5.9, t));
+          const yaw = -0.34 + t * 0.075;
+          const pitch = 0.1 * Math.sin(t * 0.45) - 0.04;
+          let focus = D;
+          if (t > 4.95) focus = lerp(D, D * 0.32, smooth(4.95, 5.7, t));
+          return { D, yaw, pitch, focus };
+        };
+        const project = (p, c) => {
+          const cy = Math.cos(c.yaw),
+            sy = Math.sin(c.yaw);
+          const x1 = p.x * cy + p.z * sy;
+          const z1 = -p.x * sy + p.z * cy;
+          const cp = Math.cos(c.pitch),
+            sp = Math.sin(c.pitch);
+          const y2 = p.y * cp - z1 * sp;
+          const z2 = p.y * sp + z1 * cp;
+          const zc = z2 + c.D;
+          const s = F / Math.max(zc, 40);
+          return { x: 540 + x1 * s, y: 540 + y2 * s, s, zc };
+        };
+
+        const ctx = $("#net").getContext("2d");
+        const render = (t) => {
+          const c = cam(t);
+          const worldA = 1 - smooth(7.1, 7.55, t);
+          const plexA = (1 - smooth(1.95, 2.7, t)) * worldA;
+          ctx.clearRect(0, 0, 1080, 1080);
+
+          // plexus
+          if (plexA > 0.001) {
+            const P = nodes.map((n) => {
+              const drift = {
+                x: n.x + Math.sin(t * 0.5 + n.z) * 18,
+                y: n.y + Math.cos(t * 0.4 + n.x) * 14,
+                z: n.z,
+              };
+              return project(drift, c);
+            });
+            ctx.lineWidth = 1.1;
+            edges.forEach(([i, j, g]) => {
+              const a = P[i],
+                b = P[j];
+              if (a.zc < 80 || b.zc < 80) return;
+              const df = 1 - clamp(Math.abs((a.zc + b.zc) / 2 - c.focus) / 1500, 0, 0.85);
+              ctx.strokeStyle = g
+                ? `rgba(39,179,120,${0.55 * df * plexA})`
+                : `rgba(72,66,50,${0.42 * df * plexA})`;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            });
+            P.forEach((p, i) => {
+              if (p.zc < 80) return;
+              const blur = Math.abs(p.zc - c.focus) * 0.016;
+              const g = nodes[i].g;
+              if (blur < 1.6) {
+                const sz = 4.6 * Math.sqrt(p.s);
+                ctx.fillStyle = g ? `rgba(31,157,104,${plexA})` : `rgba(48,42,28,${0.9 * plexA})`;
+                ctx.fillRect(p.x - sz / 2, p.y - sz / 2, sz, sz);
+              } else {
+                const rr = 3 + blur * 2.3;
+                const gr = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rr);
+                const col = g ? "39,179,120" : "60,52,34";
+                gr.addColorStop(0, `rgba(${col},${(0.32 / (1 + blur * 0.25)) * plexA})`);
+                gr.addColorStop(1, `rgba(${col},0)`);
+                ctx.fillStyle = gr;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, rr, 0, Math.PI * 2);
+                ctx.fill();
+              }
+            });
+          }
+
+          // hub + governed tiles bursting out of it
+          const hubA = smooth(1.9, 2.2, t) * worldA;
+          const H = project({ x: 0, y: 0, z: 0 }, c);
+          tiles.forEach((tt, i) => {
+            const k = expoOut(clamp((t - tt.t0) / 0.95, 0, 1));
+            const fl = Math.sin(t * 0.9 + tt.ph);
+            const p = {
+              x: tt.dir.x * tt.r * k + fl * 10,
+              y: tt.dir.y * tt.r * k + Math.cos(t * 0.7 + tt.ph) * 8,
+              z: tt.dir.z * tt.r * k,
+            };
+            const q = project(p, c);
+            tt.q = q;
+            tt.k = k;
+            const blur = clamp(Math.abs(q.zc - c.focus) * 0.011, 0, 14);
+            gsap.set(tt.el, {
+              x: q.x - 60,
+              y: q.y - 73,
+              scale: q.s * 0.92 * (0.4 + 0.6 * k),
+              rotation: fl * 2,
+              opacity: (k > 0 ? Math.min(1, k * 4) : 0) * worldA,
+              filter: `blur(${blur.toFixed(2)}px)`,
+              zIndex: Math.round(3000 - q.zc),
+            });
+          });
+          if (hubA > 0.001) {
+            ctx.lineWidth = 1.15;
+            tiles.forEach((tt, i) => {
+              if (tt.k <= 0) return;
+              const blur = Math.abs(tt.q.zc - c.focus) * 0.011;
+              const a = (0.5 / (1 + blur * 0.18)) * hubA * Math.min(1, tt.k * 3);
+              ctx.strokeStyle =
+                i % 5 === 0 ? `rgba(39,179,120,${a + 0.08})` : `rgba(82,76,58,${a})`;
+              ctx.beginPath();
+              ctx.moveTo(H.x, H.y);
+              ctx.lineTo(tt.q.x, tt.q.y);
+              ctx.stroke();
+            });
+            const hs = 12 * Math.sqrt(H.s);
+            ctx.fillStyle = `rgba(255,255,255,${hubA})`;
+            ctx.fillRect(H.x - hs / 2 - 2.5, H.y - hs / 2 - 2.5, hs + 5, hs + 5);
+            ctx.fillStyle = `rgba(31,157,104,${hubA})`;
+            ctx.fillRect(H.x - hs / 2, H.y - hs / 2, hs, hs);
+          }
+        };
+        const clock = { t: 0 };
+        render(0);
+        tl.to(clock, { t: END, duration: END, ease: "none", onUpdate: () => render(clock.t) }, 0);
+
+        // ---------------------------------------------------------------
+        // room light drifts
+        // ---------------------------------------------------------------
+        tl.to("#shade1", { x: 90, duration: END, ease: "sine.inOut" }, 0);
+        tl.to("#shade2", { x: 60, duration: END, ease: "sine.inOut" }, 0);
+
+        // ---------------------------------------------------------------
+        // kinetic type: letters flip in tinted, settle to ink
+        // ---------------------------------------------------------------
+        const split = (el) => {
+          const txt = el.textContent;
+          el.textContent = "";
+          return [...txt].map((ch, i) => {
+            const s = document.createElement("span");
+            // letters deliberately flip through each other while tracking is tight
+            s.setAttribute("data-layout-allow-overlap", "");
+            s.textContent = ch === " " ? "\u00A0" : ch;
+            el.appendChild(s);
+            return s;
+          });
+        };
+        const wordIn = (spans, t, st = 0.034) => {
+          spans.forEach((s, i) => {
+            const tint = TINTS[i % TINTS.length];
+            gsap.set(s, { rotationX: -88, y: 26, color: tint, filter: "blur(6px)" });
+            tl.to(
+              s,
+              {
+                opacity: 1,
+                rotationX: 0,
+                y: 0,
+                filter: "blur(0px)",
+                duration: 0.5,
+                ease: "expo.out",
+              },
+              t + i * st,
+            );
+            tl.to(s, { color: INK, duration: 0.42, ease: "power1.inOut" }, t + i * st + 0.2);
+          });
+        };
+        const wordOut = (spans, t, dir = -1) => {
+          spans.forEach((s, i) => {
+            tl.to(
+              s,
+              {
+                opacity: 0,
+                rotationX: 80 * -dir,
+                y: -22,
+                filter: "blur(5px)",
+                duration: 0.3,
+                ease: "power2.in",
+              },
+              t + i * 0.018,
+            );
+          });
+        };
+        const w1 = split($("#w1"));
+        const w2 = split($("#w2"));
+        wordIn(w1, 0.12);
+        wordOut(w1, 0.95);
+        wordIn(w2, 1.12, 0.028);
+        wordOut(w2, 1.86);
+
+        // ---------------------------------------------------------------
+        // selection frame + frosted pane: "Governed by design."
+        // ---------------------------------------------------------------
+        const box = { w: 12, h: 12, cx: 540, cy: 540 };
+        const placeBox = () => {
+          const L = box.cx - box.w / 2,
+            R = box.cx + box.w / 2,
+            T = box.cy - box.h / 2,
+            B = box.cy + box.h / 2;
+          gsap.set("#gT", { y: T });
+          gsap.set("#gB", { y: B });
+          gsap.set("#gL", { x: L });
+          gsap.set("#gR", { x: R });
+          gsap.set("#h0", { x: L, y: T });
+          gsap.set("#h1", { x: R, y: T });
+          gsap.set("#h2", { x: L, y: B });
+          gsap.set("#h3", { x: R, y: B });
+          gsap.set("#pane", { clipPath: `inset(${T}px ${1080 - R}px ${1080 - B}px ${L}px)` });
+        };
+        placeBox();
+        const tb = 4.98;
+        gsap.set("#seed", { scale: 0.4 });
+        tl.to("#seed", { opacity: 1, scale: 1, duration: 0.16, ease: "back.out(3)" }, tb);
+        tl.to("#seed", { opacity: 0, duration: 0.15 }, tb + 0.22);
+        tl.to([".guide", ".hdl"], { opacity: 1, duration: 0.12 }, tb + 0.1);
+        tl.to("#pane", { opacity: 1, duration: 0.2 }, tb + 0.12);
+        tl.to(
+          box,
+          { w: 830, h: 236, duration: 0.62, ease: "power3.out", onUpdate: placeBox },
+          tb + 0.12,
+        );
+        tl.to(
+          box,
+          { cx: 556, cy: 532, w: 846, duration: 1.2, ease: "sine.inOut", onUpdate: placeBox },
+          tb + 0.8,
+        );
+        const gt = split($("#gt"));
+        wordIn(gt, tb + 0.42, 0.026);
+        tl.to("#gt", { x: 16, y: -8, duration: 1.2, ease: "sine.inOut" }, tb + 0.8);
+        // exit: text slides on, frame dissolves, a prism leak sweeps
+        const tx = 7.0;
+        gt.forEach((s, i) => {
+          tl.to(
+            s,
+            { x: 120, opacity: 0, filter: "blur(6px)", duration: 0.38, ease: "power2.in" },
+            tx + i * 0.012,
+          );
+        });
+        tl.to(
+          box,
+          { w: 980, h: 300, duration: 0.45, ease: "power2.in", onUpdate: placeBox },
+          tx + 0.05,
+        );
+        tl.to([".guide", ".hdl", "#pane"], { opacity: 0, duration: 0.35 }, tx + 0.15);
+        gsap.set("#leak", { x: -40 });
+        tl.to("#leak", { opacity: 1, x: -260, duration: 0.45, ease: "power2.out" }, tx);
+        tl.to("#leak", { opacity: 0, x: -480, duration: 0.6, ease: "power1.in" }, tx + 0.45);
+
+        // ---------------------------------------------------------------
+        // logo: green dots fly in and connect into the DoubleTick mark
+        // ---------------------------------------------------------------
+        const NS = "http://www.w3.org/2000/svg";
+        const svg = $("#markSvg");
+        const S = 0.32,
+          OX = 220,
+          OY = 499.4;
+        const M = (x, y) => [OX + x * S, OY + y * S];
+        const PTS = {
+          A: M(13.4, 129.2),
+          B: M(117.5, 230.8),
+          C: M(133.4, 129.2),
+          D: M(231.6, 224.9),
+          E: M(448.0, 13.3),
+          F: M(214.5, 125.8),
+          G: M(329.6, 13.3),
+        };
+        const bars = [
+          ["A", "B"],
+          ["C", "D"],
+          ["D", "E"],
+          ["F", "G"],
+        ];
+        const barEls = bars.map(([a, b]) => {
+          const p = document.createElementNS(NS, "path");
+          p.setAttribute("d", `M ${PTS[a][0]} ${PTS[a][1]} L ${PTS[b][0]} ${PTS[b][1]}`);
+          p.setAttribute("fill", "none");
+          p.setAttribute("stroke", "#27B378");
+          p.setAttribute("stroke-width", "2.5");
+          p.setAttribute("stroke-linecap", "butt");
+          svg.appendChild(p);
+          const L = p.getTotalLength();
+          gsap.set(p, { strokeDasharray: L + " " + L, strokeDashoffset: L, visibility: "hidden" });
+          return p;
+        });
+        // the V's vertex is shared: draw it as one polyline for a clean miter
+        const tl0 = 7.42;
+        const dotEls = Object.entries(PTS).map(([k, [x, y]], i) => {
+          const c = document.createElementNS(NS, "circle");
+          c.setAttribute("r", "6");
+          c.setAttribute("fill", "#27B378");
+          c.setAttribute("cx", x);
+          c.setAttribute("cy", y);
+          svg.appendChild(c);
+          const ang = rnd() * Math.PI * 2;
+          const dist = 220 + rnd() * 260;
+          gsap.set(c, {
+            x: Math.cos(ang) * dist,
+            y: Math.sin(ang) * dist,
+            opacity: 0,
+            transformOrigin: "50% 50%",
+          });
+          tl.to(c, { opacity: 1, duration: 0.12 }, tl0 + i * 0.05);
+          tl.to(c, { x: 0, y: 0, duration: 0.62, ease: "power3.out" }, tl0 + i * 0.05);
+          return c;
+        });
+        // stray dots that join and dissolve, like a constellation settling
+        for (let i = 0; i < 7; i++) {
+          const c = document.createElementNS(NS, "circle");
+          const ax = 230 + rnd() * 200,
+            ay = 470 + rnd() * 150;
+          c.setAttribute("r", "4");
+          c.setAttribute("fill", "#27B378");
+          c.setAttribute("cx", ax);
+          c.setAttribute("cy", ay);
+          svg.appendChild(c);
+          const ang = rnd() * Math.PI * 2;
+          gsap.set(c, {
+            x: Math.cos(ang) * 300,
+            y: Math.sin(ang) * 300,
+            opacity: 0,
+            transformOrigin: "50% 50%",
+          });
+          tl.to(c, { opacity: 0.6, duration: 0.12 }, tl0 + 0.05 + i * 0.04);
+          tl.to(c, { x: 0, y: 0, duration: 0.6, ease: "power3.out" }, tl0 + 0.05 + i * 0.04);
+          tl.to(c, { opacity: 0, scale: 0.2, duration: 0.3 }, tl0 + 0.7 + i * 0.02);
+        }
+        const tc = tl0 + 0.62;
+        barEls.forEach((p, i) => {
+          tl.set(p, { visibility: "visible" }, tc + i * 0.07);
+          tl.to(p, { strokeDashoffset: 0, duration: 0.32, ease: "power2.inOut" }, tc + i * 0.07);
+        });
+        // lines thicken into the solid mark, dots fold in, the official logo takes over
+        const tk = tc + 0.48;
+        tl.to(barEls, { strokeWidth: 12.5, duration: 0.32, ease: "power3.inOut" }, tk);
+        tl.to(dotEls, { scale: 0.2, opacity: 0, duration: 0.3, ease: "power2.in" }, tk);
+        gsap.set("#logo", { clipPath: "inset(0% 76.5% 0% 0%)" });
+        tl.to("#logo", { opacity: 1, duration: 0.14 }, tk + 0.28);
+        tl.to(barEls, { opacity: 0, duration: 0.14 }, tk + 0.36);
+        tl.to(
+          "#logo",
+          { clipPath: "inset(0% 0% 0% 0%)", duration: 0.55, ease: "power3.out" },
+          tk + 0.38,
+        );
+        gsap.set("#tag", { y: 10 });
+        tl.to("#tag", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, tk + 0.75);
+
+        window.__timelines["main"] = tl;
+        if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+      }
+
+      Promise.all([
+        document.fonts.load('600 40px "Geist"'),
+        document.fonts.load('500 16px "Geist Mono"'),
+        document.fonts.load('400 40px "Hedvig Letters Serif"'),
+      ])
+        .then(() => document.fonts.ready)
+        .then(build);
+    </script>
+  </body>
+</html>
