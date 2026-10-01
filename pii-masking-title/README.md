@@ -5,6 +5,9 @@
 - Before: "How to connect / DoubleTick with Claude / via MCP server?"
 - After: "Custom PII Masking / and Blocking"
 
+`doubletick-rcs-1on1-conversation.mp4` is the same treatment with "RCS message in a 1:1 / conversation ?". It was rendered with
+`--variables '{"line1":"RCS message in a 1:1","line2":"conversation ?"}'`.
+
 Nothing else was changed:
 
 - **0 – 4.04s (frames 0–96), the logo intro:** taken straight from the source. Its PSNR against the original is 61.5 dB, so the difference can't be seen.
