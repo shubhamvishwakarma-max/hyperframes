@@ -1,0 +1,156 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"line1","type":"string","label":"Line 1","default":"Custom PII Masking"},
+    {"id":"line2","type":"string","label":"Line 2","default":"and Blocking"},
+    {"id":"line3","type":"string","label":"Line 3","default":""},
+    {"id":"anchor","type":"string","label":"Anchor (top | bottom)","default":"top"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/Geist-400.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: transparent;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      /* Title layer — measured from the source video's title card:
+         Geist 400, cap height 104px, line pitch 170px, ink left edge at x≈107. */
+      #title {
+        position: absolute;
+        left: 95.5px;
+        font-family: "Geist", sans-serif;
+        font-weight: 400;
+        font-size: 146.5px;
+        letter-spacing: -1.03px;
+        word-spacing: -6px;
+        white-space: pre;
+        --g-top: rgb(252, 253, 251);
+        --g-bot: rgb(193, 232, 202);
+      }
+      .line {
+        display: block;
+        height: 170px;
+        line-height: 170px;
+      }
+      .word {
+        display: inline-block;
+        will-change: transform;
+      }
+      .ch {
+        display: inline;
+        color: transparent;
+        /* Per-line vertical gradient sampled from the source: light mint at cap top → greener mint at baseline. */
+        background-image: linear-gradient(180deg, var(--g-top) 0px, var(--g-bot) 170px);
+        -webkit-background-clip: text;
+        background-clip: text;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="2.958333"
+      data-fps="24"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div id="title" class="clip" data-start="0" data-duration="2.958333" data-track-index="0"></div>
+    </div>
+    <script>
+      // ---- Motion constants fitted to the source title reveal (24 fps, t=0 = the cut to the title card) ----
+      const CHAR_STAGGER = 0.01783; // per character (spaces + line breaks count), whole block
+      const FIRST_WORD_START = -0.0583; // first word's rise begins just before the cut
+      const FADE_DELAY = 0.065; // each character's fade lags its word's rise
+      const RISE_FROM = 236; // px below rest position
+      const RISE_DURATION = 0.71875;
+      const FADE_DURATION = 0.5625;
+      const riseEase = (p) => 1 - Math.pow(1 - p, 2.5);
+
+      const LINE_PITCH = 170;
+      const FIRST_CAP_TOP = 506.5; // cap top of the source's first line
+      const SOURCE_LINES = 3;
+      const CAP_IN_BOX = 32; // cap-top offset inside a 170px line box (measured)
+
+      const vars = window.__hyperframes.getVariables();
+      const lines = [vars.line1, vars.line2, vars.line3].filter((l) => l && l.length);
+      const title = document.getElementById("title");
+
+      // Top anchor keeps line 1 where the source's line 1 sits; bottom anchor keeps the last line where the source's last line sits.
+      const firstSlot = vars.anchor === "top" ? 0 : SOURCE_LINES - lines.length;
+      title.style.top = FIRST_CAP_TOP - CAP_IN_BOX + firstSlot * LINE_PITCH + "px";
+
+      const words = [];
+      let idx = 0;
+      lines.forEach((text, li) => {
+        const lineEl = document.createElement("div");
+        lineEl.className = "line";
+        text.split(" ").forEach((w, wi) => {
+          if (wi > 0) {
+            lineEl.appendChild(document.createTextNode(" "));
+            idx += 1;
+          }
+          const wordEl = document.createElement("span");
+          wordEl.className = "word";
+          const chars = [];
+          const startIdx = idx;
+          for (const c of w) {
+            const ch = document.createElement("span");
+            ch.className = "ch";
+            ch.textContent = c;
+            wordEl.appendChild(ch);
+            chars.push({ el: ch, idx });
+            idx += 1;
+          }
+          lineEl.appendChild(wordEl);
+          words.push({ el: wordEl, startIdx, chars });
+        });
+        title.appendChild(lineEl);
+        idx += 1; // line break counts as one character of stagger
+      });
+
+      // Inner timeline is offset so the pre-roll before the cut stays at positive positions.
+      const OFF = 0.5;
+      const inner = gsap.timeline({ paused: true });
+      for (const w of words) {
+        const t = OFF + FIRST_WORD_START + w.startIdx * CHAR_STAGGER;
+        inner.fromTo(w.el, { y: RISE_FROM }, { y: 0, duration: RISE_DURATION, ease: riseEase }, t);
+        for (const c of w.chars) {
+          const tc = OFF + FIRST_WORD_START + c.idx * CHAR_STAGGER + FADE_DELAY;
+          inner.fromTo(c.el, { opacity: 0 }, { opacity: 1, duration: FADE_DURATION, ease: "power1.out" }, tc);
+        }
+      }
+      inner.set({}, {}, OFF + 2.958333);
+
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(inner, { time: OFF }, { time: OFF + 2.958333, duration: 2.958333, ease: "none" }, 0);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
