@@ -45,7 +45,8 @@
         --green-ink: #13875a;
         --green-text: #0f7a50;
         --green-soft: #e3f4ec;
-        --warm: #c8822f;
+        --warm: #c8473a;
+        --red-ink: #b0362c;
         --wa-bg: #efeae2;
         --wa-out: #d9fdd3;
         --wa-ink: #111b21;
@@ -88,6 +89,14 @@
         position: absolute;
         inset: 0;
         background: radial-gradient(120% 90% at 50% 40%, #f8f6f2 0%, #f5f3ee 55%, #efece5 100%);
+      }
+      .bg-red {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(85% 70% at 72% 58%, rgba(206, 74, 58, 0.2) 0%, rgba(206, 74, 58, 0) 70%),
+          radial-gradient(70% 60% at 18% 20%, rgba(206, 74, 58, 0.1) 0%, rgba(206, 74, 58, 0) 70%),
+          linear-gradient(180deg, rgba(222, 120, 100, 0.12) 0%, rgba(222, 120, 100, 0.04) 100%);
       }
       .bg-glow {
         position: absolute;
@@ -152,6 +161,9 @@
       .hl .g {
         color: var(--green-ink);
       }
+      .hl .r {
+        color: var(--red-ink);
+      }
       .hl .sub {
         display: block;
         margin-top: 16px;
@@ -181,11 +193,7 @@
         opacity: 0;
       }
       .sub-cue span {
-        background: rgba(251, 250, 247, 0.86);
-        padding: 2px 12px;
-        border-radius: 10px;
-        -webkit-box-decoration-break: clone;
-        box-decoration-break: clone;
+        background: none;
       }
 
       /* opening doc cards */
@@ -1006,7 +1014,7 @@
         white-space: nowrap;
       }
       .note.warm {
-        color: #9a5f1c;
+        color: var(--red-ink);
       }
 
       /* workflow container */
@@ -1231,6 +1239,7 @@
       <div id="stage" class="clip" data-start="0" data-duration="36" data-track-index="0">
         <!-- background -->
         <div class="bg-fill" data-layout-allow-occlusion></div>
+        <div class="bg-red" id="redtone" data-layout-allow-occlusion></div>
         <div class="bg-glow abs" id="glow"></div>
         <svg class="bg-grain" width="1080" height="1080" aria-hidden="true">
           <filter id="grainF">
@@ -1516,8 +1525,7 @@
           <span class="m"><span class="i">does it go next?</span></span>
         </div>
         <div class="hl" id="h3">
-          <span class="m"><span class="i"><span class="g">Governed</span> —</span></span>
-          <span class="m"><span class="i">or sitting on</span></span>
+          <span class="m"><span class="i"><span class="r">Governed</span> or sitting on</span></span>
           <span class="m"><span class="i">an RM’s phone?</span></span>
         </div>
         <div class="hl" id="h4">
@@ -1780,18 +1788,19 @@
         // =========================================================
         // SCENE 03 — governed, or sitting on an RM's phone? (5.3 – 8.05)
         // =========================================================
-        // document drifts toward the RM phone, accelerating — then FREEZE ~25px away
+        // document flies straight into the RM phone — no hanging in between
         const FREEZE = 7.62;
-        const docStop = { x: 900 - 95 - 25 - 102, y: 640 };
-        tl.to("#doc", { x: docStop.x, y: docStop.y, rotation: 0, duration: FREEZE - 3.9, ease: "power2.in" }, 3.9);
-        // uncontrolled local copies trailing behind
+        const docStop = { x: 900, y: 724 };
+        tl.to("#doc", { motionPath: { path: [{ x: 680, y: 540 }, { x: docStop.x, y: docStop.y }], curviness: 1.1 }, scale: 0.5, rotation: 0, duration: 0.62, ease: "power3.inOut" }, 3.88);
+        tl.to("#doc", { scale: 0.53, duration: 0.09, ease: "power2.out", yoyo: true, repeat: 1 }, 4.5);
+        tl.to("#rm", { scale: 1.02, duration: 0.09, ease: "power2.out", yoyo: true, repeat: 1 }, 4.5);
+        // uncontrolled local copies pile up inside the phone
         ["g1", "g2", "g3"].forEach((g, k) => {
-          place(g, 470, 560, { scale: 0.68, opacity: 0 });
-          const lag = 0.16 * (k + 1);
-          tl.to("#" + g, { opacity: [0.34, 0.2, 0.11][k], duration: 0.4, ease: "power1.out" }, 5.4 + k * 0.12);
-          tl.fromTo("#" + g, { x: 470, y: 560 }, { x: docStop.x - 46 * (k + 1), y: docStop.y + [10, -14, 18][k], rotation: [-3, 2, -4][k], duration: FREEZE - 3.9 - lag, ease: "power2.in" }, 3.9 + lag * 0);
+          place(g, docStop.x, docStop.y, { scale: 0.5, opacity: 0 });
+          const t = 5.5 + k * 0.38;
+          tl.fromTo("#" + g, { x: docStop.x, y: docStop.y, opacity: 0 }, { x: docStop.x + [-6, 6, -4][k], y: docStop.y + 16 * (k + 1), rotation: [-2, 2, -3][k], opacity: [0.5, 0.32, 0.18][k], duration: 0.34, ease: "power3.out", immediateRender: false }, t);
         });
-        hlIn("h3", 5.42, [0, 0.12, 0.9]);
+        hlIn("h3", 5.42, [0, 0.95]);
         // restrained warm accent on the phone edge + small support label
         place("localQ", 900, 856);
         tl.to("#rmWarn", { opacity: 0.85, duration: 0.5, ease: "power2.out" }, 6.7);
@@ -1803,7 +1812,7 @@
         // SCENE 04 — DoubleTick redirects the journey (8.05 – 9.8)
         // =========================================================
         const R0 = 8.05;
-        const redirect = "M " + docStop.x + " 712 C " + (docStop.x + 10) + " 830, 520 872, 420 812 C 330 760, 300 690, 305 612";
+        const redirect = "M 900 800 C 880 900, 580 900, 450 832 C 340 774, 300 690, 305 612";
         $("pRedirect").setAttribute("d", redirect);
         const rl = $("pRedirect").getTotalLength();
         gsap.set("#pRedirect", { strokeDasharray: rl, strokeDashoffset: rl });
@@ -1814,14 +1823,15 @@
         tl.to("#rmWarn", { opacity: 0, duration: 0.2 }, R0);
         tl.to("#localQ", { opacity: 0, duration: 0.15 }, R0);
         hlOut("h3", R0 + 0.02);
+        tl.to("#redtone", { opacity: 0, duration: 1.1, ease: "sine.inOut" }, R0);
         // pulled away along the green path
         tl.to(
           "#doc",
           {
             motionPath: {
               path: [
-                { x: docStop.x - 30, y: 700 },
-                { x: 560, y: 812 },
+                { x: 860, y: 830 },
+                { x: 600, y: 860 },
                 { x: 400, y: 770 },
                 { x: 360, y: 660 },
                 { x: 540, y: 600 },
@@ -1835,7 +1845,7 @@
           R0 + 0.12,
         );
         tl.to("#doc", { scale: 0.5, opacity: 0, duration: 0.3, ease: "power2.in" }, R0 + 1.0);
-        tl.to("#rm", { x: 1060, opacity: 0, duration: 0.5, ease: "power3.in" }, R0 + 0.1);
+        tl.to("#rm", { x: 1060, opacity: 0, duration: 0.5, ease: "power3.in" }, R0 + 0.3);
         tl.to("#waA", { x: 120, opacity: 0, scale: 0.6, duration: 0.45, ease: "power3.in" }, R0 + 0.05);
         // the line expands into the edge of a WhatsApp window
         const fr = "M 305 612 V 352 Q 305 317 340 317 H 740 Q 775 317 775 352 V 872 Q 775 907 740 907 H 340 Q 305 907 305 872 Z";
