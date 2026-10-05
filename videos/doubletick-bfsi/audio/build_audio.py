@@ -19,9 +19,12 @@ import soundfile as sf
 from scipy.signal import butter, fftconvolve, sosfilt
 
 SR = 48000
-END = 40.8
+END = 36.4
 N = int(SR * END)
-V = [0.35, 6.55, 10.9, 17.25, 24.5, 29.3, 34.9, 36.35]
+V = [0.06, 3.81, 8.61, 14.54, 21.35, 25.35, 30.67, 31.87]
+# per-scene time scale (master VO line lengths vs the guide read) — mirrors index.html
+K3, K4, K5, K7, K9 = 5.93 / 6.35, 6.81 / 7.25, 4.0 / 4.8, 5.32 / 5.6, 1.2 / 1.45
+FREEZE, REDIRECT = 7.86, 8.16
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RNG = np.random.default_rng(20261001)
 
@@ -174,9 +177,9 @@ def build_music(vo_env):
     pad_bus = np.zeros((N, 2))
     drum_bus = np.zeros((N, 2))
 
-    beat = 25.45 / 48  # 113.2 BPM, downbeats on 10.9 and 36.35
+    beat = (V[7] - V[2]) / 44  # ~113.5 BPM, downbeats on the solution and the CTA
     bar = beat * 4
-    g0 = V[2] - 5 * bar
+    g0 = V[2] - 4 * bar  # ≈0.15s: the groove starts immediately
     prog = [
         (43, [59, 62, 66, 69]),  # Gmaj9
         (42, [57, 62, 64, 69]),  # D/F#
@@ -195,7 +198,7 @@ def build_music(vo_env):
             return "s4"
         if t < V[5]:
             return "s5"
-        if t < V[5] + 4.2:
+        if t < V[5] + 4.2 * K7:
             return "s7"
         if t < V[6]:
             return "s8"
@@ -275,13 +278,14 @@ def build_music(vo_env):
         s = sec(tb)
         pos = i % 4
         if s == "s1":
-            # minimal pulse: soft muted kick on 1 & 3, ticking hats
-            if pos in (0, 2):
-                place(drum_bus, kick(0.45), tb, 0.55)
+            # hook: no slow intro — a driving pulse from the first beat
+            place(drum_bus, kick(0.7), tb, 0.58)
+            if pos in (1, 3):
+                place(drum_bus, clap(), tb, 0.16, pan=0.05)
             for h in range(2):
-                place(drum_bus, hat(), tb + h * beat / 2, 0.05 if h else 0.08, pan=0.25)
+                place(drum_bus, hat(), tb + h * beat / 2, 0.06 if h else 0.09, pan=0.25)
         elif s == "s2":
-            if tb < V[1] + 2.75 and pos == 0:  # heartbeat until the freeze
+            if tb < FREEZE and pos in (0, 2):  # heartbeat until the freeze
                 place(drum_bus, kick(0.4), tb, 0.45)
         elif s in ("s3", "s4", "s5", "s7"):
             place(drum_bus, kick(0.9), tb, 0.62)
@@ -324,7 +328,7 @@ def build_music(vo_env):
 
     # freeze: everything but the drone ducks hard from 9.3 → 10.0
     g = np.ones(N)
-    tf, tr = V[1] + 2.75, V[1] + 3.4
+    tf, tr = FREEZE, REDIRECT
     a, b = int(tf * SR), int(tr * SR)
     g[a:b] = 0.25
     g[b : b + int(0.4 * SR)] = np.linspace(0.25, 1, int(0.4 * SR))
@@ -509,80 +513,86 @@ def s_resolve():
 
 def build_sfx():
     bus = np.zeros((N, 2))
-    t1, t2, t3, t4, t5, t7, t9, t10 = V[0], V[1], V[2], V[3], V[4], V[5], V[6], V[7]
-    # scene 1 — three documents, magnetic snap, WhatsApp document message
-    for i, t in enumerate((t1 + 1.55, t1 + 2.92, t1 + 4.05)):
-        place(bus, s_paper(), t + 0.12, 0.55, pan=(-0.5, 0, 0.5)[i])
-    tc = t1 + 4.75
-    place(bus, s_whoosh(0.5, 500, 2500, 0.7), tc, 0.5)
-    place(bus, s_snap(), tc + 0.5, 0.55)
-    place(bus, s_pop(), tc + 0.62 + 0.3, 0.55)
-    place(bus, s_tick(3400, 0.5), tc + 0.62 + 0.9, 0.35)
-    # scene 2 — approach, freeze, redirect
-    place(bus, s_whoosh(0.6, 300, 1500, 0.5), t2 + 0.1, 0.35)
-    place(bus, s_lowpulse(), t2 + 0.95, 0.5)
-    place(bus, s_lowpulse(), t2 + 1.85, 0.55)
+    t3, t4, t5, t7, t9, t10 = V[2], V[3], V[4], V[5], V[6], V[7]
+    # hook — documents slam in, snap, WhatsApp send, travel toward the RM phone
+    place(bus, s_lowpulse(), 0.0, 0.65)
+    place(bus, s_whoosh(0.4, 500, 3200, 0.8), 0.0, 0.45)
+    for i, t in enumerate((0.42, 0.52, 0.64)):
+        place(bus, s_paper(), t, 0.6, pan=(-0.5, 0.5, 0.0)[i])
+    place(bus, s_snap(), 0.8, 0.55)
+    place(bus, s_pop(), 0.9, 0.35)
+    place(bus, s_tap(), 2.04, 0.5)
+    place(bus, s_pop(), 2.12, 0.65)
+    place(bus, s_tick(3200, 0.5), 2.24, 0.3)
+    place(bus, s_tick(3600, 0.5), 2.72, 0.3)
+    place(bus, s_whoosh(0.8, 300, 2400, 0.9), 2.84, 0.5)
+    place(bus, s_whoosh(0.35, 900, 3600, 0.6), 3.2, 0.3)
+    place(bus, s_lowpulse(), 3.95, 0.55)
+    place(bus, s_tension(3.9), 3.95, 1.1)
+    place(bus, s_rise(3.8), 4.05, 0.55)
+    place(bus, s_lowpulse(), 5.05, 0.45)
+    place(bus, s_lowpulse(), 6.47, 0.55)
     for i in range(3):
-        place(bus, s_tick(1800 - i * 200, 0.4), t2 + 1.75 + i * 0.12, 0.3, pan=0.3)
-    place(bus, s_stop(), t2 + 2.75, 0.7)
-    place(bus, s_tension(0.7), t2 + 2.78, 1.0)
-    place(bus, s_whoosh(0.85, 400, 4200, 1.0), t2 + 3.38, 0.6)
-    place(bus, s_tick(2900, 0.6), t2 + 3.4 + 0.86, 0.45)
+        place(bus, s_tick(1800 - i * 200, 0.4), 6.75 + i * 0.1, 0.3, pan=0.3)
+    place(bus, s_stop(), FREEZE, 0.75)
+    place(bus, s_tick(2400, 0.4), FREEZE + 0.08, 0.25)
+    place(bus, s_whoosh(0.8, 400, 4200, 1.0), REDIRECT - 0.02, 0.6)
+    place(bus, s_tick(2900, 0.6), REDIRECT + 0.12, 0.4)
     # scene 3 — AI chat + voice inside WhatsApp
-    place(bus, s_ping(), t3 + 0.42, 0.55)
-    place(bus, s_ping(), t3 + 1.38, 0.45)
-    place(bus, s_tap(), t3 + 2.3, 0.5)
-    place(bus, s_pop(), t3 + 2.6, 0.45)
-    place(bus, s_ping(), t3 + 3.3, 0.45)
-    place(bus, s_ping(), t3 + 4.1, 0.4)
-    place(bus, s_tap(), t3 + 4.62, 0.5)
-    place(bus, s_connect(), t3 + 4.8, 0.6)
-    place(bus, s_texture(1.15), t3 + 5.13, 1.0)
-    place(bus, s_whoosh(0.4, 900, 3000, 0.6), t3 + 6.05, 0.4)
-    place(bus, s_tick(2600, 0.5), t3 + 6.45, 0.4)
+    place(bus, s_ping(), t3 + 0.42 * K3, 0.55)
+    place(bus, s_ping(), t3 + 1.38 * K3, 0.45)
+    place(bus, s_tap(), t3 + 2.3 * K3, 0.5)
+    place(bus, s_pop(), t3 + 2.6 * K3, 0.45)
+    place(bus, s_ping(), t3 + 3.3 * K3, 0.45)
+    place(bus, s_ping(), t3 + 4.1 * K3, 0.4)
+    place(bus, s_tap(), t3 + 4.62 * K3, 0.5)
+    place(bus, s_connect(), t3 + 4.8 * K3, 0.6)
+    place(bus, s_texture(1.15), t3 + 5.13 * K3, 1.0)
+    place(bus, s_whoosh(0.4, 900, 3000, 0.6), t3 + 6.05 * K3, 0.4)
+    place(bus, s_tick(2600, 0.5), t3 + 6.45 * K3, 0.4)
     # scene 4 — pending → question → consent → upload
-    place(bus, s_ping(), t4 + 0.36, 0.45)
-    place(bus, s_tap(), t4 + 1.35, 0.5)
-    place(bus, s_pop(), t4 + 2.05, 0.45)
-    place(bus, s_ping(), t4 + 2.65, 0.4)
-    place(bus, s_tick(2200, 0.5), t4 + 3.3, 0.4)
-    place(bus, s_tap(), t4 + 3.95, 0.5)
-    place(bus, s_tick(2800, 0.9), t4 + 4.12, 0.55)
-    place(bus, s_tick(2800, 0.5), t4 + 4.15, 0.25)
-    place(bus, s_pop(), t4 + 4.55, 0.4)
-    place(bus, s_snap(), t4 + 4.5 + 0.67, 0.3)
-    for t in (t4 + 4.95, t4 + 5.45, t4 + 5.9):
+    place(bus, s_ping(), t4 + 0.36 * K4, 0.45)
+    place(bus, s_tap(), t4 + 1.35 * K4, 0.5)
+    place(bus, s_pop(), t4 + 2.05 * K4, 0.45)
+    place(bus, s_ping(), t4 + 2.65 * K4, 0.4)
+    place(bus, s_tick(2200, 0.5), t4 + 3.3 * K4, 0.4)
+    place(bus, s_tap(), t4 + 3.95 * K4, 0.5)
+    place(bus, s_tick(2800, 0.9), t4 + 4.12 * K4, 0.55)
+    place(bus, s_tick(2800, 0.5), t4 + 4.15 * K4, 0.25)
+    place(bus, s_pop(), t4 + 4.55 * K4, 0.4)
+    place(bus, s_snap(), t4 + 4.5 * K4 + 0.67, 0.3)
+    for t in (t4 + 4.95 * K4, t4 + 5.45 * K4, t4 + 5.9 * K4):
         place(bus, s_tick(3600, 0.5), t, 0.32)
-    place(bus, s_chime(), t4 + 6.32, 0.8)
+    place(bus, s_chime(), t4 + 6.32 * K4, 0.8)
     # scene 5 + 6 — the document leaves WhatsApp
     place(bus, s_whoosh(0.9, 250, 2600, 1.0), t5 - 0.05, 0.6)
-    place(bus, s_rise(0.8), t5 + 0.3, 0.6)
-    place(bus, s_snap(), t5 + 0.82, 0.5)
-    place(bus, s_sweep(), t5 + 1.72, 0.55)
-    place(bus, s_sweep(), t5 + 1.9, 0.35)
-    place(bus, s_tick(2400, 0.6), t5 + 2.3, 0.4)
-    place(bus, s_lowpulse(), t5 + 2.25, 0.3)
-    place(bus, s_tick(1500, 0.5), t5 + 2.5, 0.3)
-    place(bus, s_stop(), t5 + 3.0, 0.3)
-    place(bus, s_snap(), t5 + 3.42, 0.6)
-    place(bus, s_confirm(), t5 + 3.48, 0.8)
+    place(bus, s_rise(0.8), t5 + 0.3 * K5, 0.6)
+    place(bus, s_snap(), t5 + 0.82 * K5, 0.5)
+    place(bus, s_sweep(), t5 + 1.72 * K5, 0.55)
+    place(bus, s_sweep(), t5 + 1.9 * K5, 0.35)
+    place(bus, s_tick(2400, 0.6), t5 + 2.3 * K5, 0.4)
+    place(bus, s_lowpulse(), t5 + 2.25 * K5, 0.3)
+    place(bus, s_tick(1500, 0.5), t5 + 2.5 * K5, 0.3)
+    place(bus, s_stop(), t5 + 3.0 * K5, 0.3)
+    place(bus, s_snap(), t5 + 3.42 * K5, 0.6)
+    place(bus, s_confirm(), t5 + 3.48 * K5, 0.8)
     for i in range(3):
-        place(bus, s_tick(3000 + i * 300, 0.35), t5 + 3.62 + i * 0.12, 0.28)
+        place(bus, s_tick(3000 + i * 300, 0.35), t5 + 3.62 * K5 + i * 0.12, 0.28)
     # scene 7 — context to the RM, RM joins
     place(bus, s_whoosh(0.6, 300, 1800, 0.5), t7 - 0.05, 0.35)
     for i in range(3):
-        place(bus, s_tick(2200 + i * 330, 0.6), t7 + 0.55 + i * 0.26, 0.35, pan=0.2 + i * 0.15)
-    place(bus, s_pop(), t7 + 1.4, 0.3)
-    place(bus, s_whoosh(0.7, 300, 2200, 0.6), t7 + 2.0, 0.4)
-    place(bus, s_handoff(), t7 + 2.72, 0.7)
-    place(bus, s_ping(), t7 + 3.25, 0.4)
+        place(bus, s_tick(2200 + i * 330, 0.6), t7 + 0.55 * K7 + i * 0.26, 0.35, pan=0.2 + i * 0.15)
+    place(bus, s_pop(), t7 + 1.4 * K7, 0.3)
+    place(bus, s_whoosh(0.7, 300, 2200, 0.6), t7 + 2.0 * K7, 0.4)
+    place(bus, s_handoff(), t7 + 2.72 * K7, 0.7)
+    place(bus, s_ping(), t7 + 3.25 * K7, 0.4)
     # scene 8 — one line connects everything
-    t8 = t7 + 4.2
-    place(bus, s_rise(0.65), t8 + 0.25, 0.9)
-    place(bus, s_tick(2600, 0.5), t8 + 0.7, 0.3, pan=-0.3)
-    place(bus, s_tick(2300, 0.5), t8 + 0.92, 0.3, pan=0.3)
+    t8 = t7 + 4.2 * K7
+    place(bus, s_rise(0.65), t8 + 0.25 * K7, 0.9)
+    place(bus, s_tick(2600, 0.5), t8 + 0.7 * K7, 0.3, pan=-0.3)
+    place(bus, s_tick(2300, 0.5), t8 + 0.92 * K7, 0.3, pan=0.3)
     # scene 9 — brand + CTA
-    place(bus, s_resolve(), t9 + 0.72, 0.8)
+    place(bus, s_resolve(), t9 + 0.72 * K9, 0.8)
     place(bus, s_tap(), t10 + 0.85, 0.3)
     place(bus, s_tap(), t10 + 1.5, 0.55)
     place(bus, s_lowpulse(), t10 + 1.5, 0.35)

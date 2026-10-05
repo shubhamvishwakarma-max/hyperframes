@@ -1087,11 +1087,11 @@
         background: #e3dfd6;
       }
       .rmBody .ln1 {
-        top: 58px;
+        top: 92px;
         width: 80px;
       }
       .rmBody .ln2 {
-        top: 76px;
+        top: 110px;
         width: 56px;
       }
 
@@ -1414,6 +1414,348 @@
         z-index: 21;
       }
 
+      /* ---------- opening hook ---------- */
+      .hk {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        top: 96px;
+        text-align: center;
+        font-family: "Hedvig Letters Serif", serif;
+        font-size: 67px;
+        line-height: 1.06;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        transform-origin: 50% 0%;
+        z-index: 20;
+      }
+      .hk .ln {
+        display: block;
+        overflow: hidden;
+        padding: 0.02em 0 0.12em;
+      }
+      .hk .ln > span {
+        display: inline-block;
+      }
+      .hk b {
+        font-weight: 400;
+      }
+      .hk .g,
+      .hk .b1 {
+        color: var(--green-d);
+      }
+      .hk .w {
+        color: #8a5f12;
+      }
+      #hQ {
+        top: 150px;
+        font-size: 74px;
+      }
+      #hB {
+        top: 84px;
+      }
+      #hB .b1 {
+        font-size: 98px;
+        line-height: 1;
+      }
+      #hB .b2 {
+        font-size: 72px;
+      }
+      #waPanel {
+        position: absolute;
+        left: 260px;
+        top: 380px;
+        width: 420px;
+        height: 560px;
+        border-radius: 28px;
+        overflow: hidden;
+        background-color: #efeae2;
+        background-image: radial-gradient(rgba(70, 60, 40, 0.06) 1.1px, transparent 1.6px);
+        background-size: 18px 18px;
+        box-shadow:
+          0 0 0 1px rgba(21, 23, 26, 0.06),
+          0 40px 70px -36px rgba(25, 35, 30, 0.45);
+        opacity: 0;
+        z-index: 11;
+      }
+      .wph {
+        height: 64px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 16px 0 10px;
+        background: #fff;
+        border-bottom: 1px solid #e9edef;
+        color: var(--wa-ink);
+      }
+      .wph svg {
+        width: 22px;
+        height: 22px;
+      }
+      .wpav {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: linear-gradient(160deg, #d9ebe1, #b5d5c4);
+        color: #1d4d36;
+        font-family: "Hedvig Letters Serif", serif;
+        font-size: 19px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .wpn {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--wa-ink);
+      }
+      .wps {
+        font-size: 13px;
+        color: var(--wa-sub);
+      }
+      .wpin {
+        position: absolute;
+        left: 14px;
+        top: 78px;
+        max-width: 300px;
+        padding: 8px 12px;
+        border-radius: 12px;
+        border-top-left-radius: 4px;
+        background: #fff;
+        font-size: 16px;
+        color: var(--wa-ink);
+        box-shadow: 0 1px 0.6px rgba(11, 20, 26, 0.13);
+      }
+      .wpin .m,
+      #hkBubble .m {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: 10px;
+        font-size: 12px;
+        color: var(--wa-sub);
+      }
+      #hkBubble {
+        position: absolute;
+        right: 16px;
+        top: 128px;
+        width: 300px;
+        height: 268px;
+        border-radius: 16px;
+        border-top-right-radius: 5px;
+        background: var(--wa-out);
+        box-shadow: 0 1px 0.6px rgba(11, 20, 26, 0.13);
+        opacity: 0;
+      }
+      #hkBubble .m {
+        position: absolute;
+        right: 12px;
+        bottom: 8px;
+      }
+      #hkTicks {
+        display: block;
+        width: 17px;
+        height: 11px;
+        color: #8696a0;
+        opacity: 0;
+      }
+      #hkTicks svg {
+        width: 17px;
+        height: 11px;
+      }
+      #hkBubbleDocs {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        top: 12px;
+        opacity: 0;
+      }
+      #hkBubbleDocs .dr {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 44px;
+        margin-bottom: 6px;
+        padding: 0 10px;
+        border-radius: 9px;
+        background: rgba(0, 0, 0, 0.045);
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--wa-ink);
+      }
+      #hkBubbleDocs .pd {
+        width: 24px;
+        height: 30px;
+        border-radius: 4px;
+        background: #c8372d;
+        color: #fff;
+        font-style: normal;
+        font-size: 7px;
+        font-weight: 700;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 3px;
+      }
+      .wpbar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 10px;
+      }
+      .wpbar .pill {
+        flex: 1;
+        height: 44px;
+        border-radius: 22px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        font-size: 16px;
+        color: var(--wa-sub);
+      }
+      #hkSend {
+        position: relative;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: #00805e;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #hkSend svg {
+        width: 22px;
+        height: 22px;
+      }
+      #hkSendRing {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 3px solid #25d366;
+        opacity: 0;
+      }
+      #hkStack {
+        position: absolute;
+        left: 389px;
+        top: 588px;
+        width: 250px;
+        height: 150px;
+        z-index: 13;
+      }
+      .hkc,
+      .hkg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 150px;
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .hkc {
+        background: #fff;
+        border: 1px solid #e2ded5;
+        box-shadow: 0 18px 36px -18px rgba(30, 38, 32, 0.38);
+      }
+      .hkc .st,
+      .hkg .st {
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 14px;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        color: var(--ink);
+      }
+      .hkc .st span,
+      .hkg .st span {
+        font-family: "Geist Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        color: var(--grey);
+      }
+      .hkc .bd {
+        padding: 10px 14px;
+      }
+      .hkc .bar {
+        height: 7px;
+        border-radius: 4px;
+        background: #eeebe4;
+        margin-top: 9px;
+      }
+      .hkc .pr {
+        display: flex;
+        justify-content: space-between;
+      }
+      .hkc .idr {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-top: 6px;
+      }
+      .hkc .ph {
+        width: 34px;
+        height: 40px;
+        border-radius: 6px;
+        background: #eeebe4;
+      }
+      .hkg {
+        left: 389px;
+        top: 588px;
+        background: rgba(255, 255, 255, 0.5);
+        border: 1.5px dashed #b9b4aa;
+        opacity: 0;
+        z-index: 12;
+      }
+      .hkg .st {
+        color: #5f6366;
+      }
+      #hkLocal {
+        position: absolute;
+        left: 770px;
+        top: 818px;
+        width: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--char);
+        opacity: 0;
+        z-index: 9;
+      }
+      #hkLocal svg {
+        width: 18px;
+        height: 18px;
+        color: var(--grey);
+      }
+      .rmBody .rav {
+        position: absolute;
+        left: 50%;
+        top: 34px;
+        width: 40px;
+        height: 40px;
+        margin-left: -20px;
+        border-radius: 50%;
+        background: linear-gradient(160deg, #d9ebe1, #b5d5c4);
+        color: #1d4d36;
+        font-family: "Hedvig Letters Serif", serif;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       /* ---------- subtitles ---------- */
       .sub {
         position: absolute;
@@ -1441,7 +1783,7 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="40.8"
+      data-duration="36.4"
       data-width="1080"
       data-height="1080"
     >
@@ -1452,9 +1794,18 @@
       <svg id="paths" viewBox="0 0 1080 1080">
         <!-- the green rail: tangent-continuous curves, drawn end to end -->
         <path
-          id="pRedirect"
+          id="pPrev"
+          d="M 640 718 C 640 812, 540 922, 420 922"
+          fill="none"
+          stroke="#27B378"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          opacity="0.32"
+        />
+        <path
+          id="pHook"
           class="rail"
-          d="M 600 570 C 660 470, 650 330, 600 240 C 575 195, 545 150, 540 100"
+          d="M 640 718 C 640 812, 540 922, 420 922 L 352 922 A 62 62 0 0 1 290 860 L 290 324 A 62 62 0 0 1 352 262 L 728 262 A 62 62 0 0 1 790 324 L 790 860 A 62 62 0 0 1 728 922 L 421 922"
         />
         <path
           id="pFlow"
@@ -1475,34 +1826,37 @@
       <img id="logoBig" src="assets/brand/doubletick-logo-reveal.png" alt="DoubleTick" />
 
       <!-- headlines -->
-      <div class="hl clip" id="h1" data-start="0" data-duration="6.62" data-track-index="2">
-        <div class="ln"><span>Your customers already</span></div>
-        <div class="ln"><span>send documents on WhatsApp.</span></div>
+      <div class="hk clip" id="hA" data-start="0" data-duration="3.55" data-track-index="2">
+        <span class="ln"
+          ><span><b class="g">Sensitive documents</b> are already</span></span
+        >
+        <span class="ln"><span>moving through WhatsApp.</span></span>
       </div>
-      <div class="hl clip" id="h2" data-start="6.62" data-duration="3.78" data-track-index="2">
-        <div class="ln">
-          <span
-            >Should <span class="this">this<i class="ul"></i></span> ever</span
-          >
-        </div>
-        <div class="ln"><span>sit on an RM’s phone?</span></div>
+      <div class="hk clip" id="hQ" data-start="3.3" data-duration="0.8" data-track-index="2">
+        <span class="ln"><span>But where do they end up?</span></span>
       </div>
-      <div class="hl clip" id="h3" data-start="10.4" data-duration="6.85" data-track-index="2">
+      <div class="hk clip" id="hB" data-start="3.9" data-duration="4.65" data-track-index="2">
+        <span class="ln b1"><span>Governed —</span></span>
+        <span class="ln b2"
+          ><span>or sitting on an <b class="w">RM’s phone?</b></span></span
+        >
+      </div>
+      <div class="hl clip" id="h3" data-start="8.35" data-duration="6.18" data-track-index="2">
         <div class="ln"><span>Follow up automatically.</span></div>
         <div class="ln"><span>From the bank’s WhatsApp.</span></div>
       </div>
-      <div class="hl clip" id="h4" data-start="17.25" data-duration="7.18" data-track-index="2">
+      <div class="hl clip" id="h4" data-start="14.54" data-duration="6.75" data-track-index="2">
         <div class="ln"><span>Make the next step clear.</span></div>
       </div>
-      <div class="hl clip" id="h5" data-start="24.45" data-duration="4.83" data-track-index="2">
+      <div class="hl clip" id="h5" data-start="21.3" data-duration="4.03" data-track-index="2">
         <div class="ln"><span>From WhatsApp</span></div>
         <div class="ln"><span>into a controlled workflow.</span></div>
       </div>
-      <div class="hl clip" id="h7" data-start="29.3" data-duration="4.55" data-track-index="2">
+      <div class="hl clip" id="h7" data-start="25.34" data-duration="4.34" data-track-index="2">
         <div class="ln"><span>Right RM.</span></div>
         <div class="ln"><span>Full context.</span></div>
       </div>
-      <div class="hl clip" id="h9" data-start="36.35" data-duration="4.45" data-track-index="2">
+      <div class="hl clip" id="h9" data-start="31.87" data-duration="4.53" data-track-index="2">
         <div class="ln"><span>Keep sensitive documents</span></div>
         <div class="ln"><span>inside the right workflow.</span></div>
       </div>
@@ -1574,11 +1928,133 @@
         </div>
       </div>
 
-      <!-- RM phone (scenes 2 + 6) -->
+      <!-- opening hook: documents → WhatsApp → toward an RM phone -->
+      <div id="waPanel">
+        <div class="wph">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 5l-7 7 7 7" />
+          </svg>
+          <div class="wpav">R</div>
+          <div>
+            <div class="wpn">Rohan (RM)</div>
+            <div class="wps">online</div>
+          </div>
+        </div>
+        <div class="wpin">Please send your documents here.<span class="m">10:40</span></div>
+        <div id="hkBubble">
+          <div id="hkBubbleDocs">
+            <div class="dr"><i class="pd">PDF</i>PAN_Card.pdf</div>
+            <div class="dr"><i class="pd">PDF</i>Bank_Statement.pdf</div>
+            <div class="dr"><i class="pd">PDF</i>Income_Proof.pdf</div>
+          </div>
+          <span class="m"
+            >10:42
+            <i id="hkTicks"
+              ><svg viewBox="0 0 18 11">
+                <path
+                  d="M1 6l3 3 6-7.5M7.2 8.4l.8.6 6-7.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                /></svg></i
+          ></span>
+        </div>
+        <div class="wpbar">
+          <div class="pill">Message</div>
+          <div id="hkSend">
+            <i id="hkSendRing"></i
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M4 12l16-8-5 16-3-6-8-2z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="hkg" id="hg1">
+        <div class="st" data-layout-allow-overlap>
+          BANK STATEMENT<span data-layout-allow-overlap>COPY</span>
+        </div>
+      </div>
+      <div class="hkg" id="hg2">
+        <div class="st" data-layout-allow-overlap>
+          BANK STATEMENT<span data-layout-allow-overlap>COPY</span>
+        </div>
+      </div>
+      <div class="hkg" id="hg3">
+        <div class="st" data-layout-allow-overlap>
+          BANK STATEMENT<span data-layout-allow-overlap>COPY</span>
+        </div>
+      </div>
+      <div id="hkStack">
+        <div class="hkc" id="kPAN">
+          <div class="st" data-layout-allow-overlap style="background: #efe7d6">
+            PAN CARD<span>ID</span>
+          </div>
+          <div class="bd">
+            <div class="idr">
+              <i class="ph"></i>
+              <div style="flex: 1">
+                <div class="bar" style="width: 88%; margin-top: 2px"></div>
+                <div class="bar" style="width: 60%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hkc" id="kIP">
+          <div class="st" data-layout-allow-overlap style="background: #e3f1e9">
+            INCOME PROOF<span>PDF</span>
+          </div>
+          <div class="bd">
+            <div class="bar" style="width: 80%"></div>
+            <div class="bar" style="width: 56%"></div>
+          </div>
+        </div>
+        <div class="hkc" id="kBS">
+          <div class="st" data-layout-allow-overlap style="background: #e2ebf4">
+            BANK STATEMENT<span>PDF</span>
+          </div>
+          <div class="bd">
+            <div class="pr">
+              <div class="bar" style="width: 54%"></div>
+              <div class="bar" style="width: 18%"></div>
+            </div>
+            <div class="pr">
+              <div class="bar" style="width: 42%"></div>
+              <div class="bar" style="width: 22%"></div>
+            </div>
+            <div class="pr">
+              <div class="bar" style="width: 60%"></div>
+              <div class="bar" style="width: 14%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="hkLocal">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+        >
+          <path d="M12 4v10M8 10l4 4 4-4M5 19h14" /></svg
+        >Local file?
+      </div>
+
+      <!-- RM phone (hook + scene 6) -->
       <div id="rmPhone">
         <div class="rmLabel">RM</div>
         <div class="rmBody">
           <div class="notch"></div>
+          <div class="rav">R</div>
           <div class="ln1"></div>
           <div class="ln2"></div>
         </div>
@@ -2293,9 +2769,9 @@
       <!-- audio: guide VO (replace with the supplied master VO), music bed, SFX stem -->
       <audio
         id="vo"
-        src="assets/vo_guide.wav"
+        src="assets/vo_master.wav"
         data-start="0"
-        data-duration="40.8"
+        data-duration="36.4"
         data-track-index="10"
         data-volume="1"
       ></audio>
@@ -2303,7 +2779,7 @@
         id="music"
         src="assets/music/bed.wav"
         data-start="0"
-        data-duration="40.8"
+        data-duration="36.4"
         data-track-index="11"
         data-volume="1"
       ></audio>
@@ -2311,7 +2787,7 @@
         id="sfx"
         src="assets/sfx/sfx_stem.wav"
         data-start="0"
-        data-duration="40.8"
+        data-duration="36.4"
         data-track-index="12"
         data-volume="1"
       ></audio>
@@ -2322,29 +2798,33 @@
       // Master timing. VO line starts (seconds) — re-time these when the
       // supplied master voiceover replaces the guide track.
       // ---------------------------------------------------------------
-      const V = [0.35, 6.55, 10.9, 17.25, 24.5, 29.3, 34.9, 36.35];
-      const END = 40.8;
+      const V = [0.06, 3.81, 8.61, 14.54, 21.35, 25.35, 30.67, 31.87];
+      // per-scene time scale: the master VO's line lengths vs the guide read the scenes were cut to
+      const K3 = 5.93 / 6.35,
+        K4 = 6.81 / 7.25,
+        K5 = 4.0 / 4.8,
+        K7 = 5.32 / 5.6,
+        K9 = 1.2 / 1.45;
+      const END = 36.4;
 
       // Phrase-level subtitles: [start, end, html]
+      // the opening hook is captioned by its own headlines; subtitles start with the solution
       const SUBS = [
-        [0.35, 3.22, "Your customers already send <em>PAN cards</em>,"],
-        [3.27, 6.2, "bank statements and income proofs on WhatsApp."],
-        [6.55, 10.05, "But should those documents ever sit on an <em>RM’s phone</em>?"],
         [
-          10.9,
-          15.2,
+          8.61,
+          12.62,
           "With DoubleTick, AI follows up on the bank’s <em>verified WhatsApp</em> number—",
         ],
-        [15.25, 16.95, "through chat or voice."],
-        [17.25, 19.25, "It tells customers what’s pending,"],
-        [19.3, 21.78, "answers questions, captures <em>consent</em>"],
-        [21.82, 24.15, "and guides secure document submission."],
-        [24.5, 26.3, "Documents move directly"],
-        [26.32, 29.05, "into the institution’s <em>controlled workflow</em>."],
-        [29.3, 31.0, "And when human help is needed,"],
-        [31.03, 34.15, "the RM takes over with the <em>full context</em>."],
-        [34.9, 36.2, "DoubleTick."],
-        [36.35, 38.7, "Apply for Free Pilot Today."],
+        [12.86, 14.2, "through chat or voice."],
+        [14.55, 16.25, "It tells customers what’s pending,"],
+        [16.4, 18.65, "answers questions, captures <em>consent</em>"],
+        [18.78, 20.95, "and guides secure document submission."],
+        [21.35, 22.6, "Documents move directly"],
+        [22.62, 24.98, "into the institution’s <em>controlled workflow</em>."],
+        [25.35, 26.8, "And when human help is needed,"],
+        [26.94, 29.8, "the RM takes over with the <em>full context</em>."],
+        [30.67, 31.6, "DoubleTick."],
+        [31.87, 33.9, "Apply for Free Pilot Today."],
       ];
 
       // Phone geometry (unscaled): screen origin and chat viewport.
@@ -2617,200 +3097,219 @@
         gsap.set(chat, { y: sc("mDoc0") });
 
         // =================================================================
-        // SCENE 01 — documents already move through WhatsApp   (0 → 6.55)
+        // OPENING HOOK — documents → WhatsApp → toward an RM phone   (0 → 8.61)
+        // Mute-first: every beat reads without the voiceover.
         // =================================================================
-        const t1 = V[0];
-        hlIn("#h1", t1 + 0.05);
-        const cards = [
-          ["#cPAN", -280, 170, -18, -6, t1 + 1.55],
-          ["#cBS", 0, 280, 9, 0, t1 + 2.92],
-          ["#cIP", 280, 180, 18, 5, t1 + 4.05],
-        ];
-        cards.forEach(([sel, dx, dy, r0, r1, t]) => {
-          gsap.set(sel, { x: dx, y: dy, rotation: r0, scale: 0.92 });
-          tl.to(sel, { opacity: 1, duration: 0.25, ease: "power1.out" }, t);
-          tl.to(
+        const SX = 514,
+          SY = 663; // the stack's front card, inside the WhatsApp bubble
+        // beat 01 headline: on screen from frame 1
+        tl.fromTo("#hA", { scale: 1.035 }, { scale: 1, duration: 1.3, ease: "power2.out" }, 0);
+        // three documents slam in from the edges and snap into a fanned stack
+        [
+          ["#kPAN", -470, 150, -24, -2.5, -8, -80, 0.0],
+          ["#kIP", 560, 110, 26, 2, 10, -40, 0.08],
+          ["#kBS", 30, 420, 14, -1, 0, 0, 0.16],
+        ].forEach(([sel, dx, dy, r0, r1, fx, fy, d]) => {
+          tl.fromTo(
             sel,
-            { x: 0, y: 0, rotation: r1, scale: 1, duration: 0.85, ease: "back.out(1.15)" },
-            t,
+            { x: fx + dx, y: fy + dy, rotation: r0 },
+            { x: fx, y: fy, rotation: r1, duration: 0.62, ease: "back.out(1.35)" },
+            d,
           );
         });
-        // magnetic convergence into one stack
-        const tc = t1 + 4.75;
+        tl.to("#hkStack", { scale: 0.97, duration: 0.07, ease: "power2.in" }, 0.78);
+        tl.to("#hkStack", { scale: 1, duration: 0.25, ease: "back.out(3)" }, 0.85);
+        // a WhatsApp chat + attachment bubble forms around them
+        gsap.set("#waPanel", { scale: 0.9 });
+        tl.to("#waPanel", { opacity: 1, scale: 1, duration: 0.42, ease: "expo.out" }, 0.66);
+        gsap.set("#hkBubble", { scale: 0.55, transformOrigin: "100% 0%" });
+        tl.to("#hkBubble", { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(1.3)" }, 0.86);
+        // "already moving": the stack nudges forward
+        tl.to("#hkStack", { x: 8, duration: 0.5, ease: "power2.out" }, 1.48);
+        // send fires
+        tl.to("#hkSend", { scale: 0.84, duration: 0.08, ease: "power2.in" }, 2.04);
+        tl.to("#hkSend", { scale: 1, duration: 0.32, ease: "back.out(3)" }, 2.12);
+        gsap.set("#hkSendRing", { scale: 1 });
+        tl.to("#hkSendRing", { opacity: 0.9, duration: 0.04 }, 2.12);
+        tl.to("#hkSendRing", { opacity: 0, scale: 2.4, duration: 0.55, ease: "power2.out" }, 2.16);
+        tl.to("#hkTicks", { opacity: 1, duration: 0.12 }, 2.24);
+        tl.to("#hkTicks", { color: "#53BDEB", duration: 0.2 }, 2.72);
+        // the stack leaves WhatsApp and keeps travelling — toward another device
         tl.to(
-          "#cPAN",
-          { x: 292 - 14, y: 17 + 10, rotation: -4, duration: 0.5, ease: "power3.in" },
-          tc,
+          "#waPanel",
+          { x: 230 - 470, y: 10, scale: 0.72, duration: 0.78, ease: "power3.inOut" },
+          2.84,
         );
+        tl.to("#hkBubbleDocs", { opacity: 1, duration: 0.3 }, 3.2);
         tl.to(
-          "#cIP",
-          { x: -292 + 14, y: 7 + 12, rotation: 4, duration: 0.5, ease: "power3.in" },
-          tc + 0.04,
+          "#hkStack",
+          {
+            x: 560 - SX,
+            y: 660 - SY,
+            scale: 0.82,
+            rotation: -2,
+            duration: 0.85,
+            ease: "power2.inOut",
+          },
+          2.92,
         );
-        tl.to("#cBS", { y: 42 - 10, duration: 0.5, ease: "power3.in" }, tc + 0.02);
-        tl.to(["#cPAN", "#cIP"], { scale: 0.97, duration: 0.12, ease: "power1.out" }, tc + 0.5);
-        // stack becomes the WhatsApp document message
-        const rDoc0 = canvasRect($("#mDoc0 .bub"), sc("mDoc0"));
-        const d0cx = rDoc0.x + rDoc0.w / 2;
-        const d0cy = rDoc0.y + rDoc0.h / 2;
-        const tw = tc + 0.62;
-        tl.to("#phone", { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "expo.out" }, tc + 0.35);
-        tl.to("#phoneShadow", { opacity: 1, duration: 0.7, ease: "power2.out" }, tc + 0.35);
-        gsap.set("#phone", { y: 50, scale: 0.95 });
+        tl.to("#hkStack", { x: 600 - SX, duration: 2.85, ease: "sine.inOut" }, 3.77);
+        const appS = 6.62,
+          appE = 7.86; // freeze
+        tl.to(
+          "#hkStack",
+          { x: 640 - SX, rotation: -1, duration: appE - appS, ease: "power2.in" },
+          appS,
+        );
+        // the RM phone on the far side
+        gsap.set("#rmPhone", { x: 70, y: 45 });
+        tl.to("#rmPhone", { opacity: 1, x: 30, duration: 0.5, ease: "power3.out" }, 2.95);
+        // headline: compress beat 01 upward → "But where…" → the question
+        tl.to(
+          "#hA",
+          {
+            scaleY: 0.3,
+            y: -40,
+            opacity: 0,
+            filter: "blur(6px)",
+            duration: 0.3,
+            ease: "power3.in",
+          },
+          3.2,
+        );
+        hlInEls($$("#hQ .ln > span"), 3.36);
+        tl.to(
+          "#hQ .ln > span",
+          { yPercent: -112, opacity: 0, duration: 0.22, ease: "power2.in" },
+          3.82,
+        );
+        const hBl = $$("#hB .ln > span");
+        hlInEls([hBl[0]], 3.96);
+        hlInEls([hBl[1]], 4.2);
+        // "are they governed": a faint green path appears beneath the document
+        drawPrep("pPrev");
+        tl.to("#pPrev", { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }, 5.05);
+        // "…sitting on an RM's phone?": copies split off as it closes in
+        const easeIn2 = gsap.parseEase("power2.in");
+        const xAtA = (t) => 600 + 40 * easeIn2((t - appS) / (appE - appS));
+        const gT = 6.75;
         [
-          ["#cPAN", 248, 543],
-          ["#cBS", 540, 518],
-          ["#cIP", 832, 553],
-        ].forEach(([sel, cx, cy]) => {
-          tl.to(
-            sel,
-            {
-              x: d0cx - cx,
-              y: d0cy - cy,
-              rotation: 0,
-              scale: 0.8,
-              duration: 0.42,
-              ease: "power3.inOut",
-            },
-            tw,
-          );
-          tl.to(sel, { opacity: 0, duration: 0.2, ease: "power1.in" }, tw + 0.24);
-        });
-        popRow("mDoc0", tw + 0.3);
-        // single grey tick → delivered (blue)
-        tl.to("#mDoc0 .dt", { color: "#53BDEB", duration: 0.2 }, tw + 0.9);
-
-        // =================================================================
-        // SCENE 02 — should it sit on an RM phone?   (6.55 → 10.9)
-        // =================================================================
-        const t2 = V[1];
-        hlOut("#h1", t2 - 0.4);
-        // "sit on an RM's phone?" lands slightly later than the first line
-        const h2s = $$("#h2 .ln > span");
-        hlInEls([h2s[0]], t2 + 0.15);
-        hlInEls([h2s[1]], t2 + 1.45);
-        gsap.set("#h2 .ul", { scaleX: 0 });
-        tl.to("#h2 .ul", { scaleX: 1, duration: 0.5, ease: "power3.out" }, t2 + 0.75);
-
-        // the WhatsApp bubble lifts out as an object
-        const A0 = { x: d0cx - 540, y: d0cy - 600, s: rDoc0.w / 300 };
-        gsap.set("#docA", { x: A0.x, y: A0.y, scale: A0.s });
-        tl.to("#docA", { opacity: 1, duration: 0.15 }, t2);
-        tl.to("#mDoc0", { opacity: 0, duration: 0.15 }, t2 + 0.05);
-        tl.to(
-          "#phone",
-          { x: -120, opacity: 0, scale: 0.94, duration: 0.6, ease: "power3.in" },
-          t2 + 0.05,
-        );
-        tl.to("#phoneShadow", { opacity: 0, duration: 0.5 }, t2 + 0.05);
-        tl.to(
-          "#docA",
-          { x: 300 - 540, y: 615 - 600, scale: 0.9, duration: 0.75, ease: "power3.inOut" },
-          t2 + 0.1,
-        );
-        tl.to("#docA .ring", { opacity: 1, duration: 0.3 }, t2 + 0.75);
-        tl.to("#docA .ring", { opacity: 0, duration: 0.5 }, t2 + 2.2);
-        // RM phone enters
-        gsap.set("#rmPhone", { x: 60 });
-        tl.to("#rmPhone", { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, t2 + 0.45);
-        // approach, accelerating — then a dead stop 26px short
-        const appStart = t2 + 0.95;
-        const appEnd = t2 + 2.75; // freeze
-        tl.to("#docA", { x: 584 - 540, duration: appEnd - appStart, ease: "power2.in" }, appStart);
-        // ghost copies split off during the approach
-        const ease2in = gsap.parseEase("power2.in");
-        const gStart = t2 + 1.75;
-        const xAt = (t) => -240 + (584 - 300) * ease2in((t - appStart) / (appEnd - appStart));
-        const gx0 = xAt(gStart);
-        [
-          ["#g1", -18, -92, -7],
-          ["#g2", -46, 94, 6],
-          ["#g3", -112, 4, -2],
+          ["#hg1", -26, -96, -6],
+          ["#hg2", -52, 92, 5],
+          ["#hg3", -112, 4, 2],
         ].forEach(([sel, dx, dy, rot], i) => {
-          gsap.set(sel, { x: gx0, y: 15, scale: 0.9 });
-          tl.to(sel, { opacity: 0.85, duration: 0.25 }, gStart + i * 0.12);
+          gsap.set(sel, { x: xAtA(gT) - SX, y: 660 - SY, scale: 0.82, rotation: -1 });
+          tl.to(sel, { opacity: 0.8, duration: 0.2 }, gT + i * 0.1);
           tl.to(
             sel,
             {
-              x: 44 + dx,
-              y: 15 + dy,
+              x: 640 - SX + dx,
+              y: 660 - SY + dy,
               rotation: rot,
-              duration: appEnd - gStart - i * 0.12,
+              duration: appE - gT - i * 0.1,
               ease: "power2.in",
             },
-            gStart + i * 0.12,
+            gT + i * 0.1,
           );
         });
-        // freeze — hold in negative space (no motion until redirect)
-        const tf = appEnd;
-        // redirect: the document bends away along a DoubleTick-green line
-        const tr = t2 + 3.4;
-        const red = rail("pRedirect");
-        hlOut("#h2", tr - 0.05);
-        ["#g1", "#g2", "#g3"].forEach((sel, i) => {
-          tl.to(
-            sel,
-            { x: 44, y: 15, rotation: 0, opacity: 0, duration: 0.32, ease: "power3.in" },
-            tr + i * 0.04,
-          );
-        });
-        tl.to("#rmPhone", { opacity: 0.0, x: 40, duration: 0.45, ease: "power2.in" }, tr + 0.1);
-        // the path bends away from the RM phone and rises to DoubleTick
-        drawRail(red, tr + 0.02, 0.7);
-        const follow = { u: 0 };
-        const off0 = [584 - red.pts[0][0], 615 - red.pts[0][1]];
+        // FREEZE ~26px short of the phone — nothing moves; one quiet question
+        gsap.set("#hkLocal", { y: 6 });
+        tl.to("#hkLocal", { opacity: 1, y: 0, duration: 0.2, ease: "power2.out" }, appE + 0.08);
+        // DoubleTick redirect: a green line pulls the document away and becomes the verified chat
+        const tR = appE + 0.3;
         tl.to(
-          follow,
+          "#hB .ln > span",
           {
-            u: 1,
-            duration: 0.8,
-            ease: "power2.inOut",
+            yPercent: -112,
+            opacity: 0,
+            filter: "blur(6px)",
+            duration: 0.34,
+            ease: "power3.in",
+            stagger: 0.05,
+          },
+          tR - 0.02,
+        );
+        tl.set("#pPrev", { visibility: "hidden" }, tR);
+        const hookR = rail("pHook");
+        drawRail(hookR, tR, 0.78, "power2.inOut");
+        const fol = { u: 0 };
+        tl.to(
+          fol,
+          {
+            u: 0.13,
+            duration: 0.42,
+            ease: "power2.in",
             onUpdate: () => {
-              const [px, py] = sampleAt(red.pts, follow.u);
-              const k = (1 - follow.u) ** 2;
-              gsap.set("#docA", { x: px + off0[0] * k - 540, y: py + off0[1] * k - 600 });
+              const [px, py] = sampleAt(hookR.pts, fol.u);
+              const k = fol.u / 0.13;
+              gsap.set("#hkStack", {
+                x: px - SX,
+                y: py - 58 * (1 - k) - SY,
+                rotation: -1 - 4 * k,
+              });
             },
           },
-          tr + 0.1,
+          tR + 0.04,
         );
-        tl.to("#docA", { scale: 0.2, duration: 0.8, ease: "power2.in" }, tr + 0.1);
-        tl.to("#docA", { opacity: 0, duration: 0.16 }, tr + 0.76);
-        retractRail(red, tr + 0.82, 0.38);
-        // the line lands on DoubleTick
-        tl.to("#logoTop", { scale: 1.12, duration: 0.18, ease: "power2.out" }, tr + 0.86);
-        tl.to("#logoTop", { scale: 1, duration: 0.45, ease: "back.out(2)" }, tr + 1.04);
+        tl.to(
+          "#hkStack",
+          { scale: 0.34, opacity: 0, duration: 0.42, ease: "power2.in" },
+          tR + 0.06,
+        );
+        tl.to(
+          ["#hg1", "#hg2", "#hg3"],
+          {
+            x: 640 - SX,
+            y: 660 - SY,
+            rotation: 0,
+            opacity: 0,
+            duration: 0.28,
+            ease: "power3.in",
+            stagger: 0.03,
+          },
+          tR,
+        );
+        tl.to(
+          ["#rmPhone", "#hkLocal"],
+          { opacity: 0, x: "+=30", duration: 0.35, ease: "power2.in" },
+          tR + 0.04,
+        );
+        tl.to("#waPanel", { opacity: 0, x: "-=40", duration: 0.35, ease: "power2.in" }, tR + 0.04);
+        tl.to(
+          [hookR.p, hookR.glow, hookR.n0, hookR.n1],
+          { opacity: 0, duration: 0.35 },
+          V[2] + 0.35,
+        );
+        tl.to("#logoTop", { scale: 1.08, duration: 0.15, ease: "power2.out" }, tR + 0.1);
+        tl.to("#logoTop", { scale: 1, duration: 0.4, ease: "back.out(2)" }, tR + 0.25);
 
         // =================================================================
         // SCENE 03 — verified WhatsApp + AI (chat and voice)   (10.9 → 17.25)
         // =================================================================
         const t3 = V[2];
-        hlIn("#h3", t3 + 0.08);
+        hlIn("#h3", t3 + 0.08 * K3);
         // phone returns, AI identity
         tl.to("#subBiz", { opacity: 0, duration: 0.01 }, t3 - 0.4);
         tl.to("#subAI", { opacity: 1, duration: 0.01 }, t3 - 0.4);
-        tl.to("#phone", { x: 0, y: 46, scale: 0.95, duration: 0.01 }, t3 - 0.4);
+        tl.to("#phone", { x: 0, y: 0, scale: 1, duration: 0.01 }, t3 - 0.4);
         tl.to(chat, { y: sc("m1"), duration: 0.01 }, t3 - 0.4);
-        tl.to(
-          "#phone",
-          { opacity: 1, y: 0, scale: 1, duration: 0.75, ease: "expo.out" },
-          t3 - 0.05,
-        );
+        tl.to("#phone", { opacity: 1, duration: 0.4, ease: "power2.out" }, t3 - 0.12);
         tl.to("#phoneShadow", { opacity: 1, duration: 0.7 }, t3 - 0.05);
-        popRow("m1", t3 + 0.42);
-        scrollTo("m2", t3 + 1.3);
-        popRow("m2", t3 + 1.38);
-        tap($("#btnAsk"), t3 + 2.3, sc("m2"));
-        scrollTo("m3", t3 + 2.55, 0.4);
-        popRow("m3", t3 + 2.6, 0.36);
-        scrollTo("m4", t3 + 3.25, 0.45);
-        popRow("m4", t3 + 3.3);
-        scrollTo("m5", t3 + 4.05, 0.45);
-        popRow("m5", t3 + 4.1);
+        popRow("m1", t3 + 0.42 * K3);
+        scrollTo("m2", t3 + 1.3 * K3);
+        popRow("m2", t3 + 1.38 * K3);
+        tap($("#btnAsk"), t3 + 2.3 * K3, sc("m2"));
+        scrollTo("m3", t3 + 2.55 * K3, 0.4);
+        popRow("m3", t3 + 2.6 * K3, 0.36);
+        scrollTo("m4", t3 + 3.25 * K3, 0.45);
+        popRow("m4", t3 + 3.3 * K3);
+        scrollTo("m5", t3 + 4.05 * K3, 0.45);
+        popRow("m5", t3 + 4.1 * K3);
         // call
         const callBtn = $("#btnCall");
-        tap(callBtn, t3 + 4.62, sc("m5"));
+        tap(callBtn, t3 + 4.62 * K3, sc("m5"));
         const cp = screenPt(callBtn, sc("m5"));
-        const tcall = t3 + 4.78;
+        const tcall = t3 + 4.78 * K3;
         gsap.set("#call", { clipPath: `circle(0px at ${cp.x}px ${cp.y}px)` });
         tl.to(
           "#call",
@@ -2831,7 +3330,7 @@
         });
         const wv = { k: 0 };
         const wStart = tcall + 0.35;
-        const wEnd = t3 + 6.05;
+        const wEnd = t3 + 6.05 * K3;
         tl.to(
           wv,
           {
@@ -2874,30 +3373,30 @@
         // =================================================================
         const t4 = V[3];
         hlOut("#h3", t4 - 0.5);
-        hlIn("#h4", t4 + 0.12);
-        scrollTo("m6", t4 + 0.3);
-        popRow("m6", t4 + 0.36);
-        tap($("#btnComplete"), t4 + 1.35, sc("m6"));
-        scrollTo("m7", t4 + 2.0, 0.45);
-        popRow("m7", t4 + 2.05, 0.36);
-        scrollTo("m8", t4 + 2.6, 0.45);
-        popRow("m8", t4 + 2.65, 0.36);
+        hlIn("#h4", t4 + 0.12 * K4);
+        scrollTo("m6", t4 + 0.3 * K4);
+        popRow("m6", t4 + 0.36 * K4);
+        tap($("#btnComplete"), t4 + 1.35 * K4, sc("m6"));
+        scrollTo("m7", t4 + 2.0 * K4, 0.45);
+        popRow("m7", t4 + 2.05 * K4, 0.36);
+        scrollTo("m8", t4 + 2.6 * K4, 0.45);
+        popRow("m8", t4 + 2.65 * K4, 0.36);
         // answer → consent card
-        const tcon = t4 + 3.3;
+        const tcon = t4 + 3.3 * K4;
         tl.to("#m8", { opacity: 0.35, scale: 0.97, duration: 0.3, ease: "power2.out" }, tcon);
         scrollTo("m9", tcon, 0.5);
         gsap.set("#m9", { y: -40, scale: 0.6, transformOrigin: "0% 0%" });
         tl.to("#m9", { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, tcon + 0.05);
-        tap($("#btnAgree"), t4 + 3.95, sc("m9"));
-        tl.to("#btnAgree", { opacity: 0, duration: 0.2 }, t4 + 4.12);
+        tap($("#btnAgree"), t4 + 3.95 * K4, sc("m9"));
+        tl.to("#btnAgree", { opacity: 0, duration: 0.2 }, t4 + 4.12 * K4);
         gsap.set("#captured", { scale: 0.92 });
         tl.to(
           "#captured",
           { opacity: 1, scale: 1, duration: 0.32, ease: "back.out(1.6)" },
-          t4 + 4.12,
+          t4 + 4.12 * K4,
         );
         // consent contracts into a check that attaches to the upload
-        const tup = t4 + 4.5;
+        const tup = t4 + 4.5 * K4;
         // once the consent card has contracted, later rows close the gap (transform only)
         const COL = $("#m9").offsetHeight + 9;
         const scA = (id) => sc(id) + COL;
@@ -2930,19 +3429,23 @@
           gsap.set("#progFill", { scaleX: pr.p / 100 });
           progPct.textContent = Math.round(pr.p) + "%";
         };
-        tl.to(pr, { p: 42, duration: 0.42, ease: "power2.out", onUpdate: setP }, t4 + 4.95);
-        tl.to(pr, { p: 78, duration: 0.38, ease: "power2.out", onUpdate: setP }, t4 + 5.45);
-        tl.to(pr, { p: 100, duration: 0.36, ease: "power2.out", onUpdate: setP }, t4 + 5.9);
-        tl.to("#progTrack", { opacity: 0, duration: 0.18 }, t4 + 6.3);
+        tl.to(pr, { p: 42, duration: 0.42, ease: "power2.out", onUpdate: setP }, t4 + 4.95 * K4);
+        tl.to(pr, { p: 78, duration: 0.38, ease: "power2.out", onUpdate: setP }, t4 + 5.45 * K4);
+        tl.to(pr, { p: 100, duration: 0.36, ease: "power2.out", onUpdate: setP }, t4 + 5.9 * K4);
+        tl.to("#progTrack", { opacity: 0, duration: 0.18 }, t4 + 6.3 * K4);
         gsap.set("#progDone", { y: 6 });
-        tl.to("#progDone", { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)" }, t4 + 6.32);
+        tl.to(
+          "#progDone",
+          { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)" },
+          t4 + 6.32 * K4,
+        );
 
         // =================================================================
         // SCENE 05 + 06 — the document leaves WhatsApp   (24.5 → 29.3)
         // =================================================================
         const t5 = V[4];
         hlOut("#h4", t5 - 0.55);
-        hlIn("#h5", t5 + 0.05);
+        hlIn("#h5", t5 + 0.05 * K5);
         const rM10 = canvasRect($("#m10 .bub"), sc("m10"));
         const B0 = { x: rM10.x + rM10.w / 2 - 540, y: rM10.y + rM10.h / 2 - 600, s: rM10.w / 300 };
         const tdet = t5 - 0.08;
@@ -2971,19 +3474,19 @@
         );
         // institutional destination
         gsap.set("#wf", { scale: 0.94 });
-        tl.to("#wf", { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" }, t5 + 0.15);
+        tl.to("#wf", { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" }, t5 + 0.15 * K5);
         const LP = drawPrep("perimRect");
         tl.to(
           "#perimRect",
           { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" },
-          t5 + 0.25,
+          t5 + 0.25 * K5,
         );
-        tl.to("#perimRect", { strokeDasharray: "6 7", duration: 0.01 }, t5 + 1.16);
-        drawRail(flow, t5 + 0.25, 0.9);
+        tl.to("#perimRect", { strokeDasharray: "6 7", duration: 0.01 }, t5 + 1.16 * K5);
+        drawRail(flow, t5 + 0.25 * K5, 0.9);
         // the document rides the rail: foreground → centre → workflow edge → inside
         const trav = { u: U0 };
-        const tt0 = t5 + 0.7;
-        const tt1 = t5 + 3.42;
+        const tt0 = t5 + 0.7 * K5;
+        const tt1 = t5 + 3.42 * K5;
         const tEdge = tt1 - 0.5;
         tl.to(
           trav,
@@ -3010,15 +3513,15 @@
         tl.to(
           "#chipConsent",
           { opacity: 1, y: 0, scale: 1, duration: 0.38, ease: "back.out(2.2)" },
-          t5 + 0.82,
+          t5 + 0.82 * K5,
         );
         // 2. sensitive fields appear, then mask
-        tl.to("#docB .ph", { opacity: 0, duration: 0.2 }, t5 + 1.15);
+        tl.to("#docB .ph", { opacity: 0, duration: 0.2 }, t5 + 1.15 * K5);
         gsap.set("#fl", { y: 6 });
-        tl.to("#fl", { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, t5 + 1.2);
+        tl.to("#fl", { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, t5 + 1.2 * K5);
         [
-          ["#v1p", "#v1m", "#sw1", t5 + 1.72],
-          ["#v2p", "#v2m", "#sw2", t5 + 1.9],
+          ["#v1p", "#v1m", "#sw1", t5 + 1.72 * K5],
+          ["#v2p", "#v2m", "#sw2", t5 + 1.9 * K5],
         ].forEach(([pl, mk, sw, t]) => {
           const w = $(pl).offsetWidth;
           gsap.set(mk, { clipPath: "inset(0 100% 0 0)" });
@@ -3031,10 +3534,14 @@
         gsap.set(["#v1p", "#v2p"], { clipPath: "inset(0 0 0 0%)" });
         // 3. access becomes controlled
         gsap.set("#chipAccess", { x: -10 });
-        tl.to("#chipAccess", { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, t5 + 2.3);
+        tl.to(
+          "#chipAccess",
+          { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" },
+          t5 + 2.3 * K5,
+        );
 
         // scene 06 — the RM phone is not the destination
-        const t6 = t5 + 2.25;
+        const t6 = t5 + 2.25 * K5;
         tl.to("#rmPhone", { x: -180, y: 211.6, scale: 0.42, duration: 0.01 }, t6 - 0.1);
         tl.to("#rmPhone", { opacity: 1, duration: 0.35, ease: "power2.out" }, t6);
         // a branch off the rail toward the RM phone — drawn, then switched off
@@ -3047,24 +3554,32 @@
           `M ${bx} ${by} C ${bx + tx * 70} ${by + ty * 70}, ${rmTop[0]} ${rmTop[1] - 70}, ${rmTop[0]} ${rmTop[1]}`,
         );
         const route = rail("pRoute");
-        tl.to(route.p, { opacity: 1, duration: 0.01 }, t6 + 0.2);
-        drawRail(route, t6 + 0.2, 0.45, "power2.out");
+        tl.to(route.p, { opacity: 1, duration: 0.01 }, t6 + 0.2 * K5);
+        drawRail(route, t6 + 0.2 * K5, 0.45, "power2.out");
         // ... disabled: grey, dashed, crossed
-        tl.to(route.p, { stroke: "#B9B4AA", duration: 0.25 }, t6 + 0.75);
-        tl.to([route.n0, route.n1], { fill: "#B9B4AA", duration: 0.25 }, t6 + 0.75);
+        tl.to(route.p, { stroke: "#B9B4AA", duration: 0.25 }, t6 + 0.75 * K5);
+        tl.to([route.n0, route.n1], { fill: "#B9B4AA", duration: 0.25 }, t6 + 0.75 * K5);
         tl.to(
           route.p,
           { strokeDasharray: "2 10", strokeDashoffset: 0, strokeWidth: 3, duration: 0.01 },
-          t6 + 0.75,
+          t6 + 0.75 * K5,
         );
-        tl.to(route.glow, { opacity: 0, duration: 0.2 }, t6 + 0.75);
+        tl.to(route.glow, { opacity: 0, duration: 0.2 }, t6 + 0.75 * K5);
         const rmid = route.pts[Math.floor(route.pts.length * 0.5)];
         gsap.set("#routeX", { x: rmid[0] - 604, y: rmid[1] - 704 });
         gsap.set("#routeX", { scale: 0.5 });
-        tl.to("#routeX", { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)" }, t6 + 0.75);
-        tl.to("#rmPhone", { opacity: 0.45, duration: 0.3 }, t6 + 0.8);
+        tl.to(
+          "#routeX",
+          { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)" },
+          t6 + 0.75 * K5,
+        );
+        tl.to("#rmPhone", { opacity: 0.45, duration: 0.3 }, t6 + 0.8 * K5);
         gsap.set("#localNote", { x: 30 });
-        tl.to("#localNote", { opacity: 1, x: 38, duration: 0.35, ease: "power3.out" }, t6 + 0.9);
+        tl.to(
+          "#localNote",
+          { opacity: 1, x: 38, duration: 0.35, ease: "power3.out" },
+          t6 + 0.9 * K5,
+        );
         // arrival in the controlled workflow
         tl.to("#docB", { scale: 0.58, duration: 0.1, ease: "power2.in" }, tt1);
         tl.to("#docB", { scale: 0.6, duration: 0.3, ease: "back.out(3)" }, tt1 + 0.12);
@@ -3091,21 +3606,21 @@
         tl.to(
           ["#rmPhone", route.p, route.n0, route.n1, "#routeX", "#localNote"],
           { opacity: 0, duration: 0.4 },
-          t5 + 4.3,
+          t5 + 4.3 * K5,
         );
-        retractRail(flow, t5 + 3.3, 0.6);
+        retractRail(flow, t5 + 3.3 * K5, 0.6);
 
         // =================================================================
         // SCENE 07 — human handoff: context travels, the document stays   (29.3 → 33.5)
         // =================================================================
         const t7 = V[5];
         hlOut("#h5", t7 - 0.5);
-        hlIn("#h7", t7 + 0.08);
+        hlIn("#h7", t7 + 0.08 * K7);
         // workflow (with the document inside) moves to centre
         tl.to("#wf", { x: -320, duration: 0.7, ease: "power3.inOut" }, t7);
         tl.to("#docB", { x: 540 - 540, y: 556 - 600, duration: 0.7, ease: "power3.inOut" }, t7);
         gsap.set("#rm", { scale: 0.9 });
-        tl.to("#rm", { opacity: 1, scale: 1, duration: 0.55, ease: "expo.out" }, t7 + 0.3);
+        tl.to("#rm", { opacity: 1, scale: 1, duration: 0.55, ease: "expo.out" }, t7 + 0.3 * K7);
         // context chips: workflow → Rohan
         const chipSpec = [
           ["#ctx1", 318],
@@ -3115,7 +3630,7 @@
         chipSpec.forEach(([sel, yc], i) => {
           const el = $(sel);
           const w = el.offsetWidth;
-          const t = t7 + 0.55 + i * 0.22;
+          const t = t7 + 0.55 * K7 + i * 0.22;
           // rise out of the workflow's top edge, then travel into Rohan
           gsap.set(el, { x: 640 - w / 2, y: yc - 19 + 40, scale: 0.7 });
           tl.to(el, { opacity: 1, y: yc - 19, scale: 1, duration: 0.35, ease: "power3.out" }, t);
@@ -3126,19 +3641,23 @@
           );
           tl.to(el, { opacity: 0, duration: 0.12 }, t + 0.98);
         });
-        tl.to("#rm .rring", { opacity: 1, scale: 1.0, duration: 0.15 }, t7 + 1.5);
+        tl.to("#rm .rring", { opacity: 1, scale: 1.0, duration: 0.15 }, t7 + 1.5 * K7);
         gsap.set("#rm .rring", { scale: 0.85 });
         tl.to(
           "#rm .rring",
           { opacity: 0, scale: 1.25, duration: 0.6, ease: "power2.out" },
-          t7 + 1.65,
+          t7 + 1.65 * K7,
         );
         $$("#rmStatus div").forEach((el, i) => {
           gsap.set(el, { y: 6 });
-          tl.to(el, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, t7 + 1.55 + i * 0.12);
+          tl.to(
+            el,
+            { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" },
+            t7 + 1.55 * K7 + i * 0.12,
+          );
         });
         // back into the same WhatsApp thread
-        const tz = t7 + 2.0;
+        const tz = t7 + 2.0 * K7;
         tl.to(chat, { y: scA("mJoin"), duration: 0.01 }, tz - 0.2);
         tl.to("#phone", { x: 0, y: 0, scale: 1, duration: 0.75, ease: "power3.inOut" }, tz);
         tl.to(
@@ -3156,7 +3675,7 @@
         // =================================================================
         // SCENE 08 — connect everything   (33.5 → 34.9)
         // =================================================================
-        const t8 = t7 + 4.2;
+        const t8 = t7 + 4.2 * K7;
         hlOut("#h7", t8 - 0.15);
         tl.to(
           "#phone",
@@ -3168,11 +3687,11 @@
           { x: 215 - 540, y: 0, scale: 0.5, opacity: 0.6, duration: 0.7, ease: "power3.inOut" },
           t8,
         );
-        tl.to(["#wf", "#docB", "#rm"], { opacity: 1, duration: 0.5 }, t8 + 0.1);
+        tl.to(["#wf", "#docB", "#rm"], { opacity: 1, duration: 0.5 }, t8 + 0.1 * K7);
         tl.to("#rmStatus", { opacity: 0, duration: 0.3 }, t8);
-        tl.to(["#lbCust", "#lbWf"], { opacity: 1, duration: 0.4 }, t8 + 0.45);
+        tl.to(["#lbCust", "#lbWf"], { opacity: 1, duration: 0.4 }, t8 + 0.45 * K7);
         const sysR = rail("pSys");
-        drawRail(sysR, t8 + 0.25, 0.6);
+        drawRail(sysR, t8 + 0.25 * K7, 0.6);
         const sys = { pts: sysR.pts };
         // a third node where the line meets the workflow
         const nMid = sysR.n0.cloneNode();
@@ -3184,7 +3703,7 @@
           scale: 0.3,
           transformOrigin: "50% 50%",
         });
-        tl.to(nMid, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)" }, t8 + 0.62);
+        tl.to(nMid, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)" }, t8 + 0.62 * K7);
         const pulse = (id, t, dir) => {
           const o = { u: 0 };
           tl.to(id, { opacity: 1, duration: 0.08 }, t);
@@ -3203,8 +3722,8 @@
           );
           tl.to(id, { opacity: 0, duration: 0.1 }, t + 0.5);
         };
-        pulse("#pulse1", t8 + 0.7, 1);
-        pulse("#pulse2", t8 + 0.92, -1);
+        pulse("#pulse1", t8 + 0.7 * K7, 1);
+        pulse("#pulse2", t8 + 0.92 * K7, -1);
         gsap.set(["#pulse1", "#pulse2"], { attr: { cx: sys.pts[0][0], cy: sys.pts[0][1] } });
 
         // =================================================================
@@ -3236,15 +3755,15 @@
         tl.to(
           sysR.p,
           { attr: { d: V_TICK }, strokeWidth: 11, duration: 0.4, ease: "power3.inOut" },
-          t9 + 0.5,
+          t9 + 0.5 * K9,
         );
         gsap.set("#logoBig", { clipPath: "inset(0% 76.5% 0% 0%)" });
-        tl.to("#logoBig", { opacity: 1, duration: 0.12 }, t9 + 0.84);
-        tl.to(sysR.p, { opacity: 0, duration: 0.15 }, t9 + 0.9);
+        tl.to("#logoBig", { opacity: 1, duration: 0.12 }, t9 + 0.84 * K9);
+        tl.to(sysR.p, { opacity: 0, duration: 0.15 }, t9 + 0.9 * K9);
         tl.to(
           "#logoBig",
           { clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "power3.out" },
-          t9 + 0.9,
+          t9 + 0.9 * K9,
         );
         // logo settles at the top for the CTA
         const t10 = V[7];

@@ -1,23 +1,24 @@
 # DoubleTick — BFSI Secure Document Journey (1080×1080)
 
 Final render: `renders/DoubleTick_BFSI_Secure_Document_Journey_1080x1080.mp4`
-(H.264 High · 1080×1080 · 30 fps · AAC-LC stereo 48 kHz · 40.8 s · −17 LUFS)
+(H.264 High · 1080×1080 · 30 fps · AAC-LC stereo 48 kHz · 36.4 s · −17.6 LUFS)
 
-## ⚠ The voiceover is a temporary guide track
+## Voiceover
 
-The supplied master VO did not arrive with the brief. `assets/vo_guide.wav` is a
-local TTS read of the exact script, used only to time the picture. To swap in
-the real recording:
+`assets/vo_master.wav` is the supplied master VO (ElevenLabs "Aaditya", converted from
+the delivered MP3 at `assets/vo_master_src.wav` and loudness-normalised to −17 LUFS by
+`audio/build_audio.py`). Line starts are in `V` in both `index.html` and
+`audio/build_audio.py`; scenes 3–9 keep the original choreography, scaled per scene
+(`K3…K9`) to the master read. `assets/vo_guide.wav` is the earlier TTS guide, kept for reference.
 
-1. Convert it to 48 kHz WAV: `ffmpeg -i master.mp3 -ar 48000 assets/vo_master.wav`
-2. Note where each of the 8 lines starts (seconds) and update `V` in **both**
-   `index.html` and `audio/build_audio.py`. Update the `SUBS` cue times in
-   `index.html` too. Everything else (scenes, SFX, music arc, ducking) is
-   derived from `V`.
-3. If the master runs longer or shorter, set root `data-duration` / `END` to match.
-4. `python3 audio/build_audio.py --vo assets/vo_master.wav`, then point the
-   `<audio id="vo">` src at `assets/vo_master.wav`.
-5. `npx hyperframes check` → `npx hyperframes render -o renders/... -f 30 -q delivery`
+## Opening hook (0 → 8.6s, mute-first)
+
+Built to read with sound off: documents (PAN / Bank Statement / Income Proof) → a
+WhatsApp attachment to "Rohan (RM)" → the stack travels toward an RM phone → ghost
+copies + freeze ("Local file?") → a DoubleTick-green line redirects it and becomes the
+outline of the verified ABC Bank WhatsApp. Headlines (Hedvig): "Sensitive documents are
+already moving through WhatsApp." → "But where do they end up?" → "Governed — or
+sitting on an RM's phone?". Subtitles start at 8.61s; the hook is captioned by its headlines.
 
 ## Structure
 
