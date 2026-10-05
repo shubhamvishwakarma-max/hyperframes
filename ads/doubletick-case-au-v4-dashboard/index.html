@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>DoubleTick AU -after</title>
+<style>
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+
+  :root {
+    --ink: #0A1A12;
+    --ink-2: #3D4A44;
+    --muted: #7A8781;
+    --bg: #F4F8F5;
+    --card: #FFFFFF;
+    --line: #E1E9E4;
+    --green: #007A5A;
+    --green-2: #2FBF8F;
+    --green-soft: #E0F2EC;
+    --red: #E5484D;
+    --red-soft: #FDECEC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; overflow: hidden; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+
+  /* safe zone: everything that matters sits between y=130 and y=950 */
+  .ad {
+    position: relative; width: 1080px; height: 1080px; padding: 130px 72px;
+    background:
+      radial-gradient(700px 520px at 100% 0%, rgba(0,122,90,.14), transparent 60%),
+      radial-gradient(600px 500px at 0% 100%, rgba(0,122,90,.08), transparent 60%),
+      var(--bg);
+    display: flex; flex-direction: column;
+  }
+  .ad::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: radial-gradient(ellipse at 60% 70%, #000 10%, transparent 70%);
+    opacity: .55;
+  }
+  .ad > * { position: relative; }
+
+  .ad > .top { position: absolute; left: 72px; right: 72px; top: 52px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: block; height: 32px; width: auto; }
+  .pill {
+    font-size: 14px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    padding: 9px 15px; border-radius: 999px; background: var(--ink); color: #fff;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 4px rgba(47,191,143,.25); }
+
+  h1 { margin-top: 40px; font-size: 62px; line-height: 1.08; letter-spacing: -0.04em; font-weight: 700; }
+  h1 .drop { color: var(--muted); }
+  h1 .die { color: var(--red); }
+  h1 em { font-style: normal; color: var(--green); }
+  .sub { margin-top: 20px; font-size: 21px; line-height: 1.42; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  .ad > .cta { position: absolute; left: 72px; top: 868px; }
+  .btn {
+    background: var(--green); color: #fff; font-size: 22px; font-weight: 600; letter-spacing: -0.01em;
+    padding: 16px 26px; border-radius: 14px; display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 14px 30px -10px rgba(0,122,90,.6);
+  }
+  .client { height: 104px; width: auto; margin: -33px -22px -33px 0; mix-blend-mode: multiply; }
+  .vis { position: absolute; left: 72px; top: 490px; width: 936px; height: 350px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 18px 40px -24px rgba(10,26,18,.35); }
+  .cap { font-size: 12.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; }
+  .dash { position: absolute; inset: 0; overflow: hidden; }
+  .dh { display: flex; align-items: center; gap: 12px; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+  .dh .tt { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+  .chip { font-size: 12px; font-weight: 600; padding: 5px 9px; border-radius: 7px; display: inline-flex; align-items: center; gap: 5px; }
+  .chip.wa { background: #E3F9EA; color: #1A8A47; border: 1px solid #BDEBCB; }
+  .chip.ps { background: #F1F3F2; color: var(--ink-2); border: 1px solid var(--line); }
+  .dh .live { margin-left: auto; font-size: 12.5px; font-weight: 600; color: var(--green); display: flex; align-items: center; gap: 7px; }
+  .dh .live i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 4px rgba(47,191,143,.2); }
+  .tabs { display: flex; gap: 22px; padding: 12px 22px; border-bottom: 1px solid var(--line); font-size: 14.5px; color: var(--muted); }
+  .tabs b { font-weight: 600; color: var(--ink); }
+  .tabs .on { color: var(--green); }
+  .tabs .n { display: inline-block; margin-left: 6px; font-size: 12px; padding: 2px 7px; border-radius: 6px; background: #F1F3F2; color: var(--ink-2); font-weight: 600; }
+  .tabs .on .n { background: var(--green-soft); color: var(--green); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th { text-align: left; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 10px 22px; background: #F7F9F8; }
+  td { padding: 11px 22px; border-top: 1px solid #EEF2F0; }
+  td.nm { font-weight: 600; }
+  .st { font-size: 12.5px; font-weight: 600; padding: 5px 10px; border-radius: 999px; }
+  .st.q { background: var(--green); color: #fff; }
+  .st.c { background: var(--green-soft); color: var(--green); }
+  .st.n { background: #F1F3F2; color: var(--muted); }
+  .need { font-weight: 500; color: var(--ink-2); }
+  .need.hot { color: var(--ink); font-weight: 600; }
+  td.du { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .fade { position: absolute; left: 0; right: 0; bottom: 0; height: 56px; background: linear-gradient(transparent, #fff); }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="top">
+    <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+    <img class="client" src="au-bank-logo.png" alt="AU Small Finance Bank" />
+  </div>
+
+  <h1><span class="drop">From unworked leads to</span><br/><em>sales-ready conversations</em><br/>with AI Voice at scale.</h1>
+  <p class="sub"><b>AU Small Finance Bank</b> used <b>DoubleTick AI Voice</b> to call existing customers, understand their needs and surface <b>qualified opportunities for sales teams</b>.</p>
+
+  <div class="vis"><div class="card dash">
+    <div class="dh"><span class="tt">Cross-sell campaign</span><span class="chip wa mono"><svg width="12" height="12" viewBox="0 0 24 24" fill="#1A8A47"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>WhatsApp</span><span class="chip ps mono">PSTN</span><span class="live mono"><i></i>AI Voice live</span></div>
+    <div class="tabs"><span>All</span><span class="on"><b style="color:inherit">Qualified</b><span class="n">5,000+</span></span><span>Completed</span><span>Calling</span></div>
+    <table><thead><tr><th>Status</th><th>Customer</th><th>Need captured by AI</th><th>Duration</th></tr></thead><tbody><tr><td><span class="st q">Qualified</span></td><td class="nm">Ravi S.</td><td class="need hot">Home loan · next 3 months</td><td class="du">1m 13s</td></tr><tr><td><span class="st q">Qualified</span></td><td class="nm">Meena K.</td><td class="need hot">Top-up loan</td><td class="du">49s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Arjun P.</td><td class="need ">Call back on Friday</td><td class="du">35s</td></tr><tr><td><span class="st q">Qualified</span></td><td class="nm">Fatima R.</td><td class="need hot">Credit card</td><td class="du">1m 15s</td></tr><tr><td><span class="st n">Not interested</span></td><td class="nm">Karan M.</td><td class="need ">No need right now</td><td class="du">22s</td></tr></tbody></table>
+    <div class="fade"></div>
+  </div></div>
+
+  <div class="cta">
+    <div class="btn">Apply for a Free Pilot
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>
