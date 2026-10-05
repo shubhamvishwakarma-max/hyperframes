@@ -365,61 +365,6 @@
         align-items: center;
         justify-content: center;
       }
-      #connector1 {
-        left: 616px;
-        top: 420px;
-        width: 174px;
-        height: 20px;
-      }
-      #statusWrap {
-        left: 0;
-        right: 0;
-        top: 610px;
-        height: 40px;
-      }
-      #statusWrap .pill {
-        position: absolute;
-        left: 50%;
-        top: 0;
-        height: 40px;
-        font-size: 18px;
-        padding: 0 18px;
-      }
-      #timerBox {
-        left: 0;
-        right: 0;
-        top: 676px;
-        text-align: center;
-      }
-      #timerBox .lbl {
-        font-family: "GeistMono", monospace;
-        font-size: 15px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--mute);
-      }
-      #timerDigits {
-        position: relative;
-        height: 96px;
-        margin-top: 6px;
-      }
-      #timerDigits span {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        font-family: "GeistMono", monospace;
-        font-size: 84px;
-        letter-spacing: -0.02em;
-        color: var(--ink);
-        opacity: 0;
-      }
-      #timerDigits span small {
-        font-size: 36px;
-        color: var(--red);
-        margin-left: 10px;
-        letter-spacing: 0;
-      }
       #meter {
         left: 76px;
         top: 612px;
@@ -1542,6 +1487,271 @@
         color: var(--mute);
       }
 
+
+      /* ---------- cold open (dark) ---------- */
+      #darkBg {
+        background: #0e1211;
+        overflow: hidden;
+      }
+      #darkGlowR {
+        position: absolute;
+        width: 1300px;
+        height: 1300px;
+        left: 260px;
+        top: -560px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 90, 78, 0.16) 0%, rgba(255, 90, 78, 0) 60%);
+      }
+      #darkGlowG {
+        position: absolute;
+        width: 1100px;
+        height: 1100px;
+        left: -520px;
+        top: 380px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(61, 220, 151, 0.1) 0%, rgba(61, 220, 151, 0) 60%);
+      }
+      #lightWipe {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: var(--bg);
+      }
+      #masthead img {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      #mastLight {
+        opacity: 0;
+      }
+      .hl.hook {
+        left: 76px;
+        right: 76px;
+        top: 132px;
+        font-size: 108px;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        color: #f3f5f2;
+      }
+      .g2 {
+        color: #3ddc97;
+      }
+      .r2 {
+        color: #ff6a5c;
+      }
+      #hkLive {
+        right: 76px;
+        top: 62px;
+        height: 36px;
+        padding: 0 16px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "GeistMono", monospace;
+        font-size: 15px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #f3f5f2;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+      }
+      #hkLive .lv {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #3ddc97;
+      }
+      #hkCard {
+        left: 76px;
+        top: 392px;
+        width: 928px;
+        padding: 30px 36px 34px;
+        border-radius: 28px;
+        border: 0;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+      }
+      .hk-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: "GeistMono", monospace;
+        font-size: 18px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--mute);
+      }
+      .hk-top .now {
+        margin-left: 10px;
+        color: var(--green-d);
+      }
+      .hk-name {
+        margin-top: 16px;
+        font-size: 58px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+      }
+      .hk-tags {
+        margin-top: 20px;
+        display: flex;
+        gap: 12px;
+      }
+      .hk-tags .pill,
+      #hkTagWrap .pill {
+        height: 46px;
+        font-size: 22px;
+        padding: 0 18px;
+      }
+      #hkTagWrap {
+        position: relative;
+        width: 200px;
+        height: 46px;
+      }
+      #hkTagWrap .pill {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .pill.amber {
+        background: #fdf3e1;
+        color: #9a6410;
+        border-color: #f2dcb3;
+      }
+      #hkCall {
+        position: absolute;
+        right: 40px;
+        top: 74px;
+        width: 108px;
+        height: 108px;
+      }
+      #hkCall .core {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #hkCall .ring {
+        border-width: 3px;
+      }
+      #hkRm {
+        left: 76px;
+        top: 688px;
+        width: 928px;
+        height: 96px;
+        padding: 0 26px;
+        border-radius: 22px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #f3f5f2;
+      }
+      #hkRm .nm {
+        font-size: 26px;
+        font-weight: 600;
+      }
+      #hkRm .ds {
+        font-size: 17px;
+        color: #9aa49f;
+        margin-top: 2px;
+      }
+      #hkRmWrap {
+        margin-left: auto;
+        position: relative;
+        width: 170px;
+        height: 44px;
+      }
+      #hkRmWrap .pill {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 44px;
+        font-size: 20px;
+        padding: 0 16px;
+      }
+      #hkTimer {
+        left: 76px;
+        right: 76px;
+        top: 372px;
+        text-align: center;
+        color: #f3f5f2;
+      }
+      #hkTimer .lbl {
+        font-family: "GeistMono", monospace;
+        font-size: 20px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #9aa49f;
+      }
+      #hkDigits {
+        position: relative;
+        height: 190px;
+        margin-top: 4px;
+      }
+      #hkDigits span {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        font-family: "GeistMono", monospace;
+        font-size: 172px;
+        line-height: 190px;
+        letter-spacing: -0.04em;
+        opacity: 0;
+      }
+      #hkBar {
+        position: relative;
+        width: 760px;
+        height: 10px;
+        margin: 10px auto 0;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+      }
+      #hkBarFill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 760px;
+        height: 10px;
+        border-radius: 5px;
+        background: linear-gradient(90deg, #d99a2b, #ff5a4e);
+        transform-origin: left center;
+      }
+      /* S2 sits on the dark cold-open backdrop */
+      #h2 {
+        color: #f3f5f2;
+      }
+      #h2 .r {
+        color: #ff6a5c;
+      }
+      #rmNode .nm {
+        color: #f3f5f2;
+      }
+      #rmNode .st {
+        color: #9aa49f;
+      }
+      #meter .lbl {
+        color: #9aa49f;
+      }
+      #meterLabels {
+        color: #6f7974;
+      }
+      #lostWord {
+        color: #ff6a5c;
+      }
+      .cap-in {
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+      }
+
       /* ---------- captions ---------- */
       .cap {
         position: absolute;
@@ -1587,25 +1797,73 @@
         <div id="bgGlow2"></div>
       </div>
 
+      <!-- ================= COLD OPEN BACKDROP (dark = the problem) ================= -->
+      <div id="darkClip" class="clip layer" data-start="0" data-duration="9.9" data-track-index="13">
+        <div id="darkBg" class="layer"><div id="darkGlowR"></div><div id="darkGlowG"></div></div>
+      </div>
+      <div id="wipeClip" class="clip layer" data-start="8.9" data-duration="1.6" data-track-index="14">
+        <div id="lightWipe"></div>
+      </div>
+
       <!-- ================= MASTHEAD ================= -->
       <div id="mastClip" class="clip layer" data-start="0" data-duration="43.6" data-track-index="1">
-        <div id="masthead"><img src="assets/img/doubletick-logo.webp" alt="DoubleTick" /></div>
+        <div id="masthead"><img id="mastLight" src="assets/img/doubletick-logo.webp" alt="DoubleTick" /><img id="mastDark" src="assets/img/doubletick-logo-white.webp" alt="" /></div>
       </div>
 
       <!-- ================= SCENE 1–2 : lead + delay ================= -->
       <section id="sOpen" class="clip layer" data-start="0" data-duration="10" data-track-index="2">
-        <h1 id="h1" data-layout-allow-overlap class="hl top">
-          <span class="ln"><span data-layout-allow-overlap>High-intent lead.</span></span>
-          <span class="ln"><span data-layout-allow-overlap class="muted">Slow response.</span></span>
-        </h1>
+        <!-- ---------- COLD OPEN HOOK (0 – 4.9s) ---------- -->
+        <div id="hookCam" class="layer">
+          <div id="hkLive" class="abs"><span class="lv"></span>Incoming lead · 10:42 AM</div>
+          <h1 id="hkA" data-layout-allow-overlap class="hl hook">
+            <span class="ln"><span data-layout-allow-overlap class="g2">High-intent</span></span>
+            <span class="ln"><span data-layout-allow-overlap>loan lead.</span></span>
+          </h1>
+          <h1 id="hkB" data-layout-allow-overlap class="hl hook">
+            <span class="ln"><span data-layout-allow-overlap>Your RM replied</span></span>
+            <span class="ln"><span data-layout-allow-overlap class="r2">hours later.</span></span>
+          </h1>
+          <div id="hkCard" class="abs card">
+            <div class="hk-top">
+              <svg width="26" height="26" viewBox="0 0 24 24"><path fill="#28b478" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+              <span>New loan lead</span><span class="now">just now</span>
+            </div>
+            <div class="hk-name">Ananya Sharma</div>
+            <div class="hk-tags">
+              <span class="pill">Personal Loan</span>
+              <span class="pill">₹8,00,000</span>
+              <div id="hkTagWrap">
+                <span id="hkHot" class="pill green"><span class="pdot"></span>High intent</span>
+                <span id="hkWait" class="pill amber" style="opacity: 0"><span class="pdot"></span>Waiting…</span>
+              </div>
+            </div>
+            <div id="hkCall">
+              <div class="ring" id="hkR1"></div>
+              <div class="ring" id="hkR2"></div>
+              <div class="core"><svg width="44" height="44" viewBox="0 0 24 24"><path fill="#fff" d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" /></svg></div>
+            </div>
+          </div>
+          <div id="hkRm" class="abs">
+            <div class="avatar" style="width: 64px; height: 64px; font-size: 22px; background: #2f6f5a">RM</div>
+            <div>
+              <div class="nm">Assigned to Rohan · RM</div>
+              <div class="ds">Relationship Manager</div>
+            </div>
+            <div id="hkRmWrap">
+              <span id="hkRing" class="pill green"><span class="pdot"></span>Ringing…</span>
+              <span id="hkNoAns" class="pill red" style="opacity: 0"><span class="pdot"></span>No answer</span>
+            </div>
+          </div>
+          <div id="hkTimer" class="abs">
+            <div class="lbl" data-layout-allow-overlap>RM response time</div>
+            <div id="hkDigits"></div>
+            <div id="hkBar"><i id="hkBarFill"></i></div>
+          </div>
+        </div>
         <h1 id="h2" data-layout-allow-overlap class="hl top">
           <span class="ln"><span data-layout-allow-overlap>Delay kills intent.</span></span>
           <span class="ln"><span data-layout-allow-overlap class="r">Opportunity lost.</span></span>
         </h1>
-
-        <svg id="connector1" class="abs" viewBox="0 0 184 20">
-          <line id="c1line" x1="0" y1="10" x2="184" y2="10" stroke="#c9cfcb" stroke-width="2.5" stroke-dasharray="6 7" />
-        </svg>
 
         <div id="leadCard" class="abs card">
           <div class="lc-top">
@@ -1647,24 +1905,11 @@
           <div class="st"><span class="pdot" style="color: #b9c1bc"></span>In meetings</div>
         </div>
 
-        <div id="statusWrap" class="abs">
-          <span id="stIncoming" class="pill green"><span class="pdot"></span>Incoming lead</span>
-          <span id="stNoResp" class="pill red" style="opacity: 0"><span class="pdot"></span>No response from RM</span>
-        </div>
-
-        <div id="timerBox" class="abs">
-          <div class="lbl">Time to first response</div>
-          <div id="timerDigits">
-            <span>00:02</span><span>00:09</span><span>00:18</span><span>00:47</span><span>01:12</span
-            ><span>01:42</span><span>02:15</span><span>02:56<small>hrs</small></span>
-          </div>
-        </div>
-
         <div id="meter" class="abs">
           <div class="lbl">Lead intent</div>
           <div id="meterTrack"><div id="meterDot"></div></div>
           <div id="meterLabels">
-            <span id="mlHot" style="left: 0; color: var(--green)">HOT</span>
+            <span id="mlHot" style="left: 0; color: #3ddc97">HOT</span>
             <span id="mlWarm" style="left: 50%; margin-left: -28px">WARM</span>
             <span id="lostWord">LOST</span>
           </div>
@@ -2272,39 +2517,61 @@
         tl.fromTo("#bgGlow", { x: -40, y: 0 }, { x: 60, y: 40, duration: 51.5, ease: "none" }, 0);
         tl.fromTo("#bgGlow2", { x: 30, y: 20 }, { x: -60, y: -30, duration: 51.5, ease: "none" }, 0);
 
-        // ======================= S1 : 0 – 4.9 =======================
-        tl.fromTo("#leadCard", { x: -620, rotation: -2 }, { x: 0, rotation: 0, duration: 0.7, ease: "back.out(1.25)" }, 0.05);
-        tl.fromTo(".lc-tags > *", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)", stagger: 0.09 }, 0.55);
-        lineIn("#h1", 0, 0.25);
-        tl.fromTo("#rmNode", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 0.75);
-        tl.fromTo("#connector1", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.1);
-        tl.fromTo("#c1line", { strokeDashoffset: 0 }, { strokeDashoffset: -104, duration: 3.6, ease: "none" }, 1.1);
-        tl.to("#leadCard", { x: 36, duration: 0.9, ease: "power3.inOut" }, 1.15);
-        tl.to("#connector1", { x: 36, scaleX: 0.8, transformOrigin: "right center", duration: 0.9, ease: "power3.inOut" }, 1.15);
-        fadeUp("#stIncoming", 1.35, 0.4, 10);
-        tl.set("#stIncoming", { xPercent: -50 }, 0);
-        tl.set("#stNoResp", { xPercent: -50 }, 0);
-        ringPulse("#lcR1", 1.3, 3, 0.5, 1.9);
-        ringPulse("#lcR2", 1.55, 3, 0.5, 1.6);
-        // RM does not respond
-        lineIn("#h1", 1, 2.3);
-        swap("#stIncoming", "#stNoResp", 2.45);
-        tl.fromTo("#timerBox", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 2.4);
-        const tSpans = $$("#timerDigits span");
-        const tTimes = [2.45, 2.85, 3.15, 3.42, 3.65, 3.86, 4.05, 4.22];
-        tSpans.forEach((s, i) => {
-          tl.set(s, { opacity: 1 }, tTimes[i]);
-          if (i < tSpans.length - 1) tl.set(s, { opacity: 0 }, tTimes[i + 1]);
+        // ======================= COLD OPEN : 0 – 4.9 =======================
+        // frame 0 is already a readable, complete thumbnail: headline + lead card + RM row
+        tl.fromTo("#darkGlowR", { x: 0, y: 0 }, { x: -80, y: 40, duration: 9.9, ease: "none" }, 0);
+        tl.fromTo("#hookCam", { scale: 1.0 }, { scale: 1.035, duration: 2.1, ease: "none", transformOrigin: "50% 45%" }, 0);
+        tl.fromTo("#hkCard", { y: 26 }, { y: 0, duration: 0.6, ease: "expo.out" }, 0);
+        tl.fromTo("#hkA .ln > span", { yPercent: 18 }, { yPercent: 0, duration: 0.6, ease: "expo.out", stagger: 0.05 }, 0);
+        tl.fromTo("#hkRm", { y: 30 }, { y: 0, duration: 0.6, ease: "expo.out" }, 0.05);
+        tl.fromTo("#hkLive .lv", { opacity: 1 }, { opacity: 0.25, duration: 0.3, yoyo: true, repeat: 6, ease: "sine.inOut" }, 0);
+        ringPulse("#hkR1", 0.0, 4, 0.5, 1.8);
+        ringPulse("#hkR2", 0.25, 4, 0.5, 1.5);
+        tl.fromTo("#hkCall .core", { scale: 1 }, { scale: 1.08, duration: 0.25, yoyo: true, repeat: 7, ease: "sine.inOut" }, 0);
+        tl.fromTo("#hkHot", { boxShadow: "0 0 0 0 rgba(40,180,120,0.55)" }, { boxShadow: "0 0 0 12px rgba(40,180,120,0)", duration: 0.9, repeat: 1, ease: "power2.out" }, 0.2);
+        // RM never picks up
+        swap("#hkRing", "#hkNoAns", 1.75, 0.22);
+        tl.to("#hkCall .core", { backgroundColor: "#8c948f", duration: 0.4 }, 1.9);
+        // beat B: hard turn into the pain — "Your RM replied hours later."
+        tl.to("#hkA .ln > span", { yPercent: -115, duration: 0.3, ease: "power3.in", stagger: 0.03 }, 2.0);
+        tl.fromTo("#hkB .ln > span", { yPercent: 115 }, { yPercent: 0, duration: 0.55, ease: "expo.out", stagger: 0.08 }, 2.2);
+        tl.to("#hookCam", { scale: 1, duration: 0.5, ease: "power3.out" }, 2.1);
+        tl.to("#hkRm", { opacity: 0, y: 30, duration: 0.3, ease: "power2.in" }, 2.05);
+        tl.to("#hkCard", { y: 318, scale: 0.62, transformOrigin: "0% 0%", duration: 0.6, ease: "expo.inOut" }, 2.05);
+        tl.to("#hkCall", { opacity: 0, duration: 0.2 }, 2.05);
+        swap("#hkHot", "#hkWait", 2.6, 0.22);
+        tl.fromTo("#hkTimer", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 2.25);
+        // the clock races: 00:00:02 -> 02:56:14
+        const hkD = $("#hkDigits");
+        const NSTEP = 26, T0 = 2.32, T1 = 4.25, FINAL = 10574;
+        const fmt = (v) => [Math.floor(v / 3600), Math.floor((v % 3600) / 60), v % 60].map((n) => String(n).padStart(2, "0")).join(":");
+        const steps = [];
+        for (let k = 0; k < NSTEP; k++) {
+          const v = k === NSTEP - 1 ? FINAL : Math.round(2 * Math.pow(FINAL / 2, k / (NSTEP - 1)));
+          const t = T0 + (T1 - T0) * Math.sqrt(k / (NSTEP - 1));
+          const sp = document.createElement("span");
+          sp.textContent = fmt(v);
+          sp.setAttribute("data-layout-allow-overlap", "");
+          hkD.appendChild(sp);
+          steps.push([sp, t]);
+        }
+        steps.forEach(([sp, t], k) => {
+          tl.set(sp, { opacity: 1 }, t);
+          if (k < steps.length - 1) tl.set(sp, { opacity: 0 }, steps[k + 1][1]);
         });
-        tl.fromTo(tSpans[tSpans.length - 1], { scale: 1.12 }, { scale: 1, duration: 0.5, ease: "back.out(2)" }, 4.22);
-        // high-intent indicator desaturates
-        tl.to("#lcCall .core", { backgroundColor: "#b9c1bc", duration: 1.6 }, 2.6);
-        tl.to("#tagHot", { filter: "saturate(0.15)", duration: 1.6 }, 2.6);
+        tl.fromTo("#hkDigits", { color: "#f3f5f2" }, { color: "#ff6a5c", duration: 1.9, ease: "power2.in" }, T0);
+        tl.fromTo("#hkBarFill", { scaleX: 0.01 }, { scaleX: 1, duration: T1 - T0, ease: "power2.in" }, T0);
+        // slam on the final value
+        tl.fromTo("#hkDigits", { scale: 1.1 }, { scale: 1, duration: 0.45, ease: "back.out(2.5)", immediateRender: false }, T1);
+        tl.to("#hookCam", { x: 10, duration: 0.05, yoyo: true, repeat: 5, ease: "none" }, T1);
+        tl.to("#hkCard", { filter: "grayscale(1)", opacity: 0.6, duration: 0.5 }, T1);
+        // exit to S2
+        tl.to("#hkB .ln > span", { yPercent: -115, opacity: 0, duration: 0.35, ease: "power3.in", stagger: 0.04 }, 4.62);
+        tl.to(["#hkTimer", "#hkCard", "#hkLive"], { opacity: 0, y: -24, duration: 0.35, ease: "power2.in", stagger: 0.04 }, 4.64);
 
         // ======================= S2 : 4.9 – 9.6 =======================
-        hlOut("#h1", 4.62);
-        fadeOut("#statusWrap", 4.7);
-        fadeOut("#timerBox", 4.7);
+        tl.fromTo("#leadCard", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "expo.out" }, 4.95);
+        tl.fromTo("#rmNode", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 5.05);
         lineIn("#h2", 0, 5.05);
         tl.fromTo("#meter", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 5.15);
         // status: interested -> waiting -> no response
@@ -2320,9 +2587,8 @@
         tl.to("#mlWarm", { color: "#b3bab6", duration: 0.3 }, 7.3);
         tl.fromTo("#lostWord", { scale: 1 }, { scale: 1.25, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out" }, 7.85);
         // lead drifts away from RM, loses colour
-        tl.to("#leadCard", { x: -8, filter: "grayscale(1)", opacity: 0.72, duration: 3.2, ease: "power2.inOut" }, 5.4);
-        tl.to("#rmNode", { x: 70, opacity: 0.35, duration: 3.0, ease: "power2.inOut" }, 5.4);
-        tl.to("#connector1", { opacity: 0, duration: 0.8 }, 5.6);
+        tl.to("#leadCard", { x: -8, filter: "grayscale(1)", opacity: 0.72, duration: 3.0, ease: "power2.inOut" }, 5.6);
+        tl.to("#rmNode", { x: 70, opacity: 0.35, duration: 2.8, ease: "power2.inOut" }, 5.7);
         lineIn("#h2", 1, 7.8);
         tl.fromTo("#h2 .r", { opacity: 0.2 }, { opacity: 1, duration: 0.4 }, 7.85);
 
@@ -2335,6 +2601,12 @@
         hlOut("#h2", 9.05);
         tl.to(["#leadCard", "#rmNode", "#meter"], { opacity: 0, x: "-=40", duration: 0.45, ease: "power2.in" }, 9.05);
         tl.to("#lostGlyph", { x: 76, y: eb3.y - 2, scale: 1, duration: 0.7, ease: "expo.inOut" }, 9.25);
+        // light floods in from the missed call: the problem (dark) gives way to DoubleTick (light)
+        tl.set("#lightWipe", { x: lostP.x + lostP.w / 2 - 100, y: lostP.y + lostP.h / 2 - 100, scale: 0 }, 0);
+        tl.to("#lightWipe", { scale: 17, duration: 0.6, ease: "power3.in" }, 9.1);
+        tl.to("#lightWipe", { opacity: 0, duration: 0.4, ease: "none" }, 10.05);
+        tl.to("#mastDark", { opacity: 0, duration: 0.3 }, 9.45);
+        tl.to("#mastLight", { opacity: 1, duration: 0.3 }, 9.45);
 
         // ======================= S3 : 9.6 – 14.2 =======================
         fadeUp("#eb3", 9.85, 0.4, 0);

@@ -203,12 +203,18 @@ fx = np.zeros((N, 2), np.float32)
 place(fx, S["notification"], 0.08, -9)
 for t in np.arange(0.35, 4.6, 0.536):
     place(fx, s_pulse(), t, -12)
-tt = [2.45, 2.85, 3.15, 3.42, 3.65, 3.86, 4.05, 4.22]
-for i, t in enumerate(tt):
-    place(fx, s_tick(2600, level=1.0), t, -16 + i * 0.6)
-for t in np.linspace(2.5, 4.2, 14):
-    place(fx, s_tick(3200, 0.03), t, -24)
-place(fx, s_blip(700, 0.25), 2.45, -20)
+# cold open: RM's phone rings, no answer, then the response clock races and slams
+place(fx, S["impact-bass-1"], 0.0, -17)
+place(fx, s_ring(), 0.15, -21, 0.2)
+place(fx, s_callend(), 1.75, -17, 0.2)
+place(fx, S["whoosh-short"], 2.0, -13)
+NSTEP, T0, T1 = 26, 2.32, 4.25
+for k in range(NSTEP):
+    t = T0 + (T1 - T0) * np.sqrt(k / (NSTEP - 1))
+    place(fx, s_tick(2600 + 20 * k, 0.04), t, -21 + k * 0.25)
+place(fx, S["impact-bass-1"], T1, -12)
+place(fx, s_blip(523, 0.35), T1, -18)
+place(fx, S["whoosh-short"], 4.64, -17)
 place(fx, s_downer(), 7.82, -9)
 place(fx, S["whoosh-short"], 9.2, -15, -0.3)
 place(fx, S["whoosh"], 9.5, -16, 0.3)
