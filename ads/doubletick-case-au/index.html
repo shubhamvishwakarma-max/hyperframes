@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>DoubleTick AU Bank Results</title>
+<style>
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+
+  :root {
+    --ink: #0A1A12;
+    --ink-2: #3D4A44;
+    --muted: #7A8781;
+    --bg: #F4F8F5;
+    --card: #FFFFFF;
+    --line: #E1E9E4;
+    --green: #007A5A;
+    --green-2: #2FBF8F;
+    --green-soft: #E0F2EC;
+    --red: #E5484D;
+    --red-soft: #FDECEC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; overflow: hidden; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+
+  /* safe zone: everything that matters sits between y=130 and y=950 */
+  .ad {
+    position: relative; width: 1080px; height: 1080px; padding: 130px 72px;
+    background:
+      radial-gradient(700px 520px at 100% 0%, rgba(0,122,90,.14), transparent 60%),
+      radial-gradient(600px 500px at 0% 100%, rgba(0,122,90,.08), transparent 60%),
+      var(--bg);
+    display: flex; flex-direction: column;
+  }
+  .ad::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: radial-gradient(ellipse at 60% 70%, #000 10%, transparent 70%);
+    opacity: .55;
+  }
+  .ad > * { position: relative; }
+
+  .ad > .top { position: absolute; left: 72px; right: 72px; top: 52px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: block; height: 32px; width: auto; }
+  .pill {
+    font-size: 14px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    padding: 9px 15px; border-radius: 999px; background: var(--ink); color: #fff;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 4px rgba(47,191,143,.25); }
+
+  h1 { margin-top: 20px; font-size: 72px; line-height: 1.08; letter-spacing: -0.04em; font-weight: 700; }
+  h1 .drop { color: var(--muted); }
+  h1 .die { color: var(--red); }
+  h1 em { font-style: normal; color: var(--green); }
+  .sub { margin-top: 20px; font-size: 21px; line-height: 1.42; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* visual: lakhs of leads -> AI Voice calls them all -> 5,000+ qualified */
+  .flow { position: absolute; left: 72px; top: 462px; width: 936px; height: 360px; }
+  .flow svg { width: 936px; height: 360px; display: block; overflow: visible; }
+  .lbl { position: absolute; top: 322px; transform: translateX(-50%); font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; color: var(--muted); }
+  .lbl.g { color: var(--green); }
+  .big { position: absolute; left: 813px; top: 236px; transform: translateX(-50%); text-align: center; }
+  .big .n { font-size: 46px; font-weight: 700; letter-spacing: -0.045em; color: var(--green); line-height: 1; }
+  .ad > .cta { position: absolute; left: 72px; top: 868px; }
+  .btn {
+    background: var(--green); color: #fff; font-size: 22px; font-weight: 600; letter-spacing: -0.01em;
+    padding: 16px 26px; border-radius: 14px; display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 14px 30px -10px rgba(0,122,90,.6);
+  }
+  .client { height: 104px; width: auto; margin: -33px -22px -33px 0; mix-blend-mode: multiply; }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="top">
+    <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+    <img class="client" src="au-bank-logo.png" alt="AU Small Finance Bank" />
+  </div>
+
+  <h1>Lakhs of leads.<br/><span class="drop">Your RMs</span> <span class="die">can&rsquo;t call them all.</span></h1>
+  <p class="sub"><b>AU Small Finance Bank</b> used <b>DoubleTick AI Voice</b> to re-engage rejected and cross-sell leads at scale, surfacing <b>5,000+ qualified leads</b> from existing opportunities.</p>
+
+  <div class="flow">
+    <svg viewBox="0 0 936 360" fill="none">
+      <defs>
+        <radialGradient id="orbg" cx="34%" cy="28%" r="80%"><stop offset="0" stop-color="#9BEBCB"/><stop offset=".4" stop-color="#1FA77B"/><stop offset=".75" stop-color="#007A5A"/><stop offset="1" stop-color="#005A42"/></radialGradient>
+        <radialGradient id="halo"><stop offset="0" stop-color="#2FBF8F" stop-opacity=".35"/><stop offset="1" stop-color="#2FBF8F" stop-opacity="0"/></radialGradient>
+        <marker id="ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#007A5A"/></marker>
+      </defs>
+      <path d="M278 60 C 400 60, 380 170, 416 170" stroke="#2FBF8F" stroke-width="1.8" fill="none"/><path d="M278 104 C 400 104, 380 170, 416 170" stroke="#D5DED9" stroke-width="1.2" fill="none"/><path d="M278 148 C 400 148, 380 170, 416 170" stroke="#D5DED9" stroke-width="1.2" fill="none"/><path d="M278 192 C 400 192, 380 170, 416 170" stroke="#D5DED9" stroke-width="1.2" fill="none"/><path d="M278 236 C 400 236, 380 170, 416 170" stroke="#D5DED9" stroke-width="1.2" fill="none"/><path d="M278 280 C 400 280, 380 170, 416 170" stroke="#2FBF8F" stroke-width="1.8" fill="none"/>
+      <circle cx="40" cy="60" r="17" fill="#E9EEEB"/><circle cx="40" cy="56.26" r="5.1" fill="#B3BEB8"/><path d="M31.16 70.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="84" cy="60" r="17" fill="#E9EEEB"/><circle cx="84" cy="56.26" r="5.1" fill="#B3BEB8"/><path d="M75.16 70.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="128" cy="60" r="17" fill="#E9EEEB"/><circle cx="128" cy="56.26" r="5.1" fill="#B3BEB8"/><path d="M119.16 70.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="172" cy="60" r="17" fill="#E9EEEB"/><circle cx="172" cy="56.26" r="5.1" fill="#B3BEB8"/><path d="M163.16 70.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="216" cy="60" r="17" fill="#E9EEEB"/><circle cx="216" cy="56.26" r="5.1" fill="#B3BEB8"/><path d="M207.16 70.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="260" cy="60" r="17" fill="#E3F1EA"/><circle cx="260" cy="56.26" r="5.1" fill="#007A5A"/><path d="M251.16 70.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#007A5A"/><circle cx="40" cy="104" r="17" fill="#E9EEEB"/><circle cx="40" cy="100.26" r="5.1" fill="#B3BEB8"/><path d="M31.16 114.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="84" cy="104" r="17" fill="#E3F1EA"/><circle cx="84" cy="100.26" r="5.1" fill="#007A5A"/><path d="M75.16 114.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#007A5A"/><circle cx="128" cy="104" r="17" fill="#E9EEEB"/><circle cx="128" cy="100.26" r="5.1" fill="#B3BEB8"/><path d="M119.16 114.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="172" cy="104" r="17" fill="#E9EEEB"/><circle cx="172" cy="100.26" r="5.1" fill="#B3BEB8"/><path d="M163.16 114.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="216" cy="104" r="17" fill="#E9EEEB"/><circle cx="216" cy="100.26" r="5.1" fill="#B3BEB8"/><path d="M207.16 114.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="260" cy="104" r="17" fill="#E9EEEB"/><circle cx="260" cy="100.26" r="5.1" fill="#B3BEB8"/><path d="M251.16 114.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="40" cy="148" r="17" fill="#E9EEEB"/><circle cx="40" cy="144.26" r="5.1" fill="#B3BEB8"/><path d="M31.16 158.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="84" cy="148" r="17" fill="#E9EEEB"/><circle cx="84" cy="144.26" r="5.1" fill="#B3BEB8"/><path d="M75.16 158.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="128" cy="148" r="17" fill="#E9EEEB"/><circle cx="128" cy="144.26" r="5.1" fill="#B3BEB8"/><path d="M119.16 158.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="172" cy="148" r="17" fill="#E3F1EA"/><circle cx="172" cy="144.26" r="5.1" fill="#007A5A"/><path d="M163.16 158.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#007A5A"/><circle cx="216" cy="148" r="17" fill="#E9EEEB"/><circle cx="216" cy="144.26" r="5.1" fill="#B3BEB8"/><path d="M207.16 158.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="260" cy="148" r="17" fill="#E9EEEB"/><circle cx="260" cy="144.26" r="5.1" fill="#B3BEB8"/><path d="M251.16 158.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="40" cy="192" r="17" fill="#E9EEEB"/><circle cx="40" cy="188.26" r="5.1" fill="#B3BEB8"/><path d="M31.16 202.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="84" cy="192" r="17" fill="#E9EEEB"/><circle cx="84" cy="188.26" r="5.1" fill="#B3BEB8"/><path d="M75.16 202.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="128" cy="192" r="17" fill="#E9EEEB"/><circle cx="128" cy="188.26" r="5.1" fill="#B3BEB8"/><path d="M119.16 202.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="172" cy="192" r="17" fill="#E9EEEB"/><circle cx="172" cy="188.26" r="5.1" fill="#B3BEB8"/><path d="M163.16 202.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="216" cy="192" r="17" fill="#E3F1EA"/><circle cx="216" cy="188.26" r="5.1" fill="#007A5A"/><path d="M207.16 202.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#007A5A"/><circle cx="260" cy="192" r="17" fill="#E9EEEB"/><circle cx="260" cy="188.26" r="5.1" fill="#B3BEB8"/><path d="M251.16 202.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="40" cy="236" r="17" fill="#E3F1EA"/><circle cx="40" cy="232.26" r="5.1" fill="#007A5A"/><path d="M31.16 246.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#007A5A"/><circle cx="84" cy="236" r="17" fill="#E9EEEB"/><circle cx="84" cy="232.26" r="5.1" fill="#B3BEB8"/><path d="M75.16 246.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="128" cy="236" r="17" fill="#E9EEEB"/><circle cx="128" cy="232.26" r="5.1" fill="#B3BEB8"/><path d="M119.16 246.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="172" cy="236" r="17" fill="#E9EEEB"/><circle cx="172" cy="232.26" r="5.1" fill="#B3BEB8"/><path d="M163.16 246.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="216" cy="236" r="17" fill="#E9EEEB"/><circle cx="216" cy="232.26" r="5.1" fill="#B3BEB8"/><path d="M207.16 246.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="260" cy="236" r="17" fill="#E9EEEB"/><circle cx="260" cy="232.26" r="5.1" fill="#B3BEB8"/><path d="M251.16 246.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="40" cy="280" r="17" fill="#E9EEEB"/><circle cx="40" cy="276.26" r="5.1" fill="#B3BEB8"/><path d="M31.16 290.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="84" cy="280" r="17" fill="#E9EEEB"/><circle cx="84" cy="276.26" r="5.1" fill="#B3BEB8"/><path d="M75.16 290.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="128" cy="280" r="17" fill="#E3F1EA"/><circle cx="128" cy="276.26" r="5.1" fill="#007A5A"/><path d="M119.16 290.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#007A5A"/><circle cx="172" cy="280" r="17" fill="#E9EEEB"/><circle cx="172" cy="276.26" r="5.1" fill="#B3BEB8"/><path d="M163.16 290.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="216" cy="280" r="17" fill="#E9EEEB"/><circle cx="216" cy="276.26" r="5.1" fill="#B3BEB8"/><path d="M207.16 290.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#B3BEB8"/><circle cx="260" cy="280" r="17" fill="#E3F1EA"/><circle cx="260" cy="276.26" r="5.1" fill="#007A5A"/><path d="M251.16 290.2 a8.84 7.48 0 0 1 17.68 0 Z" fill="#007A5A"/>
+      <circle cx="488" cy="170" r="120" fill="url(#halo)"/>
+      <circle cx="488" cy="170" r="94" fill="none" stroke="#2FBF8F" stroke-width="1.5" opacity=".35"/>
+      <circle cx="488" cy="170" r="70" fill="url(#orbg)"/>
+      <path transform="translate(462 144) scale(2.2)" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" fill="#fff"/>
+      <g transform="translate(536 118)"><circle r="17" fill="#0A1A12" stroke="#F4F8F5" stroke-width="3"/><path transform="translate(-9 -9) scale(.75)" d="M12 2.5l2.1 6.4 6.4 2.1-6.4 2.1L12 19.5l-2.1-6.4L3.5 11l6.4-2.1z" fill="#2FBF8F"/></g>
+      <path d="M562 170 L 678 170" stroke="#007A5A" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+      <rect x="690" y="100" width="246" height="204" rx="24" fill="#E3F1EA" stroke="#BFE3D5"/>
+      <circle cx="767" cy="150" r="19" fill="#007A5A"/><circle cx="767" cy="145.82" r="5.7" fill="#FFFFFF"/><path d="M757.12 161.4 a9.88 8.36 0 0 1 19.76 0 Z" fill="#FFFFFF"/><circle cx="813" cy="150" r="19" fill="#007A5A"/><circle cx="813" cy="145.82" r="5.7" fill="#FFFFFF"/><path d="M803.12 161.4 a9.88 8.36 0 0 1 19.76 0 Z" fill="#FFFFFF"/><circle cx="859" cy="150" r="19" fill="#007A5A"/><circle cx="859" cy="145.82" r="5.7" fill="#FFFFFF"/><path d="M849.12 161.4 a9.88 8.36 0 0 1 19.76 0 Z" fill="#FFFFFF"/><circle cx="767" cy="196" r="19" fill="#007A5A"/><circle cx="767" cy="191.82" r="5.7" fill="#FFFFFF"/><path d="M757.12 207.4 a9.88 8.36 0 0 1 19.76 0 Z" fill="#FFFFFF"/><circle cx="813" cy="196" r="19" fill="#007A5A"/><circle cx="813" cy="191.82" r="5.7" fill="#FFFFFF"/><path d="M803.12 207.4 a9.88 8.36 0 0 1 19.76 0 Z" fill="#FFFFFF"/><circle cx="859" cy="196" r="19" fill="#007A5A"/><circle cx="859" cy="191.82" r="5.7" fill="#FFFFFF"/><path d="M849.12 207.4 a9.88 8.36 0 0 1 19.76 0 Z" fill="#FFFFFF"/>
+    </svg>
+    <div class="lbl" style="left:150px">Rejected &amp; cross-sell leads</div>
+    <div class="lbl g" style="left:488px">AI Voice calls them all</div>
+    <div class="big"><div class="n">5,000+</div></div>
+    <div class="lbl g" style="left:813px">Qualified leads</div>
+  </div>
+
+  <div class="cta">
+    <div class="btn">Apply for a Free Pilot
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>
