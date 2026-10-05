@@ -10,7 +10,7 @@ retimed.
 
 | Time | Scene | On-screen idea |
 | --- | --- | --- |
-| 0.0–6.9 | Lost opportunity | Circular light-to-red gradient, "responds late." in red (deepens to "Opportunity gone.", washes out into green on "With DoubleTick"). "New Personal Loan Lead" card, accelerating timer, status Active → Cooling → Lost, "Loan lead comes in. / RM responds late." → "Opportunity gone." |
+| 0.0–6.9 | Lost opportunity | Built to read on mute: frame 0 already shows the lead card, the "RM callback" timer ring and "Loan lead comes in." with its caption. The ring fills green → amber → red as the timer races to 01:00+, "RM responds late." in red, then a huge two-line "Opportunity / gone." ("gone." in red) while the card turns Lost. Circular light-to-red gradient that washes out into green on "With DoubleTick". |
 | 6.9–9.8 | Question | "How often does this happen / in your lending funnel?" over a lead path where one lead drops out |
 | 9.8–14.7 | AI Voice | "New Loan Enquiry" → "AI Voice · Calling in 00:03" flies into a WhatsApp voice call from **ABC Bank ✓ · AI Agent**; captured chips (Personal Loan · ₹8L Requirement · Home Renovation) lock into a context record |
 | 14.7–18.4 | Voice → WhatsApp | Waveform compresses into the chat header; the context record flows into the same thread as a context strip. "No repeating. Full context intact." |

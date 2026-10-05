@@ -201,16 +201,16 @@
 
       /* ---------- scene 1 ---------- */
       #lead {
-        left: 210px;
-        top: 236px;
-        width: 660px;
+        left: 170px;
+        top: 122px;
+        width: 740px;
         background: #fff;
-        border: 1px solid var(--line);
+        border: 1px solid #efdcd9;
         border-radius: 26px;
         box-shadow:
           0 1px 2px rgba(20, 23, 26, 0.04),
-          0 18px 44px -18px rgba(20, 23, 26, 0.18);
-        padding: 24px 26px 22px;
+          0 22px 50px -22px rgba(120, 30, 30, 0.22);
+        padding: 20px 24px;
       }
       .lead-top {
         display: flex;
@@ -218,41 +218,53 @@
         gap: 18px;
       }
       .lead-ic {
-        width: 60px;
-        height: 60px;
+        width: 64px;
+        height: 64px;
         border-radius: 18px;
         background: var(--green-soft);
         display: grid;
         place-items: center;
         flex: none;
+        position: relative;
+      }
+      .lead-ping {
+        position: absolute;
+        inset: 0;
+        border-radius: 18px;
+        border: 2px solid rgba(39, 179, 120, 0.7);
+        opacity: 0;
       }
       .lead-t {
         font-weight: 600;
-        font-size: 25px;
-        letter-spacing: -0.01em;
+        font-size: 30px;
+        letter-spacing: -0.015em;
       }
       .lead-s {
-        font-size: 17px;
+        font-size: 19px;
         color: var(--grey);
         margin-top: 4px;
+      }
+      .lead-s b {
+        color: var(--ink);
+        font-weight: 600;
       }
       .lead-tx {
         flex: 1;
       }
       .status {
         position: relative;
-        width: 120px;
-        height: 36px;
+        width: 132px;
+        height: 40px;
         flex: none;
       }
       .st {
         position: absolute;
         right: 0;
         top: 0;
-        height: 36px;
-        padding: 0 14px;
-        border-radius: 18px;
-        font-size: 15px;
+        height: 40px;
+        padding: 0 16px;
+        border-radius: 20px;
+        font-size: 17px;
         font-weight: 600;
         display: flex;
         align-items: center;
@@ -260,8 +272,8 @@
         white-space: nowrap;
       }
       .st i {
-        width: 8px;
-        height: 8px;
+        width: 9px;
+        height: 9px;
         border-radius: 50%;
         display: block;
       }
@@ -274,7 +286,7 @@
       }
       .st-cool {
         background: var(--amber-soft);
-        color: var(--amber);
+        color: #8f5a10;
         opacity: 0;
       }
       .st-cool i {
@@ -288,81 +300,95 @@
       .st-lost i {
         background: #e5484d;
       }
-      .lead-bot {
-        margin-top: 20px;
-        padding-top: 18px;
-        border-top: 1px solid var(--line);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+
+      /* waiting ring: the hook's one big visual */
+      #tring {
+        left: 385px;
+        top: 282px;
+        width: 310px;
+        height: 310px;
       }
-      .rm {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-size: 18px;
-        color: var(--ink2);
-        font-weight: 500;
-      }
-      .rm-ic {
-        width: 36px;
-        height: 36px;
+      #tglow {
+        position: absolute;
+        inset: -70px;
         border-radius: 50%;
-        background: #f0f2ef;
-        display: grid;
-        place-items: center;
+        background: radial-gradient(closest-side, rgba(229, 72, 77, 0.3), rgba(229, 72, 77, 0.08) 60%, transparent 100%);
+        opacity: 0;
       }
-      .rm-state {
-        position: relative;
-        display: inline-block;
-        width: 150px;
-        height: 24px;
+      #tdisc {
+        position: absolute;
+        inset: 14px;
+        border-radius: 50%;
+        background: #fff;
+        box-shadow:
+          0 1px 2px rgba(20, 23, 26, 0.04),
+          0 26px 60px -28px rgba(120, 30, 30, 0.3);
+      }
+      #tring svg {
+        position: absolute;
+        inset: 0;
+      }
+      .tin {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .timer-lbl {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
         color: var(--grey);
-        font-weight: 500;
       }
-      .rm-state span {
+      #timer {
+        font-size: 76px;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        margin: 10px 0 12px;
+        color: var(--ink);
+      }
+      .tstate {
+        position: relative;
+        width: 220px;
+        height: 26px;
+        font-size: 19px;
+        font-weight: 500;
+        text-align: center;
+      }
+      .tstate span {
         position: absolute;
         left: 0;
+        right: 0;
         top: 0;
-        white-space: nowrap;
+      }
+      #rm-wait {
+        color: var(--grey);
       }
       #rm-none {
         opacity: 0;
         color: #b42318;
-      }
-      .timer-box {
-        text-align: right;
-      }
-      .timer-lbl {
-        font-size: 13px;
-        color: var(--grey);
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
         font-weight: 600;
-      }
-      #timer {
-        font-size: 34px;
-        font-weight: 600;
-        font-variant-numeric: tabular-nums;
-        letter-spacing: -0.01em;
-        margin-top: 2px;
-        color: var(--ink);
       }
       #h1 {
         left: 0;
         right: 0;
-        top: 580px;
+        top: 632px;
         text-align: center;
-        font-size: 84px;
-        line-height: 1.06;
+        font-size: 80px;
+        line-height: 1.04;
       }
       #h1b {
         left: 0;
         right: 0;
-        top: 618px;
+        top: 352px;
         text-align: center;
-        font-size: 100px;
-        line-height: 1;
+        font-size: 132px;
+        line-height: 0.98;
       }
 
       /* ---------- scene 2 ---------- */
@@ -1679,11 +1705,12 @@
           <div id="lead" class="abs">
             <div class="lead-top">
               <div class="lead-ic">
-                <svg width="30" height="30" style="color: #1b8a5a"><use href="#i-rupee" /></svg>
+                <span class="lead-ping" id="lping"></span>
+                <svg width="32" height="32" style="color: #1b8a5a"><use href="#i-rupee" /></svg>
               </div>
               <div class="lead-tx">
-                <div class="lead-t">New Personal Loan Lead</div>
-                <div class="lead-s">Priya S. · ₹8L · Website enquiry</div>
+                <div class="lead-t">New personal loan lead</div>
+                <div class="lead-s">Priya S. · <b>₹8L</b> · just now</div>
               </div>
               <div class="status">
                 <div class="st st-active" data-layout-allow-overlap><i></i>Active</div>
@@ -1691,23 +1718,26 @@
                 <div class="st st-lost" data-layout-allow-overlap><i></i>Lost</div>
               </div>
             </div>
-            <div class="lead-bot">
-              <div class="rm">
-                <div class="rm-ic"><svg width="20" height="20" style="color: #7b828b"><use href="#i-user" /></svg></div>
-                RM callback
-                <div class="rm-state" data-layout-allow-overlap><span id="rm-wait">· Waiting…</span><span id="rm-none">· No response</span></div>
-              </div>
-              <div class="timer-box">
-                <div class="timer-lbl">Time since enquiry</div>
-                <div id="timer">00:00</div>
-              </div>
+          </div>
+          <div id="tring" class="abs" data-layout-allow-overlap data-layout-allow-occlusion>
+            <div id="tglow"></div>
+            <div id="tdisc"></div>
+            <svg viewBox="0 0 310 310" width="310" height="310">
+              <g id="tticks"></g>
+              <circle cx="155" cy="155" r="143" fill="none" stroke="#f0e2e0" stroke-width="10" />
+              <circle id="tprog" cx="155" cy="155" r="143" fill="none" stroke-width="10" stroke-linecap="round" transform="rotate(-90 155 155)" style="stroke: #27b378; stroke-dasharray: 898.5; stroke-dashoffset: 898.5" />
+            </svg>
+            <div class="tin">
+              <div class="timer-lbl">RM callback</div>
+              <div id="timer">00:00</div>
+              <div class="tstate" data-layout-allow-overlap><span id="rm-wait">Waiting…</span><span id="rm-none">No response</span></div>
             </div>
           </div>
           <div id="h1" class="abs serif" data-layout-allow-overflow>
             <div id="h1a">Loan lead comes in.</div>
             <div id="h1c">RM responds late.</div>
           </div>
-          <div id="h1b" class="abs serif" data-layout-allow-overflow>Opportunity gone.</div>
+          <div id="h1b" class="abs serif" data-layout-allow-overflow><div id="h1b1">Opportunity</div><div id="h1b2">gone.</div></div>
         </section>
 
         <!-- ============ SCENE 2 — THE QUESTION ============ -->
@@ -2097,7 +2127,9 @@
           // subtitles -------------------------------------------------------
           CUES.forEach((c, i) => {
             const el = $("#cue" + i);
-            tl.fromTo(el, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, c[0]);
+            // the first caption is on screen from frame 0 so the muted thumbnail already reads
+            if (i === 0) tl.fromTo(el, { opacity: 1, y: 0 }, { opacity: 1, y: 0, duration: 0.01 }, 0);
+            else tl.fromTo(el, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, c[0]);
             tl.to(el, { opacity: 0, duration: 0.1, ease: "power1.in" }, c[1] - 0.1);
           });
 
@@ -2126,17 +2158,31 @@
           tl.to($("#sol-bloom"), { opacity: 0, duration: 1.2, ease: "power2.inOut" }, 10.9);
 
           // ================= SCENE 1 =================
-          pop($("#lead"), 0, { y: 14, s: 0.98, d: 0.45, e: "expo.out", o0: 0.6 });
+          // Built to read on mute: frame 0 is already a complete, legible frame
+          // (lead card + waiting ring + first headline), then everything moves.
+          pop($("#lead"), 0, { y: 10, s: 0.95, d: 0.5, e: "back.out(1.6)", o0: 1 });
           tl.set($("#lead"), { filter: "grayscale(0) blur(0px)" }, 0);
-          const h1a = split($("#h1a"));
+          tl.fromTo($("#lping"), { scale: 1, opacity: 0.9 }, { scale: 1.6, opacity: 0, duration: 0.7, ease: "power2.out", repeat: 2 }, 0.04);
+          tl.fromTo($("#tring"), { scale: 0.9, opacity: 1 }, { scale: 1, duration: 0.7, ease: "expo.out" }, 0);
+          tl.fromTo($("#h1a"), { scaleX: 1.08, scaleY: 1.04 }, { scaleX: 1, scaleY: 1, duration: 1.0, ease: "expo.out", transformOrigin: "50% 50%" }, 0);
           const h1c = split($("#h1c"));
           h1c[1].style.color = "#b42318";
           h1c[2].style.color = "#b42318";
-          words(h1a, 0.18, 0.08);
-          settle($("#h1a"), 0.18);
           words(h1c, 2.62, 0.08);
 
-          // timer: accelerating, deterministic from progress
+          // ring ticks (static)
+          (function () {
+            let t = "";
+            for (let i = 0; i < 60; i++) {
+              const an = (i / 60) * Math.PI * 2;
+              const r1 = i % 5 === 0 ? 120 : 124,
+                r2 = 129;
+              t += `<line x1="${(155 + r1 * Math.sin(an)).toFixed(1)}" y1="${(155 - r1 * Math.cos(an)).toFixed(1)}" x2="${(155 + r2 * Math.sin(an)).toFixed(1)}" y2="${(155 - r2 * Math.cos(an)).toFixed(1)}" stroke="${i % 5 === 0 ? "#d9c6c3" : "#ece0de"}" stroke-width="${i % 5 === 0 ? 2 : 1.4}" stroke-linecap="round"/>`;
+            }
+            $("#tticks").innerHTML = t;
+          })();
+
+          // timer: accelerating, deterministic from progress; the ring fills with it
           const timerEl = $("#timer");
           const tp = { p: 0 };
           tl.to(
@@ -2152,26 +2198,33 @@
             },
             0.35,
           );
-          tl.fromTo(timerEl, { scale: 1 }, { scale: 1.08, duration: 0.18, yoyo: true, repeat: 1, transformOrigin: "100% 50%", ease: "power2.out" }, 4.55);
+          const prog = $("#tprog");
+          tl.fromTo(prog, { strokeDashoffset: 898.5 }, { strokeDashoffset: 0, duration: 4.2, ease: "power2.in" }, 0.35);
+          tl.to(prog, { stroke: "#d69a3a", duration: 0.5, ease: "none" }, 2.7);
+          tl.to(prog, { stroke: "#e5484d", duration: 0.6, ease: "none" }, 3.6);
+          tl.to(timerEl, { color: "#b42318", duration: 1.4, ease: "power1.in" }, 3.0);
+          tl.to($("#tglow"), { opacity: 1, duration: 1.0, ease: "power2.in" }, 3.6);
+          tl.fromTo($("#tring"), { scale: 1 }, { scale: 1.06, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, 4.55);
           // status active -> cooling -> lost
-          tl.to($("#timer"), { color: "#b42318", duration: 1.4, ease: "power1.in" }, 3.0);
-          tl.to($("#lead"), { borderColor: "#f2cfcc", boxShadow: "0 1px 2px rgba(120,20,20,0.05), 0 18px 44px -18px rgba(160,30,30,0.28)", duration: 0.6 }, 5.9);
           fadeOut($(".st-active"), 2.9, 0.3);
           pop($(".st-cool"), 2.95, { y: 6, s: 0.9, d: 0.35 });
           fadeOut($(".st-cool"), 5.86, 0.2);
           pop($(".st-lost"), 5.9, { y: 6, s: 0.9, d: 0.35 });
-          fadeOut($("#rm-wait"), 5.86, 0.2);
-          fadeIn($("#rm-none"), 5.92, 0.25);
-          // lead cools and drifts away
-          tl.to($("#lead"), { y: -34, scale: 0.94, opacity: 0.5, filter: "grayscale(1) blur(1px)", duration: 1.3, ease: "power3.inOut" }, 4.6);
-          // headline swap -> opportunity gone
-          tl.to([...h1a, ...h1c], { yPercent: -118, duration: 0.42, ease: "power3.in", stagger: 0.025 }, 4.52);
+          fadeOut($("#rm-wait"), 4.5, 0.15);
+          fadeIn($("#rm-none"), 4.56, 0.2);
+          // headline lines leave, the ring collapses, the lead card goes cold at the top
+          tl.to([...h1c, $("#h1a")], { yPercent: -118, opacity: 0, duration: 0.42, ease: "power3.in", stagger: 0.025 }, 4.52);
           tl.to($("#h1"), { opacity: 0, duration: 0.01 }, 4.95);
-          const h1b = split($("#h1b"));
-          tl.fromTo(h1b[0], { yPercent: 118 }, { yPercent: 0, duration: 0.6, ease: "expo.out" }, 4.96);
-          h1b[1].style.color = "#b42318";
-          tl.fromTo(h1b[1].parentNode, { scale: 1.35, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "power4.out", transformOrigin: "50% 60%" }, 5.9);
-          tl.fromTo($("#h1b"), { scale: 1 }, { scale: 0.985, duration: 0.08, yoyo: true, repeat: 1, ease: "power2.out" }, 5.92);
+          tl.to($("#tring"), { scale: 0.7, opacity: 0, filter: "blur(8px)", duration: 0.45, ease: "power3.in" }, 4.82);
+          tl.to($("#lead"), { y: -12, scale: 0.96, opacity: 0.62, filter: "grayscale(1) blur(0.5px)", duration: 1.0, ease: "power3.inOut" }, 4.7);
+          tl.to($("#lead"), { borderColor: "#f2cfcc", duration: 0.6 }, 5.9);
+          // "Opportunity / gone." — two huge lines, "gone." lands hard in red
+          const h1b1 = split($("#h1b1"));
+          const h1b2 = split($("#h1b2"));
+          tl.fromTo(h1b1, { yPercent: 118 }, { yPercent: 0, duration: 0.7, ease: "expo.out" }, 4.96);
+          h1b2[0].style.color = "#b42318";
+          tl.fromTo($("#h1b2"), { scale: 1.45, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "power4.out", transformOrigin: "50% 60%" }, 5.9);
+          tl.fromTo($("#h1b"), { x: 0 }, { x: 7, duration: 0.05, yoyo: true, repeat: 3, ease: "power1.inOut" }, 6.02);
           // clear
           tl.to([$("#lead"), $("#h1b")], { opacity: 0, scale: 0.96, filter: "grayscale(1) blur(8px)", duration: 0.3, ease: "power2.in" }, 6.7);
 
