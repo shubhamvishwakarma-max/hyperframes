@@ -1,0 +1,10 @@
+work/node_modules/
+work/package*.json
+work/snaps*/
+work/*.raw
+work/*.png
+work/*.jpg
+renders/draft.mp4
+renders/mix.mp4
+snapshots/
+.hyperframes/

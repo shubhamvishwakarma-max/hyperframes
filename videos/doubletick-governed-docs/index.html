@@ -1,0 +1,2194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>DoubleTick — Governed Documents (BFSI)</title>
+    <script src="assets/js/gsap.min.js"></script>
+    <script src="assets/js/MotionPathPlugin.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        src: url("assets/fonts/hedvig-letters-serif-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist-latin-500-normal.woff2") format("woff2");
+        font-weight: 500;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist-latin-600-normal.woff2") format("woff2");
+        font-weight: 600;
+        font-style: normal;
+      }
+
+      :root {
+        --bg: #f5f3ee;
+        --paper: #fbfaf7;
+        --white: #ffffff;
+        --ink: #16181b;
+        --charcoal: #2b2e33;
+        --grey: #5f646b;
+        --grey-2: #9aa0a8;
+        --line: #e2ded5;
+        --green: #27b177;
+        --green-ink: #13875a;
+        --green-text: #0f7a50;
+        --green-soft: #e3f4ec;
+        --warm: #c8822f;
+        --wa-bg: #efeae2;
+        --wa-out: #d9fdd3;
+        --wa-ink: #111b21;
+        --wa-meta: #667781;
+        --wa-green: #00a884;
+        --wa-teal: #007a64;
+        --badge: #1c8cf2;
+        --navy: #1d2a48;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg);
+        font-family: "Geist", sans-serif;
+        color: var(--ink);
+      }
+      #stage {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      /* ---------- background ---------- */
+      .bg-fill {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(120% 90% at 50% 40%, #f8f6f2 0%, #f5f3ee 55%, #efece5 100%);
+      }
+      .bg-glow {
+        position: absolute;
+        left: 140px;
+        top: 220px;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(39, 177, 119, 0.22) 0%, rgba(39, 177, 119, 0) 62%);
+        opacity: 0;
+      }
+      .bg-grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.07;
+        mix-blend-mode: multiply;
+      }
+
+      /* ---------- abstract objects ---------- */
+      .abs {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      /* top logo */
+      #toplogo {
+        width: 136px;
+        height: 18px;
+        opacity: 0;
+      }
+      #toplogo img {
+        display: block;
+        width: 136px;
+        height: auto;
+      }
+
+      /* headlines */
+      .hl {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        top: 92px;
+        text-align: center;
+        font-family: "Hedvig Letters Serif", serif;
+        font-weight: 400;
+        font-size: 76px;
+        line-height: 1.04;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+      .hl .m {
+        display: block;
+        overflow: hidden;
+        padding: 0 0 0.1em;
+        margin-bottom: -0.1em;
+      }
+      .hl .i {
+        display: block;
+        opacity: 0;
+      }
+      .hl .g {
+        color: var(--green-ink);
+      }
+      .hl .sub {
+        display: block;
+        margin-top: 16px;
+        font-family: "Geist", sans-serif;
+        font-weight: 500;
+        font-size: 26px;
+        letter-spacing: -0.005em;
+        color: var(--grey);
+        line-height: 1.2;
+      }
+      .hl.small {
+        font-size: 64px;
+      }
+
+      /* subtitles */
+      .sub-cue {
+        position: absolute;
+        left: 108px;
+        right: 108px;
+        bottom: 74px;
+        text-align: center;
+        font-family: "Geist", sans-serif;
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 36px;
+        color: var(--charcoal);
+        opacity: 0;
+      }
+      .sub-cue span {
+        background: rgba(251, 250, 247, 0.86);
+        padding: 2px 12px;
+        border-radius: 10px;
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+      }
+
+      /* opening doc cards */
+      .dcard {
+        width: 252px;
+        height: 152px;
+        border-radius: 18px;
+        background: var(--white);
+        box-shadow:
+          0 24px 40px -18px rgba(22, 24, 27, 0.28),
+          0 0 0 1.5px rgba(22, 24, 27, 0.07);
+        padding: 18px 20px;
+      }
+      .dcard .lab {
+        font-weight: 600;
+        white-space: nowrap;
+        font-size: 20px;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+      }
+      .dcard .det {
+        margin-top: 8px;
+        font-weight: 500;
+        font-size: 18px;
+        color: var(--grey);
+        letter-spacing: 0.04em;
+      }
+      .dcard .bar {
+        position: absolute;
+        left: 20px;
+        height: 8px;
+        border-radius: 4px;
+        background: #ebe8e1;
+      }
+      .dcard .tag {
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+        height: 26px;
+        padding: 0 9px;
+        border-radius: 7px;
+        background: var(--charcoal);
+        color: #fff;
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.06em;
+        line-height: 26px;
+      }
+
+      /* hero document */
+      .doc {
+        width: 300px;
+        height: 196px;
+        border-radius: 20px;
+        background: var(--white);
+        box-shadow:
+          0 28px 48px -20px rgba(22, 24, 27, 0.3),
+          0 0 0 1.5px rgba(22, 24, 27, 0.07);
+      }
+      .doc .hd {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .pdfico {
+        flex: none;
+        width: 42px;
+        height: 50px;
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #fff;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 7px;
+      }
+      .doc .nm {
+        font-weight: 600;
+        font-size: 20px;
+        color: var(--ink);
+        line-height: 1.15;
+        white-space: nowrap;
+      }
+      .doc .mt {
+        font-weight: 500;
+        font-size: 15px;
+        color: var(--grey);
+        margin-top: 3px;
+      }
+      .doc .lines {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: 96px;
+      }
+      .doc .lines i {
+        display: block;
+        height: 10px;
+        border-radius: 5px;
+        background: #ece9e2;
+        margin-bottom: 14px;
+      }
+      .doc .fields {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: 90px;
+        opacity: 0;
+      }
+      .doc .frow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+        border-top: 1.5px solid #efece6;
+      }
+      .doc .fk {
+        font-weight: 500;
+        font-size: 15px;
+        letter-spacing: 0.08em;
+        color: var(--grey);
+      }
+      .doc .fv {
+        font-weight: 600;
+        font-size: 21px;
+        letter-spacing: 0.06em;
+        color: var(--ink);
+        display: flex;
+      }
+      .doc .ch {
+        position: relative;
+        display: block;
+        width: 15px;
+        text-align: center;
+        height: 26px;
+        line-height: 26px;
+      }
+      .doc .ch .r,
+      .doc .ch .b {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        display: block;
+      }
+      .doc .ch .b {
+        opacity: 0;
+        color: var(--green-ink);
+      }
+      .doc .prot {
+        position: absolute;
+        right: 18px;
+        bottom: -38px;
+        height: 30px;
+        padding: 0 12px 0 10px;
+        border-radius: 15px;
+        background: var(--charcoal);
+        color: #fff;
+        font-weight: 500;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        opacity: 0;
+      }
+      .doc .ctick {
+        position: absolute;
+        right: -14px;
+        top: -14px;
+        height: 34px;
+        padding: 0 13px 0 9px;
+        border-radius: 17px;
+        background: var(--green-text);
+        color: #fff;
+        font-weight: 600;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        box-shadow: 0 8px 18px -8px rgba(19, 135, 90, 0.6);
+        opacity: 0;
+      }
+      .ghost {
+        opacity: 0;
+      }
+
+      /* WhatsApp window */
+      .wa {
+        width: 470px;
+        height: 590px;
+        border-radius: 36px;
+        overflow: hidden;
+        background: var(--wa-bg);
+        box-shadow:
+          0 40px 70px -30px rgba(22, 24, 27, 0.35),
+          0 0 0 1.5px rgba(22, 24, 27, 0.08);
+      }
+      .wa-head {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 76px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        padding: 0 18px 0 12px;
+        gap: 10px;
+        border-bottom: 1px solid #e9edef;
+      }
+      .wa-back {
+        width: 22px;
+        height: 22px;
+        flex: none;
+      }
+      .bank-av {
+        flex: none;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: var(--navy);
+        color: #fff;
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .wa-id {
+        flex: 1;
+        min-width: 0;
+      }
+      .wa-name {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 600;
+        font-size: 21px;
+        color: var(--wa-ink);
+        line-height: 1.1;
+      }
+      .badge {
+        width: 20px;
+        height: 20px;
+        flex: none;
+      }
+      .wa-st {
+        font-weight: 400;
+        font-size: 15px;
+        color: var(--wa-meta);
+        margin-top: 3px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .wa-st .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--wa-green);
+      }
+      .wa-icons {
+        display: flex;
+        gap: 18px;
+        flex: none;
+      }
+      .wa-icons svg {
+        width: 22px;
+        height: 22px;
+      }
+      .wa-body {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 76px;
+        bottom: 62px;
+        overflow: hidden;
+        background-color: var(--wa-bg);
+        background-image: radial-gradient(rgba(17, 27, 33, 0.05) 1.4px, transparent 1.6px);
+        background-size: 22px 22px;
+      }
+      .feed {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 2000px;
+      }
+      .wa-input {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 62px;
+        background: #f0f2f5;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 12px;
+      }
+      .wa-input .pill {
+        flex: 1;
+        height: 42px;
+        border-radius: 21px;
+        background: #fff;
+        font-size: 17px;
+        color: #667781;
+        line-height: 42px;
+        padding-left: 18px;
+      }
+      .wa-input .mic {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--wa-green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* feed items */
+      .it {
+        position: absolute;
+        opacity: 0;
+      }
+      .bub {
+        max-width: 346px;
+        width: max-content;
+        padding: 10px 14px 9px;
+        border-radius: 12px;
+        font-size: 20px;
+        line-height: 1.3;
+        color: var(--wa-ink);
+        box-shadow: 0 1px 1px rgba(11, 20, 26, 0.12);
+      }
+      .bub.in {
+        left: 14px;
+        background: #fff;
+        border-top-left-radius: 4px;
+      }
+      .bub.out {
+        right: 14px;
+        background: var(--wa-out);
+        border-top-right-radius: 4px;
+      }
+      .ts {
+        display: inline-block;
+        float: right;
+        margin: 9px 0 -4px 12px;
+        font-size: 13px;
+        color: var(--wa-meta);
+        line-height: 1;
+      }
+      .ts svg {
+        width: 17px;
+        height: 11px;
+        margin-left: 3px;
+        vertical-align: -1px;
+      }
+      .qbtns {
+        left: 14px;
+        width: 346px;
+      }
+      .qb {
+        height: 46px;
+        border-radius: 12px;
+        background: #fff;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-weight: 500;
+        font-size: 19px;
+        color: var(--wa-teal);
+        box-shadow: 0 1px 1px rgba(11, 20, 26, 0.12);
+      }
+      .qb svg {
+        width: 19px;
+        height: 19px;
+      }
+      .chip {
+        height: 34px;
+        padding: 0 14px 0 10px;
+        border-radius: 17px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-weight: 500;
+        font-size: 16px;
+        width: max-content;
+      }
+      .chip.in {
+        left: 14px;
+        background: #fff;
+        color: var(--charcoal);
+        box-shadow: 0 1px 1px rgba(11, 20, 26, 0.12);
+      }
+      .sys {
+        left: 50%;
+        margin-left: -150px;
+        width: 300px;
+        display: flex;
+        justify-content: center;
+      }
+      .sys span {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        height: 32px;
+        padding: 0 14px;
+        border-radius: 9px;
+        background: #ffffff;
+        color: #54656f;
+        font-weight: 500;
+        font-size: 15.5px;
+        box-shadow: 0 1px 1px rgba(11, 20, 26, 0.1);
+      }
+      .sys.ok span {
+        background: #e7f8ef;
+        color: var(--green-text);
+      }
+      .card {
+        left: 14px;
+        width: 346px;
+        background: #fff;
+        border-radius: 14px;
+        border-top-left-radius: 4px;
+        box-shadow: 0 1px 1px rgba(11, 20, 26, 0.12);
+        overflow: hidden;
+      }
+      .card .cb {
+        padding: 14px 16px 12px;
+      }
+      .card .k {
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        color: var(--wa-meta);
+      }
+      .card .t {
+        font-weight: 600;
+        font-size: 23px;
+        margin-top: 5px;
+        color: var(--wa-ink);
+      }
+      .card .s {
+        font-size: 17px;
+        color: var(--wa-meta);
+        margin-top: 3px;
+        line-height: 1.3;
+      }
+      .card .p {
+        font-size: 19px;
+        line-height: 1.32;
+        color: var(--wa-ink);
+        margin-top: 6px;
+      }
+      .card .act {
+        height: 48px;
+        border-top: 1px solid #e9edef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-weight: 600;
+        font-size: 19px;
+        color: var(--wa-teal);
+        position: relative;
+      }
+      .card .act .press,
+      .qb .press {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 128, 105, 0.12);
+        opacity: 0;
+      }
+      .qb {
+        position: relative;
+        overflow: hidden;
+      }
+      .pend-ico {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        width: 40px;
+        height: 48px;
+        border-radius: 7px;
+        background: #f0f2f5;
+        border: 1.5px dashed #b7c0c6;
+      }
+      .docb {
+        right: 14px;
+        width: 330px;
+        background: var(--wa-out);
+        border-radius: 12px;
+        border-top-right-radius: 4px;
+        padding: 8px;
+        box-shadow: 0 1px 1px rgba(11, 20, 26, 0.12);
+      }
+      .docb .in {
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 8px;
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .docb .pdfico {
+        width: 36px;
+        height: 44px;
+        font-size: 10.5px;
+        padding-bottom: 5px;
+      }
+      .docb .nm {
+        font-weight: 600;
+        font-size: 18px;
+        color: var(--wa-ink);
+      }
+      .docb .mt {
+        font-size: 14px;
+        color: var(--wa-meta);
+        margin-top: 2px;
+      }
+      .docb .prog {
+        margin: 9px 4px 2px;
+        height: 6px;
+        border-radius: 3px;
+        background: rgba(17, 27, 33, 0.1);
+        overflow: hidden;
+        position: relative;
+      }
+      .docb .prog i {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        background: var(--wa-green);
+        transform-origin: 0 50%;
+        transform: scaleX(0);
+        display: block;
+      }
+      .docb .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 6px 4px 0;
+        font-size: 14.5px;
+        color: #4f5f68;
+        height: 20px;
+        position: relative;
+      }
+      .docb .pct {
+        font-weight: 600;
+        color: var(--wa-ink);
+        position: relative;
+        width: 50px;
+        height: 20px;
+      }
+      .docb .pct b {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-weight: 600;
+        opacity: 0;
+      }
+      .docb .done {
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: var(--green-text);
+        font-weight: 600;
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .docb .sec {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .docb .ctk {
+        position: absolute;
+        left: -10px;
+        top: -12px;
+        height: 28px;
+        padding: 0 10px 0 7px;
+        border-radius: 14px;
+        background: var(--green-text);
+        color: #fff;
+        font-weight: 600;
+        font-size: 13.5px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        opacity: 0;
+      }
+      .rname {
+        font-weight: 600;
+        font-size: 15.5px;
+        color: var(--green-text);
+        margin-bottom: 3px;
+      }
+
+      /* voice overlay */
+      .voice {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 76px;
+        bottom: 0;
+        background: #0b141a;
+        opacity: 0;
+        clip-path: inset(0 0 100% 0 round 12px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 46px;
+      }
+      .voice .vav {
+        width: 104px;
+        height: 104px;
+        border-radius: 50%;
+        background: var(--navy);
+        color: #fff;
+        font-weight: 600;
+        font-size: 26px;
+        letter-spacing: 0.04em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 0 10px rgba(0, 168, 132, 0.14);
+      }
+      .voice .vn {
+        margin-top: 22px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-weight: 600;
+        font-size: 25px;
+        color: #e9edef;
+      }
+      .voice .vs {
+        margin-top: 6px;
+        font-size: 17px;
+        color: #aebac1;
+      }
+      .voice .vt {
+        margin-top: 10px;
+        font-weight: 500;
+        font-size: 19px;
+        color: #e9edef;
+        letter-spacing: 0.04em;
+        position: relative;
+        height: 24px;
+        width: 70px;
+        text-align: center;
+      }
+      .voice .vt b {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        font-weight: 500;
+      }
+      .wave {
+        margin-top: 26px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .wave i {
+        display: block;
+        width: 6px;
+        height: 70px;
+        border-radius: 3px;
+        background: var(--wa-green);
+        transform: scaleY(0.08);
+      }
+      .vctl {
+        position: absolute;
+        bottom: 34px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 26px;
+      }
+      .vctl span {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: #233138;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .vctl span.end {
+        background: #f15c6d;
+      }
+      .vctl svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      /* RM phone + avatar */
+      .rm {
+        width: 190px;
+        height: 350px;
+      }
+      .rm .frame {
+        position: absolute;
+        inset: 0;
+        border-radius: 34px;
+        border: 6px solid var(--charcoal);
+        background: #ecebe6;
+      }
+      .rm .frame .notch {
+        position: absolute;
+        left: 50%;
+        top: 10px;
+        width: 54px;
+        margin-left: -27px;
+        height: 14px;
+        border-radius: 7px;
+        background: var(--charcoal);
+      }
+      .rm .frame .warn {
+        position: absolute;
+        inset: -6px;
+        border-radius: 34px;
+        border: 6px solid var(--warm);
+        opacity: 0;
+      }
+      .rm .frame .fl {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        height: 34px;
+        border-radius: 9px;
+        background: rgba(43, 46, 51, 0.07);
+      }
+      .rm .who {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 44px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .rm .rav {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: #8a909a;
+        color: #fff;
+        font-family: "Geist", sans-serif;
+        font-weight: 600;
+        font-size: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .rm .rav .on {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--green);
+        opacity: 0;
+      }
+      .rm .rav .ring {
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+        border: 3px solid var(--green);
+        opacity: 0;
+      }
+      .rm .rav b {
+        position: relative;
+        font-weight: 600;
+      }
+      .rm .rn {
+        margin-top: 10px;
+        font-weight: 600;
+        font-size: 21px;
+        color: var(--ink);
+      }
+      .rm .rr {
+        margin-top: 5px;
+        height: 24px;
+        padding: 0 10px;
+        border-radius: 12px;
+        background: var(--charcoal);
+        color: #fff;
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        line-height: 24px;
+      }
+      .note {
+        font-weight: 500;
+        font-size: 21px;
+        color: var(--charcoal);
+        opacity: 0;
+        white-space: nowrap;
+      }
+      .note.warm {
+        color: #9a5f1c;
+      }
+
+      /* workflow container */
+      .vault {
+        width: 290px;
+        height: 300px;
+        border-radius: 30px;
+        background: var(--white);
+        box-shadow:
+          0 36px 60px -30px rgba(22, 24, 27, 0.32),
+          0 0 0 2px #dcd8cf;
+        opacity: 0;
+      }
+      .vault .vh {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .vault .bank-av {
+        width: 40px;
+        height: 40px;
+        font-size: 11.5px;
+      }
+      .vault .vt1 {
+        font-weight: 600;
+        font-size: 21px;
+        color: var(--ink);
+      }
+      .vault .vt2 {
+        font-weight: 500;
+        font-size: 15.5px;
+        color: var(--grey);
+        margin-top: 2px;
+      }
+      .vault .slot {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: 84px;
+        bottom: 20px;
+        border-radius: 18px;
+        background: #f3f1ec;
+        border: 1.5px dashed #d3cec3;
+      }
+      .vault .slot i {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        height: 10px;
+        border-radius: 5px;
+        background: #e6e2d9;
+      }
+      .status {
+        width: 300px;
+      }
+      .status div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: 32px;
+        font-weight: 500;
+        font-size: 19px;
+        color: var(--charcoal);
+        opacity: 0;
+      }
+      .ok-ic {
+        width: 20px;
+        height: 20px;
+        flex: none;
+      }
+      .ctx {
+        height: 38px;
+        padding: 0 14px 0 11px;
+        border-radius: 19px;
+        background: var(--white);
+        box-shadow:
+          0 10px 22px -12px rgba(22, 24, 27, 0.35),
+          0 0 0 1.5px rgba(39, 177, 119, 0.45);
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-weight: 500;
+        font-size: 17px;
+        color: var(--ink);
+        white-space: nowrap;
+        opacity: 0;
+      }
+      .lbl {
+        font-weight: 600;
+        font-size: 15px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--grey);
+        white-space: nowrap;
+        opacity: 0;
+      }
+      .lbl.g {
+        color: var(--green-text);
+      }
+      .lfile {
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+        background: var(--white);
+        box-shadow: 0 0 0 1.5px #d9d5cc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+      }
+      .lfile svg {
+        width: 28px;
+        height: 28px;
+      }
+      .lfile .slash {
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        top: 28px;
+        height: 3px;
+        border-radius: 2px;
+        background: var(--grey);
+        transform: rotate(-40deg) scaleX(0);
+      }
+      .pulse {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 6px rgba(39, 177, 119, 0.18);
+        opacity: 0;
+      }
+
+      #paths {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1080px;
+        overflow: visible;
+      }
+
+      /* brand */
+      #brand {
+        width: 620px;
+        height: 79px;
+      }
+      #brand img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 620px;
+        height: auto;
+        opacity: 0;
+      }
+      #brand svg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 620px;
+        height: 79px;
+        overflow: visible;
+      }
+      #brandWord {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 620px;
+        height: 79px;
+        overflow: hidden;
+        clip-path: inset(0 100% 0 26.5%);
+      }
+      #brandWord {
+        background: url("assets/logo-dark.png") 0 0 / 620px auto no-repeat;
+      }
+
+      .cta {
+        height: 76px;
+        padding: 0 34px;
+        border-radius: 38px;
+        background: var(--green-ink);
+        color: #fff;
+        font-weight: 600;
+        font-size: 28px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        white-space: nowrap;
+        box-shadow: 0 20px 40px -18px rgba(19, 135, 90, 0.7);
+        opacity: 0;
+      }
+      .cta-ring {
+        width: 100%;
+        height: 100%;
+        border-radius: 38px;
+        border: 3px solid var(--green);
+        opacity: 0;
+      }
+      .tiny {
+        font-weight: 500;
+        font-size: 22px;
+        color: var(--grey);
+        white-space: nowrap;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="36"
+      data-width="1080"
+      data-height="1080"
+    >
+      <div id="stage" class="clip" data-start="0" data-duration="36" data-track-index="0">
+        <!-- background -->
+        <div class="bg-fill" data-layout-allow-occlusion></div>
+        <div class="bg-glow abs" id="glow"></div>
+        <svg class="bg-grain" width="1080" height="1080" aria-hidden="true">
+          <filter id="grainF">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+          <rect width="1080" height="1080" filter="url(#grainF)" />
+        </svg>
+
+        <!-- connection lines -->
+        <svg id="paths" viewBox="0 0 1080 1080" aria-hidden="true">
+          <path id="pRedirect" opacity="0" d="" fill="none" stroke="#27B177" stroke-width="6" stroke-linecap="round" />
+          <path id="pFrame" opacity="0" d="" fill="none" stroke="#27B177" stroke-width="5" stroke-linejoin="round" />
+          <path id="pFlow" opacity="0" d="" fill="none" stroke="#27B177" stroke-width="6" stroke-linecap="round" />
+          <path id="pDot" d="" fill="none" stroke="#9AA0A8" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 14" />
+          <path id="pCtx" opacity="0" d="" fill="none" stroke="#27B177" stroke-width="6" stroke-linecap="round" />
+          <path id="pBrand" d="" fill="none" stroke="#27B177" stroke-width="6" stroke-linecap="round" />
+        </svg>
+
+        <!-- RM phone (problem + handoff) -->
+        <div class="rm abs" id="rm">
+          <div class="frame" id="rmFrame">
+            <div class="notch"></div>
+            <div class="fl" style="top: 196px"></div>
+            <div class="fl" style="top: 238px"></div>
+            <div class="fl" style="top: 280px"></div>
+            <div class="warn" id="rmWarn"></div>
+          </div>
+          <div class="who">
+            <div class="rav" id="rmAv">
+              <div class="on" id="rmOn"></div>
+              <div class="ring" id="rmRing"></div>
+              <b>R</b>
+            </div>
+            <div class="rn">Rohan</div>
+            <div class="rr">RM</div>
+          </div>
+        </div>
+        <div class="note warm abs" id="localQ">Local copy?</div>
+
+        <!-- workflow container -->
+        <div class="vault abs" id="vault">
+          <div class="vh">
+            <div class="bank-av">ABC</div>
+            <div>
+              <div class="vt1">ABC Bank</div>
+              <div class="vt2">Controlled workflow</div>
+            </div>
+          </div>
+          <div class="slot">
+            <i style="top: 22px"></i>
+            <i style="top: 48px; right: 70px"></i>
+          </div>
+          <svg id="vaultRing" width="330" height="340" viewBox="0 0 330 340" style="position: absolute; left: -20px; top: -20px; overflow: visible">
+            <rect id="vaultRect" x="4" y="4" width="322" height="332" rx="46" fill="none" stroke="#27B177" stroke-width="4" />
+          </svg>
+        </div>
+        <div class="status abs" id="vstatus">
+          <div><svg class="ok-ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Document received</div>
+          <div><svg class="ok-ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Consent captured</div>
+          <div><svg class="ok-ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Controlled access</div>
+        </div>
+        <div class="lfile abs" id="lfile">
+          <svg viewBox="0 0 28 28"><path d="M14 4v13m-5-5l5 5 5-5M5 19v4h18v-4" fill="none" stroke="#6B7078" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          <div class="slash" id="lslash"></div>
+        </div>
+        <div class="note abs" id="localNo" style="font-size: 19px; color: #5f646b">Local copy not required</div>
+
+        <div class="lbl abs" id="lblDoc">Document</div>
+        <div class="lbl g abs" id="lblCtx">Context</div>
+        <div class="lbl abs" id="lblCust">Customer</div>
+        <div class="lbl abs" id="lblFlow">Controlled workflow</div>
+        <div class="lbl abs" id="lblRM">RM</div>
+
+        <!-- WhatsApp: opening (customer sends the document) -->
+        <div class="wa abs" id="waA" data-layout-allow-occlusion>
+          <div class="wa-head">
+            <svg class="wa-back" viewBox="0 0 22 22"><path d="M14 4l-7 7 7 7" fill="none" stroke="#54656F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            <div class="bank-av">ABC</div>
+            <div class="wa-id">
+              <div class="wa-name">ABC Bank <svg class="badge" viewBox="0 0 24 24"><use href="#badgeShape" /></svg></div>
+              <div class="wa-st">Business account</div>
+            </div>
+            <div class="wa-icons">
+              <svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="3" fill="none" stroke="#54656F" stroke-width="2" /><path d="M16 10.5l6-3.5v10l-6-3.5" fill="none" stroke="#54656F" stroke-width="2" stroke-linejoin="round" /></svg>
+              <svg viewBox="0 0 24 24"><path d="M6.6 3.5l3 3.6-1.9 2.3a12 12 0 006.9 6.9l2.3-1.9 3.6 3-1.6 2.9c-.4.6-1.1.9-1.8.8C10.5 20.3 3.7 13.5 2.9 6.9c-.1-.7.2-1.4.8-1.8z" fill="none" stroke="#54656F" stroke-width="2" stroke-linejoin="round" /></svg>
+            </div>
+          </div>
+          <div class="wa-body">
+            <div class="feed" id="feedA" data-layout-allow-occlusion data-layout-allow-overlap>
+              <div class="it bub in" id="a_m1" style="top: 18px">Hi Ananya, please share your documents for the Personal Loan.<span class="ts">10:41</span></div>
+              <div class="it docb" id="a_doc" style="top: 128px">
+                <div class="in">
+                  <div class="pdfico">PDF</div>
+                  <div>
+                    <div class="nm">Bank_Statement.pdf</div>
+                    <div class="mt">PDF · 2 pages</div>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 7px"><span>Ananya Sharma</span><span class="sec">Sent <svg width="17" height="11" viewBox="0 0 17 11"><path d="M1 6l3 3 6-7M7 8l1 1 6-7" fill="none" stroke="#8696A0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="wa-input"><div class="pill">Message</div><div class="mic"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="7" y="2" width="6" height="11" rx="3" fill="#fff" /><path d="M4.5 9.5a5.5 5.5 0 0011 0M10 15v3" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" /></svg></div></div>
+        </div>
+
+        <!-- opening document cards -->
+        <div class="dcard abs" id="cPan">
+          <div class="lab">PAN CARD</div>
+          <div class="det">PAN&nbsp;&nbsp;•••• 34F</div>
+          <div class="bar" style="top: 104px; width: 120px"></div>
+          <div class="bar" style="top: 122px; width: 76px"></div>
+          <div class="tag">ID</div>
+        </div>
+        <div class="dcard abs" id="cStmt">
+          <div class="lab">BANK STATEMENT</div>
+          <div class="det">PDF</div>
+          <div class="bar" style="top: 104px; width: 150px"></div>
+          <div class="bar" style="top: 122px; width: 104px"></div>
+          <div class="tag">PDF</div>
+        </div>
+        <div class="dcard abs" id="cInc">
+          <div class="lab">INCOME PROOF</div>
+          <div class="det">PDF</div>
+          <div class="bar" style="top: 104px; width: 132px"></div>
+          <div class="bar" style="top: 122px; width: 90px"></div>
+          <div class="tag">PDF</div>
+        </div>
+
+        <!-- WhatsApp: verified AI journey -->
+        <div class="wa abs" id="waB" data-layout-allow-occlusion>
+          <div class="wa-head">
+            <svg class="wa-back" viewBox="0 0 22 22"><path d="M14 4l-7 7 7 7" fill="none" stroke="#54656F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            <div class="bank-av">ABC</div>
+            <div class="wa-id">
+              <div class="wa-name">ABC Bank <svg class="badge" viewBox="0 0 24 24"><use href="#badgeShape" /></svg></div>
+              <div class="wa-st"><span class="dot"></span>AI Assistant</div>
+            </div>
+            <div class="wa-icons">
+              <svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="3" fill="none" stroke="#54656F" stroke-width="2" /><path d="M16 10.5l6-3.5v10l-6-3.5" fill="none" stroke="#54656F" stroke-width="2" stroke-linejoin="round" /></svg>
+              <svg viewBox="0 0 24 24"><path d="M6.6 3.5l3 3.6-1.9 2.3a12 12 0 006.9 6.9l2.3-1.9 3.6 3-1.6 2.9c-.4.6-1.1.9-1.8.8C10.5 20.3 3.7 13.5 2.9 6.9c-.1-.7.2-1.4.8-1.8z" fill="none" stroke="#54656F" stroke-width="2" stroke-linejoin="round" /></svg>
+            </div>
+          </div>
+          <div class="wa-body" id="bodyB">
+            <div class="feed" id="feedB" data-layout-allow-occlusion data-layout-allow-overlap>
+              <div class="it bub in" id="m_hi">Hi Ananya, your bank statement is still pending.<span class="ts">10:42</span></div>
+              <div class="it bub in" id="m_help">Would you like help completing it?<span class="ts">10:42</span></div>
+              <div class="it qbtns" id="q_btns">
+                <div class="qb" id="qb1"><svg viewBox="0 0 20 20"><path d="M10 13V3m-4 4l4-4 4 4M3 13v4h14v-4" fill="none" stroke="#008069" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>Submit document</div>
+                <div class="qb" id="qb2"><div class="press" id="qb2p"></div><svg viewBox="0 0 20 20"><path d="M3 4h14v10H8l-5 3.5z" fill="none" stroke="#008069" stroke-width="2" stroke-linejoin="round" /></svg>Ask a question</div>
+                <div class="qb" id="qb3"><svg viewBox="0 0 24 24"><path d="M6.6 3.5l3 3.6-1.9 2.3a12 12 0 006.9 6.9l2.3-1.9 3.6 3-1.6 2.9c-.4.6-1.1.9-1.8.8C10.5 20.3 3.7 13.5 2.9 6.9c-.1-.7.2-1.4.8-1.8z" fill="none" stroke="#008069" stroke-width="2.2" stroke-linejoin="round" /></svg>Talk to us</div>
+              </div>
+              <div class="it bub out" id="m_q1">Which statement should I upload?<span class="ts">10:43<svg viewBox="0 0 17 11"><path d="M1 6l3 3 6-7M7 8l1 1 6-7" fill="none" stroke="#53BDEB" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div>
+              <div class="it bub in" id="m_a1">Please upload your latest supported bank statement.<span class="ts">10:43</span></div>
+              <div class="it chip in" id="c_a1"><svg class="ok-ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Latest bank statement</div>
+              <div class="it bub in" id="m_talk">Talk instead?<span class="ts">10:43</span></div>
+              <div class="it qbtns" id="q_call">
+                <div class="qb"><div class="press" id="qcallp"></div><svg viewBox="0 0 24 24"><path d="M6.6 3.5l3 3.6-1.9 2.3a12 12 0 006.9 6.9l2.3-1.9 3.6 3-1.6 2.9c-.4.6-1.1.9-1.8.8C10.5 20.3 3.7 13.5 2.9 6.9c-.1-.7.2-1.4.8-1.8z" fill="none" stroke="#008069" stroke-width="2.2" stroke-linejoin="round" /></svg>Call AI Assistant</div>
+              </div>
+              <div class="it sys ok" id="s_ctx"><span><svg class="ok-ic" style="width: 16px; height: 16px" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Context updated</span></div>
+              <div class="it card" id="k_pend">
+                <div class="cb">
+                  <div class="k">PENDING DOCUMENT</div>
+                  <div class="t">Bank Statement</div>
+                  <div class="s">Personal Loan application</div>
+                  <div class="pend-ico"></div>
+                </div>
+                <div class="act">Complete now</div>
+              </div>
+              <div class="it bub out" id="m_q2">Can I submit a PDF?<span class="ts">10:44<svg viewBox="0 0 17 11"><path d="M1 6l3 3 6-7M7 8l1 1 6-7" fill="none" stroke="#53BDEB" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div>
+              <div class="it bub in" id="m_yes">Yes.<span class="ts">10:44</span></div>
+              <div class="it chip in" id="c_pdf"><svg class="ok-ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>PDF supported</div>
+              <div class="it card" id="k_cons">
+                <div class="cb">
+                  <div class="k">CONSENT</div>
+                  <div class="p">I agree to submit this document for my application.</div>
+                </div>
+                <div class="act"><div class="press" id="consp"></div>I Agree</div>
+              </div>
+              <div class="it sys ok" id="s_cons"><span><svg class="ok-ic" style="width: 16px; height: 16px" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Consent captured</span></div>
+              <div class="it docb" id="d_up">
+                <div class="in">
+                  <div class="pdfico">PDF</div>
+                  <div>
+                    <div class="nm">Bank_Statement.pdf</div>
+                    <div class="mt">PDF · 2 pages</div>
+                  </div>
+                </div>
+                <div class="prog"><i id="upBar"></i></div>
+                <div class="row">
+                  <span class="sec"><svg width="13" height="14" viewBox="0 0 13 14"><rect x="1" y="6" width="11" height="7.5" rx="2" fill="#667781" /><path d="M3.5 6V4.2a3 3 0 016 0V6" fill="none" stroke="#667781" stroke-width="1.6" /></svg>Secure upload</span>
+                  <span class="pct" id="upPct"><b>0%</b><b>38%</b><b>72%</b><b>100%</b></span>
+                  <span class="done" id="upDone">Submitted <svg class="ok-ic" style="width: 16px; height: 16px" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+                </div>
+                <div class="ctk" id="upCtk"><svg width="14" height="14" viewBox="0 0 20 20"><path d="M4.5 10.3l3.5 3.5 7-7.4" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>Consent</div>
+              </div>
+              <div class="it sys" id="s_join"><span>Rohan joined</span></div>
+              <div class="it bub in" id="m_rohan"><div class="rname">Rohan · ABC Bank</div>Hi Ananya, I can see your document has been received. Let me help with the next step.<span class="ts">10:52</span></div>
+            </div>
+          </div>
+          <div class="wa-input"><div class="pill">Message</div><div class="mic"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="7" y="2" width="6" height="11" rx="3" fill="#fff" /><path d="M4.5 9.5a5.5 5.5 0 0011 0M10 15v3" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" /></svg></div></div>
+            <div class="voice" id="voice">
+            <div class="vav">ABC</div>
+            <div class="vn">ABC Bank <svg class="badge" viewBox="0 0 24 24"><use href="#badgeShape" /></svg></div>
+            <div class="vs">AI Assistant · WhatsApp voice</div>
+            <div class="vt" id="vtime"><b>00:11</b><b style="opacity: 0">00:12</b></div>
+            <div class="wave" id="wave"></div>
+            <div class="vctl">
+              <span><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z" fill="#E9EDEF" /><path d="M16 9a4 4 0 010 6" fill="none" stroke="#E9EDEF" stroke-width="2" stroke-linecap="round" /></svg></span>
+              <span><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="#E9EDEF" /><path d="M6 11a6 6 0 0012 0M12 17v4" fill="none" stroke="#E9EDEF" stroke-width="2" stroke-linecap="round" /></svg></span>
+              <span class="end"><svg viewBox="0 0 24 24"><path d="M3 14.5c5-4.6 13-4.6 18 0l-2.4 2.6-3.4-1.8v-2.6a12 12 0 00-6.4 0v2.6l-3.4 1.8z" fill="#fff" /></svg></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- hero document (+ ghost copies) -->
+        <div class="doc abs ghost" id="g3" data-layout-allow-overlap></div>
+        <div class="doc abs ghost" id="g2" data-layout-allow-overlap></div>
+        <div class="doc abs ghost" id="g1" data-layout-allow-overlap></div>
+        <div class="doc abs" id="doc" style="opacity: 0" data-layout-allow-overlap>
+          <div class="hd">
+            <div class="pdfico">PDF</div>
+            <div>
+              <div class="nm">Bank_Statement.pdf</div>
+              <div class="mt">Personal Loan</div>
+            </div>
+          </div>
+          <div class="lines" id="docLines"><i style="width: 92%"></i><i style="width: 74%"></i><i style="width: 54%"></i></div>
+          <div class="fields" id="docFields">
+            <div class="frow">
+              <span class="fk">PAN</span>
+              <span class="fv" id="panV"></span>
+            </div>
+            <div class="frow">
+              <span class="fk">ACCOUNT</span>
+              <span class="fv" id="accV"></span>
+            </div>
+          </div>
+          <div class="prot" id="docProt"><svg width="13" height="15" viewBox="0 0 13 14"><rect x="1" y="6" width="11" height="7.5" rx="2" fill="#fff" /><path d="M3.5 6V4.2a3 3 0 016 0V6" fill="none" stroke="#fff" stroke-width="1.6" /></svg>Protected</div>
+          <div class="ctick" id="docCtick"><svg width="16" height="16" viewBox="0 0 20 20"><path d="M4.5 10.3l3.5 3.5 7-7.4" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>Consent</div>
+        </div>
+
+        <!-- RM context chips -->
+        <div class="ctx abs" id="x1"><svg class="ok-ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Bank statement received</div>
+        <div class="ctx abs" id="x2"><svg class="ok-ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Consent captured</div>
+        <div class="ctx abs" id="x3"><svg class="ok-ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#E3F4EC" /><path d="M6 7h8M6 10h8M6 13h5" fill="none" stroke="#13875A" stroke-width="1.8" stroke-linecap="round" /></svg>Personal Loan</div>
+
+        <!-- support states beside the joined thread -->
+        <div class="ctx abs" id="y1"><svg class="ok-ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Document received</div>
+        <div class="ctx abs" id="y2"><svg class="ok-ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Consent available</div>
+        <div class="ctx abs" id="y3"><svg class="ok-ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#27B177" /><path d="M5.5 10.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>Context available</div>
+
+        <div class="pulse abs" id="pu1"></div>
+        <div class="pulse abs" id="pu2"></div>
+        <div class="pulse abs" id="pu3"></div>
+        <div class="pulse abs" id="pu4"></div>
+
+        <!-- brand -->
+        <div class="abs" id="brand">
+          <svg viewBox="0 0 2000 254" aria-hidden="true">
+            <path id="tk1" d="M14 130L117 230" fill="none" stroke="#27B177" stroke-width="39" stroke-linecap="butt" />
+            <path id="tk2" d="M133 130L231 228L447 13" fill="none" stroke="#27B177" stroke-width="39" stroke-linecap="butt" stroke-linejoin="miter" />
+            <path id="tk3" d="M215 127L329 13" fill="none" stroke="#27B177" stroke-width="39" stroke-linecap="butt" />
+          </svg>
+          <div id="brandWord"></div>
+          <img id="brandImg" src="assets/logo-dark.png" alt="DoubleTick" />
+        </div>
+
+        <div class="cta abs" id="cta">Apply for a Free Pilot <svg width="26" height="26" viewBox="0 0 26 26"><path d="M5 13h15m-6-6l6 6-6 6" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        <div class="abs" id="ctaRingW" style="width: 0; height: 0"><div class="cta-ring" id="ctaRing"></div></div>
+        <div class="tiny abs" id="ctaTiny">Built for BFSI teams at scale.</div>
+
+        <div class="abs" id="toplogo"><img src="assets/logo-dark.png" alt="DoubleTick" /></div>
+
+        <!-- headlines -->
+        <div class="hl" id="h1">
+          <span class="m"><span class="i g">Sensitive documents</span></span>
+          <span class="m"><span class="i">are already moving.</span></span>
+          <span class="m"><span class="i" style="color: #2b2e33">Through WhatsApp.</span></span>
+        </div>
+        <div class="hl" id="h2">
+          <span class="m"><span class="i">But where</span></span>
+          <span class="m"><span class="i">does it go next?</span></span>
+        </div>
+        <div class="hl" id="h3">
+          <span class="m"><span class="i"><span class="g">Governed</span> —</span></span>
+          <span class="m"><span class="i">or sitting on</span></span>
+          <span class="m"><span class="i">an RM’s phone?</span></span>
+        </div>
+        <div class="hl" id="h4">
+          <span class="m"><span class="i">Follow up automatically.</span></span>
+          <span class="m"><span class="i sub">On verified WhatsApp.</span></span>
+        </div>
+        <div class="hl" id="h5">
+          <span class="m"><span class="i">Chat <span class="g">or</span> voice.</span></span>
+          <span class="m"><span class="i sub">Same verified WhatsApp thread.</span></span>
+        </div>
+        <div class="hl" id="h6">
+          <span class="m"><span class="i">Show the next step.</span></span>
+        </div>
+        <div class="hl" id="h7">
+          <span class="m"><span class="i">Questions answered.</span></span>
+          <span class="m"><span class="i g">Next step clear.</span></span>
+        </div>
+        <div class="hl" id="h8">
+          <span class="m"><span class="i">Consent captured.</span></span>
+        </div>
+        <div class="hl" id="h9">
+          <span class="m"><span class="i">Submit securely.</span></span>
+          <span class="m"><span class="i sub">Without breaking the journey.</span></span>
+        </div>
+        <div class="hl" id="h10">
+          <span class="m"><span class="i g">Into the institution.</span></span>
+          <span class="m"><span class="i">Not onto a phone.</span></span>
+        </div>
+        <div class="hl" id="h11">
+          <span class="m"><span class="i">Right RM.</span></span>
+          <span class="m"><span class="i g">Full context.</span></span>
+          <span class="m"><span class="i sub">Without restarting the journey.</span></span>
+        </div>
+        <div class="hl small" id="h12" style="top: 318px">
+          <span class="m"><span class="i">Keep <span class="g">sensitive documents</span></span></span>
+          <span class="m"><span class="i">inside the right workflow.</span></span>
+        </div>
+
+        <!-- subtitles: the full voiceover, verbatim -->
+        <div class="sub-cue" id="s1" style="opacity: 1"><span>Sensitive documents are already moving through WhatsApp.</span></div>
+        <div class="sub-cue" id="s2"><span>The real question is — are they governed,</span></div>
+        <div class="sub-cue" id="s3"><span>or sitting on an RM’s phone?</span></div>
+        <div class="sub-cue" id="s4"><span>With DoubleTick, AI follows up on the bank’s verified WhatsApp number—</span></div>
+        <div class="sub-cue" id="s5"><span>through chat or voice.</span></div>
+        <div class="sub-cue" id="s6"><span>It tells customers what’s pending, answers questions,</span></div>
+        <div class="sub-cue" id="s7"><span>captures consent and guides secure document submission.</span></div>
+        <div class="sub-cue" id="s8"><span>Documents move directly into the institution’s controlled workflow.</span></div>
+        <div class="sub-cue" id="s9"><span>And when human help is needed, the RM takes over with the full context.</span></div>
+        <div class="sub-cue" id="s10"><span>DoubleTick.</span></div>
+        <div class="sub-cue" id="s11"><span>Apply for Free Pilot Today.</span></div>
+
+        <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+          <defs>
+            <g id="badgeShape">
+              <path d="M12 1.5l2.4 1.8 3-.2.9 2.9 2.5 1.7-.9 2.9.9 2.9-2.5 1.7-.9 2.9-3-.2L12 19.7l-2.4-1.8-3 .2-.9-2.9-2.5-1.7.9-2.9-.9-2.9 2.5-1.7.9-2.9 3 .2z" fill="#1C8CF2" transform="translate(0 1.4)" />
+              <path d="M7.8 12.4l2.8 2.8 5.6-5.9" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+            </g>
+          </defs>
+        </svg>
+      </div>
+
+      <audio id="vo" src="assets/vo.mp3" data-start="0" data-duration="33.72" data-track-index="1" data-volume="1"></audio>
+      <audio id="music" src="assets/music.wav" data-start="0" data-duration="36" data-track-index="2" data-volume="0.5" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;vo&quot;],&quot;strength&quot;:0.55}" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n1&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:160,&quot;gain&quot;:-5.4,&quot;q&quot;:1.76}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n2&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:250,&quot;gain&quot;:-5.4,&quot;q&quot;:1.76}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n3&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:1600,&quot;gain&quot;:-10.8,&quot;q&quot;:1.76}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n4&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:2500,&quot;gain&quot;:-5.4,&quot;q&quot;:1.76}},{&quot;type&quot;:&quot;gain&quot;,&quot;id&quot;:&quot;n5&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;gain&quot;:0}}]}" data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;fx.n1.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.213,&quot;v&quot;:-0.2},{&quot;t&quot;:0.299,&quot;v&quot;:-4.5},{&quot;t&quot;:0.469,&quot;v&quot;:-4.6},{&quot;t&quot;:0.555,&quot;v&quot;:-5.2},{&quot;t&quot;:0.64,&quot;v&quot;:-3.7},{&quot;t&quot;:0.725,&quot;v&quot;:-2.9},{&quot;t&quot;:0.811,&quot;v&quot;:-2.1},{&quot;t&quot;:0.896,&quot;v&quot;:-2.6},{&quot;t&quot;:0.981,&quot;v&quot;:-1.9},{&quot;t&quot;:1.067,&quot;v&quot;:-1.4},{&quot;t&quot;:1.323,&quot;v&quot;:-0.9},{&quot;t&quot;:1.408,&quot;v&quot;:-0.7},{&quot;t&quot;:1.664,&quot;v&quot;:-0.3},{&quot;t&quot;:1.749,&quot;v&quot;:0},{&quot;t&quot;:1.835,&quot;v&quot;:-1.2},{&quot;t&quot;:1.92,&quot;v&quot;:-2.6},{&quot;t&quot;:2.005,&quot;v&quot;:-1.9},{&quot;t&quot;:2.091,&quot;v&quot;:-1.8},{&quot;t&quot;:2.176,&quot;v&quot;:-2.6},{&quot;t&quot;:2.261,&quot;v&quot;:-2.5},{&quot;t&quot;:2.347,&quot;v&quot;:-3.5},{&quot;t&quot;:2.432,&quot;v&quot;:-2.5},{&quot;t&quot;:2.517,&quot;v&quot;:-2.2},{&quot;t&quot;:2.603,&quot;v&quot;:-3},{&quot;t&quot;:2.688,&quot;v&quot;:-2.8},{&quot;t&quot;:2.773,&quot;v&quot;:-2.1},{&quot;t&quot;:2.859,&quot;v&quot;:-1.5},{&quot;t&quot;:3.029,&quot;v&quot;:-1.2},{&quot;t&quot;:3.115,&quot;v&quot;:-0.8},{&quot;t&quot;:3.285,&quot;v&quot;:-0.4},{&quot;t&quot;:3.371,&quot;v&quot;:-0.3},{&quot;t&quot;:3.797,&quot;v&quot;:0},{&quot;t&quot;:3.883,&quot;v&quot;:-0.9},{&quot;t&quot;:3.968,&quot;v&quot;:-0.9},{&quot;t&quot;:4.053,&quot;v&quot;:-4.3},{&quot;t&quot;:4.139,&quot;v&quot;:-3},{&quot;t&quot;:4.224,&quot;v&quot;:-2.1},{&quot;t&quot;:4.309,&quot;v&quot;:-4.4},{&quot;t&quot;:4.395,&quot;v&quot;:-4.2},{&quot;t&quot;:4.48,&quot;v&quot;:-3},{&quot;t&quot;:4.565,&quot;v&quot;:-3.9},{&quot;t&quot;:4.651,&quot;v&quot;:-3.2},{&quot;t&quot;:4.736,&quot;v&quot;:-2.8},{&quot;t&quot;:4.821,&quot;v&quot;:-2},{&quot;t&quot;:4.907,&quot;v&quot;:-1.4},{&quot;t&quot;:4.992,&quot;v&quot;:-1},{&quot;t&quot;:5.077,&quot;v&quot;:-0.7},{&quot;t&quot;:5.333,&quot;v&quot;:-0.9},{&quot;t&quot;:5.419,&quot;v&quot;:-4.1},{&quot;t&quot;:5.504,&quot;v&quot;:-3.3},{&quot;t&quot;:5.589,&quot;v&quot;:-2.5},{&quot;t&quot;:5.76,&quot;v&quot;:-2.7},{&quot;t&quot;:5.845,&quot;v&quot;:-3.6},{&quot;t&quot;:5.931,&quot;v&quot;:-3},{&quot;t&quot;:6.016,&quot;v&quot;:-2.1},{&quot;t&quot;:6.101,&quot;v&quot;:-1.5},{&quot;t&quot;:6.187,&quot;v&quot;:-1.1},{&quot;t&quot;:6.272,&quot;v&quot;:-0.8},{&quot;t&quot;:6.443,&quot;v&quot;:-0.4},{&quot;t&quot;:6.528,&quot;v&quot;:-1.3},{&quot;t&quot;:6.613,&quot;v&quot;:-1.8},{&quot;t&quot;:6.699,&quot;v&quot;:-1.3},{&quot;t&quot;:6.784,&quot;v&quot;:-1.4},{&quot;t&quot;:6.869,&quot;v&quot;:-2},{&quot;t&quot;:6.955,&quot;v&quot;:-1.4},{&quot;t&quot;:7.04,&quot;v&quot;:-1},{&quot;t&quot;:7.125,&quot;v&quot;:-0.7},{&quot;t&quot;:7.552,&quot;v&quot;:-0.2},{&quot;t&quot;:7.637,&quot;v&quot;:0},{&quot;t&quot;:7.723,&quot;v&quot;:-1.3},{&quot;t&quot;:7.808,&quot;v&quot;:-3.2},{&quot;t&quot;:7.893,&quot;v&quot;:-3},{&quot;t&quot;:7.979,&quot;v&quot;:-2.1},{&quot;t&quot;:8.064,&quot;v&quot;:-1.5},{&quot;t&quot;:8.149,&quot;v&quot;:-1.1},{&quot;t&quot;:8.235,&quot;v&quot;:-0.8},{&quot;t&quot;:8.405,&quot;v&quot;:-0.4},{&quot;t&quot;:8.491,&quot;v&quot;:-0.3},{&quot;t&quot;:8.576,&quot;v&quot;:0},{&quot;t&quot;:8.661,&quot;v&quot;:-1.2},{&quot;t&quot;:8.747,&quot;v&quot;:-0.9},{&quot;t&quot;:8.832,&quot;v&quot;:-0.6},{&quot;t&quot;:8.917,&quot;v&quot;:-3.1},{&quot;t&quot;:9.003,&quot;v&quot;:-2.2},{&quot;t&quot;:9.088,&quot;v&quot;:-2},{&quot;t&quot;:9.173,&quot;v&quot;:-1.6},{&quot;t&quot;:9.259,&quot;v&quot;:-2.5},{&quot;t&quot;:9.344,&quot;v&quot;:-1.8},{&quot;t&quot;:9.429,&quot;v&quot;:-1.3},{&quot;t&quot;:9.515,&quot;v&quot;:-0.9},{&quot;t&quot;:9.6,&quot;v&quot;:-0.7},{&quot;t&quot;:9.685,&quot;v&quot;:-0.5},{&quot;t&quot;:9.771,&quot;v&quot;:-3.6},{&quot;t&quot;:9.856,&quot;v&quot;:-2.6},{&quot;t&quot;:9.941,&quot;v&quot;:-1.8},{&quot;t&quot;:10.027,&quot;v&quot;:-2.6},{&quot;t&quot;:10.112,&quot;v&quot;:-1.9},{&quot;t&quot;:10.197,&quot;v&quot;:-2.4},{&quot;t&quot;:10.283,&quot;v&quot;:-3.2},{&quot;t&quot;:10.368,&quot;v&quot;:-2.7},{&quot;t&quot;:10.539,&quot;v&quot;:-2.5},{&quot;t&quot;:10.624,&quot;v&quot;:-1.8},{&quot;t&quot;:10.709,&quot;v&quot;:-1.7},{&quot;t&quot;:10.795,&quot;v&quot;:-1.2},{&quot;t&quot;:10.88,&quot;v&quot;:-1.9},{&quot;t&quot;:10.965,&quot;v&quot;:-1.3},{&quot;t&quot;:11.051,&quot;v&quot;:-0.9},{&quot;t&quot;:11.136,&quot;v&quot;:-0.7},{&quot;t&quot;:11.307,&quot;v&quot;:-0.7},{&quot;t&quot;:11.392,&quot;v&quot;:-2.3},{&quot;t&quot;:11.477,&quot;v&quot;:-3.7},{&quot;t&quot;:11.563,&quot;v&quot;:-2.9},{&quot;t&quot;:11.648,&quot;v&quot;:-3.8},{&quot;t&quot;:11.733,&quot;v&quot;:-3.8},{&quot;t&quot;:11.819,&quot;v&quot;:-2.7},{&quot;t&quot;:11.904,&quot;v&quot;:-1.9},{&quot;t&quot;:11.989,&quot;v&quot;:-1.4},{&quot;t&quot;:12.075,&quot;v&quot;:-1.2},{&quot;t&quot;:12.16,&quot;v&quot;:-2.9},{&quot;t&quot;:12.245,&quot;v&quot;:-2.1},{&quot;t&quot;:12.331,&quot;v&quot;:-3},{&quot;t&quot;:12.416,&quot;v&quot;:-2.8},{&quot;t&quot;:12.501,&quot;v&quot;:-2},{&quot;t&quot;:12.587,&quot;v&quot;:-1.4},{&quot;t&quot;:12.672,&quot;v&quot;:-1},{&quot;t&quot;:12.757,&quot;v&quot;:-0.7},{&quot;t&quot;:12.843,&quot;v&quot;:-0.5},{&quot;t&quot;:12.928,&quot;v&quot;:-1.4},{&quot;t&quot;:13.013,&quot;v&quot;:-2.1},{&quot;t&quot;:13.099,&quot;v&quot;:-1.5},{&quot;t&quot;:13.269,&quot;v&quot;:-1.2},{&quot;t&quot;:13.355,&quot;v&quot;:-0.8},{&quot;t&quot;:13.44,&quot;v&quot;:-0.6},{&quot;t&quot;:13.525,&quot;v&quot;:-1.9},{&quot;t&quot;:13.611,&quot;v&quot;:-4},{&quot;t&quot;:13.696,&quot;v&quot;:-2.9},{&quot;t&quot;:13.781,&quot;v&quot;:-2.8},{&quot;t&quot;:13.867,&quot;v&quot;:-2},{&quot;t&quot;:13.952,&quot;v&quot;:-1.4},{&quot;t&quot;:14.037,&quot;v&quot;:-1},{&quot;t&quot;:14.123,&quot;v&quot;:-0.7},{&quot;t&quot;:14.379,&quot;v&quot;:-0.3},{&quot;t&quot;:14.464,&quot;v&quot;:0},{&quot;t&quot;:14.549,&quot;v&quot;:-1.1},{&quot;t&quot;:14.635,&quot;v&quot;:-2.5},{&quot;t&quot;:14.72,&quot;v&quot;:-3.9},{&quot;t&quot;:14.805,&quot;v&quot;:-2.8},{&quot;t&quot;:14.891,&quot;v&quot;:-2},{&quot;t&quot;:14.976,&quot;v&quot;:-1.4},{&quot;t&quot;:15.061,&quot;v&quot;:-4.2},{&quot;t&quot;:15.147,&quot;v&quot;:-3},{&quot;t&quot;:15.232,&quot;v&quot;:-4},{&quot;t&quot;:15.317,&quot;v&quot;:-3.8},{&quot;t&quot;:15.403,&quot;v&quot;:-3.4},{&quot;t&quot;:15.488,&quot;v&quot;:-2.4},{&quot;t&quot;:15.573,&quot;v&quot;:-2.4},{&quot;t&quot;:15.659,&quot;v&quot;:-1.7},{&quot;t&quot;:15.744,&quot;v&quot;:-1.2},{&quot;t&quot;:15.829,&quot;v&quot;:-2.6},{&quot;t&quot;:15.915,&quot;v&quot;:-4.2},{&quot;t&quot;:16,&quot;v&quot;:-4.2},{&quot;t&quot;:16.085,&quot;v&quot;:-3.1},{&quot;t&quot;:16.171,&quot;v&quot;:-2.9},{&quot;t&quot;:16.256,&quot;v&quot;:-2.1},{&quot;t&quot;:16.341,&quot;v&quot;:-1.5},{&quot;t&quot;:16.512,&quot;v&quot;:-1.1},{&quot;t&quot;:16.597,&quot;v&quot;:-0.7},{&quot;t&quot;:16.683,&quot;v&quot;:-1.9},{&quot;t&quot;:16.768,&quot;v&quot;:-1.3},{&quot;t&quot;:16.853,&quot;v&quot;:-0.9},{&quot;t&quot;:16.939,&quot;v&quot;:-3},{&quot;t&quot;:17.024,&quot;v&quot;:-3.2},{&quot;t&quot;:17.109,&quot;v&quot;:-2.3},{&quot;t&quot;:17.195,&quot;v&quot;:-3.9},{&quot;t&quot;:17.28,&quot;v&quot;:-4.5},{&quot;t&quot;:17.365,&quot;v&quot;:-4.1},{&quot;t&quot;:17.451,&quot;v&quot;:-2.9},{&quot;t&quot;:17.536,&quot;v&quot;:-2.1},{&quot;t&quot;:17.621,&quot;v&quot;:-1.5},{&quot;t&quot;:17.707,&quot;v&quot;:-2.9},{&quot;t&quot;:17.792,&quot;v&quot;:-2.4},{&quot;t&quot;:17.877,&quot;v&quot;:-1.7},{&quot;t&quot;:17.963,&quot;v&quot;:-1.3},{&quot;t&quot;:18.048,&quot;v&quot;:-0.9},{&quot;t&quot;:18.133,&quot;v&quot;:-1.3},{&quot;t&quot;:18.219,&quot;v&quot;:-2.7},{&quot;t&quot;:18.304,&quot;v&quot;:-1.9},{&quot;t&quot;:18.389,&quot;v&quot;:-3.9},{&quot;t&quot;:18.475,&quot;v&quot;:-3.1},{&quot;t&quot;:18.56,&quot;v&quot;:-2.5},{&quot;t&quot;:18.645,&quot;v&quot;:-1.8},{&quot;t&quot;:18.731,&quot;v&quot;:-1.3},{&quot;t&quot;:18.901,&quot;v&quot;:-1},{&quot;t&quot;:18.987,&quot;v&quot;:-2.7},{&quot;t&quot;:19.072,&quot;v&quot;:-1.9},{&quot;t&quot;:19.157,&quot;v&quot;:-1.8},{&quot;t&quot;:19.243,&quot;v&quot;:-3.6},{&quot;t&quot;:19.328,&quot;v&quot;:-3.9},{&quot;t&quot;:19.413,&quot;v&quot;:-2.8},{&quot;t&quot;:19.499,&quot;v&quot;:-2},{&quot;t&quot;:19.584,&quot;v&quot;:-1.8},{&quot;t&quot;:19.669,&quot;v&quot;:-1.3},{&quot;t&quot;:19.755,&quot;v&quot;:-3.8},{&quot;t&quot;:19.925,&quot;v&quot;:-3.7},{&quot;t&quot;:20.011,&quot;v&quot;:-3},{&quot;t&quot;:20.096,&quot;v&quot;:-2.1},{&quot;t&quot;:20.267,&quot;v&quot;:-1.7},{&quot;t&quot;:20.352,&quot;v&quot;:-1.2},{&quot;t&quot;:20.437,&quot;v&quot;:-2.5},{&quot;t&quot;:20.523,&quot;v&quot;:-3.4},{&quot;t&quot;:20.608,&quot;v&quot;:-2.4},{&quot;t&quot;:20.693,&quot;v&quot;:-1.9},{&quot;t&quot;:20.779,&quot;v&quot;:-1.4},{&quot;t&quot;:20.864,&quot;v&quot;:-1},{&quot;t&quot;:20.949,&quot;v&quot;:-0.7},{&quot;t&quot;:21.205,&quot;v&quot;:-0.2},{&quot;t&quot;:21.291,&quot;v&quot;:0},{&quot;t&quot;:21.376,&quot;v&quot;:0},{&quot;t&quot;:21.461,&quot;v&quot;:-3.6},{&quot;t&quot;:21.547,&quot;v&quot;:-2.6},{&quot;t&quot;:21.632,&quot;v&quot;:-1.8},{&quot;t&quot;:21.717,&quot;v&quot;:-1.3},{&quot;t&quot;:21.803,&quot;v&quot;:-1.7},{&quot;t&quot;:21.888,&quot;v&quot;:-2.2},{&quot;t&quot;:21.973,&quot;v&quot;:-3.8},{&quot;t&quot;:22.059,&quot;v&quot;:-4},{&quot;t&quot;:22.144,&quot;v&quot;:-3.1},{&quot;t&quot;:22.229,&quot;v&quot;:-2.2},{&quot;t&quot;:22.315,&quot;v&quot;:-1.5},{&quot;t&quot;:22.4,&quot;v&quot;:-3.8},{&quot;t&quot;:22.485,&quot;v&quot;:-3.2},{&quot;t&quot;:22.571,&quot;v&quot;:-3.1},{&quot;t&quot;:22.656,&quot;v&quot;:-2.6},{&quot;t&quot;:22.741,&quot;v&quot;:-1.9},{&quot;t&quot;:22.827,&quot;v&quot;:-3.4},{&quot;t&quot;:22.912,&quot;v&quot;:-3.5},{&quot;t&quot;:22.997,&quot;v&quot;:-2.8},{&quot;t&quot;:23.083,&quot;v&quot;:-2},{&quot;t&quot;:23.168,&quot;v&quot;:-1.5},{&quot;t&quot;:23.253,&quot;v&quot;:-1},{&quot;t&quot;:23.339,&quot;v&quot;:-0.7},{&quot;t&quot;:23.424,&quot;v&quot;:-0.5},{&quot;t&quot;:24.107,&quot;v&quot;:-0.5},{&quot;t&quot;:24.192,&quot;v&quot;:-1.8},{&quot;t&quot;:24.277,&quot;v&quot;:-1.3},{&quot;t&quot;:24.363,&quot;v&quot;:-1.4},{&quot;t&quot;:24.448,&quot;v&quot;:-2.7},{&quot;t&quot;:24.533,&quot;v&quot;:-3.3},{&quot;t&quot;:24.619,&quot;v&quot;:-2.3},{&quot;t&quot;:24.704,&quot;v&quot;:-1.7},{&quot;t&quot;:24.789,&quot;v&quot;:-2.2},{&quot;t&quot;:24.875,&quot;v&quot;:-1.6},{&quot;t&quot;:24.96,&quot;v&quot;:-1.1},{&quot;t&quot;:25.045,&quot;v&quot;:-0.8},{&quot;t&quot;:25.131,&quot;v&quot;:-0.6},{&quot;t&quot;:25.301,&quot;v&quot;:-0.3},{&quot;t&quot;:25.387,&quot;v&quot;:-1.7},{&quot;t&quot;:25.472,&quot;v&quot;:-1.2},{&quot;t&quot;:25.557,&quot;v&quot;:-0.9},{&quot;t&quot;:25.643,&quot;v&quot;:-1.8},{&quot;t&quot;:25.728,&quot;v&quot;:-1.7},{&quot;t&quot;:25.813,&quot;v&quot;:-3.4},{&quot;t&quot;:25.984,&quot;v&quot;:-3.5},{&quot;t&quot;:26.069,&quot;v&quot;:-4.1},{&quot;t&quot;:26.155,&quot;v&quot;:-3.4},{&quot;t&quot;:26.24,&quot;v&quot;:-3.9},{&quot;t&quot;:26.325,&quot;v&quot;:-2.8},{&quot;t&quot;:26.411,&quot;v&quot;:-4},{&quot;t&quot;:26.496,&quot;v&quot;:-3.9},{&quot;t&quot;:26.581,&quot;v&quot;:-2.8},{&quot;t&quot;:26.667,&quot;v&quot;:-2},{&quot;t&quot;:26.752,&quot;v&quot;:-1.4},{&quot;t&quot;:26.923,&quot;v&quot;:-1},{&quot;t&quot;:27.008,&quot;v&quot;:-3.1},{&quot;t&quot;:27.093,&quot;v&quot;:-2.2},{&quot;t&quot;:27.179,&quot;v&quot;:-3.8},{&quot;t&quot;:27.264,&quot;v&quot;:-4.4},{&quot;t&quot;:27.435,&quot;v&quot;:-4.4},{&quot;t&quot;:27.52,&quot;v&quot;:-3.6},{&quot;t&quot;:27.605,&quot;v&quot;:-3.1},{&quot;t&quot;:27.691,&quot;v&quot;:-2.5},{&quot;t&quot;:27.776,&quot;v&quot;:-1.8},{&quot;t&quot;:27.861,&quot;v&quot;:-2.6},{&quot;t&quot;:27.947,&quot;v&quot;:-2.4},{&quot;t&quot;:28.032,&quot;v&quot;:-1.7},{&quot;t&quot;:28.117,&quot;v&quot;:-1.2},{&quot;t&quot;:28.203,&quot;v&quot;:-0.9},{&quot;t&quot;:28.288,&quot;v&quot;:-0.6},{&quot;t&quot;:28.373,&quot;v&quot;:-1.3},{&quot;t&quot;:28.459,&quot;v&quot;:-3.7},{&quot;t&quot;:28.544,&quot;v&quot;:-2.6},{&quot;t&quot;:28.629,&quot;v&quot;:-1.9},{&quot;t&quot;:28.715,&quot;v&quot;:-3.2},{&quot;t&quot;:28.8,&quot;v&quot;:-2.3},{&quot;t&quot;:28.885,&quot;v&quot;:-1.6},{&quot;t&quot;:28.971,&quot;v&quot;:-1.3},{&quot;t&quot;:29.056,&quot;v&quot;:-0.9},{&quot;t&quot;:29.141,&quot;v&quot;:-0.6},{&quot;t&quot;:29.227,&quot;v&quot;:-2.6},{&quot;t&quot;:29.312,&quot;v&quot;:-2.3},{&quot;t&quot;:29.397,&quot;v&quot;:-2},{&quot;t&quot;:29.483,&quot;v&quot;:-1.4},{&quot;t&quot;:29.568,&quot;v&quot;:-1},{&quot;t&quot;:29.653,&quot;v&quot;:-0.7},{&quot;t&quot;:29.909,&quot;v&quot;:-0.3},{&quot;t&quot;:29.995,&quot;v&quot;:0},{&quot;t&quot;:30.592,&quot;v&quot;:0},{&quot;t&quot;:30.677,&quot;v&quot;:-0.7},{&quot;t&quot;:30.763,&quot;v&quot;:-1.8},{&quot;t&quot;:30.933,&quot;v&quot;:-2.1},{&quot;t&quot;:31.019,&quot;v&quot;:-2.7},{&quot;t&quot;:31.104,&quot;v&quot;:-2.6},{&quot;t&quot;:31.189,&quot;v&quot;:-1.8},{&quot;t&quot;:31.275,&quot;v&quot;:-1.3},{&quot;t&quot;:31.36,&quot;v&quot;:-0.9},{&quot;t&quot;:31.445,&quot;v&quot;:-0.7},{&quot;t&quot;:31.701,&quot;v&quot;:-0.2},{&quot;t&quot;:31.787,&quot;v&quot;:0},{&quot;t&quot;:31.957,&quot;v&quot;:-0.2},{&quot;t&quot;:32.043,&quot;v&quot;:-3.7},{&quot;t&quot;:32.128,&quot;v&quot;:-2.6},{&quot;t&quot;:32.213,&quot;v&quot;:-2.6},{&quot;t&quot;:32.299,&quot;v&quot;:-3.3},{&quot;t&quot;:32.384,&quot;v&quot;:-2.3},{&quot;t&quot;:32.469,&quot;v&quot;:-1.7},{&quot;t&quot;:32.555,&quot;v&quot;:-1.2},{&quot;t&quot;:32.64,&quot;v&quot;:-3.8},{&quot;t&quot;:32.811,&quot;v&quot;:-3.5},{&quot;t&quot;:32.896,&quot;v&quot;:-3},{&quot;t&quot;:32.981,&quot;v&quot;:-2.5},{&quot;t&quot;:33.067,&quot;v&quot;:-2.3},{&quot;t&quot;:33.152,&quot;v&quot;:-1.6},{&quot;t&quot;:33.237,&quot;v&quot;:-2.8},{&quot;t&quot;:33.323,&quot;v&quot;:-2.4},{&quot;t&quot;:33.408,&quot;v&quot;:-2.3},{&quot;t&quot;:33.493,&quot;v&quot;:-1.6},{&quot;t&quot;:33.579,&quot;v&quot;:-1.2},{&quot;t&quot;:33.664,&quot;v&quot;:-0.8},{&quot;t&quot;:33.749,&quot;v&quot;:-0.6},{&quot;t&quot;:33.749,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n2.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.213,&quot;v&quot;:0},{&quot;t&quot;:0.299,&quot;v&quot;:-2},{&quot;t&quot;:0.384,&quot;v&quot;:-1.7},{&quot;t&quot;:0.469,&quot;v&quot;:-1.5},{&quot;t&quot;:0.64,&quot;v&quot;:-1.6},{&quot;t&quot;:0.725,&quot;v&quot;:-4.3},{&quot;t&quot;:0.811,&quot;v&quot;:-3},{&quot;t&quot;:0.896,&quot;v&quot;:-3.7},{&quot;t&quot;:0.981,&quot;v&quot;:-4.2},{&quot;t&quot;:1.067,&quot;v&quot;:-4.5},{&quot;t&quot;:1.152,&quot;v&quot;:-3.2},{&quot;t&quot;:1.237,&quot;v&quot;:-2.5},{&quot;t&quot;:1.323,&quot;v&quot;:-3},{&quot;t&quot;:1.408,&quot;v&quot;:-2.1},{&quot;t&quot;:1.493,&quot;v&quot;:-1.8},{&quot;t&quot;:1.579,&quot;v&quot;:-3.6},{&quot;t&quot;:1.664,&quot;v&quot;:-2.6},{&quot;t&quot;:1.749,&quot;v&quot;:-1.8},{&quot;t&quot;:1.835,&quot;v&quot;:-3},{&quot;t&quot;:1.92,&quot;v&quot;:-2.6},{&quot;t&quot;:2.005,&quot;v&quot;:-4.6},{&quot;t&quot;:2.091,&quot;v&quot;:-3.6},{&quot;t&quot;:2.176,&quot;v&quot;:-3.2},{&quot;t&quot;:2.261,&quot;v&quot;:-2.6},{&quot;t&quot;:2.347,&quot;v&quot;:-2.7},{&quot;t&quot;:2.432,&quot;v&quot;:-1.9},{&quot;t&quot;:2.517,&quot;v&quot;:-2},{&quot;t&quot;:2.603,&quot;v&quot;:-2.6},{&quot;t&quot;:2.688,&quot;v&quot;:-2.4},{&quot;t&quot;:2.773,&quot;v&quot;:-1.7},{&quot;t&quot;:2.859,&quot;v&quot;:-1.2},{&quot;t&quot;:2.944,&quot;v&quot;:-0.9},{&quot;t&quot;:3.029,&quot;v&quot;:-0.7},{&quot;t&quot;:3.285,&quot;v&quot;:-0.2},{&quot;t&quot;:3.371,&quot;v&quot;:0},{&quot;t&quot;:3.797,&quot;v&quot;:0},{&quot;t&quot;:3.883,&quot;v&quot;:-2},{&quot;t&quot;:4.053,&quot;v&quot;:-1.9},{&quot;t&quot;:4.139,&quot;v&quot;:-2.7},{&quot;t&quot;:4.224,&quot;v&quot;:-1.9},{&quot;t&quot;:4.309,&quot;v&quot;:-1.7},{&quot;t&quot;:4.395,&quot;v&quot;:-1.4},{&quot;t&quot;:4.48,&quot;v&quot;:-1},{&quot;t&quot;:4.565,&quot;v&quot;:-3.4},{&quot;t&quot;:4.651,&quot;v&quot;:-4.6},{&quot;t&quot;:4.821,&quot;v&quot;:-4.5},{&quot;t&quot;:4.907,&quot;v&quot;:-3.2},{&quot;t&quot;:4.992,&quot;v&quot;:-2.3},{&quot;t&quot;:5.077,&quot;v&quot;:-1.6},{&quot;t&quot;:5.163,&quot;v&quot;:-1.1},{&quot;t&quot;:5.248,&quot;v&quot;:-1},{&quot;t&quot;:5.333,&quot;v&quot;:-2.7},{&quot;t&quot;:5.419,&quot;v&quot;:-1.9},{&quot;t&quot;:5.504,&quot;v&quot;:-1.9},{&quot;t&quot;:5.589,&quot;v&quot;:-1.3},{&quot;t&quot;:5.675,&quot;v&quot;:-1.9},{&quot;t&quot;:5.76,&quot;v&quot;:-1.3},{&quot;t&quot;:5.845,&quot;v&quot;:-2.3},{&quot;t&quot;:5.931,&quot;v&quot;:-1.6},{&quot;t&quot;:6.016,&quot;v&quot;:-1.2},{&quot;t&quot;:6.101,&quot;v&quot;:-0.8},{&quot;t&quot;:6.272,&quot;v&quot;:-0.4},{&quot;t&quot;:6.357,&quot;v&quot;:-0.3},{&quot;t&quot;:6.443,&quot;v&quot;:-0.2},{&quot;t&quot;:6.528,&quot;v&quot;:-1.1},{&quot;t&quot;:6.699,&quot;v&quot;:-0.7},{&quot;t&quot;:6.784,&quot;v&quot;:-2.7},{&quot;t&quot;:6.869,&quot;v&quot;:-4.1},{&quot;t&quot;:6.955,&quot;v&quot;:-4.2},{&quot;t&quot;:7.04,&quot;v&quot;:-4.7},{&quot;t&quot;:7.125,&quot;v&quot;:-4.7},{&quot;t&quot;:7.211,&quot;v&quot;:-3.4},{&quot;t&quot;:7.296,&quot;v&quot;:-3.3},{&quot;t&quot;:7.381,&quot;v&quot;:-4.4},{&quot;t&quot;:7.467,&quot;v&quot;:-4.4},{&quot;t&quot;:7.552,&quot;v&quot;:-3.2},{&quot;t&quot;:7.637,&quot;v&quot;:-2.3},{&quot;t&quot;:7.979,&quot;v&quot;:-2.1},{&quot;t&quot;:8.064,&quot;v&quot;:-1.5},{&quot;t&quot;:8.149,&quot;v&quot;:-1.1},{&quot;t&quot;:8.235,&quot;v&quot;:-0.8},{&quot;t&quot;:8.405,&quot;v&quot;:-0.4},{&quot;t&quot;:8.491,&quot;v&quot;:-0.3},{&quot;t&quot;:8.576,&quot;v&quot;:0},{&quot;t&quot;:8.661,&quot;v&quot;:-4.2},{&quot;t&quot;:8.747,&quot;v&quot;:-3.1},{&quot;t&quot;:8.832,&quot;v&quot;:-2.2},{&quot;t&quot;:8.917,&quot;v&quot;:-2.9},{&quot;t&quot;:9.003,&quot;v&quot;:-2.9},{&quot;t&quot;:9.088,&quot;v&quot;:-4},{&quot;t&quot;:9.173,&quot;v&quot;:-2.8},{&quot;t&quot;:9.344,&quot;v&quot;:-2.4},{&quot;t&quot;:9.429,&quot;v&quot;:-1.7},{&quot;t&quot;:9.515,&quot;v&quot;:-1.2},{&quot;t&quot;:9.6,&quot;v&quot;:-0.9},{&quot;t&quot;:9.685,&quot;v&quot;:-0.6},{&quot;t&quot;:9.856,&quot;v&quot;:-0.3},{&quot;t&quot;:9.941,&quot;v&quot;:-1.7},{&quot;t&quot;:10.197,&quot;v&quot;:-1.3},{&quot;t&quot;:10.283,&quot;v&quot;:-1},{&quot;t&quot;:10.368,&quot;v&quot;:-3.1},{&quot;t&quot;:10.539,&quot;v&quot;:-2.8},{&quot;t&quot;:10.624,&quot;v&quot;:-2},{&quot;t&quot;:10.709,&quot;v&quot;:-4},{&quot;t&quot;:10.795,&quot;v&quot;:-4},{&quot;t&quot;:10.88,&quot;v&quot;:-2.8},{&quot;t&quot;:10.965,&quot;v&quot;:-2.7},{&quot;t&quot;:11.051,&quot;v&quot;:-4},{&quot;t&quot;:11.136,&quot;v&quot;:-2.9},{&quot;t&quot;:11.221,&quot;v&quot;:-2.2},{&quot;t&quot;:11.307,&quot;v&quot;:-1.6},{&quot;t&quot;:11.392,&quot;v&quot;:-3.3},{&quot;t&quot;:11.477,&quot;v&quot;:-2.3},{&quot;t&quot;:11.563,&quot;v&quot;:-1.6},{&quot;t&quot;:11.904,&quot;v&quot;:-1.4},{&quot;t&quot;:11.989,&quot;v&quot;:-1},{&quot;t&quot;:12.075,&quot;v&quot;:-0.9},{&quot;t&quot;:12.16,&quot;v&quot;:-1.7},{&quot;t&quot;:12.245,&quot;v&quot;:-1.2},{&quot;t&quot;:12.331,&quot;v&quot;:-2.4},{&quot;t&quot;:12.416,&quot;v&quot;:-2.3},{&quot;t&quot;:12.501,&quot;v&quot;:-1.7},{&quot;t&quot;:12.587,&quot;v&quot;:-1.2},{&quot;t&quot;:12.672,&quot;v&quot;:-0.8},{&quot;t&quot;:12.757,&quot;v&quot;:-0.6},{&quot;t&quot;:12.843,&quot;v&quot;:-0.4},{&quot;t&quot;:12.928,&quot;v&quot;:-2.4},{&quot;t&quot;:13.013,&quot;v&quot;:-2.2},{&quot;t&quot;:13.099,&quot;v&quot;:-1.6},{&quot;t&quot;:13.184,&quot;v&quot;:-3.4},{&quot;t&quot;:13.269,&quot;v&quot;:-2.8},{&quot;t&quot;:13.355,&quot;v&quot;:-2},{&quot;t&quot;:13.44,&quot;v&quot;:-1.4},{&quot;t&quot;:13.696,&quot;v&quot;:-1.1},{&quot;t&quot;:13.781,&quot;v&quot;:-2.1},{&quot;t&quot;:13.867,&quot;v&quot;:-1.5},{&quot;t&quot;:13.952,&quot;v&quot;:-1},{&quot;t&quot;:14.037,&quot;v&quot;:-0.7},{&quot;t&quot;:14.123,&quot;v&quot;:-0.5},{&quot;t&quot;:14.293,&quot;v&quot;:-0.3},{&quot;t&quot;:14.379,&quot;v&quot;:0},{&quot;t&quot;:14.464,&quot;v&quot;:0},{&quot;t&quot;:14.549,&quot;v&quot;:-2.3},{&quot;t&quot;:14.72,&quot;v&quot;:-1.8},{&quot;t&quot;:14.805,&quot;v&quot;:-4.2},{&quot;t&quot;:14.891,&quot;v&quot;:-3},{&quot;t&quot;:14.976,&quot;v&quot;:-2.1},{&quot;t&quot;:15.061,&quot;v&quot;:-1.5},{&quot;t&quot;:15.317,&quot;v&quot;:-1.1},{&quot;t&quot;:15.403,&quot;v&quot;:-2.7},{&quot;t&quot;:15.488,&quot;v&quot;:-2},{&quot;t&quot;:15.573,&quot;v&quot;:-1.7},{&quot;t&quot;:15.659,&quot;v&quot;:-1.2},{&quot;t&quot;:15.744,&quot;v&quot;:-0.9},{&quot;t&quot;:15.829,&quot;v&quot;:-3},{&quot;t&quot;:15.915,&quot;v&quot;:-2.1},{&quot;t&quot;:16,&quot;v&quot;:-1.5},{&quot;t&quot;:16.085,&quot;v&quot;:-1.1},{&quot;t&quot;:16.171,&quot;v&quot;:-0.8},{&quot;t&quot;:16.427,&quot;v&quot;:-0.4},{&quot;t&quot;:16.512,&quot;v&quot;:-0.3},{&quot;t&quot;:16.597,&quot;v&quot;:-0.2},{&quot;t&quot;:16.683,&quot;v&quot;:-1.7},{&quot;t&quot;:16.768,&quot;v&quot;:-1.2},{&quot;t&quot;:16.939,&quot;v&quot;:-0.8},{&quot;t&quot;:17.024,&quot;v&quot;:-0.7},{&quot;t&quot;:17.621,&quot;v&quot;:-0.3},{&quot;t&quot;:17.707,&quot;v&quot;:-3.4},{&quot;t&quot;:17.792,&quot;v&quot;:-2.7},{&quot;t&quot;:17.877,&quot;v&quot;:-1.9},{&quot;t&quot;:17.963,&quot;v&quot;:-1.8},{&quot;t&quot;:18.048,&quot;v&quot;:-1.3},{&quot;t&quot;:18.133,&quot;v&quot;:-2.6},{&quot;t&quot;:18.219,&quot;v&quot;:-2.8},{&quot;t&quot;:18.304,&quot;v&quot;:-2},{&quot;t&quot;:18.389,&quot;v&quot;:-1.4},{&quot;t&quot;:18.56,&quot;v&quot;:-1.1},{&quot;t&quot;:18.645,&quot;v&quot;:-0.8},{&quot;t&quot;:18.816,&quot;v&quot;:-0.4},{&quot;t&quot;:18.901,&quot;v&quot;:-3.2},{&quot;t&quot;:18.987,&quot;v&quot;:-5},{&quot;t&quot;:19.072,&quot;v&quot;:-4.3},{&quot;t&quot;:19.157,&quot;v&quot;:-4.6},{&quot;t&quot;:19.243,&quot;v&quot;:-3.3},{&quot;t&quot;:19.328,&quot;v&quot;:-2.3},{&quot;t&quot;:19.413,&quot;v&quot;:-1.6},{&quot;t&quot;:19.499,&quot;v&quot;:-1.2},{&quot;t&quot;:19.584,&quot;v&quot;:-2.6},{&quot;t&quot;:19.669,&quot;v&quot;:-1.9},{&quot;t&quot;:19.755,&quot;v&quot;:-1.7},{&quot;t&quot;:19.84,&quot;v&quot;:-1.2},{&quot;t&quot;:19.925,&quot;v&quot;:-1.9},{&quot;t&quot;:20.011,&quot;v&quot;:-2.4},{&quot;t&quot;:20.096,&quot;v&quot;:-1.7},{&quot;t&quot;:20.437,&quot;v&quot;:-1.7},{&quot;t&quot;:20.523,&quot;v&quot;:-2.9},{&quot;t&quot;:20.608,&quot;v&quot;:-2.1},{&quot;t&quot;:20.693,&quot;v&quot;:-1.5},{&quot;t&quot;:20.779,&quot;v&quot;:-1.2},{&quot;t&quot;:20.864,&quot;v&quot;:-0.9},{&quot;t&quot;:20.949,&quot;v&quot;:-0.6},{&quot;t&quot;:21.035,&quot;v&quot;:-0.4},{&quot;t&quot;:21.547,&quot;v&quot;:0},{&quot;t&quot;:21.632,&quot;v&quot;:-4.4},{&quot;t&quot;:21.717,&quot;v&quot;:-5.1},{&quot;t&quot;:21.803,&quot;v&quot;:-3.6},{&quot;t&quot;:21.888,&quot;v&quot;:-2.6},{&quot;t&quot;:21.973,&quot;v&quot;:-1.8},{&quot;t&quot;:22.144,&quot;v&quot;:-1.5},{&quot;t&quot;:22.229,&quot;v&quot;:-4.7},{&quot;t&quot;:22.315,&quot;v&quot;:-3.9},{&quot;t&quot;:22.4,&quot;v&quot;:-3},{&quot;t&quot;:22.485,&quot;v&quot;:-2.1},{&quot;t&quot;:22.571,&quot;v&quot;:-1.9},{&quot;t&quot;:22.656,&quot;v&quot;:-1.3},{&quot;t&quot;:22.741,&quot;v&quot;:-2.1},{&quot;t&quot;:22.827,&quot;v&quot;:-3.8},{&quot;t&quot;:22.912,&quot;v&quot;:-4.4},{&quot;t&quot;:23.168,&quot;v&quot;:-4.5},{&quot;t&quot;:23.253,&quot;v&quot;:-3.2},{&quot;t&quot;:23.339,&quot;v&quot;:-3},{&quot;t&quot;:23.424,&quot;v&quot;:-4.2},{&quot;t&quot;:23.509,&quot;v&quot;:-4.4},{&quot;t&quot;:23.595,&quot;v&quot;:-3.1},{&quot;t&quot;:23.68,&quot;v&quot;:-4.8},{&quot;t&quot;:23.765,&quot;v&quot;:-3.4},{&quot;t&quot;:23.851,&quot;v&quot;:-2.4},{&quot;t&quot;:23.936,&quot;v&quot;:-4.5},{&quot;t&quot;:24.021,&quot;v&quot;:-3.9},{&quot;t&quot;:24.107,&quot;v&quot;:-2.8},{&quot;t&quot;:24.192,&quot;v&quot;:-4.7},{&quot;t&quot;:24.277,&quot;v&quot;:-4.5},{&quot;t&quot;:24.363,&quot;v&quot;:-3.6},{&quot;t&quot;:24.448,&quot;v&quot;:-3.3},{&quot;t&quot;:24.533,&quot;v&quot;:-3.1},{&quot;t&quot;:24.619,&quot;v&quot;:-2.2},{&quot;t&quot;:24.704,&quot;v&quot;:-1.6},{&quot;t&quot;:24.875,&quot;v&quot;:-1.2},{&quot;t&quot;:24.96,&quot;v&quot;:-0.9},{&quot;t&quot;:25.045,&quot;v&quot;:-0.6},{&quot;t&quot;:25.131,&quot;v&quot;:-0.4},{&quot;t&quot;:25.301,&quot;v&quot;:-0.2},{&quot;t&quot;:25.387,&quot;v&quot;:-1.1},{&quot;t&quot;:25.472,&quot;v&quot;:-0.8},{&quot;t&quot;:25.557,&quot;v&quot;:-0.6},{&quot;t&quot;:25.643,&quot;v&quot;:-1.9},{&quot;t&quot;:25.728,&quot;v&quot;:-3.6},{&quot;t&quot;:25.813,&quot;v&quot;:-3.7},{&quot;t&quot;:25.899,&quot;v&quot;:-3.1},{&quot;t&quot;:25.984,&quot;v&quot;:-3.5},{&quot;t&quot;:26.069,&quot;v&quot;:-2.5},{&quot;t&quot;:26.155,&quot;v&quot;:-1.9},{&quot;t&quot;:26.24,&quot;v&quot;:-3},{&quot;t&quot;:26.411,&quot;v&quot;:-2.6},{&quot;t&quot;:26.496,&quot;v&quot;:-2},{&quot;t&quot;:26.581,&quot;v&quot;:-3.7},{&quot;t&quot;:26.667,&quot;v&quot;:-2.6},{&quot;t&quot;:26.752,&quot;v&quot;:-1.9},{&quot;t&quot;:26.837,&quot;v&quot;:-1.3},{&quot;t&quot;:26.923,&quot;v&quot;:-1.2},{&quot;t&quot;:27.008,&quot;v&quot;:-4.2},{&quot;t&quot;:27.093,&quot;v&quot;:-3},{&quot;t&quot;:27.179,&quot;v&quot;:-2.1},{&quot;t&quot;:27.264,&quot;v&quot;:-1.5},{&quot;t&quot;:27.52,&quot;v&quot;:-1.2},{&quot;t&quot;:27.605,&quot;v&quot;:-3.9},{&quot;t&quot;:27.691,&quot;v&quot;:-2.9},{&quot;t&quot;:27.776,&quot;v&quot;:-2.1},{&quot;t&quot;:27.947,&quot;v&quot;:-1.8},{&quot;t&quot;:28.032,&quot;v&quot;:-1.5},{&quot;t&quot;:28.117,&quot;v&quot;:-1.1},{&quot;t&quot;:28.203,&quot;v&quot;:-0.7},{&quot;t&quot;:28.373,&quot;v&quot;:-0.4},{&quot;t&quot;:28.459,&quot;v&quot;:-3.7},{&quot;t&quot;:28.544,&quot;v&quot;:-2.6},{&quot;t&quot;:28.629,&quot;v&quot;:-1.9},{&quot;t&quot;:28.8,&quot;v&quot;:-1.5},{&quot;t&quot;:28.885,&quot;v&quot;:-1.1},{&quot;t&quot;:28.971,&quot;v&quot;:-4.2},{&quot;t&quot;:29.056,&quot;v&quot;:-3.6},{&quot;t&quot;:29.141,&quot;v&quot;:-2.6},{&quot;t&quot;:29.312,&quot;v&quot;:-2.3},{&quot;t&quot;:29.397,&quot;v&quot;:-1.9},{&quot;t&quot;:29.483,&quot;v&quot;:-1.3},{&quot;t&quot;:29.568,&quot;v&quot;:-1},{&quot;t&quot;:29.653,&quot;v&quot;:-0.7},{&quot;t&quot;:29.909,&quot;v&quot;:-0.2},{&quot;t&quot;:29.995,&quot;v&quot;:0},{&quot;t&quot;:30.592,&quot;v&quot;:0},{&quot;t&quot;:30.677,&quot;v&quot;:-0.9},{&quot;t&quot;:30.763,&quot;v&quot;:-2.3},{&quot;t&quot;:30.848,&quot;v&quot;:-4},{&quot;t&quot;:30.933,&quot;v&quot;:-3.2},{&quot;t&quot;:31.019,&quot;v&quot;:-2.7},{&quot;t&quot;:31.104,&quot;v&quot;:-2.3},{&quot;t&quot;:31.189,&quot;v&quot;:-1.7},{&quot;t&quot;:31.275,&quot;v&quot;:-1.2},{&quot;t&quot;:31.36,&quot;v&quot;:-0.8},{&quot;t&quot;:31.445,&quot;v&quot;:-0.6},{&quot;t&quot;:31.701,&quot;v&quot;:-0.2},{&quot;t&quot;:31.787,&quot;v&quot;:0},{&quot;t&quot;:31.872,&quot;v&quot;:-2.7},{&quot;t&quot;:31.957,&quot;v&quot;:-1.9},{&quot;t&quot;:32.043,&quot;v&quot;:-1.4},{&quot;t&quot;:32.128,&quot;v&quot;:-2},{&quot;t&quot;:32.299,&quot;v&quot;:-2.2},{&quot;t&quot;:32.384,&quot;v&quot;:-4},{&quot;t&quot;:32.469,&quot;v&quot;:-2.8},{&quot;t&quot;:32.555,&quot;v&quot;:-2},{&quot;t&quot;:32.725,&quot;v&quot;:-1.9},{&quot;t&quot;:32.811,&quot;v&quot;:-1.4},{&quot;t&quot;:32.896,&quot;v&quot;:-2.9},{&quot;t&quot;:32.981,&quot;v&quot;:-4.4},{&quot;t&quot;:33.067,&quot;v&quot;:-4.3},{&quot;t&quot;:33.152,&quot;v&quot;:-3},{&quot;t&quot;:33.237,&quot;v&quot;:-4.7},{&quot;t&quot;:33.323,&quot;v&quot;:-4},{&quot;t&quot;:33.408,&quot;v&quot;:-3.1},{&quot;t&quot;:33.493,&quot;v&quot;:-2.2},{&quot;t&quot;:33.579,&quot;v&quot;:-1.6},{&quot;t&quot;:33.664,&quot;v&quot;:-1.1},{&quot;t&quot;:33.749,&quot;v&quot;:-0.8},{&quot;t&quot;:33.749,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n3.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.128,&quot;v&quot;:0},{&quot;t&quot;:0.213,&quot;v&quot;:-1.9},{&quot;t&quot;:0.299,&quot;v&quot;:-6.2},{&quot;t&quot;:0.384,&quot;v&quot;:-4.4},{&quot;t&quot;:0.555,&quot;v&quot;:-4.4},{&quot;t&quot;:0.64,&quot;v&quot;:-3.1},{&quot;t&quot;:0.725,&quot;v&quot;:-3},{&quot;t&quot;:0.811,&quot;v&quot;:-2.1},{&quot;t&quot;:0.896,&quot;v&quot;:-1.5},{&quot;t&quot;:0.981,&quot;v&quot;:-1.1},{&quot;t&quot;:1.067,&quot;v&quot;:-0.8},{&quot;t&quot;:1.152,&quot;v&quot;:-0.8},{&quot;t&quot;:1.237,&quot;v&quot;:-3.3},{&quot;t&quot;:1.323,&quot;v&quot;:-2.3},{&quot;t&quot;:1.408,&quot;v&quot;:-1.7},{&quot;t&quot;:1.493,&quot;v&quot;:-1.2},{&quot;t&quot;:1.749,&quot;v&quot;:-1.5},{&quot;t&quot;:1.835,&quot;v&quot;:-5.9},{&quot;t&quot;:1.92,&quot;v&quot;:-4.2},{&quot;t&quot;:2.005,&quot;v&quot;:-3},{&quot;t&quot;:2.091,&quot;v&quot;:-2.1},{&quot;t&quot;:2.176,&quot;v&quot;:-1.5},{&quot;t&quot;:2.261,&quot;v&quot;:-2.7},{&quot;t&quot;:2.347,&quot;v&quot;:-1.9},{&quot;t&quot;:2.432,&quot;v&quot;:-1.4},{&quot;t&quot;:2.603,&quot;v&quot;:-0.9},{&quot;t&quot;:2.688,&quot;v&quot;:-0.6},{&quot;t&quot;:2.859,&quot;v&quot;:-0.3},{&quot;t&quot;:2.944,&quot;v&quot;:-3.2},{&quot;t&quot;:3.029,&quot;v&quot;:-4.7},{&quot;t&quot;:3.115,&quot;v&quot;:-3.3},{&quot;t&quot;:3.2,&quot;v&quot;:-2.8},{&quot;t&quot;:3.285,&quot;v&quot;:-2},{&quot;t&quot;:3.371,&quot;v&quot;:-1.4},{&quot;t&quot;:3.456,&quot;v&quot;:-1},{&quot;t&quot;:3.541,&quot;v&quot;:-0.7},{&quot;t&quot;:3.797,&quot;v&quot;:-0.3},{&quot;t&quot;:3.883,&quot;v&quot;:-4.2},{&quot;t&quot;:3.968,&quot;v&quot;:-3.2},{&quot;t&quot;:4.053,&quot;v&quot;:-2.4},{&quot;t&quot;:4.139,&quot;v&quot;:-3.3},{&quot;t&quot;:4.224,&quot;v&quot;:-2.4},{&quot;t&quot;:4.309,&quot;v&quot;:-3.6},{&quot;t&quot;:4.395,&quot;v&quot;:-3.7},{&quot;t&quot;:4.48,&quot;v&quot;:-2.6},{&quot;t&quot;:4.565,&quot;v&quot;:-2.3},{&quot;t&quot;:4.651,&quot;v&quot;:-2},{&quot;t&quot;:4.736,&quot;v&quot;:-2.6},{&quot;t&quot;:4.821,&quot;v&quot;:-2.4},{&quot;t&quot;:4.907,&quot;v&quot;:-1.7},{&quot;t&quot;:4.992,&quot;v&quot;:-2.8},{&quot;t&quot;:5.077,&quot;v&quot;:-5.3},{&quot;t&quot;:5.163,&quot;v&quot;:-4.3},{&quot;t&quot;:5.248,&quot;v&quot;:-3.6},{&quot;t&quot;:5.333,&quot;v&quot;:-2.7},{&quot;t&quot;:5.419,&quot;v&quot;:-2.1},{&quot;t&quot;:5.504,&quot;v&quot;:-1.5},{&quot;t&quot;:5.589,&quot;v&quot;:-3.4},{&quot;t&quot;:5.675,&quot;v&quot;:-4.9},{&quot;t&quot;:5.76,&quot;v&quot;:-3.5},{&quot;t&quot;:5.845,&quot;v&quot;:-2.5},{&quot;t&quot;:5.931,&quot;v&quot;:-1.8},{&quot;t&quot;:6.016,&quot;v&quot;:-1.3},{&quot;t&quot;:6.101,&quot;v&quot;:-0.9},{&quot;t&quot;:6.187,&quot;v&quot;:-0.6},{&quot;t&quot;:6.443,&quot;v&quot;:-0.2},{&quot;t&quot;:6.528,&quot;v&quot;:0},{&quot;t&quot;:6.699,&quot;v&quot;:-0.3},{&quot;t&quot;:6.784,&quot;v&quot;:-1.3},{&quot;t&quot;:6.869,&quot;v&quot;:-1},{&quot;t&quot;:6.955,&quot;v&quot;:-0.7},{&quot;t&quot;:7.04,&quot;v&quot;:-6},{&quot;t&quot;:7.125,&quot;v&quot;:-4.3},{&quot;t&quot;:7.211,&quot;v&quot;:-3.9},{&quot;t&quot;:7.296,&quot;v&quot;:-3.8},{&quot;t&quot;:7.381,&quot;v&quot;:-2.7},{&quot;t&quot;:7.467,&quot;v&quot;:-2.8},{&quot;t&quot;:7.552,&quot;v&quot;:-2},{&quot;t&quot;:7.637,&quot;v&quot;:-1.8},{&quot;t&quot;:7.723,&quot;v&quot;:-1.4},{&quot;t&quot;:7.808,&quot;v&quot;:-1},{&quot;t&quot;:7.893,&quot;v&quot;:-0.7},{&quot;t&quot;:8.149,&quot;v&quot;:-0.2},{&quot;t&quot;:8.235,&quot;v&quot;:0},{&quot;t&quot;:8.576,&quot;v&quot;:0},{&quot;t&quot;:8.661,&quot;v&quot;:-5.7},{&quot;t&quot;:8.747,&quot;v&quot;:-4.1},{&quot;t&quot;:8.832,&quot;v&quot;:-2.9},{&quot;t&quot;:8.917,&quot;v&quot;:-9},{&quot;t&quot;:9.003,&quot;v&quot;:-6.5},{&quot;t&quot;:9.088,&quot;v&quot;:-5},{&quot;t&quot;:9.173,&quot;v&quot;:-3.5},{&quot;t&quot;:9.259,&quot;v&quot;:-3.8},{&quot;t&quot;:9.344,&quot;v&quot;:-2.7},{&quot;t&quot;:9.429,&quot;v&quot;:-1.9},{&quot;t&quot;:9.515,&quot;v&quot;:-1.4},{&quot;t&quot;:9.6,&quot;v&quot;:-1},{&quot;t&quot;:9.685,&quot;v&quot;:-0.7},{&quot;t&quot;:9.771,&quot;v&quot;:-2.1},{&quot;t&quot;:9.856,&quot;v&quot;:-4},{&quot;t&quot;:9.941,&quot;v&quot;:-9.1},{&quot;t&quot;:10.027,&quot;v&quot;:-7.4},{&quot;t&quot;:10.112,&quot;v&quot;:-5.3},{&quot;t&quot;:10.197,&quot;v&quot;:-3.8},{&quot;t&quot;:10.283,&quot;v&quot;:-2.7},{&quot;t&quot;:10.368,&quot;v&quot;:-1.9},{&quot;t&quot;:10.453,&quot;v&quot;:-4.1},{&quot;t&quot;:10.539,&quot;v&quot;:-2.9},{&quot;t&quot;:10.624,&quot;v&quot;:-2.2},{&quot;t&quot;:10.709,&quot;v&quot;:-1.5},{&quot;t&quot;:10.795,&quot;v&quot;:-2.5},{&quot;t&quot;:10.88,&quot;v&quot;:-1.8},{&quot;t&quot;:10.965,&quot;v&quot;:-8.1},{&quot;t&quot;:11.051,&quot;v&quot;:-5.8},{&quot;t&quot;:11.136,&quot;v&quot;:-4.1},{&quot;t&quot;:11.221,&quot;v&quot;:-2.9},{&quot;t&quot;:11.307,&quot;v&quot;:-2.1},{&quot;t&quot;:11.392,&quot;v&quot;:-8.3},{&quot;t&quot;:11.477,&quot;v&quot;:-8},{&quot;t&quot;:11.563,&quot;v&quot;:-5.8},{&quot;t&quot;:11.648,&quot;v&quot;:-5.4},{&quot;t&quot;:11.733,&quot;v&quot;:-4.5},{&quot;t&quot;:11.819,&quot;v&quot;:-3.2},{&quot;t&quot;:11.904,&quot;v&quot;:-2.3},{&quot;t&quot;:11.989,&quot;v&quot;:-1.6},{&quot;t&quot;:12.075,&quot;v&quot;:-1.5},{&quot;t&quot;:12.16,&quot;v&quot;:-6.6},{&quot;t&quot;:12.245,&quot;v&quot;:-4.7},{&quot;t&quot;:12.331,&quot;v&quot;:-5.5},{&quot;t&quot;:12.416,&quot;v&quot;:-3.9},{&quot;t&quot;:12.501,&quot;v&quot;:-2.8},{&quot;t&quot;:12.587,&quot;v&quot;:-2},{&quot;t&quot;:12.672,&quot;v&quot;:-1.4},{&quot;t&quot;:12.757,&quot;v&quot;:-1},{&quot;t&quot;:12.843,&quot;v&quot;:-0.7},{&quot;t&quot;:13.099,&quot;v&quot;:-0.5},{&quot;t&quot;:13.184,&quot;v&quot;:-8.8},{&quot;t&quot;:13.269,&quot;v&quot;:-8.4},{&quot;t&quot;:13.355,&quot;v&quot;:-6.6},{&quot;t&quot;:13.44,&quot;v&quot;:-4.7},{&quot;t&quot;:13.525,&quot;v&quot;:-3.3},{&quot;t&quot;:13.611,&quot;v&quot;:-2.4},{&quot;t&quot;:13.696,&quot;v&quot;:-1.7},{&quot;t&quot;:13.781,&quot;v&quot;:-1.2},{&quot;t&quot;:13.867,&quot;v&quot;:-0.8},{&quot;t&quot;:13.952,&quot;v&quot;:-0.6},{&quot;t&quot;:14.208,&quot;v&quot;:-0.2},{&quot;t&quot;:14.293,&quot;v&quot;:0},{&quot;t&quot;:14.464,&quot;v&quot;:0},{&quot;t&quot;:14.549,&quot;v&quot;:-1.9},{&quot;t&quot;:14.635,&quot;v&quot;:-1.3},{&quot;t&quot;:14.72,&quot;v&quot;:-6},{&quot;t&quot;:14.805,&quot;v&quot;:-8.6},{&quot;t&quot;:14.891,&quot;v&quot;:-6.1},{&quot;t&quot;:14.976,&quot;v&quot;:-7.4},{&quot;t&quot;:15.061,&quot;v&quot;:-6.7},{&quot;t&quot;:15.147,&quot;v&quot;:-4.8},{&quot;t&quot;:15.232,&quot;v&quot;:-3.8},{&quot;t&quot;:15.317,&quot;v&quot;:-3.4},{&quot;t&quot;:15.403,&quot;v&quot;:-2.4},{&quot;t&quot;:15.488,&quot;v&quot;:-1.7},{&quot;t&quot;:15.573,&quot;v&quot;:-1.2},{&quot;t&quot;:15.659,&quot;v&quot;:-0.9},{&quot;t&quot;:15.744,&quot;v&quot;:-0.6},{&quot;t&quot;:15.829,&quot;v&quot;:-6},{&quot;t&quot;:15.915,&quot;v&quot;:-4.3},{&quot;t&quot;:16,&quot;v&quot;:-3.6},{&quot;t&quot;:16.085,&quot;v&quot;:-2.5},{&quot;t&quot;:16.171,&quot;v&quot;:-1.8},{&quot;t&quot;:16.256,&quot;v&quot;:-1.3},{&quot;t&quot;:16.341,&quot;v&quot;:-0.9},{&quot;t&quot;:16.427,&quot;v&quot;:-2.3},{&quot;t&quot;:16.512,&quot;v&quot;:-1.8},{&quot;t&quot;:16.597,&quot;v&quot;:-1.3},{&quot;t&quot;:16.683,&quot;v&quot;:-2.3},{&quot;t&quot;:16.768,&quot;v&quot;:-1.6},{&quot;t&quot;:16.853,&quot;v&quot;:-1.2},{&quot;t&quot;:16.939,&quot;v&quot;:-7},{&quot;t&quot;:17.024,&quot;v&quot;:-6.1},{&quot;t&quot;:17.109,&quot;v&quot;:-4.3},{&quot;t&quot;:17.195,&quot;v&quot;:-5.3},{&quot;t&quot;:17.28,&quot;v&quot;:-3.8},{&quot;t&quot;:17.365,&quot;v&quot;:-2.7},{&quot;t&quot;:17.451,&quot;v&quot;:-1.9},{&quot;t&quot;:17.536,&quot;v&quot;:-1.4},{&quot;t&quot;:17.621,&quot;v&quot;:-1},{&quot;t&quot;:17.707,&quot;v&quot;:-7.3},{&quot;t&quot;:17.792,&quot;v&quot;:-5.7},{&quot;t&quot;:17.877,&quot;v&quot;:-4},{&quot;t&quot;:17.963,&quot;v&quot;:-6.3},{&quot;t&quot;:18.048,&quot;v&quot;:-4.5},{&quot;t&quot;:18.133,&quot;v&quot;:-5},{&quot;t&quot;:18.219,&quot;v&quot;:-3.6},{&quot;t&quot;:18.304,&quot;v&quot;:-2.5},{&quot;t&quot;:18.389,&quot;v&quot;:-7},{&quot;t&quot;:18.475,&quot;v&quot;:-6.2},{&quot;t&quot;:18.56,&quot;v&quot;:-4.5},{&quot;t&quot;:18.645,&quot;v&quot;:-3.2},{&quot;t&quot;:18.731,&quot;v&quot;:-2.3},{&quot;t&quot;:18.816,&quot;v&quot;:-1.6},{&quot;t&quot;:18.901,&quot;v&quot;:-8},{&quot;t&quot;:18.987,&quot;v&quot;:-5.7},{&quot;t&quot;:19.072,&quot;v&quot;:-4.1},{&quot;t&quot;:19.157,&quot;v&quot;:-6.1},{&quot;t&quot;:19.243,&quot;v&quot;:-5.9},{&quot;t&quot;:19.328,&quot;v&quot;:-4.2},{&quot;t&quot;:19.413,&quot;v&quot;:-3},{&quot;t&quot;:19.499,&quot;v&quot;:-2.1},{&quot;t&quot;:19.584,&quot;v&quot;:-1.5},{&quot;t&quot;:19.669,&quot;v&quot;:-1.1},{&quot;t&quot;:19.755,&quot;v&quot;:-2.7},{&quot;t&quot;:19.84,&quot;v&quot;:-1.9},{&quot;t&quot;:19.925,&quot;v&quot;:-1.4},{&quot;t&quot;:20.181,&quot;v&quot;:-1.5},{&quot;t&quot;:20.267,&quot;v&quot;:-2.6},{&quot;t&quot;:20.352,&quot;v&quot;:-1.9},{&quot;t&quot;:20.608,&quot;v&quot;:-1.6},{&quot;t&quot;:20.693,&quot;v&quot;:-2.4},{&quot;t&quot;:20.779,&quot;v&quot;:-1.7},{&quot;t&quot;:20.864,&quot;v&quot;:-1.2},{&quot;t&quot;:20.949,&quot;v&quot;:-0.9},{&quot;t&quot;:21.035,&quot;v&quot;:-0.6},{&quot;t&quot;:21.291,&quot;v&quot;:-0.2},{&quot;t&quot;:21.376,&quot;v&quot;:0},{&quot;t&quot;:21.461,&quot;v&quot;:-3.3},{&quot;t&quot;:21.547,&quot;v&quot;:-2.3},{&quot;t&quot;:21.632,&quot;v&quot;:-5.3},{&quot;t&quot;:21.717,&quot;v&quot;:-6.8},{&quot;t&quot;:21.803,&quot;v&quot;:-4.9},{&quot;t&quot;:21.888,&quot;v&quot;:-3.5},{&quot;t&quot;:21.973,&quot;v&quot;:-2.5},{&quot;t&quot;:22.059,&quot;v&quot;:-2.1},{&quot;t&quot;:22.144,&quot;v&quot;:-1.5},{&quot;t&quot;:22.229,&quot;v&quot;:-5.1},{&quot;t&quot;:22.315,&quot;v&quot;:-5.5},{&quot;t&quot;:22.4,&quot;v&quot;:-8.1},{&quot;t&quot;:22.485,&quot;v&quot;:-5.8},{&quot;t&quot;:22.571,&quot;v&quot;:-4.2},{&quot;t&quot;:22.656,&quot;v&quot;:-3},{&quot;t&quot;:22.741,&quot;v&quot;:-2.1},{&quot;t&quot;:22.827,&quot;v&quot;:-1.5},{&quot;t&quot;:22.912,&quot;v&quot;:-4.9},{&quot;t&quot;:22.997,&quot;v&quot;:-3.5},{&quot;t&quot;:23.083,&quot;v&quot;:-2.5},{&quot;t&quot;:23.168,&quot;v&quot;:-1.8},{&quot;t&quot;:23.253,&quot;v&quot;:-1.3},{&quot;t&quot;:23.339,&quot;v&quot;:-0.9},{&quot;t&quot;:23.424,&quot;v&quot;:-0.7},{&quot;t&quot;:23.509,&quot;v&quot;:-3.1},{&quot;t&quot;:23.595,&quot;v&quot;:-2.4},{&quot;t&quot;:23.68,&quot;v&quot;:-1.9},{&quot;t&quot;:23.765,&quot;v&quot;:-1.4},{&quot;t&quot;:23.851,&quot;v&quot;:-1},{&quot;t&quot;:23.936,&quot;v&quot;:-4},{&quot;t&quot;:24.021,&quot;v&quot;:-2.8},{&quot;t&quot;:24.107,&quot;v&quot;:-2.2},{&quot;t&quot;:24.192,&quot;v&quot;:-1.5},{&quot;t&quot;:24.277,&quot;v&quot;:-1.1},{&quot;t&quot;:24.363,&quot;v&quot;:-0.8},{&quot;t&quot;:24.704,&quot;v&quot;:-0.4},{&quot;t&quot;:24.789,&quot;v&quot;:-0.3},{&quot;t&quot;:25.301,&quot;v&quot;:0},{&quot;t&quot;:25.387,&quot;v&quot;:-7.4},{&quot;t&quot;:25.472,&quot;v&quot;:-5.7},{&quot;t&quot;:25.557,&quot;v&quot;:-8.7},{&quot;t&quot;:25.643,&quot;v&quot;:-6.2},{&quot;t&quot;:25.728,&quot;v&quot;:-5},{&quot;t&quot;:25.813,&quot;v&quot;:-3.6},{&quot;t&quot;:25.899,&quot;v&quot;:-5.5},{&quot;t&quot;:25.984,&quot;v&quot;:-5.3},{&quot;t&quot;:26.069,&quot;v&quot;:-8.6},{&quot;t&quot;:26.155,&quot;v&quot;:-6.1},{&quot;t&quot;:26.24,&quot;v&quot;:-5.9},{&quot;t&quot;:26.325,&quot;v&quot;:-4.2},{&quot;t&quot;:26.411,&quot;v&quot;:-3},{&quot;t&quot;:26.496,&quot;v&quot;:-2.1},{&quot;t&quot;:26.581,&quot;v&quot;:-5.4},{&quot;t&quot;:26.667,&quot;v&quot;:-3.9},{&quot;t&quot;:26.752,&quot;v&quot;:-2.7},{&quot;t&quot;:26.837,&quot;v&quot;:-1.9},{&quot;t&quot;:26.923,&quot;v&quot;:-1.4},{&quot;t&quot;:27.008,&quot;v&quot;:-1},{&quot;t&quot;:27.093,&quot;v&quot;:-2.7},{&quot;t&quot;:27.179,&quot;v&quot;:-4.5},{&quot;t&quot;:27.264,&quot;v&quot;:-6.2},{&quot;t&quot;:27.349,&quot;v&quot;:-5.6},{&quot;t&quot;:27.435,&quot;v&quot;:-5.2},{&quot;t&quot;:27.52,&quot;v&quot;:-3.7},{&quot;t&quot;:27.605,&quot;v&quot;:-3},{&quot;t&quot;:27.691,&quot;v&quot;:-2.2},{&quot;t&quot;:27.776,&quot;v&quot;:-1.5},{&quot;t&quot;:27.861,&quot;v&quot;:-1.1},{&quot;t&quot;:27.947,&quot;v&quot;:-0.8},{&quot;t&quot;:28.117,&quot;v&quot;:-0.4},{&quot;t&quot;:28.203,&quot;v&quot;:-0.3},{&quot;t&quot;:28.373,&quot;v&quot;:0},{&quot;t&quot;:28.459,&quot;v&quot;:-3.8},{&quot;t&quot;:28.544,&quot;v&quot;:-2.7},{&quot;t&quot;:28.629,&quot;v&quot;:-1.9},{&quot;t&quot;:28.715,&quot;v&quot;:-1.4},{&quot;t&quot;:28.8,&quot;v&quot;:-1},{&quot;t&quot;:28.885,&quot;v&quot;:-0.7},{&quot;t&quot;:29.141,&quot;v&quot;:-0.2},{&quot;t&quot;:29.227,&quot;v&quot;:0},{&quot;t&quot;:29.312,&quot;v&quot;:0},{&quot;t&quot;:29.397,&quot;v&quot;:-4.5},{&quot;t&quot;:29.483,&quot;v&quot;:-3.2},{&quot;t&quot;:29.568,&quot;v&quot;:-2.3},{&quot;t&quot;:29.653,&quot;v&quot;:-1.6},{&quot;t&quot;:29.824,&quot;v&quot;:-1.4},{&quot;t&quot;:29.909,&quot;v&quot;:-1},{&quot;t&quot;:29.995,&quot;v&quot;:-0.7},{&quot;t&quot;:30.08,&quot;v&quot;:-0.5},{&quot;t&quot;:30.251,&quot;v&quot;:-0.3},{&quot;t&quot;:30.336,&quot;v&quot;:0},{&quot;t&quot;:30.677,&quot;v&quot;:0},{&quot;t&quot;:30.763,&quot;v&quot;:-5.1},{&quot;t&quot;:30.848,&quot;v&quot;:-6},{&quot;t&quot;:30.933,&quot;v&quot;:-4.3},{&quot;t&quot;:31.019,&quot;v&quot;:-3.1},{&quot;t&quot;:31.104,&quot;v&quot;:-4.4},{&quot;t&quot;:31.189,&quot;v&quot;:-3.1},{&quot;t&quot;:31.275,&quot;v&quot;:-2.2},{&quot;t&quot;:31.36,&quot;v&quot;:-1.8},{&quot;t&quot;:31.445,&quot;v&quot;:-1.3},{&quot;t&quot;:31.531,&quot;v&quot;:-0.9},{&quot;t&quot;:31.616,&quot;v&quot;:-0.6},{&quot;t&quot;:31.787,&quot;v&quot;:-0.3},{&quot;t&quot;:31.872,&quot;v&quot;:-2.4},{&quot;t&quot;:31.957,&quot;v&quot;:-1.7},{&quot;t&quot;:32.043,&quot;v&quot;:-2.9},{&quot;t&quot;:32.128,&quot;v&quot;:-9.4},{&quot;t&quot;:32.213,&quot;v&quot;:-7.7},{&quot;t&quot;:32.299,&quot;v&quot;:-5.6},{&quot;t&quot;:32.384,&quot;v&quot;:-5.1},{&quot;t&quot;:32.469,&quot;v&quot;:-3.6},{&quot;t&quot;:32.555,&quot;v&quot;:-2.6},{&quot;t&quot;:32.64,&quot;v&quot;:-5.8},{&quot;t&quot;:32.725,&quot;v&quot;:-4.3},{&quot;t&quot;:32.811,&quot;v&quot;:-3.1},{&quot;t&quot;:32.896,&quot;v&quot;:-6.9},{&quot;t&quot;:32.981,&quot;v&quot;:-5.5},{&quot;t&quot;:33.067,&quot;v&quot;:-5.4},{&quot;t&quot;:33.152,&quot;v&quot;:-3.8},{&quot;t&quot;:33.237,&quot;v&quot;:-6.4},{&quot;t&quot;:33.323,&quot;v&quot;:-6.4},{&quot;t&quot;:33.408,&quot;v&quot;:-4.9},{&quot;t&quot;:33.493,&quot;v&quot;:-3.5},{&quot;t&quot;:33.579,&quot;v&quot;:-2.5},{&quot;t&quot;:33.664,&quot;v&quot;:-1.7},{&quot;t&quot;:33.749,&quot;v&quot;:-1.2},{&quot;t&quot;:33.749,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n4.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.128,&quot;v&quot;:0},{&quot;t&quot;:0.213,&quot;v&quot;:-1.6},{&quot;t&quot;:0.299,&quot;v&quot;:-3},{&quot;t&quot;:0.384,&quot;v&quot;:-2.3},{&quot;t&quot;:0.469,&quot;v&quot;:-2.2},{&quot;t&quot;:0.555,&quot;v&quot;:-3},{&quot;t&quot;:0.64,&quot;v&quot;:-2.2},{&quot;t&quot;:0.725,&quot;v&quot;:-2.2},{&quot;t&quot;:0.811,&quot;v&quot;:-1.5},{&quot;t&quot;:0.896,&quot;v&quot;:-3.1},{&quot;t&quot;:0.981,&quot;v&quot;:-2.2},{&quot;t&quot;:1.067,&quot;v&quot;:-1.6},{&quot;t&quot;:1.152,&quot;v&quot;:-1.5},{&quot;t&quot;:1.237,&quot;v&quot;:-2.9},{&quot;t&quot;:1.323,&quot;v&quot;:-2.1},{&quot;t&quot;:1.408,&quot;v&quot;:-1.5},{&quot;t&quot;:1.493,&quot;v&quot;:-1.1},{&quot;t&quot;:1.579,&quot;v&quot;:-2.1},{&quot;t&quot;:1.664,&quot;v&quot;:-1.5},{&quot;t&quot;:1.749,&quot;v&quot;:-1.6},{&quot;t&quot;:1.835,&quot;v&quot;:-3.3},{&quot;t&quot;:2.005,&quot;v&quot;:-3},{&quot;t&quot;:2.091,&quot;v&quot;:-2.2},{&quot;t&quot;:2.176,&quot;v&quot;:-1.5},{&quot;t&quot;:2.603,&quot;v&quot;:-1.2},{&quot;t&quot;:2.688,&quot;v&quot;:-1},{&quot;t&quot;:3.285,&quot;v&quot;:-0.6},{&quot;t&quot;:3.371,&quot;v&quot;:-0.5},{&quot;t&quot;:3.541,&quot;v&quot;:-0.2},{&quot;t&quot;:3.627,&quot;v&quot;:0},{&quot;t&quot;:3.797,&quot;v&quot;:0},{&quot;t&quot;:3.883,&quot;v&quot;:-1.6},{&quot;t&quot;:4.309,&quot;v&quot;:-1.8},{&quot;t&quot;:4.395,&quot;v&quot;:-3.2},{&quot;t&quot;:4.651,&quot;v&quot;:-3},{&quot;t&quot;:4.736,&quot;v&quot;:-2.6},{&quot;t&quot;:4.821,&quot;v&quot;:-2.1},{&quot;t&quot;:4.907,&quot;v&quot;:-1.9},{&quot;t&quot;:4.992,&quot;v&quot;:-2.9},{&quot;t&quot;:5.077,&quot;v&quot;:-2.3},{&quot;t&quot;:5.163,&quot;v&quot;:-1.7},{&quot;t&quot;:5.333,&quot;v&quot;:-1.6},{&quot;t&quot;:5.419,&quot;v&quot;:-3.3},{&quot;t&quot;:5.504,&quot;v&quot;:-2.4},{&quot;t&quot;:5.589,&quot;v&quot;:-1.9},{&quot;t&quot;:5.675,&quot;v&quot;:-2.8},{&quot;t&quot;:5.76,&quot;v&quot;:-2},{&quot;t&quot;:5.845,&quot;v&quot;:-1.4},{&quot;t&quot;:5.931,&quot;v&quot;:-1},{&quot;t&quot;:6.016,&quot;v&quot;:-0.7},{&quot;t&quot;:6.272,&quot;v&quot;:-0.3},{&quot;t&quot;:6.357,&quot;v&quot;:0},{&quot;t&quot;:6.528,&quot;v&quot;:0},{&quot;t&quot;:6.613,&quot;v&quot;:-0.5},{&quot;t&quot;:6.699,&quot;v&quot;:-1.1},{&quot;t&quot;:6.784,&quot;v&quot;:-1.3},{&quot;t&quot;:6.869,&quot;v&quot;:-2.4},{&quot;t&quot;:6.955,&quot;v&quot;:-1.7},{&quot;t&quot;:7.04,&quot;v&quot;:-2.2},{&quot;t&quot;:7.125,&quot;v&quot;:-1.7},{&quot;t&quot;:7.723,&quot;v&quot;:-1.7},{&quot;t&quot;:7.808,&quot;v&quot;:-1.2},{&quot;t&quot;:7.893,&quot;v&quot;:-0.8},{&quot;t&quot;:7.979,&quot;v&quot;:-0.6},{&quot;t&quot;:8.235,&quot;v&quot;:-0.2},{&quot;t&quot;:8.32,&quot;v&quot;:0},{&quot;t&quot;:8.576,&quot;v&quot;:0},{&quot;t&quot;:8.661,&quot;v&quot;:-3.2},{&quot;t&quot;:8.747,&quot;v&quot;:-2.5},{&quot;t&quot;:8.832,&quot;v&quot;:-1.7},{&quot;t&quot;:8.917,&quot;v&quot;:-3.9},{&quot;t&quot;:9.003,&quot;v&quot;:-3},{&quot;t&quot;:9.088,&quot;v&quot;:-2.6},{&quot;t&quot;:9.173,&quot;v&quot;:-1.8},{&quot;t&quot;:9.259,&quot;v&quot;:-3.9},{&quot;t&quot;:9.344,&quot;v&quot;:-3.2},{&quot;t&quot;:9.429,&quot;v&quot;:-2.7},{&quot;t&quot;:9.515,&quot;v&quot;:-1.9},{&quot;t&quot;:9.6,&quot;v&quot;:-1.3},{&quot;t&quot;:9.685,&quot;v&quot;:-1},{&quot;t&quot;:9.771,&quot;v&quot;:-4.6},{&quot;t&quot;:9.856,&quot;v&quot;:-4.4},{&quot;t&quot;:9.941,&quot;v&quot;:-3.6},{&quot;t&quot;:10.027,&quot;v&quot;:-3.2},{&quot;t&quot;:10.112,&quot;v&quot;:-2.5},{&quot;t&quot;:10.197,&quot;v&quot;:-2.1},{&quot;t&quot;:10.283,&quot;v&quot;:-2},{&quot;t&quot;:10.453,&quot;v&quot;:-1.6},{&quot;t&quot;:10.539,&quot;v&quot;:-1.2},{&quot;t&quot;:10.624,&quot;v&quot;:-1.2},{&quot;t&quot;:10.709,&quot;v&quot;:-2.6},{&quot;t&quot;:10.795,&quot;v&quot;:-2.4},{&quot;t&quot;:10.88,&quot;v&quot;:-1.7},{&quot;t&quot;:10.965,&quot;v&quot;:-2.8},{&quot;t&quot;:11.051,&quot;v&quot;:-2.9},{&quot;t&quot;:11.136,&quot;v&quot;:-2.1},{&quot;t&quot;:11.221,&quot;v&quot;:-1.5},{&quot;t&quot;:11.307,&quot;v&quot;:-1.1},{&quot;t&quot;:11.392,&quot;v&quot;:-3.7},{&quot;t&quot;:11.563,&quot;v&quot;:-3.3},{&quot;t&quot;:11.648,&quot;v&quot;:-3.1},{&quot;t&quot;:11.733,&quot;v&quot;:-3.2},{&quot;t&quot;:11.819,&quot;v&quot;:-2.3},{&quot;t&quot;:11.904,&quot;v&quot;:-2.4},{&quot;t&quot;:11.989,&quot;v&quot;:-1.7},{&quot;t&quot;:12.16,&quot;v&quot;:-1.3},{&quot;t&quot;:12.245,&quot;v&quot;:-0.9},{&quot;t&quot;:12.331,&quot;v&quot;:-2.4},{&quot;t&quot;:12.416,&quot;v&quot;:-1.9},{&quot;t&quot;:12.501,&quot;v&quot;:-1.9},{&quot;t&quot;:12.587,&quot;v&quot;:-1.3},{&quot;t&quot;:12.672,&quot;v&quot;:-1},{&quot;t&quot;:12.757,&quot;v&quot;:-0.7},{&quot;t&quot;:12.843,&quot;v&quot;:-0.5},{&quot;t&quot;:12.928,&quot;v&quot;:-2.5},{&quot;t&quot;:13.013,&quot;v&quot;:-1.8},{&quot;t&quot;:13.099,&quot;v&quot;:-4.4},{&quot;t&quot;:13.269,&quot;v&quot;:-4.3},{&quot;t&quot;:13.355,&quot;v&quot;:-3.7},{&quot;t&quot;:13.44,&quot;v&quot;:-2.6},{&quot;t&quot;:13.525,&quot;v&quot;:-1.9},{&quot;t&quot;:13.611,&quot;v&quot;:-1.3},{&quot;t&quot;:13.696,&quot;v&quot;:-0.9},{&quot;t&quot;:13.781,&quot;v&quot;:-0.7},{&quot;t&quot;:14.123,&quot;v&quot;:-0.2},{&quot;t&quot;:14.208,&quot;v&quot;:0},{&quot;t&quot;:14.464,&quot;v&quot;:0},{&quot;t&quot;:14.549,&quot;v&quot;:-3.1},{&quot;t&quot;:14.635,&quot;v&quot;:-2.2},{&quot;t&quot;:14.72,&quot;v&quot;:-3.9},{&quot;t&quot;:14.805,&quot;v&quot;:-2.9},{&quot;t&quot;:14.891,&quot;v&quot;:-2.3},{&quot;t&quot;:14.976,&quot;v&quot;:-2.1},{&quot;t&quot;:15.061,&quot;v&quot;:-3.1},{&quot;t&quot;:15.147,&quot;v&quot;:-2.3},{&quot;t&quot;:15.232,&quot;v&quot;:-1.9},{&quot;t&quot;:15.317,&quot;v&quot;:-1.5},{&quot;t&quot;:15.403,&quot;v&quot;:-1},{&quot;t&quot;:15.573,&quot;v&quot;:-0.7},{&quot;t&quot;:15.659,&quot;v&quot;:-0.5},{&quot;t&quot;:15.744,&quot;v&quot;:-0.4},{&quot;t&quot;:15.829,&quot;v&quot;:-3.7},{&quot;t&quot;:15.915,&quot;v&quot;:-2.7},{&quot;t&quot;:16,&quot;v&quot;:-3.2},{&quot;t&quot;:16.085,&quot;v&quot;:-2.3},{&quot;t&quot;:16.171,&quot;v&quot;:-1.6},{&quot;t&quot;:16.256,&quot;v&quot;:-1.2},{&quot;t&quot;:16.341,&quot;v&quot;:-0.8},{&quot;t&quot;:16.427,&quot;v&quot;:-1.3},{&quot;t&quot;:16.597,&quot;v&quot;:-1},{&quot;t&quot;:16.683,&quot;v&quot;:-2.8},{&quot;t&quot;:16.768,&quot;v&quot;:-2},{&quot;t&quot;:16.853,&quot;v&quot;:-1.4},{&quot;t&quot;:16.939,&quot;v&quot;:-3.3},{&quot;t&quot;:17.195,&quot;v&quot;:-3.1},{&quot;t&quot;:17.28,&quot;v&quot;:-2.2},{&quot;t&quot;:17.365,&quot;v&quot;:-1.7},{&quot;t&quot;:17.451,&quot;v&quot;:-1.5},{&quot;t&quot;:17.536,&quot;v&quot;:-1},{&quot;t&quot;:17.621,&quot;v&quot;:-0.7},{&quot;t&quot;:17.707,&quot;v&quot;:-3.2},{&quot;t&quot;:17.792,&quot;v&quot;:-2.3},{&quot;t&quot;:17.877,&quot;v&quot;:-3.2},{&quot;t&quot;:17.963,&quot;v&quot;:-3.1},{&quot;t&quot;:18.048,&quot;v&quot;:-2.2},{&quot;t&quot;:18.133,&quot;v&quot;:-2.8},{&quot;t&quot;:18.219,&quot;v&quot;:-2},{&quot;t&quot;:18.304,&quot;v&quot;:-1.5},{&quot;t&quot;:18.389,&quot;v&quot;:-3.9},{&quot;t&quot;:18.475,&quot;v&quot;:-3.3},{&quot;t&quot;:18.56,&quot;v&quot;:-2.8},{&quot;t&quot;:18.645,&quot;v&quot;:-2},{&quot;t&quot;:18.731,&quot;v&quot;:-1.4},{&quot;t&quot;:18.816,&quot;v&quot;:-1},{&quot;t&quot;:18.901,&quot;v&quot;:-4.2},{&quot;t&quot;:18.987,&quot;v&quot;:-3.1},{&quot;t&quot;:19.072,&quot;v&quot;:-2.2},{&quot;t&quot;:19.157,&quot;v&quot;:-2.5},{&quot;t&quot;:19.243,&quot;v&quot;:-3.3},{&quot;t&quot;:19.328,&quot;v&quot;:-2.5},{&quot;t&quot;:19.413,&quot;v&quot;:-1.8},{&quot;t&quot;:19.584,&quot;v&quot;:-2.1},{&quot;t&quot;:19.669,&quot;v&quot;:-2.7},{&quot;t&quot;:19.755,&quot;v&quot;:-2.7},{&quot;t&quot;:19.84,&quot;v&quot;:-2.1},{&quot;t&quot;:19.925,&quot;v&quot;:-1.6},{&quot;t&quot;:20.011,&quot;v&quot;:-2.7},{&quot;t&quot;:20.181,&quot;v&quot;:-2.4},{&quot;t&quot;:20.267,&quot;v&quot;:-1.7},{&quot;t&quot;:20.352,&quot;v&quot;:-1.3},{&quot;t&quot;:20.437,&quot;v&quot;:-1.2},{&quot;t&quot;:20.523,&quot;v&quot;:-1.7},{&quot;t&quot;:20.608,&quot;v&quot;:-3.7},{&quot;t&quot;:20.693,&quot;v&quot;:-3.5},{&quot;t&quot;:20.779,&quot;v&quot;:-2.5},{&quot;t&quot;:20.864,&quot;v&quot;:-1.8},{&quot;t&quot;:20.949,&quot;v&quot;:-1.3},{&quot;t&quot;:21.035,&quot;v&quot;:-0.9},{&quot;t&quot;:21.12,&quot;v&quot;:-0.6},{&quot;t&quot;:21.291,&quot;v&quot;:-0.3},{&quot;t&quot;:21.376,&quot;v&quot;:-1.2},{&quot;t&quot;:21.461,&quot;v&quot;:-3.8},{&quot;t&quot;:21.547,&quot;v&quot;:-3.7},{&quot;t&quot;:21.632,&quot;v&quot;:-4.3},{&quot;t&quot;:21.717,&quot;v&quot;:-3},{&quot;t&quot;:21.803,&quot;v&quot;:-2.2},{&quot;t&quot;:21.888,&quot;v&quot;:-1.5},{&quot;t&quot;:22.059,&quot;v&quot;:-1.2},{&quot;t&quot;:22.144,&quot;v&quot;:-0.8},{&quot;t&quot;:22.229,&quot;v&quot;:-3.3},{&quot;t&quot;:22.315,&quot;v&quot;:-2.5},{&quot;t&quot;:22.4,&quot;v&quot;:-3.6},{&quot;t&quot;:22.485,&quot;v&quot;:-3},{&quot;t&quot;:22.571,&quot;v&quot;:-3.6},{&quot;t&quot;:22.656,&quot;v&quot;:-4},{&quot;t&quot;:22.741,&quot;v&quot;:-4.2},{&quot;t&quot;:22.827,&quot;v&quot;:-3},{&quot;t&quot;:22.912,&quot;v&quot;:-3.1},{&quot;t&quot;:22.997,&quot;v&quot;:-4.1},{&quot;t&quot;:23.083,&quot;v&quot;:-3.9},{&quot;t&quot;:23.168,&quot;v&quot;:-2.8},{&quot;t&quot;:23.253,&quot;v&quot;:-2},{&quot;t&quot;:23.339,&quot;v&quot;:-1.9},{&quot;t&quot;:23.424,&quot;v&quot;:-3.2},{&quot;t&quot;:23.509,&quot;v&quot;:-3},{&quot;t&quot;:23.595,&quot;v&quot;:-4},{&quot;t&quot;:23.68,&quot;v&quot;:-2.8},{&quot;t&quot;:23.765,&quot;v&quot;:-2.1},{&quot;t&quot;:23.851,&quot;v&quot;:-1.5},{&quot;t&quot;:23.936,&quot;v&quot;:-1.4},{&quot;t&quot;:24.021,&quot;v&quot;:-1},{&quot;t&quot;:24.107,&quot;v&quot;:-1.8},{&quot;t&quot;:24.277,&quot;v&quot;:-1.5},{&quot;t&quot;:24.363,&quot;v&quot;:-1.1},{&quot;t&quot;:24.448,&quot;v&quot;:-0.8},{&quot;t&quot;:24.533,&quot;v&quot;:-2.8},{&quot;t&quot;:24.619,&quot;v&quot;:-2},{&quot;t&quot;:24.789,&quot;v&quot;:-1.8},{&quot;t&quot;:24.875,&quot;v&quot;:-1.3},{&quot;t&quot;:24.96,&quot;v&quot;:-0.9},{&quot;t&quot;:25.045,&quot;v&quot;:-0.6},{&quot;t&quot;:25.301,&quot;v&quot;:-0.2},{&quot;t&quot;:25.387,&quot;v&quot;:-3.4},{&quot;t&quot;:25.472,&quot;v&quot;:-3.3},{&quot;t&quot;:25.557,&quot;v&quot;:-4.9},{&quot;t&quot;:25.643,&quot;v&quot;:-3.9},{&quot;t&quot;:25.728,&quot;v&quot;:-3.7},{&quot;t&quot;:25.813,&quot;v&quot;:-3.3},{&quot;t&quot;:26.069,&quot;v&quot;:-3.3},{&quot;t&quot;:26.155,&quot;v&quot;:-2.4},{&quot;t&quot;:26.325,&quot;v&quot;:-2},{&quot;t&quot;:26.411,&quot;v&quot;:-4.4},{&quot;t&quot;:26.496,&quot;v&quot;:-3.5},{&quot;t&quot;:26.581,&quot;v&quot;:-3.7},{&quot;t&quot;:26.667,&quot;v&quot;:-2.7},{&quot;t&quot;:26.752,&quot;v&quot;:-1.9},{&quot;t&quot;:26.837,&quot;v&quot;:-1.3},{&quot;t&quot;:26.923,&quot;v&quot;:-1},{&quot;t&quot;:27.008,&quot;v&quot;:-3.5},{&quot;t&quot;:27.093,&quot;v&quot;:-2.9},{&quot;t&quot;:27.435,&quot;v&quot;:-2.5},{&quot;t&quot;:27.52,&quot;v&quot;:-1.8},{&quot;t&quot;:27.605,&quot;v&quot;:-3.2},{&quot;t&quot;:27.691,&quot;v&quot;:-2.3},{&quot;t&quot;:27.861,&quot;v&quot;:-1.9},{&quot;t&quot;:27.947,&quot;v&quot;:-1.4},{&quot;t&quot;:28.117,&quot;v&quot;:-0.9},{&quot;t&quot;:28.203,&quot;v&quot;:-0.6},{&quot;t&quot;:28.373,&quot;v&quot;:-0.3},{&quot;t&quot;:28.459,&quot;v&quot;:-3.2},{&quot;t&quot;:28.544,&quot;v&quot;:-2.2},{&quot;t&quot;:28.629,&quot;v&quot;:-1.6},{&quot;t&quot;:28.715,&quot;v&quot;:-1.5},{&quot;t&quot;:28.8,&quot;v&quot;:-1.1},{&quot;t&quot;:28.885,&quot;v&quot;:-1},{&quot;t&quot;:28.971,&quot;v&quot;:-1.6},{&quot;t&quot;:29.056,&quot;v&quot;:-2.4},{&quot;t&quot;:29.141,&quot;v&quot;:-1.7},{&quot;t&quot;:29.312,&quot;v&quot;:-1.4},{&quot;t&quot;:29.397,&quot;v&quot;:-2.8},{&quot;t&quot;:29.483,&quot;v&quot;:-2.2},{&quot;t&quot;:29.568,&quot;v&quot;:-1.6},{&quot;t&quot;:29.739,&quot;v&quot;:-1.5},{&quot;t&quot;:29.824,&quot;v&quot;:-1.1},{&quot;t&quot;:29.909,&quot;v&quot;:-0.8},{&quot;t&quot;:29.995,&quot;v&quot;:-0.5},{&quot;t&quot;:30.165,&quot;v&quot;:-0.3},{&quot;t&quot;:30.251,&quot;v&quot;:0},{&quot;t&quot;:30.677,&quot;v&quot;:0},{&quot;t&quot;:30.763,&quot;v&quot;:-2.8},{&quot;t&quot;:30.848,&quot;v&quot;:-3.7},{&quot;t&quot;:30.933,&quot;v&quot;:-3.6},{&quot;t&quot;:31.019,&quot;v&quot;:-3.1},{&quot;t&quot;:31.104,&quot;v&quot;:-3},{&quot;t&quot;:31.189,&quot;v&quot;:-2.4},{&quot;t&quot;:31.275,&quot;v&quot;:-2},{&quot;t&quot;:31.36,&quot;v&quot;:-1.8},{&quot;t&quot;:31.445,&quot;v&quot;:-1.2},{&quot;t&quot;:31.531,&quot;v&quot;:-0.9},{&quot;t&quot;:31.616,&quot;v&quot;:-0.6},{&quot;t&quot;:31.787,&quot;v&quot;:-0.3},{&quot;t&quot;:31.872,&quot;v&quot;:-3.5},{&quot;t&quot;:31.957,&quot;v&quot;:-2.5},{&quot;t&quot;:32.043,&quot;v&quot;:-2.8},{&quot;t&quot;:32.128,&quot;v&quot;:-3.1},{&quot;t&quot;:32.213,&quot;v&quot;:-2.8},{&quot;t&quot;:32.299,&quot;v&quot;:-2.4},{&quot;t&quot;:32.469,&quot;v&quot;:-2},{&quot;t&quot;:32.555,&quot;v&quot;:-1.7},{&quot;t&quot;:32.64,&quot;v&quot;:-4},{&quot;t&quot;:32.725,&quot;v&quot;:-3.8},{&quot;t&quot;:32.811,&quot;v&quot;:-3.1},{&quot;t&quot;:32.896,&quot;v&quot;:-3.1},{&quot;t&quot;:32.981,&quot;v&quot;:-2.2},{&quot;t&quot;:33.067,&quot;v&quot;:-2.4},{&quot;t&quot;:33.152,&quot;v&quot;:-1.7},{&quot;t&quot;:33.237,&quot;v&quot;:-3},{&quot;t&quot;:33.323,&quot;v&quot;:-3.8},{&quot;t&quot;:33.408,&quot;v&quot;:-4.3},{&quot;t&quot;:33.493,&quot;v&quot;:-3.5},{&quot;t&quot;:33.579,&quot;v&quot;:-2.5},{&quot;t&quot;:33.664,&quot;v&quot;:-1.8},{&quot;t&quot;:33.749,&quot;v&quot;:-1.3},{&quot;t&quot;:33.749,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n5.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.043,&quot;v&quot;:0},{&quot;t&quot;:0.128,&quot;v&quot;:-10.8},{&quot;t&quot;:0.213,&quot;v&quot;:-12.8},{&quot;t&quot;:3.285,&quot;v&quot;:-12.7},{&quot;t&quot;:3.371,&quot;v&quot;:-12.2},{&quot;t&quot;:3.456,&quot;v&quot;:-11.8},{&quot;t&quot;:3.541,&quot;v&quot;:-11.4},{&quot;t&quot;:3.627,&quot;v&quot;:-11},{&quot;t&quot;:3.712,&quot;v&quot;:-10.6},{&quot;t&quot;:3.797,&quot;v&quot;:-12.7},{&quot;t&quot;:3.883,&quot;v&quot;:-13.1},{&quot;t&quot;:3.968,&quot;v&quot;:-13.2},{&quot;t&quot;:6.016,&quot;v&quot;:-13.2},{&quot;t&quot;:6.101,&quot;v&quot;:-12.7},{&quot;t&quot;:6.187,&quot;v&quot;:-12.3},{&quot;t&quot;:6.272,&quot;v&quot;:-11.9},{&quot;t&quot;:6.357,&quot;v&quot;:-11.5},{&quot;t&quot;:6.443,&quot;v&quot;:-11.1},{&quot;t&quot;:6.528,&quot;v&quot;:-12.8},{&quot;t&quot;:7.723,&quot;v&quot;:-12.4},{&quot;t&quot;:7.808,&quot;v&quot;:-11.9},{&quot;t&quot;:7.893,&quot;v&quot;:-11.5},{&quot;t&quot;:7.979,&quot;v&quot;:-11.1},{&quot;t&quot;:8.064,&quot;v&quot;:-10.7},{&quot;t&quot;:8.149,&quot;v&quot;:-10.4},{&quot;t&quot;:8.235,&quot;v&quot;:-10},{&quot;t&quot;:8.32,&quot;v&quot;:-9.6},{&quot;t&quot;:8.405,&quot;v&quot;:-9.3},{&quot;t&quot;:8.491,&quot;v&quot;:-9},{&quot;t&quot;:8.576,&quot;v&quot;:-12.4},{&quot;t&quot;:8.661,&quot;v&quot;:-12.3},{&quot;t&quot;:8.747,&quot;v&quot;:-13},{&quot;t&quot;:9.515,&quot;v&quot;:-12.7},{&quot;t&quot;:9.6,&quot;v&quot;:-12.3},{&quot;t&quot;:9.685,&quot;v&quot;:-11.9},{&quot;t&quot;:9.771,&quot;v&quot;:-11.7},{&quot;t&quot;:9.941,&quot;v&quot;:-11.9},{&quot;t&quot;:10.027,&quot;v&quot;:-13},{&quot;t&quot;:12.672,&quot;v&quot;:-12.7},{&quot;t&quot;:12.757,&quot;v&quot;:-12.3},{&quot;t&quot;:12.843,&quot;v&quot;:-13},{&quot;t&quot;:14.208,&quot;v&quot;:-12.7},{&quot;t&quot;:14.293,&quot;v&quot;:-12.3},{&quot;t&quot;:14.379,&quot;v&quot;:-11.9},{&quot;t&quot;:14.464,&quot;v&quot;:-11.5},{&quot;t&quot;:14.549,&quot;v&quot;:-12.9},{&quot;t&quot;:16.256,&quot;v&quot;:-12.7},{&quot;t&quot;:16.341,&quot;v&quot;:-12.3},{&quot;t&quot;:16.427,&quot;v&quot;:-12.6},{&quot;t&quot;:16.512,&quot;v&quot;:-13.1},{&quot;t&quot;:17.536,&quot;v&quot;:-12.7},{&quot;t&quot;:17.621,&quot;v&quot;:-12.3},{&quot;t&quot;:17.707,&quot;v&quot;:-12.2},{&quot;t&quot;:17.792,&quot;v&quot;:-13},{&quot;t&quot;:18.645,&quot;v&quot;:-12.7},{&quot;t&quot;:18.731,&quot;v&quot;:-12.3},{&quot;t&quot;:18.816,&quot;v&quot;:-11.9},{&quot;t&quot;:18.901,&quot;v&quot;:-13},{&quot;t&quot;:20.949,&quot;v&quot;:-12.7},{&quot;t&quot;:21.035,&quot;v&quot;:-12.3},{&quot;t&quot;:21.12,&quot;v&quot;:-11.9},{&quot;t&quot;:21.205,&quot;v&quot;:-11.5},{&quot;t&quot;:21.291,&quot;v&quot;:-11.1},{&quot;t&quot;:21.376,&quot;v&quot;:-12.8},{&quot;t&quot;:24.96,&quot;v&quot;:-12.7},{&quot;t&quot;:25.045,&quot;v&quot;:-12.3},{&quot;t&quot;:25.131,&quot;v&quot;:-11.9},{&quot;t&quot;:25.216,&quot;v&quot;:-11.5},{&quot;t&quot;:25.301,&quot;v&quot;:-11.1},{&quot;t&quot;:25.387,&quot;v&quot;:-12.8},{&quot;t&quot;:26.752,&quot;v&quot;:-12.7},{&quot;t&quot;:26.837,&quot;v&quot;:-12.3},{&quot;t&quot;:26.923,&quot;v&quot;:-13},{&quot;t&quot;:28.117,&quot;v&quot;:-12.7},{&quot;t&quot;:28.203,&quot;v&quot;:-12.3},{&quot;t&quot;:28.288,&quot;v&quot;:-11.9},{&quot;t&quot;:28.373,&quot;v&quot;:-13},{&quot;t&quot;:29.824,&quot;v&quot;:-12.7},{&quot;t&quot;:29.909,&quot;v&quot;:-12.3},{&quot;t&quot;:29.995,&quot;v&quot;:-11.9},{&quot;t&quot;:30.08,&quot;v&quot;:-11.5},{&quot;t&quot;:30.165,&quot;v&quot;:-11.1},{&quot;t&quot;:30.251,&quot;v&quot;:-10.7},{&quot;t&quot;:30.336,&quot;v&quot;:-10.3},{&quot;t&quot;:30.421,&quot;v&quot;:-9.9},{&quot;t&quot;:30.507,&quot;v&quot;:-9.6},{&quot;t&quot;:30.592,&quot;v&quot;:-9.3},{&quot;t&quot;:30.677,&quot;v&quot;:-12.5},{&quot;t&quot;:30.763,&quot;v&quot;:-12.2},{&quot;t&quot;:30.848,&quot;v&quot;:-11.7},{&quot;t&quot;:30.933,&quot;v&quot;:-12.9},{&quot;t&quot;:31.445,&quot;v&quot;:-12.7},{&quot;t&quot;:31.531,&quot;v&quot;:-12.3},{&quot;t&quot;:31.616,&quot;v&quot;:-11.9},{&quot;t&quot;:31.701,&quot;v&quot;:-11.5},{&quot;t&quot;:31.787,&quot;v&quot;:-11.1},{&quot;t&quot;:31.872,&quot;v&quot;:-12.8},{&quot;t&quot;:33.579,&quot;v&quot;:-12.7},{&quot;t&quot;:33.664,&quot;v&quot;:-12.3},{&quot;t&quot;:33.749,&quot;v&quot;:-11.9},{&quot;t&quot;:33.835,&quot;v&quot;:-11.4},{&quot;t&quot;:33.92,&quot;v&quot;:-11},{&quot;t&quot;:34.005,&quot;v&quot;:-10.7},{&quot;t&quot;:34.091,&quot;v&quot;:-10.3},{&quot;t&quot;:34.176,&quot;v&quot;:-9.9},{&quot;t&quot;:34.261,&quot;v&quot;:-9.6},{&quot;t&quot;:34.347,&quot;v&quot;:-9.2},{&quot;t&quot;:34.432,&quot;v&quot;:-8.9},{&quot;t&quot;:34.517,&quot;v&quot;:-8.6},{&quot;t&quot;:34.603,&quot;v&quot;:-8.3},{&quot;t&quot;:34.688,&quot;v&quot;:-8},{&quot;t&quot;:34.773,&quot;v&quot;:-7.7},{&quot;t&quot;:34.859,&quot;v&quot;:-7.5},{&quot;t&quot;:34.944,&quot;v&quot;:-7.2},{&quot;t&quot;:35.029,&quot;v&quot;:-7},{&quot;t&quot;:35.115,&quot;v&quot;:-6.7},{&quot;t&quot;:35.2,&quot;v&quot;:-6.5},{&quot;t&quot;:35.285,&quot;v&quot;:-6.3},{&quot;t&quot;:35.371,&quot;v&quot;:-6},{&quot;t&quot;:35.541,&quot;v&quot;:-5.6},{&quot;t&quot;:35.627,&quot;v&quot;:-5.4},{&quot;t&quot;:35.797,&quot;v&quot;:-5.1},{&quot;t&quot;:35.883,&quot;v&quot;:-4.9},{&quot;t&quot;:36.053,&quot;v&quot;:-4.5},{&quot;t&quot;:36.139,&quot;v&quot;:-4.4},{&quot;t&quot;:36.309,&quot;v&quot;:-4.1},{&quot;t&quot;:36.395,&quot;v&quot;:-3.9},{&quot;t&quot;:36.651,&quot;v&quot;:-3.5},{&quot;t&quot;:36.736,&quot;v&quot;:-3.4},{&quot;t&quot;:37.077,&quot;v&quot;:-3},{&quot;t&quot;:37.163,&quot;v&quot;:-2.9},{&quot;t&quot;:37.504,&quot;v&quot;:-2.5},{&quot;t&quot;:37.589,&quot;v&quot;:-2.4},{&quot;t&quot;:38.016,&quot;v&quot;:-2},{&quot;t&quot;:38.101,&quot;v&quot;:-1.9},{&quot;t&quot;:38.784,&quot;v&quot;:-1.5},{&quot;t&quot;:38.869,&quot;v&quot;:-1.4},{&quot;t&quot;:40.064,&quot;v&quot;:-0.9},{&quot;t&quot;:40.149,&quot;v&quot;:-0.8},{&quot;t&quot;:42.197,&quot;v&quot;:-0.4},{&quot;t&quot;:42.283,&quot;v&quot;:-0.3},{&quot;t&quot;:43.477,&quot;v&quot;:-0.2},{&quot;t&quot;:43.563,&quot;v&quot;:0}]}]}"></audio>
+      <audio id="sfx" src="assets/sfx.wav" data-start="0" data-duration="36" data-track-index="3" data-volume="0.55"></audio>
+    </div>
+
+    <script>
+      gsap.registerPlugin(MotionPathPlugin);
+
+      function build() {
+        const tl = gsap.timeline({ paused: true });
+        const $ = (id) => document.getElementById(id);
+
+        // ---------- helpers ----------
+        // place an .abs element by its centre
+        const place = (id, x, y, extra) =>
+          gsap.set($(id), Object.assign({ xPercent: -50, yPercent: -50, x: x, y: y }, extra || {}));
+
+        // seeded PRNG (deterministic)
+        let seed = 20261005;
+        const rnd = () => {
+          seed = (seed * 1664525 + 1013904223) % 4294967296;
+          return seed / 4294967296;
+        };
+
+        // headline in/out: masked upward reveal + blur-to-sharp + 102%→100%
+        const hlIn = (id, t, gap) => {
+          const lines = $(id).querySelectorAll(".i");
+          lines.forEach((ln, k) => {
+            const at = Array.isArray(gap) ? t + gap[k] : t + k * (gap || 0.08);
+            tl.fromTo(
+              ln,
+              { yPercent: 105, opacity: 0, filter: "blur(8px)", scale: 1.02 },
+              { yPercent: 0, opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.42, ease: "expo.out" },
+              at,
+            );
+          });
+        };
+        const hlOut = (id, t) => {
+          const lines = $(id).querySelectorAll(".i");
+          tl.to(lines, { yPercent: -70, opacity: 0, filter: "blur(4px)", duration: 0.24, ease: "power2.in", stagger: 0.03 }, t);
+        };
+
+        // subtitles: 0→100%, 4px rise, ~130ms
+        const cue = (id, a, b) => {
+          tl.fromTo($(id), { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: 0.13, ease: "power1.out" }, a);
+          if (b != null) tl.to($(id), { opacity: 0, duration: 0.1, ease: "power1.in" }, b);
+        };
+
+        const fadeIn = (el, t, d, from) =>
+          tl.fromTo(el, Object.assign({ opacity: 0 }, from || {}), { opacity: 1, x: "+=0", duration: d || 0.3, ease: "power2.out" }, t);
+
+        // ---------- static setup ----------
+        place("toplogo", 540, 52);
+        place("glow", 540, 620);
+
+        // PAN / account characters (masked one segment at a time later)
+        const pan = "ABCDE1234F";
+        const panEl = $("panV");
+        pan.split("").forEach((c, i) => {
+          const s = document.createElement("span");
+          s.className = "ch";
+          s.innerHTML = '<span class="r">' + c + '</span><span class="b">•</span>';
+          if (i >= 2 && i <= 6) s.dataset.mask = "1";
+          panEl.appendChild(s);
+        });
+        const acc = "7730 4821";
+        const accEl = $("accV");
+        acc.split("").forEach((c, i) => {
+          const s = document.createElement("span");
+          s.className = "ch";
+          if (c === " ") {
+            s.style.width = "8px";
+            s.innerHTML = '<span class="r">&nbsp;</span><span class="b">&nbsp;</span>';
+          } else s.innerHTML = '<span class="r">' + c + '</span><span class="b">•</span>';
+          if (i <= 3) s.dataset.mask = "1";
+          accEl.appendChild(s);
+        });
+
+        // ghost copies of the document
+        ["g1", "g2", "g3"].forEach((g) => {
+          $(g).innerHTML = $("doc").innerHTML.replace(/ id="[^"]+"/g, "");
+        });
+
+        // intentional layering (ghost copies, stacking cards, chat scroll, hand-offs)
+        document.querySelectorAll("#g1 *, #g2 *, #g3 *, #doc *, .dcard *, #feedA *, #feedB *").forEach((n) => {
+          n.setAttribute("data-layout-allow-overlap", "");
+          n.setAttribute("data-layout-allow-occlusion", "");
+        });
+
+        // waveform bars
+        const wave = $("wave");
+        for (let i = 0; i < 26; i++) wave.appendChild(document.createElement("i"));
+
+        // ---------- WhatsApp B feed layout (measured once, deterministic) ----------
+        const BODY_H = 590 - 76 - 62;
+        const feedTop = {};
+        const H = (id) => $(id).offsetHeight;
+        let y = 18;
+        const put = (id, gap, at) => {
+          const top = at != null ? at : y + gap;
+          $(id).style.top = top + "px";
+          feedTop[id] = top;
+          y = top + H(id);
+          return top;
+        };
+        put("m_hi", 0);
+        put("m_help", 8);
+        put("q_btns", 8);
+        put("m_q1", 10);
+        const a1Top = put("m_a1", 8);
+        put("c_a1", 0, a1Top); // answer bubble compresses into this chip (same slot)
+        put("m_talk", 12);
+        put("q_call", 8);
+        put("s_ctx", 8);
+        put("k_pend", 14);
+        put("m_q2", 14);
+        put("m_yes", 8);
+        put("c_pdf", 8);
+        const consTop = put("k_cons", 12);
+        put("s_cons", 0, consTop); // consent card compresses into this pill
+        put("d_up", 14);
+        put("s_join", 16);
+        put("m_rohan", 10);
+        const bottomOf = (id) => feedTop[id] + H(id);
+        const scrollFor = (id) => Math.min(0, BODY_H - 16 - bottomOf(id));
+
+        // ---------- geometry ----------
+        const WA_W = 470,
+          WA_H = 590;
+        // screen centre of an element inside a WA window
+        const inWA = (el, wcx, wcy, s, feedY) => {
+          let x = 0,
+            yy = 0,
+            n = el;
+          const win = el.closest(".wa");
+          while (n && n !== win) {
+            x += n.offsetLeft;
+            yy += n.offsetTop;
+            n = n.offsetParent;
+          }
+          // the feed sits inside the body; offsetParent chain already includes body top
+          x += el.offsetWidth / 2;
+          yy += el.offsetHeight / 2 + (feedY || 0);
+          return { x: wcx + (x - WA_W / 2) * s, y: wcy + (yy - WA_H / 2) * s };
+        };
+
+        // =========================================================
+        // SCENE 01 — frame-one impact (0 – 3.3)
+        // =========================================================
+        // three documents already in motion on frame 0
+        place("cPan", 270, 600, { rotation: -6 });
+        place("cStmt", 540, 590, { rotation: 0 });
+        place("cInc", 810, 600, { rotation: 6 });
+        tl.fromTo("#cPan", { x: 110, y: 720, rotation: -14, filter: "blur(2px)" }, { x: 270, y: 600, rotation: -5, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0);
+        tl.fromTo("#cStmt", { x: 540, y: 900, rotation: 7, filter: "blur(2px)" }, { x: 540, y: 586, rotation: 0, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.07);
+        tl.fromTo("#cInc", { x: 975, y: 500, rotation: 14, filter: "blur(2px)" }, { x: 810, y: 600, rotation: 5, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.14);
+        // align
+        tl.to(["#cPan", "#cInc"], { y: 596, rotation: 0, duration: 0.3, ease: "power3.inOut" }, 0.62);
+        tl.to("#cStmt", { y: 596, duration: 0.3, ease: "power3.inOut" }, 0.62);
+        // magnetic stack (accelerate in, hard snap)
+        tl.to("#cPan", { x: 528, y: 584, rotation: -3, duration: 0.3, ease: "power4.in" }, 0.9);
+        tl.to("#cInc", { x: 552, y: 608, rotation: 3, duration: 0.3, ease: "power4.in" }, 0.9);
+        tl.to("#cStmt", { scale: 1.04, duration: 0.3, ease: "power4.in" }, 0.9);
+        // stack compresses → becomes the WhatsApp attachment
+        const waAc = { x: 540, y: 630, s: 0.8 };
+        place("waA", waAc.x, waAc.y, { scale: 0.8, opacity: 0 });
+        const aDoc = inWA($("a_doc"), waAc.x, waAc.y, waAc.s, 0);
+        tl.to(["#cPan", "#cStmt", "#cInc"], { scaleY: 0.55, scaleX: 1.12, duration: 0.12, ease: "power2.in" }, 1.2);
+        tl.to(["#cPan", "#cStmt", "#cInc"], { x: aDoc.x, y: aDoc.y, scaleX: 0.95, scaleY: 0.45, opacity: 0, rotation: 0, duration: 0.26, ease: "power3.in" }, 1.32);
+        tl.fromTo("#waA", { opacity: 0, scale: 0.62, y: waAc.y + 40 }, { opacity: 1, scale: 0.8, y: waAc.y, duration: 0.5, ease: "expo.out" }, 1.22);
+        tl.fromTo("#a_m1", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.4)" }, 1.32);
+        tl.fromTo("#a_doc", { opacity: 0, scale: 0.86, transformOrigin: "100% 0%" }, { opacity: 1, scale: 1, duration: 0.34, ease: "back.out(1.6)" }, 1.52);
+
+        // headline: on screen from frame one
+        tl.fromTo(["#h1 .m:nth-child(1) .i", "#h1 .m:nth-child(2) .i"], { yPercent: 16, opacity: 0.85, filter: "blur(1px)" }, { yPercent: 0, opacity: 1, filter: "blur(0px)", duration: 0.36, ease: "expo.out", stagger: 0.1 }, 0);
+        tl.fromTo("#h1 .m:nth-child(3) .i", { yPercent: 105, opacity: 0, filter: "blur(8px)" }, { yPercent: 0, opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 2.42);
+        hlOut("h1", 3.42);
+        tl.set("#s1", { opacity: 1 }, 0);
+        tl.to("#s1", { opacity: 0, duration: 0.1, ease: "power1.in" }, 3.4);
+
+        // =========================================================
+        // SCENE 02 — where does it go next? (3.3 – 5.3)
+        // =========================================================
+        // the document leaves the chat
+        const docStart = inWA($("a_doc"), waAc.x, waAc.y, waAc.s, 0);
+        place("doc", docStart.x, docStart.y, { scale: 0.74 * 1.1, opacity: 0 });
+        tl.set("#doc", { opacity: 1 }, 3.32);
+        tl.to("#a_doc", { opacity: 0.35, duration: 0.25 }, 3.32);
+        tl.to("#doc", { x: 470, y: 560, scale: 0.68, rotation: -2, duration: 0.55, ease: "power3.out" }, 3.32);
+        // WhatsApp moves left and reduces prominence
+        tl.to("#waA", { x: 250, y: 640, scale: 0.66, duration: 0.6, ease: "power3.inOut" }, 3.3);
+        // RM phone appears on the right
+        place("rm", 900, 650, { opacity: 0 });
+        tl.fromTo("#rm", { x: 1010, opacity: 0 }, { x: 900, opacity: 1, duration: 0.55, ease: "expo.out" }, 3.6);
+        hlIn("h2", 3.75, 0.09);
+        hlOut("h2", 5.28);
+        cue("s2", 3.82, 6.3);
+
+        // =========================================================
+        // SCENE 03 — governed, or sitting on an RM's phone? (5.3 – 8.05)
+        // =========================================================
+        // document drifts toward the RM phone, accelerating — then FREEZE ~25px away
+        const FREEZE = 7.62;
+        const docStop = { x: 900 - 95 - 25 - 102, y: 640 };
+        tl.to("#doc", { x: docStop.x, y: docStop.y, rotation: 0, duration: FREEZE - 3.9, ease: "power2.in" }, 3.9);
+        // uncontrolled local copies trailing behind
+        ["g1", "g2", "g3"].forEach((g, k) => {
+          place(g, 470, 560, { scale: 0.68, opacity: 0 });
+          const lag = 0.16 * (k + 1);
+          tl.to("#" + g, { opacity: [0.34, 0.2, 0.11][k], duration: 0.4, ease: "power1.out" }, 5.4 + k * 0.12);
+          tl.fromTo("#" + g, { x: 470, y: 560 }, { x: docStop.x - 46 * (k + 1), y: docStop.y + [10, -14, 18][k], rotation: [-3, 2, -4][k], duration: FREEZE - 3.9 - lag, ease: "power2.in" }, 3.9 + lag * 0);
+        });
+        hlIn("h3", 5.42, [0, 0.12, 0.9]);
+        // restrained warm accent on the phone edge + small support label
+        place("localQ", 900, 856);
+        tl.to("#rmWarn", { opacity: 0.85, duration: 0.5, ease: "power2.out" }, 6.7);
+        tl.fromTo("#localQ", { opacity: 0, y: 864 }, { opacity: 1, y: 856, duration: 0.3, ease: "power2.out" }, 6.95);
+        cue("s3", 6.45, 8.3);
+        // (nothing moves between FREEZE and 8.05 — the pattern interrupt)
+
+        // =========================================================
+        // SCENE 04 — DoubleTick redirects the journey (8.05 – 9.8)
+        // =========================================================
+        const R0 = 8.05;
+        const redirect = "M " + docStop.x + " 712 C " + (docStop.x + 10) + " 830, 520 872, 420 812 C 330 760, 300 690, 305 612";
+        $("pRedirect").setAttribute("d", redirect);
+        const rl = $("pRedirect").getTotalLength();
+        gsap.set("#pRedirect", { strokeDasharray: rl, strokeDashoffset: rl });
+        tl.set("#pRedirect", { opacity: 1 }, R0);
+        tl.to("#pRedirect", { strokeDashoffset: 0, duration: 0.42, ease: "power3.out" }, R0);
+        // copies collapse back into the original
+        tl.to(["#g1", "#g2", "#g3"], { x: docStop.x, y: docStop.y, rotation: 0, opacity: 0, duration: 0.24, ease: "power3.in" }, R0);
+        tl.to("#rmWarn", { opacity: 0, duration: 0.2 }, R0);
+        tl.to("#localQ", { opacity: 0, duration: 0.15 }, R0);
+        hlOut("h3", R0 + 0.02);
+        // pulled away along the green path
+        tl.to(
+          "#doc",
+          {
+            motionPath: {
+              path: [
+                { x: docStop.x - 30, y: 700 },
+                { x: 560, y: 812 },
+                { x: 400, y: 770 },
+                { x: 360, y: 660 },
+                { x: 540, y: 600 },
+              ],
+              curviness: 1.25,
+            },
+            rotation: -4,
+            duration: 1.0,
+            ease: "power3.inOut",
+          },
+          R0 + 0.12,
+        );
+        tl.to("#doc", { scale: 0.5, opacity: 0, duration: 0.3, ease: "power2.in" }, R0 + 1.0);
+        tl.to("#rm", { x: 1060, opacity: 0, duration: 0.5, ease: "power3.in" }, R0 + 0.1);
+        tl.to("#waA", { x: 120, opacity: 0, scale: 0.6, duration: 0.45, ease: "power3.in" }, R0 + 0.05);
+        // the line expands into the edge of a WhatsApp window
+        const fr = "M 305 612 V 352 Q 305 317 340 317 H 740 Q 775 317 775 352 V 872 Q 775 907 740 907 H 340 Q 305 907 305 872 Z";
+        $("pFrame").setAttribute("d", fr);
+        const fl = $("pFrame").getTotalLength();
+        gsap.set("#pFrame", { strokeDasharray: fl, strokeDashoffset: fl });
+        tl.set("#pFrame", { opacity: 1 }, R0 + 0.78);
+        tl.to("#pFrame", { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" }, R0 + 0.78);
+        tl.to("#pRedirect", { opacity: 0, duration: 0.3 }, R0 + 1.1);
+        place("waB", 540, 612, { opacity: 0 });
+        tl.fromTo("#waB", { opacity: 0, scale: 0.985 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, R0 + 1.2);
+        tl.to("#pFrame", { opacity: 0, duration: 0.35 }, R0 + 1.45);
+        tl.to("#glow", { opacity: 1, duration: 1.2, ease: "sine.out" }, R0 + 1.0);
+        // logo is already present; give it a tiny green breath on "With DoubleTick"
+        tl.fromTo("#toplogo", { opacity: 0, y: 46 }, { opacity: 1, y: 52, duration: 0.5, ease: "power2.out" }, 3.5);
+        tl.to("#toplogo", { scale: 1.08, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1 }, 8.8);
+
+        cue("s4", 8.61, 12.74);
+
+        // =========================================================
+        // SCENE 05 — AI follow-up on verified WhatsApp (9.3 – 12.7)
+        // =========================================================
+        const pop = (id, t, from) =>
+          tl.fromTo("#" + id, Object.assign({ opacity: 0, y: 10, scale: 0.96 }, from || {}), { opacity: 1, y: 0, scale: 1, duration: 0.34, ease: "back.out(1.5)" }, t);
+        gsap.set("#feedB", { y: 0 });
+        ["m_hi", "m_help"].forEach((id) => gsap.set("#" + id, { transformOrigin: "0% 0%" }));
+        pop("m_hi", 9.62);
+        pop("m_help", 10.2);
+        gsap.set("#q_btns", { opacity: 1 });
+        gsap.set(["#qb1", "#qb2", "#qb3"], { opacity: 0 });
+        tl.fromTo(["#qb1", "#qb2", "#qb3"], { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.3)", stagger: 0.12 }, 10.62);
+        hlIn("h4", 9.88, [0, 1.38]);
+        hlOut("h4", 12.62);
+
+        // =========================================================
+        // SCENE 06 — AI chat (12.4 – 13.6)
+        // =========================================================
+        tl.to("#qb2p", { opacity: 1, duration: 0.08 }, 12.42);
+        tl.to("#qb2", { scale: 0.97, duration: 0.08, yoyo: true, repeat: 1 }, 12.42);
+        tl.to("#feedB", { y: scrollFor("m_a1"), duration: 0.45, ease: "power3.inOut" }, 12.55);
+        pop("m_q1", 12.58, { x: 10 });
+        pop("m_a1", 12.98);
+        hlIn("h5", 12.9, [0, 0.55]);
+        cue("s5", 12.78, 14.4);
+
+        // =========================================================
+        // SCENE 07 — AI voice inside WhatsApp (13.5 – 15.1)
+        // =========================================================
+        gsap.set("#c_a1", { transformOrigin: "0% 50%" });
+        tl.to("#m_a1", { scaleY: 0.4, scaleX: 0.6, opacity: 0, transformOrigin: "0% 0%", duration: 0.2, ease: "power2.in" }, 13.42);
+        tl.fromTo("#c_a1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(1.6)" }, 13.55);
+        tl.to("#feedB", { y: scrollFor("q_call"), duration: 0.4, ease: "power3.inOut" }, 13.5);
+        pop("m_talk", 13.6);
+        pop("q_call", 13.74);
+        tl.to("#qcallp", { opacity: 1, duration: 0.08 }, 13.98);
+        // the call expands from the tapped button — same window, same verified identity
+        const callBtn = { top: feedTop["q_call"] + scrollFor("q_call"), h: H("q_call") - 6 };
+        const vH = 590 - 76;
+        const clipFrom = "inset(" + callBtn.top + "px 110px " + (vH - callBtn.top - callBtn.h) + "px 14px round 12px)";
+        tl.set("#voice", { opacity: 1, clipPath: clipFrom }, 14.06);
+        tl.fromTo("#voice > *", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out", immediateRender: false }, 14.22);
+        tl.fromTo("#voice", { clipPath: clipFrom }, { clipPath: "inset(0px 0px 0px 0px round 0px)", duration: 0.42, ease: "expo.inOut", immediateRender: false }, 14.06);
+                // waveform
+        const bars = wave.querySelectorAll("i");
+        bars.forEach((b, i) => {
+          let t = 14.3;
+          const env = Math.sin((i / (bars.length - 1)) * Math.PI);
+          while (t < 15.0) {
+            const v = 0.12 + env * (0.25 + rnd() * 0.75);
+            tl.to(b, { scaleY: v, duration: 0.1, ease: "sine.inOut" }, t);
+            t += 0.1;
+          }
+          tl.to(b, { scaleY: 0.08, duration: 0.12 }, 15.0);
+        });
+        tl.set("#vtime b:nth-child(1)", { opacity: 0 }, 14.62);
+        tl.set("#vtime b:nth-child(2)", { opacity: 1 }, 14.62);
+        // collapse back into the conversation as "Context updated"
+        hlOut("h5", 14.82);
+        tl.to("#feedB", { y: scrollFor("s_ctx"), duration: 0.01 }, 15.0);
+        const ctxTop = feedTop["s_ctx"] + scrollFor("s_ctx");
+        const clipTo = "inset(" + ctxTop + "px 150px " + (vH - ctxTop - 32) + "px 150px round 9px)";
+        tl.to("#voice > *", { opacity: 0, duration: 0.12, ease: "power1.in" }, 14.98);
+        tl.to("#voice", { clipPath: clipTo, backgroundColor: "#e7f8ef", duration: 0.36, ease: "expo.inOut" }, 15.0);
+        tl.set("#voice", { opacity: 0 }, 15.36);
+        tl.fromTo("#s_ctx", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(1.6)" }, 15.3);
+
+        // =========================================================
+        // SCENE 08 — pending step (15.0 – 16.4)
+        // =========================================================
+        cue("s6", 14.53, 17.42);
+        hlIn("h6", 15.1);
+        tl.to("#feedB", { y: scrollFor("k_pend"), duration: 0.5, ease: "power3.inOut" }, 15.48);
+        pop("k_pend", 15.6, { y: 24 });
+        hlOut("h6", 16.36);
+
+        // =========================================================
+        // SCENE 09 — answers questions (16.4 – 17.5)
+        // =========================================================
+        tl.to("#feedB", { y: scrollFor("c_pdf"), duration: 0.45, ease: "power3.inOut" }, 16.38);
+        pop("m_q2", 16.45, { x: 10 });
+        pop("m_yes", 16.86);
+        pop("c_pdf", 17.04);
+        hlIn("h7", 16.48, [0, 0.42]);
+        hlOut("h7", 17.5);
+
+        // =========================================================
+        // SCENE 10 — consent (17.5 – 19.0)
+        // =========================================================
+        cue("s7", 17.48, 21.12);
+        tl.to("#feedB", { y: scrollFor("k_cons"), duration: 0.45, ease: "power3.inOut" }, 17.52);
+        tl.fromTo("#k_cons", { opacity: 0, scale: 0.55, transformOrigin: "0% 0%" }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(1.2)" }, 17.6);
+        tl.to("#consp", { opacity: 1, duration: 0.08 }, 18.22);
+        tl.to("#k_cons", { scaleY: 0.22, scaleX: 0.78, opacity: 0, transformOrigin: "50% 0%", duration: 0.24, ease: "power3.in" }, 18.36);
+        tl.fromTo("#s_cons", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.28, ease: "back.out(1.7)" }, 18.52);
+        hlIn("h8", 18.5);
+        hlOut("h8", 19.0);
+
+        // =========================================================
+        // SCENE 11 — secure document submission (19.0 – 21.3)
+        // =========================================================
+        tl.to("#feedB", { y: scrollFor("d_up"), duration: 0.45, ease: "power3.inOut" }, 19.0);
+        pop("d_up", 19.08, { x: 14 });
+        // consent check attaches to the document
+        tl.fromTo("#upCtk", { opacity: 0, x: -150, y: -40, scale: 0.8 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.42, ease: "power4.out" }, 19.4);
+        // upload 0 → 38 → 72 → 100
+        const pcts = $("upPct").querySelectorAll("b");
+        const steps = [
+          [19.5, 0, 0],
+          [19.8, 0.38, 1],
+          [20.15, 0.72, 2],
+          [20.45, 1, 3],
+        ];
+        steps.forEach(([t, v, k]) => {
+          tl.to("#upBar", { scaleX: v, duration: 0.24, ease: "power2.out" }, t);
+          tl.set(pcts, { opacity: 0 }, t);
+          tl.set(pcts[k], { opacity: 1 }, t);
+        });
+        tl.to("#upPct", { opacity: 0, duration: 0.12 }, 20.7);
+        tl.fromTo("#upDone", { opacity: 0, x: 8 }, { opacity: 1, x: 0, duration: 0.25, ease: "back.out(1.6)" }, 20.72);
+        hlIn("h9", 19.06, [0, 0.5]);
+        hlOut("h9", 21.25);
+
+        // =========================================================
+        // SCENES 12–15 — document leaves WhatsApp → controlled workflow (21.3 – 25.0)
+        // =========================================================
+        cue("s8", 21.34, 25.1);
+        const upPos = inWA($("d_up"), 540, 612, 1, scrollFor("d_up"));
+        // hero document takes over from the uploaded bubble
+        tl.set("#doc", { x: upPos.x, y: upPos.y, scale: 330 / 300, opacity: 0, rotation: 0 }, 21.3);
+        tl.set("#docLines", { opacity: 0 }, 21.3);
+        tl.set("#docFields", { opacity: 1 }, 21.3);
+        tl.set("#docCtick", { opacity: 1 }, 21.3);
+        tl.to("#doc", { opacity: 1, duration: 0.12 }, 21.3);
+                // phone moves left
+        const PH = { x: 150, y: 640, s: 0.44 };
+        tl.to("#waB", { x: PH.x, y: PH.y, scale: PH.s, duration: 0.7, ease: "power3.inOut" }, 21.38);
+        tl.to("#glow", { x: 540, opacity: 0.55, duration: 0.8 }, 21.4);
+        // workflow container on the right
+        const V1 = { x: 820, y: 610 };
+        place("vault", V1.x, V1.y, { opacity: 0 });
+        tl.fromTo("#vault", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, 21.65);
+        gsap.set("#vaultRing", { opacity: 0 });
+        // green path draws forward from the phone toward the institution
+        const flow1 = "M 254 640 C 380 640, 520 612, 674 610";
+        $("pFlow").setAttribute("d", flow1);
+        const fl1 = $("pFlow").getTotalLength();
+        gsap.set("#pFlow", { strokeDasharray: fl1 + " " + fl1, strokeDashoffset: fl1 });
+        tl.set("#pFlow", { opacity: 1 }, 21.6);
+        tl.to("#pFlow", { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, 21.6);
+        // document travels: centre, consent attaches, data masks
+        tl.to("#doc", { x: 470, y: 560, scale: 1, duration: 0.7, ease: "power3.inOut" }, 21.36);
+        tl.to("#doc", { x: 540, y: 552, duration: 1.54, ease: "none" }, 22.06);
+        hlIn("h10", 21.42, [0, 0.3]);
+        // consent chip already attached in chat — re-snap it with a magnetic settle
+        tl.fromTo("#docCtick", { scale: 0.8, x: -40, y: -20 }, { scale: 1, x: 0, y: 0, duration: 0.4, ease: "back.out(2.2)" }, 21.7);
+        // masking — one segment at a time, clean horizontal wipe
+        const masked = panEl.querySelectorAll('[data-mask="1"]');
+        masked.forEach((s, i) => {
+          const t = 22.35 + i * 0.11;
+          tl.to(s.querySelector(".r"), { opacity: 0, yPercent: -40, duration: 0.14, ease: "power2.in" }, t);
+          tl.fromTo(s.querySelector(".b"), { opacity: 0, yPercent: 40 }, { opacity: 1, yPercent: 0, duration: 0.16, ease: "power2.out" }, t + 0.05);
+        });
+        accEl.querySelectorAll('[data-mask="1"]').forEach((s, i) => {
+          const t = 22.95 + i * 0.08;
+          tl.to(s.querySelector(".r"), { opacity: 0, yPercent: -40, duration: 0.12, ease: "power2.in" }, t);
+          tl.fromTo(s.querySelector(".b"), { opacity: 0, yPercent: 40 }, { opacity: 1, yPercent: 0, duration: 0.14, ease: "power2.out" }, t + 0.04);
+        });
+        tl.fromTo("#docProt", { opacity: 0, y: -6 }, { opacity: 1, y: 0, duration: 0.25, ease: "back.out(1.8)" }, 23.3);
+        // arrival — document snaps into the institution
+        const slot1 = { x: V1.x, y: V1.y + 34 };
+        tl.to("#docProt", { opacity: 0, duration: 0.15 }, 23.62);
+        tl.to("#doc", { x: slot1.x, y: slot1.y, scale: 0.68, duration: 0.45, ease: "power4.in" }, 23.62);
+        tl.to("#vault", { scale: 1.025, duration: 0.09, yoyo: true, repeat: 1, ease: "power2.out" }, 24.07);
+        tl.set("#vaultRing", { opacity: 1 }, 24.05);
+        const vr = $("vaultRect");
+        const vrl = 2 * (322 + 332);
+        gsap.set(vr, { strokeDasharray: vrl, strokeDashoffset: vrl });
+        tl.to(vr, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 24.05);
+        place("vstatus", V1.x, V1.y + 220);
+        const st = $("vstatus").children;
+        [0, 1, 2].forEach((k) => tl.fromTo(st[k], { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.24, ease: "power2.out" }, 24.25 + k * 0.16));
+
+        // =========================================================
+        // SCENE 16 — the document does NOT go to the RM (24.9 – 26.1)
+        // =========================================================
+        const V2 = { x: 540, y: 600 };
+        hlOut("h10", 24.95);
+        tl.to(st, { opacity: 0, duration: 0.2 }, 24.9);
+        tl.to("#vault", { x: V2.x, y: V2.y, duration: 0.6, ease: "power3.inOut" }, 24.95);
+        tl.to("#doc", { x: V2.x, y: V2.y + 34, duration: 0.6, ease: "power3.inOut" }, 24.95);
+        tl.to("#waB", { y: 600, duration: 0.6, ease: "power3.inOut" }, 24.95);
+        const flow2 = "M 254 600 C 300 600, 340 600, 394 600";
+        tl.to("#pFlow", { attr: { d: flow2 }, strokeDasharray: "1000 1000", strokeDashoffset: 0, duration: 0.6, ease: "power3.inOut" }, 24.95);
+        // RM returns — as a destination that is NOT needed for the file
+        tl.set("#rm", { x: 905, y: 600, scale: 0.86, opacity: 0 }, 25.0);
+        tl.set("#rmWarn", { opacity: 0 }, 25.0);
+        tl.fromTo("#rm", { x: 1000, opacity: 0 }, { x: 905, opacity: 1, duration: 0.5, ease: "expo.out", immediateRender: false }, 25.15);
+        const dot = "M 690 600 C 730 600, 770 600, 815 600";
+        $("pDot").setAttribute("d", dot);
+        gsap.set("#pDot", { opacity: 0 });
+        tl.to("#pDot", { opacity: 1, duration: 0.25 }, 25.4);
+        place("lfile", 752, 600, { opacity: 0 });
+        tl.fromTo("#lfile", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(1.6)" }, 25.45);
+        tl.to("#pDot", { opacity: 0, duration: 0.35 }, 25.85);
+        tl.to("#lslash", { scaleX: 1, duration: 0.2, ease: "power2.out" }, 25.85);
+        tl.to("#lfile", { opacity: 0.45, duration: 0.3 }, 25.9);
+        place("localNo", 752, 792, { opacity: 0 });
+        tl.fromTo("#localNo", { opacity: 0, y: 798 }, { opacity: 1, y: 792, duration: 0.25 }, 25.92);
+        tl.to(["#lfile", "#localNo"], { opacity: 0, duration: 0.25 }, 26.55);
+
+        // =========================================================
+        // SCENE 17 — RM gets CONTEXT, not the document (26.4 – 28.2)
+        // =========================================================
+        cue("s9", 25.33, 30.0);
+        const ctxPath = "M 690 600 C 740 600, 790 600, 836 600";
+        $("pCtx").setAttribute("d", ctxPath);
+        const cl = $("pCtx").getTotalLength();
+        gsap.set("#pCtx", { strokeDasharray: cl, strokeDashoffset: cl });
+        tl.set("#pCtx", { opacity: 1 }, 26.6);
+        tl.to("#pCtx", { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, 26.6);
+        // labels: DOCUMENT → institution, CONTEXT → RM
+        place("lblDoc", 322, 572);
+        place("lblCtx", 762, 572);
+        fadeIn("#lblDoc", 25.6, 0.3, { y: 580 });
+        fadeIn("#lblCtx", 26.7, 0.3, { y: 580 });
+        // phone frame steps back; Rohan stays
+        tl.to("#rmFrame", { opacity: 0, duration: 0.4 }, 26.7);
+        tl.to("#rm", { y: 590, duration: 0.4, ease: "power2.inOut" }, 26.7);
+        const rmAvY = 590 + (-175 + 44 + 36) * 0.86; // avatar centre on screen
+        const chipsAt = [rmAvY + 156, rmAvY + 200, rmAvY + 244];
+        ["x1", "x2", "x3"].forEach((id, k) => {
+          place(id, V2.x, V2.y + 30, { opacity: 0, scale: 0.7 });
+          const t = 26.85 + k * 0.32;
+          tl.to("#" + id, { opacity: 1, scale: 0.86, duration: 0.15 }, t);
+          tl.to("#" + id, { motionPath: { path: [{ x: 700, y: 560 }, { x: 905, y: chipsAt[k] }], curviness: 1.1 }, scale: 1, duration: 0.42, ease: "power3.inOut" }, t);
+        });
+        tl.to("#rmOn", { opacity: 1, duration: 0.3 }, 27.85);
+        tl.fromTo("#rmRing", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 27.85);
+        hlIn("h11", 27.05, [0, 0.22, 0.6]);
+
+        // =========================================================
+        // SCENE 18 — RM joins the same WhatsApp thread (28.3 – 29.7)
+        // =========================================================
+        const sideOut = 28.3;
+        tl.to(["#vault", "#doc", "#rm", "#x1", "#x2", "#x3", "#lblDoc", "#lblCtx"], { opacity: 0, duration: 0.25 }, sideOut);
+        tl.to(["#pFlow", "#pCtx"], { opacity: 0, duration: 0.25 }, sideOut);
+                tl.to("#waB", { x: 395, y: 615, scale: 0.94, duration: 0.55, ease: "power3.inOut" }, sideOut);
+        tl.to("#feedB", { y: scrollFor("m_rohan"), duration: 0.45, ease: "power3.inOut" }, sideOut + 0.3);
+        tl.fromTo("#s_join", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(1.6)" }, sideOut + 0.42);
+        pop("m_rohan", sideOut + 0.62);
+        ["y1", "y2", "y3"].forEach((id, k) => {
+          place(id, 838, 520 + k * 52, { opacity: 0 });
+          tl.fromTo("#" + id, { opacity: 0, x: 860 }, { opacity: 1, x: 838, duration: 0.3, ease: "power3.out" }, sideOut + 0.75 + k * 0.1);
+        });
+
+        // =========================================================
+        // SCENE 19 — three-part system (29.6 – 30.6)
+        // =========================================================
+        const S19 = 29.62;
+        hlOut("h11", S19 - 0.04);
+        tl.to(["#y1", "#y2", "#y3", "#s_join", "#m_rohan"], { opacity: 0, duration: 0.2 }, S19);
+        tl.to("#waB", { x: 150, y: 600, scale: 0.44, duration: 0.5, ease: "power3.inOut" }, S19);
+        tl.to(["#vault", "#doc"], { opacity: 1, duration: 0.3 }, S19 + 0.15);
+        tl.set("#rmFrame", { opacity: 0 }, S19);
+        tl.to("#rm", { opacity: 1, duration: 0.3 }, S19 + 0.15);
+        tl.to(["#pFlow", "#pCtx"], { opacity: 1, duration: 0.3 }, S19 + 0.2);
+        place("lblCust", 150, 760);
+        place("lblFlow", 540, 785);
+        place("lblRM", 905, 760);
+        fadeIn(["#lblCust", "#lblFlow", "#lblRM"], S19 + 0.3, 0.3);
+        // information pulses: customer ↔ workflow ↔ RM (the document stays put)
+        place("pu1", 254, 600);
+        place("pu2", 394, 600);
+        place("pu3", 690, 600);
+        place("pu4", 836, 600);
+        tl.fromTo("#pu1", { x: 254, opacity: 0 }, { x: 394, opacity: 1, duration: 0.42, ease: "power1.inOut" }, S19 + 0.4);
+        tl.fromTo("#pu3", { x: 690, opacity: 0 }, { x: 836, opacity: 1, duration: 0.42, ease: "power1.inOut" }, S19 + 0.5);
+        tl.fromTo("#pu4", { x: 836, opacity: 0 }, { x: 690, opacity: 1, duration: 0.42, ease: "power1.inOut" }, S19 + 0.6);
+        tl.fromTo("#pu2", { x: 394, opacity: 0 }, { x: 254, opacity: 1, duration: 0.42, ease: "power1.inOut" }, S19 + 0.62);
+
+        // =========================================================
+        // SCENE 20 — DoubleTick (30.6 – 31.85)
+        // =========================================================
+        const B0 = 30.55;
+        tl.to(["#waB", "#vault", "#doc", "#rm", "#lblCust", "#lblFlow", "#lblRM", "#pu1", "#pu2", "#pu3", "#pu4", "#toplogo"], { opacity: 0, duration: 0.25, ease: "power2.in" }, B0);
+        tl.to("#glow", { opacity: 0.35, duration: 0.6 }, B0);
+        // the connection line keeps moving and becomes one continuous stroke
+        $("pBrand").setAttribute("d", "M 254 600 C 400 600, 680 600, 836 600");
+        gsap.set("#pBrand", { opacity: 0 });
+        tl.set("#pBrand", { opacity: 1 }, B0 + 0.02);
+        tl.to(["#pFlow", "#pCtx"], { opacity: 0, duration: 0.1 }, B0 + 0.02);
+        tl.to("#pBrand", { attr: { d: "M 340 540 C 400 540, 470 540, 520 540" }, duration: 0.4, ease: "power3.inOut" }, B0 + 0.05);
+        // brand mark draws the double tick, then the official logo takes over
+        const BX = 540,
+          BY = 540;
+        place("brand", BX, BY);
+        const tks = ["tk1", "tk2", "tk3"].map((id) => $(id));
+        tks.forEach((p) => {
+          const L = p.getTotalLength();
+          gsap.set(p, { strokeDasharray: L, strokeDashoffset: L });
+        });
+        tl.to("#pBrand", { opacity: 0, duration: 0.12 }, B0 + 0.42);
+        tl.to("#tk1", { strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, B0 + 0.4);
+        tl.to("#tk2", { strokeDashoffset: 0, duration: 0.32, ease: "power2.inOut" }, B0 + 0.46);
+        tl.to("#tk3", { strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, B0 + 0.6);
+        tl.to("#brandWord", { clipPath: "inset(0 0% 0 26.5%)", duration: 0.5, ease: "power3.out" }, B0 + 0.62);
+        tl.set("#brandImg", { opacity: 1 }, B0 + 1.14);
+        tl.set(["#brand svg", "#brandWord"], { opacity: 0 }, B0 + 1.16);
+        cue("s10", 30.66, 31.62);
+
+        // =========================================================
+        // FINAL CTA (31.85 – 36)
+        // =========================================================
+        const C0 = 31.8;
+        tl.to("#brand", { y: 52, scale: 136 / 620, duration: 0.6, ease: "power3.inOut" }, C0);
+        hlIn("h12", C0 + 0.22, [0, 0.12]);
+        place("cta", 540, 640, { opacity: 0 });
+        tl.fromTo("#cta", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" }, C0 + 0.55);
+        place("ctaRingW", 540, 640);
+        gsap.set("#ctaRing", { position: "absolute", left: "-190px", top: "-38px", width: "380px", height: "76px" });
+        place("ctaTiny", 540, 736, { opacity: 0 });
+        tl.fromTo("#ctaTiny", { opacity: 0, y: 744 }, { opacity: 1, y: 736, duration: 0.35, ease: "power2.out" }, C0 + 0.85);
+        tl.fromTo("#ctaRing", { opacity: 0.7, scale: 1 }, { opacity: 0, scale: 1.12, duration: 0.8, ease: "power2.out", immediateRender: false }, C0 + 1.6);
+        cue("s11", 31.86, null);
+
+        return tl;
+      }
+
+      document.fonts.ready.then(() => {
+        const tl = build();
+        window.__timelines["main"] = tl;
+        if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+      });
+    </script>
+  </body>
+</html>
