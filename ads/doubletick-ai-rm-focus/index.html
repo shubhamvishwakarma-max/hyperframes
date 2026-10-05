@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>DoubleTick RM Focus</title>
+<style>
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+
+  :root {
+    --ink: #0A1A12;
+    --ink-2: #3D4A44;
+    --muted: #7A8781;
+    --bg: #F4F8F5;
+    --card: #FFFFFF;
+    --line: #E1E9E4;
+    --green: #007A5A;
+    --green-2: #2FBF8F;
+    --green-soft: #E0F2EC;
+    --red: #E5484D;
+    --red-soft: #FDECEC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; overflow: hidden; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+
+  /* safe zone: everything that matters sits between y=130 and y=950 */
+  .ad {
+    position: relative; width: 1080px; height: 1080px; padding: 130px 72px;
+    background:
+      radial-gradient(700px 520px at 100% 0%, rgba(0,122,90,.14), transparent 60%),
+      radial-gradient(600px 500px at 0% 100%, rgba(0,122,90,.08), transparent 60%),
+      var(--bg);
+    display: flex; flex-direction: column;
+  }
+  .ad::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: radial-gradient(ellipse at 60% 70%, #000 10%, transparent 70%);
+    opacity: .55;
+  }
+  .ad > * { position: relative; }
+
+  .ad > .top { position: absolute; left: 72px; right: 72px; top: 52px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: block; height: 38px; width: auto; }
+  .pill {
+    font-size: 14px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    padding: 9px 15px; border-radius: 999px; background: var(--ink); color: #fff;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 4px rgba(47,191,143,.25); }
+
+  h1 { margin-top: 110px; font-size: 56px; line-height: 1.24; letter-spacing: -0.04em; font-weight: 700; }
+  h1 .drop { color: var(--muted); }
+  h1 .die { color: var(--red); }
+  h1 em { font-style: normal; color: var(--green); }
+  .sub { margin-top: 20px; font-size: 21px; line-height: 1.42; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* visual: every lead -> AI handles -> RM closes */
+  .flow { margin: auto 0; display: grid; grid-template-columns: 200px 1fr 300px 1fr 300px; align-items: center; }
+  .leads {
+    background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px; text-align: center;
+    box-shadow: 0 14px 30px -20px rgba(10,26,18,.35);
+  }
+  .dots { display: grid; grid-template-columns: repeat(4, 30px); gap: 8px; justify-content: center; }
+  .dots i { width: 30px; height: 30px; border-radius: 50%; background: #EEF2F0; display: grid; place-items: center; }
+  .leads .l { margin-top: 14px; font-size: 17px; font-weight: 600; }
+  .leads .d { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .arrow { height: 2px; background: linear-gradient(90deg, rgba(0,122,90,.25), var(--green)); position: relative; margin: 0 12px; }
+  .arrow::after { content: ""; position: absolute; right: -2px; top: -5px; border: 6px solid transparent; border-left: 9px solid var(--green); border-right: 0; }
+  .ai {
+    background: var(--card); border: 2px solid var(--green); border-radius: 22px; padding: 20px;
+    display: flex; flex-direction: column; gap: 12px; box-shadow: 0 18px 36px -20px rgba(0,122,90,.5);
+  }
+  .ai .h { display: flex; align-items: center; gap: 12px; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+  .orb { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+    background: radial-gradient(circle at 34% 28%, #7FE0BE 0%, #1FA77B 38%, #007A5A 70%, #005A42 100%); box-shadow: 0 0 0 6px rgba(47,191,143,.15); }
+  .task { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 500; padding: 10px 12px; border-radius: 12px; background: var(--green-soft); }
+  .task .c { width: 22px; height: 22px; border-radius: 50%; background: var(--green); display: grid; place-items: center; flex: none; }
+  .rm {
+    background: linear-gradient(160deg, #0B3B2C, #062419); color: #fff; border-radius: 22px; padding: 22px 20px;
+    display: flex; flex-direction: column; gap: 14px; box-shadow: 0 24px 44px -20px rgba(0,60,43,.7);
+  }
+  .rm .h { display: flex; align-items: center; gap: 12px; }
+  .rm .av { width: 46px; height: 46px; border-radius: 50%; background: rgba(255,255,255,.12); display: grid; place-items: center; }
+  .rm .n { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+  .rm .s { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 2px; }
+  .rm .tag { display: flex; align-items: center; gap: 8px; font-size: 13.5px; padding: 8px 11px; border-radius: 10px; background: rgba(47,191,143,.16); color: #CFF7E6; font-weight: 500; }
+  .rm .tag b { color: #8EF0C9; }
+  .foot { margin-top: 0; display: flex; align-items: center; justify-content: space-between; }
+  .url { font-size: 16px; color: var(--ink-2); }
+  .btn {
+    background: var(--green); color: #fff; font-size: 22px; font-weight: 600; letter-spacing: -0.01em;
+    padding: 16px 26px; border-radius: 14px; display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 14px 30px -10px rgba(0,122,90,.6);
+  }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="top">
+    <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+    <div class="pill mono"><i></i>AI Agent + RM</div>
+  </div>
+
+  <h1>Your RMs should <em>close opportunities.</em><br/><span class="drop">Not chase every lead in the funnel.</span></h1>
+  <p class="sub"><b>AI handles first response, qualification and follow-ups</b>, while giving RMs <b>complete customer context</b> when an opportunity is ready for human intervention.</p>
+
+  <div class="flow">
+    <div class="leads">
+      <div class="dots"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i></div>
+      <div class="l">Every lead</div>
+      <div class="d mono">from all channels</div>
+    </div>
+    <div class="arrow"></div>
+    <div class="ai">
+      <div class="h"><span class="orb"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 2.5l2.1 6.4 6.4 2.1-6.4 2.1L12 19.5l-2.1-6.4L3.5 11l6.4-2.1z"/></svg></span>AI handles</div>
+      <div class="task"><span class="c"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>First response</div>
+      <div class="task"><span class="c"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>Qualification</div>
+      <div class="task"><span class="c"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>Follow-ups</div>
+    </div>
+    <div class="arrow"></div>
+    <div class="rm">
+      <div class="h">
+        <div class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></div>
+        <div><div class="n">RM closes</div><div class="s mono">Only ready opportunities</div></div>
+      </div>
+      <div class="tag"><b>✓</b> Complete customer context</div>
+      <div class="tag"><b>✓</b> Ready for a human</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="url mono">doubletick.io</div>
+    <div class="btn">Apply for Free Pilot
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>
