@@ -222,11 +222,13 @@ def put(sig, t, gain=1.0, pan=0.0, width=0.0):
 
 
 # Scene 1–2
-put(soft_pulse(), 0.30, 0.7)
-put(data_tick(2600), 1.15, 0.35, 0.3)
-put(soft_pulse(), 2.32, 0.45, 0.2)
-put(snap(), 5.12, 0.85, 0.25)
-put(soft_whoosh(0.7), 5.95, 0.22, 0, 0.4)
+put(soft_pulse(), 0.15, 0.75, -0.4)
+put(data_tick(2600), 0.55, 0.35, -0.3)
+put(soft_pulse(), 1.25, 0.35, -0.2)
+put(soft_pulse(), 2.25, 0.35, 0.0)
+put(data_tick(3000), 4.5, 0.4, 0.5)
+put(snap(), 5.04, 0.95, 0.3)
+put(soft_whoosh(0.7), 5.8, 0.22, 0, 0.4)
 # Scene 3
 put(ring(), 6.42, 0.7, -0.5)
 put(ring(), 6.72, 0.7, -0.5)

@@ -211,14 +211,6 @@
       }
 
       /* ---------- scene 1/2 : funnel ---------- */
-      #world {
-        position: absolute;
-        inset: 0;
-      }
-      #world {
-        -webkit-mask-image: linear-gradient(180deg, transparent 0, transparent 318px, #000 430px);
-        mask-image: linear-gradient(180deg, transparent 0, transparent 318px, #000 430px);
-      }
       #world svg {
         position: absolute;
         inset: 0;
@@ -792,34 +784,38 @@
 
       <!-- ================= SCENE 1–2 : funnel / losing intent ================= -->
       <section id="s-funnel" class="clip" data-start="0" data-duration="6.6" data-track-index="1">
-        <div id="world">
-          <svg id="funnelSvg" width="1080" height="1080" viewBox="0 0 1080 1080">
-            <g id="guides" fill="none" stroke="#cfcbc2" stroke-width="1.6"></g>
-            <path id="trail" fill="none" stroke="#27b177" stroke-width="3.2" stroke-linecap="round" />
-            <g id="greyDots" fill="#a6aaa5"></g>
-            <circle id="convRing" cx="0" cy="0" r="30" fill="#ffffff" stroke="#bdb9b0" stroke-width="2" />
-            <circle id="convCore" cx="0" cy="0" r="7" fill="#d6d3cb" />
-            <g id="frags" stroke="#27b177" stroke-width="3.2" stroke-linecap="round" opacity="0">
-              <line id="frag1" x1="0" y1="0" x2="0" y2="0" />
-              <line id="frag2" x1="0" y1="0" x2="0" y2="0" />
-            </g>
-            <circle id="dotHalo" cx="0" cy="0" r="16" fill="#27b177" opacity="0" />
-            <circle id="dotHalo2" cx="0" cy="0" r="16" fill="none" stroke="#27b177" stroke-width="2" opacity="0" />
-            <circle id="greenDot" cx="0" cy="0" r="12" fill="#27b177" />
-          </svg>
-          <div id="convLabelA" class="anchor" style="left: 0; top: 0"><div id="convLabel" class="mono" style="font-size: 14px; color: #5f6662">Conversion</div></div>
-          <div id="intentChipA" class="anchor" style="left: 0; top: 0"><div id="intentChip" class="chip green"><span class="dot"></span>High intent</div></div>
-          <div id="hereA" class="anchor" style="left: 0; top: 0; justify-content: flex-start">
-            <div id="hereWord" class="serif" style="font-size: 76px; line-height: 1; color: var(--ink); padding-left: 40px">here.</div>
+        <div id="hook">
+          <div class="anchor" style="left: 540px; top: 128px">
+            <div id="eyebrow" class="statusChip green" style="height: 38px; padding: 0 18px; font-size: 16px; gap: 10px; text-transform: none"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: block"></span>FOR BANKS · NBFCs · INSURERS</div>
           </div>
-        </div>
-        <div id="h1" class="headline" style="left: 80px; top: 128px; font-size: 74px">
-          <span class="ln"><span>Your next customer</span></span>
-          <span class="ln"><span>may already be</span></span>
-        </div>
-        <div id="h2" class="headline" style="left: 80px; top: 128px; font-size: 74px">
-          <span class="ln"><span id="h2a">Intent is there.</span></span>
-          <span class="ln"><span id="h2b">Conversion isn't.</span></span>
+          <div id="hA" class="headline" style="left: 0; right: 0; top: 168px; text-align: center; font-size: 104px; line-height: 1.02">
+            <span class="ln"><span>Your next customer</span></span>
+            <span class="ln"><span>is <span class="g" style="color: var(--green-lg)">already</span> here.</span></span>
+          </div>
+          <div id="hB" class="headline" style="left: 0; right: 0; top: 168px; text-align: center; font-size: 104px; line-height: 1.02">
+            <span class="ln"><span id="hB1">Intent is there.</span></span>
+            <span class="ln"><span id="hB2">Conversion <span style="color: #a8681c">isn't.</span></span></span>
+          </div>
+          <div id="band">
+            <svg id="hookSvg" class="abs" style="left: 0; top: 0; overflow: visible" width="1080" height="1080" viewBox="0 0 1080 1080">
+              <g id="inflow" fill="none" stroke="#cfcbc2" stroke-width="2"></g>
+              <g id="inDots" fill="#a3a7a2"></g>
+              <line id="track" x1="200" y1="660" x2="834" y2="660" stroke="#c9c5bc" stroke-width="3" stroke-dasharray="3 12" stroke-linecap="round" />
+              <line id="trailA" x1="200" y1="660" x2="200" y2="660" opacity="0" stroke="#27b177" stroke-width="7" stroke-linecap="round" />
+              <line id="trailB" x1="700" y1="660" x2="700" y2="660" opacity="0" stroke="#27b177" stroke-width="7" stroke-linecap="round" />
+              <circle id="target" cx="880" cy="660" r="46" fill="#ffffff" stroke="#bdb9b0" stroke-width="3" />
+              <path id="targetCheck" d="M862 661l12 12 24-26" fill="none" stroke="#c9c5bc" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+              <path id="targetX" d="M866 646l28 28M894 646l-28 28" fill="none" stroke="#a8681c" stroke-width="5" stroke-linecap="round" opacity="0" />
+              <circle id="pulse1" cx="200" cy="660" r="22" fill="none" stroke="#27b177" stroke-width="3" opacity="0" />
+              <circle id="pulse2" cx="200" cy="660" r="22" fill="none" stroke="#27b177" stroke-width="3" opacity="0" />
+              <circle id="custHalo" cx="200" cy="660" r="34" fill="#27b177" opacity="0" />
+              <circle id="cust" cx="200" cy="660" r="22" fill="#27b177" />
+            </svg>
+            <div id="custChipA" class="anchor" style="left: 0; top: 0"><div id="custChip" class="chip solid" style="height: 42px; font-size: 21px; padding: 0 18px"><span class="dot"></span>High intent</div></div>
+            <div class="anchor" style="left: 880px; top: 742px"><div id="targetLab" class="nodeLabel" style="font-size: 26px; color: var(--ink-2)">Converted</div></div>
+            <div class="anchor" style="left: 880px; top: 742px"><div id="lostLab" class="nodeLabel" style="font-size: 26px; color: #a8681c; opacity: 0">Lost</div></div>
+            <div class="anchor" style="left: 200px; top: 742px"><div id="custLab" class="nodeLabel" style="font-size: 26px; color: var(--ink-2)">Customer</div></div>
+          </div>
         </div>
       </section>
 
@@ -1373,174 +1369,111 @@
         tl.fromTo("#grid", { x: 0, y: 0 }, { x: -30, y: -20, duration: 47, ease: "none" }, 0);
 
         // =====================================================================
-        // SCENE 1–2 : funnel
+        // SCENE 1–2 : mute-first hook — intent is here, then the journey snaps
         // =====================================================================
-        const guides = $("#guides");
-        const XS = [150, 335, 540, 745, 930];
-        const CONV = { x: 780, y: 812 };
-        const paths = XS.map((x) => {
+        const Y0 = 660,
+          FX = 200,
+          TX = 880,
+          BRKX = 700;
+        // audience call-out + headline land on frame 0
+        tl.fromTo("#eyebrow", { scale: 0.94 }, { scale: 1, duration: 0.5, ease: "back.out(2)" }, 0.0);
+        tl.fromTo(lines("#hA")[1], { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.45, ease: "expo.out" }, 0.12);
+        tl.fromTo("#hA", { scale: 1.06 }, { scale: 1, duration: 1.4, ease: "power3.out", transformOrigin: "50% 40%" }, 0.0);
+        // funnel: anonymous customers flow in from the left and converge on one high-intent customer
+        const inflow = $("#inflow");
+        const IY = [430, 510, 590, 730, 810, 890];
+        const inPaths = IY.map((y) => {
           const p = document.createElementNS(ns, "path");
-          const c2x = CONV.x + (x - 540) * 0.16;
-          p.setAttribute("d", `M${x} 330 C${x} 590, ${c2x} 600, ${CONV.x} ${CONV.y}`);
-          guides.appendChild(p);
+          p.setAttribute("d", `M-30 ${y} C 90 ${y}, 120 ${Y0}, ${FX} ${Y0}`);
+          inflow.appendChild(p);
           return p;
         });
-        const lens = paths.map((p) => p.getTotalLength());
-        // pre-sample each path for deterministic lookups
-        const SAMPLES = 400;
-        const lut = paths.map((p, i) => {
-          const arr = [];
-          for (let k = 0; k <= SAMPLES; k++) {
-            const pt = p.getPointAtLength((lens[i] * k) / SAMPLES);
-            arr.push([pt.x, pt.y]);
-          }
-          return arr;
+        const inLens = inPaths.map((p) => p.getTotalLength());
+        inPaths.forEach((p, i) => {
+          p.style.strokeDasharray = inLens[i];
+          tl.fromTo(p, { strokeDashoffset: inLens[i] }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 0.05 + i * 0.04);
         });
-        function at(i, f) {
-          f = Math.max(0, Math.min(1, f));
-          const k = f * SAMPLES;
-          const a = Math.floor(k);
-          const b = Math.min(SAMPLES, a + 1);
-          const u = k - a;
-          return [lut[i][a][0] + (lut[i][b][0] - lut[i][a][0]) * u, lut[i][a][1] + (lut[i][b][1] - lut[i][a][1]) * u];
-        }
-        $("#convRing").setAttribute("cx", CONV.x);
-        $("#convRing").setAttribute("cy", CONV.y);
-        $("#convCore").setAttribute("cx", CONV.x);
-        $("#convCore").setAttribute("cy", CONV.y);
-        gsap.set("#convLabelA", { x: CONV.x, y: CONV.y + 52 });
-
-        // guide lines draw in
-        paths.forEach((p, i) => {
-          p.style.strokeDasharray = lens[i];
-          tl.fromTo(p, { strokeDashoffset: lens[i] }, { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut" }, 0.0 + i * 0.06);
-        });
-        tl.fromTo(["#convRing", "#convCore"], { opacity: 0, scale: 0.6, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 0.5);
-        fadeIn("#convLabel", 0.8, 0.5);
-
-        // anonymous grey customer dots
-        const greyG = $("#greyDots");
-        const GD = [
-          [0, -0.4, 2.8],
-          [1, -0.1, 3.0],
-          [3, 0.15, 2.7],
-          [4, 0.35, 3.1],
-          [0, 0.9, 2.9],
-          [3, 1.1, 3.0],
-          [1, 1.6, 2.6],
-          [4, 1.9, 2.8],
-          [2, 2.6, 2.6],
-          [1, 3.0, 2.8],
+        const inDots = $("#inDots");
+        const ID = [
+          [0, 0.1], [3, 0.3], [1, 0.55], [4, 0.8], [2, 1.05], [5, 1.3], [0, 1.6], [3, 1.85], [1, 2.1], [4, 2.4], [2, 2.7], [5, 3.0], [0, 3.3], [3, 3.6],
         ];
-        GD.forEach(([pi, t0, d], k) => {
+        ID.forEach(([pi, t0]) => {
           const c = document.createElementNS(ns, "circle");
-          c.setAttribute("r", k % 3 === 0 ? 7 : 6);
-          greyG.appendChild(c);
+          c.setAttribute("r", 7);
+          c.setAttribute("opacity", 0);
+          inDots.appendChild(c);
           const st = { f: 0 };
-          const startT = Math.max(0, t0);
-          const f0 = t0 < 0 ? -t0 / d : 0;
           const upd = () => {
-            const [x, y] = at(pi, st.f);
-            c.setAttribute("cx", x.toFixed(2));
-            c.setAttribute("cy", y.toFixed(2));
-            c.setAttribute("opacity", (st.f < 0.08 ? st.f / 0.08 : st.f > 0.78 ? Math.max(0, (1 - st.f) / 0.22) : 1).toFixed(3));
+            const pt = inPaths[pi].getPointAtLength(inLens[pi] * st.f);
+            c.setAttribute("cx", pt.x.toFixed(1));
+            c.setAttribute("cy", pt.y.toFixed(1));
+            c.setAttribute("opacity", (st.f < 0.15 ? st.f / 0.15 : st.f > 0.8 ? (1 - st.f) / 0.2 : 1).toFixed(3));
           };
-          st.f = f0;
-          upd();
-          tl.fromTo(st, { f: f0 }, { f: 1, duration: d * (1 - f0), ease: "none", onUpdate: upd }, startT);
+          tl.fromTo(st, { f: 0 }, { f: 1, duration: 1.1, ease: "power1.in", onUpdate: upd }, t0);
         });
-        tl.to("#greyDots", { filter: "blur(2.2px)", opacity: 0.55, duration: 1.2, ease: "power2.inOut" }, 1.4);
-        tl.to("#guides", { opacity: 0.55, duration: 1.2 }, 1.6);
+        // the high-intent customer
+        tl.fromTo("#cust", { attr: { r: 0 } }, { attr: { r: 22 }, duration: 0.45, ease: "back.out(2.4)" }, 0.15);
+        tl.fromTo("#custHalo", { opacity: 0 }, { opacity: 0.16, duration: 0.4 }, 0.3);
+        [0.35, 1.25, 2.25].forEach((t, k) => {
+          const el = k % 2 ? "#pulse2" : "#pulse1";
+          tl.fromTo(el, { attr: { r: 22 }, opacity: 0.85 }, { attr: { r: 70 }, opacity: 0, duration: 0.9, ease: "power2.out", immediateRender: false }, t);
+        });
+        fadeIn("#custLab", 0.3, 0.4);
+        tl.fromTo(["#track", "#target", "#targetCheck"], { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.35);
+        tl.fromTo("#target", { scale: 0.6, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.5, ease: "back.out(2)" }, 0.35);
+        fadeIn("#targetLab", 0.5, 0.4);
+        // customer moves toward conversion, leaving a bold green trail
+        const cx = { x: FX };
+        const custEls = ["#cust", "#custHalo", "#pulse1", "#pulse2"].map((q) => $(q));
+        const moveCust = () => {
+          custEls.forEach((e) => e.setAttribute("cx", cx.x.toFixed(1)));
+          $("#trailA").setAttribute("x2", Math.min(cx.x, cx.x).toFixed(1));
+          gsap.set("#custChipA", { x: cx.x, y: Y0 - 62 });
+        };
+        moveCust();
+        fadeIn("#custChip", 0.55, 0.4, { scale: 0.8, y: 10 });
+        tl.set("#trailA", { opacity: 1 }, 0.6);
+        tl.fromTo(cx, { x: FX }, { x: 520, duration: 2.4, ease: "power2.inOut", onUpdate: moveCust }, 0.6);
+        tl.to("#custLab", { opacity: 0, duration: 0.3 }, 1.0);
 
-        // green intent dot along the centre path (index 2)
-        const GP = 2;
-        const dot = { f: 0 };
-        const trail = $("#trail");
-        trail.setAttribute("d", paths[GP].getAttribute("d"));
-        const TL = lens[GP];
-        trail.style.strokeDasharray = TL;
-        trail.style.strokeDashoffset = TL;
-        const dotEls = ["#greenDot", "#dotHalo", "#dotHalo2"].map((s) => $(s));
-        function placeDot() {
-          const [x, y] = at(GP, dot.f);
-          dotEls.forEach((e) => {
-            e.setAttribute("cx", x.toFixed(2));
-            e.setAttribute("cy", y.toFixed(2));
-          });
-          gsap.set("#intentChipA", { x: x - 40, y: y - 50 });
-          gsap.set("#hereA", { x: x + 18, y: y - 6 });
-          trail.style.strokeDashoffset = (TL * (1 - dot.f)).toFixed(2);
-        }
-        placeDot();
-        tl.fromTo("#greenDot", { attr: { r: 0 } }, { attr: { r: 12 }, duration: 0.5, ease: "back.out(2)" }, 0.25);
-        tl.fromTo("#dotHalo2", { attr: { r: 12 }, opacity: 0.8 }, { attr: { r: 44 }, opacity: 0, duration: 1.0, ease: "power2.out" }, 0.35);
-        tl.fromTo("#dotHalo", { opacity: 0 }, { opacity: 0.16, duration: 0.6 }, 0.4);
-        tl.fromTo(dot, { f: 0 }, { f: 0.5, duration: 2.0, ease: "power2.inOut", onUpdate: placeDot }, 0.35);
-        tl.fromTo("#dotHalo", { attr: { r: 16 } }, { attr: { r: 24 }, duration: 0.9, ease: "sine.inOut", yoyo: true, repeat: 3 }, 1.0);
-        fadeIn("#intentChip", 1.15, 0.45, { scale: 0.85, y: 6 });
-        tl.fromTo("#dotHalo2", { attr: { r: 12 }, opacity: 0.7 }, { attr: { r: 40 }, opacity: 0, duration: 0.9, ease: "power2.out", immediateRender: false }, 2.3);
-
-        // camera follows the dot
-        tl.fromTo("#world", { scale: 1, x: 0, y: 0, transformOrigin: "540px 560px" }, { scale: 1.08, x: -50, y: -40, duration: 5.0, ease: "power1.inOut" }, 0.3);
-
-        // headline S1
-        reveal("#h1", 0.12);
-        tl.fromTo("#hereWord", { opacity: 0, y: 18, filter: "blur(5px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 2.32);
-
-        // S2: losing intent
-        conceal("#h1", 3.25);
-        fadeOut("#hereWord", 3.25, 0.3);
-        fadeOut("#intentChip", 4.4, 0.3);
-        tl.to(dot, { f: 0.9, duration: 1.6, ease: "power2.inOut", onUpdate: placeDot }, 3.35);
-        revealEls(["#h2a"], 3.48);
-        // break @ 5.12
-        const BRK = at(GP, 0.84);
-        const B2 = at(GP, 0.88);
-        $("#frag1").setAttribute("x1", BRK[0]);
-        $("#frag1").setAttribute("y1", BRK[1]);
-        $("#frag1").setAttribute("x2", (BRK[0] + B2[0]) / 2);
-        $("#frag1").setAttribute("y2", (BRK[1] + B2[1]) / 2);
-        $("#frag2").setAttribute("x1", (BRK[0] + B2[0]) / 2 + 2);
-        $("#frag2").setAttribute("y1", (BRK[1] + B2[1]) / 2 + 2);
-        $("#frag2").setAttribute("x2", B2[0]);
-        $("#frag2").setAttribute("y2", B2[1]);
-        tl.set("#frags", { opacity: 1 }, 5.12);
-        tl.to("#frag1", { x: -10, y: 8, rotation: -24, transformOrigin: "50% 50%", opacity: 0, duration: 0.7, ease: "power2.out" }, 5.12);
-        tl.to("#frag2", { x: 12, y: 14, rotation: 30, transformOrigin: "50% 50%", opacity: 0, duration: 0.7, ease: "power2.out" }, 5.12);
-        const brk = { f: 0.9 };
-        tl.to(
-          brk,
-          {
-            f: 0.8,
-            duration: 0.6,
-            ease: "power3.out",
-            onUpdate: () => {
-              trail.style.strokeDashoffset = (TL * (1 - brk.f)).toFixed(2);
-            },
-          },
-          5.12,
-        );
-        tl.to(dotEls, { x: -26, y: -16, duration: 0.9, ease: "power3.out" }, 5.12);
-        tl.to("#greenDot", { attr: { fill: "#9fb8aa" }, duration: 0.6 }, 5.2);
-        tl.to("#dotHalo", { opacity: 0, duration: 0.4 }, 5.12);
-        // "Conversion isn't." arrives with an interruption
-        tl.fromTo("#h2b", { opacity: 0, yPercent: 108 }, { opacity: 1, yPercent: 38, duration: 0.18, ease: "power3.out" }, 5.0);
-        tl.to("#h2b", { x: 7, duration: 0.05, ease: "none" }, 5.16);
-        tl.to("#h2b", { x: -4, duration: 0.05, ease: "none" }, 5.21);
-        tl.to("#h2b", { x: 0, yPercent: 0, duration: 0.45, ease: "expo.out" }, 5.28);
-        // exit to drop-offs
-        tl.to("#world", { opacity: 0, filter: "blur(4px)", duration: 0.5, ease: "power2.in" }, 5.85);
-        conceal("#h2", 5.95);
+        // S2: "Intent is there." — keeps moving, almost converts
+        conceal("#hA", 3.22, 0.35);
+        tl.fromTo("#hB1", { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 3.4);
+        tl.to(cx, { x: 826, duration: 1.55, ease: "power2.in", onUpdate: moveCust }, 3.45);
+        tl.to("#target", { attr: { stroke: "#27b177" }, duration: 0.4 }, 4.5);
+        tl.to("#targetCheck", { attr: { stroke: "#27b177" }, duration: 0.4 }, 4.5);
+        tl.to("#targetLab", { color: "#0f7446", duration: 0.4 }, 4.5);
+        // SNAP @5.04 — "Conversion isn't."
+        const SNAP = 5.04;
+        tl.set("#trailA", { attr: { x2: BRKX - 10 } }, SNAP);
+        tl.set("#trailB", { attr: { x1: BRKX + 10, x2: 826 }, opacity: 1 }, SNAP);
+        tl.to("#trailB", { y: 46, rotation: 9, svgOrigin: BRKX + " " + Y0, opacity: 0, duration: 0.6, ease: "power2.in" }, SNAP);
+        tl.to(custEls, { x: -86, y: -40, duration: 0.7, ease: "expo.out" }, SNAP);
+        tl.to("#custChipA", { x: 826 - 86, y: Y0 - 102, duration: 0.7, ease: "expo.out" }, SNAP);
+        tl.to("#cust", { attr: { fill: "#a9b4ad" }, duration: 0.35 }, SNAP + 0.05);
+        tl.to("#custHalo", { opacity: 0, duration: 0.2 }, SNAP);
+        tl.to("#custChip", { backgroundColor: "#d6d3cb", color: "#4a514e", duration: 0.35 }, SNAP + 0.05);
+        tl.to("#target", { attr: { stroke: "#a8681c" }, duration: 0.15 }, SNAP);
+        tl.to("#targetCheck", { opacity: 0, duration: 0.1 }, SNAP);
+        tl.fromTo("#targetX", { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.5)" }, SNAP + 0.08);
+        tl.to("#targetLab", { opacity: 0, duration: 0.12 }, SNAP);
+        fadeIn("#lostLab", SNAP + 0.1, 0.3, { y: -6 });
+        tl.fromTo("#hB2", { yPercent: 100, opacity: 0, scale: 1.12 }, { yPercent: 0, opacity: 1, scale: 1, duration: 0.32, ease: "expo.out" }, SNAP - 0.04);
+        // impact shake
+        [7, -6, 4, -2, 0].forEach((dx, k) => tl.to("#hook", { x: dx, y: k % 2 ? 3 : -3, duration: 0.045, ease: "none" }, SNAP + k * 0.045));
+        tl.to("#hook", { y: 0, duration: 0.05 }, SNAP + 0.24);
+        // exit to drop-offs: the broken journey splits into four columns
+        tl.to("#band", { opacity: 0, filter: "blur(4px)", duration: 0.45, ease: "power2.in" }, 5.8);
+        tl.to("#eyebrow", { opacity: 0, y: -10, duration: 0.3 }, 5.75);
+        conceal("#hB", 5.75, 0.35);
 
         // =====================================================================
         // SCENE 3 : four drop-offs
         // =====================================================================
         const colSvg = $("#colSvg");
         const CX = [180, 420, 660, 900];
-        // break point on screen (world scale/translate at ~5.8s ≈ 1.1, -60,-70 around 540,560)
-        const S = 1.08;
-        const bpx = 540 + (BRK[0] - 540) * S - 50;
-        const bpy = 560 + (BRK[1] - 560) * S - 40;
+        const bpx = BRKX;
+        const bpy = Y0;
         const cols = CX.map((x, i) => {
           const g = document.createElementNS(ns, "g");
           g.setAttribute("stroke", "#c9c5bc");

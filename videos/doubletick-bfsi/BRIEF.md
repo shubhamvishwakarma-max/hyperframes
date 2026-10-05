@@ -28,7 +28,8 @@ headlines, Geist UI type, warm off-white canvas, green only where it means somet
 
 - Dummy institution "ABC Bank ✓" (verified badge) in every WhatsApp moment; customer Ananya Sharma, Personal Loan, ₹8L, this month; RM Rohan joins the same thread.
 - AI voice moment lives inside the same WhatsApp thread (≈1s call surface, then "Conversation updated").
-- Phrase-level subtitles, Geist Medium, bottom centre, occasional green key-phrase highlight.
+- Phrase-level subtitles, Geist Medium 28px, bottom centre, occasional green key-phrase highlight.
+- Mute-first LinkedIn hook (0–6s): audience call-out, 104px headline on frame 0, Customer → Converted line that snaps to "Lost".
 - Music bed + sound design (locally synthesized; ElevenLabs quota was exhausted).
 
 ## Notes
