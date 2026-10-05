@@ -29,62 +29,73 @@ def main():
     beat = 0.5  # 120 BPM; the burst lands on a downbeat at 2.1
     g0 = 0.1
 
-    # --- harmony: airy D major colours, opening wider at the burst ---
+    # --- harmony: tense and sparse for the problem, opening wide at the snap ---
     chords = [
-        (0.0, 2.1, [57, 62, 66, 69, 76], 1500, 0.5),  # Dadd9, filtered
-        (2.1, 3.0, [55, 59, 62, 66, 74], 2600, 0.55),  # Gmaj7
-        (3.1, 4.0, [57, 61, 64, 69, 76], 2800, 0.55),  # A6
-        (4.1, 5.0, [59, 62, 66, 71, 78], 3000, 0.55),  # Bm(add11)
+        (0.0, 1.7, [50, 57, 62, 66, 69], 1700, 0.5),  # D(add9): the hook
+        (1.7, 3.3, [47, 54, 57, 62, 64], 1100, 0.42),  # Bm(add11), darker: the problem
+        (3.55, 4.4, [55, 59, 62, 66, 74], 2900, 0.58),  # Gmaj7: the system
+        (4.4, 5.0, [57, 61, 64, 69, 76], 3000, 0.55),  # A6
         (5.0, 7.0, [55, 59, 62, 66, 69, 74], 2200, 0.5),  # Gmaj9 under the frame
         (7.4, 10.0, [50, 57, 61, 64, 66, 69, 76], 3200, 0.62),  # Dmaj9 resolve
     ]
     for t0, t1, notes, cut, g in chords:
-        B.place(pads, B.pad_chord(notes, t1 - t0, cut, att=0.25 if t0 else 0.5, rel=0.9), t0, g)
-    roots = [(2.1, 43), (3.1, 45), (4.1, 47), (5.0, 43)]
-    for t0, r in roots:
-        for k in range(8 if t0 < 5 else 4):
+        B.place(pads, B.pad_chord(notes, t1 - t0, cut, att=0.04 if t0 == 0 else 0.25, rel=0.9), t0, g)
+    for t0, r in [(3.55, 43), (4.4, 45), (5.0, 43)]:
+        for k in range(6 if t0 < 5 else 4):
             tb = t0 + k * beat / 2
             if tb > 7.0:
                 break
-            B.place(bus, B.bass_note(B.midi(r - 12), beat / 2 * 0.9), tb, 0.32)
+            B.place(bus, B.bass_note(B.midi(r - 12), beat / 2 * 0.9), tb, 0.34)
     B.place(bus, B.bass_note(B.midi(38 - 12), 2.2), 8.3, 0.4)
 
-    # --- rhythm: ticking intro, a real pulse through the burst, air under the frame ---
+    # --- rhythm: hook pulse, heartbeat under the problem, full groove at the snap ---
     for i in range(int(END / (beat / 2))):
-        tb = g0 + i * beat / 2
-        if tb < 2.1:
-            B.place(drums, B.hat(), tb, 0.05 if i % 2 else 0.08, pan=0.3)
-        elif tb < 5.0:
+        tb = i * beat / 2
+        if tb < 1.7:
+            B.place(drums, B.hat(), tb, 0.06 if i % 2 else 0.09, pan=0.3)
+            if i % 4 == 0:
+                B.place(drums, B.kick(0.7), tb, 0.5)
+        elif tb < 3.3:
+            if i % 4 == 0:
+                B.place(drums, B.kick(0.5), tb, 0.45)
+        elif 3.55 <= tb < 5.0:
             if i % 2 == 0:
-                B.place(drums, B.kick(0.9), tb, 0.6)
+                B.place(drums, B.kick(0.95), tb, 0.62)
             if i % 4 == 2:
-                B.place(drums, B.clap(), tb, 0.22)
+                B.place(drums, B.clap(), tb, 0.24)
             B.place(drums, B.hat(open_=(i % 4 == 3)), tb, 0.07, pan=0.3)
             B.place(drums, B.shaker(), tb + beat / 4, 0.04, pan=-0.35)
-        elif tb < 7.0:
+        elif 5.0 <= tb < 7.0:
             B.place(drums, B.hat(), tb, 0.045, pan=0.25)
-    # pluck arpeggio through the burst
     arp = [62, 66, 69, 74, 69, 66, 71, 74]
-    for i in range(24):
-        tp = 2.1 + i * beat / 4
-        B.place(bus, B.pluck(B.midi(arp[i % 8] + 12)), tp, 0.06, pan=0.35 if i % 2 else -0.35)
+    for i in range(12):
+        B.place(bus, B.pluck(B.midi(arp[i % 8] + 12)), 3.55 + i * beat / 4, 0.065, pan=0.35 if i % 2 else -0.35)
 
     mix = bus + pads * 0.85 + drums
-    mix = B.reverb(mix, B.reverb_ir(2.2), 0.24)
+    mix = B.reverb(mix, B.reverb_ir(2.2), 0.22)
 
     # --- sound design ---
     fx = np.zeros((N, 2))
-    # letter ticks for the kinetic words
-    for t0, n in ((0.12, 11), (1.12, 15)):
-        for i in range(n):
-            B.place(fx, B.s_tick(2400 + (i % 4) * 260, 0.35), t0 + i * 0.034, 0.18, pan=-0.4 + i * 0.06)
-    # burst: whoosh + sub + one tiny tick per tile
-    B.place(fx, B.s_whoosh(0.7, 300, 3200, 1.0), 1.75, 0.55)
-    B.place(fx, B.s_lowpulse(), 2.1, 0.55)
+    # frame 0: an immediate, confident hit
+    B.place(fx, B.s_lowpulse(), 0.0, 0.7)
+    B.place(fx, B.s_snap(), 0.0, 0.45)
+    B.place(fx, B.s_tick(2600, 0.7), 0.25, 0.25)
+    # beat B: phones pop, documents thud onto them, warning tags
+    for i in range(3):
+        B.place(fx, B.s_pop(), 1.7 + i * 0.07, 0.3, pan=-0.5 + i * 0.5)
+    for j in range(10):
+        B.place(fx, B.s_tick(900 + (j % 3) * 150, 0.8), 2.35 + j * 0.07, 0.22, pan=float(rng.uniform(-0.6, 0.6)))
+    B.place(fx, B.s_tension(1.2), 2.0, 1.2)
+    for i in range(3):
+        B.place(fx, B.s_stop(), 2.55 + i * 0.12, 0.28, pan=-0.5 + i * 0.5)
+    # beat C: everything is pulled into the hub, then the system bursts
+    B.place(fx, B.s_rise(0.3), 3.22, 0.9)
+    B.place(fx, B.s_whoosh(0.35, 600, 3600, 1.0), 3.2, 0.55)
+    B.place(fx, B.s_snap(), 3.55, 0.6)
+    B.place(fx, B.s_lowpulse(), 3.55, 0.7)
     for i in range(26):
-        B.place(fx, B.s_tick(1800 + rng.integers(0, 1800), 0.4), 2.14 + i * 0.03, 0.16, pan=float(rng.uniform(-0.7, 0.7)))
+        B.place(fx, B.s_tick(1800 + rng.integers(0, 1800), 0.4), 3.57 + i * 0.022, 0.15, pan=float(rng.uniform(-0.7, 0.7)))
     # push into the frame
-    B.place(fx, B.s_rise(0.6), 4.4, 0.8)
     B.place(fx, B.s_tap(), 4.98, 0.6)
     B.place(fx, B.s_snap(), 5.12, 0.4)
     B.place(fx, B.s_sweep(), 5.4, 0.45)
@@ -101,7 +112,7 @@ def main():
     # tail
     fo = int(9.2 * SR)
     out[fo:] *= np.linspace(1, 0, N - fo)[:, None] ** 1.4
-    fi = int(0.06 * SR)
+    fi = int(0.004 * SR)
     out[:fi] *= np.linspace(0, 1, fi)[:, None]
     out = B.to_lufs(B.hp(out.T, 30).T, -15.0)
     os.makedirs(os.path.join(ROOT, "assets", "audio"), exist_ok=True)

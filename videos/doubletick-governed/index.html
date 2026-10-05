@@ -379,6 +379,127 @@
         opacity: 0;
         z-index: 31;
       }
+      /* ---------- mute-first hook ---------- */
+      #band {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 440px;
+        background: linear-gradient(
+          to bottom,
+          rgba(243, 240, 234, 0.96) 0%,
+          rgba(243, 240, 234, 0.9) 58%,
+          rgba(243, 240, 234, 0) 100%
+        );
+        z-index: 18;
+      }
+      .hk {
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        top: 112px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 76px;
+        line-height: 1.04;
+        letter-spacing: -0.038em;
+        color: var(--ink);
+        perspective: 800px;
+        z-index: 20;
+      }
+      .hk .l {
+        display: block;
+        white-space: nowrap;
+      }
+      .hk .wd {
+        display: inline-block;
+        transform-origin: 50% 85%;
+      }
+      .hk .g {
+        color: var(--green-d);
+      }
+      .hk .a {
+        color: #8a5f12;
+      }
+      .hk .ul {
+        position: relative;
+      }
+      .hk .ul i {
+        position: absolute;
+        left: 2px;
+        right: 2px;
+        bottom: -2px;
+        height: 7px;
+        border-radius: 4px;
+        background: var(--green);
+        opacity: 0.85;
+        transform-origin: 0 50%;
+      }
+      .rmp {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 150px;
+        opacity: 0;
+      }
+      .rmp .lb {
+        width: max-content;
+        margin: 0 auto 10px;
+        padding: 4px 12px;
+        border-radius: 99px;
+        background: #fff;
+        border: 1px solid #e2ded5;
+        font-family: "Geist Mono", monospace;
+        font-size: 15px;
+        letter-spacing: 0.12em;
+        color: var(--char);
+      }
+      .rmp .bd {
+        position: relative;
+        width: 150px;
+        height: 290px;
+        border: 3.5px solid var(--char);
+        border-radius: 30px;
+        background: linear-gradient(180deg, #fbfaf7, #ece8e0);
+      }
+      .rmp .bd::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 11px;
+        width: 42px;
+        height: 9px;
+        margin-left: -21px;
+        border-radius: 5px;
+        background: var(--char);
+      }
+      .ptag {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 40px;
+        padding: 0 16px;
+        border-radius: 99px;
+        background: #fff;
+        border: 1.5px solid #c9b48a;
+        font-size: 20px;
+        font-weight: 600;
+        color: #7a5410;
+        white-space: nowrap;
+        opacity: 0;
+        z-index: 15;
+      }
+      .ptag i {
+        display: block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #c98a1a;
+      }
       #tag {
         position: absolute;
         left: 0;
@@ -409,11 +530,57 @@
 
       <div id="world">
         <canvas id="net" width="1080" height="1080"></canvas>
+        <div id="phones">
+          <div class="rmp" id="rp0">
+            <div class="lb">RM</div>
+            <div class="bd"></div>
+          </div>
+          <div class="rmp" id="rp1">
+            <div class="lb">RM</div>
+            <div class="bd"></div>
+          </div>
+          <div class="rmp" id="rp2">
+            <div class="lb">RM</div>
+            <div class="bd"></div>
+          </div>
+        </div>
         <div id="tiles"></div>
       </div>
+      <div class="ptag" id="pt0"><i></i>Unmasked</div>
+      <div class="ptag" id="pt1"><i></i>No consent</div>
+      <div class="ptag" id="pt2"><i></i>Forwarded</div>
 
-      <div class="kw" id="w1">Every chat.</div>
-      <div class="kw" id="w2">Every document.</div>
+      <!-- mute-first hook: every beat is readable on its own -->
+      <div id="band"></div>
+      <div class="hk" id="hA">
+        <span class="l"
+          ><span class="wd">Your</span> <span class="wd">customers</span>
+          <span class="wd">send</span></span
+        >
+        <span class="l"
+          ><span class="wd g ul">PAN<i></i></span> <span class="wd g ul">cards<i></i></span>
+          <span class="wd">on</span> <span class="wd">WhatsApp.</span></span
+        >
+      </div>
+      <div class="hk" id="hB">
+        <span class="l"
+          ><span class="wd">Then</span> <span class="wd">they</span> <span class="wd">land</span>
+          <span class="wd">on</span></span
+        >
+        <span class="l"
+          ><span class="wd">RM</span> <span class="wd">phones.</span>
+          <span class="wd a">Untracked.</span></span
+        >
+      </div>
+      <div class="hk" id="hC">
+        <span class="l"
+          ><span class="wd g">DoubleTick</span> <span class="wd g">governs</span></span
+        >
+        <span class="l"
+          ><span class="wd">every</span> <span class="wd">chat</span> <span class="wd">&amp;</span>
+          <span class="wd">document.</span></span
+        >
+      </div>
 
       <div id="pane"></div>
       <div class="guide h" id="gT"></div>
@@ -536,6 +703,25 @@
           ["rm", "V", "Vikram"],
           ["doc", "Address Proof"],
         ];
+        // hook layout (screen space) for the tiles on screen from frame 0, and the RM phone each lands on
+        // [x, y, scale, blur, rotation, phone]
+        const LOOSE = {
+          1: [300, 590, 1.75, 0, -6, 1],
+          5: [565, 548, 1.6, 0, 3, 0],
+          9: [815, 606, 1.65, 0, 7, 2],
+          13: [150, 832, 1.1, 2.5, -10, 0],
+          17: [432, 862, 1.25, 1.5, 5, 1],
+          21: [690, 880, 1.2, 1.5, -4, 2],
+          25: [948, 858, 1.05, 2.5, 9, 2],
+          2: [112, 520, 0.95, 4, -8, 0],
+          6: [972, 470, 0.95, 4, 8, 2],
+          10: [560, 1012, 1.0, 5, 0, 1],
+        };
+        const PHONES = [
+          [235, 690],
+          [540, 710],
+          [845, 690],
+        ];
         const tilesEl = $("#tiles");
         const tiles = spec.map((s, i) => {
           const el = document.createElement("div");
@@ -567,8 +753,10 @@
               z: Math.sin(ph) * 1.4,
             },
             r,
-            t0: 2.12 + i * 0.03,
+            t0: 3.55 + i * 0.022,
             ph: rnd() * 6.28,
+            loose: LOOSE[i] || null,
+            jit: [(rnd() * 2 - 1) * 26, (rnd() * 2 - 1) * 58, (rnd() * 2 - 1) * 13],
           };
         });
 
@@ -576,14 +764,16 @@
         const F = 900;
         const cam = (t) => {
           let D;
-          if (t < 2.1) D = lerp(1180, 980, smooth(0, 2.1, t));
-          else if (t < 5.0) D = lerp(980, 760, smooth(2.1, 5.0, t));
+          if (t < 3.55) D = lerp(1180, 1000, smooth(0, 3.55, t));
+          else if (t < 5.0) D = lerp(1000, 760, smooth(3.55, 5.0, t));
           else D = lerp(760, 470, smooth(5.0, 5.9, t));
           const yaw = -0.34 + t * 0.075;
           const pitch = 0.1 * Math.sin(t * 0.45) - 0.04;
           let focus = D;
           if (t > 4.95) focus = lerp(D, D * 0.32, smooth(4.95, 5.7, t));
-          return { D, yaw, pitch, focus };
+          // the hook keeps the world below the headline band
+          const oy = lerp(80, 0, smooth(4.6, 5.2, t));
+          return { D, yaw, pitch, focus, oy };
         };
         const project = (p, c) => {
           const cy = Math.cos(c.yaw),
@@ -596,14 +786,14 @@
           const z2 = p.y * sp + z1 * cp;
           const zc = z2 + c.D;
           const s = F / Math.max(zc, 40);
-          return { x: 540 + x1 * s, y: 540 + y2 * s, s, zc };
+          return { x: 540 + x1 * s, y: 540 + (c.oy || 0) + y2 * s, s, zc };
         };
 
         const ctx = $("#net").getContext("2d");
         const render = (t) => {
           const c = cam(t);
           const worldA = 1 - smooth(7.1, 7.55, t);
-          const plexA = (1 - smooth(1.95, 2.7, t)) * worldA;
+          const plexA = 0.6 * (1 - smooth(3.25, 3.8, t)) * worldA;
           ctx.clearRect(0, 0, 1080, 1080);
 
           // plexus
@@ -652,12 +842,43 @@
             });
           }
 
-          // hub + governed tiles bursting out of it
-          const hubA = smooth(1.9, 2.2, t) * worldA;
+          // hub + governed tiles: hook → onto RM phones → pulled into the hub → burst
+          const hubA = smooth(3.38, 3.6, t) * worldA;
           const H = project({ x: 0, y: 0, z: 0 }, c);
+          const ease3 = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
           tiles.forEach((tt, i) => {
-            const k = expoOut(clamp((t - tt.t0) / 0.95, 0, 1));
             const fl = Math.sin(t * 0.9 + tt.ph);
+            tt.k = 0;
+            if (t < tt.t0) {
+              if (!tt.loose) {
+                gsap.set(tt.el, { opacity: 0 });
+                return;
+              }
+              const [lx, ly, ls, lb, lr, pi] = tt.loose;
+              const order = [1, 5, 9, 13, 17, 21, 25, 2, 6, 10].indexOf(i);
+              const tB = 1.95 + order * 0.07;
+              const kB = ease3(clamp((t - tB) / 0.55, 0, 1));
+              const kI = Math.pow(clamp((t - 3.28) / 0.27, 0, 1), 3);
+              const px = PHONES[pi][0] + tt.jit[0],
+                py = PHONES[pi][1] + tt.jit[1];
+              let x = lerp(lx + fl * 9, px, kB),
+                y = lerp(ly + Math.cos(t * 0.8 + tt.ph) * 7, py, kB);
+              let sc = lerp(ls, 0.7, kB);
+              x = lerp(x, H.x, kI);
+              y = lerp(y, H.y, kI);
+              sc = lerp(sc, 0.12, kI);
+              gsap.set(tt.el, {
+                x: x - 60,
+                y: y - 73,
+                scale: sc,
+                rotation: lerp(lr + fl * 1.5, tt.jit[2], kB),
+                opacity: (1 - smooth(3.45, 3.55, t)) * worldA,
+                filter: `blur(${lerp(lb, 0, kB).toFixed(2)}px)`,
+                zIndex: 1000 + Math.round(ls * 100) + Math.round(kB * 400),
+              });
+              return;
+            }
+            const k = expoOut(clamp((t - tt.t0) / 0.95, 0, 1));
             const p = {
               x: tt.dir.x * tt.r * k + fl * 10,
               y: tt.dir.y * tt.r * k + Math.cos(t * 0.7 + tt.ph) * 8,
@@ -757,12 +978,87 @@
             );
           });
         };
-        const w1 = split($("#w1"));
-        const w2 = split($("#w2"));
-        wordIn(w1, 0.12);
-        wordOut(w1, 0.95);
-        wordIn(w2, 1.12, 0.028);
-        wordOut(w2, 1.86);
+        // ---------------------------------------------------------------
+        // mute-first hook: three full-sentence beats, each readable alone
+        // ---------------------------------------------------------------
+        const words = (id) => $$(id + " .wd");
+        const finalColor = (w) => getComputedStyle(w).color;
+        const hookIn = (id, t) => {
+          words(id).forEach((w, i) => {
+            const fc = finalColor(w);
+            gsap.set(w, {
+              rotationX: -85,
+              y: 30,
+              opacity: 0,
+              color: TINTS[i % TINTS.length],
+              filter: "blur(6px)",
+            });
+            tl.to(
+              w,
+              {
+                opacity: 1,
+                rotationX: 0,
+                y: 0,
+                filter: "blur(0px)",
+                duration: 0.42,
+                ease: "expo.out",
+              },
+              t + i * 0.045,
+            );
+            tl.to(w, { color: fc, duration: 0.3, ease: "power1.inOut" }, t + i * 0.045 + 0.16);
+          });
+        };
+        const hookOut = (id, t) => {
+          words(id).forEach((w, i) => {
+            tl.to(
+              w,
+              {
+                opacity: 0,
+                rotationX: 75,
+                y: -24,
+                filter: "blur(5px)",
+                duration: 0.26,
+                ease: "power2.in",
+              },
+              t + i * 0.02,
+            );
+          });
+        };
+        // beat A is fully composed on frame 0 (it is also the feed thumbnail)
+        gsap.set("#hA .ul i", { scaleX: 0 });
+        tl.to("#hA .ul i", { scaleX: 1, duration: 0.45, ease: "power3.out", stagger: 0.08 }, 0.25);
+        tl.fromTo(
+          "#hA",
+          { scale: 1.035 },
+          { scale: 1, duration: 1.4, ease: "power2.out", immediateRender: false },
+          0,
+        );
+        hookOut("#hA", 1.5);
+        // beat B: the documents land on personal RM phones
+        hookIn("#hB", 1.72);
+        PHONES.forEach(([x, y], i) => {
+          const el = $("#rp" + i);
+          gsap.set(el, { x: x - 75, y: y - 168, scale: 1, yPercent: 8 });
+          tl.to(
+            el,
+            { opacity: 1, yPercent: 0, duration: 0.4, ease: "back.out(1.6)" },
+            1.7 + i * 0.07,
+          );
+          tl.to(el, { opacity: 0, scale: 0.7, duration: 0.25, ease: "power2.in" }, 3.25 + i * 0.03);
+          const tg = $("#pt" + i);
+          gsap.set(tg, { x: x - tg.offsetWidth / 2, y: y + 182, scale: 0.8 });
+          tl.to(
+            tg,
+            { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" },
+            2.55 + i * 0.12,
+          );
+          tl.to(tg, { opacity: 0, duration: 0.2 }, 3.2);
+        });
+        hookOut("#hB", 3.12);
+        // beat C: DoubleTick pulls it all into one governed system
+        hookIn("#hC", 3.42);
+        hookOut("#hC", 4.72);
+        tl.to("#band", { opacity: 0, duration: 0.3 }, 4.85);
 
         // ---------------------------------------------------------------
         // selection frame + frosted pane: "Governed by design."
