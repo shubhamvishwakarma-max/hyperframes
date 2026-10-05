@@ -69,7 +69,9 @@
   .vis { position: absolute; left: 72px; top: 490px; width: 936px; height: 350px; }
   .card { background: #fff; border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 18px 40px -24px rgba(10,26,18,.35); }
   .cap { font-size: 12.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; }
-  .dash { position: absolute; inset: 0; overflow: hidden; }
+  .dash { position: absolute; inset: 0; overflow: hidden; border-bottom: 0; border-radius: 22px 22px 0 0; -webkit-mask-image: linear-gradient(#000 52%, rgba(0,0,0,.18) 63%, rgba(0,0,0,.08) 80%, transparent 96%); mask-image: linear-gradient(#000 52%, rgba(0,0,0,.18) 63%, rgba(0,0,0,.08) 80%, transparent 96%); }
+  .ad > .vis { height: 590px; }
+  .ad > .cta { z-index: 2; }
   .dh { display: flex; align-items: center; gap: 12px; padding: 18px 22px; border-bottom: 1px solid var(--line); }
   .dh .tt { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
   .chip { font-size: 12px; font-weight: 600; padding: 5px 9px; border-radius: 7px; display: inline-flex; align-items: center; gap: 5px; }
@@ -109,8 +111,7 @@
   <div class="vis"><div class="card dash">
     <div class="dh"><span class="tt">Cross-sell campaign</span><span class="chip wa mono"><svg width="12" height="12" viewBox="0 0 24 24" fill="#1A8A47"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>WhatsApp</span><span class="chip ps mono">PSTN</span><span class="live mono"><i></i>AI Voice live</span></div>
     <div class="tabs"><span>All</span><span class="on"><b style="color:inherit">Qualified</b><span class="n">5,000+</span></span><span>Completed</span><span>Calling</span></div>
-    <table><thead><tr><th>Status</th><th>Customer</th><th>Need captured by AI</th><th>Duration</th></tr></thead><tbody><tr><td><span class="st q">Qualified</span></td><td class="nm">Ravi S.</td><td class="need hot">Home loan · next 3 months</td><td class="du">1m 13s</td></tr><tr><td><span class="st q">Qualified</span></td><td class="nm">Meena K.</td><td class="need hot">Top-up loan</td><td class="du">49s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Arjun P.</td><td class="need ">Call back on Friday</td><td class="du">35s</td></tr><tr><td><span class="st q">Qualified</span></td><td class="nm">Fatima R.</td><td class="need hot">Credit card</td><td class="du">1m 15s</td></tr><tr><td><span class="st n">Not interested</span></td><td class="nm">Karan M.</td><td class="need ">No need right now</td><td class="du">22s</td></tr></tbody></table>
-    <div class="fade"></div>
+    <table><thead><tr><th>Status</th><th>Customer</th><th>Need captured by AI</th><th>Duration</th></tr></thead><tbody><tr><td><span class="st q">Qualified</span></td><td class="nm">Ravi S.</td><td class="need hot">Home loan · next 3 months</td><td class="du">1m 13s</td></tr><tr><td><span class="st q">Qualified</span></td><td class="nm">Meena K.</td><td class="need hot">Top-up loan</td><td class="du">49s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Arjun P.</td><td class="need ">Call back on Friday</td><td class="du">35s</td></tr><tr><td><span class="st q">Qualified</span></td><td class="nm">Fatima R.</td><td class="need hot">Credit card</td><td class="du">1m 15s</td></tr><tr><td><span class="st n">Not interested</span></td><td class="nm">Karan M.</td><td class="need ">No need right now</td><td class="du">22s</td></tr><tr><td><span class="st q">Qualified</span></td><td class="nm">Neha T.</td><td class="need hot">Personal loan</td><td class="du">58s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Vikram J.</td><td class="need ">Send details on WhatsApp</td><td class="du">41s</td></tr><tr><td><span class="st q">Qualified</span></td><td class="nm">Sana M.</td><td class="need hot">Gold loan</td><td class="du">1m 02s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Rohit D.</td><td class="need ">Call back next week</td><td class="du">27s</td></tr></tbody></table>
   </div></div>
 
   <div class="cta">
