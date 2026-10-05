@@ -517,10 +517,10 @@ def build_sfx():
     # hook — documents slam in, snap, WhatsApp send, travel toward the RM phone
     place(bus, s_lowpulse(), 0.0, 0.65)
     place(bus, s_whoosh(0.4, 500, 3200, 0.8), 0.0, 0.45)
-    for i, t in enumerate((0.42, 0.52, 0.64)):
+    for i, t in enumerate((0.22, 0.34, 0.46)):
         place(bus, s_paper(), t, 0.6, pan=(-0.5, 0.5, 0.0)[i])
-    place(bus, s_snap(), 0.8, 0.55)
-    place(bus, s_pop(), 0.9, 0.35)
+    place(bus, s_snap(), 0.62, 0.45)
+    place(bus, s_pop(), 0.86, 0.35)
     place(bus, s_tap(), 2.04, 0.5)
     place(bus, s_pop(), 2.12, 0.65)
     place(bus, s_tick(3200, 0.5), 2.24, 0.3)

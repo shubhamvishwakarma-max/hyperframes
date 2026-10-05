@@ -1415,6 +1415,19 @@
       }
 
       /* ---------- opening hook ---------- */
+      #risk {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(820px 660px at 72% 62%, rgba(201, 82, 62, 0.2), rgba(201, 82, 62, 0) 70%),
+          linear-gradient(
+            165deg,
+            rgba(232, 186, 172, 0.34) 0%,
+            rgba(240, 214, 204, 0.2) 55%,
+            rgba(245, 243, 238, 0.04) 100%
+          );
+        opacity: 0.8;
+      }
       .hk {
         position: absolute;
         left: 16px;
@@ -1440,9 +1453,11 @@
       .hk b {
         font-weight: 400;
       }
-      .hk .g,
-      .hk .b1 {
+      .hk .g {
         color: var(--green-d);
+      }
+      .hk .b1 {
+        color: #a3281f;
       }
       .hk .w {
         color: #8a5f12;
@@ -1452,14 +1467,13 @@
         font-size: 74px;
       }
       #hB {
-        top: 84px;
+        top: 104px;
       }
       #hB .b1 {
-        font-size: 98px;
-        line-height: 1;
+        font-size: 74px;
       }
       #hB .b2 {
-        font-size: 72px;
+        font-size: 74px;
       }
       #waPanel {
         position: absolute;
@@ -1790,6 +1804,8 @@
       <div id="bg" data-layout-allow-occlusion></div>
       <div id="grid"></div>
       <div id="glow"></div>
+      <!-- the problem beats sit on a faint red wash; it clears when DoubleTick takes over -->
+      <div id="risk"></div>
 
       <svg id="paths" viewBox="0 0 1080 1080">
         <!-- the green rail: tangent-continuous curves, drawn end to end -->
@@ -1826,16 +1842,16 @@
       <img id="logoBig" src="assets/brand/doubletick-logo-reveal.png" alt="DoubleTick" />
 
       <!-- headlines -->
-      <div class="hk clip" id="hA" data-start="0" data-duration="3.55" data-track-index="2">
+      <div class="hk clip" id="hA" data-start="0" data-duration="3.46" data-track-index="2">
         <span class="ln"
           ><span><b class="g">Sensitive documents</b> are already</span></span
         >
         <span class="ln"><span>moving through WhatsApp.</span></span>
       </div>
-      <div class="hk clip" id="hQ" data-start="3.3" data-duration="0.8" data-track-index="2">
+      <div class="hk clip" id="hQ" data-start="3.3" data-duration="0.74" data-track-index="2">
         <span class="ln"><span>But where do they end up?</span></span>
       </div>
-      <div class="hk clip" id="hB" data-start="3.9" data-duration="4.65" data-track-index="2">
+      <div class="hk clip" id="hB" data-start="4.0" data-duration="4.55" data-track-index="2">
         <span class="ln b1"><span>Governed —</span></span>
         <span class="ln b2"
           ><span>or sitting on an <b class="w">RM’s phone?</b></span></span
@@ -3102,114 +3118,173 @@
         // =================================================================
         const SX = 514,
           SY = 663; // the stack's front card, inside the WhatsApp bubble
-        // beat 01 headline: on screen from frame 1
-        tl.fromTo("#hA", { scale: 1.035 }, { scale: 1, duration: 1.3, ease: "power2.out" }, 0);
-        // three documents slam in from the edges and snap into a fanned stack
+        const appE = 7.86; // freeze
+        // one soft headline language for every beat: rise out of a mask, settle sharp
+        const revealIn = (spans, t, dur = 0.7, stagger = 0.1) => {
+          gsap.set(spans, { yPercent: 105, opacity: 0, filter: "blur(6px)" });
+          tl.to(
+            spans,
+            {
+              yPercent: 0,
+              opacity: 1,
+              filter: "blur(0px)",
+              duration: dur,
+              ease: "power3.out",
+              stagger,
+            },
+            t,
+          );
+        };
+        const revealOut = (spans, t, dur = 0.42, stagger = 0.06) => {
+          tl.to(
+            spans,
+            {
+              yPercent: -105,
+              opacity: 0,
+              filter: "blur(4px)",
+              duration: dur,
+              ease: "power2.inOut",
+              stagger,
+            },
+            t,
+          );
+        };
+        // the red wash deepens as the document closes on the RM phone
+        tl.to("#risk", { opacity: 1, duration: appE, ease: "sine.inOut" }, 0);
+        // beat 01 headline: on screen from frame 1, settling gently
+        tl.fromTo("#hA", { scale: 1.03 }, { scale: 1, duration: 1.6, ease: "power2.out" }, 0);
+        // three documents glide in from the edges and settle into a fanned stack
         [
-          ["#kPAN", -470, 150, -24, -2.5, -8, -80, 0.0],
-          ["#kIP", 560, 110, 26, 2, 10, -40, 0.08],
-          ["#kBS", 30, 420, 14, -1, 0, 0, 0.16],
+          ["#kPAN", -470, 150, -18, -2.5, -8, -80, 0.0],
+          ["#kIP", 560, 110, 18, 2, 10, -40, 0.1],
+          ["#kBS", 30, 420, 10, -1, 0, 0, 0.2],
         ].forEach(([sel, dx, dy, r0, r1, fx, fy, d]) => {
           tl.fromTo(
             sel,
             { x: fx + dx, y: fy + dy, rotation: r0 },
-            { x: fx, y: fy, rotation: r1, duration: 0.62, ease: "back.out(1.35)" },
+            { x: fx, y: fy, rotation: r1, duration: 0.85, ease: "expo.out" },
             d,
           );
         });
-        tl.to("#hkStack", { scale: 0.97, duration: 0.07, ease: "power2.in" }, 0.78);
-        tl.to("#hkStack", { scale: 1, duration: 0.25, ease: "back.out(3)" }, 0.85);
         // a WhatsApp chat + attachment bubble forms around them
-        gsap.set("#waPanel", { scale: 0.9 });
-        tl.to("#waPanel", { opacity: 1, scale: 1, duration: 0.42, ease: "expo.out" }, 0.66);
-        gsap.set("#hkBubble", { scale: 0.55, transformOrigin: "100% 0%" });
-        tl.to("#hkBubble", { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(1.3)" }, 0.86);
-        // "already moving": the stack nudges forward
-        tl.to("#hkStack", { x: 8, duration: 0.5, ease: "power2.out" }, 1.48);
+        gsap.set("#waPanel", { scale: 0.94 });
+        tl.to("#waPanel", { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 0.6);
+        gsap.set("#hkBubble", { scale: 0.8, transformOrigin: "100% 0%" });
+        tl.to("#hkBubble", { opacity: 1, scale: 1, duration: 0.55, ease: "power3.out" }, 0.8);
         // send fires
-        tl.to("#hkSend", { scale: 0.84, duration: 0.08, ease: "power2.in" }, 2.04);
-        tl.to("#hkSend", { scale: 1, duration: 0.32, ease: "back.out(3)" }, 2.12);
+        tl.to("#hkSend", { scale: 0.9, duration: 0.1, ease: "power2.out" }, 2.02);
+        tl.to("#hkSend", { scale: 1, duration: 0.4, ease: "power2.out" }, 2.12);
         gsap.set("#hkSendRing", { scale: 1 });
-        tl.to("#hkSendRing", { opacity: 0.9, duration: 0.04 }, 2.12);
-        tl.to("#hkSendRing", { opacity: 0, scale: 2.4, duration: 0.55, ease: "power2.out" }, 2.16);
-        tl.to("#hkTicks", { opacity: 1, duration: 0.12 }, 2.24);
-        tl.to("#hkTicks", { color: "#53BDEB", duration: 0.2 }, 2.72);
-        // the stack leaves WhatsApp and keeps travelling — toward another device
+        tl.to("#hkSendRing", { opacity: 0.9, duration: 0.05 }, 2.12);
+        tl.to("#hkSendRing", { opacity: 0, scale: 2.4, duration: 0.6, ease: "power2.out" }, 2.15);
+        tl.to("#hkTicks", { opacity: 1, duration: 0.15 }, 2.24);
+        tl.to("#hkTicks", { color: "#53BDEB", duration: 0.25 }, 2.72);
+        // the chat steps aside…
         tl.to(
           "#waPanel",
-          { x: 230 - 470, y: 10, scale: 0.72, duration: 0.78, ease: "power3.inOut" },
+          { x: 230 - 470, y: 10, scale: 0.72, duration: 0.95, ease: "power3.inOut" },
           2.84,
         );
-        tl.to("#hkBubbleDocs", { opacity: 1, duration: 0.3 }, 3.2);
+        tl.to("#hkBubbleDocs", { opacity: 1, duration: 0.35 }, 3.2);
+        // …and the stack travels in ONE continuous move: quick exit, slow drift, accelerating approach, dead stop
+        const KX = [
+          [2.9, 514],
+          [3.75, 556],
+          [5.2, 582],
+          [6.6, 603],
+          [appE, 640],
+        ];
+        const mono = (keys, m0) => {
+          const n = keys.length;
+          const d = [];
+          for (let k = 0; k < n - 1; k++)
+            d.push((keys[k + 1][1] - keys[k][1]) / (keys[k + 1][0] - keys[k][0]));
+          const m = keys.map((_, k) =>
+            k === 0 ? m0 : k === n - 1 ? d[n - 2] * 1.6 : (d[k - 1] + d[k]) / 2,
+          );
+          for (let k = 0; k < n - 1; k++) {
+            const a = m[k] / d[k],
+              b = m[k + 1] / d[k],
+              h = a * a + b * b;
+            if (h > 9) {
+              const tau = 3 / Math.sqrt(h);
+              m[k] = tau * a * d[k];
+              m[k + 1] = tau * b * d[k];
+            }
+          }
+          return (t) => {
+            if (t <= keys[0][0]) return keys[0][1];
+            if (t >= keys[n - 1][0]) return keys[n - 1][1];
+            let k = 0;
+            while (t > keys[k + 1][0]) k++;
+            const hh = keys[k + 1][0] - keys[k][0];
+            const u = (t - keys[k][0]) / hh;
+            const u2 = u * u,
+              u3 = u2 * u;
+            return (
+              (2 * u3 - 3 * u2 + 1) * keys[k][1] +
+              (u3 - 2 * u2 + u) * hh * m[k] +
+              (-2 * u3 + 3 * u2) * keys[k + 1][1] +
+              (u3 - u2) * hh * m[k + 1]
+            );
+          };
+        };
+        const stackX = mono(KX, 0);
+        const sm = (a, b, t) => {
+          const k = Math.min(1, Math.max(0, (t - a) / (b - a)));
+          return k * k * (3 - 2 * k);
+        };
+        const trip = { t: 2.9 };
         tl.to(
-          "#hkStack",
+          trip,
           {
-            x: 560 - SX,
-            y: 660 - SY,
-            scale: 0.82,
-            rotation: -2,
-            duration: 0.85,
-            ease: "power2.inOut",
+            t: appE,
+            duration: appE - 2.9,
+            ease: "none",
+            onUpdate: () => {
+              const t = trip.t;
+              const e = sm(2.9, 3.9, t);
+              gsap.set("#hkStack", {
+                x: stackX(t) - SX,
+                y: -3 * e,
+                scale: 1 - 0.18 * e,
+                rotation: -2 * e + 1 * sm(5.0, appE, t),
+              });
+            },
           },
-          2.92,
-        );
-        tl.to("#hkStack", { x: 600 - SX, duration: 2.85, ease: "sine.inOut" }, 3.77);
-        const appS = 6.62,
-          appE = 7.86; // freeze
-        tl.to(
-          "#hkStack",
-          { x: 640 - SX, rotation: -1, duration: appE - appS, ease: "power2.in" },
-          appS,
+          2.9,
         );
         // the RM phone on the far side
-        gsap.set("#rmPhone", { x: 70, y: 45 });
-        tl.to("#rmPhone", { opacity: 1, x: 30, duration: 0.5, ease: "power3.out" }, 2.95);
-        // headline: compress beat 01 upward → "But where…" → the question
-        tl.to(
-          "#hA",
-          {
-            scaleY: 0.3,
-            y: -40,
-            opacity: 0,
-            filter: "blur(6px)",
-            duration: 0.3,
-            ease: "power3.in",
-          },
-          3.2,
-        );
-        hlInEls($$("#hQ .ln > span"), 3.36);
-        tl.to(
-          "#hQ .ln > span",
-          { yPercent: -112, opacity: 0, duration: 0.22, ease: "power2.in" },
-          3.82,
-        );
-        const hBl = $$("#hB .ln > span");
-        hlInEls([hBl[0]], 3.96);
-        hlInEls([hBl[1]], 4.2);
+        gsap.set("#rmPhone", { x: 72, y: 45 });
+        tl.to("#rmPhone", { opacity: 1, x: 30, duration: 0.75, ease: "power3.out" }, 2.95);
+        // headlines: beat 01 → "But where…" → the question, all with the same soft mask move
+        revealOut($$("#hA .ln > span"), 2.96);
+        revealIn($$("#hQ .ln > span"), 3.32, 0.5, 0);
+        revealOut($$("#hQ .ln > span"), 3.74, 0.3, 0);
+        revealIn($$("#hB .ln > span"), 4.02, 0.75, 0.12);
         // "are they governed": a faint green path appears beneath the document
         drawPrep("pPrev");
-        tl.to("#pPrev", { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }, 5.05);
-        // "…sitting on an RM's phone?": copies split off as it closes in
-        const easeIn2 = gsap.parseEase("power2.in");
-        const xAtA = (t) => 600 + 40 * easeIn2((t - appS) / (appE - appS));
+        tl.to("#pPrev", { strokeDashoffset: 0, duration: 1.1, ease: "sine.inOut" }, 5.0);
+        // "…sitting on an RM's phone?": copies drift off as it closes in
         const gT = 6.75;
         [
           ["#hg1", -26, -96, -6],
           ["#hg2", -52, 92, 5],
           ["#hg3", -112, 4, 2],
         ].forEach(([sel, dx, dy, rot], i) => {
-          gsap.set(sel, { x: xAtA(gT) - SX, y: 660 - SY, scale: 0.82, rotation: -1 });
-          tl.to(sel, { opacity: 0.8, duration: 0.2 }, gT + i * 0.1);
+          const t0 = gT + i * 0.1;
+          gsap.set(sel, { x: stackX(t0) - SX, y: -3, scale: 0.82, rotation: -1 });
+          tl.to(sel, { opacity: 0.8, duration: 0.3, ease: "power1.out" }, t0);
           tl.to(
             sel,
             {
               x: 640 - SX + dx,
-              y: 660 - SY + dy,
+              y: -3 + dy,
               rotation: rot,
-              duration: appE - gT - i * 0.1,
-              ease: "power2.in",
+              duration: appE - t0,
+              ease: "power2.inOut",
             },
-            gT + i * 0.1,
+            t0,
           );
         });
         // FREEZE ~26px short of the phone — nothing moves; one quiet question
@@ -3217,18 +3292,8 @@
         tl.to("#hkLocal", { opacity: 1, y: 0, duration: 0.2, ease: "power2.out" }, appE + 0.08);
         // DoubleTick redirect: a green line pulls the document away and becomes the verified chat
         const tR = appE + 0.3;
-        tl.to(
-          "#hB .ln > span",
-          {
-            yPercent: -112,
-            opacity: 0,
-            filter: "blur(6px)",
-            duration: 0.34,
-            ease: "power3.in",
-            stagger: 0.05,
-          },
-          tR - 0.02,
-        );
+        revealOut($$("#hB .ln > span"), tR - 0.04, 0.42, 0.06);
+        tl.to("#risk", { opacity: 0, duration: 0.8, ease: "power2.inOut" }, tR);
         tl.set("#pPrev", { visibility: "hidden" }, tR);
         const hookR = rail("pHook");
         drawRail(hookR, tR, 0.78, "power2.inOut");
@@ -3260,11 +3325,11 @@
           ["#hg1", "#hg2", "#hg3"],
           {
             x: 640 - SX,
-            y: 660 - SY,
+            y: -3,
             rotation: 0,
             opacity: 0,
-            duration: 0.28,
-            ease: "power3.in",
+            duration: 0.32,
+            ease: "power2.in",
             stagger: 0.03,
           },
           tR,
