@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>DoubleTick AU -after</title>
+<style>
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+
+  :root {
+    --ink: #0A1A12;
+    --ink-2: #3D4A44;
+    --muted: #7A8781;
+    --bg: #F4F8F5;
+    --card: #FFFFFF;
+    --line: #E1E9E4;
+    --green: #007A5A;
+    --green-2: #2FBF8F;
+    --green-soft: #E0F2EC;
+    --red: #E5484D;
+    --red-soft: #FDECEC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; overflow: hidden; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+
+  /* safe zone: everything that matters sits between y=130 and y=950 */
+  .ad {
+    position: relative; width: 1080px; height: 1080px; padding: 130px 72px;
+    background:
+      radial-gradient(700px 520px at 100% 0%, rgba(0,122,90,.14), transparent 60%),
+      radial-gradient(600px 500px at 0% 100%, rgba(0,122,90,.08), transparent 60%),
+      var(--bg);
+    display: flex; flex-direction: column;
+  }
+  .ad::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: radial-gradient(ellipse at 60% 70%, #000 10%, transparent 70%);
+    opacity: .55;
+  }
+  .ad > * { position: relative; }
+
+  .ad > .top { position: absolute; left: 72px; right: 72px; top: 52px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: block; height: 32px; width: auto; }
+  .pill {
+    font-size: 14px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    padding: 9px 15px; border-radius: 999px; background: var(--ink); color: #fff;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 4px rgba(47,191,143,.25); }
+
+  h1 { margin-top: 40px; font-size: 62px; line-height: 1.08; letter-spacing: -0.04em; font-weight: 700; }
+  h1 .drop { color: var(--muted); }
+  h1 .die { color: var(--red); }
+  h1 em { font-style: normal; color: var(--green); }
+  .sub { margin-top: 20px; font-size: 21px; line-height: 1.42; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  .ad > .cta { position: absolute; left: 72px; top: 868px; }
+  .btn {
+    background: var(--green); color: #fff; font-size: 22px; font-weight: 600; letter-spacing: -0.01em;
+    padding: 16px 26px; border-radius: 14px; display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 14px 30px -10px rgba(0,122,90,.6);
+  }
+  .client { height: 104px; width: auto; margin: -33px -22px -33px 0; mix-blend-mode: multiply; }
+  .vis { position: absolute; left: 72px; top: 490px; width: 936px; height: 350px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 18px 40px -24px rgba(10,26,18,.35); }
+  .cap { font-size: 12.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; }
+  .ba { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 96px 1fr; align-items: center; }
+  .col { padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .col .cap { margin-bottom: 4px; }
+  .row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; }
+  .before .row { background: #F3F5F4; }
+  .before .bar { height: 10px; border-radius: 5px; background: #DDE3E0; }
+  .before .dash { margin-left: auto; color: #B3BEB8; font-size: 18px; font-weight: 600; }
+  .after { border: 2px solid var(--green); }
+  .after .row { background: var(--green-soft); }
+  .after .nm { font-size: 15px; font-weight: 600; }
+  .after .tg { margin-left: auto; font-size: 12.5px; font-weight: 600; color: #fff; background: var(--green); padding: 5px 9px; border-radius: 8px; white-space: nowrap; }
+  .mid { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+  .orb { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center;
+    background: radial-gradient(circle at 34% 28%, #9BEBCB 0%, #1FA77B 40%, #007A5A 75%, #005A42 100%); box-shadow: 0 0 0 8px rgba(47,191,143,.14), 0 12px 24px -10px rgba(0,122,90,.7); }
+  .wv { display: flex; align-items: center; gap: 3px; height: 30px; }
+  .wv b { width: 3px; border-radius: 2px; display: block; }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="top">
+    <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+    <img class="client" src="au-bank-logo.png" alt="AU Small Finance Bank" />
+  </div>
+
+  <h1><span class="drop">From unworked leads to</span><br/><em>sales-ready conversations</em><br/>with AI Voice at scale.</h1>
+  <p class="sub"><b>AU Small Finance Bank</b> used <b>DoubleTick AI Voice</b> to call existing customers, understand their needs and surface <b>qualified opportunities for sales teams</b>.</p>
+
+  <div class="vis"><div class="ba">
+    <div class="card col before"><div class="cap" style="color:var(--muted)">Unworked leads</div><div class="row"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#E3E8E5"/><circle cx="17" cy="13.5" r="5" fill="#B3BEB8"/><path d="M8.5 27a8.5 7 0 0 1 17 0Z" fill="#B3BEB8"/></svg><div style="flex:1;display:flex;flex-direction:column;gap:6px"><div class="bar" style="width:70%"></div><div class="bar" style="width:45%;opacity:.6"></div></div><span class="dash">–</span></div><div class="row"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#E3E8E5"/><circle cx="17" cy="13.5" r="5" fill="#B3BEB8"/><path d="M8.5 27a8.5 7 0 0 1 17 0Z" fill="#B3BEB8"/></svg><div style="flex:1;display:flex;flex-direction:column;gap:6px"><div class="bar" style="width:60%"></div><div class="bar" style="width:35%;opacity:.6"></div></div><span class="dash">–</span></div><div class="row"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#E3E8E5"/><circle cx="17" cy="13.5" r="5" fill="#B3BEB8"/><path d="M8.5 27a8.5 7 0 0 1 17 0Z" fill="#B3BEB8"/></svg><div style="flex:1;display:flex;flex-direction:column;gap:6px"><div class="bar" style="width:78%"></div><div class="bar" style="width:53%;opacity:.6"></div></div><span class="dash">–</span></div><div class="row"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#E3E8E5"/><circle cx="17" cy="13.5" r="5" fill="#B3BEB8"/><path d="M8.5 27a8.5 7 0 0 1 17 0Z" fill="#B3BEB8"/></svg><div style="flex:1;display:flex;flex-direction:column;gap:6px"><div class="bar" style="width:64%"></div><div class="bar" style="width:39%;opacity:.6"></div></div><span class="dash">–</span></div></div>
+    <div class="mid"><div class="wv"><b style="height:8px;background:#2FBF8F"></b><b style="height:14px;background:#2FBF8F"></b><b style="height:22px;background:#2FBF8F"></b><b style="height:12px;background:#2FBF8F"></b><b style="height:26px;background:#2FBF8F"></b><b style="height:18px;background:#2FBF8F"></b><b style="height:10px;background:#2FBF8F"></b><b style="height:20px;background:#2FBF8F"></b></div><div class="orb"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="cap" style="color:var(--green)">AI Voice</div></div>
+    <div class="card col after"><div class="cap" style="color:var(--green)">Sales-ready</div><div class="row"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#007A5A"/><circle cx="17" cy="13.5" r="5" fill="#fff"/><path d="M8.5 27a8.5 7 0 0 1 17 0Z" fill="#fff"/></svg><span class="nm">Ravi S.</span><span class="tg">Home loan</span></div><div class="row"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#007A5A"/><circle cx="17" cy="13.5" r="5" fill="#fff"/><path d="M8.5 27a8.5 7 0 0 1 17 0Z" fill="#fff"/></svg><span class="nm">Meena K.</span><span class="tg">Top-up loan</span></div><div class="row"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#007A5A"/><circle cx="17" cy="13.5" r="5" fill="#fff"/><path d="M8.5 27a8.5 7 0 0 1 17 0Z" fill="#fff"/></svg><span class="nm">Arjun P.</span><span class="tg">Credit card</span></div><div class="row"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#007A5A"/><circle cx="17" cy="13.5" r="5" fill="#fff"/><path d="M8.5 27a8.5 7 0 0 1 17 0Z" fill="#fff"/></svg><span class="nm">Fatima R.</span><span class="tg">Call back Fri</span></div></div>
+  </div></div>
+
+  <div class="cta">
+    <div class="btn">Apply for a Free Pilot
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>
