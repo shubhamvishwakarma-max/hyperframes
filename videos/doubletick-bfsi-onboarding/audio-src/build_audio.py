@@ -159,13 +159,15 @@ def ticks(start, count, spacing, f=2600, g=-24, grow=1.0):
         at += spacing; spacing *= grow
 
 
-# --- scene 1: application starts, progress pulses decelerate, stall
-place(bell(1318.5, 1.0, 0.18, ((1, 1), (1.5, 0.35), (2, 0.15))), 0.5, -21)
-place(bell(1975.5, 0.8, 0.14), 0.6, -27)
-ticks(0.95, 7, 0.16, 2200, -30, 1.18)
-f = np.linspace(260, 95, int(0.28 * SR))
-place(add(sine(f, 0.28, 0.08) * 0.7, click(0.6, 0.06) * 0.7), 2.36, -20)  # dampened mechanical click
-place(click(0.9), 3.42, -32)
+# --- scene 1: progress already moving on frame 0, decelerates, hard stop, idle counter ages
+place(bell(1318.5, 0.8, 0.14, ((1, 1), (1.5, 0.3))), 0.02, -26)
+ticks(0.02, 7, 0.1, 2300, -29, 1.22)
+f = np.linspace(240, 70, int(0.32 * SR))
+place(add(sine(f, 0.32, 0.09) * 0.8, click(0.6, 0.06) * 0.8), 1.3, -15)  # hard-stop thunk
+place(impact(46, 0.7), 1.3, -21)
+for k, at in enumerate((1.95, 2.5, 3.0, 3.45)):  # idle counter: dry clock ticks, slowly lowering
+    place(add(sine(1500 - k * 120, 0.05, 0.012, 0.0005), click(1.1, 0.03) * 0.4), at, -25)
+place(click(0.7), 3.55, -31)
 # --- scene 2: go silent — sub air-out
 place(tone_rise(1.2, 110, 70) * 0.5, 5.9, -30)
 place(sine(1760, 0.08, 0.02), 7.2, -30)  # dot turns green

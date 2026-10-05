@@ -275,18 +275,116 @@
       /* ---------- customer card ---------- */
       #card {
         position: absolute;
-        left: 270px;
-        top: 650px;
-        width: 540px;
-        height: 124px;
-        border-radius: 24px;
+        left: 230px;
+        top: 632px;
+        width: 620px;
+        height: 200px;
+        border-radius: 26px;
         background: var(--surface);
         border: 1px solid var(--line);
-        box-shadow: 0 18px 40px -22px rgba(30, 30, 20, 0.28), 0 2px 6px rgba(30, 30, 20, 0.04);
+        box-shadow: 0 22px 46px -24px rgba(30, 30, 20, 0.32), 0 2px 6px rgba(30, 30, 20, 0.04);
+        padding: 24px 28px 0;
+      }
+      #card .crow {
         display: flex;
         align-items: center;
-        padding: 0 26px;
         gap: 18px;
+      }
+      #card .idle {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      #card .il {
+        font-family: var(--mono);
+        font-size: 16px;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+      }
+      #card .iv {
+        position: relative;
+        width: 260px;
+        height: 38px;
+      }
+      #card .iv span {
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        white-space: nowrap;
+        color: var(--ink);
+      }
+      #stall-tag {
+        position: absolute;
+        left: 147px;
+        top: 424px;
+        width: 230px;
+        height: 46px;
+        border-radius: 23px;
+        background: #fbe7e5;
+        border: 1.5px solid #efb7b1;
+        color: #a5221c;
+        font-family: var(--mono);
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        opacity: 0;
+      }
+      #stall-tag i {
+        display: block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #c62f2f;
+      }
+      #stall-stem {
+        position: absolute;
+        left: 261px;
+        top: 470px;
+        width: 2px;
+        height: 38px;
+        background: #e3a39d;
+        transform-origin: 50% 0%;
+        opacity: 0;
+      }
+      #stall-ring {
+        position: absolute;
+        left: 240px;
+        top: 498px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 3px solid #c62f2f;
+        opacity: 0;
+      }
+      #k3 {
+        position: absolute;
+        left: 82px;
+        top: 150px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--mono);
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        color: var(--green-deep);
+        opacity: 0;
+      }
+      #k3 i {
+        display: block;
+        width: 30px;
+        height: 16px;
+        background: url(assets/brand/doubletick-icon.png) center / contain no-repeat;
       }
       .avatar {
         flex: 0 0 auto;
@@ -305,7 +403,7 @@
         flex: 1 1 auto;
       }
       #card .name {
-        font-size: 26px;
+        font-size: 28px;
         font-weight: 600;
         letter-spacing: -0.01em;
       }
@@ -1658,6 +1756,7 @@
         <div id="j-track" class="j-bar"></div>
         <div id="j-fill" class="j-bar"></div>
         <div id="j-tip"></div>
+        <div id="stall-ring"></div>
         <div class="jn" id="n1" style="left: 150px"><div class="pulse"></div><div class="ring"></div><div class="fillc"></div><div class="spin"></div><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
         <div class="jn" id="n2" style="left: 345px"><div class="pulse"></div><div class="ring"></div><div class="fillc"></div><div class="spin"></div><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
         <div class="jn" id="n3" style="left: 540px"><div class="pulse"></div><div class="ring"></div><div class="fillc"></div><div class="spin"></div><svg class="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
@@ -1673,37 +1772,45 @@
 
       <!-- customer card -->
       <div id="card">
-        <div class="avatar">AS</div>
-        <div class="who">
-          <div class="name">Ananya Sharma</div>
-          <div class="meta">Personal Loan · ₹8,00,000</div>
-          <div class="last"><span class="a">KYC pending · Active now</span><span class="b" style="opacity: 0">KYC pending · 2 days idle</span><span class="c" style="opacity: 0">KYC pending · 9 days idle</span></div>
+        <div class="crow">
+          <div class="avatar">AS</div>
+          <div class="who">
+            <div class="name">Ananya Sharma</div>
+            <div class="meta">Personal Loan · ₹8,00,000</div>
+          </div>
+          <div class="pill" id="pill" data-layout-allow-overlap>
+            <div class="pd" id="pd"></div>
+            <div class="pt"><span class="a">In progress</span></div>
+            <div class="pt"><span class="b" style="opacity: 0">Stalled</span></div>
+            <div class="pt"><span class="c" style="opacity: 0">Inactive</span></div>
+            <div class="pt"><span class="d" style="opacity: 0">No activity</span></div>
+          </div>
         </div>
-        <div class="pill" id="pill" data-layout-allow-overlap>
-          <div class="pd" id="pd"></div>
-          <div class="pt"><span class="a">In progress</span></div>
-          <div class="pt"><span class="b" style="opacity: 0">Waiting</span></div>
-          <div class="pt"><span class="c" style="opacity: 0">Inactive</span></div>
-          <div class="pt"><span class="d" style="opacity: 0">No activity</span></div>
+        <div class="idle">
+          <span class="il">LAST ACTIVITY</span>
+          <div class="iv" id="idle" data-layout-allow-overlap><span class="a">Just now</span><span class="b" style="opacity: 0">1 day ago</span><span class="c" style="opacity: 0">3 days ago</span><span class="d" style="opacity: 0">6 days ago</span><span class="e" style="opacity: 0">9 days ago</span></div>
         </div>
       </div>
+      <div id="stall-stem"></div>
+      <div id="stall-tag"><i></i>STALLED AT KYC</div>
 
       <!-- scene 1 headline -->
-      <div class="hl center" id="h1" style="left: 80px; right: 80px; top: 180px">
-        <span class="ln" style="font-size: 50px; line-height: 1.1"><span class="small">Onboarding stalls.</span></span>
-        <span class="ln" style="font-size: 84px; line-height: 1.08"><span id="h1b">Applications go cold.</span></span>
+      <div class="hl center" id="h1" style="left: 50px; right: 50px; top: 112px">
+        <span class="ln" style="font-size: 76px; line-height: 1.08"><span style="color: var(--ink)">Onboarding stalls.</span></span>
+        <span class="ln" style="font-size: 98px; line-height: 1.06"><span id="h1b">Applications go cold.</span></span>
       </div>
 
       <!-- scene 2 headline -->
-      <div class="hl center" id="h2" style="left: 60px; right: 60px; top: 196px">
-        <span class="ln" style="font-size: 74px; line-height: 1.08"><span>Does your onboarding</span></span>
-        <span class="ln" style="font-size: 74px; line-height: 1.08"><span>journey <span id="silent" style="display: inline-block; margin: 0 0.14em"><span class="sc" style="display:inline-block">g</span><span class="sc" style="display:inline-block">o</span><span class="sc" style="display:inline-block">&nbsp;</span><span class="sc" style="display:inline-block">s</span><span class="sc" style="display:inline-block">i</span><span class="sc" style="display:inline-block">l</span><span class="sc" style="display:inline-block">e</span><span class="sc" style="display:inline-block">n</span><span class="sc" style="display:inline-block">t</span></span> too?</span></span>
+      <div class="hl center" id="h2" style="left: 40px; right: 40px; top: 150px">
+        <span class="ln" style="font-size: 88px; line-height: 1.06"><span>Does your onboarding</span></span>
+        <span class="ln" style="font-size: 88px; line-height: 1.06"><span>journey <span id="silent" style="display: inline-block; margin: 0 0.14em"><span class="sc" style="display:inline-block">g</span><span class="sc" style="display:inline-block">o</span><span class="sc" style="display:inline-block">&nbsp;</span><span class="sc" style="display:inline-block">s</span><span class="sc" style="display:inline-block">i</span><span class="sc" style="display:inline-block">l</span><span class="sc" style="display:inline-block">e</span><span class="sc" style="display:inline-block">n</span><span class="sc" style="display:inline-block">t</span></span> too?</span></span>
       </div>
 
       <div id="gdot"></div>
 
       <!-- scene 3-5 left column -->
-      <div class="hl" id="h3" style="left: 80px; width: 440px; top: 176px">
+      <div id="k3"><i></i>WITH DOUBLETICK</div>
+      <div class="hl" id="h3" style="left: 80px; width: 440px; top: 194px">
         <span class="ln" style="font-size: 40px; line-height: 1.12"><span class="small">When onboarding stops,</span></span>
         <span class="ln" style="font-size: 56px; line-height: 1.06"><span><span class="g">WhatsApp</span> keeps</span></span>
         <span class="ln" style="font-size: 56px; line-height: 1.06"><span>it moving.</span></span>
@@ -1713,7 +1820,7 @@
         <div class="row"><div class="cb"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#13774f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>On verified WhatsApp</div>
         <div class="row"><div class="cb"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#13774f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>No restart. No re-entry.</div>
       </div>
-      <div class="hl" id="h4" style="left: 80px; width: 450px; top: 176px">
+      <div class="hl" id="h4" style="left: 80px; width: 450px; top: 194px">
         <span class="ln" style="font-size: 52px; line-height: 1.08"><span>Help.</span></span>
         <span class="ln" style="font-size: 52px; line-height: 1.08"><span>Human support.</span></span>
         <span class="ln" style="font-size: 52px; line-height: 1.08"><span class="g">Or the next step.</span></span>
@@ -1722,7 +1829,7 @@
         <div class="cb" style="width: 34px; height: 34px"><svg viewBox="0 0 24 24" style="width: 19px; height: 19px"><path d="M12 3.5a8.5 8.5 0 0 0-7.4 12.7L3.5 20.5l4.4-1.1A8.5 8.5 0 1 0 12 3.5z" fill="none" stroke="#13774f" stroke-width="2" stroke-linejoin="round" /></svg></div>
         All inside WhatsApp.
       </div>
-      <div class="hl" id="h5" style="left: 80px; width: 440px; top: 176px">
+      <div class="hl" id="h5" style="left: 80px; width: 440px; top: 194px">
         <span class="ln" style="font-size: 58px; line-height: 1.06"><span>Continue</span></span>
         <span class="ln" style="font-size: 58px; line-height: 1.06"><span>exactly where</span></span>
         <span class="ln" style="font-size: 58px; line-height: 1.06"><span class="g">they stopped.</span></span>
@@ -2105,63 +2212,70 @@
     }
 
     /* ================= GLOBAL ================= */
-    tl.fromTo("#masthead", { opacity: 0, y: -6 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.1);
+    tl.set("#masthead", { opacity: 1 }, 0);
     tl.fromTo("#glow", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 1.6, ease: "sine.out" }, 7.6);
 
-    /* ================= SCENE 1 — onboarding stalls (0 → 4.6) ================= */
+    /* ================= SCENE 1 — onboarding stalls (0 → 4.6) =================
+       Mute-first hook: everything is on screen at frame 0 and already moving;
+       the progress hits a hard stop on "stuck", a red STALLED marker lands,
+       and the idle counter visibly ages the application. */
     const nodes = ["#n1", "#n2", "#n3", "#n4", "#n5"].map((s) => $(s));
     const labels = ["#l1", "#l2", "#l3", "#l4", "#l5"].map((s) => $(s));
     const SPAN = 780;
     const STALL = 112 / SPAN; // stops midway between Application and KYC
+    const RED = "#c62f2f";
 
-    tl.fromTo("#j-track", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 1.0, ease: "power2.out" }, 0.1);
-    tl.fromTo(nodes, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)", stagger: 0.07 }, 0.18);
-    tl.fromTo(labels, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.07 }, 0.3);
-    nodeCheck(nodes[0], 0.5);
-    tl.fromTo("#card", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, ease: "expo.out" }, 0.62);
+    tl.set("#n1 .fillc", { opacity: 1, scale: 1 }, 0);
+    tl.set("#n1 .ck", { opacity: 1, scale: 1, rotation: 0 }, 0);
+    tl.fromTo("#n1 .pulse", { opacity: 0.6, scale: 0.8 }, { opacity: 0, scale: 1.6, duration: 0.7, ease: "power2.out", immediateRender: false }, 0.0);
+    tl.fromTo("#card", { y: 14 }, { y: 0, duration: 0.8, ease: "expo.out" }, 0);
 
-    // progress moves, then physically slows, then stops
-    tl.set("#j-fill", { scaleX: 0 }, 0);
-    tl.set("#j-tip", { opacity: 0, x: 0 }, 0);
-    tl.to("#j-tip", { opacity: 1, duration: 0.2 }, 0.9);
-    tl.to("#j-fill", { scaleX: 0.1, duration: 0.65, ease: "none" }, 0.95);
-    tl.to("#j-tip", { x: 0.1 * SPAN, duration: 0.65, ease: "none" }, 0.95);
-    tl.to("#j-fill", { scaleX: STALL, duration: 0.8, ease: "power2.out" }, 1.6);
-    tl.to("#j-tip", { x: STALL * SPAN, duration: 0.8, ease: "power2.out" }, 1.6);
-    // tip keeps breathing for a beat after the stop, then goes still
-    tl.fromTo("#j-tip", { scale: 1 }, { scale: 1.3, duration: 0.22, ease: "sine.inOut", yoyo: true, repeat: 3 }, 1.0);
-    tl.fromTo("#j-tip", { scale: 1.3 }, { scale: 1, duration: 0.5, ease: "sine.out", immediateRender: false }, 2.4 + 0.22 * 0);
-    // status: In progress → Waiting → Inactive
-    swap("#pill .a", "#pill .b", 2.4);
-    swap("#card .last .a", "#card .last .b", 2.4);
-    tl.to("#pd", { backgroundColor: "#d7a33b", duration: 0.3 }, 2.45);
-    swap("#pill .b", "#pill .c", 3.4);
-    swap("#card .last .b", "#card .last .c", 3.4);
-    tl.to("#pd", { backgroundColor: "#9aa09b", duration: 0.3 }, 3.45);
-    // green loses saturation
-    tl.to(["#j-fill", "#j-tip"], { backgroundColor: "#b3b8b2", duration: 1.6, ease: "sine.inOut" }, 2.6);
-    tl.to("#j-tip", { boxShadow: "0 0 0 6px rgba(150,155,150,0.0)", duration: 1.2 }, 2.6);
-    tl.to("#n1 .fillc", { backgroundColor: "#a3b3aa", duration: 1.6, ease: "sine.inOut" }, 2.7);
+    // progress is already travelling on frame 0, decelerates, then hits a hard stop
+    tl.set("#j-tip", { opacity: 1, x: 0 }, 0);
+    tl.fromTo("#j-fill", { scaleX: 0.012 }, { scaleX: STALL, duration: 1.3, ease: "power3.out" }, 0);
+    tl.fromTo("#j-tip", { x: 0.012 * SPAN }, { x: STALL * SPAN, duration: 1.3, ease: "power3.out" }, 0);
+    tl.to(["#j-tip"], { backgroundColor: RED, boxShadow: "0 0 0 6px rgba(198,47,47,0.18)", duration: 0.15 }, 1.3);
+    tl.fromTo("#stall-ring", { opacity: 0.85, scale: 0.5 }, { opacity: 0, scale: 2.2, duration: 0.7, ease: "power2.out", immediateRender: false }, 1.3);
+    tl.to("#card", { x: -7, duration: 0.05, ease: "power1.out" }, 1.32);
+    tl.to("#card", { x: 6, duration: 0.07, ease: "power1.inOut" }, 1.37);
+    tl.to("#card", { x: -3, duration: 0.06, ease: "power1.inOut" }, 1.45);
+    tl.to("#card", { x: 0, duration: 0.1, ease: "power1.out" }, 1.52);
+    tl.fromTo("#stall-stem", { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.25, ease: "power2.out", immediateRender: false }, 1.34);
+    tl.fromTo("#stall-tag", { opacity: 0, y: 10, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(2)", immediateRender: false }, 1.4);
+    swap("#pill .a", "#pill .b", 1.36, 0.16);
+    tl.to("#pd", { backgroundColor: RED, duration: 0.15 }, 1.36);
 
-    // headline
-    // "Onboarding stalls." holds from the first frame; "Applications go cold." lands in red with the VO
+    // the application ages while nothing happens
+    swap("#idle .a", "#idle .b", 1.95, 0.14);
+    swap("#idle .b", "#idle .c", 2.5, 0.14);
+    swap("#idle .c", "#idle .d", 3.0, 0.14);
+    swap("#idle .d", "#idle .e", 3.45, 0.14);
+    tl.to(["#idle .c", "#idle .d", "#idle .e"], { color: RED, duration: 0.2 }, 2.5);
+    swap("#pill .b", "#pill .c", 3.55, 0.2);
+    tl.to("#pd", { backgroundColor: "#9aa09b", duration: 0.3 }, 3.6);
+    // green drains out of the journey
+    tl.to(["#j-fill", "#j-tip"], { backgroundColor: "#b3b8b2", duration: 1.4, ease: "sine.inOut" }, 2.2);
+    tl.to("#j-tip", { boxShadow: "0 0 0 6px rgba(150,155,150,0.0)", duration: 1.0 }, 2.2);
+    tl.to("#n1 .fillc", { backgroundColor: "#a3b3aa", duration: 1.4, ease: "sine.inOut" }, 2.3);
+
+    // headline — both lines on frame 0 (the autoplay poster carries the whole problem)
     tl.set("#h1 .ln:first-child > span", { yPercent: 0, opacity: 1 }, 0);
-    tl.set("#h1b", { color: "#c62f2f" }, 0);
-    tl.fromTo(
-      "#h1b",
-      { yPercent: 112, scale: 1.02, opacity: 0, filter: "blur(8px)", transformOrigin: "50% 100%" },
-      { yPercent: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.95, ease: "expo.out" },
-      2.0,
-    );
-    linesOut("#h1", 4.45);
+    tl.set("#h1b", { color: RED }, 0);
+    tl.set("#h1b", { yPercent: 0, opacity: 1 }, 0);
+    // the red line takes the hit of the hard stop
+    tl.fromTo("#h1b", { scale: 1 }, { scale: 1.05, duration: 0.08, ease: "power2.out", transformOrigin: "50% 60%", immediateRender: false }, 1.3);
+    tl.to("#h1b", { scale: 1, duration: 0.5, ease: "expo.out" }, 1.39);
+    linesOut("#h1", 4.25, 0.36);
+    tl.to(["#stall-tag", "#stall-stem"], { opacity: 0, duration: 0.35, ease: "power2.in" }, 4.5);
 
     /* ================= SCENE 2 — go silent (4.6 → 7.5) ================= */
-    tl.fromTo("#journey", { opacity: 1, scale: 1, filter: "blur(0px)" }, { opacity: 0.42, scale: 0.97, filter: "blur(1.5px)", duration: 1.2, ease: "power2.inOut", immediateRender: false }, 4.55);
-    tl.fromTo("#card", { opacity: 1, filter: "blur(0px)" }, { opacity: 0.55, filter: "blur(1px)", duration: 1.2, ease: "power2.inOut", immediateRender: false }, 4.55);
-    linesIn("#h2", 4.8, 0.42, 1.0);
+    tl.fromTo("#journey", { opacity: 1, scale: 1, filter: "blur(0px)" }, { opacity: 0.32, scale: 0.97, filter: "blur(1.5px)", duration: 1.2, ease: "power2.inOut", immediateRender: false }, 4.55);
+    tl.fromTo("#card", { opacity: 1, filter: "blur(0px)" }, { opacity: 0.5, filter: "blur(1px)", duration: 1.2, ease: "power2.inOut", immediateRender: false }, 4.55);
+    linesIn("#h2", 4.72, 0.38, 0.9);
     tl.fromTo("#silent", { opacity: 1, color: INK, filter: "blur(0px)" }, { opacity: 0.62, color: COLD, filter: "blur(1.2px)", duration: 1.1, ease: "sine.inOut", immediateRender: false }, 5.95);
     $$("#silent .sc").forEach((c, i) => tl.fromTo(c, { x: 0 }, { x: (i - 4) * 3, duration: 1.1, ease: "sine.inOut", immediateRender: false }, 5.95));
-    tl.to("#journey", { opacity: 0.3, duration: 0.8, ease: "sine.inOut" }, 5.95);
+    tl.to("#journey", { opacity: 0.16, duration: 0.8, ease: "sine.inOut" }, 5.95);
+    tl.to("#card", { opacity: 0.3, duration: 0.8, ease: "sine.inOut" }, 5.95);
     swap("#pill .c", "#pill .d", 6.0);
 
     // the inactive dot — overlay it on the pill dot so it survives the dim
@@ -2246,7 +2360,8 @@
     tl.to("#n2 .ring", { borderColor: GREEN, duration: 0.3 }, 9.15);
     tl.fromTo("#n2 .pulse", { opacity: 0.7, scale: 0.7 }, { opacity: 0, scale: 1.5, duration: 0.8, ease: "power2.out", immediateRender: false }, 9.15);
 
-    linesIn("#h3", 10.0, 0.14);
+    fadeIn("#k3", 7.75, { x: -14, y: 0, d: 0.6, e: "expo.out" });
+    linesIn("#h3", 8.7, 0.14);
     fadeIn($$("#ticks .row"), 11.3, { x: -18, y: 0, d: 0.55, st: 0.16, e: "expo.out" });
     tapAt($("#b-cont"), 2, 13.55);
     hilite($("#b-cont"), 13.55);
@@ -2307,6 +2422,7 @@
     tl.to("#wa-sheet", { yPercent: 100, duration: 0.45, ease: "power3.in" }, 19.72);
     tl.to("#wa-dim", { opacity: 0, duration: 0.35 }, 19.8);
     linesOut("#h5", 19.9, 0.4);
+    tl.to("#k3", { opacity: 0, duration: 0.3, ease: "power2.in" }, 19.9);
     fadeOut("#n-resume", 19.9, { d: 0.3 });
     tl.to("#journey", { opacity: 0, duration: 0.4, ease: "power2.in" }, 19.95);
 
@@ -2331,7 +2447,8 @@
     const route = $("#route-p");
     route.setAttribute("d", "M " + 424 + " " + docP.y + " C " + 444 + " " + docP.y + ", " + 400 + " " + WFY + ", " + 452 + " " + WFY);
     const RL = route.getTotalLength();
-    tl.set(route, { strokeDasharray: RL, strokeDashoffset: RL, opacity: 1 }, 0);
+    tl.set(route, { strokeDasharray: RL, strokeDashoffset: RL, opacity: 0 }, 0);
+    tl.set(route, { opacity: 1 }, 20.85);
     tl.to(route, { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, 20.85);
     tl.fromTo("#wfdoc", { x: docP.x - WFX, y: docP.y - WFY, scale: 0.42, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 1.1, ease: "power3.inOut" }, 20.9);
     tl.fromTo("#m11", { opacity: 1 }, { opacity: 0.45, duration: 0.4, immediateRender: false }, 21.0);
