@@ -52,7 +52,7 @@
   }
   .pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 4px rgba(47,191,143,.25); }
 
-  h1 { margin-top: 20px; font-size: 66px; line-height: 1.06; letter-spacing: -0.04em; font-weight: 700; }
+  h1 { margin-top: 110px; font-size: 66px; line-height: 1.06; letter-spacing: -0.04em; font-weight: 700; }
   h1 .drop { color: var(--muted); }
   h1 .die { color: var(--red); }
   h1 em { font-style: normal; color: var(--green); }
@@ -61,11 +61,11 @@
 
   /* visual: simplified campaign dashboard, fading off the bottom edge */
   .ad::before { display: none; }
-  .ad > .vis { position: absolute; left: 72px; top: 474px; width: 936px; height: 606px; }
+  .ad > .vis { position: absolute; left: 72px; top: 564px; width: 936px; height: 606px; }
   .dash { position: absolute; inset: 0; overflow: hidden; background: #fff; border: 1px solid var(--line); border-bottom: 0; border-radius: 22px 22px 0 0;
     box-shadow: 0 18px 40px -24px rgba(10,26,18,.35);
-    -webkit-mask-image: linear-gradient(#000 50%, rgba(0,0,0,.18) 63%, rgba(0,0,0,.08) 80%, transparent 96%);
-    mask-image: linear-gradient(#000 50%, rgba(0,0,0,.18) 63%, rgba(0,0,0,.08) 80%, transparent 96%); }
+    -webkit-mask-image: linear-gradient(#000 38%, rgba(0,0,0,.16) 50%, rgba(0,0,0,.06) 66%, transparent 82%);
+    mask-image: linear-gradient(#000 38%, rgba(0,0,0,.16) 50%, rgba(0,0,0,.06) 66%, transparent 82%); }
   .dh { display: flex; align-items: center; gap: 12px; padding: 18px 22px; border-bottom: 1px solid var(--line); }
   .dh .tt { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
   .chip { font-size: 12px; font-weight: 600; padding: 5px 9px; border-radius: 7px; display: inline-flex; align-items: center; gap: 6px; }
@@ -111,11 +111,11 @@
   <div class="vis"><div class="dash">
     <div class="dh"><span class="tt">Loan follow-up campaign</span><span class="chip ai mono"><svg width="11" height="11" viewBox="0 0 24 24" fill="#007A5A"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/></svg>AI Voice</span><span class="chip sp mono">Complex cases → RM</span><span class="live mono"><i></i>Live</span></div>
     <div class="tabs">
-      <div class="tab on"><span class="v">5,000+</span><span class="l">Calls in a day</span></div>
-      <div class="tab"><span class="v">1,200+</span><span class="l">Completed</span></div>
-      <div class="tab"><span class="v">260+</span><span class="l">Calls per hour</span></div>
+      <div class="tab on"><span class="v">5,000+</span><span class="l">calls in a day</span></div>
+      <div class="tab"><span class="v">1,200+</span><span class="l">completed customer conversations</span></div>
+      <div class="tab"><span class="v">260+</span><span class="l">calls per hour</span></div>
     </div>
-    <table><thead><tr><th>Status</th><th>Customer</th><th>Outreach</th><th>Duration</th></tr></thead><tbody><tr><td><span class="st c">Completed</span></td><td class="nm">Customer A</td><td class="ty">Loan follow-up</td><td class="du">1m 13s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer B</td><td class="ty">Drop-off recovery</td><td class="du">49s</td></tr><tr><td><span class="st r">Routed to RM</span></td><td class="nm">Customer C</td><td class="ty">Complex case</td><td class="du">2m 08s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer D</td><td class="ty">Loan follow-up</td><td class="du">35s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer E</td><td class="ty">Drop-off recovery</td><td class="du">1m 15s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer F</td><td class="ty">Loan follow-up</td><td class="du">58s</td></tr><tr><td><span class="st r">Routed to RM</span></td><td class="nm">Customer G</td><td class="ty">Complex case</td><td class="du">1m 41s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer H</td><td class="ty">Drop-off recovery</td><td class="du">44s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer I</td><td class="ty">Loan follow-up</td><td class="du">1m 02s</td></tr></tbody></table>
+    <table><thead><tr><th>Status</th><th>Customer</th><th>Outreach</th><th>Duration</th></tr></thead><tbody><tr><td><span class="st c">Completed</span></td><td class="nm">Customer A</td><td class="ty">Loan follow-up</td><td class="du">1m 13s</td></tr><tr><td><span class="st r">Routed to RM</span></td><td class="nm">Customer B</td><td class="ty">Complex case</td><td class="du">2m 08s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer C</td><td class="ty">Drop-off recovery</td><td class="du">49s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer D</td><td class="ty">Loan follow-up</td><td class="du">35s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer E</td><td class="ty">Drop-off recovery</td><td class="du">1m 15s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer F</td><td class="ty">Loan follow-up</td><td class="du">58s</td></tr><tr><td><span class="st r">Routed to RM</span></td><td class="nm">Customer G</td><td class="ty">Complex case</td><td class="du">1m 41s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer H</td><td class="ty">Drop-off recovery</td><td class="du">44s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer I</td><td class="ty">Loan follow-up</td><td class="du">1m 02s</td></tr></tbody></table>
   </div></div>
 
   <div class="cta">
