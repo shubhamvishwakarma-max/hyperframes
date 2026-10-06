@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>DoubleTick Piramal First Call</title>
+<style>
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+
+  :root {
+    --ink: #0A1A12;
+    --ink-2: #3D4A44;
+    --muted: #7A8781;
+    --bg: #F4F8F5;
+    --card: #FFFFFF;
+    --line: #E1E9E4;
+    --green: #007A5A;
+    --green-2: #2FBF8F;
+    --green-soft: #E0F2EC;
+    --red: #E5484D;
+    --red-soft: #FDECEC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; overflow: hidden; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+
+  /* safe zone: everything that matters sits between y=130 and y=950 */
+  .ad {
+    position: relative; width: 1080px; height: 1080px; padding: 130px 72px;
+    background:
+      radial-gradient(700px 520px at 100% 0%, rgba(0,122,90,.14), transparent 60%),
+      radial-gradient(600px 500px at 0% 100%, rgba(0,122,90,.08), transparent 60%),
+      var(--bg);
+    display: flex; flex-direction: column;
+  }
+  .ad::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: radial-gradient(ellipse at 60% 70%, #000 10%, transparent 70%);
+    opacity: .55;
+  }
+  .ad > * { position: relative; }
+
+  .ad > .top { position: absolute; left: 72px; right: 72px; top: 52px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: block; height: 32px; width: auto; }
+  .pill {
+    font-size: 14px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    padding: 9px 15px; border-radius: 999px; background: var(--ink); color: #fff;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 4px rgba(47,191,143,.25); }
+
+  h1 { margin-top: 20px; font-size: 60px; line-height: 1.1; letter-spacing: -0.04em; font-weight: 700; }
+  h1 .drop { color: var(--muted); }
+  h1 .die { color: var(--red); }
+  h1 em { font-style: normal; color: var(--green); }
+  .sub { margin-top: 20px; font-size: 21px; line-height: 1.42; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* visual: 4 outreach types -> AI Voice first call -> handled by AI / exceptions to RM */
+  .vis { position: absolute; left: 72px; top: 486px; width: 936px; height: 340px; }
+  .vis svg.lines { position: absolute; inset: 0; width: 936px; height: 340px; overflow: visible; }
+  .chips { position: absolute; left: 0; top: 14px; width: 236px; display: flex; flex-direction: column; gap: 12px; }
+  .chip { display: flex; align-items: center; gap: 12px; height: 68px; padding: 0 16px; border-radius: 16px; background: #fff; border: 1px solid var(--line);
+    font-size: 18px; font-weight: 600; letter-spacing: -0.01em; box-shadow: 0 12px 26px -20px rgba(10,26,18,.35); }
+  .chip .ic { width: 38px; height: 38px; border-radius: 11px; background: var(--green-soft); display: grid; place-items: center; flex: none; }
+  .hub { position: absolute; left: 380px; top: 100px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .orb { width: 124px; height: 124px; border-radius: 50%; display: grid; place-items: center;
+    background: radial-gradient(circle at 34% 28%, #9BEBCB 0%, #1FA77B 40%, #007A5A 75%, #005A42 100%);
+    box-shadow: 0 0 0 12px rgba(47,191,143,.13), 0 0 0 28px rgba(47,191,143,.06), 0 18px 36px -12px rgba(0,122,90,.7); }
+  .hub .l { font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--green); white-space: nowrap; }
+  .out { position: absolute; left: 676px; width: 260px; border-radius: 20px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; }
+  .out .t { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.15; }
+  .out .s { font-size: 13px; margin-top: 3px; }
+  .out .bd { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; flex: none; }
+  .ai-out { top: 30px; background: var(--green); color: #fff; box-shadow: 0 20px 40px -18px rgba(0,122,90,.7); }
+  .ai-out .bd { background: rgba(255,255,255,.18); }
+  .ai-out .s { color: rgba(255,255,255,.8); }
+  .rm-out { top: 208px; background: #fff; border: 1px solid var(--line); box-shadow: 0 14px 30px -20px rgba(10,26,18,.35); }
+  .rm-out .bd { background: #0B3B2C; }
+  .rm-out .s { color: var(--muted); }
+  .ad > .cta { position: absolute; left: 72px; top: 868px; }
+  .btn {
+    background: var(--green); color: #fff; font-size: 22px; font-weight: 600; letter-spacing: -0.01em;
+    padding: 16px 26px; border-radius: 14px; display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 14px 30px -10px rgba(0,122,90,.6);
+  }
+  .client { height: 92px; width: auto; margin: -27px -14px -27px 0; mix-blend-mode: multiply; }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="top">
+    <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+    <img class="client" src="piramal-finance-logo.png" alt="Piramal Finance" />
+  </div>
+
+  <h1>Too many customers to follow up.<br/><span class="drop">Not enough RM bandwidth.</span><br/><em>Let AI Voice handle the first call.</em></h1>
+  <p class="sub"><b>DoubleTick AI Voice</b> helped <b>Piramal Finance</b> automate repetitive customer outreach across documents, applications, payments and collections, while <b>RMs stepped in only for exceptions</b>.</p>
+
+  <div class="vis">
+    <svg class="lines" viewBox="0 0 936 340" fill="none">
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#007A5A"/></marker>
+      <marker id="ag" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#9AA5A0"/></marker></defs>
+      <path d="M236 48 C 330 48, 340 162, 378 162" stroke="#9ED8C2" stroke-width="2"/><path d="M236 128 C 330 128, 340 162, 378 162" stroke="#9ED8C2" stroke-width="2"/><path d="M236 208 C 330 208, 340 162, 378 162" stroke="#9ED8C2" stroke-width="2"/><path d="M236 288 C 330 288, 340 162, 378 162" stroke="#9ED8C2" stroke-width="2"/>
+      <path d="M570 150 C 620 150, 620 74, 668 74" stroke="#007A5A" stroke-width="3.5" stroke-linecap="round" marker-end="url(#ah)"/>
+      <path d="M570 176 C 620 176, 620 252, 668 252" stroke="#9AA5A0" stroke-width="2" stroke-dasharray="5 6" stroke-linecap="round" marker-end="url(#ag)"/>
+    </svg>
+    <div class="chips"><div class="chip"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span>Documents</div><div class="chip"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg></span>Applications</div><div class="chip"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20M6 15h4"/></svg></span>Payments</div><div class="chip"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 8h6M9 11h6M13 8c2 0 2 3 0 3H9l5 5"/></svg></span>Collections</div></div>
+    <div class="hub" style="transform:translateX(-50%);left:474px"><div class="orb"><svg width="50" height="50" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="l mono">AI Voice · first call</div></div>
+    <div class="out ai-out"><span class="bd"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><div class="t">Handled by AI</div><div class="s">Repetitive outreach</div></div></div>
+    <div class="out rm-out"><span class="bd"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><div><div class="t">RM steps in</div><div class="s">Only for exceptions</div></div></div>
+  </div>
+
+  <div class="cta">
+    <div class="btn">Apply for a Free Pilot
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>
