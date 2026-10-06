@@ -59,25 +59,38 @@
   .sub { margin-top: 20px; font-size: 21px; line-height: 1.42; color: var(--ink-2); letter-spacing: -0.01em; }
   .sub b { color: var(--ink); font-weight: 600; }
 
-  /* visual: one "today" volume card */
-  .vis { position: absolute; left: 72px; top: 492px; width: 936px; height: 344px; display: grid; grid-template-rows: 1fr auto; gap: 14px; }
-  .main { background: linear-gradient(160deg, #0B3B2C, #062419); border-radius: 24px; padding: 24px 28px; color: #fff;
-    display: grid; grid-template-columns: 330px 1fr; gap: 28px; align-items: end; box-shadow: 0 26px 48px -24px rgba(0,60,43,.75); }
-  .main .k { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #8EF0C9; }
-  .main .k i { width: 8px; height: 8px; border-radius: 50%; background: #2FBF8F; box-shadow: 0 0 0 4px rgba(47,191,143,.25); }
-  .main .n { font-size: 92px; font-weight: 700; letter-spacing: -0.05em; line-height: .95; margin-top: 12px; }
-  .main .u { font-size: 18px; color: rgba(255,255,255,.75); margin-top: 6px; }
-  .chart { height: 150px; display: flex; flex-direction: column; gap: 8px; }
-  .bars { flex: 1; display: flex; align-items: flex-end; gap: 8px; }
-  .bars i { flex: 1; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, #2FBF8F, rgba(47,191,143,.45)); display: block; }
-  .axis { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,.55); }
-  .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
-  .tile { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 14px 18px; box-shadow: 0 12px 26px -20px rgba(10,26,18,.35); }
-  .tile .v { font-size: 30px; font-weight: 700; letter-spacing: -0.04em; color: var(--green); line-height: 1.05; }
-  .tile .l { font-size: 14.5px; color: var(--ink-2); margin-top: 3px; }
-  .tile.rm { display: flex; align-items: center; gap: 12px; }
-  .tile.rm .av { width: 42px; height: 42px; border-radius: 50%; background: #0B3B2C; display: grid; place-items: center; flex: none; }
-  .tile.rm .t { font-size: 16px; font-weight: 600; line-height: 1.2; }
+  /* visual: a deep stack of live AI calls, one complex case peels off to the RM */
+  .vis { position: absolute; left: 72px; top: 498px; width: 936px; height: 356px; }
+  .stack { position: absolute; left: 0; top: 0; width: 560px; height: 356px; }
+  .call {
+    position: absolute; width: 440px; height: 52px; border-radius: 14px; background: #fff; border: 1px solid var(--line);
+    display: flex; align-items: center; gap: 14px; padding: 0 18px; box-shadow: 0 16px 34px -22px rgba(10,26,18,.4);
+  }
+  .call .av { width: 34px; height: 34px; border-radius: 50%; background: #EEF2F0; display: grid; place-items: center; flex: none; }
+  .call .nm { width: 120px; height: 10px; border-radius: 5px; background: #DDE3E0; }
+  .call .nm2 { width: 80px; height: 8px; border-radius: 4px; background: #E9EEEB; margin-top: 7px; }
+  .call .wv { margin-left: auto; display: flex; align-items: center; gap: 3px; height: 26px; }
+  .call .wv b { width: 3px; border-radius: 2px; background: #2FBF8F; display: block; }
+  .call .st { font-size: 12px; font-weight: 600; padding: 5px 9px; border-radius: 8px; background: var(--green-soft); color: var(--green); white-space: nowrap; }
+  .call.front { border: 2px solid var(--green); }
+  .badge {
+    position: absolute; left: -14px; top: -16px; z-index: 20; display: flex; align-items: center; gap: 8px;
+    background: var(--green); color: #fff; font-size: 13px; font-weight: 600; padding: 8px 13px; border-radius: 999px;
+    box-shadow: 0 10px 22px -8px rgba(0,122,90,.7);
+  }
+  .peel {
+    position: absolute; left: 640px; top: 120px; width: 296px; padding: 22px; border-radius: 22px; color: #fff;
+    background: linear-gradient(160deg, #0B3B2C, #062419); box-shadow: 0 26px 48px -22px rgba(0,60,43,.75);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .peel .h { display: flex; align-items: center; gap: 12px; }
+  .peel .av2 { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.12); display: grid; place-items: center; }
+  .peel .t { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  .peel .tag { align-self: flex-start; font-size: 13px; font-weight: 600; color: #8EF0C9; background: rgba(47,191,143,.18); padding: 6px 10px; border-radius: 8px; }
+  .vis svg.arr { position: absolute; left: 470px; top: 120px; width: 170px; height: 80px; overflow: visible; }
+  .pills { position: absolute; left: 420px; top: 874px; display: flex; gap: 10px; }
+  .pill2 { display: flex; align-items: baseline; gap: 7px; padding: 12px 16px; border-radius: 14px; background: #fff; border: 1px solid var(--line); font-size: 14px; color: var(--ink-2); }
+  .pill2 b { font-size: 20px; font-weight: 700; letter-spacing: -0.03em; color: var(--green); }
   .ad > .cta { position: absolute; left: 72px; top: 868px; }
   .btn {
     background: var(--green); color: #fff; font-size: 22px; font-weight: 600; letter-spacing: -0.01em;
@@ -98,19 +111,20 @@
   <p class="sub"><b>Piramal Finance</b> uses <b>DoubleTick AI Voice</b> to automate first-level outreach across loan follow-ups and drop-off recovery, while routing <b>complex cases to the right RM</b>.</p>
 
   <div class="vis">
-    <div class="main">
-      <div>
-        <div class="k mono"><i></i>AI Voice · calls in a day</div>
-        <div class="n">5,000+</div>
-        <div class="u">placed by AI, not RMs</div>
-      </div>
-      <div class="chart"><div class="bars"><i style="height:38%"></i><i style="height:55%"></i><i style="height:72%"></i><i style="height:86%"></i><i style="height:78%"></i><i style="height:92%"></i><i style="height:100%"></i><i style="height:88%"></i><i style="height:70%"></i><i style="height:82%"></i><i style="height:64%"></i><i style="height:46%"></i></div><div class="axis mono"><span>Morning</span><span>Evening</span></div></div>
+    <div class="stack">
+      <div class="badge mono"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/></svg>AI Voice · calling now</div>
+      <div class="call" style="left:84px;top:308px;opacity:0.18;z-index:4"><span class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><div><div class="nm"></div><div class="nm2"></div></div><span class="wv"><b style="height:6px"></b><b style="height:14px"></b><b style="height:20px"></b><b style="height:10px"></b><b style="height:22px"></b><b style="height:12px"></b><b style="height:8px"></b><b style="height:16px"></b></span><span class="st mono">Connected</span></div><div class="call" style="left:70px;top:258px;opacity:0.29999999999999993;z-index:5"><span class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><div><div class="nm"></div><div class="nm2"></div></div><span class="wv"><b style="height:6px"></b><b style="height:14px"></b><b style="height:20px"></b><b style="height:10px"></b><b style="height:22px"></b><b style="height:12px"></b><b style="height:8px"></b><b style="height:16px"></b></span><span class="st mono">Completed</span></div><div class="call" style="left:56px;top:208px;opacity:0.43999999999999995;z-index:6"><span class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><div><div class="nm"></div><div class="nm2"></div></div><span class="wv"><b style="height:6px"></b><b style="height:14px"></b><b style="height:20px"></b><b style="height:10px"></b><b style="height:22px"></b><b style="height:12px"></b><b style="height:8px"></b><b style="height:16px"></b></span><span class="st mono">Calling…</span></div><div class="call" style="left:42px;top:158px;opacity:0.58;z-index:7"><span class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><div><div class="nm"></div><div class="nm2"></div></div><span class="wv"><b style="height:6px"></b><b style="height:14px"></b><b style="height:20px"></b><b style="height:10px"></b><b style="height:22px"></b><b style="height:12px"></b><b style="height:8px"></b><b style="height:16px"></b></span><span class="st mono">Completed</span></div><div class="call" style="left:28px;top:108px;opacity:0.72;z-index:8"><span class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><div><div class="nm"></div><div class="nm2"></div></div><span class="wv"><b style="height:6px"></b><b style="height:14px"></b><b style="height:20px"></b><b style="height:10px"></b><b style="height:22px"></b><b style="height:12px"></b><b style="height:8px"></b><b style="height:16px"></b></span><span class="st mono">Connected</span></div><div class="call" style="left:14px;top:58px;opacity:0.86;z-index:9"><span class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><div><div class="nm"></div><div class="nm2"></div></div><span class="wv"><b style="height:6px"></b><b style="height:14px"></b><b style="height:20px"></b><b style="height:10px"></b><b style="height:22px"></b><b style="height:12px"></b><b style="height:8px"></b><b style="height:16px"></b></span><span class="st mono">Calling…</span></div><div class="call front" style="left:0px;top:8px;opacity:1;z-index:10"><span class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><div><div class="nm"></div><div class="nm2"></div></div><span class="wv"><b style="height:6px"></b><b style="height:14px"></b><b style="height:20px"></b><b style="height:10px"></b><b style="height:22px"></b><b style="height:12px"></b><b style="height:8px"></b><b style="height:16px"></b></span><span class="st mono">Completed</span></div>
     </div>
-    <div class="row">
-      <div class="tile"><div class="v">1,200+</div><div class="l">completed conversations</div></div>
-      <div class="tile"><div class="v">260+</div><div class="l">calls per hour</div></div>
-      <div class="tile rm"><span class="av"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><div class="t">Complex cases<br/>routed to RMs</div></div>
+    <svg class="arr" viewBox="0 0 170 80" fill="none"><defs><marker id="ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#007A5A"/></marker></defs><path d="M0 60 C 60 60, 90 30, 160 30" stroke="#007A5A" stroke-width="2.5" stroke-dasharray="5 6" stroke-linecap="round" marker-end="url(#ah)"/></svg>
+    <div class="peel">
+      <div class="h"><span class="av2"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="t">Right RM</span></div>
+      <span class="tag mono">Only complex cases</span>
     </div>
+  </div>
+
+  <div class="pills">
+    <span class="pill2"><b>1,200+</b>conversations</span>
+    <span class="pill2"><b>260+</b>calls/hour</span>
   </div>
 
   <div class="cta">
