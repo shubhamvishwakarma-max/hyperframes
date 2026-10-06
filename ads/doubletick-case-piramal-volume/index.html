@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>DoubleTick Piramal Volume</title>
+<style>
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+
+  :root {
+    --ink: #0A1A12;
+    --ink-2: #3D4A44;
+    --muted: #7A8781;
+    --bg: #F4F8F5;
+    --card: #FFFFFF;
+    --line: #E1E9E4;
+    --green: #007A5A;
+    --green-2: #2FBF8F;
+    --green-soft: #E0F2EC;
+    --red: #E5484D;
+    --red-soft: #FDECEC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; overflow: hidden; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+
+  /* safe zone: everything that matters sits between y=130 and y=950 */
+  .ad {
+    position: relative; width: 1080px; height: 1080px; padding: 130px 72px;
+    background:
+      radial-gradient(700px 520px at 100% 0%, rgba(0,122,90,.14), transparent 60%),
+      radial-gradient(600px 500px at 0% 100%, rgba(0,122,90,.08), transparent 60%),
+      var(--bg);
+    display: flex; flex-direction: column;
+  }
+  .ad::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: radial-gradient(ellipse at 60% 70%, #000 10%, transparent 70%);
+    opacity: .55;
+  }
+  .ad > * { position: relative; }
+
+  .ad > .top { position: absolute; left: 72px; right: 72px; top: 52px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: block; height: 32px; width: auto; }
+  .pill {
+    font-size: 14px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    padding: 9px 15px; border-radius: 999px; background: var(--ink); color: #fff;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 4px rgba(47,191,143,.25); }
+
+  h1 { margin-top: 20px; font-size: 66px; line-height: 1.06; letter-spacing: -0.04em; font-weight: 700; }
+  h1 .drop { color: var(--muted); }
+  h1 .die { color: var(--red); }
+  h1 em { font-style: normal; color: var(--green); }
+  .sub { margin-top: 20px; font-size: 21px; line-height: 1.42; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* visual: one "today" volume card */
+  .vis { position: absolute; left: 72px; top: 492px; width: 936px; height: 344px; display: grid; grid-template-rows: 1fr auto; gap: 14px; }
+  .main { background: linear-gradient(160deg, #0B3B2C, #062419); border-radius: 24px; padding: 24px 28px; color: #fff;
+    display: grid; grid-template-columns: 330px 1fr; gap: 28px; align-items: end; box-shadow: 0 26px 48px -24px rgba(0,60,43,.75); }
+  .main .k { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #8EF0C9; }
+  .main .k i { width: 8px; height: 8px; border-radius: 50%; background: #2FBF8F; box-shadow: 0 0 0 4px rgba(47,191,143,.25); }
+  .main .n { font-size: 92px; font-weight: 700; letter-spacing: -0.05em; line-height: .95; margin-top: 12px; }
+  .main .u { font-size: 18px; color: rgba(255,255,255,.75); margin-top: 6px; }
+  .chart { height: 150px; display: flex; flex-direction: column; gap: 8px; }
+  .bars { flex: 1; display: flex; align-items: flex-end; gap: 8px; }
+  .bars i { flex: 1; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, #2FBF8F, rgba(47,191,143,.45)); display: block; }
+  .axis { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,.55); }
+  .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .tile { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 14px 18px; box-shadow: 0 12px 26px -20px rgba(10,26,18,.35); }
+  .tile .v { font-size: 30px; font-weight: 700; letter-spacing: -0.04em; color: var(--green); line-height: 1.05; }
+  .tile .l { font-size: 14.5px; color: var(--ink-2); margin-top: 3px; }
+  .tile.rm { display: flex; align-items: center; gap: 12px; }
+  .tile.rm .av { width: 42px; height: 42px; border-radius: 50%; background: #0B3B2C; display: grid; place-items: center; flex: none; }
+  .tile.rm .t { font-size: 16px; font-weight: 600; line-height: 1.2; }
+  .ad > .cta { position: absolute; left: 72px; top: 868px; }
+  .btn {
+    background: var(--green); color: #fff; font-size: 22px; font-weight: 600; letter-spacing: -0.01em;
+    padding: 16px 26px; border-radius: 14px; display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 14px 30px -10px rgba(0,122,90,.6);
+  }
+  .client { height: 92px; width: auto; margin: -27px -14px -27px 0; mix-blend-mode: multiply; }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="top">
+    <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+    <img class="client" src="piramal-finance-logo.png" alt="Piramal Finance" />
+  </div>
+
+  <h1><em>5,000+ calls in a day.</em><br/>Without asking RMs to<br/><span class="drop">manually make every call.</span></h1>
+  <p class="sub"><b>Piramal Finance</b> uses <b>DoubleTick AI Voice</b> to automate first-level outreach across loan follow-ups and drop-off recovery, while routing <b>complex cases to the right RM</b>.</p>
+
+  <div class="vis">
+    <div class="main">
+      <div>
+        <div class="k mono"><i></i>AI Voice · calls in a day</div>
+        <div class="n">5,000+</div>
+        <div class="u">placed by AI, not RMs</div>
+      </div>
+      <div class="chart"><div class="bars"><i style="height:38%"></i><i style="height:55%"></i><i style="height:72%"></i><i style="height:86%"></i><i style="height:78%"></i><i style="height:92%"></i><i style="height:100%"></i><i style="height:88%"></i><i style="height:70%"></i><i style="height:82%"></i><i style="height:64%"></i><i style="height:46%"></i></div><div class="axis mono"><span>Morning</span><span>Evening</span></div></div>
+    </div>
+    <div class="row">
+      <div class="tile"><div class="v">1,200+</div><div class="l">completed conversations</div></div>
+      <div class="tile"><div class="v">260+</div><div class="l">calls per hour</div></div>
+      <div class="tile rm"><span class="av"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><div class="t">Complex cases<br/>routed to RMs</div></div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="btn">Apply for a Free Pilot
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>
