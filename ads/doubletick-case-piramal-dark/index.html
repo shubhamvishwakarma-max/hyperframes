@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>DoubleTick Piramal Dark</title>
+<style>
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  :root { --bg: #06140F; --green: #007A5A; --mint: #2FBF8F; --mint-2: #8EF0C9; --ink: #F2F7F4; --mute: #8FA39A; --line: rgba(255,255,255,.08); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; overflow: hidden; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+  .ad { position: relative; width: 1080px; height: 1080px;
+    background:
+      radial-gradient(620px 520px at 88% 72%, rgba(0,122,90,.38), transparent 65%),
+      radial-gradient(520px 420px at 0% 0%, rgba(47,191,143,.12), transparent 60%),
+      var(--bg); }
+  .ad > * { position: absolute; }
+
+  .brand { left: 72px; top: 52px; width: 252px; height: 32px; }
+  .brand img { position: absolute; left: 0; top: 0; height: 32px; width: auto; }
+  .brand .mark { clip-path: inset(0 76.5% 0 0); }
+  .brand .word { clip-path: inset(0 0 0 25%); filter: brightness(0) invert(1); }
+  .client { right: 72px; top: 40px; height: 56px; padding: 6px 14px; background: #fff; border-radius: 14px; display: flex; align-items: center; }
+  .client img { height: 64px; width: auto; margin: -10px -12px; }
+
+  h1 { left: 72px; right: 72px; top: 150px; font-size: 60px; line-height: 1.08; letter-spacing: -0.04em; font-weight: 700; }
+  h1 .n { color: var(--mint); }
+  h1 .m { color: var(--mute); }
+  .sub { left: 72px; right: 72px; top: 436px; font-size: 20px; line-height: 1.45; color: #B8C7C0; letter-spacing: -0.01em; }
+  .sub b { color: #fff; font-weight: 600; }
+
+  /* visual: 100 squares = all records, 38 lit = 37.7% completed */
+  .viz { left: 72px; top: 540px; width: 936px; height: 300px; border-radius: 26px; border: 1px solid var(--line);
+    background: linear-gradient(160deg, rgba(255,255,255,.05), rgba(255,255,255,.015)); display: grid; grid-template-columns: 245px 1fr; gap: 56px; align-items: center; padding: 26px 44px; }
+  .waffle { display: grid; grid-template-columns: repeat(10, 20px); gap: 5px; }
+  .waffle i { width: 20px; height: 20px; border-radius: 6px; background: rgba(255,255,255,.08); display: block; }
+  .waffle i.on { background: var(--mint); box-shadow: 0 0 12px rgba(47,191,143,.45); }
+  .big { font-size: 120px; font-weight: 700; letter-spacing: -0.055em; line-height: .9; color: #fff; }
+  .big span { color: var(--mint); }
+  .lab { font-size: 21px; color: #C9D6D0; margin-top: 12px; line-height: 1.35; }
+  .key { display: flex; gap: 22px; margin-top: 22px; font-size: 13px; color: var(--mute); letter-spacing: .04em; }
+  .key span { display: flex; align-items: center; gap: 8px; }
+  .key i { width: 12px; height: 12px; border-radius: 3px; display: block; }
+
+  .cta { left: 72px; top: 868px; }
+  .btn { background: var(--mint); color: #04130D; font-size: 22px; font-weight: 600; letter-spacing: -0.01em;
+    padding: 16px 26px; border-radius: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 14px 34px -10px rgba(47,191,143,.55); }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="brand"><img class="mark" src="doubletick-logo.webp" alt="DoubleTick" /><img class="word" src="doubletick-logo.webp" alt="" /></div>
+  <div class="client"><img src="piramal-finance-logo.png" alt="Piramal Finance" /></div>
+
+  <h1><span class="n">27,441</span> customer &amp; partner<br/>records to follow up.<br/><span class="m">But your RMs shouldn&rsquo;t</span><br/><span class="m">have to call them all.</span></h1>
+  <p class="sub"><b>Piramal Finance</b> used <b>DoubleTick AI Voice</b> to automate outreach across the loan lifecycle, with <b>37.7% of campaign records</b> resulting in completed conversations.</p>
+
+  <div class="viz">
+    <div class="waffle"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div>
+      <div class="big">37.7<span>%</span></div>
+      <div class="lab">of 27,441 records turned into<br/>completed conversations by AI Voice</div>
+      <div class="key mono"><span><i style="background:#2FBF8F"></i>completed</span><span><i style="background:rgba(255,255,255,.12)"></i>all records</span></div>
+    </div>
+  </div>
+
+  <div class="cta"><div class="btn">Apply for a Free Pilot
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#04130D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
+</div>
+</body>
+</html>
