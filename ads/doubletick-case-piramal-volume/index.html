@@ -59,33 +59,37 @@
   .sub { margin-top: 20px; font-size: 21px; line-height: 1.42; color: var(--ink-2); letter-spacing: -0.01em; }
   .sub b { color: var(--ink); font-weight: 600; }
 
-  /* visual: a wall of calls handled by AI; only two complex ones routed to the RM */
-  .vis { position: absolute; left: 72px; top: 492px; width: 936px; height: 350px; }
-  .wall { position: absolute; left: 0; top: 22px; display: grid; grid-template-columns: repeat(5, 72px); gap: 14px; padding: 24px; border-radius: 26px;
-    background: #fff; border: 1px solid var(--line); box-shadow: 0 22px 44px -26px rgba(10,26,18,.4); }
-  .t { width: 72px; height: 72px; border-radius: 16px; display: grid; place-items: center; position: relative; }
-  .t.done { background: var(--green); }
-  .t.live { background: var(--green-soft); border: 2px solid #2FBF8F; }
-  .t.q { background: #F1F4F2; }
-  .t.x { background: #FFF4DB; border: 2px solid #E8B44A; }
-  .t .ck { position: absolute; right: -5px; bottom: -5px; width: 20px; height: 20px; border-radius: 50%; background: #fff; display: grid; place-items: center; box-shadow: 0 2px 6px rgba(10,26,18,.15); }
-  .badge { position: absolute; left: 22px; top: 0; z-index: 3; display: flex; align-items: center; gap: 8px;
-    background: #0A1A12; color: #fff; font-size: 13px; font-weight: 600; padding: 9px 14px; border-radius: 999px; box-shadow: 0 10px 22px -8px rgba(10,26,18,.5); }
-  .badge i { width: 8px; height: 8px; border-radius: 50%; background: #2FBF8F; box-shadow: 0 0 0 4px rgba(47,191,143,.3); }
-  .vis svg.lk { position: absolute; inset: 0; width: 936px; height: 350px; overflow: visible; pointer-events: none; }
-  .rm { position: absolute; left: 676px; top: 100px; width: 260px; padding: 22px; border-radius: 22px; color: #fff;
-    background: linear-gradient(160deg, #0B3B2C, #062419); box-shadow: 0 26px 48px -22px rgba(0,60,43,.75); display: flex; flex-direction: column; gap: 14px; }
-  .rm .h { display: flex; align-items: center; gap: 12px; }
-  .rm .av { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.12); display: grid; place-items: center; }
-  .rm .tt { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
-  .rm .tg { align-self: flex-start; font-size: 13px; font-weight: 600; color: #FFD98A; background: rgba(232,180,74,.18); padding: 6px 10px; border-radius: 8px; }
-  .legend { position: absolute; left: 22px; top: 336px; display: flex; gap: 18px; font-size: 13px; color: var(--muted); }
-  .legend span { display: flex; align-items: center; gap: 7px; }
-  .legend i { width: 12px; height: 12px; border-radius: 4px; display: block; }
-  .pills { position: absolute; left: 420px; top: 874px; display: flex; gap: 10px; }
-  .pill2 { display: flex; align-items: baseline; gap: 7px; padding: 12px 16px; border-radius: 14px; background: #fff; border: 1px solid var(--line); font-size: 14px; color: var(--ink-2); }
-  .pill2 b { font-size: 20px; font-weight: 700; letter-spacing: -0.03em; color: var(--green); }
-  .ad > .cta { position: absolute; left: 72px; top: 868px; }
+  /* visual: simplified campaign dashboard, fading off the bottom edge */
+  .ad::before { display: none; }
+  .ad > .vis { position: absolute; left: 72px; top: 474px; width: 936px; height: 606px; }
+  .dash { position: absolute; inset: 0; overflow: hidden; background: #fff; border: 1px solid var(--line); border-bottom: 0; border-radius: 22px 22px 0 0;
+    box-shadow: 0 18px 40px -24px rgba(10,26,18,.35);
+    -webkit-mask-image: linear-gradient(#000 50%, rgba(0,0,0,.18) 63%, rgba(0,0,0,.08) 80%, transparent 96%);
+    mask-image: linear-gradient(#000 50%, rgba(0,0,0,.18) 63%, rgba(0,0,0,.08) 80%, transparent 96%); }
+  .dh { display: flex; align-items: center; gap: 12px; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+  .dh .tt { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+  .chip { font-size: 12px; font-weight: 600; padding: 5px 9px; border-radius: 7px; display: inline-flex; align-items: center; gap: 6px; }
+  .chip.ai { background: var(--green-soft); color: var(--green); border: 1px solid #BFE3D5; }
+  .chip.sp { background: #F1F3F2; color: var(--ink-2); border: 1px solid var(--line); }
+  .dh .live { margin-left: auto; font-size: 12.5px; font-weight: 600; color: var(--green); display: flex; align-items: center; gap: 7px; }
+  .dh .live i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 4px rgba(47,191,143,.2); }
+  .tabs { display: flex; gap: 10px; padding: 14px 22px; border-bottom: 1px solid var(--line); }
+  .tab { display: flex; flex-direction: column; gap: 2px; padding: 10px 16px; border-radius: 14px; background: #F7F9F8; min-width: 150px; }
+  .tab .v { font-size: 28px; font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; color: var(--ink); }
+  .tab .l { font-size: 12.5px; color: var(--muted); }
+  .tab.on { background: var(--green); }
+  .tab.on .v, .tab.on .l { color: #fff; }
+  .tab.on .l { opacity: .85; }
+  .tab.rm .v { color: #B7791F; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th { text-align: left; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 10px 22px; background: #F7F9F8; }
+  td { padding: 11px 22px; border-top: 1px solid #EEF2F0; }
+  td.nm { font-weight: 600; }
+  .st { font-size: 12.5px; font-weight: 600; padding: 5px 10px; border-radius: 999px; white-space: nowrap; }
+  .st.c { background: var(--green-soft); color: var(--green); }
+  .st.r { background: #FFF4DB; color: #B7791F; }
+  td.du, td.ty { color: var(--muted); }
+  .ad > .cta { position: absolute; left: 72px; top: 868px; z-index: 2; }
   .btn {
     background: var(--green); color: #fff; font-size: 22px; font-weight: 600; letter-spacing: -0.01em;
     padding: 16px 26px; border-radius: 14px; display: flex; align-items: center; gap: 12px;
@@ -104,23 +108,15 @@
   <h1><em>5,000+ calls in a day.</em><br/>Without asking RMs to<br/><span class="drop">manually make every call.</span></h1>
   <p class="sub"><b>Piramal Finance</b> uses <b>DoubleTick AI Voice</b> to automate first-level outreach across loan follow-ups and drop-off recovery, while routing <b>complex cases to the right RM</b>.</p>
 
-  <div class="vis">
-    <div class="badge mono"><i></i>AI Voice handles the calls</div>
-    <div class="wall"><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t x"><svg width="28" height="28" viewBox="0 0 24 24" fill="#B7791F"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t done"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div></div>
-    <svg class="lk" viewBox="0 0 936 350" fill="none">
-      <defs><marker id="am" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C9962F"/></marker></defs>
-            <path d="M444 168 C 560 168, 600 168, 668 168" stroke="#C9962F" stroke-width="2.5" stroke-dasharray="5 6" stroke-linecap="round" marker-end="url(#am)"/>
-    </svg>
-    <div class="rm">
-      <div class="h"><span class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="tt">Right RM</span></div>
-      <span class="tg mono">Only complex cases</span>
+  <div class="vis"><div class="dash">
+    <div class="dh"><span class="tt">Loan follow-up campaign</span><span class="chip ai mono"><svg width="11" height="11" viewBox="0 0 24 24" fill="#007A5A"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/></svg>AI Voice</span><span class="chip sp mono">Complex cases → RM</span><span class="live mono"><i></i>Live</span></div>
+    <div class="tabs">
+      <div class="tab on"><span class="v">5,000+</span><span class="l">Calls in a day</span></div>
+      <div class="tab"><span class="v">1,200+</span><span class="l">Completed</span></div>
+      <div class="tab"><span class="v">260+</span><span class="l">Calls per hour</span></div>
     </div>
-  </div>
-
-  <div class="pills">
-    <span class="pill2"><b>1,200+</b>conversations</span>
-    <span class="pill2"><b>260+</b>calls/hour</span>
-  </div>
+    <table><thead><tr><th>Status</th><th>Customer</th><th>Outreach</th><th>Duration</th></tr></thead><tbody><tr><td><span class="st c">Completed</span></td><td class="nm">Customer A</td><td class="ty">Loan follow-up</td><td class="du">1m 13s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer B</td><td class="ty">Drop-off recovery</td><td class="du">49s</td></tr><tr><td><span class="st r">Routed to RM</span></td><td class="nm">Customer C</td><td class="ty">Complex case</td><td class="du">2m 08s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer D</td><td class="ty">Loan follow-up</td><td class="du">35s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer E</td><td class="ty">Drop-off recovery</td><td class="du">1m 15s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer F</td><td class="ty">Loan follow-up</td><td class="du">58s</td></tr><tr><td><span class="st r">Routed to RM</span></td><td class="nm">Customer G</td><td class="ty">Complex case</td><td class="du">1m 41s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer H</td><td class="ty">Drop-off recovery</td><td class="du">44s</td></tr><tr><td><span class="st c">Completed</span></td><td class="nm">Customer I</td><td class="ty">Loan follow-up</td><td class="du">1m 02s</td></tr></tbody></table>
+  </div></div>
 
   <div class="cta">
     <div class="btn">Apply for a Free Pilot
