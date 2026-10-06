@@ -371,7 +371,7 @@ for i in range(0, N, 48):  # 1 ms resolution
     g[i : i + 48] = prev
 duck_db = -6.5 * g
 # extra space under the solution line and each KPI phrase
-for a, b in [(M(13.9), M(16.95)), (M(27.7), M(31.0)), (M(31.15), M(35.2)), (M(35.4), M(39.0))]:
+for a, b in [(M(13.9), M(16.95)), (M(26.0), M(27.8)), (M(27.7), M(31.0)), (M(31.15), M(35.2))]:
     ramp = np.clip(np.minimum((t_axis(N) - a) / 0.25, (b - t_axis(N)) / 0.3), 0, 1)
     duck_db += -2.5 * ramp
 music *= db(duck_db)[:, None]
@@ -557,12 +557,13 @@ for t in (6.9, 7.69, 8.69, 10.12):
     ev(t, s_tap(), -23, 0, "header")
 ev(5.75, s_tap(), -22, 0.5, "agent")
 ev(6.35, s_ring(), -25, 0.4, "manual-ring")
-for t in (7.75, 9.85):
-    ev(t, s_blip(880, 1320, 0.1), -23, 0.3, "done")
-for t in (7.0, 7.9, 10.35, 11.1):
-    ev(t, s_tap(), -24, 0.1, "arrival")
-for k, t in enumerate([8.7, 9.45, 10.1, 11.3, 12.0, 12.6]):
-    ev(t, s_blip(620, 540, 0.08), -26 + min(k, 6) * 0.6, (k % 4 - 1.5) * 0.3, "pending-pulse")
+ev(8.0, s_blip(880, 1320, 0.1), -23, 0.3, "done")
+for t in (7.0, 9.6):
+    ev(t, s_tap(), -23, 0.1, "arrival")
+for k, t in enumerate([8.4, 9.0, 9.5, 10.0]):
+    ev(t, s_blip(620, 540, 0.08), -26 + k * 0.6, (k % 4 - 1.5) * 0.3, "pending-pulse")
+for k in range(5):  # the board tips over: a quick cluster of pending pulses
+    ev(11.0 + k * 0.1, s_blip(640 - k * 20, 520, 0.07), -27, (k % 3 - 1) * 0.4, "pending-burst")
 hit(11.62, 0.8, -13, 50, riser=0.7, name="couldnt-scale")
 ev(12.95, s_whoosh(0.8, 250, 7000), -18, 0, "push-in")
 hit(13.9, 0.7, -14, name="panel-drop")
@@ -597,13 +598,10 @@ hit(25.85, 0.5, -16, name="kpi-open")
 s_odometer(27.84, 29.55, 30)
 hit(29.62, 1.2, -9, 62, riser=1.2, name="kpi-1")
 ev(31.05, s_whoosh(0.5, 400, 7000), -20, 0, "roll")
-s_odometer(31.2, 32.95, 22)
-hit(32.98, 1.0, -10, 66, riser=0.9, name="kpi-2")
+s_odometer(31.2, 32.45, 20)
+hit(32.98, 1.1, -9, 66, riser=0.9, name="kpi-2")
+ev(33.0, s_shimmer(), -20, 0.2, "kpi-2-shimmer")
 ev(34.45, s_blip(990, 1480, 0.1), -21, 0, "completed")
-ev(35.25, s_whoosh(0.5, 400, 7000), -20, 0, "roll")
-s_odometer(35.4, 36.8, 20)
-hit(36.9, 1.2, -9, 69, riser=1.0, name="kpi-3")
-ev(36.95, s_shimmer(), -19, 0.2, "shimmer")
 
 # SCENE 9 — transformation + brand resolve
 ev(38.85, s_whoosh(0.8, 200, 5000, rev=True), -20, 0, "out-kpi")

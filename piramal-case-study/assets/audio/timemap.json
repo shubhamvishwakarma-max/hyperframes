@@ -1,7 +1,7 @@
 {
  "total": 30.0,
- "tempo": 1.1859,
- "vo_length": 28.544,
+ "tempo": 1.09909,
+ "vo_length": 28.696,
  "vmap": [
   [
    0.0,
@@ -9,83 +9,99 @@
   ],
   [
    4.6,
-   3.8683
+   4.1707
   ],
   [
    5.0,
-   4.1013
+   4.4418
   ],
   [
    11.6,
-   5.5632
+   6.259
   ],
   [
    13.42,
-   7.0811
+   7.6554
   ],
   [
    13.92,
-   7.3172
+   7.9465
   ],
   [
    16.89,
-   9.8216
+   10.6487
   ],
   [
    17.21,
-   10.024
+   10.8853
   ],
   [
    18.46,
-   11.078
+   12.0226
   ],
   [
    21.07,
-   11.9887
+   13.1872
   ],
   [
    21.97,
-   12.7477
+   14.0061
   ],
   [
    22.27,
-   12.8826
+   14.2426
   ],
   [
    25.3,
-   15.4376
+   16.9994
+  ],
+  [
+   26.0,
+   17.5726
   ],
   [
    27.84,
-   15.9435
+   19.4742
+  ],
+  [
+   29.62,
+   20.173
   ],
   [
    30.95,
-   18.566
+   21.3849
   ],
   [
    31.23,
-   18.7515
+   21.6214
+  ],
+  [
+   32.47,
+   22.7496
+  ],
+  [
+   32.98,
+   22.7569
+  ],
+  [
+   33.19,
+   23.1773
   ],
   [
    35.13,
-   22.0402
-  ],
-  [
-   35.47,
-   22.2426
+   24.9606
   ],
   [
    38.9,
-   25.1349
+   25.1606
   ],
   [
    39.28,
-   25.371
+   25.2699
   ],
   [
    43.05,
-   28.55
+   28.7
   ],
   [
    46.0,
@@ -94,175 +110,236 @@
  ],
  "subs": [
   [
-   0.014,
-   2.476,
+   0.0,
+   2.673,
    "Piramal Finance was managing thousands of conversations"
   ],
   [
-   2.476,
-   4.061,
+   2.673,
+   4.391,
    "across the loan lifecycle."
   ],
   [
-   4.061,
-   7.257,
+   4.402,
+   7.875,
    "But manually following up was difficult to scale consistently."
   ],
   [
-   7.257,
-   9.964,
+   7.887,
+   10.825,
    "So they deployed DoubleTick AI Voice."
   ],
   [
-   9.964,
-   12.823,
+   10.825,
+   14.183,
    "AI automatically reached customers, captured intent"
   ],
   [
-   12.823,
-   15.858,
+   14.183,
+   17.483,
    "and escalated complex conversations to the right RM."
   ],
   [
-   15.858,
-   18.692,
-   "5,704+ calls attempted,"
+   17.513,
+   19.387,
+   "At scale, in a day:"
   ],
   [
-   18.692,
-   22.183,
-   "1,343 completed customer conversations,"
+   19.387,
+   21.561,
+   "5,000+ calls attempted,"
   ],
   [
-   22.183,
-   25.311,
-   "and a 51.6% document follow-up connect rate."
+   21.561,
+   25.181,
+   "1,300+ completed customer conversations."
   ],
   [
-   25.311,
-   28.77,
+   25.21,
+   28.92,
    "From manual follow-ups to intelligent, scalable conversations."
   ]
  ],
  "segments": [
   {
-   "old": [
+   "label": "A",
+   "source": "orig",
+   "src": [
     0.06,
     4.6
    ],
    "new": [
     0.04,
-    3.868
+    4.171
    ],
    "text": "Piramal Finance was managing thousands of conversations across the loan lifecycle."
   },
   {
-   "old": [
+   "label": "B",
+   "source": "orig",
+   "src": [
     5.0,
     6.37
    ],
    "new": [
-    4.121,
-    5.277
+    4.462,
+    5.708
    ],
    "text": "But manually following up"
   },
   {
-   "old": [
+   "label": "C",
+   "source": "orig",
+   "src": [
     11.31,
     13.42
    ],
    "new": [
-    5.302,
-    7.081
+    5.736,
+    7.655
    ],
    "text": "was difficult to scale consistently."
   },
   {
-   "old": [
+   "label": "D",
+   "source": "orig",
+   "src": [
     13.92,
     16.89
    ],
    "new": [
-    7.317,
-    9.822
+    7.947,
+    10.649
    ],
    "text": "So they deployed DoubleTick AI Voice."
   },
   {
-   "old": [
+   "label": "E",
+   "source": "orig",
+   "src": [
     17.21,
     19.4
    ],
    "new": [
-    10.024,
-    11.871
+    10.885,
+    12.878
    ],
    "text": "AI automatically reached customers,"
   },
   {
-   "old": [
+   "label": "F",
+   "source": "orig",
+   "src": [
     21.03,
     21.97
    ],
    "new": [
-    11.955,
-    12.748
+    13.151,
+    14.006
    ],
    "text": "captured intent"
   },
   {
-   "old": [
+   "label": "G",
+   "source": "orig",
+   "src": [
     22.27,
     25.59
    ],
    "new": [
-    12.883,
-    15.682
+    14.243,
+    17.263
    ],
    "text": "and escalated complex conversations to the right RM."
   },
   {
-   "old": [
+   "label": "INS",
+   "source": "ins",
+   "src": [
+    0.0,
+    1.86
+   ],
+   "new": [
+    17.573,
+    19.265
+   ],
+   "text": "At scale, in a day:"
+  },
+  {
+   "label": "H1",
+   "source": "orig",
+   "src": [
     27.81,
+    28.59
+   ],
+   "new": [
+    19.447,
+    20.157
+   ],
+   "text": "five thousand"
+  },
+  {
+   "label": "H2",
+   "source": "orig",
+   "src": [
+    29.64,
     30.95
    ],
    "new": [
-    15.918,
-    18.566
+    20.193,
+    21.385
    ],
-   "text": "5,704 plus calls attempted,"
+   "text": "plus calls attempted,"
   },
   {
-   "old": [
+   "label": "I1",
+   "source": "orig",
+   "src": [
     31.23,
+    32.47
+   ],
+   "new": [
+    21.621,
+    22.75
+   ],
+   "text": "one thousand three hundred"
+  },
+  {
+   "label": "PLUS",
+   "source": "orig",
+   "src": [
+    29.64,
+    30.03
+   ],
+   "new": [
+    22.777,
+    23.132
+   ],
+   "text": "plus"
+  },
+  {
+   "label": "I2",
+   "source": "orig",
+   "src": [
+    33.17,
     35.13
    ],
    "new": [
-    18.752,
-    22.04
+    23.177,
+    24.961
    ],
-   "text": "1,343 completed customer conversations,"
+   "text": "completed customer conversations."
   },
   {
-   "old": [
-    35.47,
-    38.9
-   ],
-   "new": [
-    22.243,
-    25.135
-   ],
-   "text": "and a 51.6 percent document follow-up connect rate."
-  },
-  {
-   "old": [
+   "label": "K",
+   "source": "orig",
+   "src": [
     39.28,
     43.05
    ],
    "new": [
-    25.371,
-    28.55
+    25.27,
+    28.7
    ],
    "text": "From manual follow-ups to intelligent, scalable conversations."
   }
