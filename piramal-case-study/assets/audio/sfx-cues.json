@@ -1,606 +1,571 @@
 [
  {
-  "t": 0.04,
-  "db": -15,
+  "t": 0.034,
+  "db": -13,
   "name": "open"
  },
  {
-  "t": 0.12,
+  "t": 0.21,
+  "db": -25.0,
+  "name": "pending-flag"
+ },
+ {
+  "t": 0.353,
+  "db": -24.5,
+  "name": "pending-flag"
+ },
+ {
+  "t": 0.496,
+  "db": -24.0,
+  "name": "pending-flag"
+ },
+ {
+  "t": 0.639,
+  "db": -23.5,
+  "name": "pending-flag"
+ },
+ {
+  "t": 0.782,
+  "db": -23.0,
+  "name": "pending-flag"
+ },
+ {
+  "t": 0.925,
+  "db": -22.5,
+  "name": "pending-flag"
+ },
+ {
+  "t": 1.068,
+  "db": -22.0,
+  "name": "pending-flag"
+ },
+ {
+  "t": 1.211,
+  "db": -22.0,
+  "name": "pending-flag"
+ },
+ {
+  "t": 1.354,
+  "db": -22.0,
+  "name": "pending-flag"
+ },
+ {
+  "t": 1.497,
+  "db": -22.0,
+  "name": "pending-flag"
+ },
+ {
+  "t": 1.64,
+  "db": -22.0,
+  "name": "pending-flag"
+ },
+ {
+  "t": 1.783,
+  "db": -22.0,
+  "name": "pending-flag"
+ },
+ {
+  "t": 1.926,
+  "db": -22.0,
+  "name": "pending-flag"
+ },
+ {
+  "t": 0.101,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 0.176,
+  "t": 0.148,
   "db": -28,
   "name": "cards-scale"
  },
  {
-  "t": 0.232,
+  "t": 0.195,
   "db": -27,
   "name": "cards-scale"
  },
  {
-  "t": 0.288,
+  "t": 0.242,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 0.344,
+  "t": 0.289,
   "db": -28,
   "name": "cards-scale"
  },
  {
-  "t": 0.4,
+  "t": 0.336,
   "db": -27,
   "name": "cards-scale"
  },
  {
-  "t": 0.456,
+  "t": 0.383,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 0.512,
+  "t": 0.431,
   "db": -28,
   "name": "cards-scale"
  },
  {
-  "t": 0.568,
+  "t": 0.478,
   "db": -27,
   "name": "cards-scale"
  },
  {
-  "t": 0.624,
+  "t": 0.525,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 0.68,
+  "t": 0.572,
   "db": -28,
   "name": "cards-scale"
  },
  {
-  "t": 0.736,
+  "t": 0.619,
   "db": -27,
   "name": "cards-scale"
  },
  {
-  "t": 0.792,
+  "t": 0.666,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 0.848,
+  "t": 0.713,
   "db": -28,
   "name": "cards-scale"
  },
  {
-  "t": 0.904,
+  "t": 0.76,
   "db": -27,
   "name": "cards-scale"
  },
  {
-  "t": 0.96,
+  "t": 0.807,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 1.016,
+  "t": 0.854,
   "db": -28,
   "name": "cards-scale"
  },
  {
-  "t": 1.072,
+  "t": 0.901,
   "db": -27,
   "name": "cards-scale"
  },
  {
-  "t": 1.128,
+  "t": 0.949,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 1.184,
+  "t": 0.996,
   "db": -28,
   "name": "cards-scale"
  },
  {
-  "t": 1.24,
+  "t": 1.043,
   "db": -27,
   "name": "cards-scale"
  },
  {
-  "t": 1.296,
+  "t": 1.09,
   "db": -29,
   "name": "cards-scale"
  },
  {
-  "t": 0.2,
+  "t": 0.168,
   "db": -25,
   "name": "card"
  },
  {
-  "t": 0.46,
+  "t": 0.387,
   "db": -25,
   "name": "card"
  },
  {
-  "t": 0.8,
+  "t": 0.673,
   "db": -25,
   "name": "card"
  },
  {
-  "t": 1.15,
+  "t": 0.967,
   "db": -25,
   "name": "card"
  },
  {
-  "t": 1.85,
-  "db": -24,
-  "name": "bottleneck-riser"
- },
- {
-  "t": 2.45,
+  "t": 2.06,
   "db": -13,
   "name": "bottleneck"
  },
  {
-  "t": 4.3,
+  "t": 3.616,
   "db": -19,
   "name": "to-problem"
  },
  {
-  "t": 4.95,
+  "t": 4.072,
   "db": -18,
   "name": "sort"
  },
  {
-  "t": 4.97,
+  "t": 4.084,
   "db": -25,
   "name": "sort-tap"
  },
  {
-  "t": 5.015,
+  "t": 4.105,
   "db": -25,
   "name": "sort-tap"
  },
  {
-  "t": 5.06,
+  "t": 4.115,
   "db": -25,
   "name": "sort-tap"
  },
  {
-  "t": 5.105,
+  "t": 4.125,
   "db": -25,
   "name": "sort-tap"
  },
  {
-  "t": 5.15,
+  "t": 4.135,
   "db": -25,
   "name": "sort-tap"
  },
  {
-  "t": 5.195,
+  "t": 4.144,
   "db": -25,
   "name": "sort-tap"
  },
  {
-  "t": 5.24,
+  "t": 4.154,
   "db": -25,
   "name": "sort-tap"
  },
  {
-  "t": 5.285,
+  "t": 4.164,
   "db": -25,
   "name": "sort-tap"
  },
  {
-  "t": 6.9,
+  "t": 4.522,
   "db": -23,
   "name": "header"
  },
  {
-  "t": 7.69,
+  "t": 4.697,
   "db": -23,
   "name": "header"
  },
  {
-  "t": 8.69,
+  "t": 4.919,
   "db": -23,
   "name": "header"
  },
  {
-  "t": 10.12,
+  "t": 5.235,
   "db": -23,
   "name": "header"
  },
  {
-  "t": 5.75,
+  "t": 4.267,
   "db": -22,
   "name": "agent"
  },
  {
-  "t": 6.35,
+  "t": 4.4,
   "db": -25,
   "name": "manual-ring"
  },
  {
-  "t": 8.2,
-  "db": -27,
-  "name": "manual-ring"
- },
- {
-  "t": 10.3,
-  "db": -28,
-  "name": "manual-ring"
- },
- {
-  "t": 7.75,
+  "t": 4.71,
   "db": -23,
   "name": "done"
  },
  {
-  "t": 9.85,
+  "t": 5.176,
   "db": -23,
   "name": "done"
  },
  {
-  "t": 7.0,
+  "t": 4.544,
   "db": -24,
   "name": "arrival"
  },
  {
-  "t": 7.35,
+  "t": 4.744,
   "db": -24,
   "name": "arrival"
  },
  {
-  "t": 7.9,
+  "t": 5.286,
   "db": -24,
   "name": "arrival"
  },
  {
-  "t": 8.3,
+  "t": 5.452,
   "db": -24,
   "name": "arrival"
  },
  {
-  "t": 10.35,
-  "db": -24,
-  "name": "arrival"
- },
- {
-  "t": 10.6,
-  "db": -24,
-  "name": "arrival"
- },
- {
-  "t": 10.85,
-  "db": -24,
-  "name": "arrival"
- },
- {
-  "t": 11.1,
-  "db": -24,
-  "name": "arrival"
- },
- {
-  "t": 8.7,
+  "t": 4.921,
   "db": -26.0,
   "name": "pending-pulse"
  },
  {
-  "t": 9.1,
+  "t": 5.087,
   "db": -25.4,
   "name": "pending-pulse"
  },
  {
-  "t": 9.45,
+  "t": 5.231,
   "db": -24.8,
   "name": "pending-pulse"
  },
  {
-  "t": 9.75,
+  "t": 5.497,
   "db": -24.2,
   "name": "pending-pulse"
  },
  {
-  "t": 10.1,
+  "t": 5.897,
   "db": -23.6,
   "name": "pending-pulse"
  },
  {
-  "t": 11.0,
+  "t": 6.397,
   "db": -23.0,
   "name": "pending-pulse"
  },
  {
-  "t": 11.3,
-  "db": -22.4,
-  "name": "pending-pulse"
- },
- {
-  "t": 11.55,
-  "db": -22.4,
-  "name": "pending-pulse"
- },
- {
-  "t": 12.0,
-  "db": -22.4,
-  "name": "pending-pulse"
- },
- {
-  "t": 12.2,
-  "db": -22.4,
-  "name": "pending-pulse"
- },
- {
-  "t": 12.4,
-  "db": -22.4,
-  "name": "pending-pulse"
- },
- {
-  "t": 12.6,
-  "db": -22.4,
-  "name": "pending-pulse"
- },
- {
-  "t": 10.92,
-  "db": -24,
-  "name": "couldnt-scale-riser"
- },
- {
-  "t": 11.62,
+  "t": 5.58,
   "db": -13,
   "name": "couldnt-scale"
  },
  {
-  "t": 12.95,
+  "t": 6.689,
   "db": -18,
   "name": "push-in"
  },
  {
-  "t": 13.9,
+  "t": 7.308,
   "db": -14,
   "name": "panel-drop"
  },
  {
-  "t": 14.0,
+  "t": 7.385,
   "db": -27,
   "name": "rows"
  },
  {
-  "t": 14.08,
+  "t": 7.452,
   "db": -27,
   "name": "rows"
  },
  {
-  "t": 14.16,
+  "t": 7.52,
   "db": -27,
   "name": "rows"
  },
  {
-  "t": 14.24,
+  "t": 7.587,
   "db": -27,
   "name": "rows"
  },
  {
-  "t": 14.4,
-  "db": -22,
-  "name": "ai-voice-riser"
- },
- {
-  "t": 15.15,
+  "t": 8.354,
   "db": -11,
   "name": "ai-voice"
  },
  {
-  "t": 15.15,
+  "t": 8.354,
   "db": -17,
   "name": "activation"
  },
  {
-  "t": 17.2,
+  "t": 10.018,
   "db": -20,
   "name": "push"
  },
  {
-  "t": 17.55,
+  "t": 10.311,
   "db": -25,
   "name": "outbound"
  },
  {
-  "t": 18.46,
+  "t": 11.078,
   "db": -17,
   "name": "connect"
  },
  {
-  "t": 18.46,
+  "t": 11.078,
   "db": -20,
   "name": "connect-blip"
  },
  {
-  "t": 18.56,
+  "t": 11.113,
   "db": -22,
   "name": "connect-blip-2"
  },
  {
-  "t": 18.78,
+  "t": 11.19,
   "db": -21,
   "name": "morph"
  },
  {
-  "t": 20.3,
+  "t": 11.72,
   "db": -19,
   "name": "chip"
  },
  {
-  "t": 20.31,
+  "t": 11.724,
   "db": -24,
   "name": "chip-tone"
  },
  {
-  "t": 20.72,
+  "t": 11.867,
   "db": -19,
   "name": "chip"
  },
  {
-  "t": 20.73,
+  "t": 11.87,
   "db": -24,
   "name": "chip-tone"
  },
  {
-  "t": 21.14,
+  "t": 12.048,
   "db": -19,
   "name": "chip"
  },
  {
-  "t": 21.15,
+  "t": 12.056,
   "db": -24,
   "name": "chip-tone"
  },
  {
-  "t": 22.2,
+  "t": 12.851,
   "db": -21,
   "name": "collapse"
  },
  {
-  "t": 23.55,
+  "t": 13.962,
   "db": -18,
   "name": "needs-rm"
  },
  {
-  "t": 24.25,
+  "t": 14.552,
   "db": -17,
   "name": "route"
  },
  {
-  "t": 25.02,
+  "t": 15.201,
   "db": -13,
   "name": "assigned"
  },
  {
-  "t": 25.02,
+  "t": 15.201,
   "db": -19,
   "name": "assigned-chime"
  },
  {
-  "t": 25.35,
+  "t": 15.448,
   "db": -19,
   "name": "to-kpi"
  },
  {
-  "t": 25.85,
+  "t": 15.547,
   "db": -16,
   "name": "kpi-open"
  },
  {
-  "t": 28.42,
-  "db": -20,
-  "name": "kpi-1-riser"
- },
- {
-  "t": 29.62,
+  "t": 17.444,
   "db": -9,
   "name": "kpi-1"
  },
  {
-  "t": 31.05,
+  "t": 18.632,
   "db": -20,
   "name": "roll"
  },
  {
-  "t": 32.08,
-  "db": -21,
-  "name": "kpi-2-riser"
- },
- {
-  "t": 32.98,
+  "t": 20.227,
   "db": -10,
   "name": "kpi-2"
  },
  {
-  "t": 34.45,
+  "t": 21.467,
   "db": -21,
   "name": "completed"
  },
  {
-  "t": 35.25,
+  "t": 22.112,
   "db": -20,
   "name": "roll"
  },
  {
-  "t": 35.9,
-  "db": -20,
-  "name": "kpi-3-riser"
- },
- {
-  "t": 36.9,
+  "t": 23.448,
   "db": -9,
   "name": "kpi-3"
  },
  {
-  "t": 36.95,
+  "t": 23.491,
   "db": -19,
   "name": "shimmer"
  },
  {
-  "t": 38.85,
+  "t": 25.093,
   "db": -20,
   "name": "out-kpi"
  },
  {
-  "t": 40.02,
-  "db": -24,
-  "name": "pulse-riser"
- },
- {
-  "t": 40.62,
+  "t": 26.501,
   "db": -13,
   "name": "pulse"
  },
  {
-  "t": 40.62,
+  "t": 26.501,
   "db": -20,
   "name": "pulse-chime"
  },
  {
-  "t": 40.98,
+  "t": 26.805,
   "db": -24,
   "name": "organize"
  },
  {
-  "t": 41.11,
+  "t": 26.914,
   "db": -24,
   "name": "organize"
  },
  {
-  "t": 41.24,
+  "t": 27.024,
   "db": -24,
   "name": "organize"
  },
  {
-  "t": 41.37,
+  "t": 27.133,
   "db": -24,
   "name": "organize"
  },
  {
-  "t": 43.2,
+  "t": 28.624,
   "db": -21,
   "name": "to-end"
  },
  {
-  "t": 43.3,
-  "db": -20,
-  "name": "brand-resolve-riser"
- },
- {
-  "t": 43.9,
+  "t": 28.968,
   "db": -9,
   "name": "brand-resolve"
  },
  {
-  "t": 43.92,
+  "t": 28.978,
   "db": -16,
   "name": "brand-chime"
  }

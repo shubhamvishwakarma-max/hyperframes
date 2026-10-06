@@ -1,4 +1,4 @@
-"""Build the upbeat music bed and impact SFX stem for the Piramal × DoubleTick case study.
+"""Build the upbeat music bed and impact SFX stem (30 s cut) for the Piramal × DoubleTick case study.
 
 Everything is synthesised offline (seeded, deterministic) so the render never
 depends on a network catalogue. The music is ducked against the envelope of
@@ -16,10 +16,22 @@ from scipy.io import wavfile
 from scipy.signal import butter, fftconvolve, sosfilt, sosfiltfilt
 
 SR = 48000
-DUR = 46.0
-N = int(SR * DUR)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUD = os.path.join(ROOT, "assets", "audio")
+
+# One time map (written by scripts/build_vo.py) drives picture, captions and
+# audio. Cue times below are authored on the original 46 s word timings and
+# pass through M() into the 30 s cut.
+with open(os.path.join(AUD, "timemap.json")) as _f:
+    TIMEMAP = json.load(_f)
+_VM = np.array(TIMEMAP["vmap"], dtype=float)
+DUR = float(TIMEMAP["total"])
+N = int(SR * DUR)
+
+
+def M(t):
+    return float(np.interp(t, _VM[:, 0], _VM[:, 1]))
+
 rng = np.random.default_rng(20260929)
 
 
@@ -96,10 +108,13 @@ def loud_rms_db(x):
 # ----------------------------------------------------------------------------
 # MUSIC  — 120 BPM, D major, upbeat four-on-the-floor with sidechain pump
 # ----------------------------------------------------------------------------
-BPM = 120
-BEAT = 60 / BPM
-BAR = BEAT * 4
-G0 = -0.1  # grid origin: puts downbeats on 13.9 (solution drop) and 43.9 (end hit)
+# drops follow the picture: "DoubleTick AI Voice" panel and the KPI section
+_DROP1, _DROP2 = M(13.9), M(25.9)
+_bars = max(1, round((_DROP2 - _DROP1) / 2.0))  # ~120 BPM bars
+BAR = (_DROP2 - _DROP1) / _bars
+BEAT = BAR / 4
+BPM = 60 / BEAT
+G0 = _DROP1 - BAR * np.floor(_DROP1 / BAR)  # downbeat on the first drop
 CHORDS = [  # I – V – vi – IV
     (38, [62, 66, 69, 74, 76]),  # D(add9)
     (33, [61, 64, 69, 73, 76]),  # A
@@ -108,15 +123,22 @@ CHORDS = [  # I – V – vi – IV
 ]
 
 # section markers (seconds) — follow the voiceover structure
-S_PROBLEM, S_SOLUTION, S_KPI, S_END, S_RESOLVE = 4.9, 13.9, 25.9, 39.9, 43.9
+def _snap(t):
+    return G0 + BEAT * round((t - G0) / BEAT)
+
+
+S_PROBLEM = _snap(M(4.9))
+S_SOLUTION, S_KPI = _DROP1, _DROP2
+S_END = _snap(M(39.9))
+S_RESOLVE = _snap(M(43.9))  # end lockup
 
 
 def section_level(t):
     """0..1 energy curve for the arrangement."""
     return np.interp(
         t,
-        [0, 4.8, 4.9, 13.8, 13.9, 25.8, 25.9, 39.8, 39.9, 43.9, 46],
-        [0.55, 0.6, 0.7, 0.75, 0.9, 0.9, 1.0, 1.0, 0.85, 0.85, 0.7],
+        [0, S_PROBLEM - 0.1, S_PROBLEM, S_SOLUTION - 0.1, S_SOLUTION, S_KPI - 0.1, S_KPI, S_END - 0.1, S_END, S_RESOLVE, DUR],
+        [0.6, 0.65, 0.72, 0.78, 0.9, 0.9, 1.0, 1.0, 0.85, 0.85, 0.7],
     )
 
 
@@ -349,14 +371,14 @@ for i in range(0, N, 48):  # 1 ms resolution
     g[i : i + 48] = prev
 duck_db = -6.5 * g
 # extra space under the solution line and each KPI phrase
-for a, b in [(13.9, 16.95), (27.7, 31.0), (31.15, 35.2), (35.4, 39.0)]:
+for a, b in [(M(13.9), M(16.95)), (M(27.7), M(31.0)), (M(31.15), M(35.2)), (M(35.4), M(39.0))]:
     ramp = np.clip(np.minimum((t_axis(N) - a) / 0.25, (b - t_axis(N)) / 0.3), 0, 1)
     duck_db += -2.5 * ramp
 music *= db(duck_db)[:, None]
 
 # overall music level: sits well under the narrator
 music *= db(-28 - loud_rms_db(music[: int(43 * SR)]))
-fade = np.clip((DUR - t_axis(N)) / 1.2, 0, 1)
+fade = np.clip((DUR - t_axis(N)) / 0.7, 0, 1)
 fade *= np.clip(t_axis(N) / 0.4, 0, 1)
 music *= fade[:, None]
 
@@ -447,7 +469,7 @@ def s_odometer(t0, t1, n=26):
     """Decelerating ticks while a number rolls."""
     for k in range(n):
         u = k / (n - 1)
-        t = t0 + (t1 - t0) * (1 - (1 - u) ** 2.2)
+        t = M(t0) + (M(t1) - M(t0)) * (1 - (1 - u) ** 2.2)
         place(sfx, s_tick(3200 + (k % 3) * 300, 0.0025), t, db(-34 + 6 * u), pan=0.2 * np.sin(k))
 
 
@@ -505,18 +527,21 @@ EVENTS = []
 
 
 def ev(t, sig, gain_db, pan=0.0, name=""):
+    t = M(t)
     EVENTS.append({"t": round(t, 3), "db": gain_db, "name": name})
     place(sfx, sig, t, db(gain_db), pan)
 
 
 def hit(t, size, gain_db, root=None, riser=None, name="hit"):
     if riser:
-        ev(t - riser, s_riser(riser), gain_db - 11, 0, name + "-riser")
+        place(sfx, s_riser(riser), M(t) - riser, db(gain_db - 11))
     ev(t, s_impact(size, root), gain_db, 0, name)
 
 
 # SCENE 1 — hook: land the brand + story fast
-hit(0.04, 0.6, -15, 62, name="open")
+hit(0.04, 0.75, -13, 57, name="open")
+for k in range(13):  # PENDING flags pile up across the field
+    ev(0.25 + k * 0.17, s_blip(700 - (k % 3) * 40, 560, 0.07), -25 + min(k, 6) * 0.5, (k % 5 - 2) * 0.25, "pending-flag")
 for k in range(22):  # cards keep multiplying outward (0.1 – 1.3 s)
     ev(0.12 + k * 0.056, s_tick(2400 + (k % 4) * 350, 0.003), -29 + (k % 3), (k % 5 - 2) * 0.2, "cards-scale")
 for k, t in enumerate((0.2, 0.46, 0.8, 1.15)):
@@ -532,13 +557,11 @@ for t in (6.9, 7.69, 8.69, 10.12):
     ev(t, s_tap(), -23, 0, "header")
 ev(5.75, s_tap(), -22, 0.5, "agent")
 ev(6.35, s_ring(), -25, 0.4, "manual-ring")
-ev(8.2, s_ring(), -27, 0.4, "manual-ring")
-ev(10.3, s_ring(), -28, 0.4, "manual-ring")
 for t in (7.75, 9.85):
     ev(t, s_blip(880, 1320, 0.1), -23, 0.3, "done")
-for t in (7.0, 7.35, 7.9, 8.3, 10.35, 10.6, 10.85, 11.1):
+for t in (7.0, 7.9, 10.35, 11.1):
     ev(t, s_tap(), -24, 0.1, "arrival")
-for k, t in enumerate([8.7, 9.1, 9.45, 9.75, 10.1, 11.0, 11.3, 11.55, 12.0, 12.2, 12.4, 12.6]):
+for k, t in enumerate([8.7, 9.45, 10.1, 11.3, 12.0, 12.6]):
     ev(t, s_blip(620, 540, 0.08), -26 + min(k, 6) * 0.6, (k % 4 - 1.5) * 0.3, "pending-pulse")
 hit(11.62, 0.8, -13, 50, riser=0.7, name="couldnt-scale")
 ev(12.95, s_whoosh(0.8, 250, 7000), -18, 0, "push-in")

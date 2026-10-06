@@ -1,0 +1,270 @@
+{
+ "total": 30.0,
+ "tempo": 1.1859,
+ "vo_length": 28.544,
+ "vmap": [
+  [
+   0.0,
+   0.0
+  ],
+  [
+   4.6,
+   3.8683
+  ],
+  [
+   5.0,
+   4.1013
+  ],
+  [
+   11.6,
+   5.5632
+  ],
+  [
+   13.42,
+   7.0811
+  ],
+  [
+   13.92,
+   7.3172
+  ],
+  [
+   16.89,
+   9.8216
+  ],
+  [
+   17.21,
+   10.024
+  ],
+  [
+   18.46,
+   11.078
+  ],
+  [
+   21.07,
+   11.9887
+  ],
+  [
+   21.97,
+   12.7477
+  ],
+  [
+   22.27,
+   12.8826
+  ],
+  [
+   25.3,
+   15.4376
+  ],
+  [
+   27.84,
+   15.9435
+  ],
+  [
+   30.95,
+   18.566
+  ],
+  [
+   31.23,
+   18.7515
+  ],
+  [
+   35.13,
+   22.0402
+  ],
+  [
+   35.47,
+   22.2426
+  ],
+  [
+   38.9,
+   25.1349
+  ],
+  [
+   39.28,
+   25.371
+  ],
+  [
+   43.05,
+   28.55
+  ],
+  [
+   46.0,
+   30.0
+  ]
+ ],
+ "subs": [
+  [
+   0.014,
+   2.476,
+   "Piramal Finance was managing thousands of conversations"
+  ],
+  [
+   2.476,
+   4.061,
+   "across the loan lifecycle."
+  ],
+  [
+   4.061,
+   7.257,
+   "But manually following up was difficult to scale consistently."
+  ],
+  [
+   7.257,
+   9.964,
+   "So they deployed DoubleTick AI Voice."
+  ],
+  [
+   9.964,
+   12.823,
+   "AI automatically reached customers, captured intent"
+  ],
+  [
+   12.823,
+   15.858,
+   "and escalated complex conversations to the right RM."
+  ],
+  [
+   15.858,
+   18.692,
+   "5,704+ calls attempted,"
+  ],
+  [
+   18.692,
+   22.183,
+   "1,343 completed customer conversations,"
+  ],
+  [
+   22.183,
+   25.311,
+   "and a 51.6% document follow-up connect rate."
+  ],
+  [
+   25.311,
+   28.77,
+   "From manual follow-ups to intelligent, scalable conversations."
+  ]
+ ],
+ "segments": [
+  {
+   "old": [
+    0.06,
+    4.6
+   ],
+   "new": [
+    0.04,
+    3.868
+   ],
+   "text": "Piramal Finance was managing thousands of conversations across the loan lifecycle."
+  },
+  {
+   "old": [
+    5.0,
+    6.37
+   ],
+   "new": [
+    4.121,
+    5.277
+   ],
+   "text": "But manually following up"
+  },
+  {
+   "old": [
+    11.31,
+    13.42
+   ],
+   "new": [
+    5.302,
+    7.081
+   ],
+   "text": "was difficult to scale consistently."
+  },
+  {
+   "old": [
+    13.92,
+    16.89
+   ],
+   "new": [
+    7.317,
+    9.822
+   ],
+   "text": "So they deployed DoubleTick AI Voice."
+  },
+  {
+   "old": [
+    17.21,
+    19.4
+   ],
+   "new": [
+    10.024,
+    11.871
+   ],
+   "text": "AI automatically reached customers,"
+  },
+  {
+   "old": [
+    21.03,
+    21.97
+   ],
+   "new": [
+    11.955,
+    12.748
+   ],
+   "text": "captured intent"
+  },
+  {
+   "old": [
+    22.27,
+    25.59
+   ],
+   "new": [
+    12.883,
+    15.682
+   ],
+   "text": "and escalated complex conversations to the right RM."
+  },
+  {
+   "old": [
+    27.81,
+    30.95
+   ],
+   "new": [
+    15.918,
+    18.566
+   ],
+   "text": "5,704 plus calls attempted,"
+  },
+  {
+   "old": [
+    31.23,
+    35.13
+   ],
+   "new": [
+    18.752,
+    22.04
+   ],
+   "text": "1,343 completed customer conversations,"
+  },
+  {
+   "old": [
+    35.47,
+    38.9
+   ],
+   "new": [
+    22.243,
+    25.135
+   ],
+   "text": "and a 51.6 percent document follow-up connect rate."
+  },
+  {
+   "old": [
+    39.28,
+    43.05
+   ],
+   "new": [
+    25.371,
+    28.55
+   ],
+   "text": "From manual follow-ups to intelligent, scalable conversations."
+  }
+ ]
+}

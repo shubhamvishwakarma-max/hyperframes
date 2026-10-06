@@ -124,6 +124,11 @@
         -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 85%);
         mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 85%);
       }
+      #s1-tint {
+        background:
+          radial-gradient(ellipse 70% 55% at 50% 38%, rgba(232, 66, 36, 0.17) 0%, rgba(232, 66, 36, 0.07) 55%, rgba(232, 66, 36, 0) 85%),
+          linear-gradient(to bottom, rgba(232, 66, 36, 0.05), rgba(232, 66, 36, 0.08));
+      }
       #kpi-bg {
         background: radial-gradient(ellipse 80% 70% at 50% 42%, #eef8f1 0%, #e5f2e9 70%, #e1efe5 100%);
         clip-path: circle(0% at 50% 45%);
@@ -241,12 +246,12 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        color: var(--green-ink);
+        color: var(--piramal-navy);
       }
       #s1-eyebrow .bar {
         width: 28px;
         height: 2px;
-        background: var(--green);
+        background: var(--piramal);
       }
       #s1-logo-wrap {
         margin-top: 18px;
@@ -326,10 +331,11 @@
         border-radius: 50%;
       }
       #s1-hl {
-        left: 56px;
-        top: 696px;
-        font-size: 76px;
-        line-height: 1.04;
+        left: 50px;
+        top: 676px;
+        font-size: 82px;
+        line-height: 1.02;
+        letter-spacing: -0.028em;
       }
       #s1-hl .l2 {
         color: var(--ink);
@@ -343,13 +349,37 @@
         position: absolute;
         left: -2px;
         right: -2px;
-        bottom: 0.08em;
-        height: 0.16em;
-        background: rgba(232, 66, 36, 0.22);
+        bottom: 0.06em;
+        height: 0.2em;
+        background: rgba(232, 66, 36, 0.3);
         border-radius: 2px;
       }
       .mark .tx {
         position: relative;
+        color: #bf341a;
+      }
+      .mc .pp {
+        position: absolute;
+        right: 12px;
+        top: -11px;
+        height: 22px;
+        padding: 0 9px;
+        border-radius: 999px;
+        background: #fde3da;
+        color: #b5321a;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        box-shadow: 0 0 0 2px #fff;
+      }
+      .mc .pp i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #e84224;
       }
 
       /* ---------- CAMERA (scenes 2-5) ---------- */
@@ -1231,7 +1261,7 @@
         width: 220px;
         height: 60px;
         border-radius: 16px;
-        background: var(--green);
+        background: #1c9463;
         color: #fff;
         display: flex;
         align-items: center;
@@ -1443,7 +1473,7 @@
         height: 60px;
         padding: 0 28px;
         border-radius: 999px;
-        background: var(--green);
+        background: #1c9463;
         color: #fff;
         display: flex;
         align-items: center;
@@ -1460,13 +1490,14 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="46"
+      data-duration="30"
       data-width="1080"
       data-height="1080"
     >
-      <div id="stage" class="clip" data-start="0" data-duration="46" data-track-index="0">
+      <div id="stage" class="clip" data-start="0" data-duration="30" data-track-index="0">
         <div id="bg-grid" class="layer"></div>
         <div id="kpi-bg" class="layer"></div>
+        <div id="s1-tint" class="layer"></div>
 
         <!-- SCENE 1 — hook -->
         <div id="s1" class="layer">
@@ -1709,9 +1740,9 @@
         <div id="subs" class="abs"></div>
       </div>
 
-      <audio id="vo" class="clip" src="assets/audio/voiceover.wav" data-start="0" data-duration="44.43" data-track-index="10" data-volume="1.23"></audio>
-      <audio id="music" class="clip" src="assets/audio/music.wav" data-start="0" data-duration="46" data-track-index="11" data-volume="1.23"></audio>
-      <audio id="sfx" class="clip" src="assets/audio/sfx.wav" data-start="0" data-duration="46" data-track-index="12" data-volume="1.23"></audio>
+      <audio id="vo" class="clip" src="assets/audio/voiceover.wav" data-start="0" data-duration="28.54" data-track-index="10" data-volume="1.23"></audio>
+      <audio id="music" class="clip" src="assets/audio/music.wav" data-start="0" data-duration="30" data-track-index="11" data-volume="1.23"></audio>
+      <audio id="sfx" class="clip" src="assets/audio/sfx.wav" data-start="0" data-duration="30" data-track-index="12" data-volume="1.23"></audio>
     </div>
 
     <script>
@@ -1773,7 +1804,7 @@
             cells.push({ x, y, d: Math.hypot(dx, dy * 1.6) + ((c * 37 + r * 91) % 23) });
           }
         cells.sort((a, b) => a.d - b.d);
-        const stColors = ["#f0b58a", "#c9c3b8", "#9ccfb5", "#c9c3b8", "#f0b58a", "#a8c1ef"];
+        const stColors = ["#e84224", "#f08a5d", "#c9c3b8", "#e84224", "#f2a07b", "#c9c3b8"];
         cells.forEach((cell, i) => {
           const card = mk("div", "mc");
           card.style.left = cell.x + "px";
@@ -1786,6 +1817,11 @@
               '<div><div class="nm">' + rich[i][0] + '</div><div class="uc">' + rich[i][1] + "</div></div>";
           } else {
             card.innerHTML = av + '<div class="sk"><i></i><i></i></div>';
+          }
+          if (i < 26 && i % 2 === (i < 12 ? 1 : 0)) {
+            const pp = mk("span", "pp", "<i></i>PENDING");
+            card.appendChild(pp);
+            cell.pp = pp;
           }
           const st = mk("i", "st");
           st.style.background = stColors[i % stColors.length];
@@ -1936,22 +1972,10 @@
         });
 
         // ---------- subtitles ----------
-        const SUBS = [
-          [0.1, 3.02, "Piramal Finance was managing thousands of conversations"],
-          [3.02, 4.75, "across the loan lifecycle."],
-          [4.95, 7.66, "But manually following up on pending documents,"],
-          [7.66, 11.2, "payments, dropped applications and channel partners"],
-          [11.26, 13.6, "was difficult to scale consistently."],
-          [13.88, 17.05, "So they deployed DoubleTick AI Voice."],
-          [17.15, 19.5, "AI automatically reached customers,"],
-          [19.5, 22.2, "understood their requirements, captured intent"],
-          [22.2, 25.78, "and escalated complex conversations to the right RM."],
-          [25.88, 27.76, "At scale, this delivered:"],
-          [27.76, 31.12, "5,704+ calls attempted,"],
-          [31.18, 35.3, "1,343 completed customer conversations,"],
-          [35.4, 39.1, "and a 51.6% document follow-up connect rate."],
-          [39.22, 43.3, "From manual follow-ups to intelligent, scalable conversations."],
-        ];
+        /* @timemap:start — generated by scripts/build_vo.py */
+        const VMAP = [[0.0, 0.0], [4.6, 3.8683], [5.0, 4.1013], [11.6, 5.5632], [13.42, 7.0811], [13.92, 7.3172], [16.89, 9.8216], [17.21, 10.024], [18.46, 11.078], [21.07, 11.9887], [21.97, 12.7477], [22.27, 12.8826], [25.3, 15.4376], [27.84, 15.9435], [30.95, 18.566], [31.23, 18.7515], [35.13, 22.0402], [35.47, 22.2426], [38.9, 25.1349], [39.28, 25.371], [43.05, 28.55], [46.0, 30.0]];
+        const SUBS = [[0.014, 2.476, "Piramal Finance was managing thousands of conversations"], [2.476, 4.061, "across the loan lifecycle."], [4.061, 7.257, "But manually following up was difficult to scale consistently."], [7.257, 9.964, "So they deployed DoubleTick AI Voice."], [9.964, 12.823, "AI automatically reached customers, captured intent"], [12.823, 15.858, "and escalated complex conversations to the right RM."], [15.858, 18.692, "5,704+ calls attempted,"], [18.692, 22.183, "1,343 completed customer conversations,"], [22.183, 25.311, "and a 51.6% document follow-up connect rate."], [25.311, 28.77, "From manual follow-ups to intelligent, scalable conversations."]];
+        /* @timemap:end */
         const subsWrap = $("#subs");
         const SUBEL = SUBS.map((s) => {
           const e = mk("div", "sub", s[2]);
@@ -1962,7 +1986,32 @@
         // =====================================================================
         // TIMELINE
         // =====================================================================
-        const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+        // Old (46 s) choreography time → 30 s cut, piecewise linear over VMAP.
+        const M = (t) => {
+          for (let i = 1; i < VMAP.length; i++) {
+            const [o0, n0] = VMAP[i - 1];
+            const [o1, n1] = VMAP[i];
+            if (t <= o1) return n0 + ((t - o0) * (n1 - n0)) / (o1 - o0);
+          }
+          return VMAP[VMAP.length - 1][1];
+        };
+        const T = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+        // Scene choreography below is authored on the original word timings and
+        // remapped here: positions go through M, durations follow the local
+        // slope but never drop below a readable minimum.
+        const remap = (v, p) => {
+          const o = Object.assign({}, v);
+          const d = v.duration == null ? 0.5 : v.duration;
+          const nd = M(p + d) - M(p);
+          o.duration = Math.max(nd, Math.min(d, 0.22));
+          if (typeof v.stagger === "number" && d > 0) o.stagger = v.stagger * Math.max(nd / d, 0.5);
+          return o;
+        };
+        const tl = {
+          to: (tg, v, p) => T.to(tg, remap(v, p), M(p)),
+          fromTo: (tg, f, v, p) => T.fromTo(tg, f, remap(v, p), M(p)),
+          set: (tg, v, p) => T.set(tg, v, M(p)),
+        };
         const E = { out: "expo.out", io: "power3.inOut", soft: "power2.out", in: "power2.in" };
 
         // ---------- initial states ----------
@@ -1975,7 +2024,8 @@
                 gsap.set("#s1-logo", { scale: 1.05, transformOrigin: "0% 50%" });
         gsap.set("#s1-tilt", { rotationX: 30, rotationZ: -9, transformPerspective: 1500, scale: 1.02 });
         gsap.set(".mc", { opacity: 0, scale: 0.86, y: 16 });
-        gsap.set("#s1-hl", { y: 16 });
+        gsap.set("#s1-hl", { y: 18, scale: 1, transformOrigin: "0% 100%" });
+        gsap.set(".mc .pp", { opacity: 0, scale: 0.6, transformOrigin: "100% 50%" });
         gsap.set("#s1-hl .u", { scaleX: 0, transformOrigin: "0% 50%" });
         // scene 2
         gsap.set("#s2-hl .li", { yPercent: 110 });
@@ -2056,8 +2106,8 @@
 
         // ---------- subtitles ----------
         SUBS.forEach((s, i) => {
-          tl.to(SUBEL[i], { opacity: 1, duration: 0.18, ease: "none" }, s[0]);
-          tl.to(SUBEL[i], { opacity: 0, duration: 0.16, ease: "none" }, s[1] - 0.16);
+          T.to(SUBEL[i], { opacity: 1, duration: 0.16, ease: "none" }, s[0]);
+          T.to(SUBEL[i], { opacity: 0, duration: 0.14, ease: "none" }, s[1] - 0.14);
         });
 
         // =========== SCENE 1 (0 – 4.9) ===========
@@ -2071,10 +2121,17 @@
           }
           tl.to(cell.el, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: E.out }, 0.1 + (i - 12) * 0.028);
         });
-        tl.to("#s1-grid", { x: -70, y: -24, duration: 4.9, ease: "none" }, 0);
-        tl.to("#s1-tilt", { scale: 1.1, duration: 4.45, ease: "power1.inOut" }, 0);
+        tl.to("#s1-grid", { x: -120, y: -40, duration: 4.9, ease: "none" }, 0);
+        tl.to("#s1-tilt", { scale: 1.2, duration: 4.45, ease: "power1.inOut" }, 0);
+        // pile-up: PENDING flags keep popping across the field
+        cells.filter((c) => c.pp).forEach((c, k) => {
+          tl.to(c.pp, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 0.25 + k * 0.17);
+        });
+        // red tint: full on the hook, eases through the problem, gone before the solution
+        tl.to("#s1-tint", { opacity: 0.5, duration: 0.8, ease: "none" }, 4.6);
+        tl.to("#s1-tint", { opacity: 0, duration: 0.6, ease: "none" }, 12.9);
         // headline
-        tl.to("#s1-hl", { y: 0, duration: 2.2, ease: E.soft }, 0);
+        tl.to("#s1-hl", { y: 0, scale: 1.03, duration: 4.4, ease: E.soft }, 0);
         tl.to("#s1-hl .u", { scaleX: 1, duration: 0.7, ease: E.io }, 2.45);
         // exit to scene 2
         tl.to("#s1-top, #s1-hl", { opacity: 0, y: -16, duration: 0.45, ease: E.in }, 4.5);
@@ -2309,7 +2366,7 @@
         tl.to("#end-rule", { scaleX: 1, duration: 0.8, ease: E.io }, 43.95);
         tl.to("#end-lock > *", { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: E.out }, 44.15);
 
-        window.__timelines["main"] = tl;
+        window.__timelines["main"] = T;
       })();
     </script>
   </body>
