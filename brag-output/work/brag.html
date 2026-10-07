@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root {
+    --ink: #070B14;
+    --green: #19C37D;
+    --green-2: #0E9F63;
+    --violet: #8B7CFF;
+    --text: #F4F6FB;
+    --muted: #93A0B8;
+    --card: rgba(255,255,255,0.06);
+    --line: rgba(255,255,255,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--ink); }
+  body { font-family: "Inter", sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; }
+  #stage { position: relative; width: 1080px; height: 1080px; overflow: hidden; background: var(--ink); }
+  .abs { position: absolute; }
+  .glow { position: absolute; border-radius: 50%; filter: blur(80px); will-change: transform; }
+  #grid { inset: 0; background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 60px 60px;
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 75%);
+  }
+  .display { font-family: "Inter Display", "Inter", sans-serif; font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; }
+  .line { display: block; overflow: hidden; padding-bottom: 8px; }
+  .word { display: inline-block; will-change: transform; }
+
+  /* Scene 1 — call card */
+  #callcard { left: 210px; top: 470px; width: 660px; height: 400px; border-radius: 44px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+    border: 1px solid var(--line); box-shadow: 0 40px 120px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; align-items: center; padding-top: 44px; }
+  #avatarWrap { position: relative; width: 132px; height: 132px; }
+  .ring { position: absolute; left: 50%; top: 50%; width: 132px; height: 132px; margin: -66px 0 0 -66px;
+    border-radius: 50%; border: 3px solid var(--green); }
+  #avatar { position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(135deg, #2A3550, #1A2236);
+    display: grid; place-items: center; font-weight: 700; font-size: 54px; color: #DDE3F0; border: 2px solid var(--line); }
+  #callLabel { margin-top: 26px; font-size: 25px; color: var(--muted); font-weight: 500; display: flex; align-items: center; gap: 10px; }
+  #callName { margin-top: 6px; font-size: 40px; font-weight: 700; letter-spacing: -0.02em; }
+  #btns { position: absolute; bottom: -46px; display: flex; gap: 120px; }
+  .btn { width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 16px 40px rgba(0,0,0,0.45); }
+  .btn.dec { background: #EF4F5A; }
+  .btn.acc { background: var(--green); }
+  .btn svg { width: 46px; height: 46px; }
+  #tapDot { width: 70px; height: 70px; border-radius: 50%; background: rgba(255,255,255,0.85); }
+
+  /* Orb */
+  #orb { width: 240px; height: 240px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffffff 0%, #CFC8FF 12%, var(--violet) 42%, #3A2E9A 75%, #1A1550 100%);
+    box-shadow: 0 0 80px rgba(139,124,255,0.65), 0 0 200px rgba(25,195,125,0.25), inset -20px -30px 60px rgba(0,0,0,0.35); }
+  #orbHalo { width: 240px; height: 240px; border-radius: 50%; border: 2px solid rgba(139,124,255,0.5); }
+  #bars { width: 1080px; height: 140px; display: flex; align-items: center; justify-content: center; gap: 7px; }
+  .bar { width: 9px; border-radius: 6px; background: linear-gradient(180deg, var(--green), var(--violet)); }
+  #liveTag { font-size: 24px; font-weight: 600; color: var(--muted); display: flex; align-items: center; gap: 12px; letter-spacing: 0.01em; }
+  #liveDot { width: 14px; height: 14px; border-radius: 50%; background: var(--green); box-shadow: 0 0 14px var(--green); }
+
+  .bubble { max-width: 620px; padding: 22px 30px; border-radius: 30px; font-size: 36px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; }
+  .bubble.ai { background: linear-gradient(135deg, rgba(139,124,255,0.28), rgba(139,124,255,0.14)); border: 1px solid rgba(139,124,255,0.45); border-bottom-left-radius: 8px; }
+  .bubble.cu { background: rgba(255,255,255,0.92); color: #0B1222; border-bottom-right-radius: 8px; }
+  .who { font-size: 18px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; opacity: 0.7; }
+  .bubble.ai .who { color: #CFC8FF; }
+  .bubble.cu .who { color: #4B5875; }
+  .chip { padding: 14px 26px; border-radius: 999px; font-size: 26px; font-weight: 700; border: 1.5px solid var(--line); background: rgba(255,255,255,0.05); }
+  .chip.on { border-color: var(--green); color: var(--green); background: rgba(25,195,125,0.12); }
+
+  /* Scene 3 */
+  .chan { width: 150px; height: 150px; border-radius: 40px; display: grid; place-items: center; box-shadow: 0 20px 50px rgba(0,0,0,0.45); }
+  .chan svg { width: 76px; height: 76px; }
+  .chanLabel { font-size: 24px; font-weight: 700; color: var(--muted); text-align: center; margin-top: 14px; }
+  #crm { left: 220px; top: 700px; width: 640px; border-radius: 34px; padding: 30px 36px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05)); border: 1px solid var(--line);
+    box-shadow: 0 30px 90px rgba(0,0,0,0.5); }
+  #crmHead { display: flex; justify-content: space-between; align-items: center; font-size: 22px; color: var(--muted); font-weight: 600; margin-bottom: 18px; }
+  #crmHead b { color: var(--text); font-size: 28px; letter-spacing: -0.01em; }
+  .row { display: flex; align-items: center; gap: 18px; font-size: 30px; font-weight: 600; padding: 10px 0; }
+  .tick { width: 40px; height: 40px; border-radius: 50%; background: var(--green); display: grid; place-items: center; }
+  .tick svg { width: 24px; height: 24px; }
+
+  /* Scene 4 */
+  #mark { width: 220px; height: 150px; }
+  #mark path { fill: none; stroke: var(--green); stroke-width: 22; stroke-linecap: round; stroke-linejoin: round; }
+  #word { font-size: 104px; }
+  #pill { padding: 12px 30px; border-radius: 999px; background: linear-gradient(90deg, var(--green), var(--violet)); color: #061009; font-weight: 800; font-size: 34px; letter-spacing: -0.01em; }
+  #tagline { font-size: 58px; color: var(--text); }
+  #url { font-size: 30px; font-weight: 600; color: var(--muted); letter-spacing: 0.02em; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="glow" id="g1" style="width:700px;height:700px;background:rgba(139,124,255,0.35)"></div>
+  <div class="glow" id="g2" style="width:640px;height:640px;background:rgba(25,195,125,0.28)"></div>
+  <div class="abs" id="grid"></div>
+
+  <!-- Scene 1 -->
+  <div class="abs display" id="h1" style="left:0;width:1080px;top:130px;text-align:center;font-size:96px">
+    <span class="line"><span class="word">Your</span> <span class="word">customer</span></span>
+    <span class="line"><span class="word">is</span> <span class="word" style="color:var(--green)">calling.</span></span>
+  </div>
+  <div class="abs" id="callcard">
+    <div id="avatarWrap">
+      <div class="ring" id="r1"></div><div class="ring" id="r2"></div><div class="ring" id="r3"></div>
+      <div id="avatar">R</div>
+    </div>
+    <div id="callLabel">
+      <svg width="26" height="26" viewBox="0 0 24 24"><path fill="#19C37D" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path fill="#fff" d="M9.2 7.4c.2-.4.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.6 1 1.3 1.7 2.3 2.3.3.2.5.1.6 0l.8-.9c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.2.4.4 0 .5-.2 1.1-.6 1.4-.5.4-1.2.7-2 .6-1.6-.3-3.4-1.4-4.6-2.9-1-1.2-1.5-2.4-1.5-3.2 0-.8.4-1.4.5-1.7z"/></svg>
+      Incoming WhatsApp call
+    </div>
+    <div id="callName">Rohan · Customer</div>
+    <div id="btns">
+      <div class="btn dec"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 9c-1.6 0-3.1.3-4.5.7v3.1c0 .4-.2.7-.6.9-.9.4-1.7 1-2.4 1.6-.2.2-.4.3-.7.3-.3 0-.5-.1-.7-.3L.3 12.9c-.2-.2-.3-.4-.3-.7 0-.3.1-.5.3-.7C3.3 8.6 7.5 7 12 7s8.7 1.6 11.7 4.5c.2.2.3.4.3.7 0 .3-.1.5-.3.7l-2.5 2.4c-.2.2-.4.3-.7.3-.3 0-.5-.1-.7-.3-.7-.7-1.5-1.2-2.4-1.6-.3-.2-.6-.5-.6-.9V9.7C15.1 9.3 13.6 9 12 9z"/></svg></div>
+      <div class="btn acc" id="acc"><svg viewBox="0 0 24 24"><path fill="#fff" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></div>
+    </div>
+  </div>
+  <div class="abs" id="tapDot"></div>
+
+  <!-- Orb (shared across scenes 2–4) -->
+  <div class="abs" id="orbHalo"></div>
+  <div class="abs" id="orb"></div>
+  <div class="abs" id="bars"></div>
+  <div class="abs" id="liveTag"><span id="liveDot"></span><span>AI agent · on call</span><span id="timer" style="color:var(--text);font-variant-numeric:tabular-nums">00:01</span></div>
+
+  <div class="abs bubble ai" id="b1" style="left:90px;top:520px"><div class="who">AI agent</div>Namaste! How can I help?</div>
+  <div class="abs bubble cu" id="b2" style="right:90px;top:665px"><div class="who">Rohan</div>Order kab tak aayega?</div>
+  <div class="abs bubble ai" id="b3" style="left:90px;top:810px"><div class="who">AI agent</div>Aaj dispatch ho raha hai ✓</div>
+
+  <div class="abs" id="chips" style="left:0;width:1080px;top:978px;display:flex;justify-content:center;gap:16px">
+    <div class="chip on" id="c1">Hindi</div><div class="chip on" id="c2">English</div><div class="chip on" id="c3">Mixed</div>
+  </div>
+
+  <!-- Scene 3 -->
+  <div class="abs display" id="h3" style="left:0;width:1080px;top:96px;text-align:center;font-size:76px">
+    <span class="line"><span class="word">WhatsApp</span> <span class="word">+</span> <span class="word">phone</span> <span class="word">calls.</span></span>
+    <span class="line"><span class="word" style="color:var(--green)">One</span> <span class="word" style="color:var(--green)">AI</span> <span class="word" style="color:var(--green)">agent.</span></span>
+  </div>
+  <div class="abs" id="chWA"><div class="chan" style="background:var(--green)"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/><path fill="#fff" d="M9.2 7.4c.2-.4.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.6 1 1.3 1.7 2.3 2.3.3.2.5.1.6 0l.8-.9c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.2.4.4 0 .5-.2 1.1-.6 1.4-.5.4-1.2.7-2 .6-1.6-.3-3.4-1.4-4.6-2.9-1-1.2-1.5-2.4-1.5-3.2 0-.8.4-1.4.5-1.7z"/></svg></div><div class="chanLabel">WhatsApp</div></div>
+  <div class="abs" id="chPH"><div class="chan" style="background:#F4F6FB"><svg viewBox="0 0 24 24"><path fill="#0B1222" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></div><div class="chanLabel">Phone</div></div>
+  <div class="abs" id="crm">
+    <div id="crmHead"><b>Call logged to CRM</b><span>Rohan · 00:42</span></div>
+    <div class="row" id="k1"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#061009" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Transcript</div>
+    <div class="row" id="k2"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#061009" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Outcome</div>
+    <div class="row" id="k3"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#061009" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Next step</div>
+  </div>
+
+  <!-- Scene 4 -->
+  <div class="abs" id="outro" style="left:0;width:1080px;top:0;height:1080px">
+    <svg id="mark" class="abs" style="left:430px;top:250px" viewBox="0 0 220 150">
+      <path id="t1" d="M18 82 L58 122 L140 30"/>
+      <path id="t2" d="M98 112 L108 122 L196 30"/>
+    </svg>
+    <div class="abs display" id="word" style="left:0;width:1080px;top:430px;text-align:center"><span class="word">Double</span><span class="word" style="color:var(--green)">Tick</span></div>
+    <div class="abs" id="pillWrap" style="left:0;width:1080px;top:568px;display:flex;justify-content:center"><div id="pill">AI Voice</div></div>
+    <div class="abs display" id="tagline" style="left:0;width:1080px;top:700px;text-align:center"><span class="line"><span class="word">Answers</span> <span class="word">every</span> <span class="word">call.</span></span></div>
+    <div class="abs" id="url" style="left:0;width:1080px;top:830px;text-align:center">doubletick.io</div>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, t) => a + (b - a) * t;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const eOut = (x) => 1 - Math.pow(1 - x, 3);
+const eIn = (x) => x * x * x;
+const eInOut = (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eBack = (x) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+// damped spring 0 -> 1
+const spring = (x, k = 9, d = 5.5) => x <= 0 ? 0 : 1 - Math.exp(-d * x) * Math.cos(k * x);
+const set = (el, o) => { for (const k in o) el.style[k] = o[k]; };
+
+// deterministic "voice" amplitude
+const voice = (t) => {
+  const v = 0.5 + 0.25 * Math.sin(t * 17.3) + 0.15 * Math.sin(t * 31.7 + 1.3) + 0.1 * Math.sin(t * 7.1 + 0.4);
+  return clamp(v);
+};
+
+// build waveform bars
+const NB = 44;
+const bars = [];
+for (let i = 0; i < NB; i++) { const b = document.createElement('div'); b.className = 'bar'; $('bars').appendChild(b); bars.push(b); }
+
+function words(container, t, start, step, dur = 0.45, outStart = Infinity, outDur = 0.3) {
+  const ws = container.querySelectorAll('.word');
+  ws.forEach((w, i) => {
+    const p = spring(prog(t, start + i * step, start + i * step + dur * 1.6), 10, 6);
+    const o = Number.isFinite(outStart) ? eIn(prog(t, outStart + i * 0.03, outStart + i * 0.03 + outDur)) : 0;
+    const y = (1 - p) * 110 - o * 90;
+    set(w, { transform: `translateY(${y}px)`, opacity: String(clamp(prog(t, start + i * step, start + i * step + 0.15)) * (1 - o)) });
+  });
+}
+
+function render(t) {
+  // ---------- background ----------
+  set($('g1'), { left: `${lerp(-120, 520, 0.5 + 0.5 * Math.sin(t * 0.55))}px`, top: `${lerp(-200, 420, 0.5 + 0.5 * Math.cos(t * 0.4))}px` });
+  set($('g2'), { left: `${lerp(560, 40, 0.5 + 0.5 * Math.sin(t * 0.45 + 2))}px`, top: `${lerp(560, 80, 0.5 + 0.5 * Math.cos(t * 0.6 + 1))}px` });
+  set($('grid'), { transform: `translateY(${(t * 18) % 60}px)`, opacity: String(0.9) });
+
+  // ---------- Scene 1: ring (0 – 2.3) ----------
+  words($('h1'), t, 0.1, 0.12, 0.45, 1.85, 0.28);
+  const cardIn = spring(prog(t, 0.0, 0.9), 9, 5);
+  const cardOut = eInOut(prog(t, 1.95, 2.45));
+  const shake = t < 1.75 ? Math.sin(t * 46) * 2.2 * clamp(prog(t, 0.3, 0.5)) * (Math.sin(t * 6.2) > -0.2 ? 1 : 0.15) : 0;
+  const pressT = prog(t, 1.62, 1.82);
+  set($('callcard'), {
+    transform: `translateY(${(1 - cardIn) * 380 - cardOut * 385}px) rotate(${shake}deg) scale(${lerp(1, 0.38, cardOut)})`,
+    opacity: String(clamp(prog(t, 0, 0.2)) * (1 - prog(t, 2.15, 2.45))),
+    borderRadius: `${lerp(44, 200, cardOut)}px`,
+  });
+  ['r1', 'r2', 'r3'].forEach((id, i) => {
+    const ph = ((t * 1.15 + i / 3) % 1);
+    const alive = t < 1.8 ? 1 : 1 - prog(t, 1.8, 2.0);
+    set($(id), { transform: `scale(${1 + ph * 1.5})`, opacity: String((1 - ph) * 0.9 * alive * clamp(prog(t, 0.3, 0.5))) });
+  });
+  const accPulse = t < 1.6 ? 1 + 0.06 * Math.sin(t * 12) : 1 - 0.14 * Math.sin(Math.PI * pressT);
+  set($('acc'), { transform: `scale(${accPulse})`, boxShadow: `0 0 ${t > 1.72 ? 60 * (1 - prog(t, 1.72, 2.1)) : 0}px ${t > 1.72 ? 20 * (1 - prog(t, 1.72, 2.1)) : 0}px rgba(25,195,125,0.8), 0 16px 40px rgba(0,0,0,0.45)` });
+  // simulated tap: finger dot moves to accept button (center ≈ 210+330+112=652?, see layout)
+  const tapIn = eOut(prog(t, 1.15, 1.6));
+  const tapAlpha = clamp(prog(t, 1.15, 1.3)) * (1 - prog(t, 1.85, 2.0));
+  set($('tapDot'), {
+    left: `${lerp(900, 652, tapIn) - 35}px`, top: `${lerp(1060, 864, tapIn) - 35}px`,
+    transform: `scale(${1 - 0.25 * Math.sin(Math.PI * pressT)})`, opacity: String(tapAlpha * 0.9),
+  });
+
+  // ---------- Orb (2.1 – end) ----------
+  // positions: s2 top (cy 270), s3 center (cy 470), s4 grow into background
+  const orbIn = spring(prog(t, 2.2, 3.0), 8, 5);
+  const toS3 = eInOut(prog(t, 5.0, 5.6));
+  const toS4 = eInOut(prog(t, 7.4, 8.0));
+  const amp = (t > 2.4 && t < 5.1) ? voice(t) : 0.25 + 0.1 * Math.sin(t * 5);
+  const hit = Math.max(Math.exp(-12 * Math.max(0, t - 5.62)) * (t > 5.62 ? 1 : 0), 0);
+  let r = lerp(0, 1, orbIn) * (lerp(1, 0.78, toS3)) * (1 + amp * 0.08 + hit * 0.18);
+  r *= lerp(1, 0.0, toS4);
+  const cy = lerp(lerp(285, 485, toS3), 470, toS4);
+  const orbOpacity = clamp(prog(t, 2.2, 2.35));
+  set($('orb'), { left: `${540 - 120}px`, top: `${cy - 120}px`, transform: `scale(${r}) rotate(${t * 40}deg)`, opacity: String(orbOpacity) });
+  const haloPh = (t * 0.9) % 1;
+  set($('orbHalo'), { left: `${540 - 120}px`, top: `${cy - 120}px`, transform: `scale(${r * (1 + haloPh * 0.8)})`, opacity: String((1 - haloPh) * 0.8 * orbOpacity) });
+
+  // waveform bars (scene 2)
+  const barsIn = eOut(prog(t, 2.4, 2.9));
+  const barsOut = eIn(prog(t, 4.95, 5.25));
+  set($('bars'), { left: '0px', top: `${285 - 70}px`, opacity: String(barsIn * (1 - barsOut)) });
+  bars.forEach((b, i) => {
+    const x = (i - (NB - 1) / 2) / ((NB - 1) / 2);
+    const gap = Math.abs(x) < 0.32 ? 0 : 1; // hide behind orb
+    const h = 10 + gap * barsIn * (1 - barsOut) * (110 * (1 - Math.abs(x) * 0.55)) * (0.25 + 0.75 * Math.abs(Math.sin(t * 9 + i * 0.7) * voice(t + i * 0.05)));
+    set(b, { height: `${h}px`, opacity: String(gap ? 1 : 0) });
+  });
+  const tagIn = eOut(prog(t, 2.55, 2.95));
+  set($('liveTag'), { left: '0px', width: '1080px', justifyContent: 'center', top: '432px', opacity: String(tagIn * (1 - prog(t, 4.95, 5.2))), transform: `translateY(${(1 - tagIn) * 20}px)` });
+  const secs = Math.max(1, Math.floor((t - 2.3) * 1.0) + 1);
+  $('timer').textContent = `00:0${Math.min(9, secs)}`;
+
+  // bubbles
+  [['b1', 2.75, -1], ['b2', 3.35, 1], ['b3', 3.95, -1]].forEach(([id, s, dir], i) => {
+    const p = spring(prog(t, s, s + 0.7), 11, 6);
+    const o = eIn(prog(t, 4.9 + i * 0.03, 5.1 + i * 0.03));
+    set($(id), {
+      transform: `translate(${dir * (1 - p) * 60}px, ${(1 - p) * 40 + o * 60}px) scale(${lerp(0.7, 1, p)})`,
+      opacity: String(clamp(prog(t, s, s + 0.12)) * (1 - o)),
+      transformOrigin: dir < 0 ? 'left bottom' : 'right bottom',
+    });
+  });
+  ['c1', 'c2', 'c3'].forEach((id, i) => {
+    const s = 4.25 + i * 0.1;
+    const p = spring(prog(t, s, s + 0.6), 12, 6);
+    const o = eIn(prog(t, 4.9, 5.1));
+    set($(id), { transform: `translateY(${(1 - p) * 40 + o * 40}px) scale(${lerp(0.6, 1, p)})`, opacity: String(clamp(prog(t, s, s + 0.1)) * (1 - o)) });
+  });
+
+  // ---------- Scene 3: channels + CRM (5.1 – 7.6) ----------
+  words($('h3'), t, 5.2, 0.07, 0.4, 7.35, 0.3);
+  const fly = (id, side) => {
+    const p = eInOut(prog(t, 5.2, 5.62));
+    const sx = side * 560, ex = 0;
+    const x = lerp(sx, ex + side * 0, p);
+    const settle = spring(prog(t, 5.62, 6.4), 9, 6);
+    // after merge, they sit beside the orb
+    const finalX = side * 250;
+    const xx = t < 5.62 ? x : lerp(0, finalX, settle);
+    const yy = 485 - 75 - (t < 5.62 ? Math.sin(Math.PI * p) * 80 : 0);
+    const sc = t < 5.62 ? lerp(1, 0.55, p) : lerp(0.55, 0.78, settle);
+    const o = clamp(prog(t, 5.2, 5.32)) * (1 - prog(t, 7.35, 7.6));
+    set($(id), { left: `${540 - 75 + xx}px`, top: `${yy}px`, transform: `scale(${sc}) rotate(${t < 5.62 ? side * -20 * (1 - p) : 0}deg)`, opacity: String(o) });
+  };
+  fly('chWA', -1); fly('chPH', 1);
+  const crmIn = spring(prog(t, 6.15, 6.85), 9, 6);
+  const crmOut = eIn(prog(t, 7.35, 7.65));
+  set($('crm'), { transform: `translateY(${(1 - crmIn) * 300 + crmOut * 80}px)`, opacity: String(clamp(prog(t, 6.15, 6.3)) * (1 - crmOut)) });
+  ['k1', 'k2', 'k3'].forEach((id, i) => {
+    const s = 6.45 + i * 0.17;
+    const p = spring(prog(t, s, s + 0.5), 12, 6);
+    set($(id), { opacity: String(clamp(prog(t, s, s + 0.1))), transform: `translateX(${(1 - p) * 40}px)` });
+    set($(id).querySelector('.tick'), { transform: `scale(${p})` });
+  });
+
+  // ---------- Scene 4: outro (7.6 – 10) ----------
+  const markLen = 220;
+  [['t1', 7.7], ['t2', 7.92]].forEach(([id, s]) => {
+    const p = eOut(prog(t, s, s + 0.4));
+    set($(id), { strokeDasharray: `${markLen}`, strokeDashoffset: `${(1 - p) * markLen}` });
+  });
+  const markPop = spring(prog(t, 7.7, 8.5), 8, 5);
+  set($('mark'), { opacity: String(clamp(prog(t, 7.68, 7.75))), transform: `scale(${lerp(0.6, 1, markPop)})` });
+  words($('word'), t, 8.05, 0.1, 0.45);
+  const pill = spring(prog(t, 8.3, 9.0), 10, 6);
+  set($('pill'), { transform: `scale(${pill})`, opacity: String(clamp(prog(t, 8.3, 8.4))) });
+  words($('tagline'), t, 8.45, 0.1, 0.45);
+  const u = eOut(prog(t, 8.8, 9.2));
+  set($('url'), { opacity: String(u), transform: `translateY(${(1 - u) * 20}px)` });
+  // background glow pulse on outro arrival
+  const flash = t > 7.62 ? Math.exp(-6 * (t - 7.62)) : 0;
+  set($('stage'), { background: `radial-gradient(circle at 50% ${lerp(48, 44, toS4)}%, rgba(139,124,255,${0.15 * toS4 + 0.25 * flash}), #070B14 ${lerp(30, 70, toS4)}%)` });
+}
+window.render = render;
+window.ready = document.fonts.ready.then(() => true);
+render(0);
+</script>
+</body>
+</html>
