@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        [data-composition-id="bg"] {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background:
+            radial-gradient(1100px 700px at 78% 18%, rgba(37, 211, 102, 0.16), transparent 60%),
+            radial-gradient(900px 640px at 12% 92%, rgba(52, 183, 241, 0.12), transparent 60%),
+            var(--dt-ink);
+        }
+        #bg-grid {
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(var(--dt-line) 1px, transparent 1px),
+            linear-gradient(90deg, var(--dt-line) 1px, transparent 1px);
+          background-size: 80px 80px;
+          mask-image: radial-gradient(circle at 50% 50%, black 20%, transparent 75%);
+          opacity: 0.55;
+        }
+      </style>
+      <div id="bg-root" data-composition-id="bg" data-width="1920" data-height="1080">
+        <div id="bg-grid" data-layout-allow-overflow="true"></div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#bg-grid", { scale: 1.08 }, { scale: 1, duration: 10, ease: "none" }, 0);
+          window.__timelines["bg"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

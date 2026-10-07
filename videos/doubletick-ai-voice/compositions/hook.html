@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        [data-composition-id="hook"] {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #hook-wrap {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 56px;
+        }
+        #hook-phone {
+          position: relative;
+          width: 240px;
+          height: 240px;
+          display: grid;
+          place-items: center;
+        }
+        .hook-ring {
+          position: absolute;
+          inset: 0;
+          border-radius: 50%;
+          border: 3px solid var(--dt-green);
+          opacity: 0;
+        }
+        #hook-core {
+          width: 168px;
+          height: 168px;
+          border-radius: 50%;
+          background: var(--dt-green);
+          display: grid;
+          place-items: center;
+          box-shadow: 0 20px 60px rgba(37, 211, 102, 0.35);
+        }
+        #hook-core svg {
+          width: 76px;
+          height: 76px;
+        }
+        #hook-text {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+          text-align: center;
+        }
+        .hook-line {
+          display: block;
+          font-size: 112px;
+          font-weight: 800;
+          letter-spacing: -0.035em;
+          line-height: 1.05;
+        }
+        #hook-l2 {
+          color: var(--dt-muted);
+        }
+        #hook-l2 em {
+          font-style: normal;
+          color: var(--dt-green);
+        }
+      </style>
+      <div id="hook-root" data-composition-id="hook" data-width="1920" data-height="1080">
+        <div id="hook-wrap">
+          <div id="hook-phone">
+            <div class="hook-ring" id="hook-ring-1"></div>
+            <div class="hook-ring" id="hook-ring-2"></div>
+            <div class="hook-ring" id="hook-ring-3"></div>
+            <div id="hook-core">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"
+                  fill="#0b1220"
+                />
+              </svg>
+            </div>
+          </div>
+          <div id="hook-text">
+            <span class="hook-line" id="hook-l1">Your customers are calling.</span>
+            <span class="hook-line" id="hook-l2">Who's <em>picking up?</em></span>
+          </div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo(
+            "#hook-core",
+            { scale: 0.4, opacity: 0, rotation: 0 },
+            { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(2)" },
+            0.1,
+          );
+          ["#hook-ring-1", "#hook-ring-2", "#hook-ring-3"].forEach((r, i) => {
+            tl.fromTo(
+              r,
+              { scale: 0.7, opacity: 0.8 },
+              { scale: 1.9, opacity: 0, duration: 1.2, ease: "power2.out", repeat: 1 },
+              0.35 + i * 0.3,
+            );
+          });
+          // phone "ring" wiggle
+          tl.to(
+            "#hook-core",
+            { rotation: 12, duration: 0.08, ease: "sine.inOut", yoyo: true, repeat: 9 },
+            0.7,
+          );
+          tl.fromTo(
+            "#hook-l1",
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+            0.35,
+          );
+          tl.fromTo(
+            "#hook-l2",
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+            1.05,
+          );
+          tl.to("#hook-wrap", { opacity: 0, scale: 0.94, duration: 0.35, ease: "power2.in" }, 2.5);
+          window.__timelines["hook"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

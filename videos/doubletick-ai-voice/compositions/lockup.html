@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        [data-composition-id="lockup"] {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #lockup-wrap {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 48px;
+          text-align: center;
+        }
+        #lockup-row {
+          display: flex;
+          align-items: center;
+          gap: 36px;
+        }
+        #lockup-mark {
+          width: 210px;
+          height: 210px;
+          border-radius: 54px;
+          background: var(--dt-green);
+          display: grid;
+          place-items: center;
+          box-shadow: 0 30px 80px rgba(37, 211, 102, 0.35);
+        }
+        #lockup-mark svg {
+          width: 150px;
+          height: 100px;
+        }
+        #lockup-word {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+        #lockup-name {
+          font-size: 156px;
+          font-weight: 800;
+          letter-spacing: -0.045em;
+          line-height: 1;
+        }
+        #lockup-tag {
+          font-size: 40px;
+          font-weight: 800;
+          letter-spacing: 0.02em;
+          padding: 8px 22px;
+          border-radius: 999px;
+          background: var(--dt-white);
+          color: var(--dt-ink);
+        }
+        #lockup-tagline {
+          font-size: 66px;
+          font-weight: 700;
+          letter-spacing: -0.02em;
+        }
+        #lockup-tagline span {
+          color: var(--dt-green);
+        }
+        #lockup-cta {
+          font-size: 38px;
+          font-weight: 700;
+          padding: 20px 44px;
+          border-radius: 999px;
+          border: 2px solid var(--dt-green);
+          color: var(--dt-green);
+        }
+      </style>
+      <div id="lockup-root" data-composition-id="lockup" data-width="1920" data-height="1080">
+        <div id="lockup-wrap">
+          <div id="lockup-row">
+            <div id="lockup-mark">
+              <svg viewBox="0 0 120 80" fill="none" aria-hidden="true">
+                <path
+                  id="lockup-tick-1"
+                  d="M8 42l20 20L68 14"
+                  stroke="#0b1220"
+                  stroke-width="11"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  pathLength="1"
+                  stroke-dasharray="1"
+                />
+                <path
+                  id="lockup-tick-2"
+                  d="M50 56l6 6L112 14"
+                  stroke="#0b1220"
+                  stroke-width="11"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  pathLength="1"
+                  stroke-dasharray="1"
+                />
+              </svg>
+            </div>
+            <div id="lockup-word">
+              <div id="lockup-name">DoubleTick</div>
+              <div id="lockup-tag">AI VOICE</div>
+            </div>
+          </div>
+          <div id="lockup-tagline">Never miss a <span>customer call</span> again.</div>
+          <div id="lockup-cta">Try it free at doubletick.io</div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo(
+            "#lockup-mark",
+            { scale: 0.5, opacity: 0, rotation: -12, y: 0 },
+            { scale: 1, opacity: 1, rotation: 0, duration: 0.6, ease: "back.out(1.8)" },
+            0.1,
+          );
+          tl.fromTo(
+            "#lockup-tick-1",
+            { strokeDashoffset: 1 },
+            { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" },
+            0.4,
+          );
+          tl.fromTo(
+            "#lockup-tick-2",
+            { strokeDashoffset: 1 },
+            { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" },
+            0.6,
+          );
+          tl.fromTo(
+            "#lockup-name",
+            { x: -40, opacity: 0 },
+            { x: 0, opacity: 1, duration: 0.55, ease: "power3.out" },
+            0.35,
+          );
+          tl.fromTo(
+            "#lockup-tag",
+            { y: 16, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.45, ease: "back.out(2)" },
+            0.65,
+          );
+          tl.fromTo(
+            "#lockup-tagline",
+            { y: 30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" },
+            1.0,
+          );
+          tl.fromTo(
+            "#lockup-cta",
+            { y: 20, opacity: 0, scale: 0.94 },
+            { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" },
+            1.35,
+          );
+          tl.to(
+            "#lockup-mark",
+            { y: -8, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1 },
+            1.5,
+          );
+          window.__timelines["lockup"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
