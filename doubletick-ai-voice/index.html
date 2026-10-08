@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #06110f;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        color: #f2fbf7;
+        background:
+          radial-gradient(circle at 70% 45%, rgba(18, 140, 110, 0.28), transparent 55%),
+          radial-gradient(circle at 15% 90%, rgba(37, 211, 102, 0.12), transparent 50%),
+          #06110f;
+      }
+
+      /* ---------- left copy ---------- */
+      .copy {
+        position: absolute;
+        left: 140px;
+        top: 50%;
+        width: 760px;
+        transform: translateY(-50%);
+      }
+      .copy .kicker {
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #4ee39a;
+        margin-bottom: 24px;
+      }
+      .copy h2 {
+        font-size: 92px;
+        line-height: 1.02;
+        font-weight: 800;
+        letter-spacing: -0.035em;
+      }
+      .copy h2 em {
+        font-style: normal;
+        color: #4ee39a;
+      }
+      #copyB,
+      #copyC {
+        opacity: 0;
+      }
+
+      /* ---------- phone ---------- */
+      #phone {
+        position: absolute;
+        left: 1130px;
+        top: 110px;
+        width: 430px;
+        height: 860px;
+        border-radius: 64px;
+        background: #0d1715;
+        border: 10px solid #1d2a27;
+        box-shadow:
+          0 40px 120px rgba(0, 0, 0, 0.6),
+          0 0 0 2px #2c3b37;
+        overflow: hidden;
+        z-index: 5;
+      }
+      #phone .notch {
+        position: absolute;
+        top: 16px;
+        left: 50%;
+        width: 120px;
+        height: 32px;
+        margin-left: -60px;
+        border-radius: 20px;
+        background: #000;
+        z-index: 3;
+      }
+      .screen {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      /* incoming call */
+      #incoming {
+        background: linear-gradient(180deg, #1b2c3a 0%, #0f1a22 100%);
+        padding-top: 150px;
+      }
+      .avatar-wrap {
+        position: relative;
+        width: 170px;
+        height: 170px;
+      }
+      .pulse {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.5);
+      }
+      .avatar {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff9a62, #e8556d);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 64px;
+        font-weight: 700;
+      }
+      .caller {
+        margin-top: 40px;
+        font-size: 44px;
+        font-weight: 700;
+      }
+      .caller-sub {
+        margin-top: 10px;
+        font-size: 26px;
+        color: #b8c7d1;
+      }
+      .call-btns {
+        position: absolute;
+        bottom: 110px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-around;
+      }
+      .btn {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .btn svg {
+        width: 58px;
+        height: 58px;
+      }
+      #declineBtn {
+        background: #ff3b30;
+      }
+      #acceptBtn {
+        background: #34c759;
+      }
+      .btn-label {
+        text-align: center;
+        margin-top: 14px;
+        font-size: 22px;
+        color: #eef3f6;
+      }
+      #tap {
+        position: absolute;
+        left: 74px;
+        bottom: 152px;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.45);
+        opacity: 0;
+        z-index: 4;
+      }
+      #declined {
+        background: #0f1a22;
+        justify-content: center;
+        opacity: 0;
+      }
+      #declined .x {
+        font-size: 38px;
+        font-weight: 700;
+        color: #ff6b62;
+      }
+      #declined .small {
+        margin-top: 12px;
+        font-size: 24px;
+        color: #8b9aa4;
+      }
+
+      /* AI screen */
+      #ai {
+        background: radial-gradient(circle at 50% 40%, #0f3b31 0%, #07140f 70%);
+        padding-top: 120px;
+        opacity: 0;
+      }
+      .brand-pill {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: #4ee39a;
+        padding: 10px 22px;
+        border: 2px solid rgba(78, 227, 154, 0.5);
+        border-radius: 40px;
+      }
+      #orb {
+        margin-top: 70px;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #9cffd0 0%, #25d366 35%, #0b8a6a 75%, #064f40 100%);
+        box-shadow:
+          0 0 80px rgba(37, 211, 102, 0.6),
+          0 0 160px rgba(37, 211, 102, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      #orb .bar {
+        width: 12px;
+        height: 90px;
+        border-radius: 6px;
+        background: #ffffff;
+        transform: scaleY(0.3);
+      }
+      .ai-title {
+        margin-top: 60px;
+        font-size: 36px;
+        font-weight: 800;
+        text-align: center;
+        line-height: 1.15;
+      }
+      .ai-status {
+        margin-top: 14px;
+        font-size: 24px;
+        color: #8fe9bd;
+      }
+
+      /* ---------- network ---------- */
+      #network {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        z-index: 2;
+      }
+      #network svg {
+        position: absolute;
+        inset: 0;
+      }
+      .link {
+        stroke: #4ee39a;
+        stroke-width: 3;
+        stroke-opacity: 0.55;
+        fill: none;
+      }
+      .card {
+        position: absolute;
+        width: 290px;
+        height: 96px;
+        margin: -48px 0 0 -145px;
+        border-radius: 22px;
+        background: rgba(14, 33, 29, 0.92);
+        border: 2px solid rgba(78, 227, 154, 0.25);
+        display: flex;
+        align-items: center;
+        padding: 0 18px;
+        gap: 16px;
+      }
+      .card .ava {
+        flex: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .card .nm {
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .card .st {
+        position: relative;
+        height: 26px;
+        font-size: 20px;
+      }
+      .card .st span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        white-space: nowrap;
+      }
+      .card .calling {
+        color: #ffd36b;
+      }
+      .card .ok {
+        color: #4ee39a;
+        opacity: 0;
+      }
+      #headline {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 64px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        opacity: 0;
+        z-index: 6;
+      }
+      #headline em {
+        font-style: normal;
+        color: #4ee39a;
+      }
+      #counter {
+        position: absolute;
+        bottom: 64px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 34px;
+        font-weight: 600;
+        color: #b9e9d3;
+        opacity: 0;
+        z-index: 6;
+      }
+      #counter b {
+        color: #ffffff;
+        font-size: 46px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* ---------- end card ---------- */
+      #endcard {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at 50% 50%, #0f3b31 0%, #06110f 70%);
+        opacity: 0;
+        z-index: 10;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+      }
+      .logo-mark {
+        width: 120px;
+        height: 120px;
+        border-radius: 30px;
+        background: linear-gradient(135deg, #25d366, #0b8a6a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo-mark svg {
+        width: 78px;
+        height: 78px;
+      }
+      .logo-text {
+        font-size: 120px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+      .end-sub {
+        margin-top: 30px;
+        font-size: 48px;
+        font-weight: 700;
+        color: #4ee39a;
+      }
+      .end-tag {
+        margin-top: 16px;
+        font-size: 32px;
+        color: #b9cfc6;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="10"
+      data-width="1920"
+      data-height="1080"
+    >
+      <audio
+        id="soundtrack"
+        class="clip"
+        src="assets/mix.wav"
+        data-start="0"
+        data-duration="10"
+        data-track-index="1"
+        data-volume="1"
+      ></audio>
+
+      <!-- left copy -->
+      <div class="copy" id="copyA">
+        <div class="kicker">2:14 PM · Back-to-back meetings</div>
+        <h2>Another call<br />you <em>can't</em> take.</h2>
+      </div>
+      <div class="copy" id="copyB" data-layout-allow-overlap>
+        <div class="kicker">Too busy to pick up?</div>
+        <h2>Let <em>DoubleTick AI&nbsp;Voice</em> make the calls.</h2>
+      </div>
+
+      <!-- network -->
+      <div id="network">
+        <svg width="1920" height="1080" viewBox="0 0 1920 1080" id="links"></svg>
+      </div>
+      <div id="headline">Hundreds of customers. <em>At once.</em></div>
+      <div id="counter">Calls placed by AI: <b id="count">0</b></div>
+
+      <!-- phone -->
+      <div id="phone">
+        <div class="notch"></div>
+
+        <div class="screen" id="incoming">
+          <div class="avatar-wrap">
+            <div class="pulse" id="pulse1"></div>
+            <div class="pulse" id="pulse2"></div>
+            <div class="avatar">RK</div>
+          </div>
+          <div class="caller">Rahul Kapoor</div>
+          <div class="caller-sub">Incoming call…</div>
+          <div class="call-btns">
+            <div>
+              <div class="btn" id="declineBtn">
+                <svg viewBox="0 0 24 24" fill="#fff">
+                  <path
+                    transform="rotate(135 12 12)"
+                    d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"
+                  />
+                </svg>
+              </div>
+              <div class="btn-label">Decline</div>
+            </div>
+            <div>
+              <div class="btn" id="acceptBtn">
+                <svg viewBox="0 0 24 24" fill="#fff">
+                  <path
+                    d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"
+                  />
+                </svg>
+              </div>
+              <div class="btn-label">Accept</div>
+            </div>
+          </div>
+          <div id="tap"></div>
+        </div>
+
+        <div class="screen" id="declined">
+          <div class="x">Call declined</div>
+          <div class="small">Rahul Kapoor · just now</div>
+        </div>
+
+        <div class="screen" id="ai">
+          <div class="brand-pill">DOUBLETICK AI VOICE</div>
+          <div id="orb">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+          <div class="ai-title">AI agent<br />taking over</div>
+          <div class="ai-status">● Calling your customers</div>
+        </div>
+      </div>
+
+      <!-- end card -->
+      <div id="endcard">
+        <div class="logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 13l4 4L14 8" />
+              <path d="M10 15l2 2 9-10" />
+            </svg>
+          </div>
+          <div class="logo-text">DoubleTick</div>
+        </div>
+        <div class="end-sub">AI Voice Agent</div>
+        <div class="end-tag">Never miss a customer again.</div>
+      </div>
+    </div>
+
+    <script>
+      // ---- build the customer network (deterministic layout) ----
+      const CX = 960;
+      const CY = 560;
+      const customers = [
+        ["Priya S.", "PS", "#7c5cff"],
+        ["Amit V.", "AV", "#ff8a3d"],
+        ["Neha G.", "NG", "#e8556d"],
+        ["Rohan M.", "RM", "#1c7fc4"],
+        ["Sara K.", "SK", "#c9780a"],
+        ["Vikram P.", "VP", "#0f8f72"],
+        ["Anjali R.", "AR", "#d65bd6"],
+        ["Karan J.", "KJ", "#5b8cff"],
+        ["Meera T.", "MT", "#ff6b9a"],
+        ["Arjun D.", "AD", "#1f9a4c"],
+      ];
+      const network = document.getElementById("network");
+      const svg = document.getElementById("links");
+      const cards = [];
+      const links = [];
+      customers.forEach(([name, initials, color], i) => {
+        const a = (-90 + (360 / customers.length) * i) * (Math.PI / 180);
+        const x = CX + Math.cos(a) * 690;
+        const y = CY + Math.sin(a) * 330;
+
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("class", "link");
+        line.setAttribute("x1", CX);
+        line.setAttribute("y1", CY);
+        line.setAttribute("x2", x);
+        line.setAttribute("y2", y);
+        const len = Math.hypot(x - CX, y - CY);
+        line.style.strokeDasharray = len;
+        line.style.strokeDashoffset = len;
+        svg.appendChild(line);
+        links.push(line);
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.style.left = x + "px";
+        card.style.top = y + "px";
+        card.innerHTML =
+          '<div class="ava" style="background:' + color + '">' + initials + "</div>" +
+          '<div><div class="nm">' + name + "</div>" +
+          '<div class="st" data-layout-allow-overlap><span class="calling">Calling…</span><span class="ok">✓ Connected</span></div></div>';
+        network.appendChild(card);
+        cards.push(card);
+      });
+
+      const tl = gsap.timeline({ paused: true });
+
+      // ---- Scene A: incoming call, ringing (0 – 2.6s) ----
+      tl.from("#copyA .kicker", { opacity: 0, y: 20, duration: 0.5, ease: "power2.out" }, 0.1);
+      tl.from("#copyA h2", { opacity: 0, y: 40, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.from("#phone", { y: 80, opacity: 0, duration: 0.6, ease: "power3.out" }, 0);
+      // ring shake bursts matched to the ringtone (0.2–2.2s, 0.6s period)
+      [0.2, 0.8, 1.4].forEach((t, i) => {
+        tl.to("#phone", { rotation: 2.5, duration: 0.05, repeat: 7, yoyo: true, ease: "sine.inOut" }, t);
+        tl.to("#phone", { rotation: 0, duration: 0.05 }, t + 0.4);
+        tl.fromTo("#pulse1", { scale: 1, opacity: 0.8 }, { scale: 1.7, opacity: 0, duration: 0.55, ease: "power1.out", immediateRender: i === 0 }, t);
+        tl.fromTo("#pulse2", { scale: 1, opacity: 0.6 }, { scale: 2.1, opacity: 0, duration: 0.4, ease: "power1.out", immediateRender: i === 0 }, t + 0.15);
+      });
+      // thumb taps decline
+      tl.fromTo("#tap", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 1.95);
+      tl.to("#declineBtn", { scale: 0.85, duration: 0.1 }, 2.18);
+      tl.to("#declineBtn", { scale: 1, duration: 0.1 }, 2.3);
+      tl.to("#tap", { opacity: 0, duration: 0.15 }, 2.3);
+      tl.to("#incoming", { opacity: 0, duration: 0.15 }, 2.25);
+      tl.to("#declined", { opacity: 1, duration: 0.15 }, 2.25);
+
+      // ---- Scene B: AI takes over (2.6 – 6.4s), VO starts 2.8s ----
+      tl.to("#copyA", { opacity: 0, y: -40, duration: 0.4, ease: "power2.in" }, 2.5);
+      tl.fromTo("#copyB .kicker", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.8);
+      tl.set("#copyB", { opacity: 1 }, 2.8);
+      tl.from("#copyB h2", { opacity: 0, y: 40, duration: 0.6, ease: "power3.out" }, 4.05);
+      tl.to("#declined", { opacity: 0, duration: 0.3 }, 3.0);
+      tl.to("#ai", { opacity: 1, duration: 0.4 }, 3.0);
+      tl.from("#orb", { scale: 0.2, opacity: 0, duration: 0.7, ease: "back.out(1.8)" }, 3.1);
+      tl.to("#orb", { scale: 1.08, duration: 0.5, repeat: 9, yoyo: true, ease: "sine.inOut" }, 3.8);
+      document.querySelectorAll("#orb .bar").forEach((bar, i) => {
+        tl.to(bar, { scaleY: 1, duration: 0.18 + i * 0.03, repeat: 31, yoyo: true, ease: "sine.inOut" }, 3.2 + i * 0.05);
+      });
+
+      // ---- Scene C: AI calls many customers (6.4 – 9.0s) ----
+      tl.to("#copyB", { opacity: 0, x: -60, duration: 0.4, ease: "power2.in" }, 6.2);
+      tl.to("#phone", { x: 960 - 215 - 1130, y: 560 - 430 - 110, scale: 0.42, duration: 0.6, ease: "power3.inOut" }, 6.3);
+      tl.to("#network", { opacity: 1, duration: 0.3 }, 6.4);
+      tl.fromTo("#headline", { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 6.7);
+      links.forEach((line, i) => {
+        const t = 6.6 + i * 0.12;
+        tl.to(line, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, t);
+        tl.from(cards[i], { opacity: 0, scale: 0.6, duration: 0.35, ease: "back.out(2)" }, t + 0.2);
+        tl.to(cards[i].querySelector(".calling"), { opacity: 0, duration: 0.15 }, t + 0.85);
+        tl.to(cards[i].querySelector(".ok"), { opacity: 1, duration: 0.15 }, t + 0.85);
+        tl.to(cards[i], { borderColor: "rgba(78,227,154,0.9)", duration: 0.2 }, t + 0.85);
+      });
+      const counter = { n: 0 };
+      const countEl = document.getElementById("count");
+      tl.to("#counter", { opacity: 1, duration: 0.3 }, 6.8);
+      tl.to(counter, {
+        n: 500,
+        duration: 2.0,
+        ease: "power2.out",
+        onUpdate: () => {
+          countEl.textContent = Math.round(counter.n) + (counter.n >= 499.5 ? "+" : "");
+        },
+      }, 6.8);
+
+      // ---- Scene D: end card (9.0 – 10s) ----
+      tl.to("#endcard", { opacity: 1, duration: 0.35, ease: "power2.out" }, 9.0);
+      tl.set(["#phone", "#network", "#headline", "#counter"], { autoAlpha: 0 }, 9.35);
+      tl.from(".logo", { scale: 0.85, duration: 0.5, ease: "back.out(1.6)" }, 9.0);
+      tl.from(".end-sub", { opacity: 0, y: 20, duration: 0.4 }, 9.2);
+      tl.from(".end-tag", { opacity: 0, y: 20, duration: 0.4 }, 9.35);
+      tl.set({}, {}, 10);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
