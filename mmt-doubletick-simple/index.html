@@ -118,8 +118,8 @@
       #dtlogo {
         position: absolute;
         left: 72px;
-        top: 56px;
-        height: 34px;
+        top: 50px;
+        height: 46px;
         width: auto;
       }
       #tag {
@@ -129,16 +129,16 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        padding: 8px 18px 8px 12px;
+        padding: 8px 22px 8px 14px;
         background: var(--paper);
         border: 1px solid var(--line);
         border-radius: 999px;
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 500;
         color: var(--muted);
       }
       #tag img {
-        height: 24px;
+        height: 46px;
         width: auto;
       }
 
@@ -146,7 +146,7 @@
       .hd {
         left: 0;
         right: 0;
-        top: 104px;
+        top: 126px;
         text-align: center;
         font-family: var(--serif);
         font-size: 76px;
@@ -160,7 +160,7 @@
       .sb {
         left: 0;
         right: 0;
-        top: 202px;
+        top: 222px;
         text-align: center;
         font-size: 28px;
         color: var(--muted);
@@ -648,6 +648,29 @@
         background: var(--green);
       }
 
+      /* animated growth graph behind the KPIs */
+      #graph {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+      }
+      #graph svg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+      }
+      .gbar {
+        position: absolute;
+        bottom: 0;
+        width: 46px;
+        border-radius: 10px 10px 0 0;
+        background: linear-gradient(180deg, rgba(43, 182, 115, 0.16), rgba(43, 182, 115, 0.03));
+        transform-origin: bottom center;
+      }
       /* KPIs */
       .kpi {
         position: absolute;
@@ -824,6 +847,22 @@
           <div id="rows"></div>
 
           <!-- KPIs -->
+          <div id="graph">
+            <div id="gbars"></div>
+            <svg viewBox="0 0 1920 1080">
+              <defs>
+                <linearGradient id="ga" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#2bb673" stop-opacity="0.16" />
+                  <stop offset="1" stop-color="#2bb673" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+              <g id="gline">
+                <path d="M0 980 C 240 960, 380 930, 560 900 S 860 860, 1040 820 S 1360 760, 1560 700 S 1800 620, 1920 590 L 1920 1080 L 0 1080 Z" fill="url(#ga)" />
+                <path id="gpath" d="M0 980 C 240 960, 380 930, 560 900 S 860 860, 1040 820 S 1360 760, 1560 700 S 1800 620, 1920 590" fill="none" stroke="#2bb673" stroke-opacity="0.45" stroke-width="4" />
+                <path d="M0 860 H1920 M0 740 H1920 M0 620 H1920" stroke="#1d211f" stroke-opacity="0.05" stroke-width="1.5" stroke-dasharray="6 10" />
+              </g>
+            </svg>
+          </div>
           <div class="kpi" id="k0" style="left: 140px"><span class="n">1,500+</span><span class="l">agents empowered</span></div>
           <div class="kpi" id="k1" style="left: 680px"><span class="n">30%</span><span class="l">higher operational efficiency</span></div>
           <div class="kpi" id="k2" style="left: 1220px"><span class="n">10%</span><span class="l">revenue growth</span></div>
@@ -880,12 +919,21 @@
       <audio id="sfx-22-snap" src="assets/audio/snap.mp3" data-start="11.0" data-duration="0.19" data-track-index="13" data-volume="0.5"></audio>
       <audio id="sfx-23-snap" src="assets/audio/snap.mp3" data-start="11.1" data-duration="0.19" data-track-index="14" data-volume="0.4"></audio>
       <audio id="sfx-24-snap" src="assets/audio/snap.mp3" data-start="11.2" data-duration="0.19" data-track-index="13" data-volume="0.4"></audio>
-      <audio id="sfx-25-impact1" src="assets/audio/impact1.mp3" data-start="13.15" data-duration="1.03" data-track-index="12" data-volume="0.55"></audio>
-      <audio id="sfx-26-impact2" src="assets/audio/impact2.mp3" data-start="13.4" data-duration="1.03" data-track-index="13" data-volume="0.5"></audio>
-      <audio id="sfx-27-impact1" src="assets/audio/impact1.mp3" data-start="13.65" data-duration="1.03" data-track-index="14" data-volume="0.45"></audio>
-      <audio id="sfx-28-whoosh" src="assets/audio/whoosh.mp3" data-start="16.95" data-duration="0.58" data-track-index="12" data-volume="0.4"></audio>
-      <audio id="sfx-29-resolve" src="assets/audio/resolve.mp3" data-start="18.2" data-duration="1.40" data-track-index="12" data-volume="0.4"></audio>
-      <audio id="sfx-30-click" src="assets/audio/click.mp3" data-start="18.3" data-duration="0.10" data-track-index="13" data-volume="0.5"></audio>
+      <audio id="sfx-25-impact1" src="assets/audio/impact1.mp3" data-start="13.0" data-duration="1.03" data-track-index="12" data-volume="0.55"></audio>
+      <audio id="sfx-26-impact2" src="assets/audio/impact2.mp3" data-start="14.5" data-duration="1.03" data-track-index="13" data-volume="0.5"></audio>
+      <audio id="sfx-27-impact1" src="assets/audio/impact1.mp3" data-start="16.2" data-duration="1.03" data-track-index="14" data-volume="0.45"></audio>
+      <audio id="sfx-ct0" src="assets/audio/count.mp3" data-start="13.06" data-duration="0.07" data-track-index="17" data-volume="0.22"></audio>
+      <audio id="sfx-ct1" src="assets/audio/count.mp3" data-start="13.16" data-duration="0.07" data-track-index="17" data-volume="0.22"></audio>
+      <audio id="sfx-ct2" src="assets/audio/count.mp3" data-start="13.28" data-duration="0.07" data-track-index="17" data-volume="0.22"></audio>
+      <audio id="sfx-ct3" src="assets/audio/count.mp3" data-start="14.56" data-duration="0.07" data-track-index="17" data-volume="0.22"></audio>
+      <audio id="sfx-ct4" src="assets/audio/count.mp3" data-start="14.66" data-duration="0.07" data-track-index="17" data-volume="0.22"></audio>
+      <audio id="sfx-ct5" src="assets/audio/count.mp3" data-start="14.78" data-duration="0.07" data-track-index="17" data-volume="0.22"></audio>
+      <audio id="sfx-ct6" src="assets/audio/count.mp3" data-start="16.26" data-duration="0.07" data-track-index="17" data-volume="0.22"></audio>
+      <audio id="sfx-ct7" src="assets/audio/count.mp3" data-start="16.36" data-duration="0.07" data-track-index="17" data-volume="0.22"></audio>
+      <audio id="sfx-ct8" src="assets/audio/count.mp3" data-start="16.48" data-duration="0.07" data-track-index="17" data-volume="0.22"></audio>
+      <audio id="sfx-28-whoosh" src="assets/audio/whoosh.mp3" data-start="17.15" data-duration="0.58" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-29-resolve" src="assets/audio/resolve.mp3" data-start="18.4" data-duration="1.40" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-30-click" src="assets/audio/click.mp3" data-start="18.5" data-duration="0.10" data-track-index="13" data-volume="0.5"></audio>
     </div>
 
     <script>
@@ -971,6 +1019,12 @@
           `<div class="row" id="rw${k}" style="left:${560 + 30}px;right:auto;width:740px;top:${RY(k)}px"><span class="wb">WABA 0${k + 1} ✓</span><img src="assets/img/reps/${a[1]}" alt=""/><div class="who"><b>${a[0]} ${VF}</b><span>Verified WhatsApp · ${a[2]}</span></div><span class="act"><i></i>Active</span></div>`,
       ).join("");
 
+      // background bars for the results graph
+      $("gbars").innerHTML = Array.from({ length: 24 }, (_, i) => {
+        const h = 90 + i * 9 + ((i * 37) % 5) * 14;
+        return `<span class="gbar" style="left:${30 + i * 80}px;height:${h}px"></span>`;
+      }).join("");
+
       // ================= timeline =================
       const tl = gsap.timeline({ paused: true });
       const E = "power3.out";
@@ -990,8 +1044,8 @@
       tl.fromTo("#world", { scale: 1 }, { scale: 1.015, duration: 4.8, ease: "sine.inOut" }, 0);
       tl.to("#world", { scale: 1, duration: 0.6, ease: "power2.inOut" }, 4.9);
       tl.fromTo("#tag", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 0.2);
-      tl.fromTo("#dtlogo", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "expo.out" }, 5.6);
-      tl.to("#dtlogo", { opacity: 0, duration: 0.3 }, 16.95);
+      tl.fromTo("#dtlogo", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 0.15);
+      tl.to("#dtlogo", { opacity: 0, duration: 0.3 }, 17.15);
 
       // ===== SCENE 1 (0–5): three separate conversations, manager can't see across =====
       words("#hA", 0.05, 0.07);
@@ -1069,18 +1123,33 @@
       // ===== SCENE 4 (13–17): results =====
       tl.to(["#hC", "#sC"], { opacity: 0, y: -20, duration: 0.28, ease: "power2.in" }, 12.85);
       tl.to(["#pn", "#rows"], { opacity: 0, scale: 0.97, duration: 0.3, ease: "power2.in" }, 12.85);
-      [0, 1, 2].forEach((k) => tl.fromTo(`#k${k}`, { opacity: 0, y: 30, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, 13.15 + k * 0.25));
-      [0, 1, 2].forEach((k) => tl.to(`#k${k}`, { y: -8, duration: 3, ease: "sine.inOut" }, 13.7 + k * 0.1));
+      // graph grows left → right underneath while the results are spoken
+      tl.fromTo("#graph", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 12.95);
+      tl.fromTo("#gline", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 3.9, ease: "power1.inOut" }, 12.95);
+      tl.fromTo(".gbar", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "back.out(1.6)", stagger: 0.12 }, 12.95);
+      tl.to("#graph", { y: -24, duration: 4.2, ease: "none" }, 12.95);
+      // each KPI lands on its word in the VO: "fifteen hundred" 13.0 · "thirty percent" 14.5 · "ten percent" 16.2
+      const KT = [12.95, 14.45, 16.15],
+        KV = [1500, 30, 10],
+        KS = ["+", "%", "%"];
+      [0, 1, 2].forEach((k) => {
+        const el = $("k" + k).querySelector(".n");
+        const o = { v: 0 };
+        tl.fromTo(`#k${k}`, { opacity: 0, y: 30, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, KT[k]);
+        tl.fromTo(o, { v: 0 }, { v: KV[k], duration: 0.55, ease: "power2.out", onUpdate: () => (el.textContent = Math.round(o.v).toLocaleString("en-US") + KS[k]) }, KT[k] + 0.03);
+        tl.fromTo(`#k${k} .n`, { scale: 1 }, { scale: 1.06, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out" }, KT[k] + 0.55);
+      });
 
       // ===== SCENE 5 (17–20): closing =====
-      [0, 1, 2].forEach((k) => tl.to(`#k${k}`, { opacity: 0, scale: 0.9, y: 60, duration: 0.4, ease: "power2.in" }, 16.95 + k * 0.04));
-      [0, 1, 2].forEach((k) => tl.fromTo(`#p${k}`, { opacity: 0, y: 20, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: E }, 17.3 + k * 0.08));
-      tl.fromTo("#endlogo", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.6, ease: "expo.out" }, 17.05);
-      words("#e1", 17.2, 0.07, 0.55);
-      tl.fromTo("#e2", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 17.7);
-      tl.fromTo("#cta", { opacity: 0, y: 24, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 17.9);
-      tl.fromTo("#shine", { x: -160 }, { x: 560, duration: 0.7, ease: "power2.inOut" }, 18.2);
-      tl.fromTo("#cta svg", { x: 0 }, { x: 8, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out" }, 18.35);
+      [0, 1, 2].forEach((k) => tl.to(`#k${k}`, { opacity: 0, scale: 0.9, y: 60, duration: 0.4, ease: "power2.in" }, 17.15 + k * 0.04));
+      tl.to("#graph", { opacity: 0, duration: 0.4 }, 17.15);
+      [0, 1, 2].forEach((k) => tl.fromTo(`#p${k}`, { opacity: 0, y: 20, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: E }, 17.5 + k * 0.08));
+      tl.fromTo("#endlogo", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.6, ease: "expo.out" }, 17.25);
+      words("#e1", 17.4, 0.07, 0.55);
+      tl.fromTo("#e2", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 17.9);
+      tl.fromTo("#cta", { opacity: 0, y: 24, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 18.1);
+      tl.fromTo("#shine", { x: -160 }, { x: 560, duration: 0.7, ease: "power2.inOut" }, 18.4);
+      tl.fromTo("#cta svg", { x: 0 }, { x: 8, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out" }, 18.55);
 
       window.__timelines["main"] = tl;
     </script>
