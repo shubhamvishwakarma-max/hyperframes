@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" /><title>DoubleTick AU Before After</title>
+<style>
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  :root { --ink: #0A1A12; --ink-2: #3D4A44; --muted: #7A8781; --bg: #F4F8F5; --line: #E1E9E4; --green: #007A5A; --mint: #2FBF8F; --soft: #E0F2EC; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; overflow: hidden; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+  .ad { position: relative; width: 1080px; height: 1080px;
+    background: radial-gradient(700px 520px at 100% 0%, rgba(0,122,90,.14), transparent 60%), radial-gradient(600px 500px at 0% 100%, rgba(0,122,90,.08), transparent 60%), var(--bg); }
+  .ad > * { position: absolute; }
+  .top { left: 72px; right: 72px; top: 52px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { height: 32px; display: block; }
+  .client { height: 104px; margin: -33px -22px -33px 0; mix-blend-mode: multiply; display: block; }
+  h1 { left: 72px; right: 72px; top: 150px; font-size: 72px; line-height: 1.06; letter-spacing: -0.045em; font-weight: 700; }
+  h1 em { font-style: normal; color: var(--green); }
+  h1 .m { color: var(--muted); }
+  .sub { left: 72px; right: 72px; top: 400px; font-size: 25px; line-height: 1.38; color: var(--ink-2); letter-spacing: -0.015em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* visual: the same lead, before and after one AI Voice call */
+  .vis { left: 72px; top: 516px; width: 936px; height: 330px; display: grid; grid-template-columns: 1fr 120px 1fr; align-items: center; }
+  .card { border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 14px; height: 300px; }
+  .before { background: #EEF2EF; border: 1px dashed #C9D3CE; color: #8E9A94; }
+  .after { background: #fff; border: 2px solid var(--green); box-shadow: 0 24px 48px -26px rgba(0,60,43,.45); }
+  .tag { align-self: flex-start; font-size: 14px; font-weight: 700; padding: 6px 12px; border-radius: 999px; letter-spacing: .02em; }
+  .before .tag { background: #E0E6E2; color: #7A8781; }
+  .after .tag { background: var(--green); color: #fff; }
+  .who { display: flex; align-items: center; gap: 12px; }
+  .av { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; }
+  .before .av { background: #E0E6E2; } .after .av { background: var(--soft); }
+  .nm { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+  .ln { display: flex; justify-content: space-between; font-size: 18px; padding-top: 11px; border-top: 1px solid rgba(10,26,18,.07); }
+  .ln span:first-child { color: var(--muted); font-weight: 500; }
+  .after .ln b { font-weight: 600; color: var(--ink); }
+  .before .ln b { font-weight: 500; }
+  .rm { margin-top: auto; display: flex; justify-content: space-between; background: #0B3B2C; color: #fff; border-radius: 12px; padding: 11px 14px; font-size: 16px; font-weight: 600; }
+  .rm b { color: #8EF0C9; font-weight: 600; }
+  .mid { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .orb { width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center;
+    background: radial-gradient(circle at 34% 28%, #9BEBCB 0%, #1FA77B 40%, #007A5A 75%, #005A42 100%); box-shadow: 0 0 0 10px rgba(47,191,143,.14); }
+  .wv { display: flex; align-items: center; gap: 3px; height: 28px; }
+  .wv b { width: 3px; border-radius: 2px; background: var(--mint); display: block; }
+  .mid .l { font-size: 14px; font-weight: 600; color: var(--green); text-align: center; line-height: 1.25; }
+  .cta { left: 72px; top: 878px; display: flex; align-items: center; gap: 18px; }
+  .btn { background: var(--green); color: #fff; font-size: 23px; font-weight: 600; letter-spacing: -0.01em; padding: 17px 28px; border-radius: 14px;
+    display: flex; align-items: center; gap: 12px; box-shadow: 0 14px 30px -10px rgba(0,122,90,.6); }
+  .cnt { font-size: 18px; font-weight: 600; color: var(--green); }
+</style></head>
+<body><div class="ad">
+  <div class="top"><img class="logo" src="doubletick-logo.webp" alt="DoubleTick" /><img class="client" src="au-bank-logo.png" alt="AU Small Finance Bank" /></div>
+
+  <h1><em>5,000+ qualified leads.</em><br/>All from leads your RMs<br/><span class="m">had stopped calling.</span></h1>
+  <p class="sub"><b>AU Small Finance Bank</b> used <b>DoubleTick AI Voice</b> to call unworked and dormant leads on phone and WhatsApp, then hand qualified ones to RMs.</p>
+
+  <div class="vis">
+    <div class="card before">
+      <span class="tag">Unworked lead</span>
+      <div class="who"><span class="av"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#A3AFA9" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="nm">Ravi S.</span></div>
+      <div class="ln"><span>Need</span><b>Unknown</b></div>
+      <div class="ln"><span>Last contacted</span><b>Months ago</b></div>
+      <div class="ln"><span>Next step</span><b>—</b></div>
+    </div>
+    <div class="mid">
+      <div class="wv"><b style="height:8px"></b><b style="height:16px"></b><b style="height:24px"></b><b style="height:12px"></b><b style="height:28px"></b><b style="height:18px"></b><b style="height:10px"></b><b style="height:22px"></b><b style="height:14px"></b><b style="height:6px"></b></div>
+      <div class="orb"><svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+      <div class="l">One AI<br/>Voice call</div>
+    </div>
+    <div class="card after">
+      <span class="tag">Qualified lead</span>
+      <div class="who"><span class="av"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="nm">Ravi S.</span></div>
+      <div class="ln"><span>Need</span><b>Home loan top-up</b></div>
+      <div class="ln"><span>Next step</span><b>Call back 5 PM</b></div>
+      <div class="rm"><span>Handed to RM</span><b>full context ✓</b></div>
+    </div>
+  </div>
+
+  <div class="cta"><div class="btn">See how AU did it
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><span class="cnt">1 of 5,000+ like this</span></div>
+</div></body></html>
