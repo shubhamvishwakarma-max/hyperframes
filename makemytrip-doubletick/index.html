@@ -1204,8 +1204,8 @@
       <!-- ===== audio ===== -->
       <audio id="a-music" src="assets/audio/music.mp3" data-start="0" data-duration="20" data-track-index="10" data-volume="0.8"></audio>
       <audio id="sfx-click-1" src="assets/audio/click.mp3" data-start="0.35" data-duration="0.2" data-track-index="11" data-volume="0.6"></audio>
-      <audio id="sfx-click-2" src="assets/audio/click.mp3" data-start="1.3" data-duration="0.2" data-track-index="11" data-volume="0.6"></audio>
-      <audio id="sfx-pop-1" src="assets/audio/pop.mp3" data-start="2.6" data-duration="0.3" data-track-index="11" data-volume="0.55"></audio>
+      <audio id="sfx-click-2" src="assets/audio/click.mp3" data-start="1.75" data-duration="0.2" data-track-index="11" data-volume="0.6"></audio>
+      <audio id="sfx-pop-1" src="assets/audio/pop.mp3" data-start="2.7" data-duration="0.3" data-track-index="11" data-volume="0.55"></audio>
       <audio id="sfx-whoosh-1" src="assets/audio/whoosh.mp3" data-start="3.55" data-duration="0.6" data-track-index="12" data-volume="0.6"></audio>
       <audio id="sfx-click-3" src="assets/audio/click.mp3" data-start="5.9" data-duration="0.2" data-track-index="11" data-volume="0.5"></audio>
       <audio id="sfx-ding-0" src="assets/audio/ding.mp3" data-start="6.0" data-duration="0.9" data-track-index="13" data-volume="0.3"></audio>
@@ -1400,23 +1400,21 @@
       // each stat column sits 320px from frame centre; beats 1–2 show one stat centred, beat 3 both side by side
       const DX = 320,
         DY = 95;
-      // beat 1: 10% centred
-      tl.fromTo("#s1-st1", { x: DX, y: DY + 70, opacity: 0, filter: "blur(18px)" }, { x: DX, y: DY, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.1);
+      // 10% appears centred
+      tl.fromTo("#s1-st1", { x: DX, y: DY, opacity: 0, filter: "blur(16px)" }, { x: DX, y: DY, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power2.out" }, 0.1);
       tl.fromTo(c1, { v: 0 }, { v: 10, duration: 0.6, ease: "power2.out", onUpdate: () => (n1.textContent = Math.round(c1.v) + "%") }, 0.1);
       revealWords("#s1-l1", 0.35);
-      // beat 2: 10% slides out left, 30% slides in from the right
-      tl.to("#s1-st1", { x: DX - 700, opacity: 0, filter: "blur(14px)", duration: 0.32, ease: "power2.in" }, 0.98);
-      tl.fromTo("#s1-st2", { x: -DX + 700, y: DY, opacity: 0, filter: "blur(14px)" }, { x: -DX, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 1.25);
-      tl.fromTo(c2, { v: 0 }, { v: 30, duration: 0.6, ease: "power2.out", onUpdate: () => (n2.textContent = Math.round(c2.v) + "%") }, 1.25);
-      revealWords("#s1-l2", 1.45);
-      // beat 3: both settle — 10% left, 30% right
-      tl.to("#s1-st2", { x: 0, y: 0, duration: 0.6, ease: "expo.inOut" }, 2.0);
-      tl.fromTo("#s1-st1", { x: -260, y: 0, opacity: 0, filter: "blur(14px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out", immediateRender: false }, 2.05);
+      // then moves to the left
+      tl.to("#s1-st1", { x: 0, y: 0, duration: 0.6, ease: "power3.inOut" }, 1.1);
+      // 30% reveals in place on the right
+      tl.fromTo("#s1-st2", { opacity: 0, filter: "blur(16px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power2.out" }, 1.75);
+      tl.fromTo(c2, { v: 0 }, { v: 30, duration: 0.6, ease: "power2.out", onUpdate: () => (n2.textContent = Math.round(c2.v) + "%") }, 1.75);
+      revealWords("#s1-l2", 1.95);
       // "Here's how MakeMyTrip did it."
-      tl.fromTo("#s1-w1", { opacity: 0, y: 40, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: E }, 2.45);
-      tl.fromTo("#s1-mmt", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.55, ease: "back.out(2)" }, 2.6);
-      tl.fromTo("#s1-w2", { opacity: 0, y: 40, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: E }, 2.75);
-      tl.fromTo("#s1-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "expo.out" }, 3.0);
+      tl.fromTo("#s1-w1", { opacity: 0, y: 40, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: E }, 2.55);
+      tl.fromTo("#s1-mmt", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.55, ease: "back.out(2)" }, 2.7);
+      tl.fromTo("#s1-w2", { opacity: 0, y: 40, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: E }, 2.85);
+      tl.fromTo("#s1-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "expo.out" }, 3.1);
       // exit: slide left
       tl.to("#s1-inner", { x: -420, opacity: 0, filter: "blur(18px)", duration: 0.42, ease: "power3.in" }, 3.72);
 
