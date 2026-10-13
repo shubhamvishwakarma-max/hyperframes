@@ -154,6 +154,14 @@
         letter-spacing: -0.03em;
         white-space: nowrap;
       }
+      #hA {
+        top: 122px;
+        font-size: 63px;
+        line-height: 1.06;
+      }
+      #hA .ln {
+        display: block;
+      }
       .hd .g {
         color: var(--green-ink);
       }
@@ -816,8 +824,7 @@
       <div id="stage" class="clip" data-start="0" data-duration="20" data-track-index="1">
         <div id="world">
           <!-- headlines -->
-          <div class="hd abs" id="hA"><span class="split">Separate numbers.</span> <span class="split g" id="hA2">Limited visibility.</span></div>
-          <div class="sb abs" id="sA"><span id="sA0">Tracking</span><span class="dot">·</span><span id="sA1">Ownership</span><span class="dot">·</span><span id="sA2">Consistency</span></div>
+          <div class="hd abs" id="hA"><span class="split ln">Scattered WhatsApp conversations</span><span class="ln"><span class="split">with</span> <span class="split g" id="hA2">no centralized visibility.</span></span></div>
           <div class="hd abs split" id="hB">Own verified numbers.</div>
           <div class="sb abs" id="sB">Personalized campaigns with clear ownership.</div>
           <div class="hd abs" id="hC"><span class="split g">Multi-WABA.</span> <span class="split">One view.</span></div>
@@ -1061,11 +1068,9 @@
         drawPath(`bk${k}b`, 2.45 + k * 0.08, 0.3);
       });
       tl.fromTo("#lines path[id^='bk']", { opacity: 1 }, { opacity: 0.7, duration: 0.5 }, 2.8);
-      [0, 1, 2].forEach((i) => tl.fromTo(`#sA${i}`, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 2.7 + i * 0.25));
-      tl.fromTo("#sA .dot", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.8);
 
       // ===== TRANSITION (5–7): DoubleTick connects everything =====
-      tl.to(["#hA", "#sA"], { opacity: 0, y: -24, filter: "blur(6px)", duration: 0.3, ease: "power2.in" }, 4.85);
+      tl.to(["#hA"], { opacity: 0, y: -24, filter: "blur(6px)", duration: 0.3, ease: "power2.in" }, 4.85);
       tl.fromTo("#gl", { scaleX: 0, opacity: 1 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 5.0);
       tl.to("#lines path[id^='bk']", { opacity: 0, duration: 0.25 }, 5.15);
       tl.to("#mgr", { opacity: 0, scale: 0.9, duration: 0.25, ease: "power2.in" }, 5.3);
