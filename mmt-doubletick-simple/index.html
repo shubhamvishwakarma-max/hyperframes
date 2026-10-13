@@ -325,6 +325,10 @@
         color: #1b1b1b;
         white-space: nowrap;
       }
+      .cv .ln2.v {
+        color: var(--green-ink);
+        font-weight: 600;
+      }
       .cv .ic {
         margin-left: auto;
         display: flex;
@@ -413,6 +417,58 @@
         border-top: 11px solid #e6fed8;
         border-right: 8px solid transparent;
       }
+      .rich {
+        align-self: flex-start;
+        width: 372px;
+        display: none;
+      }
+      .rich .bb {
+        max-width: none;
+        padding: 4px 4px 6px;
+      }
+      .rich img {
+        display: block;
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 7px;
+      }
+      .rich .tx {
+        padding: 7px 8px 0;
+      }
+      .rich .tx p + p {
+        margin-top: 4px;
+      }
+      .rich .sg {
+        color: #3d4346;
+        font-size: 15px;
+      }
+      .rich .t {
+        padding-right: 6px;
+      }
+      .btns {
+        margin-top: 2px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .btn {
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border-radius: 8px;
+        background: #fff;
+        color: #0270a8;
+        font-size: 15.5px;
+        font-weight: 600;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+      }
+      .btn svg {
+        width: 17px;
+        height: 17px;
+      }
       .sig {
         position: relative;
         display: inline-block;
@@ -455,7 +511,7 @@
         width: 20px;
         height: 24px;
       }
-      .own {
+      .own-unused {
         position: absolute;
         left: 18px;
         right: 18px;
@@ -473,7 +529,7 @@
         font-weight: 600;
         color: var(--green-ink);
       }
-      .own svg {
+      .own-unused svg {
         width: 26px;
         height: 20px;
       }
@@ -800,9 +856,12 @@
       <audio id="sfx-00-pop" src="assets/audio/pop.mp3" data-start="0.5" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
       <audio id="sfx-01-pop" src="assets/audio/pop.mp3" data-start="0.7" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
       <audio id="sfx-02-pop" src="assets/audio/pop.mp3" data-start="0.9" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
-      <audio id="sfx-03-pop" src="assets/audio/pop.mp3" data-start="1.25" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
-      <audio id="sfx-04-pop" src="assets/audio/pop.mp3" data-start="1.45" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
-      <audio id="sfx-05-pop" src="assets/audio/pop.mp3" data-start="1.65" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
+      <audio id="sfx-03-pop" src="assets/audio/pop.mp3" data-start="8.6" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
+      <audio id="sfx-04-pop" src="assets/audio/pop.mp3" data-start="8.74" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
+      <audio id="sfx-05-pop" src="assets/audio/pop.mp3" data-start="8.88" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
+      <audio id="sfx-tap0" src="assets/audio/click.mp3" data-start="8.30" data-duration="0.10" data-track-index="16" data-volume="0.45"></audio>
+      <audio id="sfx-tap1" src="assets/audio/click.mp3" data-start="8.44" data-duration="0.10" data-track-index="16" data-volume="0.45"></audio>
+      <audio id="sfx-tap2" src="assets/audio/click.mp3" data-start="8.58" data-duration="0.10" data-track-index="16" data-volume="0.45"></audio>
       <audio id="sfx-07-click" src="assets/audio/click.mp3" data-start="1.9" data-duration="0.10" data-track-index="13" data-volume="0.35"></audio>
       <audio id="sfx-08-tick" src="assets/audio/tick.mp3" data-start="2.2" data-duration="0.10" data-track-index="12" data-volume="0.3"></audio>
       <audio id="sfx-09-tick" src="assets/audio/tick.mp3" data-start="2.45" data-duration="0.10" data-track-index="12" data-volume="0.3"></audio>
@@ -844,17 +903,23 @@
       // ---------- the three conversations (persist through the film) ----------
       const CX = [170, 710, 1250];
       const AGENTS = [
-        ["Rahul", "rahul.jpg", "+91 98•• ••4512"],
-        ["Neha", "neha.jpg", "+91 99•• ••2087"],
-        ["Arjun", "arjun.jpg", "+91 97•• ••7731"],
+        ["Rahul", "kabir.jpg", "+91 98•• ••4512"],
+        ["Neha", "meera.jpg", "+91 99•• ••2087"],
+        ["Arjun", "rohan.jpg", "+91 97•• ••7731"],
       ];
-      // first message: the campaign each agent sent; second: the customer's reply
-      const CAMP = [
-        ["Mukesh", "Exclusive member deals on Goa holiday packages are live this week.", "Is the Goa package still available?"],
-        ["Priya", "Our flight sale is live. Save on your next trip to Dubai.", "Can I travel next Friday?"],
-        ["Rohan", "Handpicked hotel deals in Jaipur for this weekend.", "Please share a few options!"],
+      // BEFORE: generic, unpersonalized broadcast from an unnamed number (no one replies)
+      const GENERIC = [
+        ["Holiday sale is live! Book now:", "mmt.link/x7Q2"],
+        ["Flight offers are live now. Book:", "mmt.link/d4F9"],
+        ["Hotel deals this weekend. Visit:", "mmt.link/j2K7"],
       ];
-      const CHATS = CAMP.map(() => [["in"], ["out"]]);
+      // AFTER: the same campaign, personalized and trustworthy, with image + CTAs, and the customer engages
+      const RICH = [
+        ["goa.jpg", "Mukesh", "Handpicked Goa beach stays for your dates.", "View Goa packages", "Yes! Dec 20–23, 2 adults 🙌"],
+        ["dubai.jpg", "Priya", "Your Dubai trip: flights and stays, sorted.", "View Dubai deals", "Perfect, booking for Friday!"],
+        ["jaipur.jpg", "Rohan", "Heritage hotels in Jaipur, this weekend.", "View Jaipur hotels", "Love these, please share prices 😍"],
+      ];
+      const CHATS = [[["in"]], [["in"]], [["in"]]];
       const ICO = {
         back: '<svg class="back" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12H4M11 4.5L3.5 12l7.5 7.5"/></svg>',
         right:
@@ -863,17 +928,21 @@
       };
       $("cards").innerHTML = CX.map((x, k) => {
         const a = AGENTS[k],
-          c = CAMP[k];
-        const camp = `<div class="bb in" id="b${k}_0"><p>Hi ${c[0]}! 👋</p><p>${c[1]}</p><p>Warm regards,<br><span class="sig"><span class="s1" id="sg1_${k}">Agent 0${k + 1} – MakeMyTrip</span><span class="s2" id="sg2_${k}">${a[0]} – MakeMyTrip</span></span></p><span class="t">10.3${5 + k} AM</span></div>`;
-        const reply = `<div class="bb out" id="b${k}_1">${c[2]}<span class="t">10.4${k} AM</span></div>`;
+          c = RICH[k];
+        const g = GENERIC[k],
+          r = RICH[k];
+        const camp = `<div class="bb in" id="b${k}_0"><p>Dear Customer,</p><p>${g[0]} <span style="color:#0270a8">${g[1]}</span></p><p>– Team MMT</p><span class="t">10.3${5 + k} AM</span></div>`;
+        const LINK = '<svg viewBox="0 0 24 24" fill="none" stroke="#0270a8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
+        const CHAT = '<svg viewBox="0 0 24 24" fill="none" stroke="#0270a8" stroke-width="2.2" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>';
+        const rich = `<div class="rich" id="rc${k}"><div class="bb in"><img src="assets/img/dest/${r[0]}" alt=""/><div class="tx"><p>Hi ${r[1]}! 👋</p><p>${r[2]}</p><p class="sg">— ${a[0]}, MakeMyTrip</p></div><span class="t">10.4${k} AM</span></div><div class="btns"><div class="btn" id="cta${k}">${LINK}${r[3]}</div><div class="btn">${CHAT}Chat with ${a[0]}</div></div></div>`;
+        const reply = `<div class="bb out" id="rp${k}">${r[4]}<span class="t">10.4${k + 2} AM</span></div>`;
         return `<div class="wtag" id="wt${k}" style="left:${x}px"><span>WABA 0${k + 1} ✓</span></div>
           <div class="cv card" id="cv${k}" style="left:${x}px">
             <div class="hdr">
-              <div class="hs" id="hs1_${k}">${ICO.back}<span class="av">${SIL}</span><div><div class="nm">Agent 0${k + 1} - MMT</div><div class="ln2">Business Account</div></div>${ICO.right}</div>
-              <div class="hs" id="hs2_${k}">${ICO.back}<img class="av" src="assets/img/reps/${a[1]}" alt=""/><div><div class="nm">${a[0]} - MMT ${VF}</div><div class="ln2">Business Account</div></div>${ICO.right}</div>
+              <div class="hs" id="hs1_${k}">${ICO.back}<span class="av">${SIL}</span><div><div class="nm">+91 98XXX XXX0${k + 1}</div><div class="ln2">Business Account</div></div>${ICO.right}</div>
+              <div class="hs" id="hs2_${k}">${ICO.back}<img class="av" src="assets/img/reps/${a[1]}" alt=""/><div><div class="nm">${a[0]} - MMT ${VF}</div><div class="ln2 v">✓ Own verified number</div></div>${ICO.right}</div>
             </div>
-            <div class="body"><div class="today">Today</div>${camp}${reply}</div>
-            <div class="own" id="own${k}">${DT}Own verified number · ${a[0]}</div>
+            <div class="body"><div class="today">Today</div>${camp}${rich}${reply}</div>
             ${ICO.inp}
           </div>`;
       }).join("");
@@ -929,11 +998,8 @@
       [0, 1, 2].forEach((k) => {
         enter(`#cv${k}`, 0.15 + k * 0.1);
       });
-      const BT = [
-        [0.5, 1.25],
-        [0.7, 1.45],
-        [0.9, 1.65],
-      ];
+      const BT = [[0.5], [0.7], [0.9]];
+      [0, 1, 2].forEach((k) => tl.set(`#rc${k}`, { display: "none" }, 0));
       BT.forEach((ts, k) => ts.forEach((t, j) => tl.fromTo(`#b${k}_${j}`, { opacity: 0, y: 16, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.8)", transformOrigin: CHATS[k][j][0] === "in" ? "0% 0%" : "100% 0%" }, t)));
       enter("#mgr", 1.9);
       [0, 1, 2].forEach((k) => {
@@ -969,9 +1035,14 @@
         tl.to(`#hs1_${k}`, { opacity: 0, y: -12, duration: 0.2 }, t);
         tl.fromTo(`#hs2_${k}`, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, t + 0.1);
         tl.fromTo(`#hs2_${k} .vf`, { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(3)" }, t + 0.25);
-        tl.to(`#sg1_${k}`, { opacity: 0, duration: 0.2 }, t + 0.15);
-        tl.fromTo(`#sg2_${k}`, { opacity: 0 }, { opacity: 1, duration: 0.25 }, t + 0.25);
-        tl.fromTo(`#own${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.8)" }, 7.85 + k * 0.12);
+        tl.to(`#b${k}_0`, { opacity: 0, scale: 0.95, duration: 0.18, ease: "power2.in" }, t + 0.1);
+        tl.set(`#b${k}_0`, { display: "none" }, t + 0.3);
+        tl.set(`#rc${k}`, { display: "block" }, t + 0.3);
+        tl.fromTo(`#rc${k}`, { opacity: 0, y: 20, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)", transformOrigin: "0% 0%" }, t + 0.3);
+        // customer taps the CTA, then replies
+        const tap = 8.3 + k * 0.14;
+        tl.fromTo(`#cta${k}`, { backgroundColor: "#ffffff", scale: 1 }, { backgroundColor: "#dff0f8", scale: 0.97, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out" }, tap);
+        tl.fromTo(`#rp${k}`, { opacity: 0, y: 16, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.32, ease: "back.out(1.8)", transformOrigin: "100% 0%" }, tap + 0.3);
       });
 
       // ===== SCENE 3 (10–13): Multi-WABA — three numbers, one manager view =====
