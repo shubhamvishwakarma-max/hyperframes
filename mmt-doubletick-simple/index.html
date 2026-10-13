@@ -155,12 +155,15 @@
         white-space: nowrap;
       }
       #hA {
-        top: 122px;
+        top: 102px;
         font-size: 63px;
         line-height: 1.06;
       }
       #hA .ln {
         display: block;
+      }
+      #hA .g {
+        color: #c0392b;
       }
       .hd .g {
         color: var(--green-ink);
@@ -656,6 +659,343 @@
         background: var(--green);
       }
 
+      /* broadcast screen (modelled on the DoubleTick Broadcast Lists UI) */
+      #hD {
+        top: 120px;
+        font-size: 66px;
+      }
+      #bcw {
+        left: 200px;
+        top: 236px;
+        width: 1520px;
+        height: 798px;
+      }
+      #bc {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 2000px;
+        height: 1050px;
+        transform: scale(0.76);
+        transform-origin: 0 0;
+        background: #fff;
+        border: 2px solid #e3e1dc;
+        border-radius: 26px;
+        overflow: hidden;
+        font-family: "Inter", var(--sans);
+        color: #1c1f1e;
+        box-shadow: 0 30px 80px rgba(60, 50, 30, 0.16);
+      }
+      .bcol {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+      #bL {
+        left: 0;
+        width: 540px;
+        border-right: 2px solid #ebe9e4;
+      }
+      #bM {
+        left: 540px;
+        width: 1080px;
+        background: #f3f0ea;
+      }
+      #bR {
+        left: 1620px;
+        width: 380px;
+        border-left: 2px solid #ebe9e4;
+      }
+      .bh {
+        height: 104px;
+        display: flex;
+        align-items: center;
+        padding: 0 26px;
+        gap: 18px;
+        background: #fff;
+      }
+      .bh .tt {
+        font-size: 26px;
+        font-weight: 500;
+      }
+      .bh .ic {
+        margin-left: auto;
+        display: flex;
+        gap: 26px;
+      }
+      .bh .ic svg {
+        width: 28px;
+        height: 28px;
+      }
+      .imp {
+        margin: 0 16px;
+        display: flex;
+        gap: 10px;
+      }
+      .imp > div {
+        flex: 1;
+        height: 108px;
+        border: 2px solid #e3e1dc;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 21px;
+        font-weight: 600;
+      }
+      .imp svg {
+        width: 28px;
+        height: 28px;
+      }
+      .bli {
+        height: 102px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 0 22px;
+      }
+      .bli.on {
+        background: #e8f1ec;
+        margin-top: 16px;
+      }
+      .bli .bi {
+        position: relative;
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: #eceae6;
+        display: grid;
+        place-items: center;
+        flex: none;
+      }
+      .bli .bi svg {
+        width: 28px;
+        height: 28px;
+      }
+      .bli .bi i {
+        position: absolute;
+        right: -3px;
+        bottom: -3px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #25d366;
+        border: 3px solid #fff;
+      }
+      .bli b {
+        display: block;
+        font-size: 23px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .bli span {
+        display: block;
+        margin-top: 4px;
+        font-size: 19px;
+        color: #5f6461;
+      }
+      #bM .bh {
+        border-bottom: 2px solid #ebe9e4;
+      }
+      #bM .bh .sub {
+        display: block;
+        margin-top: 4px;
+        font-size: 20px;
+        color: #5f6461;
+      }
+      .bbtn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 20px;
+        border: 2px solid #e3e1dc;
+        border-radius: 6px;
+        background: #fff;
+        font-size: 20px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .bbtn svg {
+        width: 22px;
+        height: 22px;
+      }
+      #bcast {
+        display: none;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: #e3f7ea;
+        color: #12784a;
+        font-size: 19px;
+        font-weight: 600;
+      }
+      #bcast i {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #2bb673;
+        display: block;
+      }
+      .btoday {
+        position: absolute;
+        left: 50%;
+        top: 122px;
+        transform: translateX(-50%);
+        padding: 8px 16px;
+        border-radius: 6px;
+        background: #e7e4dd;
+        font-size: 17px;
+        color: #4d524f;
+      }
+      #bcard {
+        position: absolute;
+        right: 26px;
+        top: 186px;
+        width: 590px;
+        border-radius: 14px;
+        background: #e3fbea;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+      }
+      #bcard .bt {
+        padding: 20px 22px 14px;
+      }
+      #bcard .ttl {
+        font-size: 24px;
+        font-weight: 700;
+        color: #2a7a52;
+      }
+      #bcard .hey {
+        margin-top: 14px;
+        font-size: 25px;
+      }
+      #bcard .hey b {
+        font-weight: 700;
+      }
+      #bcard .bd {
+        margin-top: 8px;
+        font-size: 21px;
+        line-height: 1.5;
+      }
+      #bcard .via {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 19px;
+        color: #5f6b70;
+      }
+      #bcard .via b {
+        font-weight: 600;
+      }
+      .srow {
+        height: 54px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 0 26px 0 22px;
+        font-family: "Geist", var(--sans);
+        font-size: 23px;
+        font-variant-numeric: tabular-nums;
+      }
+      .srow svg {
+        width: 26px;
+        height: 26px;
+        flex: none;
+      }
+      .srow .v {
+        margin-left: auto;
+        font-weight: 600;
+      }
+      .srow .pc {
+        width: 120px;
+        text-align: right;
+        color: #6a706d;
+      }
+      #bstats {
+        border-top: 2px solid #cfe4d6;
+        padding: 6px 0 10px;
+      }
+      .bfoot {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 114px;
+        background: #fff;
+        border-top: 2px solid #ebe9e4;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 12px;
+        padding-right: 24px;
+      }
+      #sendT {
+        background: #12784a;
+        border-color: #12784a;
+        color: #fff;
+      }
+      #bR .bh {
+        border-bottom: 2px solid #ebe9e4;
+      }
+      .mpill {
+        padding: 6px 14px;
+        border-radius: 999px;
+        border: 2px solid #9fd5b6;
+        background: #e3f7ea;
+        color: #12784a;
+        font-family: "Geist", var(--sans);
+        font-size: 22px;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 18px 18px 20px;
+        border-bottom: 2px solid #ebe9e4;
+      }
+      .chips span {
+        padding: 8px 14px;
+        border: 2px solid #e3e1dc;
+        border-radius: 4px;
+        font-family: "Geist", var(--sans);
+        font-size: 19px;
+      }
+      .chips span.on {
+        border-color: #9fd5b6;
+        background: #e3f7ea;
+        color: #12784a;
+      }
+      .mrow {
+        height: 92px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 0 20px;
+      }
+      .mrow .in {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 26px;
+        flex: none;
+      }
+      .mrow b {
+        display: block;
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .mrow span {
+        display: block;
+        margin-top: 3px;
+        font-size: 16px;
+        color: #5f6461;
+      }
       /* animated growth graph behind the KPIs */
       #graph {
         position: absolute;
@@ -831,14 +1171,18 @@
           <div class="sb abs" id="sC">Centralized visibility and control</div>
 
           <!-- connections -->
-          <svg id="lines" viewBox="0 0 1920 1080"></svg>
-          <div id="gl"></div>
-          <div id="mgr" class="node card">
+          <svg id="lines" viewBox="0 0 1920 1080" style="display: none"></svg>
+          <div id="gl" style="display: none"></div>
+          <div id="mgr" class="node card" style="display: none">
             <span class="pp"><svg viewBox="0 0 24 24"><use href="#i-user" /></svg></span>Manager
             <svg class="eye" viewBox="0 0 24 24" fill="none" stroke="#8b8f8b" stroke-width="2" stroke-linecap="round"><path d="M3 12c2.5-4.5 5.5-6.5 9-6.5s6.5 2 9 6.5c-2.5 4.5-5.5 6.5-9 6.5S5.5 16.5 3 12z" /><circle cx="12" cy="12" r="3" /></svg>
           </div>
-          <div id="dtn" class="node card"><img src="assets/img/doubletick-logo.png" alt="DoubleTick" /></div>
+          <div id="dtn" class="node card" style="display: none"><img src="assets/img/doubletick-logo.png" alt="DoubleTick" /></div>
           <div id="cnt" class="abs"><div class="pill"><b><span id="cntn">1,500</span>+</b>agents</div></div>
+
+          <!-- broadcast screen -->
+          <div class="hd abs" id="hD"><span class="split">One broadcast.</span> <span class="split g">Personalized for every customer.</span></div>
+          <div id="bcw" class="abs"><div id="bc"></div></div>
 
           <!-- three conversation cards (built in script) -->
           <div id="cards"></div>
@@ -902,25 +1246,25 @@
       <audio id="sfx-00-pop" src="assets/audio/pop.mp3" data-start="0.5" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
       <audio id="sfx-01-pop" src="assets/audio/pop.mp3" data-start="0.7" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
       <audio id="sfx-02-pop" src="assets/audio/pop.mp3" data-start="0.9" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
-      <audio id="sfx-03-pop" src="assets/audio/pop.mp3" data-start="8.6" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
-      <audio id="sfx-04-pop" src="assets/audio/pop.mp3" data-start="8.74" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
-      <audio id="sfx-05-pop" src="assets/audio/pop.mp3" data-start="8.88" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
-      <audio id="sfx-tap0" src="assets/audio/click.mp3" data-start="8.30" data-duration="0.10" data-track-index="16" data-volume="0.45"></audio>
-      <audio id="sfx-tap1" src="assets/audio/click.mp3" data-start="8.44" data-duration="0.10" data-track-index="16" data-volume="0.45"></audio>
-      <audio id="sfx-tap2" src="assets/audio/click.mp3" data-start="8.58" data-duration="0.10" data-track-index="16" data-volume="0.45"></audio>
-      <audio id="sfx-07-click" src="assets/audio/click.mp3" data-start="1.9" data-duration="0.10" data-track-index="13" data-volume="0.35"></audio>
-      <audio id="sfx-08-tick" src="assets/audio/tick.mp3" data-start="2.2" data-duration="0.10" data-track-index="12" data-volume="0.3"></audio>
-      <audio id="sfx-09-tick" src="assets/audio/tick.mp3" data-start="2.45" data-duration="0.10" data-track-index="12" data-volume="0.3"></audio>
-      <audio id="sfx-10-sweep" src="assets/audio/sweep.mp3" data-start="5.0" data-duration="0.94" data-track-index="12" data-volume="0.6"></audio>
-      <audio id="sfx-11-snap" src="assets/audio/snap.mp3" data-start="5.5" data-duration="0.19" data-track-index="13" data-volume="0.45"></audio>
-      <audio id="sfx-12-pulse" src="assets/audio/pulse.mp3" data-start="5.75" data-duration="0.43" data-track-index="13" data-volume="0.35"></audio>
-      <audio id="sfx-13-count" src="assets/audio/count.mp3" data-start="7.3" data-duration="0.07" data-track-index="12" data-volume="0.22"></audio>
-      <audio id="sfx-14-count" src="assets/audio/count.mp3" data-start="7.45" data-duration="0.07" data-track-index="12" data-volume="0.22"></audio>
-      <audio id="sfx-15-verify" src="assets/audio/verify.mp3" data-start="7.45" data-duration="0.34" data-track-index="13" data-volume="0.45"></audio>
-      <audio id="sfx-16-count" src="assets/audio/count.mp3" data-start="7.6" data-duration="0.07" data-track-index="12" data-volume="0.22"></audio>
-      <audio id="sfx-17-verify" src="assets/audio/verify.mp3" data-start="7.6" data-duration="0.34" data-track-index="14" data-volume="0.45"></audio>
-      <audio id="sfx-18-verify" src="assets/audio/verify.mp3" data-start="7.75" data-duration="0.34" data-track-index="12" data-volume="0.45"></audio>
-      <audio id="sfx-19-count" src="assets/audio/count.mp3" data-start="7.8" data-duration="0.07" data-track-index="13" data-volume="0.22"></audio>
+      <audio id="sfx-03-pop" src="assets/audio/pop.mp3" data-start="9.1" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
+      <audio id="sfx-04-pop" src="assets/audio/pop.mp3" data-start="9.24" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
+      <audio id="sfx-05-pop" src="assets/audio/pop.mp3" data-start="9.38" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
+      <audio id="sfx-tap0" src="assets/audio/click.mp3" data-start="8.8" data-duration="0.10" data-track-index="16" data-volume="0.45"></audio>
+      <audio id="sfx-tap1" src="assets/audio/click.mp3" data-start="8.94" data-duration="0.10" data-track-index="16" data-volume="0.45"></audio>
+      <audio id="sfx-tap2" src="assets/audio/click.mp3" data-start="9.08" data-duration="0.10" data-track-index="16" data-volume="0.45"></audio>
+      <audio id="sfx-07-click" src="assets/audio/click.mp3" data-start="5.55" data-duration="0.10" data-track-index="13" data-volume="0.35"></audio>
+      <audio id="sfx-08-tick" src="assets/audio/tick.mp3" data-start="5.95" data-duration="0.10" data-track-index="12" data-volume="0.3"></audio>
+      <audio id="sfx-09-tick" src="assets/audio/tick.mp3" data-start="6.25" data-duration="0.10" data-track-index="12" data-volume="0.3"></audio>
+      <audio id="sfx-10-sweep" src="assets/audio/sweep.mp3" data-start="4.95" data-duration="0.94" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="sfx-11-snap" src="assets/audio/snap.mp3" data-start="7.45" data-duration="0.19" data-track-index="13" data-volume="0.45"></audio>
+      <audio id="sfx-12-pulse" src="assets/audio/pulse.mp3" data-start="5.7" data-duration="0.43" data-track-index="13" data-volume="0.35"></audio>
+      <audio id="sfx-13-count" src="assets/audio/count.mp3" data-start="7.8" data-duration="0.07" data-track-index="12" data-volume="0.22"></audio>
+      <audio id="sfx-14-count" src="assets/audio/count.mp3" data-start="7.95" data-duration="0.07" data-track-index="12" data-volume="0.22"></audio>
+      <audio id="sfx-15-verify" src="assets/audio/verify.mp3" data-start="7.95" data-duration="0.34" data-track-index="13" data-volume="0.45"></audio>
+      <audio id="sfx-16-count" src="assets/audio/count.mp3" data-start="8.1" data-duration="0.07" data-track-index="12" data-volume="0.22"></audio>
+      <audio id="sfx-17-verify" src="assets/audio/verify.mp3" data-start="8.1" data-duration="0.34" data-track-index="14" data-volume="0.45"></audio>
+      <audio id="sfx-18-verify" src="assets/audio/verify.mp3" data-start="8.25" data-duration="0.34" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-19-count" src="assets/audio/count.mp3" data-start="8.3" data-duration="0.07" data-track-index="13" data-volume="0.22"></audio>
       <audio id="sfx-20-click" src="assets/audio/click.mp3" data-start="10.1" data-duration="0.10" data-track-index="12" data-volume="0.35"></audio>
       <audio id="sfx-21-whoosh" src="assets/audio/whoosh.mp3" data-start="10.7" data-duration="0.58" data-track-index="12" data-volume="0.35"></audio>
       <audio id="sfx-22-snap" src="assets/audio/snap.mp3" data-start="11.0" data-duration="0.19" data-track-index="13" data-volume="0.5"></audio>
@@ -1026,6 +1370,59 @@
           `<div class="row" id="rw${k}" style="left:${560 + 30}px;right:auto;width:740px;top:${RY(k)}px"><span class="wb">WABA 0${k + 1} ✓</span><img src="assets/img/reps/${a[1]}" alt=""/><div class="who"><b>${a[0]} ${VF}</b><span>Verified WhatsApp · ${a[2]}</span></div><span class="act"><i></i>Active</span></div>`,
       ).join("");
 
+      // ---------- broadcast screen content ----------
+      const MEG = '<svg viewBox="0 0 24 24" fill="none" stroke="#6b706d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></svg>';
+      const SRCH = '<svg viewBox="0 0 24 24" fill="none" stroke="#1c1f1e" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4" stroke-linecap="round"/></svg>';
+      const KEB = '<svg viewBox="0 0 24 24" fill="#1c1f1e"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>';
+      const LISTS = [
+        ["Goa Holiday Offer - Rahul WABA", "21,058 Members"],
+        ["Dubai Flight Sale - Neha WABA", "18,420 Members"],
+        ["Jaipur Weekend - Arjun WABA", "12,906 Members"],
+        ["Kerala Escapes - Priya WABA", "15,377 Members"],
+        ["Summer Sale - Vikram WABA", "20,114 Members"],
+        ["Visa Assist - Kavya WABA", "9,862 Members"],
+      ];
+      const MEMBERS = [
+        ["S", "Sanya Mehta", "#f3e3f6", "#a84bb8"],
+        ["B", "Bhavesh Rao", "#fbe6e6", "#c0504d"],
+        ["F", "Farhan Ali", "#e9f0e1", "#5f8d3a"],
+        ["H", "Harsh Gupta", "#e2edf5", "#3d6f9a"],
+        ["D", "Divya Nair", "#fbe6e8", "#c0504d"],
+        ["Y", "Yash Jain", "#f3e3f6", "#a84bb8"],
+      ];
+      const SROWS = [
+        ["Sent", 21058, "99.9%", '<svg viewBox="0 0 24 24" fill="none" stroke="#6b7275" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>'],
+        ["Delivered", 18008, "80.5%", '<svg viewBox="0 0 24 24" fill="none" stroke="#6b7275" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13l4.5 4.5L17 7"/><path d="M11 17.5L21.5 7"/></svg>'],
+        ["Read", 15901, "70.0%", '<svg viewBox="0 0 24 24" fill="none" stroke="#2a8cf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13l4.5 4.5L17 7"/><path d="M11 17.5L21.5 7"/></svg>'],
+        ["Replied by", 14001, "60.0%", '<svg viewBox="0 0 24 24" fill="none" stroke="#1f2324" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5L3 11.5 10 18v-4c5 0 8.5 1.5 11 5-1-5.5-4.5-9-11-9.5z"/></svg>'],
+      ];
+      const MSTAT = ["Delivered ✓✓", "Read ✓✓", "Replied", "Delivered ✓✓", "Read ✓✓", "Replied"];
+      $("bc").innerHTML = `
+        <div class="bcol" id="bL">
+          <div class="bh"><span class="tt">Broadcast Lists</span><span class="ic">${SRCH}${KEB}</span></div>
+          <div class="imp"><div>📗 Excel Import</div><div>⬇️ Sample File</div><div>⚡ Quick Import</div></div>
+          ${LISTS.map((l, i) => `<div class="bli${i === 0 ? " on" : ""}"><span class="bi">${MEG}<i></i></span><div><b>${l[0]}</b><span>${l[1]}</span></div></div>`).join("")}
+        </div>
+        <div class="bcol" id="bM">
+          <div class="bh"><div><span class="tt">Goa Holiday Offer Campaign</span><span class="sub">21,058 Members</span></div><span class="ic" style="gap:14px;align-items:center"><span id="bcast"><i></i>Broadcasting…</span><span class="bbtn">⬇ Import</span></span></div>
+          <div class="btoday">Today</div>
+          <div id="bcard">
+            <div class="bt">
+              <div class="ttl">MakeMyTrip Offers</div>
+              <div class="hey">Hey <b>{{Customer Name}}</b></div>
+              <div class="bd">Your Goa getaway is waiting! Exclusive member deals on beach stays, flights and holiday packages, picked for your dates.</div>
+              <div class="via"><span>Sent Via&nbsp; <b>Rahul WABA</b></span><span>05:39 PM</span></div>
+            </div>
+            <div id="bstats">${SROWS.map((r, i) => `<div class="srow">${r[3]}<span>${r[0]}</span><span class="v" id="sv${i}">0</span><span class="pc" id="sp${i}">· ${r[2]}</span></div>`).join("")}</div>
+          </div>
+          <div class="bfoot"><span class="bbtn">🛍 Send Product</span><span class="bbtn">📄 Send Catalogue</span><span class="bbtn" id="sendT">➤ Send Template</span></div>
+        </div>
+        <div class="bcol" id="bR">
+          <div class="bh"><span class="tt">Members</span><span class="mpill" id="mcount">21,058</span><span class="ic">${SRCH}</span></div>
+          <div class="chips"><span class="on">All</span><span>Sent</span><span>Delivered</span><span>Replied</span><span>Read</span><span>Failed</span></div>
+          ${MEMBERS.map((m, i) => `<div class="mrow"><span class="in" style="background:${m[2]};color:${m[3]}">${m[0]}</span><div><b>${m[1]}</b><span id="ms${i}">Queued</span></div></div>`).join("")}
+        </div>`;
+
       // background bars for the results graph
       $("gbars").innerHTML = Array.from({ length: 24 }, (_, i) => {
         const h = 90 + i * 9 + ((i * 37) % 5) * 14;
@@ -1062,35 +1459,42 @@
       const BT = [[0.5], [0.7], [0.9]];
       [0, 1, 2].forEach((k) => tl.set(`#rc${k}`, { display: "none" }, 0));
       BT.forEach((ts, k) => ts.forEach((t, j) => tl.fromTo(`#b${k}_${j}`, { opacity: 0, y: 16, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.8)", transformOrigin: CHATS[k][j][0] === "in" ? "0% 0%" : "100% 0%" }, t)));
-      enter("#mgr", 1.9);
-      [0, 1, 2].forEach((k) => {
-        drawPath(`bk${k}a`, 2.2 + k * 0.08, 0.3);
-        drawPath(`bk${k}b`, 2.45 + k * 0.08, 0.3);
-      });
-      tl.fromTo("#lines path[id^='bk']", { opacity: 1 }, { opacity: 0.7, duration: 0.5 }, 2.8);
 
-      // ===== TRANSITION (5–7): DoubleTick connects everything =====
+      // ===== BROADCAST (5–7.4): one campaign, sent at scale from DoubleTick =====
       tl.to(["#hA"], { opacity: 0, y: -24, filter: "blur(6px)", duration: 0.3, ease: "power2.in" }, 4.85);
-      tl.fromTo("#gl", { scaleX: 0, opacity: 1 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 5.0);
-      tl.to("#lines path[id^='bk']", { opacity: 0, duration: 0.25 }, 5.15);
-      tl.to("#mgr", { opacity: 0, scale: 0.9, duration: 0.25, ease: "power2.in" }, 5.3);
-      tl.fromTo("#dtn", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 5.5);
-      [0, 1, 2].forEach((k) => drawPath(`ok${k}`, 5.7 + k * 0.06, 0.45));
-      tl.to("#gl", { opacity: 0, duration: 0.4 }, 6.0);
-      // cards snap into one organized row
-      tl.to("#cv0", { x: 24, duration: 0.5, ease: "back.out(2)" }, 5.65);
-      tl.to("#cv2", { x: -24, duration: 0.5, ease: "back.out(2)" }, 5.65);
+      [0, 1, 2].forEach((k) => tl.to(`#cv${k}`, { opacity: 0, y: 70, duration: 0.35, ease: "power2.in" }, 4.85 + k * 0.04));
+      words("#hD", 5.05, 0.06);
+      tl.fromTo("#bcw", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 5.05);
+      tl.fromTo("#bcard", { opacity: 0, y: 30, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 5.3);
+      tl.fromTo("#sendT", { scale: 1 }, { scale: 0.94, duration: 0.1, yoyo: true, repeat: 1, ease: "power2.out" }, 5.55);
+      tl.set("#bcast", { display: "flex" }, 5.7);
+      tl.fromTo("#bcast", { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: 0.25 }, 5.7);
+      tl.fromTo("#bcast i", { scale: 1 }, { scale: 1.6, duration: 0.25, yoyo: true, repeat: 5, ease: "sine.inOut" }, 5.75);
+      SROWS.forEach((r, i) => {
+        const o = { v: 0 },
+          el = $("sv" + i);
+        tl.fromTo(o, { v: 0 }, { v: r[1], duration: 1.1, ease: "power2.out", onUpdate: () => (el.textContent = Math.round(o.v).toLocaleString("en-US")) }, 5.75 + i * 0.15);
+        tl.fromTo("#sp" + i, { opacity: 0 }, { opacity: 1, duration: 0.25 }, 6.6 + i * 0.15);
+      });
+      MEMBERS.forEach((_, i) => {
+        const ms = $("ms" + i);
+        const st = { s: 0 };
+        tl.fromTo(st, { s: 0 }, { s: 1, duration: 0.01, onUpdate: () => (ms.textContent = st.s > 0.5 ? MSTAT[i] : "Queued") }, 5.9 + i * 0.12);
+      });
+      // cards snap into one organized row (while hidden, so scene 3 maths is unchanged)
+      tl.to("#cv0", { x: 24, duration: 0.3 }, 5.65);
+      tl.to("#cv2", { x: -24, duration: 0.3 }, 5.65);
+      tl.to(["#hD", "#bcw"], { opacity: 0, y: -30, duration: 0.3, ease: "power2.in" }, 7.3);
+      [0, 1, 2].forEach((k) => tl.to(`#cv${k}`, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 7.45 + k * 0.05));
 
       // ===== SCENE 2 (7–10): own verified numbers =====
-      tl.to("#dtn", { opacity: 0, y: -10, duration: 0.25 }, 6.95);
-      tl.to("#lines path[id^='ok']", { opacity: 0, duration: 0.3 }, 6.95);
-      words("#hB", 7.0, 0.07);
-      tl.fromTo("#sB", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: E }, 7.35);
-      tl.fromTo("#cnt", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.8)" }, 7.2);
+      words("#hB", 7.5, 0.07);
+      tl.fromTo("#sB", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: E }, 7.85);
+      tl.fromTo("#cnt", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.8)" }, 7.7);
       const c = { v: 0 };
-      tl.fromTo(c, { v: 0 }, { v: 1500, duration: 0.8, ease: "power2.out", onUpdate: () => ($("cntn").textContent = Math.round(c.v).toLocaleString("en-US")) }, 7.25);
+      tl.fromTo(c, { v: 0 }, { v: 1500, duration: 0.8, ease: "power2.out", onUpdate: () => ($("cntn").textContent = Math.round(c.v).toLocaleString("en-US")) }, 7.75);
       [0, 1, 2].forEach((k) => {
-        const t = 7.2 + k * 0.15;
+        const t = 7.7 + k * 0.15;
         tl.to(`#hs1_${k}`, { opacity: 0, y: -12, duration: 0.2 }, t);
         tl.fromTo(`#hs2_${k}`, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, t + 0.1);
         tl.fromTo(`#hs2_${k} .vf`, { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(3)" }, t + 0.25);
@@ -1099,7 +1503,7 @@
         tl.set(`#rc${k}`, { display: "block" }, t + 0.3);
         tl.fromTo(`#rc${k}`, { opacity: 0, y: 20, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)", transformOrigin: "0% 0%" }, t + 0.3);
         // customer taps the CTA, then replies
-        const tap = 8.3 + k * 0.14;
+        const tap = 8.8 + k * 0.14;
         tl.fromTo(`#cta${k}`, { backgroundColor: "#ffffff", scale: 1 }, { backgroundColor: "#dff0f8", scale: 0.97, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out" }, tap);
         tl.fromTo(`#rp${k}`, { opacity: 0, y: 16, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.32, ease: "back.out(1.8)", transformOrigin: "100% 0%" }, tap + 0.3);
       });
