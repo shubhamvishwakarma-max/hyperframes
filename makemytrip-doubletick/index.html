@@ -516,13 +516,13 @@
 
       /* ---------- S1 hook ---------- */
       #s1-card {
-        left: 96px;
-        top: 560px;
+        left: 56px;
+        top: 640px;
         width: 336px;
         height: 405px;
       }
       #s1-phone {
-        left: 1536px;
+        left: 1590px;
         top: 220px;
         width: 285px;
         height: 475px;
@@ -542,12 +542,12 @@
         height: 28px;
       }
       #s1-chip-a {
-        left: 210px;
-        top: 250px;
+        left: 96px;
+        top: 170px;
       }
       #s1-chip-b {
-        left: 1400px;
-        top: 780px;
+        left: 1500px;
+        top: 860px;
       }
       #s1-stack {
         position: absolute;
@@ -557,36 +557,37 @@
         align-items: center;
         justify-content: center;
       }
-      #s1-stats {
+      #s1-pair {
+        display: flex;
+        gap: 80px;
+      }
+      .stat {
+        width: 560px;
         display: flex;
         flex-direction: column;
-        gap: 6px;
-      }
-      .stat-row {
-        display: flex;
-        align-items: baseline;
-        gap: 34px;
+        align-items: center;
+        text-align: center;
       }
       .stat-num {
         font-family: var(--serif);
-        font-size: 200px;
+        font-size: 250px;
         line-height: 1;
-        letter-spacing: -0.04em;
+        letter-spacing: -0.045em;
         color: var(--green-ink);
-        width: 400px;
-        text-align: right;
         display: block;
       }
       .stat-label {
+        margin-top: 14px;
         font-family: var(--sans);
-        font-size: 66px;
+        font-size: 56px;
         font-weight: 500;
         letter-spacing: -0.03em;
         color: var(--ink);
         display: block;
+        white-space: nowrap;
       }
       #s1-how {
-        margin-top: 40px;
+        margin-top: 64px;
         display: flex;
         align-items: center;
         gap: 26px;
@@ -1091,12 +1092,12 @@
             </div>
           </div>
           <div id="s1-stack">
-            <div id="s1-stats">
-              <div class="stat-row" id="s1-row1">
+            <div id="s1-pair">
+              <div class="stat" id="s1-st1">
                 <span class="stat-num" id="s1-n1">10%</span>
                 <span class="stat-label split" id="s1-l1">revenue growth</span>
               </div>
-              <div class="stat-row" id="s1-row2">
+              <div class="stat" id="s1-st2">
                 <span class="stat-num" id="s1-n2">30%</span>
                 <span class="stat-label split" id="s1-l2">higher efficiency</span>
               </div>
@@ -1203,8 +1204,8 @@
       <!-- ===== audio ===== -->
       <audio id="a-music" src="assets/audio/music.mp3" data-start="0" data-duration="20" data-track-index="10" data-volume="0.8"></audio>
       <audio id="sfx-click-1" src="assets/audio/click.mp3" data-start="0.35" data-duration="0.2" data-track-index="11" data-volume="0.6"></audio>
-      <audio id="sfx-click-2" src="assets/audio/click.mp3" data-start="1.0" data-duration="0.2" data-track-index="11" data-volume="0.6"></audio>
-      <audio id="sfx-pop-1" src="assets/audio/pop.mp3" data-start="2.45" data-duration="0.3" data-track-index="11" data-volume="0.55"></audio>
+      <audio id="sfx-click-2" src="assets/audio/click.mp3" data-start="1.3" data-duration="0.2" data-track-index="11" data-volume="0.6"></audio>
+      <audio id="sfx-pop-1" src="assets/audio/pop.mp3" data-start="2.6" data-duration="0.3" data-track-index="11" data-volume="0.55"></audio>
       <audio id="sfx-whoosh-1" src="assets/audio/whoosh.mp3" data-start="3.55" data-duration="0.6" data-track-index="12" data-volume="0.6"></audio>
       <audio id="sfx-click-3" src="assets/audio/click.mp3" data-start="5.9" data-duration="0.2" data-track-index="11" data-volume="0.5"></audio>
       <audio id="sfx-ding-0" src="assets/audio/ding.mp3" data-start="6.0" data-duration="0.9" data-track-index="13" data-volume="0.3"></audio>
@@ -1392,22 +1393,31 @@
       tl.to("#s1-chip-a", { y: -24, duration: 2.4, ease: "sine.inOut" }, 1.2);
       tl.to("#s1-chip-b", { y: 24, duration: 2.4, ease: "sine.inOut" }, 1.5);
 
-      const c1 = { v: 0 },
+ const c1 = { v: 0 },
         c2 = { v: 0 };
       const n1 = document.getElementById("s1-n1"),
         n2 = document.getElementById("s1-n2");
-      tl.fromTo("#s1-n1", { opacity: 0, y: 70, filter: "blur(18px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.1);
+      // each stat column sits 320px from frame centre; beats 1–2 show one stat centred, beat 3 both side by side
+      const DX = 320,
+        DY = 95;
+      // beat 1: 10% centred
+      tl.fromTo("#s1-st1", { x: DX, y: DY + 70, opacity: 0, filter: "blur(18px)" }, { x: DX, y: DY, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.1);
       tl.fromTo(c1, { v: 0 }, { v: 10, duration: 0.6, ease: "power2.out", onUpdate: () => (n1.textContent = Math.round(c1.v) + "%") }, 0.1);
       revealWords("#s1-l1", 0.35);
-      tl.fromTo("#s1-n2", { opacity: 0, y: 70, filter: "blur(18px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.75);
-      tl.fromTo(c2, { v: 0 }, { v: 30, duration: 0.6, ease: "power2.out", onUpdate: () => (n2.textContent = Math.round(c2.v) + "%") }, 0.75);
-      revealWords("#s1-l2", 1.0);
-      tl.fromTo("#s1-stats", { y: 95 }, { y: 0, duration: 0.55, ease: "expo.inOut" }, 1.9);
-      tl.fromTo("#s1-w1", { opacity: 0, x: -60, filter: "blur(10px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.5, ease: E }, 2.2);
-      tl.fromTo("#s1-mmt", { opacity: 0, scale: 0.3, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "back.out(2.2)" }, 2.42);
-      tl.fromTo("#s1-w2", { opacity: 0, x: 60, filter: "blur(10px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.5, ease: E }, 2.62);
-      tl.fromTo("#s1-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "expo.out" }, 2.9);
-      // exit: zoom-through
+      // beat 2: 10% slides out left, 30% slides in from the right
+      tl.to("#s1-st1", { x: DX - 700, opacity: 0, filter: "blur(14px)", duration: 0.32, ease: "power2.in" }, 0.98);
+      tl.fromTo("#s1-st2", { x: -DX + 700, y: DY, opacity: 0, filter: "blur(14px)" }, { x: -DX, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 1.25);
+      tl.fromTo(c2, { v: 0 }, { v: 30, duration: 0.6, ease: "power2.out", onUpdate: () => (n2.textContent = Math.round(c2.v) + "%") }, 1.25);
+      revealWords("#s1-l2", 1.45);
+      // beat 3: both settle — 10% left, 30% right
+      tl.to("#s1-st2", { x: 0, y: 0, duration: 0.6, ease: "expo.inOut" }, 2.0);
+      tl.fromTo("#s1-st1", { x: -260, y: 0, opacity: 0, filter: "blur(14px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out", immediateRender: false }, 2.05);
+      // "Here's how MakeMyTrip did it."
+      tl.fromTo("#s1-w1", { opacity: 0, y: 40, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: E }, 2.45);
+      tl.fromTo("#s1-mmt", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.55, ease: "back.out(2)" }, 2.6);
+      tl.fromTo("#s1-w2", { opacity: 0, y: 40, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: E }, 2.75);
+      tl.fromTo("#s1-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "expo.out" }, 3.0);
+      // exit: slide left
       tl.to("#s1-inner", { x: -420, opacity: 0, filter: "blur(18px)", duration: 0.42, ease: "power3.in" }, 3.72);
 
       // ===== S2 =====
@@ -1480,7 +1490,7 @@
       tl.to("#s3-cardwrap-hl", { y: 393, duration: 0.38, ease: "back.out(1.8)" }, 10.2);
       tl.to("#s3-cardwrap-hl", { y: 524, duration: 0.38, ease: "back.out(1.8)" }, 10.95);
       // camera punch toward the stats
-      // exit: zoom-through
+      // exit: slide left
       tl.to("#s3-inner", { x: -420, opacity: 0, filter: "blur(18px)", duration: 0.42, ease: "power3.in" }, 11.72);
 
       // ===== S4 =====
