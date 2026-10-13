@@ -122,6 +122,30 @@
         height: 46px;
         width: auto;
       }
+      #subs {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 20px;
+        display: flex;
+        justify-content: center;
+        pointer-events: none;
+        z-index: 50;
+      }
+      #subs .sub {
+        position: absolute;
+        bottom: 0;
+        padding: 8px 22px;
+        border-radius: 12px;
+        background: rgba(17, 20, 18, 0.82);
+        color: #ffffff;
+        font-family: "Inter", var(--sans);
+        font-size: 30px;
+        font-weight: 500;
+        line-height: 1.25;
+        white-space: nowrap;
+        opacity: 0;
+      }
       #tag {
         position: absolute;
         right: 72px;
@@ -1236,6 +1260,18 @@
         </div>
         <img id="dtlogo" src="assets/img/doubletick-logo.png" alt="DoubleTick" />
         <div id="tag"><img src="assets/img/mmt-logo.png" alt="MakeMyTrip" />Customer story</div>
+        <div id="subs">
+          <div class="sub" id="sub0">MakeMyTrip's agents used separate WhatsApp numbers,</div>
+          <div class="sub" id="sub1">so managers couldn't see the conversations.</div>
+          <div class="sub" id="sub2">With DoubleTick,</div>
+          <div class="sub" id="sub3">agents send personalized campaigns from verified numbers.</div>
+          <div class="sub" id="sub4">Multi-WABA gives managers one view.</div>
+          <div class="sub" id="sub5">1,500+ agents,</div>
+          <div class="sub" id="sub6">30% higher efficiency,</div>
+          <div class="sub" id="sub7">10% revenue growth.</div>
+          <div class="sub" id="sub8">Your team could be next.</div>
+          <div class="sub" id="sub9">Experience it live.</div>
+        </div>
       </div>
 
       <audio id="a-music" src="assets/audio/music.mp3" data-start="0" data-duration="20" data-track-index="10" data-volume="0.3"></audio>
@@ -1559,6 +1595,13 @@
       tl.fromTo("#cta", { opacity: 0, y: 24, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 18.1);
       tl.fromTo("#shine", { x: -160 }, { x: 560, duration: 0.7, ease: "power2.inOut" }, 18.4);
       tl.fromTo("#cta svg", { x: 0 }, { x: 8, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out" }, 18.55);
+
+      // VO subtitles: [start, end] in seconds, matched to the voiceover phrases
+      const SUBT = [[0.15, 2.87], [3.22, 5.38], [5.6, 6.34], [6.6, 9.73], [10.18, 12.3], [12.5, 13.87], [14.19, 15.63], [15.93, 17.25], [17.35, 18.49], [18.77, 19.97]];
+      SUBT.forEach(([a, b], i) => {
+        tl.fromTo("#sub" + i, { opacity: 0 }, { opacity: 1, duration: 0.12 }, a);
+        tl.to("#sub" + i, { opacity: 0, duration: 0.12 }, Math.min(b, 19.85));
+      });
 
       window.__timelines["main"] = tl;
     </script>
