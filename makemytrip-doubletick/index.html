@@ -1255,7 +1255,7 @@
         ["Aditya", "aditya.jpg", "+91 98922 •• 307"],
       ];
       // chat thread scroll offsets (native px) once each message lands — measured from layout
-      const SCROLL = [0, 0, 0, 72];
+      const SCROLL = [0, 0, 0, 0];
       const fmt = (n) => Math.round(n).toLocaleString("en-US");
       const verified = '<svg class="verified" viewBox="0 0 24 24"><use href="#i-verified"/></svg>';
       const dtick = '<svg viewBox="0 0 74 54"><use href="#i-dtick"/></svg>';
@@ -1289,7 +1289,6 @@
       }
       const B_IN = (id, inner, time) => `<div class="b in" id="${id}">${inner}<div class="t">${time}</div></div>`;
       const B_OUT = (id, inner, time) => `<div class="b out" id="${id}">${inner}<div class="t">${time}</div></div>`;
-      const AI = '<div class="ai"><span class="spark">✦</span>AI RM · for Sanjay</div>';
       const TYPING = (id) => `<div class="typing" id="${id}"><span></span><span></span><span></span></div>`;
       function phoneHTML(pfx, live) {
         let thread = `<div class="wa-day">Today</div>`;
@@ -1297,10 +1296,10 @@
         if (live) {
           thread += B_OUT(`${pfx}-m2`, "Hi Sanjay! Does the 30% apply to Goa hotels in December too?", "10.41 AM");
           thread += TYPING(`${pfx}-ty1`);
-          thread += B_IN(`${pfx}-m3`, `${AI}Yes, Mukesh! Goa hotels are 30% off till 31 Dec. Shall I share a few beach stays for your dates?`, "10.41 AM");
+          thread += B_IN(`${pfx}-m3`, `Yes, Mukesh! Goa hotels are 30% off till 31 Dec. Shall I share a few beach stays for your dates?`, "10.41 AM");
           thread += B_OUT(`${pfx}-m4`, "Yes please, 20–23 Dec, 2 adults 👍", "10.42 AM");
           thread += TYPING(`${pfx}-ty2`);
-          thread += B_IN(`${pfx}-m5`, `${AI}Done! 3 beachfront stays are ready for you. Your code <b>MMTGOA30</b> is active till Sunday 🏖️`, "10.42 AM");
+          thread += B_IN(`${pfx}-m5`, `Done! 3 beachfront stays are ready for you. Your code <b>MMTGOA30</b> is active till Sunday 🏖️`, "10.42 AM");
         }
         return `<div class="wa native">
           <div class="wa-head">
