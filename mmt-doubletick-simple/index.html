@@ -934,13 +934,13 @@
         const camp = `<div class="bb in" id="b${k}_0"><p>Dear Customer,</p><p>${g[0]} <span style="color:#0270a8">${g[1]}</span></p><p>– Team MMT</p><span class="t">10.3${5 + k} AM</span></div>`;
         const LINK = '<svg viewBox="0 0 24 24" fill="none" stroke="#0270a8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
         const CHAT = '<svg viewBox="0 0 24 24" fill="none" stroke="#0270a8" stroke-width="2.2" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>';
-        const rich = `<div class="rich" id="rc${k}"><div class="bb in"><img src="assets/img/dest/${r[0]}" alt=""/><div class="tx"><p>Hi ${r[1]}! 👋</p><p>${r[2]}</p><p class="sg">— ${a[0]}, MakeMyTrip</p></div><span class="t">10.4${k} AM</span></div><div class="btns"><div class="btn" id="cta${k}">${LINK}${r[3]}</div><div class="btn">${CHAT}Chat with ${a[0]}</div></div></div>`;
+        const rich = `<div class="rich" id="rc${k}"><div class="bb in"><img src="assets/img/dest/${r[0]}" alt=""/><div class="tx"><p>Hi ${r[1]}! 👋</p><p>${r[2]}</p><p class="sg">${a[0]}, MakeMyTrip</p></div><span class="t">10.4${k} AM</span></div><div class="btns"><div class="btn" id="cta${k}">${LINK}${r[3]}</div><div class="btn">${CHAT}Chat with ${a[0]}</div></div></div>`;
         const reply = `<div class="bb out" id="rp${k}">${r[4]}<span class="t">10.4${k + 2} AM</span></div>`;
         return `<div class="wtag" id="wt${k}" style="left:${x}px"><span>WABA 0${k + 1} ✓</span></div>
           <div class="cv card" id="cv${k}" style="left:${x}px">
             <div class="hdr">
               <div class="hs" id="hs1_${k}">${ICO.back}<span class="av">${SIL}</span><div><div class="nm">+91 98XXX XXX0${k + 1}</div><div class="ln2">Business Account</div></div>${ICO.right}</div>
-              <div class="hs" id="hs2_${k}">${ICO.back}<img class="av" src="assets/img/reps/${a[1]}" alt=""/><div><div class="nm">${a[0]} - MMT ${VF}</div><div class="ln2 v">✓ Own verified number</div></div>${ICO.right}</div>
+              <div class="hs" id="hs2_${k}">${ICO.back}<img class="av" src="assets/img/reps/${a[1]}" alt=""/><div><div class="nm">${a[0]} - MMT ${VF}</div><div class="ln2">Business Account</div></div>${ICO.right}</div>
             </div>
             <div class="body"><div class="today">Today</div>${camp}${rich}${reply}</div>
             ${ICO.inp}
