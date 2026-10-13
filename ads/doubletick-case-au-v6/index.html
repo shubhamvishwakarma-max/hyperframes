@@ -20,19 +20,29 @@
   .sub { left: 72px; right: 72px; top: 400px; font-size: 25px; line-height: 1.38; color: var(--ink-2); letter-spacing: -0.015em; }
   .sub b { color: var(--ink); font-weight: 600; }
 
-  /* visual: archive of written-off lead cards, one lifted out and turned green */
-  .vis { left: 72px; top: 492px; width: 936px; height: 360px; }
-  .vis > * { position: absolute; }
-  .gc { width: 300px; height: 150px; border-radius: 20px; background: #E9EEEB; border: 1px solid #DCE3DF; padding: 22px; display: flex; flex-direction: column; gap: 12px; }
-  .gc i { display: block; height: 12px; border-radius: 6px; background: #D3DBD7; }
-  .gc .a { width: 46px; height: 46px; border-radius: 50%; background: #D3DBD7; }
-  .hero { left: 318px; top: 46px; width: 380px; height: 220px; border-radius: 26px; background: var(--green); padding: 28px; display: flex; flex-direction: column; gap: 16px;
-    transform: rotate(-4deg); box-shadow: 0 40px 70px -30px rgba(0,60,43,.75); }
-  .hero .r { display: flex; align-items: center; gap: 16px; }
-  .hero .a { width: 58px; height: 58px; border-radius: 50%; background: rgba(255,255,255,.2); display: grid; place-items: center; }
-  .hero i { display: block; height: 14px; border-radius: 7px; background: rgba(255,255,255,.55); }
-  .hero .ok { position: absolute; right: -20px; top: -20px; width: 64px; height: 64px; border-radius: 50%; background: #fff; display: grid; place-items: center;
-    box-shadow: 0 10px 24px -8px rgba(0,60,43,.5); }
+  /* visual: dead list -> AI Voice -> live list */
+  .vis { left: 72px; top: 500px; width: 936px; height: 340px; display: grid; grid-template-columns: 1fr 108px 1fr; align-items: center; }
+  .col { border-radius: 22px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .col.l { background: #ECF0ED; }
+  .col.r { background: #fff; border: 2px solid var(--green); box-shadow: 0 24px 48px -28px rgba(0,60,43,.45); }
+  .hd { font-size: 17px; font-weight: 700; letter-spacing: .01em; margin-bottom: 4px; }
+  .l .hd { color: #8E9A94; } .r .hd { color: var(--green); }
+  .row { display: flex; align-items: center; gap: 12px; height: 54px; padding: 0 14px; border-radius: 14px; }
+  .l .row { background: #E2E8E4; }
+  .r .row { background: #F4F8F5; }
+  .r .row.q { background: var(--soft); }
+  .av { width: 32px; height: 32px; border-radius: 50%; flex: none; display: grid; place-items: center; }
+  .l .av { background: #D3DBD7; } .r .av { background: #DCE8E2; } .r .q .av { background: var(--green); }
+  .bar { flex: 1; height: 10px; border-radius: 5px; max-width: 110px; }
+  .l .bar { background: #CFD8D3; } .r .bar { background: #D4E2DB; }
+  .st { margin-left: auto; font-size: 15px; font-weight: 600; white-space: nowrap; }
+  .l .st { color: #9AA6A0; }
+  .r .st { color: var(--muted); }
+  .r .q .st { color: var(--green); }
+  .mid { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .orb { width: 70px; height: 70px; border-radius: 50%; display: grid; place-items: center;
+    background: radial-gradient(circle at 34% 28%, #9BEBCB 0%, #1FA77B 40%, #007A5A 75%, #005A42 100%); box-shadow: 0 0 0 10px rgba(47,191,143,.14); }
+  .mid .t { font-size: 15px; font-weight: 700; color: var(--green); text-align: center; line-height: 1.2; }
   .cta { left: 72px; top: 878px; display: flex; align-items: center; gap: 18px; }
   .btn { background: var(--green); color: #fff; font-size: 23px; font-weight: 600; letter-spacing: -0.01em; padding: 17px 28px; border-radius: 14px;
     display: flex; align-items: center; gap: 12px; box-shadow: 0 14px 30px -10px rgba(0,122,90,.6); }
@@ -45,12 +55,9 @@
   <p class="sub"><b>AU Small Finance Bank</b> used <b>DoubleTick AI Voice</b> to call unworked and dormant leads on phone and WhatsApp, then hand qualified ones to RMs.</p>
 
   <div class="vis">
-    <div class="gc" style="left:20px;top:40px;transform:rotate(-7deg);opacity:0.55"><div style="display:flex;gap:14px;align-items:center"><span class="a"></span><div style="flex:1;display:flex;flex-direction:column;gap:9px"><i style="width:70%"></i><i style="width:45%"></i></div></div><i style="width:85%"></i><i style="width:60%"></i></div><div class="gc" style="left:60px;top:170px;transform:rotate(5deg);opacity:0.45"><div style="display:flex;gap:14px;align-items:center"><span class="a"></span><div style="flex:1;display:flex;flex-direction:column;gap:9px"><i style="width:70%"></i><i style="width:45%"></i></div></div><i style="width:85%"></i><i style="width:60%"></i></div><div class="gc" style="left:616px;top:30px;transform:rotate(6deg);opacity:0.55"><div style="display:flex;gap:14px;align-items:center"><span class="a"></span><div style="flex:1;display:flex;flex-direction:column;gap:9px"><i style="width:70%"></i><i style="width:45%"></i></div></div><i style="width:85%"></i><i style="width:60%"></i></div><div class="gc" style="left:580px;top:180px;transform:rotate(-5deg);opacity:0.45"><div style="display:flex;gap:14px;align-items:center"><span class="a"></span><div style="flex:1;display:flex;flex-direction:column;gap:9px"><i style="width:70%"></i><i style="width:45%"></i></div></div><i style="width:85%"></i><i style="width:60%"></i></div><div class="gc" style="left:318px;top:190px;transform:rotate(3deg);opacity:0.35"><div style="display:flex;gap:14px;align-items:center"><span class="a"></span><div style="flex:1;display:flex;flex-direction:column;gap:9px"><i style="width:70%"></i><i style="width:45%"></i></div></div><i style="width:85%"></i><i style="width:60%"></i></div>
-    <div class="hero">
-      <div class="r"><span class="a"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><div style="flex:1;display:flex;flex-direction:column;gap:11px"><i style="width:72%;background:#fff"></i><i style="width:48%"></i></div></div>
-      <i style="width:88%"></i><i style="width:62%"></i>
-      <span class="ok"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
-    </div>
+    <div class="col l"><div class="hd">Unworked leads</div><div class="row"><span class="av"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3AFA9" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="bar" style="max-width:110px"></span><span class="st">No follow-up</span></div><div class="row"><span class="av"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3AFA9" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="bar" style="max-width:80px"></span><span class="st">No follow-up</span></div><div class="row"><span class="av"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3AFA9" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="bar" style="max-width:96px"></span><span class="st">No follow-up</span></div><div class="row"><span class="av"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3AFA9" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="bar" style="max-width:70px"></span><span class="st">No follow-up</span></div></div>
+    <div class="mid"><div class="orb"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="t">AI Voice<br/>calls all</div></div>
+    <div class="col r"><div class="hd">After AI Voice</div><div class="row q"><span class="av"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="bar" style="max-width:110px"></span><span class="st">✓ Qualified → RM</span></div><div class="row"><span class="av"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3AFA9" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="bar" style="max-width:80px"></span><span class="st">Called</span></div><div class="row q"><span class="av"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="bar" style="max-width:96px"></span><span class="st">✓ Qualified → RM</span></div><div class="row"><span class="av"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3AFA9" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="bar" style="max-width:70px"></span><span class="st">Called</span></div></div>
   </div>
 
   <div class="cta"><div class="btn">See how AU did it
