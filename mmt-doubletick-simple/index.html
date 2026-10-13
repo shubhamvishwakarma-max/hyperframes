@@ -683,24 +683,24 @@
         background: var(--green);
       }
 
-      /* broadcast screen (modelled on the DoubleTick Broadcast Lists UI) */
+      /* broadcast screen: replica of the DoubleTick Broadcast lists UI (2000x1250 native) */
       #hD {
         top: 120px;
         font-size: 66px;
       }
       #bcw {
-        left: 200px;
-        top: 236px;
-        width: 1520px;
-        height: 798px;
+        left: 350px;
+        top: 222px;
+        width: 1220px;
+        height: 763px;
       }
       #bc {
         position: absolute;
         left: 0;
         top: 0;
         width: 2000px;
-        height: 1050px;
-        transform: scale(0.76);
+        height: 1250px;
+        transform: scale(0.61);
         transform-origin: 0 0;
         background: #fff;
         border: 2px solid #e3e1dc;
@@ -710,130 +710,255 @@
         color: #1c1f1e;
         box-shadow: 0 30px 80px rgba(60, 50, 30, 0.16);
       }
-      .bcol {
+      #bc svg {
+        flex: none;
+      }
+      .xtop {
         position: absolute;
-        top: 0;
-        bottom: 0;
-      }
-      #bL {
         left: 0;
-        width: 540px;
-        border-right: 2px solid #ebe9e4;
-      }
-      #bM {
-        left: 540px;
-        width: 1080px;
-        background: #f3f0ea;
-      }
-      #bR {
-        left: 1620px;
-        width: 380px;
-        border-left: 2px solid #ebe9e4;
-      }
-      .bh {
-        height: 104px;
+        right: 0;
+        top: 0;
+        height: 76px;
         display: flex;
         align-items: center;
-        padding: 0 26px;
-        gap: 18px;
+        padding: 0 32px;
         background: #fff;
+        border-bottom: 2px solid #ebe9e4;
       }
-      .bh .tt {
-        font-size: 26px;
-        font-weight: 500;
+      .xtop img {
+        height: 36px;
+        width: auto;
       }
-      .bh .ic {
+      .xtop .r {
         margin-left: auto;
         display: flex;
-        gap: 26px;
+        align-items: center;
+        gap: 34px;
+        font-size: 21px;
+        font-weight: 500;
       }
-      .bh .ic svg {
-        width: 28px;
-        height: 28px;
-      }
-      .imp {
-        margin: 0 16px;
+      .xtop .r span {
         display: flex;
+        align-items: center;
         gap: 10px;
       }
-      .imp > div {
-        flex: 1;
-        height: 108px;
+      .xtop .r svg {
+        width: 26px;
+        height: 26px;
+      }
+      .xtop .wn {
+        color: #1f8a55;
+      }
+      .xrail {
+        position: absolute;
+        left: 0;
+        top: 76px;
+        bottom: 0;
+        width: 78px;
+        border-right: 2px solid #ebe9e4;
+        background: #fff;
+      }
+      .xrail .av {
+        position: absolute;
+        left: 14px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 21px;
+        font-weight: 600;
+      }
+      .xrail .ri {
+        position: absolute;
+        left: 19px;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: grid;
+        place-items: center;
+      }
+      .xrail .ri.on {
+        left: 17px;
+        width: 44px;
+        height: 44px;
+        background: #e3f2e9;
+      }
+      .xrail .ri svg {
+        width: 26px;
+        height: 26px;
+      }
+      .xL {
+        position: absolute;
+        left: 78px;
+        top: 76px;
+        bottom: 0;
+        width: 520px;
+        border-right: 2px solid #ebe9e4;
+        background: #fff;
+        overflow: hidden;
+      }
+      .xh {
+        height: 76px;
+        display: flex;
+        align-items: center;
+        padding: 0 22px;
+        border-bottom: 2px solid #ebe9e4;
+      }
+      .xL .xh {
+        padding: 0 22px 0 22px;
+      }
+      .xL .xh .tt {
+        font-size: 22px;
+        font-weight: 600;
+      }
+      .xh .ic {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 30px;
+      }
+      .xh .ic svg {
+        width: 26px;
+        height: 26px;
+      }
+      .xsort {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 26px;
+        border-bottom: 2px solid #ebe9e4;
+        font-size: 17px;
+        color: #3f4441;
+      }
+      .xsort b {
+        font-weight: 500;
+        color: #1c1f1e;
+      }
+      .xsort svg {
+        width: 20px;
+        height: 20px;
+      }
+      .xsort .dd {
+        margin-left: auto;
+      }
+      .ximp {
+        display: flex;
+        gap: 16px;
+        padding: 16px 16px 18px;
+        border-bottom: 2px solid #ebe9e4;
+      }
+      .ximp > div {
+        height: 104px;
         border: 2px solid #e3e1dc;
         border-radius: 6px;
+        display: flex;
+        align-items: center;
+      }
+      .ximp .c {
+        flex: 1;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 10px;
-        font-size: 21px;
-        font-weight: 600;
+        gap: 12px;
+        font-size: 17px;
       }
-      .imp svg {
-        width: 28px;
-        height: 28px;
+      .ximp .c svg {
+        width: 30px;
+        height: 30px;
       }
-      .bli {
-        height: 102px;
+      .ximp .sep {
+        width: 2px;
+        height: 50px;
+        background: #e3e1dc;
+      }
+      .xli {
+        height: 85px;
+        padding: 0 39px;
         display: flex;
-        align-items: center;
-        gap: 20px;
-        padding: 0 22px;
-      }
-      .bli.on {
-        background: #e8f1ec;
-        margin-top: 16px;
-      }
-      .bli .bi {
-        position: relative;
-        width: 58px;
-        height: 58px;
-        border-radius: 50%;
-        background: #eceae6;
-        display: grid;
-        place-items: center;
-        flex: none;
-      }
-      .bli .bi svg {
-        width: 28px;
-        height: 28px;
-      }
-      .bli .bi i {
-        position: absolute;
-        right: -3px;
-        bottom: -3px;
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        background: #25d366;
-        border: 3px solid #fff;
-      }
-      .bli b {
-        display: block;
-        font-size: 23px;
-        font-weight: 500;
-        white-space: nowrap;
-      }
-      .bli span {
-        display: block;
-        margin-top: 4px;
-        font-size: 19px;
-        color: #5f6461;
-      }
-      #bM .bh {
+        flex-direction: column;
+        justify-content: center;
         border-bottom: 2px solid #ebe9e4;
       }
-      #bM .bh .sub {
-        display: block;
-        margin-top: 4px;
-        font-size: 20px;
-        color: #5f6461;
+      .xli.on {
+        background: #eef3ef;
       }
-      .bbtn {
+      .xli b {
+        font-size: 20px;
+        font-weight: 400;
+        white-space: nowrap;
+      }
+      .xli span {
+        margin-top: 3px;
+        font-size: 16px;
+        color: #6a6f6c;
+      }
+      .xnew {
+        position: absolute;
+        right: 22px;
+        bottom: 22px;
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 12px 20px;
+        gap: 14px;
+        padding: 14px 22px;
+        border-radius: 6px;
+        background: #2f9a63;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+      .xnew svg {
+        width: 22px;
+        height: 22px;
+      }
+      .xM {
+        position: absolute;
+        left: 598px;
+        top: 76px;
+        bottom: 0;
+        width: 987px;
+        background-color: #f3efe6;
+        background-image: url("assets/img/wallpaper.png");
+        background-size: 520px auto;
+      }
+      .xM .xh {
+        background: #fff;
+        padding: 0 16px;
+        gap: 14px;
+      }
+      .xgi {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: #e4efe8;
+        display: grid;
+        place-items: center;
+      }
+      .xgi svg {
+        width: 32px;
+        height: 32px;
+      }
+      .xM .xh .tt b {
+        display: block;
+        font-size: 20px;
+        font-weight: 500;
+      }
+      .xM .xh .tt span {
+        display: block;
+        margin-top: 2px;
+        font-size: 16px;
+        color: #5f6461;
+      }
+      .xbtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        height: 54px;
+        padding: 0 22px;
         border: 2px solid #e3e1dc;
         border-radius: 6px;
         background: #fff;
@@ -841,184 +966,211 @@
         font-weight: 500;
         white-space: nowrap;
       }
-      .bbtn svg {
-        width: 22px;
-        height: 22px;
+      .xbtn svg {
+        width: 24px;
+        height: 24px;
       }
-      #bcast {
-        display: none;
+      .xM .xh .ic {
+        gap: 12px;
+      }
+      .xM .xh .chev {
+        margin-left: 14px;
+        padding-left: 24px;
+        border-left: 2px solid #ebe9e4;
+        height: 76px;
+        display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 10px 18px;
-        border-radius: 999px;
-        background: #e3f7ea;
-        color: #12784a;
-        font-size: 19px;
-        font-weight: 600;
       }
-      #bcast i {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #2bb673;
-        display: block;
-      }
-      .btoday {
+      .xday {
         position: absolute;
         left: 50%;
-        top: 122px;
+        top: 98px;
         transform: translateX(-50%);
-        padding: 8px 16px;
-        border-radius: 6px;
-        background: #e7e4dd;
+        padding: 9px 30px;
+        border-radius: 8px;
+        background: #e5e2db;
         font-size: 17px;
         color: #4d524f;
       }
       #bcard {
         position: absolute;
-        right: 26px;
-        top: 186px;
-        width: 590px;
-        border-radius: 14px;
-        background: #e3fbea;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+        right: 18px;
+        top: 164px;
+        width: 486px;
+        border-radius: 8px;
+        background: #e6fbe9;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       }
       #bcard .bt {
-        padding: 20px 22px 14px;
+        padding: 16px 16px 8px;
+        font-size: 20px;
+        line-height: 1.46;
       }
-      #bcard .ttl {
-        font-size: 24px;
-        font-weight: 700;
-        color: #2a7a52;
-      }
-      #bcard .hey {
-        margin-top: 14px;
-        font-size: 25px;
-      }
-      #bcard .hey b {
-        font-weight: 700;
-      }
-      #bcard .bd {
-        margin-top: 8px;
-        font-size: 21px;
-        line-height: 1.5;
-      }
-      #bcard .via {
-        margin-top: 10px;
-        display: flex;
-        justify-content: space-between;
-        font-size: 19px;
-        color: #5f6b70;
-      }
-      #bcard .via b {
-        font-weight: 600;
-      }
-      .srow {
-        height: 54px;
+      #bcard .snd {
         display: flex;
         align-items: center;
-        gap: 18px;
-        padding: 0 26px 0 22px;
-        font-family: "Geist", var(--sans);
-        font-size: 23px;
+        gap: 8px;
+        font-size: 17px;
+        font-weight: 600;
+        color: #1f6f46;
+      }
+      #bcard .snd svg {
+        width: 22px;
+        height: 22px;
+      }
+      #bcard .snd .inf {
+        margin-left: auto;
+        width: 20px;
+        height: 20px;
+      }
+      #bcard p {
+        margin: 14px 0 0;
+      }
+      #bcard .rm {
+        margin-top: 10px;
+        color: #1d7fd6;
+      }
+      #bcard .tm {
+        margin-top: 12px;
+        text-align: right;
+        font-size: 14px;
+        color: #5f6461;
+      }
+      .srow {
+        height: 53px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 12px;
+        border-top: 2px solid #cfe7d6;
+        font-size: 20px;
         font-variant-numeric: tabular-nums;
+        white-space: nowrap;
       }
       .srow svg {
-        width: 26px;
-        height: 26px;
-        flex: none;
-      }
-      .srow .v {
-        margin-left: auto;
-        font-weight: 600;
+        width: 22px;
+        height: 22px;
       }
       .srow .pc {
-        width: 120px;
-        text-align: right;
-        color: #6a706d;
+        margin-left: 10px;
       }
-      #bstats {
-        border-top: 2px solid #cfe4d6;
-        padding: 6px 0 10px;
+      .srow .vr {
+        margin-left: auto;
+        margin-right: 14px;
+        font-size: 17px;
+        color: #d23b3b;
       }
-      .bfoot {
+      .srow .ar {
+        margin-left: auto;
+        width: 20px;
+        height: 20px;
+      }
+      .srow .vr + .ar {
+        margin-left: 0;
+      }
+      .xslot {
+        height: 53px;
+        border-top: 2px solid #cfe7d6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 20px;
+        font-weight: 600;
+        color: #1d7fd6;
+      }
+      .xslot svg {
+        width: 20px;
+        height: 20px;
+      }
+      .xfoot {
         position: absolute;
         left: 0;
         right: 0;
         bottom: 0;
-        height: 114px;
+        height: 82px;
         background: #fff;
         border-top: 2px solid #ebe9e4;
         display: flex;
         align-items: center;
         justify-content: flex-end;
         gap: 12px;
-        padding-right: 24px;
+        padding-right: 28px;
       }
       #sendT {
-        background: #12784a;
-        border-color: #12784a;
+        background: #2f9a63;
+        border-color: #2f9a63;
         color: #fff;
       }
-      #bR .bh {
-        border-bottom: 2px solid #ebe9e4;
+      .xR {
+        position: absolute;
+        left: 1585px;
+        top: 76px;
+        bottom: 0;
+        right: 0;
+        border-left: 2px solid #ebe9e4;
+        background: #fff;
+        overflow: hidden;
       }
-      .mpill {
-        padding: 6px 14px;
-        border-radius: 999px;
-        border: 2px solid #9fd5b6;
-        background: #e3f7ea;
-        color: #12784a;
-        font-family: "Geist", var(--sans);
-        font-size: 22px;
-        font-weight: 600;
-        font-variant-numeric: tabular-nums;
-      }
-      .chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        padding: 18px 18px 20px;
-        border-bottom: 2px solid #ebe9e4;
-      }
-      .chips span {
-        padding: 8px 14px;
-        border: 2px solid #e3e1dc;
-        border-radius: 4px;
-        font-family: "Geist", var(--sans);
+      .xR .xh {
+        gap: 14px;
+        white-space: nowrap;
         font-size: 19px;
+        color: #a3a7a4;
       }
-      .chips span.on {
-        border-color: #9fd5b6;
-        background: #e3f7ea;
-        color: #12784a;
+      .xR .xh svg {
+        width: 26px;
+        height: 26px;
       }
-      .mrow {
-        height: 92px;
+      .xmr {
+        height: 96px;
         display: flex;
         align-items: center;
-        gap: 16px;
-        padding: 0 20px;
+        gap: 32px;
+        padding: 0 22px;
+        border-bottom: 2px solid #ebe9e4;
       }
-      .mrow .in {
+      .xmr .in {
         width: 56px;
         height: 56px;
         border-radius: 50%;
         display: grid;
         place-items: center;
-        font-size: 26px;
+        font-size: 18px;
+        font-weight: 500;
         flex: none;
       }
-      .mrow b {
+      .xmr b {
         display: block;
-        font-size: 20px;
-        font-weight: 600;
+        font-size: 21px;
+        font-weight: 400;
+        white-space: nowrap;
       }
-      .mrow span {
+      .xmr span {
         display: block;
-        margin-top: 3px;
+        margin-top: 4px;
         font-size: 16px;
-        color: #5f6461;
+        font-variant-numeric: tabular-nums;
+      }
+      .xadd {
+        position: absolute;
+        left: 22px;
+        right: 18px;
+        bottom: 20px;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        border: 2px solid #e3e1dc;
+        border-radius: 6px;
+        background: #fff;
+        font-size: 20px;
+        font-weight: 500;
+      }
+      .xadd svg {
+        width: 24px;
+        height: 24px;
       }
       /* animated growth graph behind the KPIs */
       #graph {
@@ -1406,57 +1558,118 @@
           `<div class="row" id="rw${k}" style="left:${560 + 30}px;right:auto;width:740px;top:${RY(k)}px"><span class="wb">WABA 0${k + 1} ✓</span><img src="assets/img/reps/${a[1]}" alt=""/><div class="who"><b>${a[0]} ${VF}</b><span>Verified WhatsApp · ${a[2]}</span></div><span class="act"><i></i>Active</span></div>`,
       ).join("");
 
-      // ---------- broadcast screen content ----------
-      const MEG = '<svg viewBox="0 0 24 24" fill="none" stroke="#6b706d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></svg>';
-      const SRCH = '<svg viewBox="0 0 24 24" fill="none" stroke="#1c1f1e" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4" stroke-linecap="round"/></svg>';
-      const KEB = '<svg viewBox="0 0 24 24" fill="#1c1f1e"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>';
+      // ---------- broadcast screen content (DoubleTick Broadcast lists UI, MMT data) ----------
+      const sv = (d, c = "#1c1f1e", w = 1.8) => `<svg viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+      const IC = {
+        srch: sv('<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>'),
+        chk: sv('<path d="M4 12.5l5 5L20 6.5"/>'),
+        keb: '<svg viewBox="0 0 24 24" fill="#1c1f1e"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>',
+        bell: sv('<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/>'),
+        gift: sv('<rect x="3.5" y="8" width="17" height="4" rx="1"/><path d="M5 12v8h14v-8M12 8v12M12 8c-2-4-6-3.5-5-1s5 1 5 1zM12 8c2-4 6-3.5 5-1s-5 1-5 1z"/>', "#1f8a55"),
+        head: sv('<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>'),
+        sort: sv('<path d="M8 4v16M8 4L4.5 7.5M8 4l3.5 3.5M16 20V4M16 20l-3.5-3.5M16 20l3.5-3.5"/>'),
+        down: sv('<path d="M6 9l6 6 6-6"/>', "#5f6461"),
+        xls: '<svg viewBox="0 0 24 24"><rect x="9" y="3" width="12" height="18" rx="1.5" fill="#21a366"/><rect x="3" y="6" width="11" height="12" rx="1.5" fill="#107c41"/><path d="M6 9l5 6M11 9l-5 6" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>',
+        file: sv('<path d="M6 3h8l4 4v14H6z"/><path d="M12 10v6M9.5 13.5L12 16l2.5-2.5"/>', "#5f6461"),
+        bolt: '<svg viewBox="0 0 24 24" fill="#f4c430"><path d="M13 2L5 14h6l-1 8 8-12h-6z"/></svg>',
+        plus: sv('<path d="M12 5v14M5 12h14"/>', "#fff", 2.4),
+        grp: sv('<circle cx="12" cy="9" r="3"/><circle cx="5.5" cy="10.5" r="2.2"/><circle cx="18.5" cy="10.5" r="2.2"/><path d="M7 19c.5-3 2.5-4.5 5-4.5s4.5 1.5 5 4.5M2 18c.3-2 1.6-3 3.5-3M22 18c-.3-2-1.6-3-3.5-3"/>', "#2f9a63"),
+        imp: sv('<path d="M12 4v10M8 10l4 4 4-4"/><path d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/>'),
+        chev: sv('<path d="M9 5l7 7-7 7"/>', "#1c1f1e", 2),
+        wa: '<svg viewBox="0 0 24 24" fill="none" stroke="#25a35a" stroke-width="1.8"><path d="M4 20l1.2-4A8 8 0 1 1 8 18.8z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2z" fill="#25a35a" stroke="none"/></svg>',
+        info: sv('<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/>', "#2f6f4f"),
+        arr: sv('<path d="M4 12h15M14 7l5 5-5 5"/>', "#4d524f"),
+        ext: sv('<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>', "#1d7fd6", 2),
+        prod: sv('<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 4v6l2-1.5L12 10V4"/>'),
+        cat: sv('<rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 10h8M8 14h5"/>'),
+        send: sv('<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>', "#fff"),
+        addm: sv('<circle cx="9" cy="8" r="3.5"/><path d="M3 20c.5-3.5 3-5.5 6-5.5s5.5 2 6 5.5M18 8v6M15 11h6"/>'),
+      };
+      const RAIL = [
+        sv('<path d="M4 11l8-7 8 7v9h-5v-6h-6v6H4z"/>', "#4d524f"),
+        sv('<path d="M4 20l1.2-4A8 8 0 1 1 8 18.8z"/><circle cx="12" cy="12" r="2.5"/>', "#4d524f"),
+        sv('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>', "#4d524f"),
+        sv('<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>', "#2f9a63", 2),
+        sv('<path d="M13 2L5 14h6l-1 8 8-12h-6z"/>', "#4d524f"),
+        sv('<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 16v-4M12 16V8M16 16v-6"/>', "#4d524f"),
+        sv('<circle cx="12" cy="12" r="3"/><path d="M12 2.5l2 2.6 3.2-.6.7 3.2 2.9 1.5-1.4 3 1.4 3-2.9 1.5-.7 3.2-3.2-.6-2 2.6-2-2.6-3.2.6-.7-3.2-2.9-1.5 1.4-3-1.4-3 2.9-1.5.7-3.2 3.2.6z"/>', "#4d524f"),
+      ];
       const LISTS = [
-        ["Goa Holiday Offer - Rahul WABA", "21,058 Members"],
-        ["Dubai Flight Sale - Neha WABA", "18,420 Members"],
-        ["Jaipur Weekend - Arjun WABA", "12,906 Members"],
-        ["Kerala Escapes - Priya WABA", "15,377 Members"],
-        ["Summer Sale - Vikram WABA", "20,114 Members"],
-        ["Visa Assist - Kavya WABA", "9,862 Members"],
+        ["Goa Holiday Offer - Rahul", "21,058 Members"],
+        ["Dubai Flight Sale - Neha", "18,420 Members"],
+        ["Jaipur Weekend - Arjun", "12,906 Members"],
+        ["Holiday Leads 18:09:2026", "32,600 Members"],
+        ["Kerala Escapes - Priya", "15,377 Members"],
+        ["Summer Sale - Vikram", "20,114 Members"],
+        ["Visa Assist/ 16 Sept", "9,862 Members"],
+        ["Honeymoon Packages 2026", "4,510 Members"],
+        ["Bali follow up 11-09-2026", "7,246 Members"],
+        ["Ladakh Bike Trip - Kavya", "1,102 Members"],
+        ["Kashmir follow up 10-09-2026", "3,418 Members"],
       ];
       const MEMBERS = [
-        ["S", "Sanya Mehta", "#f3e3f6", "#a84bb8"],
-        ["B", "Bhavesh Rao", "#fbe6e6", "#c0504d"],
-        ["F", "Farhan Ali", "#e9f0e1", "#5f8d3a"],
-        ["H", "Harsh Gupta", "#e2edf5", "#3d6f9a"],
-        ["D", "Divya Nair", "#fbe6e8", "#c0504d"],
-        ["Y", "Yash Jain", "#f3e3f6", "#a84bb8"],
+        ["AM", "Aarav Mehta", "+9197666XXX52", "#f3e3f6", "#8e3a9e"],
+        ["AI", "Ananya Iyer", "+9198330XXX91", "#fbe6e8", "#a83e3b"],
+        ["AK", "Arjun Kapoor", "+9183170XXX80", "#fbe6e8", "#a83e3b"],
+        ["BR", "Bhavesh Rao", "+9190320XXX20", "#fbe6e8", "#a83e3b"],
+        ["DN", "Divya Nair", "+9188504XXX47", "#e2edf5", "#335e84"],
+        ["FA", "Farhan Ali", "+9194526XXX31", "#e9f0e1", "#4b6f2e"],
+        ["HG", "Harsh Gupta", "+9193208XXX55", "#e2edf5", "#335e84"],
+        ["IS", "Ishita Sen", "+9186020XXX16", "#e2edf5", "#335e84"],
+        ["KM", "Kabir Malhotra", "+9196258XXX65", "#e2edf5", "#335e84"],
+        ["MJ", "Meera Joshi", "+9192251XXX91", "#f3e3f6", "#8e3a9e"],
+        ["MV", "Mukesh Verma", "+9198282XXX41", "#fbe6e8", "#a83e3b"],
+        ["NP", "Nikhil Patel", "+9199870XXX12", "#e9f0e1", "#4b6f2e"],
       ];
+      // [count, label, percent, icon]; percentages are of the 21,058 list members
       const SROWS = [
-        ["Sent", 21058, "99.9%", '<svg viewBox="0 0 24 24" fill="none" stroke="#6b7275" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>'],
-        ["Delivered", 18008, "80.5%", '<svg viewBox="0 0 24 24" fill="none" stroke="#6b7275" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13l4.5 4.5L17 7"/><path d="M11 17.5L21.5 7"/></svg>'],
-        ["Read", 15901, "70.0%", '<svg viewBox="0 0 24 24" fill="none" stroke="#2a8cf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13l4.5 4.5L17 7"/><path d="M11 17.5L21.5 7"/></svg>'],
-        ["Replied by", 14001, "60.0%", '<svg viewBox="0 0 24 24" fill="none" stroke="#1f2324" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5L3 11.5 10 18v-4c5 0 8.5 1.5 11 5-1-5.5-4.5-9-11-9.5z"/></svg>'],
+        [20795, "Sent to", 98.8, sv('<path d="M4 12.5l5 5L20 6.5"/>', "#5f6461")],
+        [20421, "Delivered to", 97.0, sv('<path d="M2 13l4.5 4.5L17 7"/><path d="M11 17.5L21.5 7"/>', "#5f6461")],
+        [6330, "Unread by", 30.1, sv('<rect x="3" y="4" width="18" height="15" rx="2"/><path d="M7 9h10M7 13h6"/>', "#1c1f1e")],
+        [14091, "Read by", 66.9, sv('<path d="M2 13l4.5 4.5L17 7"/><path d="M11 17.5L21.5 7"/>', "#1d8cf8", 2)],
+        [4212, "Replied by", 20.0, sv('<rect x="3" y="4" width="18" height="15" rx="2"/><path d="M10 8l-3 3 3 3M7 11h7a3 3 0 0 1 3 3"/>', "#1c1f1e")],
+        [16209, "No response by", 77.0, sv('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/>', "#1c1f1e")],
+        [0, "Awaiting template approval", 0.0, sv('<rect x="3" y="4" width="18" height="16" rx="4"/><path d="M8 12l3 3 5-6"/>', "#1c1f1e")],
+        [263, "Failed", 1.2, sv('<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>', "#d23b3b")],
       ];
-      const MSTAT = ["Delivered ✓✓", "Read ✓✓", "Replied", "Delivered ✓✓", "Read ✓✓", "Replied"];
+      const RAILY = [104, 151, 198, 245, 292, 339, 386];
       $("bc").innerHTML = `
-        <div class="bcol" id="bL">
-          <div class="bh"><span class="tt">Broadcast Lists</span><span class="ic">${SRCH}${KEB}</span></div>
-          <div class="imp"><div>📗 Excel Import</div><div>⬇️ Sample File</div><div>⚡ Quick Import</div></div>
-          ${LISTS.map((l, i) => `<div class="bli${i === 0 ? " on" : ""}"><span class="bi">${MEG}<i></i></span><div><b>${l[0]}</b><span>${l[1]}</span></div></div>`).join("")}
+        <div class="xtop"><img src="assets/img/doubletick-logo.png" alt="DoubleTick" /><div class="r">${IC.bell}<span class="wn">${IC.gift}What's New</span><span>${IC.head}Support</span></div></div>
+        <div class="xrail">
+          <span class="av" style="top:16px;background:#e3e6f8;color:#4a55b5">D</span>
+          ${RAIL.map((r, i) => `<span class="ri${i === 3 ? " on" : ""}" style="top:${RAILY[i]}px">${r}</span>`).join("")}
+          <span class="ri" style="top:999px">${sv('<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 12.5h2"/>', "#4d524f")}</span>
+          <span class="ri" style="top:1044px">${sv('<circle cx="12" cy="12" r="9"/><path d="M8.5 15l2-6h1l2 6M9.2 13h3.6M16 9v6"/>', "#4d524f")}</span>
+          <span class="av" style="top:1098px;background:#fbe3e3;color:#c0504d">S</span>
         </div>
-        <div class="bcol" id="bM">
-          <div class="bh"><div><span class="tt">Goa Holiday Offer Campaign</span><span class="sub">21,058 Members</span></div><span class="ic" style="gap:14px;align-items:center"><span id="bcast"><i></i>Broadcasting…</span><span class="bbtn">⬇ Import</span></span></div>
-          <div class="btoday">Today</div>
+        <div class="xL">
+          <div class="xh"><span class="tt">Broadcast lists</span><span class="ic">${IC.srch}${IC.chk}${IC.keb}</span></div>
+          <div class="xsort">${IC.sort}Sort by <b>Date created - new to old</b><span class="dd">${IC.down}</span></div>
+          <div class="ximp"><div style="flex:2"><span class="c">${IC.xls}Excel Import</span><span class="sep"></span><span class="c">${IC.file}Sample File</span></div><div style="flex:1"><span class="c">${IC.bolt}Quick Import</span></div></div>
+          ${LISTS.map((l, i) => `<div class="xli${i === 0 ? " on" : ""}"><b>${l[0]}</b><span>${l[1]}</span></div>`).join("")}
+          <div class="xnew">${IC.plus}New List</div>
+        </div>
+        <div class="xM">
+          <div class="xh"><span class="xgi">${IC.grp}</span><div class="tt"><b>Goa Holiday Offer - Rahul</b><span>21,058 members</span></div><span class="ic"><span class="xbtn">Manage Access</span><span class="xbtn">${IC.imp}Import</span><span class="chev">${IC.chev}</span></span></div>
+          <div class="xday">Today</div>
           <div id="bcard">
             <div class="bt">
-              <div class="ttl">MakeMyTrip Offers</div>
-              <div class="hey">Hey <b>{{Customer Name}}</b></div>
-              <div class="bd">Your Goa getaway is waiting! Exclusive member deals on beach stays, flights and holiday packages, picked for your dates.</div>
-              <div class="via"><span>Sent Via&nbsp; <b>Rahul WABA</b></span><span>05:39 PM</span></div>
+              <div class="snd">${IC.wa}Rahul Sharma - MMT<span class="inf">${IC.info}</span></div>
+              <p>Hello {{Customer Name}},</p>
+              <p>Your Goa holiday deals from MakeMyTrip are live, picked for your travel dates.</p>
+              <p>Why book now?<br />✅ Beach stays at member-only prices<br />📈 Flights + hotels bundled for your dates...</p>
+              <div class="rm">Read More</div>
+              <div class="tm">12:35 pm</div>
             </div>
-            <div id="bstats">${SROWS.map((r, i) => `<div class="srow">${r[3]}<span>${r[0]}</span><span class="v" id="sv${i}">0</span><span class="pc" id="sp${i}">· ${r[2]}</span></div>`).join("")}</div>
+            ${SROWS.map((r, i) => `<div class="srow">${r[3]}<span><span id="sv${i}">0</span> - ${r[1]}</span><span class="pc" id="sp${i}">0.0%</span>${i === 7 ? '<span class="vr">View reasons</span>' : ""}<span class="ar">${IC.arr}</span></div>`).join("")}
+            <div class="xslot">${IC.ext}Book a Slot</div>
           </div>
-          <div class="bfoot"><span class="bbtn">🛍 Send Product</span><span class="bbtn">📄 Send Catalogue</span><span class="bbtn" id="sendT">➤ Send Template</span></div>
+          <div class="xfoot"><span class="xbtn">${IC.prod}Send products</span><span class="xbtn">${IC.cat}Send catalogue</span><span class="xbtn" id="sendT">${IC.send}Send WhatsApp Template</span></div>
         </div>
-        <div class="bcol" id="bR">
-          <div class="bh"><span class="tt">Members</span><span class="mpill" id="mcount">21,058</span><span class="ic">${SRCH}</span></div>
-          <div class="chips"><span class="on">All</span><span>Sent</span><span>Delivered</span><span>Replied</span><span>Read</span><span>Failed</span></div>
-          ${MEMBERS.map((m, i) => `<div class="mrow"><span class="in" style="background:${m[2]};color:${m[3]}">${m[0]}</span><div><b>${m[1]}</b><span id="ms${i}">Queued</span></div></div>`).join("")}
+        <div class="xR">
+          <div class="xh">${IC.srch}Search for members</div>
+          ${MEMBERS.map((m) => `<div class="xmr"><span class="in" style="background:${m[3]};color:${m[4]}">${m[0]}</span><div><b>${m[1]}</b><span>${m[2]}</span></div></div>`).join("")}
+          <div class="xadd">${IC.addm}Add a member</div>
         </div>`;
 
       // background bars for the results graph
@@ -1503,19 +1716,25 @@
       tl.fromTo("#bcw", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 5.05);
       tl.fromTo("#bcard", { opacity: 0, y: 30, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 5.3);
       tl.fromTo("#sendT", { scale: 1 }, { scale: 0.94, duration: 0.1, yoyo: true, repeat: 1, ease: "power2.out" }, 5.55);
-      tl.set("#bcast", { display: "flex" }, 5.7);
-      tl.fromTo("#bcast", { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: 0.25 }, 5.7);
-      tl.fromTo("#bcast i", { scale: 1 }, { scale: 1.6, duration: 0.25, yoyo: true, repeat: 5, ease: "sine.inOut" }, 5.75);
+      // broadcast goes out: every stat counts up from zero
       SROWS.forEach((r, i) => {
         const o = { v: 0 },
-          el = $("sv" + i);
-        tl.fromTo(o, { v: 0 }, { v: r[1], duration: 1.1, ease: "power2.out", onUpdate: () => (el.textContent = Math.round(o.v).toLocaleString("en-US")) }, 5.75 + i * 0.15);
-        tl.fromTo("#sp" + i, { opacity: 0 }, { opacity: 1, duration: 0.25 }, 6.6 + i * 0.15);
-      });
-      MEMBERS.forEach((_, i) => {
-        const ms = $("ms" + i);
-        const st = { s: 0 };
-        tl.fromTo(st, { s: 0 }, { s: 1, duration: 0.01, onUpdate: () => (ms.textContent = st.s > 0.5 ? MSTAT[i] : "Queued") }, 5.9 + i * 0.12);
+          el = $("sv" + i),
+          pc = $("sp" + i);
+        tl.fromTo(
+          o,
+          { v: 0 },
+          {
+            v: 1,
+            duration: 0.9,
+            ease: "power2.out",
+            onUpdate: () => {
+              el.textContent = Math.round(o.v * r[0]).toLocaleString("en-US");
+              pc.textContent = (o.v * r[2]).toFixed(1) + "%";
+            },
+          },
+          5.75 + i * 0.07,
+        );
       });
       // cards snap into one organized row (while hidden, so scene 3 maths is unchanged)
       tl.to("#cv0", { x: 24, duration: 0.3 }, 5.65);
