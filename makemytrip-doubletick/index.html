@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>MakeMyTrip × DoubleTick — 20s case study</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        src: url("assets/fonts/hedvig.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist.woff2") format("woff2");
+        font-weight: 300 700;
+        font-display: block;
+      }
+      :root {
+        --bg: #f5f0e6;
+        --bg-2: #efe8da;
+        --paper: #fffdf8;
+        --ink: #1d211f;
+        --muted: #575c58;
+        --green: #2bb673;
+        --green-ink: #12784a;
+        --tint: #e4f8ea;
+        --line: #e2dccf;
+        --blue: #1d8cf8;
+        --serif: "Hedvig Letters Serif", Georgia, serif;
+        --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg);
+        font-family: var(--sans);
+        color: var(--ink);
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+      .fill {
+        position: absolute;
+        inset: 0;
+      }
+      .serif {
+        font-family: var(--serif);
+        font-weight: 400;
+        letter-spacing: -0.02em;
+      }
+      img {
+        display: block;
+      }
+
+      /* ---------- shared background ---------- */
+      #bg-dots {
+        position: absolute;
+        inset: -60px;
+        background-image: radial-gradient(circle, rgba(29, 33, 31, 0.07) 1.5px, transparent 1.6px);
+        background-size: 36px 36px;
+      }
+      #bg-glow {
+        position: absolute;
+        width: 1400px;
+        height: 1400px;
+        left: 260px;
+        top: -160px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(43, 182, 115, 0.13) 0%, rgba(43, 182, 115, 0) 62%);
+      }
+      #bg-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 45%, rgba(245, 240, 230, 0) 55%, rgba(226, 216, 196, 0.55) 100%);
+      }
+
+      /* ---------- chrome ---------- */
+      #chrome-logo {
+        position: absolute;
+        left: 72px;
+        top: 56px;
+        height: 34px;
+        width: auto;
+      }
+      #chrome-tag {
+        position: absolute;
+        right: 72px;
+        top: 50px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 10px 20px 10px 16px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        box-shadow: 0 6px 20px rgba(60, 50, 30, 0.06);
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      #chrome-tag .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+      #chrome-tag b {
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      /* ---------- shared UI pieces ---------- */
+      .card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow:
+          0 1px 2px rgba(60, 50, 30, 0.05),
+          0 18px 40px rgba(60, 50, 30, 0.1);
+      }
+      .shot {
+        border-radius: 34px;
+        box-shadow:
+          0 2px 4px rgba(60, 50, 30, 0.06),
+          0 30px 70px rgba(60, 50, 30, 0.18);
+      }
+      .verified {
+        width: 22px;
+        height: 22px;
+        flex: none;
+      }
+      .avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        flex: none;
+        display: grid;
+        place-items: center;
+        font-weight: 600;
+        font-size: 21px;
+        color: #fff;
+        overflow: hidden;
+      }
+      .avatar img {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* ---------- S1 hook ---------- */
+      #s1-frag-card {
+        position: absolute;
+        left: 96px;
+        top: 560px;
+        width: 330px;
+        height: auto;
+      }
+      #s1-frag-chat {
+        position: absolute;
+        left: 1540px;
+        top: 230px;
+        width: 280px;
+        height: auto;
+      }
+      .frag-chip {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        font-size: 22px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .frag-chip svg {
+        width: 28px;
+        height: 28px;
+      }
+      #s1-chip-a {
+        left: 210px;
+        top: 250px;
+      }
+      #s1-chip-b {
+        left: 1440px;
+        top: 760px;
+      }
+      #s1-stack {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #s1-stats {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .stat-row {
+        display: flex;
+        align-items: baseline;
+        gap: 34px;
+      }
+      .stat-num {
+        font-family: var(--serif);
+        font-size: 200px;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        color: var(--green-ink);
+        width: 400px;
+        text-align: right;
+        display: block;
+      }
+      .stat-label {
+        font-family: var(--sans);
+        font-size: 66px;
+        font-weight: 500;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+        display: block;
+      }
+      #s1-how {
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        font-family: var(--serif);
+        font-size: 76px;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      #s1-how .word {
+        display: block;
+      }
+      #s1-mmt {
+        display: flex;
+        align-items: center;
+        padding: 8px 26px;
+        border-radius: 22px;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: 0 14px 34px rgba(60, 50, 30, 0.12);
+      }
+      #s1-mmt img {
+        height: 92px;
+        width: auto;
+      }
+
+      /* ---------- S2 agents ---------- */
+      #s2-left {
+        position: absolute;
+        left: 140px;
+        top: 0;
+        bottom: 0;
+        width: 720px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      #s2-kicker,
+      #s3-kicker {
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--green-ink);
+        margin-bottom: 18px;
+        display: block;
+      }
+      #s2-num {
+        font-family: var(--serif);
+        font-size: 230px;
+        line-height: 0.95;
+        letter-spacing: -0.045em;
+        display: block;
+      }
+      #s2-num .plus {
+        color: var(--green-ink);
+      }
+      #s2-agents {
+        font-family: var(--serif);
+        font-size: 104px;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        display: block;
+        margin-top: 2px;
+      }
+      #s2-sub {
+        margin-top: 40px;
+        font-size: 38px;
+        line-height: 1.3;
+        font-weight: 400;
+        color: var(--muted);
+        max-width: 640px;
+        letter-spacing: -0.01em;
+      }
+      #s2-sub b {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      #s2-sub .hl {
+        color: var(--green-ink);
+        font-weight: 600;
+      }
+      #s2-gridwrap {
+        position: absolute;
+        left: 880px;
+        top: 40px;
+        width: 960px;
+        height: 1040px;
+        -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+        mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+      }
+      #s2-grid {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 960px;
+        display: grid;
+        grid-template-columns: repeat(3, 300px);
+        gap: 22px 30px;
+        padding: 30px 0;
+      }
+      .agent {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 18px;
+        height: 100px;
+        border-radius: 20px;
+      }
+      .agent .meta {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+      }
+      .agent .name {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 21px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .agent .num {
+        font-size: 16px;
+        color: var(--muted);
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+      }
+      .agent.hero {
+        border: 2px solid var(--green);
+        background: #fbfffb;
+      }
+      #s2-badge {
+        position: absolute;
+        left: 1210px;
+        top: 968px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 24px;
+        background: var(--ink);
+        color: #fff;
+        border-radius: 999px;
+        font-size: 22px;
+        font-weight: 500;
+        box-shadow: 0 16px 34px rgba(29, 33, 31, 0.25);
+        white-space: nowrap;
+      }
+      #s2-badge .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      /* ---------- S3 multi-WABA ---------- */
+      #s3-left {
+        position: absolute;
+        left: 140px;
+        top: 0;
+        bottom: 0;
+        width: 600px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .s3-title {
+        font-family: var(--serif);
+        font-size: 84px;
+        line-height: 1.02;
+        letter-spacing: -0.03em;
+        display: block;
+      }
+      #s3-rule {
+        width: 520px;
+        height: 2px;
+        background: var(--line);
+        margin: 34px 0;
+        display: block;
+      }
+      #s3-rule-fill {
+        width: 100%;
+        height: 100%;
+        background: var(--green);
+        display: block;
+        transform-origin: left center;
+      }
+      #s3-t2 {
+        color: var(--green-ink);
+      }
+      #s3-sub {
+        margin-top: 26px;
+        font-size: 28px;
+        line-height: 1.35;
+        color: var(--muted);
+        max-width: 520px;
+      }
+      #s3-wabas {
+        position: absolute;
+        left: 770px;
+        top: 236px;
+        width: 290px;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .waba {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 104px;
+        padding: 0 16px;
+        border-radius: 18px;
+      }
+      .waba .avatar {
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+      }
+      .waba .name {
+        font-size: 19px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+      .waba .num {
+        font-size: 15px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .waba .live {
+        margin-left: auto;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--green);
+        flex: none;
+      }
+      #s3-lines {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: visible;
+      }
+      #s3-panel {
+        position: absolute;
+        left: 1170px;
+        top: 112px;
+        width: 620px;
+        height: 856px;
+        padding: 20px 26px 26px;
+        border-radius: 30px;
+      }
+      #s3-panel-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 52px;
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--line);
+      }
+      #s3-panel-head img {
+        height: 24px;
+        width: auto;
+      }
+      .seg {
+        display: flex;
+        gap: 6px;
+        padding: 5px;
+        background: var(--bg);
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      .seg span {
+        padding: 6px 12px;
+        border-radius: 8px;
+        display: block;
+      }
+      .seg .on {
+        background: #fff;
+        color: var(--ink);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+      #s3-shotwrap {
+        position: relative;
+        width: 568px;
+        height: 743px;
+      }
+      #s3-shot {
+        width: 568px;
+        height: 743px;
+        border-radius: 22px;
+      }
+      #s3-hl {
+        position: absolute;
+        left: 2.5%;
+        width: 95%;
+        top: 58.5%;
+        height: 8.2%;
+        border-radius: 14px;
+        border: 3px solid var(--green);
+        background: rgba(43, 182, 115, 0.1);
+        box-shadow: 0 0 0 6px rgba(43, 182, 115, 0.14);
+      }
+      #s3-livetag {
+        position: absolute;
+        left: 1676px;
+        top: 990px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 18px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      #s3-livetag .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      /* ---------- S4 impact ---------- */
+      #s4-left {
+        position: absolute;
+        left: 140px;
+        top: 0;
+        bottom: 0;
+        width: 980px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 34px;
+      }
+      .impact {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+      }
+      .impact svg {
+        width: 74px;
+        height: 54px;
+        flex: none;
+      }
+      .impact .txt {
+        font-family: var(--serif);
+        font-size: 80px;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        white-space: nowrap;
+        display: block;
+      }
+      #s4-phone {
+        position: absolute;
+        left: 1330px;
+        top: 120px;
+        width: 450px;
+        height: auto;
+      }
+      .s4-chip {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 22px;
+        border-radius: 18px;
+        font-size: 21px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .s4-chip .k {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--green-ink);
+        display: block;
+      }
+      .s4-chip .v {
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--ink);
+        display: block;
+      }
+      .s4-chip .col {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      #s4-chip1 {
+        left: 1180px;
+        top: 250px;
+      }
+      #s4-chip2 {
+        left: 1500px;
+        top: 560px;
+      }
+      #s4-chip3 {
+        left: 1200px;
+        top: 820px;
+      }
+      .pill-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--tint);
+        display: grid;
+        place-items: center;
+        flex: none;
+      }
+      .pill-icon svg {
+        width: 26px;
+        height: 26px;
+      }
+
+      /* ---------- S5 CTA ---------- */
+      #s5-ui-l {
+        position: absolute;
+        left: 60px;
+        top: 560px;
+        width: 360px;
+        height: auto;
+      }
+      #s5-ui-r {
+        position: absolute;
+        left: 1520px;
+        top: 520px;
+        width: 330px;
+        height: auto;
+      }
+      #s5-center {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      #s5-logo {
+        height: 66px;
+        width: auto;
+        margin-bottom: 64px;
+      }
+      .s5-line {
+        font-family: var(--serif);
+        font-size: 128px;
+        line-height: 1.04;
+        letter-spacing: -0.035em;
+        display: block;
+        white-space: nowrap;
+      }
+      #s5-l2 {
+        color: var(--green-ink);
+      }
+      #s5-cta {
+        margin-top: 64px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 24px 44px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 34px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        box-shadow: 0 20px 44px rgba(29, 33, 31, 0.25);
+      }
+      #s5-cta .arrow {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: var(--green);
+        display: grid;
+        place-items: center;
+      }
+      #s5-cta .arrow svg {
+        width: 24px;
+        height: 24px;
+      }
+      #s5-url {
+        margin-top: 26px;
+        font-size: 26px;
+        font-weight: 500;
+        color: var(--muted);
+        letter-spacing: 0.02em;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="20"
+      data-fps="30"
+      data-width="1920"
+      data-height="1080"
+    >
+      <svg width="0" height="0" style="position: absolute">
+        <defs>
+          <symbol id="i-verified" viewBox="0 0 24 24">
+            <path
+              fill="#1d8cf8"
+              d="M12 1.5l2.4 1.7 2.9-.2 1 2.7 2.5 1.5-.6 2.9 1.3 2.6-2 2.1-.2 2.9-2.8.8-1.6 2.4-2.8-.8-2.6 1.3-2-2.1-2.9-.4-.6-2.8-2.3-1.8 1-2.7-.6-2.9 2.4-1.6.9-2.8 2.9.1z"
+            />
+            <path d="M7.6 12.3l3 3 5.8-6.1" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+          </symbol>
+          <symbol id="i-dtick" viewBox="0 0 74 54">
+            <path d="M3 30 L17 44" stroke="#2bb673" stroke-width="7" stroke-linecap="square" fill="none" />
+            <path d="M20 30 L34 44 L71 7" stroke="#2bb673" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter" fill="none" />
+            <path d="M33 26 L52 7" stroke="#2bb673" stroke-width="7" stroke-linecap="square" fill="none" />
+          </symbol>
+        </defs>
+      </svg>
+
+      <!-- ===== shared background (whole film) ===== -->
+      <div id="bg" class="clip" data-start="0" data-duration="20" data-track-index="0">
+        <div id="bg-dots"></div>
+        <div id="bg-glow"></div>
+        <div id="bg-vignette"></div>
+      </div>
+
+      <!-- ===== S1 · hook 0–4 ===== -->
+      <section id="s1" class="clip" data-start="0" data-duration="4.25" data-track-index="1">
+        <div id="s1-inner" class="fill">
+          <div id="s1-frags" class="fill">
+            <img id="s1-frag-card" class="shot" src="assets/img/campaign-card.png" alt="" />
+            <img id="s1-frag-chat" class="shot" src="assets/img/chat.png" alt="" />
+            <div id="s1-chip-a" class="frag-chip card">
+              <svg viewBox="0 0 74 54"><use href="#i-dtick" /></svg>
+              <span>Delivered · 18,008</span>
+            </div>
+            <div id="s1-chip-b" class="frag-chip card">
+              <img src="assets/img/avatar-sanjay.png" alt="" style="width: 34px; height: 34px; border-radius: 50%" />
+              <span>Sanjay · MMT replied</span>
+            </div>
+          </div>
+          <div id="s1-stack">
+            <div id="s1-stats">
+              <div class="stat-row" id="s1-row1">
+                <span class="stat-num" id="s1-n1">10%</span>
+                <span class="stat-label" id="s1-l1">revenue growth</span>
+              </div>
+              <div class="stat-row" id="s1-row2">
+                <span class="stat-num" id="s1-n2">30%</span>
+                <span class="stat-label" id="s1-l2">higher efficiency</span>
+              </div>
+            </div>
+            <div id="s1-how">
+              <span class="word" id="s1-w1">Here’s how</span>
+              <div id="s1-mmt"><img src="assets/img/mmt-logo.png" alt="MakeMyTrip" /></div>
+              <span class="word" id="s1-w2">did it.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== S2 · 1,500+ agents 4–8 ===== -->
+      <section id="s2" class="clip" data-start="3.85" data-duration="4.4" data-track-index="2">
+        <div id="s2-inner" class="fill">
+          <div id="s2-gridwrap">
+            <div id="s2-grid"></div>
+          </div>
+          <div id="s2-badge"><span class="dot"></span>Each agent · own verified number</div>
+          <div id="s2-left">
+            <span id="s2-kicker">MakeMyTrip on DoubleTick</span>
+            <span id="s2-num" class="serif"><span id="s2-count">1,500</span><span class="plus">+</span></span>
+            <span id="s2-agents">agents</span>
+            <p id="s2-sub">run WhatsApp campaigns from their <span class="hl">own verified numbers</span>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== S3 · Multi-WABA + visibility 8–12 ===== -->
+      <section id="s3" class="clip" data-start="7.85" data-duration="4.4" data-track-index="3">
+        <div id="s3-inner" class="fill">
+          <svg id="s3-lines" viewBox="0 0 1920 1080"></svg>
+          <div id="s3-wabas"></div>
+          <div id="s3-panel" class="card">
+            <div id="s3-panel-head">
+              <img src="assets/img/doubletick-logo.png" alt="DoubleTick" />
+              <div class="seg"><span class="on">All WABAs</span><span>Agents</span><span>Reports</span></div>
+            </div>
+            <div id="s3-shotwrap">
+              <img id="s3-shot" src="assets/img/campaign-card.png" alt="" />
+              <div id="s3-hl"></div>
+            </div>
+          </div>
+          <div id="s3-livetag"><span class="dot"></span>Live</div>
+          <div id="s3-left">
+            <span id="s3-kicker">One control layer</span>
+            <span class="s3-title" id="s3-t1">Multi-WABA management</span>
+            <span id="s3-rule"><span id="s3-rule-fill"></span></span>
+            <span class="s3-title" id="s3-t2">Centralized visibility</span>
+            <p id="s3-sub">Every number, every campaign, every reply — in one view.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== S4 · Impact 12–16 ===== -->
+      <section id="s4" class="clip" data-start="11.85" data-duration="4.4" data-track-index="4">
+        <div id="s4-inner" class="fill">
+          <img id="s4-phone" class="shot" src="assets/img/chat.png" alt="" />
+          <div id="s4-chip1" class="s4-chip card">
+            <div class="pill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#12784a" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg>
+            </div>
+            <div class="col"><span class="k">Personalized</span><span class="v">{{Customer Name}} → Mukesh</span></div>
+          </div>
+          <div id="s4-chip2" class="s4-chip card">
+            <img src="assets/img/avatar-sanjay.png" alt="" style="width: 44px; height: 44px; border-radius: 50%" />
+            <div class="col"><span class="k">Owner</span><span class="v">Sanjay · MMT</span></div>
+          </div>
+          <div id="s4-chip3" class="s4-chip card">
+            <div class="pill-icon"><svg viewBox="0 0 74 54"><use href="#i-dtick" /></svg></div>
+            <div class="col"><span class="k">Campaign control</span><span class="v">Read 70.0% · Replied 60.0%</span></div>
+          </div>
+          <div id="s4-left">
+            <div class="impact" id="s4-i1">
+              <svg viewBox="0 0 74 54"><use href="#i-dtick" /></svg>
+              <span class="txt">Personalized engagement.</span>
+            </div>
+            <div class="impact" id="s4-i2">
+              <svg viewBox="0 0 74 54"><use href="#i-dtick" /></svg>
+              <span class="txt">Clear ownership.</span>
+            </div>
+            <div class="impact" id="s4-i3">
+              <svg viewBox="0 0 74 54"><use href="#i-dtick" /></svg>
+              <span class="txt">Complete control.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== S5 · CTA 16–20 ===== -->
+      <section id="s5" class="clip" data-start="15.85" data-duration="4.15" data-track-index="5">
+        <div id="s5-inner" class="fill">
+          <img id="s5-ui-l" class="shot" src="assets/img/campaign-card.png" alt="" />
+          <img id="s5-ui-r" class="shot" src="assets/img/chat.png" alt="" />
+          <div id="s5-center">
+            <img id="s5-logo" src="assets/img/doubletick-logo.png" alt="DoubleTick" />
+            <span class="s5-line" id="s5-l1">Your team could be next.</span>
+            <span class="s5-line" id="s5-l2">Experience it live.</span>
+            <div id="s5-cta">
+              Book a live demo
+              <span class="arrow"
+                ><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg
+              ></span>
+            </div>
+            <div id="s5-url">doubletick.io</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== chrome (brand bug + case-study tag) 0–16 ===== -->
+      <div id="chrome" class="clip" data-start="0" data-duration="16" data-track-index="6">
+        <img id="chrome-logo" src="assets/img/doubletick-logo.png" alt="DoubleTick" />
+        <div id="chrome-tag"><span class="dot"></span>Customer story · <b>MakeMyTrip</b></div>
+      </div>
+
+      <!-- ===== audio ===== -->
+      <audio id="a-music" src="assets/audio/music.mp3" data-start="0" data-duration="20" data-track-index="10" data-volume="0.8"></audio>
+      <audio id="sfx-click-1" src="assets/audio/click.mp3" data-start="0.55" data-duration="0.2" data-track-index="11" data-volume="0.6"></audio>
+      <audio id="sfx-click-2" src="assets/audio/click.mp3" data-start="1.25" data-duration="0.2" data-track-index="11" data-volume="0.6"></audio>
+      <audio id="sfx-pop-1" src="assets/audio/pop.mp3" data-start="2.55" data-duration="0.3" data-track-index="11" data-volume="0.55"></audio>
+      <audio id="sfx-whoosh-1" src="assets/audio/whoosh.mp3" data-start="3.6" data-duration="0.6" data-track-index="12" data-volume="0.55"></audio>
+      <audio id="sfx-pop-2" src="assets/audio/pop.mp3" data-start="4.45" data-duration="0.3" data-track-index="11" data-volume="0.45"></audio>
+      <audio id="sfx-click-3" src="assets/audio/click.mp3" data-start="6.1" data-duration="0.2" data-track-index="11" data-volume="0.55"></audio>
+      <audio id="sfx-whoosh-2" src="assets/audio/whoosh.mp3" data-start="7.6" data-duration="0.6" data-track-index="12" data-volume="0.55"></audio>
+      <audio id="sfx-ding-1" src="assets/audio/ding.mp3" data-start="9.0" data-duration="0.9" data-track-index="11" data-volume="0.35"></audio>
+      <audio id="sfx-click-4" src="assets/audio/click.mp3" data-start="10.25" data-duration="0.2" data-track-index="11" data-volume="0.55"></audio>
+      <audio id="sfx-click-5" src="assets/audio/click.mp3" data-start="11.0" data-duration="0.2" data-track-index="11" data-volume="0.55"></audio>
+      <audio id="sfx-whoosh-3" src="assets/audio/whoosh.mp3" data-start="11.6" data-duration="0.6" data-track-index="12" data-volume="0.55"></audio>
+      <audio id="sfx-pop-3" src="assets/audio/pop.mp3" data-start="12.3" data-duration="0.3" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx-pop-4" src="assets/audio/pop.mp3" data-start="13.4" data-duration="0.3" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx-pop-5" src="assets/audio/pop.mp3" data-start="14.5" data-duration="0.3" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx-impact" src="assets/audio/impact.mp3" data-start="15.95" data-duration="1.2" data-track-index="12" data-volume="0.7"></audio>
+      <audio id="sfx-click-6" src="assets/audio/click.mp3" data-start="18.35" data-duration="0.2" data-track-index="11" data-volume="0.7"></audio>
+      <audio id="sfx-ding-2" src="assets/audio/ding.mp3" data-start="18.4" data-duration="0.9" data-track-index="13" data-volume="0.35"></audio>
+    </div>
+
+    <script>
+      // ---------- data-driven UI (deterministic) ----------
+      const AGENTS = [
+        ["Priya", "PS", "#a8532f", "+91 98201 •• 412"],
+        ["Arjun", "AK", "#2f5ea8", "+91 99302 •• 118"],
+        ["Neha", "NR", "#6a3fa3", "+91 98113 •• 907"],
+        ["Rohan", "RM", "#1f6e64", "+91 97690 •• 233"],
+        ["Sanjay", "", "", "+91 98330 •• 561"],
+        ["Kavya", "KI", "#a13a62", "+91 99870 •• 046"],
+        ["Vikram", "VS", "#86661b", "+91 98455 •• 780"],
+        ["Ananya", "AD", "#2a7443", "+91 97021 •• 395"],
+        ["Rahul", "RG", "#3d4aa8", "+91 98712 •• 652"],
+        ["Meera", "MJ", "#874727", "+91 99204 •• 871"],
+        ["Kabir", "KB", "#22617f", "+91 98190 •• 524"],
+        ["Isha", "IT", "#7a3690", "+91 97733 •• 160"],
+        ["Aditya", "AV", "#356a28", "+91 98922 •• 307"],
+        ["Pooja", "PN", "#a33f3f", "+91 99671 •• 849"],
+        ["Dev", "DS", "#3d5a7e", "+91 98067 •• 215"],
+        ["Tara", "TK", "#5c4a98", "+91 97418 •• 932"],
+        ["Nikhil", "NP", "#85591a", "+91 98345 •• 678"],
+        ["Riya", "RA", "#1d6c78", "+91 99045 •• 503"],
+      ];
+      const verified = '<svg class="verified" viewBox="0 0 24 24"><use href="#i-verified"/></svg>';
+      const avatarHtml = (a) =>
+        a[1]
+          ? `<div class="avatar" style="background:${a[2]}">${a[1]}</div>`
+          : `<div class="avatar"><img src="assets/img/avatar-sanjay.png" alt=""/></div>`;
+      const grid = document.getElementById("s2-grid");
+      grid.innerHTML = AGENTS.map(
+        (a, i) =>
+          `<div class="agent card${a[1] ? "" : " hero"}" id="s2-a${i}">${avatarHtml(a)}<div class="meta"><span class="name">${a[0]} - MMT ${verified}</span><span class="num">${a[3]}</span></div></div>`,
+      ).join("");
+
+      const WABAS = [AGENTS[0], AGENTS[4], AGENTS[1], AGENTS[5], AGENTS[2]];
+      document.getElementById("s3-wabas").innerHTML = WABAS.map(
+        (a, i) =>
+          `<div class="waba card" id="s3-w${i}">${avatarHtml(a)}<div><div class="name">${a[0]} - MMT ${verified}</div><div class="num">${a[3]}</div></div><span class="live"></span></div>`,
+      ).join("");
+
+      // connectors: from right edge of each WABA chip to panel's left edge
+      const lines = document.getElementById("s3-lines");
+      const hubY = 540;
+      lines.innerHTML = WABAS.map((_, i) => {
+        const y = 236 + 52 + i * 126;
+        const x0 = 1060,
+          x1 = 1170;
+        return `<path id="s3-l${i}" d="M${x0} ${y} C ${x0 + 60} ${y}, ${x1 - 60} ${hubY + (i - 2) * 30}, ${x1} ${hubY + (i - 2) * 30}" fill="none" stroke="#2bb673" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 10"/>`;
+      }).join("");
+
+      // ---------- timeline ----------
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const fmt = (n) => Math.round(n).toLocaleString("en-US");
+
+      // background drift (whole film)
+      tl.fromTo("#bg-dots", { x: 0, y: 0 }, { x: -36, y: -36, duration: 20, ease: "none" }, 0);
+      tl.fromTo("#bg-glow", { x: -120, y: 0, scale: 0.9 }, { x: 120, y: 60, scale: 1.1, duration: 20, ease: "sine.inOut" }, 0);
+
+      // chrome
+      tl.fromTo("#chrome-logo", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 0.15);
+      tl.fromTo("#chrome-tag", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 0.25);
+      tl.to(["#chrome-logo", "#chrome-tag"], { opacity: 0, duration: 0.3, ease: "power2.in" }, 15.6);
+
+      // ===== S1 =====
+      tl.fromTo("#s1-frags", { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.out" }, 0);
+      tl.fromTo("#s1-frag-card", { y: 60, rotation: -8, filter: "blur(2px)" }, { y: 0, rotation: -5, duration: 4, ease: "power2.out" }, 0);
+      tl.fromTo("#s1-frag-chat", { y: -50, rotation: 7, filter: "blur(2px)" }, { y: 0, rotation: 4, duration: 4, ease: "power2.out" }, 0);
+      tl.fromTo("#s1-chip-a", { opacity: 0, y: 20 }, { opacity: 0.85, y: 0, duration: 0.7, ease: E }, 0.5);
+      tl.fromTo("#s1-chip-b", { opacity: 0, y: 20 }, { opacity: 0.85, y: 0, duration: 0.7, ease: E }, 0.8);
+      tl.set(["#s1-frag-card", "#s1-frag-chat"], { opacity: 0.55 }, 0);
+
+      const c1 = { v: 0 },
+        c2 = { v: 0 };
+      const n1 = document.getElementById("s1-n1"),
+        n2 = document.getElementById("s1-n2");
+      tl.fromTo("#s1-row1", { opacity: 0, y: 40, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: E }, 0.1);
+      tl.fromTo(c1, { v: 0 }, { v: 10, duration: 0.55, ease: "power2.out", onUpdate: () => (n1.textContent = Math.round(c1.v) + "%") }, 0.1);
+      tl.fromTo("#s1-n1", { scale: 1 }, { scale: 1.06, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "100% 70%" }, 0.62);
+      tl.fromTo("#s1-row2", { opacity: 0, y: 40, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: E }, 0.8);
+      tl.fromTo(c2, { v: 0 }, { v: 30, duration: 0.55, ease: "power2.out", onUpdate: () => (n2.textContent = Math.round(c2.v) + "%") }, 0.8);
+      tl.fromTo("#s1-n2", { scale: 1 }, { scale: 1.06, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "100% 70%" }, 1.32);
+      // "Here's how MakeMyTrip did it."
+      tl.fromTo("#s1-stats", { y: 75, scale: 1 }, { y: 0, scale: 0.84, duration: 0.5, ease: "power3.inOut", transformOrigin: "50% 100%" }, 2.0);
+      tl.fromTo("#s1-w1", { opacity: 0, y: 30, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: E }, 2.25);
+      tl.fromTo("#s1-mmt", { opacity: 0, scale: 0.6, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(1.8)" }, 2.5);
+      tl.fromTo("#s1-w2", { opacity: 0, y: 30, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: E }, 2.7);
+      // exit: push in + blur
+      tl.to("#s1-inner", { scale: 1.08, opacity: 0, filter: "blur(12px)", duration: 0.45, ease: "power2.in" }, 3.75);
+
+      // ===== S2 =====
+      tl.fromTo("#s2-inner", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 3.9);
+      tl.fromTo("#s2-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 4.0);
+      tl.fromTo("#s2-num", { opacity: 0, y: 50, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: E }, 4.05);
+      const c3 = { v: 0 };
+      const n3 = document.getElementById("s2-count");
+      tl.fromTo(c3, { v: 0 }, { v: 1500, duration: 1.1, ease: "power3.out", onUpdate: () => (n3.textContent = fmt(c3.v)) }, 4.05);
+      tl.fromTo("#s2-agents", { opacity: 0, y: 30, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: E }, 4.4);
+      tl.fromTo("#s2-sub", { opacity: 0, y: 24, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: E }, 5.3);
+      // grid: cards magnetically snap in from scattered offsets (deterministic offsets)
+      AGENTS.forEach((a, i) => {
+        const col = i % 3,
+          row = Math.floor(i / 3);
+        const dx = (col - 1) * 90 + ((i * 37) % 50) - 25;
+        const dy = (row - 2.5) * 70 + ((i * 53) % 40) - 20;
+        tl.fromTo(
+          `#s2-a${i}`,
+          { opacity: 0, x: dx, y: dy, scale: 0.85 },
+          { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.7, ease: "back.out(1.4)" },
+          4.15 + ((i * 7) % 18) * 0.035,
+        );
+      });
+      tl.fromTo("#s2-grid", { y: 150 }, { y: 50, duration: 4.2, ease: "power1.inOut" }, 4.0);
+      tl.fromTo("#s2-a4", { boxShadow: "0 0 0 0 rgba(43,182,115,0)" }, { boxShadow: "0 0 0 10px rgba(43,182,115,0.18)", duration: 0.5, ease: E }, 5.6);
+      tl.fromTo("#s2-badge", { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 6.1);
+      // exit: slide left + blur
+      tl.to("#s2-inner", { x: -120, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power2.in" }, 7.75);
+
+      // ===== S3 =====
+      tl.fromTo("#s3-inner", { opacity: 0, x: 120 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, 7.9);
+      tl.fromTo("#s3-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 8.05);
+      tl.fromTo("#s3-t1", { opacity: 0, y: 40, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: E }, 8.1);
+      WABAS.forEach((_, i) => {
+        tl.fromTo(`#s3-w${i}`, { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, 8.25 + i * 0.08);
+        tl.fromTo(`#s3-l${i}`, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 8.6 + i * 0.06);
+        tl.fromTo(`#s3-l${i}`, { strokeDashoffset: 0 }, { strokeDashoffset: -160, duration: 3.6, ease: "none" }, 8.6);
+      });
+      tl.fromTo("#s3-panel", { opacity: 0, y: 60, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: E }, 8.3);
+      tl.fromTo("#s3-livetag", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 9.0);
+      tl.fromTo("#s3-livetag .dot", { scale: 1 }, { scale: 1.6, duration: 0.5, yoyo: true, repeat: 5, ease: "sine.inOut" }, 9.0);
+      tl.fromTo("#s3-rule-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power3.inOut" }, 9.4);
+      tl.fromTo("#s3-t2", { opacity: 0, y: 40, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: E }, 9.6);
+      tl.fromTo("#s3-sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 10.0);
+      // highlight snaps between Delivered → Read → Replied rows
+      tl.fromTo("#s3-hl", { opacity: 0, y: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.35, ease: E }, 9.05);
+      tl.to("#s3-hl", { y: 120, duration: 0.35, ease: "back.out(1.6)" }, 10.2);
+      tl.to("#s3-hl", { y: 181, duration: 0.35, ease: "back.out(1.6)" }, 10.95);
+      tl.fromTo("#s3-shot", { scale: 1 }, { scale: 1.02, duration: 3.5, ease: "none", transformOrigin: "50% 80%" }, 8.5);
+      // exit
+      tl.to("#s3-inner", { scale: 0.96, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power2.in" }, 11.75);
+
+      // ===== S4 =====
+      tl.fromTo("#s4-inner", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 11.9);
+      tl.fromTo("#s4-phone", { opacity: 0, y: 80, rotation: 3 }, { opacity: 1, y: 0, rotation: 2, duration: 0.8, ease: E }, 11.95);
+      tl.fromTo("#s4-phone", { scale: 1 }, { scale: 1.04, duration: 4, ease: "none" }, 12.0);
+      const impacts = ["#s4-i1", "#s4-i2", "#s4-i3"];
+      const chips = ["#s4-chip1", "#s4-chip2", "#s4-chip3"];
+      [12.2, 13.3, 14.4].forEach((t, i) => {
+        tl.fromTo(impacts[i], { opacity: 0, x: -30, filter: "blur(14px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.55, ease: E }, t);
+        tl.fromTo(`${impacts[i]} svg`, { scale: 0.4 }, { scale: 1, duration: 0.5, ease: "back.out(2.2)" }, t + 0.05);
+        tl.fromTo(chips[i], { opacity: 0, y: 26, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, t + 0.1);
+        if (i > 0) {
+          tl.to(impacts[i - 1], { opacity: 0.32, duration: 0.4, ease: "power1.out" }, t);
+          tl.to(chips[i - 1], { opacity: 0.55, duration: 0.4, ease: "power1.out" }, t);
+        }
+      });
+      tl.to(["#s4-i1", "#s4-i2"], { opacity: 1, duration: 0.4, ease: "power1.out" }, 15.2);
+      // exit
+      tl.to("#s4-inner", { y: -60, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power2.in" }, 15.75);
+
+      // ===== S5 =====
+      tl.fromTo("#s5-inner", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 15.9);
+      tl.fromTo("#s5-ui-l", { opacity: 0, y: 120, rotation: -10 }, { opacity: 0.4, y: 0, rotation: -7, duration: 1.0, ease: E }, 16.0);
+      tl.fromTo("#s5-ui-r", { opacity: 0, y: 120, rotation: 10 }, { opacity: 0.4, y: 0, rotation: 7, duration: 1.0, ease: E }, 16.1);
+      tl.fromTo("#s5-logo", { opacity: 0, y: 20, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: E }, 16.0);
+      tl.fromTo("#s5-l1", { opacity: 0, y: 50, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: E }, 16.25);
+      tl.fromTo("#s5-l2", { opacity: 0, y: 50, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: E }, 17.0);
+      tl.fromTo("#s5-cta", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, 17.6);
+      tl.fromTo("#s5-url", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 17.9);
+      // button press
+      tl.to("#s5-cta", { scale: 0.95, duration: 0.1, ease: "power2.in" }, 18.3);
+      tl.to("#s5-cta", { scale: 1, duration: 0.35, ease: "back.out(3)" }, 18.4);
+      tl.fromTo("#s5-cta .arrow", { x: 0 }, { x: 8, duration: 0.3, yoyo: true, repeat: 1, ease: "power2.out" }, 18.4);
+      tl.fromTo("#s5-center", { scale: 1 }, { scale: 1.025, duration: 4, ease: "none" }, 16.0);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
