@@ -152,111 +152,7 @@
         width: auto;
       }
 
-      /* ---------- S1 numbers + message chips ---------- */
-      #nums {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 1920px;
-        height: 1080px;
-      }
-      .ncard {
-        position: absolute;
-        width: 400px;
-        height: 112px;
-      }
-      .nin {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        padding: 0 22px 10px 18px;
-      }
-      .wa-ic {
-        width: 54px;
-        height: 54px;
-        border-radius: 50%;
-        background: #e3f5ea;
-        display: grid;
-        place-items: center;
-        flex: none;
-      }
-      .wa-ic svg {
-        width: 28px;
-        height: 28px;
-      }
-      .ntxt b {
-        display: block;
-        font-size: 21px;
-        font-weight: 600;
-      }
-      .ntxt span {
-        display: block;
-        margin-top: 3px;
-        font-size: 18px;
-        color: var(--muted);
-        font-variant-numeric: tabular-nums;
-      }
-      .q {
-        position: absolute;
-        left: 88px;
-        right: 24px;
-        bottom: 16px;
-        height: 6px;
-        border-radius: 3px;
-        background: #ece6da;
-        overflow: hidden;
-      }
-      .qf {
-        display: block;
-        width: 100%;
-        height: 100%;
-        border-radius: 3px;
-        background: var(--green);
-        transform-origin: left center;
-      }
-      .mchip {
-        position: absolute;
-        height: 48px;
-        border-radius: 24px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 0 18px 0 8px;
-        font-size: 17px;
-        font-weight: 600;
-        white-space: nowrap;
-      }
-      .mchip .mi {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: var(--tint);
-        display: grid;
-        place-items: center;
-        flex: none;
-      }
-      .mchip .mi svg {
-        width: 18px;
-        height: 18px;
-      }
-      #h1 {
-        left: 0;
-        right: 0;
-        top: 150px;
-        text-align: center;
-      }
-      #h1 .hl {
-        font-size: 84px;
-      }
-      #h1s {
-        left: 0;
-        right: 0;
-        top: 790px;
-        margin: 0;
-        text-align: center;
-      }
+      /* ---------- Hook (0–4.5): campaigns → shared numbers → customers ---------- */
       .kick {
         left: 0;
         right: 0;
@@ -267,7 +163,7 @@
         text-transform: uppercase;
       }
       #k0 {
-        top: 104px;
+        top: 92px;
         color: var(--rose);
       }
       #k5 {
@@ -288,83 +184,205 @@
         letter-spacing: -0.01em;
         display: block;
       }
-      .shared {
-        margin-left: auto;
-        align-self: flex-start;
-        margin-top: 18px;
-        padding: 3px 9px;
-        border-radius: 999px;
-        background: #f6e6e9;
-        color: var(--rose);
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-      }
       .rose {
         color: var(--rose);
         font-weight: 600;
       }
-
-      /* ---------- S2 ownership ---------- */
-      #h2 {
-        left: 120px;
-        top: 390px;
-        width: 820px;
+      #hh1,
+      #hh2 {
+        left: 0;
+        right: 0;
+        top: 128px;
+        text-align: center;
       }
-      .ag {
+      #hh1 .hl,
+      #hh2 .hl {
+        font-size: 72px;
+        white-space: nowrap;
+      }
+      #hh2s {
+        left: 0;
+        right: 0;
+        top: 222px;
+        margin: 0;
+        text-align: center;
+        font-size: 28px;
+      }
+      .colh {
         position: absolute;
-        width: 150px;
-        height: 62px;
+        top: 304px;
+        width: 440px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .lcard,
+      .rcard {
+        position: absolute;
+        width: 320px;
+        height: 64px;
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 0 12px;
-        border-radius: 16px;
-        font-size: 17px;
+        gap: 12px;
+        padding: 0 16px 0 10px;
+        border-radius: 18px;
+        font-size: 20px;
         font-weight: 600;
         white-space: nowrap;
       }
-      .ag .pp {
-        width: 34px;
-        height: 34px;
+      .mi,
+      .pp {
+        width: 42px;
+        height: 42px;
         border-radius: 50%;
-        background: #e1dbcf;
         display: grid;
         place-items: center;
         flex: none;
       }
-      .ag .pp svg {
-        width: 20px;
-        height: 20px;
+      .mi {
+        background: var(--tint);
       }
-      .cu {
-        position: absolute;
-        width: 190px;
-        height: 84px;
-        padding: 14px 16px;
-        border-radius: 16px;
+      .pp {
+        background: #e7e1d5;
       }
-      .cu small {
+      .mi svg,
+      .pp svg {
+        width: 22px;
+        height: 22px;
+      }
+      .rcard .ct b {
         display: block;
-        font-size: 14px;
-        color: var(--muted);
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-      .cu b {
-        display: block;
-        margin-top: 6px;
         font-size: 18px;
         font-weight: 600;
+      }
+      .rcard .stw {
+        position: relative;
+        display: block;
+        height: 18px;
+        width: 220px;
+        margin-top: 3px;
+      }
+      .rcard .st1,
+      .rcard .st2 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 14px;
         white-space: nowrap;
       }
-      #own-lines {
+      .rcard .st1 {
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .rcard .st2 {
+        color: var(--rose);
+        font-weight: 600;
+      }
+      .ncard {
+        position: absolute;
+        width: 440px;
+        height: 124px;
+      }
+      .nin {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 0 20px 12px 18px;
+      }
+      .wa-ic {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #e3f5ea;
+        display: grid;
+        place-items: center;
+        flex: none;
+      }
+      .wa-ic svg {
+        width: 32px;
+        height: 32px;
+      }
+      .ntxt b {
+        display: block;
+        font-size: 24px;
+        font-weight: 600;
+      }
+      .ntxt span {
+        display: block;
+        margin-top: 3px;
+        font-size: 20px;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+      .shared {
+        margin-left: auto;
+        align-self: flex-start;
+        margin-top: 20px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #f6e6e9;
+        color: var(--rose);
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .q {
+        position: absolute;
+        left: 96px;
+        right: 22px;
+        bottom: 18px;
+        height: 7px;
+        border-radius: 4px;
+        background: #ece6da;
+        overflow: hidden;
+      }
+      .qf {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+        background: var(--green);
+        transform-origin: left center;
+      }
+      #hk-lines {
         position: absolute;
         left: 0;
         top: 0;
         width: 1920px;
         height: 1080px;
         overflow: visible;
+      }
+      #pains {
+        left: 0;
+        right: 0;
+        top: 872px;
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+      }
+      .pain {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 24px 12px 18px;
+        border-radius: 999px;
+        font-size: 26px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .pain svg {
+        width: 26px;
+        height: 26px;
+      }
+      .pain.r {
+        color: var(--rose);
+        background: #fbf0f2;
+        border-color: #efd3d9;
       }
       #sweep {
         position: absolute;
@@ -1143,25 +1161,27 @@
 
       <div id="stage" class="clip" data-start="0" data-duration="20" data-track-index="1">
         <div id="world">
-          <!-- S1 -->
-          <div id="nums"></div>
-          <div id="h1" class="abs">
-            <span class="hl split" id="h1a">A few numbers.</span>
-            <span class="hl split" id="h1b">Thousands of conversations.</span>
-          </div>
-          <span class="sub abs" id="h1s">Low engagement · <span class="rose">No agent ownership</span> · Limited visibility</span>
+          <!-- HOOK -->
           <div class="kick abs" id="k0">MakeMyTrip · Before DoubleTick</div>
           <div class="kick abs" id="k5">With DoubleTick</div>
-          <!-- S2 -->
-          <svg id="own-lines" viewBox="0 0 1920 1080"></svg>
-          <div id="agents"></div>
-          <div id="custs"></div>
-          <div id="h2" class="abs">
-            <span class="hl split" id="h2a">Who owns the conversation?</span>
-            <span class="sub" id="h2s">Shared numbers made ownership unclear.</span>
+          <div id="hh1" class="abs">
+            <span class="hl"><span class="split" id="h1a">A few numbers.</span> <span class="split" id="h1b">Thousands of conversations.</span></span>
+          </div>
+          <div id="hh2" class="abs"><span class="hl split" id="h2a">Who owns the conversation?</span></div>
+          <div id="hh2s" class="abs sub">Shared numbers made ownership unclear.</div>
+          <div class="colh" id="ch0a" style="left: 90px">Campaigns</div>
+          <div class="colh" id="ch0b" style="left: 90px">Agents</div>
+          <div class="colh" id="ch1" style="left: 740px">Shared WhatsApp numbers</div>
+          <div class="colh" id="ch2" style="left: 1390px">Customers</div>
+          <svg id="hk-lines" viewBox="0 0 1920 1080"></svg>
+          <div id="hk"></div>
+          <div id="pains" class="abs">
+            <div class="pain card" id="pn0"><svg viewBox="0 0 24 24" fill="none" stroke="#1d211f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7" /></svg>Low engagement</div>
+            <div class="pain card r" id="pn1"><svg viewBox="0 0 24 24" fill="none" stroke="#a8455a" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4" /><path d="M4.5 21c1-4 4-6 7.5-6M16 15l5 5M21 15l-5 5" /></svg>No agent ownership</div>
+            <div class="pain card" id="pn2"><svg viewBox="0 0 24 24" fill="none" stroke="#1d211f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c2.5-4.5 5.5-6.5 9-6.5s6.5 2 9 6.5c-2.5 4.5-5.5 6.5-9 6.5S5.5 16.5 3 12z" /><path d="M4 20L20 4" /></svg>Limited visibility</div>
           </div>
           <!-- S3 -->
-          <div id="a001" class="acard big card" style="left: 1190px; top: 230px"></div>
+          <div id="a001" class="acard big card" style="left: 760px; top: 521px"></div>
           <div id="rowB"></div>
           <div id="gridC"></div>
           <div id="gridD"></div>
@@ -1238,46 +1258,47 @@
       <audio id="vo-d" src="assets/vo/vo_d.mp3" data-start="9.78" data-duration="3.22" data-track-index="11" data-volume="1"></audio>
       <audio id="vo-e" src="assets/vo/vo_e.mp3" data-start="13.05" data-duration="3.10" data-track-index="11" data-volume="1"></audio>
       <audio id="vo-f" src="assets/vo/vo_f.mp3" data-start="17.1" data-duration="2.16" data-track-index="11" data-volume="1"></audio>
-      <audio id="sfx-00-pop" src="assets/audio/pop.mp3" data-start="0.55" data-duration="0.22" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-01-pop" src="assets/audio/pop.mp3" data-start="0.85" data-duration="0.22" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-02-pop" src="assets/audio/pop.mp3" data-start="1.15" data-duration="0.22" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-03-pop" src="assets/audio/pop.mp3" data-start="1.45" data-duration="0.22" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-04-pop" src="assets/audio/pop.mp3" data-start="1.75" data-duration="0.22" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-05-tick" src="assets/audio/tick.mp3" data-start="1.85" data-duration="0.10" data-track-index="13" data-volume="0.4"></audio>
-      <audio id="sfx-06-tick" src="assets/audio/tick.mp3" data-start="2.0" data-duration="0.10" data-track-index="12" data-volume="0.4"></audio>
-      <audio id="sfx-07-tick" src="assets/audio/tick.mp3" data-start="2.15" data-duration="0.10" data-track-index="12" data-volume="0.4"></audio>
-      <audio id="sfx-08-tick" src="assets/audio/tick.mp3" data-start="2.3" data-duration="0.10" data-track-index="12" data-volume="0.4"></audio>
-      <audio id="sfx-09-whoosh" src="assets/audio/whoosh.mp3" data-start="2.45" data-duration="0.58" data-track-index="12" data-volume="0.45"></audio>
-      <audio id="sfx-10-click" src="assets/audio/click.mp3" data-start="3.05" data-duration="0.10" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-11-sweep" src="assets/audio/sweep.mp3" data-start="4.45" data-duration="0.94" data-track-index="12" data-volume="0.6"></audio>
-      <audio id="sfx-12-verify" src="assets/audio/verify.mp3" data-start="5.45" data-duration="0.34" data-track-index="12" data-volume="0.5"></audio>
-      <audio id="sfx-13-snap" src="assets/audio/snap.mp3" data-start="5.75" data-duration="0.19" data-track-index="13" data-volume="0.45"></audio>
-      <audio id="sfx-14-snap" src="assets/audio/snap.mp3" data-start="6.25" data-duration="0.19" data-track-index="12" data-volume="0.45"></audio>
-      <audio id="sfx-15-snap" src="assets/audio/snap.mp3" data-start="6.75" data-duration="0.19" data-track-index="12" data-volume="0.45"></audio>
-      <audio id="sfx-16-snap" src="assets/audio/snap.mp3" data-start="7.2" data-duration="0.19" data-track-index="12" data-volume="0.45"></audio>
-      <audio id="sfx-17-count" src="assets/audio/count.mp3" data-start="7.65" data-duration="0.07" data-track-index="12" data-volume="0.25"></audio>
-      <audio id="sfx-18-count" src="assets/audio/count.mp3" data-start="7.75" data-duration="0.07" data-track-index="12" data-volume="0.25"></audio>
-      <audio id="sfx-19-count" src="assets/audio/count.mp3" data-start="7.85" data-duration="0.07" data-track-index="12" data-volume="0.25"></audio>
-      <audio id="sfx-20-count" src="assets/audio/count.mp3" data-start="7.95" data-duration="0.07" data-track-index="12" data-volume="0.25"></audio>
-      <audio id="sfx-21-count" src="assets/audio/count.mp3" data-start="8.05" data-duration="0.07" data-track-index="12" data-volume="0.25"></audio>
-      <audio id="sfx-22-count" src="assets/audio/count.mp3" data-start="8.15" data-duration="0.07" data-track-index="12" data-volume="0.25"></audio>
-      <audio id="sfx-23-verify" src="assets/audio/verify.mp3" data-start="8.3" data-duration="0.34" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-24-whoosh" src="assets/audio/whoosh.mp3" data-start="8.95" data-duration="0.58" data-track-index="12" data-volume="0.4"></audio>
-      <audio id="sfx-25-snap" src="assets/audio/snap.mp3" data-start="9.45" data-duration="0.19" data-track-index="13" data-volume="0.55"></audio>
-      <audio id="sfx-26-pulse" src="assets/audio/pulse.mp3" data-start="10.3" data-duration="0.43" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-27-pulse" src="assets/audio/pulse.mp3" data-start="10.55" data-duration="0.43" data-track-index="13" data-volume="0.35"></audio>
-      <audio id="sfx-28-whoosh" src="assets/audio/whoosh.mp3" data-start="11.0" data-duration="0.58" data-track-index="12" data-volume="0.4"></audio>
-      <audio id="sfx-29-click" src="assets/audio/click.mp3" data-start="11.65" data-duration="0.10" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-30-click" src="assets/audio/click.mp3" data-start="12.15" data-duration="0.10" data-track-index="12" data-volume="0.4"></audio>
-      <audio id="sfx-31-impact1" src="assets/audio/impact1.mp3" data-start="13.42" data-duration="1.03" data-track-index="12" data-volume="0.6"></audio>
-      <audio id="sfx-32-count" src="assets/audio/count.mp3" data-start="13.5" data-duration="0.07" data-track-index="13" data-volume="0.22"></audio>
-      <audio id="sfx-33-count" src="assets/audio/count.mp3" data-start="13.6" data-duration="0.07" data-track-index="13" data-volume="0.22"></audio>
-      <audio id="sfx-34-impact2" src="assets/audio/impact2.mp3" data-start="13.74" data-duration="1.03" data-track-index="13" data-volume="0.55"></audio>
-      <audio id="sfx-35-count" src="assets/audio/count.mp3" data-start="13.85" data-duration="0.07" data-track-index="14" data-volume="0.22"></audio>
-      <audio id="sfx-36-count" src="assets/audio/count.mp3" data-start="13.95" data-duration="0.07" data-track-index="14" data-volume="0.22"></audio>
-      <audio id="sfx-37-whoosh" src="assets/audio/whoosh.mp3" data-start="16.95" data-duration="0.58" data-track-index="12" data-volume="0.4"></audio>
-      <audio id="sfx-38-resolve" src="assets/audio/resolve.mp3" data-start="18.2" data-duration="1.40" data-track-index="12" data-volume="0.4"></audio>
-      <audio id="sfx-39-click" src="assets/audio/click.mp3" data-start="18.25" data-duration="0.10" data-track-index="13" data-volume="0.5"></audio>
+      <audio id="sfx-00-pop" src="assets/audio/pop.mp3" data-start="1.0" data-duration="0.22" data-track-index="12" data-volume="0.3"></audio>
+      <audio id="sfx-01-pop" src="assets/audio/pop.mp3" data-start="1.3" data-duration="0.22" data-track-index="12" data-volume="0.3"></audio>
+      <audio id="sfx-02-pop" src="assets/audio/pop.mp3" data-start="1.6" data-duration="0.22" data-track-index="12" data-volume="0.3"></audio>
+      <audio id="sfx-03-pop" src="assets/audio/pop.mp3" data-start="1.9" data-duration="0.22" data-track-index="12" data-volume="0.3"></audio>
+      <audio id="sfx-04-tick" src="assets/audio/tick.mp3" data-start="2.0" data-duration="0.10" data-track-index="13" data-volume="0.4"></audio>
+      <audio id="sfx-05-tick" src="assets/audio/tick.mp3" data-start="2.12" data-duration="0.10" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-06-tick" src="assets/audio/tick.mp3" data-start="2.24" data-duration="0.10" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-07-tick" src="assets/audio/tick.mp3" data-start="2.36" data-duration="0.10" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-08-whoosh" src="assets/audio/whoosh.mp3" data-start="2.5" data-duration="0.58" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-09-click" src="assets/audio/click.mp3" data-start="2.95" data-duration="0.10" data-track-index="13" data-volume="0.4"></audio>
+      <audio id="sfx-10-click" src="assets/audio/click.mp3" data-start="3.65" data-duration="0.10" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-11-click" src="assets/audio/click.mp3" data-start="4.25" data-duration="0.10" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-12-sweep" src="assets/audio/sweep.mp3" data-start="4.45" data-duration="0.94" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="sfx-13-verify" src="assets/audio/verify.mp3" data-start="5.45" data-duration="0.34" data-track-index="12" data-volume="0.5"></audio>
+      <audio id="sfx-14-snap" src="assets/audio/snap.mp3" data-start="5.75" data-duration="0.19" data-track-index="13" data-volume="0.45"></audio>
+      <audio id="sfx-15-snap" src="assets/audio/snap.mp3" data-start="6.25" data-duration="0.19" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-16-snap" src="assets/audio/snap.mp3" data-start="6.75" data-duration="0.19" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-17-snap" src="assets/audio/snap.mp3" data-start="7.2" data-duration="0.19" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-18-count" src="assets/audio/count.mp3" data-start="7.65" data-duration="0.07" data-track-index="12" data-volume="0.25"></audio>
+      <audio id="sfx-19-count" src="assets/audio/count.mp3" data-start="7.75" data-duration="0.07" data-track-index="12" data-volume="0.25"></audio>
+      <audio id="sfx-20-count" src="assets/audio/count.mp3" data-start="7.85" data-duration="0.07" data-track-index="12" data-volume="0.25"></audio>
+      <audio id="sfx-21-count" src="assets/audio/count.mp3" data-start="7.95" data-duration="0.07" data-track-index="12" data-volume="0.25"></audio>
+      <audio id="sfx-22-count" src="assets/audio/count.mp3" data-start="8.05" data-duration="0.07" data-track-index="12" data-volume="0.25"></audio>
+      <audio id="sfx-23-count" src="assets/audio/count.mp3" data-start="8.15" data-duration="0.07" data-track-index="12" data-volume="0.25"></audio>
+      <audio id="sfx-24-verify" src="assets/audio/verify.mp3" data-start="8.3" data-duration="0.34" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-25-whoosh" src="assets/audio/whoosh.mp3" data-start="8.95" data-duration="0.58" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-26-snap" src="assets/audio/snap.mp3" data-start="9.45" data-duration="0.19" data-track-index="13" data-volume="0.55"></audio>
+      <audio id="sfx-27-pulse" src="assets/audio/pulse.mp3" data-start="10.3" data-duration="0.43" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-28-pulse" src="assets/audio/pulse.mp3" data-start="10.55" data-duration="0.43" data-track-index="13" data-volume="0.35"></audio>
+      <audio id="sfx-29-whoosh" src="assets/audio/whoosh.mp3" data-start="11.0" data-duration="0.58" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-30-click" src="assets/audio/click.mp3" data-start="11.65" data-duration="0.10" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-31-click" src="assets/audio/click.mp3" data-start="12.15" data-duration="0.10" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-32-impact1" src="assets/audio/impact1.mp3" data-start="13.42" data-duration="1.03" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="sfx-33-count" src="assets/audio/count.mp3" data-start="13.5" data-duration="0.07" data-track-index="13" data-volume="0.22"></audio>
+      <audio id="sfx-34-count" src="assets/audio/count.mp3" data-start="13.6" data-duration="0.07" data-track-index="13" data-volume="0.22"></audio>
+      <audio id="sfx-35-impact2" src="assets/audio/impact2.mp3" data-start="13.74" data-duration="1.03" data-track-index="13" data-volume="0.55"></audio>
+      <audio id="sfx-36-count" src="assets/audio/count.mp3" data-start="13.85" data-duration="0.07" data-track-index="14" data-volume="0.22"></audio>
+      <audio id="sfx-37-count" src="assets/audio/count.mp3" data-start="13.95" data-duration="0.07" data-track-index="14" data-volume="0.22"></audio>
+      <audio id="sfx-38-whoosh" src="assets/audio/whoosh.mp3" data-start="16.95" data-duration="0.58" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-39-resolve" src="assets/audio/resolve.mp3" data-start="18.2" data-duration="1.40" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-40-click" src="assets/audio/click.mp3" data-start="18.25" data-duration="0.10" data-track-index="13" data-volume="0.5"></audio>
     </div>
 
     <script>
@@ -1316,63 +1337,57 @@
           .join(" ");
       });
 
-      // ---------- S1: three generic numbers + campaign chips ----------
-      const NPOS = [
-        [750, 400],
-        [760, 486],
-        [770, 572],
-      ];
-      const CAMPS = ["Goa Getaways", "Flight Sale", "Hotel Deals", "Kerala Escapes", "Dubai Offers", "Weekend Trips", "Holiday Packages", "Summer Sale", "Honeymoon Picks", "Long Weekend", "Bus Offers", "Visa Help", "Train Tickets", "Cab Deals", "Family Trips", "Hill Stations"];
+      // ---------- Hook diagram: campaigns → 3 shared numbers → customers ----------
+      const LY = (i) => 360 + i * 92; // side-column rows (cards 64 tall)
+      const NY = (k) => 365 + k * 150; // number cards (124 tall)
+      const LX = 150,
+        NX = 740,
+        RX = 1450;
       const MEGA =
         '<svg viewBox="0 0 24 24" fill="none" stroke="#12784a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></svg>';
-      const CHIP = [];
-      let html = "";
-      CAMPS.forEach((c, j) => {
-        // two queues per side, filling from the cards outward
-        const left = j % 2 === 0;
-        const m = Math.floor(j / 2);
-        const inner = m < 4;
-        const row = m % 4;
-        const tx = left ? (inner ? 526 : 300) + (row % 2) * 10 : (inner ? 1192 : 1410) - (row % 2) * 10;
-        const ty = 405 + row * 62;
-        CHIP.push({ left, tx, ty });
-        html += `<div class="mchip card" id="mc${j}" style="left:${tx.toFixed(0)}px;top:${ty.toFixed(0)}px"><span class="mi">${MEGA}</span>${c}</div>`;
-      });
+      const SIL = '<svg viewBox="0 0 24 24"><use href="#i-user"/></svg>';
+      const CAMPS = ["Goa Getaways", "Flight Sale", "Hotel Deals", "Holiday Packages", "Weekend Trips"];
       const NUMS = ["+91 98XXX XXX01", "+91 98XXX XXX02", "+91 98XXX XXX03"];
-      NPOS.forEach((p, k) => {
-        html += `<div class="ncard card" id="n${k}" style="left:${p[0]}px;top:${p[1]}px;z-index:${10 + k}"><div class="nin"><span class="wa-ic"><svg viewBox="0 0 24 24"><use href="#i-chat"/></svg></span><span class="ntxt"><b>WhatsApp Business</b><span>${NUMS[k]}</span></span><span class="shared">Shared</span><span class="q"><span class="qf" id="qf${k}"></span></span></div></div>`;
+      let hk = "";
+      CAMPS.forEach((c, i) => {
+        hk += `<div class="lcard card" id="lc${i}" style="left:${LX}px;top:${LY(i)}px"><span class="mi">${MEGA}</span>${c}</div>`;
+        hk += `<div class="lcard card" id="la${i}" style="left:${LX}px;top:${LY(i)}px"><span class="pp">${SIL}</span>Agent 0${i + 1}</div>`;
+        hk += `<div class="rcard card" id="rc${i}" style="left:${RX}px;top:${LY(i)}px"><span class="pp">${SIL}</span><span class="ct"><b>Customer</b><span class="stw"><span class="st1">✓✓ Delivered · no reply</span><span class="st2">Owner: ?</span></span></span></div>`;
       });
-      $("nums").innerHTML = html;
-
-      // ---------- S2: agents + customers + messy lines ----------
-      const N1 = { x: 1190, y: 230, w: 400, h: 112 };
-      const AG = [0, 1, 2, 3, 4].map((i) => ({ x: 990 + i * 164, y: 470 }));
-      $("agents").innerHTML = AG.map(
-        (a, i) =>
-          `<div class="ag card" id="ag${i}" style="left:${a.x}px;top:${a.y}px"><span class="pp"><svg viewBox="0 0 24 24"><use href="#i-user"/></svg></span>Agent 0${i + 1}</div>`,
-      ).join("");
-      const CU = ["Hotel booking", "Flight change", "Holiday package", "Visa query"];
-      const CUP = CU.map((_, i) => ({ x: 990 + i * 204, y: 730 }));
-      $("custs").innerHTML = CU.map(
-        (c, i) => `<div class="cu card" id="cu${i}" style="left:${CUP[i].x}px;top:${CUP[i].y}px"><small>Customer</small><b>${c}</b></div>`,
-      ).join("");
-      let lines = "";
-      AG.forEach((a, i) => {
-        lines += `<path id="ol${i}" d="M${a.x + 75} ${a.y} C ${a.x + 75} ${a.y - 60}, ${N1.x + 200} ${N1.y + N1.h + 60}, ${N1.x + 200} ${N1.y + N1.h}" fill="none" stroke="#9a9f9b" stroke-width="1.6"/>`;
+      NUMS.forEach((n, k) => {
+        hk += `<div class="ncard card" id="n${k}" style="left:${NX}px;top:${NY(k)}px"><div class="nin"><span class="wa-ic"><svg viewBox="0 0 24 24"><use href="#i-chat"/></svg></span><span class="ntxt"><b>WhatsApp Business</b><span>${n}</span></span><span class="shared">Shared</span><span class="q"><span class="qf" id="qf${k}"></span></span></div></div>`;
       });
-      CUP.forEach((c, i) => {
-        const x0 = c.x + 95,
-          y0 = c.y;
-        const ex = x0 + [-70, 90, -110, 60][i],
-          ey = 580 + [0, 22, 10, 30][i];
-        lines += `<path id="cl${i}" d="M${x0} ${y0} C ${x0} ${y0 - 60}, ${ex} ${ey + 60}, ${ex} ${ey}" fill="none" stroke="#b2aea4" stroke-width="1.6" stroke-dasharray="5 7"/><circle id="cc${i}" cx="${ex}" cy="${ey}" r="5" fill="none" stroke="#b2aea4" stroke-width="1.6"/>`;
-      });
-      $("own-lines").innerHTML = lines;
+      $("hk").innerHTML = hk;
+      const curve = (x0, y0, x1, y1) => `M${x0} ${y0} C ${x0 + 110} ${y0}, ${x1 - 110} ${y1}, ${x1} ${y1}`;
+      const L1 = [
+        [0, 0],
+        [1, 0],
+        [1, 1],
+        [2, 1],
+        [3, 1],
+        [3, 2],
+        [4, 2],
+      ];
+      const R1 = [
+        [0, 0],
+        [0, 1],
+        [1, 2],
+        [2, 3],
+        [2, 4],
+      ];
+      let hl = "";
+      L1.forEach(([i, k], n) => (hl += `<path id="l1_${n}" d="${curve(LX + 320, LY(i) + 32, NX, NY(k) + 62)}" fill="none" stroke="#9fd8b8" stroke-width="2.5"/>`));
+      R1.forEach(([k, j], n) => (hl += `<path id="r1_${n}" d="${curve(NX + 440, NY(k) + 62, RX, LY(j) + 32)}" fill="none" stroke="#c9c3b6" stroke-width="2"/>`));
+      [0, 1, 2, 3, 4].forEach((i) => (hl += `<path id="l2_${i}" d="${curve(LX + 320, LY(i) + 32, NX, NY(1) + 62)}" fill="none" stroke="#9a9f9b" stroke-width="2"/>`));
+      [0, 1, 2, 3, 4].forEach((j) => (hl += `<path id="r2_${j}" d="${curve(NX + 440, NY(1) + 62, RX, LY(j) + 32)}" fill="none" stroke="#c4909b" stroke-width="2" stroke-dasharray="6 8"/>`));
+      L1.forEach((_, n) => [0, 1].forEach((m) => (hl += `<circle id="lp${n}_${m}" r="7" fill="#2bb673" opacity="0"/>`)));
+      R1.forEach((_, n) => (hl += `<circle id="rp${n}" r="6" fill="#b7b1a4" opacity="0"/>`));
+      $("hk-lines").innerHTML = hl;
 
       // ---------- S3: agent multiplication ----------
       const acard = (cls, id, p, x, y, label) =>
         `<div class="acard ${cls} card" id="${id}" style="left:${x}px;top:${y}px">${label ? `<span class="lbl">${label}</span>` : ""}<img class="av" src="${img(p)}" alt=""/><div><div class="nm">${p[0]} ${VF}</div><div class="vn">✓ Verified number</div></div>${cls === "sm" ? "" : '<span class="cp"><i></i>Campaign live</span>'}</div>`;
-      $("a001").outerHTML = acard("big", "a001", person(0), 1190, 230, "Agent 001");
+      $("a001").outerHTML = acard("big", "a001", person(0), 760, 521, "Agent 001");
       // B: row of 5
       const BX = (i) => 278 + i * 276;
       $("rowB").innerHTML = [0, 1, 2, 3, 4].map((i) => acard("mid", `b${i}`, person([3, 1, 0, 2, 4][i]), BX(i), 502)).join("");
@@ -1505,53 +1520,86 @@
       tl.fromTo("#dtlogo", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "expo.out" }, 5.0);
       tl.to("#dtlogo", { opacity: 0, duration: 0.3 }, 16.95);
 
-      // ===== S1 (0–2.5): few numbers, overloaded =====
-      [0, 1, 2].forEach((k) => {
-        enter(`#n${k}`, 0.05 + k * 0.08);
-        tl.fromTo(`#qf${k}`, { scaleX: 0.06 }, { scaleX: 0.96, duration: 2.0, ease: "power1.in" }, 0.3 + k * 0.05);
-        tl.fromTo(`#qf${k}`, { backgroundColor: "#2bb673" }, { backgroundColor: "#c46a7a", duration: 1.2, ease: "none" }, 1.1);
-        tl.fromTo(`#n${k} .nin`, { x: 0 }, { x: 2.5, duration: 0.05, yoyo: true, repeat: 9, ease: "sine.inOut" }, 1.75 + k * 0.04);
-      });
-      CHIP.forEach((c, j) => {
-        const sx = c.left ? -340 : 2120;
-        const sy = c.ty + (rnd() - 0.5) * 420;
-        tl.fromTo(`#mc${j}`, { x: sx - c.tx, y: sy - c.ty, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.35 + j * 0.1);
-      });
+      // packets travelling along a path: p runs 0→cycles, opacity eases in/out each lap
+      const travel = (pathId, dotId, t, d, cycles) => {
+        const p = $(pathId),
+          dot = $(dotId),
+          L = p.getTotalLength();
+        const o = { p: 0 };
+        const place = () => {
+          const f = o.p % 1;
+          const pt = p.getPointAtLength(f * L);
+          dot.setAttribute("cx", pt.x.toFixed(1));
+          dot.setAttribute("cy", pt.y.toFixed(1));
+          dot.setAttribute("opacity", o.p > 0 && o.p < cycles ? Math.sin(Math.PI * f).toFixed(3) : "0");
+        };
+        tl.fromTo(o, { p: 0 }, { p: cycles, duration: d, ease: "none", onUpdate: place }, t);
+      };
+
+      // ===== HOOK state 1 (0–2.5): campaigns jam into a few shared numbers =====
       tl.fromTo("#k0", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.35, ease: E }, 0.05);
       words("#h1a", 0.08);
-      words("#h1b", 0.6);
-      tl.fromTo("#h1s", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 1.5);
+      words("#h1b", 0.42);
+      ["#ch0a", "#ch1", "#ch2"].forEach((c, i) => tl.fromTo(c, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 0.25 + i * 0.08));
+      [1, 0, 2].forEach((k, n) => enter(`#n${k}`, 0.2 + n * 0.07));
+      CAMPS.forEach((_, i) => tl.fromTo(`#lc${i}`, { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(1.5)" }, 0.35 + i * 0.07));
+      L1.forEach((_, n) => drawPath(`l1_${n}`, 0.6 + n * 0.04, 0.35));
+      CAMPS.forEach((_, i) => tl.fromTo(`#rc${i}`, { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(1.5)" }, 0.7 + i * 0.06));
+      R1.forEach((_, n) => drawPath(`r1_${n}`, 0.9 + n * 0.04, 0.35));
+      // lots of campaign traffic in, little engagement out
+      L1.forEach((_, n) =>
+        [0, 1].forEach((m) => {
+          const t0 = 0.95 + m * 0.25 + n * 0.04;
+          const cycles = Math.floor((2.42 - t0) / 0.5);
+          travel(`l1_${n}`, `lp${n}_${m}`, t0, cycles * 0.5, cycles);
+        }),
+      );
+      R1.forEach((_, n) => travel(`r1_${n}`, `rp${n}`, 1.3 + n * 0.1, 0.7, 1));
+      [0, 1, 2].forEach((k) => {
+        tl.fromTo(`#qf${k}`, { scaleX: 0.08 }, { scaleX: 0.97, duration: 1.8, ease: "power1.in" }, 0.6 + k * 0.05);
+        tl.fromTo(`#qf${k}`, { backgroundColor: "#2bb673" }, { backgroundColor: "#c46a7a", duration: 1.0, ease: "none" }, 1.3);
+        tl.fromTo(`#n${k} .nin`, { x: 0 }, { x: 2.5, duration: 0.05, yoyo: true, repeat: 9, ease: "sine.inOut" }, 1.9 + k * 0.04);
+      });
 
-      // ===== S2 (2.5–5): who owns the conversation =====
-      tl.to(["#h1", "#k0"], { opacity: 0, y: -40, filter: "blur(6px)", duration: 0.3, ease: "power2.in" }, 2.4);
-      tl.to("#h1s", { opacity: 0, y: 30, filter: "blur(6px)", duration: 0.3, ease: "power2.in" }, 2.4);
-      tl.to("#n0", { x: 380, y: -260, opacity: 0, filter: "blur(6px)", duration: 0.45, ease: "power3.in" }, 2.45);
-      tl.to("#n2", { x: 380, y: 260, opacity: 0, filter: "blur(6px)", duration: 0.45, ease: "power3.in" }, 2.45);
-      CHIP.forEach((c, j) => tl.to(`#mc${j}`, { opacity: 0, x: c.left ? -80 : 80, filter: "blur(4px)", duration: 0.25, ease: "power2.in" }, 2.36 + (j % 6) * 0.015));
-      tl.to("#n1", { x: 1190 - 760, y: 230 - 486, duration: 0.55, ease: "expo.inOut" }, 2.5);
-      tl.to(["#qf1", "#n1 .shared"], { opacity: 0, duration: 0.3 }, 2.5);
-      words("#h2a", 2.75, 0.07);
-      tl.fromTo("#h2s", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 3.2);
-      AG.forEach((_, i) => {
-        enter(`#ag${i}`, 3.0 + i * 0.07);
-        drawPath(`ol${i}`, 3.15 + i * 0.05, 0.45);
+      // ===== HOOK state 2 (2.5–4.45): same frame, now the ownership problem =====
+      tl.to("#hh1", { opacity: 0, y: -30, filter: "blur(6px)", duration: 0.28, ease: "power2.in" }, 2.45);
+      words("#h2a", 2.68, 0.07);
+      tl.fromTo("#hh2s", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: E }, 3.0);
+      tl.to("#ch0a", { opacity: 0, duration: 0.2 }, 2.55);
+      tl.fromTo("#ch0b", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 2.7);
+      tl.to("#hk-lines path[id^='l1_'], #hk-lines path[id^='r1_']", { opacity: 0, duration: 0.25 }, 2.5);
+      CAMPS.forEach((_, i) => {
+        tl.to(`#lc${i}`, { opacity: 0, rotationX: 90, transformPerspective: 600, duration: 0.18, ease: "power2.in" }, 2.55 + i * 0.05);
+        tl.fromTo(`#la${i}`, { opacity: 0, rotationX: -90, transformPerspective: 600 }, { opacity: 1, rotationX: 0, duration: 0.25, ease: "back.out(1.6)" }, 2.73 + i * 0.05);
       });
-      CU.forEach((_, i) => {
-        enter(`#cu${i}`, 3.6 + i * 0.08);
-        drawPath(`cl${i}`, 3.75 + i * 0.07, 0.45);
-        tl.fromTo(`#cc${i}`, { opacity: 0 }, { opacity: 1, duration: 0.2 }, 4.1 + i * 0.07);
+      tl.to(["#n0", "#n2"], { opacity: 0.3, duration: 0.35, ease: "power1.out" }, 2.6);
+      tl.to(["#qf0", "#qf1", "#qf2"], { opacity: 0, duration: 0.3 }, 2.6);
+      [0, 1, 2, 3, 4].forEach((i) => drawPath(`l2_${i}`, 2.95 + i * 0.05, 0.4));
+      [0, 1, 2, 3, 4].forEach((j) => drawPath(`r2_${j}`, 3.3 + j * 0.05, 0.4));
+      CAMPS.forEach((_, j) => {
+        tl.to(`#rc${j} .st1`, { opacity: 0, duration: 0.2 }, 3.55 + j * 0.06);
+        tl.fromTo(`#rc${j} .st2`, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.25, ease: E }, 3.6 + j * 0.06);
       });
+      // pain points land with the voiceover
+      [2.95, 3.65, 4.25].forEach((t, i) => enter(`#pn${i}`, t));
+
       // green sweep: chaos -> structure
       tl.fromTo("#sweep", { x: -60, opacity: 0 }, { x: 1980, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 4.45);
       tl.to("#sweep", { opacity: 0, duration: 0.1 }, 5.06);
-      tl.to("#h2", { opacity: 0, x: 60, filter: "blur(8px)", duration: 0.3, ease: "power2.in" }, 4.5);
-      tl.to("#own-lines", { opacity: 0, duration: 0.25, ease: "power1.in" }, 4.75);
-      AG.forEach((_, i) => tl.to(`#ag${i}`, { opacity: 0, y: -30, scale: 0.95, duration: 0.3, ease: "power2.in" }, 4.75 + i * 0.03));
-      CU.forEach((_, i) => tl.to(`#cu${i}`, { opacity: 0, y: 30, duration: 0.3, ease: "power2.in" }, 4.78 + i * 0.03));
+      tl.to(["#hh2", "#hh2s", "#k0"], { opacity: 0, y: -20, filter: "blur(6px)", duration: 0.28, ease: "power2.in" }, 4.5);
+      tl.to("#pains", { opacity: 0, y: 24, duration: 0.28, ease: "power2.in" }, 4.55);
+      tl.to(["#ch0b", "#ch1", "#ch2"], { opacity: 0, duration: 0.2 }, 4.6);
+      tl.to("#hk-lines", { opacity: 0, duration: 0.25, ease: "power1.in" }, 4.65);
+      CAMPS.forEach((_, i) => {
+        tl.to(`#la${i}`, { opacity: 0, x: -120, duration: 0.3, ease: "power2.in" }, 4.62 + i * 0.03);
+        tl.to(`#rc${i}`, { opacity: 0, x: 120, duration: 0.3, ease: "power2.in" }, 4.75 + i * 0.03);
+      });
+      tl.to(["#n0", "#n2"], { opacity: 0, duration: 0.25 }, 4.7);
+      tl.to(["#n1 .shared"], { opacity: 0, duration: 0.2 }, 4.75);
 
       // ===== S3 (5–9): one verified agent multiplies =====
       tl.to("#n1", { opacity: 0, duration: 0.15 }, 5.0);
-      tl.fromTo("#a001", { opacity: 0, x: 0, y: 0 }, { opacity: 1, x: 760 - 1190, y: 484 - 230, duration: 0.55, ease: "expo.inOut" }, 5.0);
+      tl.fromTo("#a001", { opacity: 0, x: 0, y: 0 }, { opacity: 1, x: 0, y: 484 - 521, duration: 0.55, ease: "expo.inOut" }, 5.0);
       tl.fromTo("#a001 .vf", { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(3)" }, 5.45);
       tl.fromTo("#mult", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 5.4);
       tl.fromTo("#k5", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.35, ease: E }, 5.1);
@@ -1566,7 +1614,7 @@
       tl.to(ms, { s: 4, duration: 0.01, onUpdate: setMult }, 7.2);
       tl.fromTo("#multn", { scale: 1 }, { scale: 1.12, duration: 0.1, yoyo: true, repeat: 7, ease: "power2.out" }, 5.75);
       // 1 → 5
-      tl.to("#a001", { scale: 0.65, x: 830 - 1190, y: 502 - 230, opacity: 0, duration: 0.3, ease: "power3.inOut" }, 5.7);
+      tl.to("#a001", { scale: 0.65, x: 830 - 760, y: 502 - 521, opacity: 0, duration: 0.3, ease: "power3.inOut" }, 5.7);
       [0, 1, 2, 3, 4].forEach((i) =>
         tl.fromTo(`#b${i}`, { opacity: 0, x: BX(2) - BX(i), scale: 0.95 }, { opacity: 1, x: 0, scale: 1, duration: 0.42, ease: "back.out(1.5)" }, 5.75 + Math.abs(i - 2) * 0.05),
       );
@@ -1616,6 +1664,7 @@
       words("#h4a", 9.15, 0.05);
       words("#h4b", 9.3, 0.05);
       tl.fromTo("#ctrl", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 9.75);
+      tl.fromTo("#paths", { opacity: 0 }, { opacity: 1, duration: 0.05 }, 9.88);
       [0, 1, 2, 3].forEach((k) => drawPath(`pp${k}`, 9.9 + k * 0.05, 0.4));
       // connection pulses travelling down each path
       [0, 1, 2, 3].forEach((k) => {
@@ -1677,6 +1726,7 @@
       );
       count("k1n", 0, 30, 13.42, 0.55, "%");
       // KPI 2: revenue line rises, then 10% follows ~300ms later
+      tl.fromTo("#k2line", { opacity: 0 }, { opacity: 1, duration: 0.05 }, 13.53);
       drawPath("k2p", 13.55, 0.6);
       tl.fromTo("#k2d", { scale: 0, transformOrigin: "376px 8px" }, { scale: 1, duration: 0.3, ease: "back.out(3)" }, 14.1);
       tl.fromTo(
