@@ -249,7 +249,7 @@
       #gl {
         position: absolute;
         left: 0;
-        top: 480px;
+        top: 456px;
         width: 1920px;
         height: 4px;
         border-radius: 2px;
@@ -260,35 +260,44 @@
         transform-origin: left center;
       }
 
-      /* conversation cards */
+      /* conversation cards — WhatsApp chat screens modelled on the reference */
       .cv {
         position: absolute;
-        top: 440px;
-        width: 420px;
-        height: 450px;
-        border-radius: 26px;
+        top: 420px;
+        width: 500px;
+        height: 600px;
+        border-radius: 30px;
         overflow: hidden;
+        border: 3px solid #d3d9df;
+        background: #fff;
+        font-family: "Inter", var(--sans);
       }
       .cv .hdr {
         position: absolute;
         left: 0;
         right: 0;
         top: 0;
-        height: 86px;
+        height: 78px;
         background: #fff;
-        border-bottom: 1px solid #e3e0da;
+        border-bottom: 2px solid #d5d7d7;
+        z-index: 2;
       }
       .cv .hs {
         position: absolute;
         inset: 0;
         display: flex;
         align-items: center;
-        gap: 14px;
-        padding: 0 20px;
+        gap: 12px;
+        padding: 0 20px 0 16px;
+      }
+      .cv .back {
+        width: 24px;
+        height: 24px;
+        flex: none;
       }
       .cv .av {
-        width: 50px;
-        height: 50px;
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
         flex: none;
         background: #e7e1d5;
@@ -306,64 +315,152 @@
         display: flex;
         align-items: center;
         gap: 7px;
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 600;
         white-space: nowrap;
       }
       .cv .ln2 {
-        margin-top: 3px;
-        font-size: 15px;
-        font-weight: 500;
-        color: var(--green-ink);
+        margin-top: 2px;
+        font-size: 14px;
+        color: #1b1b1b;
         white-space: nowrap;
+      }
+      .cv .ic {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+      .cv .ic .ph {
+        width: 26px;
+        height: 26px;
+      }
+      .cv .ic .ca {
+        width: 11px;
+        height: 7px;
+        margin-left: -16px;
+      }
+      .cv .ic .dots {
+        width: 7px;
+        height: 24px;
       }
       .cv .body {
         position: absolute;
         left: 0;
         right: 0;
-        top: 86px;
-        bottom: 0;
-        padding: 22px 18px;
+        top: 78px;
+        bottom: 66px;
+        padding: 14px 16px 14px 18px;
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 12px;
         background-color: #e4dbd3;
         background-image: url("assets/img/wallpaper.png");
-        background-size: 520px auto;
-        font-family: "Inter", var(--sans);
+        background-size: 500px auto;
+      }
+      .today {
+        align-self: center;
+        padding: 3px 12px 4px;
+        border-radius: 6px;
+        background: #fdfdfd;
+        font-size: 13px;
+        color: #5c5f60;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
       }
       .bb {
-        max-width: 310px;
-        padding: 12px 14px 8px;
-        border-radius: 14px;
-        font-size: 19px;
-        line-height: 1.38;
-        color: #111b21;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        position: relative;
+        max-width: 370px;
+        padding: 9px 11px 6px;
+        border-radius: 9px;
+        font-size: 16.5px;
+        line-height: 1.42;
+        color: #0e0e0e;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+      }
+      .bb p + p {
+        margin-top: 7px;
       }
       .bb .t {
         display: block;
         text-align: right;
-        font-size: 12px;
-        color: #5f676a;
-        margin-top: 2px;
+        font-size: 11.5px;
+        color: #565d60;
+        margin-top: 1px;
       }
       .bb.in {
         align-self: flex-start;
         background: #fff;
-        border-top-left-radius: 4px;
+        border-top-left-radius: 0;
+      }
+      .bb.in::before {
+        content: "";
+        position: absolute;
+        left: -8px;
+        top: 0;
+        border-top: 11px solid #fff;
+        border-left: 8px solid transparent;
       }
       .bb.out {
         align-self: flex-end;
         background: #e6fed8;
-        border-top-right-radius: 4px;
+        border-top-right-radius: 0;
+      }
+      .bb.out::before {
+        content: "";
+        position: absolute;
+        right: -8px;
+        top: 0;
+        border-top: 11px solid #e6fed8;
+        border-right: 8px solid transparent;
+      }
+      .sig {
+        position: relative;
+        display: inline-block;
+      }
+      .sig .s2 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        white-space: nowrap;
+      }
+      .cv .inp {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 66px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 18px;
+        background: #f0ece6;
+      }
+      .cv .inp svg {
+        width: 24px;
+        height: 24px;
+        flex: none;
+      }
+      .cv .fld {
+        flex: 1;
+        height: 42px;
+        border-radius: 21px;
+        background: #fff;
+        border: 1px solid #e2ddd6;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 14px;
+      }
+      .cv .fld svg {
+        width: 20px;
+        height: 24px;
       }
       .own {
         position: absolute;
         left: 18px;
         right: 18px;
-        bottom: 18px;
-        height: 52px;
+        bottom: 80px;
+        height: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -371,6 +468,7 @@
         border-radius: 14px;
         background: var(--tint);
         border: 1px solid #c9ead6;
+        font-family: var(--sans);
         font-size: 18px;
         font-weight: 600;
         color: var(--green-ink);
@@ -381,8 +479,8 @@
       }
       .wtag {
         position: absolute;
-        top: 386px;
-        width: 420px;
+        top: 366px;
+        width: 500px;
         display: flex;
         justify-content: center;
       }
@@ -699,13 +797,12 @@
       <audio id="vo-s" src="assets/vo/vo_s.mp3" data-start="7.0" data-duration="5.95" data-track-index="11" data-volume="1"></audio>
       <audio id="vo-r" src="assets/vo/vo_r.mp3" data-start="13.0" data-duration="4.13" data-track-index="11" data-volume="1"></audio>
       <audio id="vo-c" src="assets/vo/vo_c.mp3" data-start="17.2" data-duration="2.26" data-track-index="11" data-volume="1"></audio>
-      <audio id="sfx-00-pop" src="assets/audio/pop.mp3" data-start="0.55" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
-      <audio id="sfx-01-pop" src="assets/audio/pop.mp3" data-start="0.75" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
-      <audio id="sfx-02-pop" src="assets/audio/pop.mp3" data-start="0.95" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
-      <audio id="sfx-03-pop" src="assets/audio/pop.mp3" data-start="1.05" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
-      <audio id="sfx-04-pop" src="assets/audio/pop.mp3" data-start="1.25" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
-      <audio id="sfx-05-pop" src="assets/audio/pop.mp3" data-start="1.45" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
-      <audio id="sfx-06-pop" src="assets/audio/pop.mp3" data-start="1.75" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
+      <audio id="sfx-00-pop" src="assets/audio/pop.mp3" data-start="0.5" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
+      <audio id="sfx-01-pop" src="assets/audio/pop.mp3" data-start="0.7" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
+      <audio id="sfx-02-pop" src="assets/audio/pop.mp3" data-start="0.9" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
+      <audio id="sfx-03-pop" src="assets/audio/pop.mp3" data-start="1.25" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
+      <audio id="sfx-04-pop" src="assets/audio/pop.mp3" data-start="1.45" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
+      <audio id="sfx-05-pop" src="assets/audio/pop.mp3" data-start="1.65" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
       <audio id="sfx-07-click" src="assets/audio/click.mp3" data-start="1.9" data-duration="0.10" data-track-index="13" data-volume="0.35"></audio>
       <audio id="sfx-08-tick" src="assets/audio/tick.mp3" data-start="2.2" data-duration="0.10" data-track-index="12" data-volume="0.3"></audio>
       <audio id="sfx-09-tick" src="assets/audio/tick.mp3" data-start="2.45" data-duration="0.10" data-track-index="12" data-volume="0.3"></audio>
@@ -745,44 +842,45 @@
       });
 
       // ---------- the three conversations (persist through the film) ----------
-      const CX = [270, 750, 1230];
+      const CX = [170, 710, 1250];
       const AGENTS = [
         ["Rahul", "rahul.jpg", "+91 98•• ••4512"],
         ["Neha", "neha.jpg", "+91 99•• ••2087"],
         ["Arjun", "arjun.jpg", "+91 97•• ••7731"],
       ];
-      const CHATS = [
-        [
-          ["in", "Hi! Is the Goa package still available?", "10:02"],
-          ["out", "Yes! Sharing the details now.", "10:03"],
-        ],
-        [
-          ["in", "Can I change my flight date?", "11:15"],
-          ["out", "Sure, which date works for you?", "11:16"],
-          ["in", "Next Friday 🙏", "11:16"],
-        ],
-        [
-          ["in", "Need a hotel in Jaipur this weekend.", "12:40"],
-          ["out", "Got it, 3 options coming up.", "12:41"],
-        ],
+      // first message: the campaign each agent sent; second: the customer's reply
+      const CAMP = [
+        ["Mukesh", "Exclusive member deals on Goa holiday packages are live this week.", "Is the Goa package still available?"],
+        ["Priya", "Our flight sale is live. Save on your next trip to Dubai.", "Can I travel next Friday?"],
+        ["Rohan", "Handpicked hotel deals in Jaipur for this weekend.", "Please share a few options!"],
       ];
+      const CHATS = CAMP.map(() => [["in"], ["out"]]);
+      const ICO = {
+        back: '<svg class="back" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12H4M11 4.5L3.5 12l7.5 7.5"/></svg>',
+        right:
+          '<span class="ic"><svg class="ph" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6" stroke-linejoin="round"><path d="M5.5 3.5h3l1.8 4.6-2.2 1.4a11 11 0 0 0 6.4 6.4l1.4-2.2 4.6 1.8v3a2 2 0 0 1-2.1 2A17 17 0 0 1 3.5 5.6a2 2 0 0 1 2-2.1z"/></svg><svg class="ca" viewBox="0 0 26 16"><path d="M2 2h22L13 14z" fill="#111"/></svg><svg class="dots" viewBox="0 0 8 26" fill="#111"><circle cx="4" cy="4" r="3"/><circle cx="4" cy="13" r="3"/><circle cx="4" cy="22" r="3"/></svg></span>',
+        inp: '<div class="inp"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v18M3 12h18"/></svg><div class="fld"><svg viewBox="0 0 20 24" fill="none" stroke="#111" stroke-width="1.6" stroke-linejoin="round"><path d="M6 1.5h7.5l5 5V19a3.5 3.5 0 0 1-3.5 3.5H5A3.5 3.5 0 0 1 1.5 19V6A4.5 4.5 0 0 1 6 1.5z"/></svg></div><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8.5 7h7M8.5 10h7M10 7c3.5 0 3.5 6 0 6H8.5l5.5 5"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6" stroke-linejoin="round"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6H8l1.6-2.2h4.8L16 6h2.5A2.5 2.5 0 0 1 21 8.5v9a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/><circle cx="12" cy="13" r="3.6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round"><rect x="8.5" y="2.5" width="7" height="12.5" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0M12 18.5v3"/></svg></div>',
+      };
       $("cards").innerHTML = CX.map((x, k) => {
-        const a = AGENTS[k];
-        const bubbles = CHATS[k].map((b, j) => `<div class="bb ${b[0]}" id="b${k}_${j}">${b[1]}<span class="t">${b[2]}</span></div>`).join("");
+        const a = AGENTS[k],
+          c = CAMP[k];
+        const camp = `<div class="bb in" id="b${k}_0"><p>Hi ${c[0]}! 👋</p><p>${c[1]}</p><p>Warm regards,<br><span class="sig"><span class="s1" id="sg1_${k}">Agent 0${k + 1} – MakeMyTrip</span><span class="s2" id="sg2_${k}">${a[0]} – MakeMyTrip</span></span></p><span class="t">10.3${5 + k} AM</span></div>`;
+        const reply = `<div class="bb out" id="b${k}_1">${c[2]}<span class="t">10.4${k} AM</span></div>`;
         return `<div class="wtag" id="wt${k}" style="left:${x}px"><span>WABA 0${k + 1} ✓</span></div>
           <div class="cv card" id="cv${k}" style="left:${x}px">
             <div class="hdr">
-              <div class="hs" id="hs1_${k}"><span class="av">${SIL}</span><div><div class="nm">Agent 0${k + 1}</div><div class="ln2">✓ WhatsApp</div></div></div>
-              <div class="hs" id="hs2_${k}"><img class="av" src="assets/img/reps/${a[1]}" alt=""/><div><div class="nm">${a[0]} ${VF}</div><div class="ln2">Verified WhatsApp · ${a[2]}</div></div></div>
+              <div class="hs" id="hs1_${k}">${ICO.back}<span class="av">${SIL}</span><div><div class="nm">Agent 0${k + 1} - MMT</div><div class="ln2">Business Account</div></div>${ICO.right}</div>
+              <div class="hs" id="hs2_${k}">${ICO.back}<img class="av" src="assets/img/reps/${a[1]}" alt=""/><div><div class="nm">${a[0]} - MMT ${VF}</div><div class="ln2">Business Account</div></div>${ICO.right}</div>
             </div>
-            <div class="body">${bubbles}</div>
-            <div class="own" id="own${k}">${DT}Owned by ${a[0]}</div>
+            <div class="body"><div class="today">Today</div>${camp}${reply}</div>
+            <div class="own" id="own${k}">${DT}Own verified number · ${a[0]}</div>
+            ${ICO.inp}
           </div>`;
       }).join("");
 
       // ---------- lines: broken manager links (before) + DoubleTick links (after) ----------
       const MB = { x: 960, y: 358 };
-      const CT = (k) => ({ x: CX[k] + 210, y: 440 });
+      const CT = (k) => ({ x: CX[k] + 250, y: 420 });
       let svg = "";
       [0, 1, 2].forEach((k) => {
         const e = CT(k);
@@ -832,9 +930,9 @@
         enter(`#cv${k}`, 0.15 + k * 0.1);
       });
       const BT = [
-        [0.55, 1.05],
-        [0.75, 1.25, 1.75],
-        [0.95, 1.45],
+        [0.5, 1.25],
+        [0.7, 1.45],
+        [0.9, 1.65],
       ];
       BT.forEach((ts, k) => ts.forEach((t, j) => tl.fromTo(`#b${k}_${j}`, { opacity: 0, y: 16, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.8)", transformOrigin: CHATS[k][j][0] === "in" ? "0% 0%" : "100% 0%" }, t)));
       enter("#mgr", 1.9);
@@ -871,6 +969,8 @@
         tl.to(`#hs1_${k}`, { opacity: 0, y: -12, duration: 0.2 }, t);
         tl.fromTo(`#hs2_${k}`, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, t + 0.1);
         tl.fromTo(`#hs2_${k} .vf`, { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(3)" }, t + 0.25);
+        tl.to(`#sg1_${k}`, { opacity: 0, duration: 0.2 }, t + 0.15);
+        tl.fromTo(`#sg2_${k}`, { opacity: 0 }, { opacity: 1, duration: 0.25 }, t + 0.25);
         tl.fromTo(`#own${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.8)" }, 7.85 + k * 0.12);
       });
 
@@ -884,12 +984,12 @@
       tl.fromTo("#sC", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: E }, 10.4);
       // cards travel into the panel rows
       [0, 1, 2].forEach((k) => {
-        const cx = CX[k] + 210 + [24, 0, -24][k],
-          cy = 665;
+        const cx = CX[k] + 250 + [24, 0, -24][k],
+          cy = 720;
         const rx = 960,
           ry = RY(k) + 68;
         tl.to(`#cv${k}`, { x: [24, 0, -24][k] + (rx - cx), y: ry - cy, scale: 0.26, opacity: 0, duration: 0.5, ease: "power3.inOut" }, 10.65 + k * 0.05);
-        tl.to(`#wt${k}`, { x: rx - cx, y: ry - 386 - 20, scale: 0.6, opacity: 0, duration: 0.5, ease: "power3.inOut" }, 10.65 + k * 0.05);
+        tl.to(`#wt${k}`, { x: rx - cx, y: ry - 366 - 20, scale: 0.6, opacity: 0, duration: 0.5, ease: "power3.inOut" }, 10.65 + k * 0.05);
       });
       tl.fromTo("#pn", { opacity: 0, scale: 0.96, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.4)" }, 10.75);
       [0, 1, 2].forEach((k) => tl.fromTo(`#rw${k}`, { opacity: 0, scale: 0.96, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 11.0 + k * 0.1));
