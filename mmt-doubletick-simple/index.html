@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>MakeMyTrip × DoubleTick — simple 20s</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        src: url("assets/fonts/hedvig.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist.woff2") format("woff2");
+        font-weight: 300 700;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter.woff2") format("woff2");
+        font-weight: 400 700;
+        font-display: block;
+      }
+      :root {
+        --bg: #f5f0e6;
+        --paper: #fffdf8;
+        --ink: #1d211f;
+        --muted: #575c58;
+        --green: #2bb673;
+        --green-ink: #12784a;
+        --cta: #17834f;
+        --tint: #e4f8ea;
+        --line: #e2dccf;
+        --serif: "Hedvig Letters Serif", Georgia, serif;
+        --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg);
+        font-family: var(--sans);
+        color: var(--ink);
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+      .abs {
+        position: absolute;
+      }
+      img {
+        display: block;
+      }
+      .w {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: top;
+        padding-bottom: 0.14em;
+        margin-bottom: -0.14em;
+      }
+      .wi {
+        display: inline-block;
+      }
+      .card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow:
+          0 1px 2px rgba(60, 50, 30, 0.05),
+          0 16px 38px rgba(60, 50, 30, 0.1);
+      }
+      .vf {
+        width: 20px;
+        height: 20px;
+        flex: none;
+      }
+
+      /* background */
+      #bg-dots {
+        position: absolute;
+        inset: -80px;
+        background-image: radial-gradient(circle, rgba(29, 33, 31, 0.06) 1.5px, transparent 1.6px);
+        background-size: 36px 36px;
+      }
+      #bg-glow {
+        position: absolute;
+        width: 1500px;
+        height: 1500px;
+        left: 210px;
+        top: -260px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(43, 182, 115, 0.12) 0%, rgba(43, 182, 115, 0) 62%);
+      }
+      #world {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 55%;
+      }
+
+      /* chrome */
+      #dtlogo {
+        position: absolute;
+        left: 72px;
+        top: 56px;
+        height: 34px;
+        width: auto;
+      }
+      #tag {
+        position: absolute;
+        right: 72px;
+        top: 48px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 18px 8px 12px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      #tag img {
+        height: 24px;
+        width: auto;
+      }
+
+      /* headlines */
+      .hd {
+        left: 0;
+        right: 0;
+        top: 104px;
+        text-align: center;
+        font-family: var(--serif);
+        font-size: 76px;
+        line-height: 1.04;
+        letter-spacing: -0.03em;
+        white-space: nowrap;
+      }
+      .hd .g {
+        color: var(--green-ink);
+      }
+      .sb {
+        left: 0;
+        right: 0;
+        top: 202px;
+        text-align: center;
+        font-size: 28px;
+        color: var(--muted);
+        letter-spacing: -0.005em;
+      }
+      .sb .dot {
+        margin: 0 14px;
+        color: #b2ab9e;
+      }
+
+      /* manager + DoubleTick node */
+      .node {
+        position: absolute;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        border-radius: 20px;
+        font-size: 22px;
+        font-weight: 600;
+      }
+      #mgr {
+        left: 830px;
+        top: 286px;
+        width: 260px;
+      }
+      #mgr .pp {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #e7e1d5;
+        display: grid;
+        place-items: center;
+      }
+      #mgr .pp svg {
+        width: 22px;
+        height: 22px;
+      }
+      #mgr .eye {
+        width: 24px;
+        height: 24px;
+      }
+      #dtn {
+        left: 790px;
+        top: 286px;
+        width: 340px;
+        border: 2px solid var(--green);
+      }
+      #dtn img {
+        height: 32px;
+        width: auto;
+      }
+      #cnt {
+        left: 0;
+        right: 0;
+        top: 286px;
+        display: flex;
+        justify-content: center;
+      }
+      #cnt .pill {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        padding: 10px 26px;
+        border-radius: 999px;
+        background: var(--tint);
+        border: 1px solid #c9ead6;
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--green-ink);
+      }
+      #cnt b {
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: 40px;
+      }
+      #lines {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: visible;
+      }
+      #gl {
+        position: absolute;
+        left: 0;
+        top: 480px;
+        width: 1920px;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--green);
+        box-shadow:
+          0 0 18px 4px rgba(43, 182, 115, 0.45),
+          0 0 60px 14px rgba(43, 182, 115, 0.2);
+        transform-origin: left center;
+      }
+
+      /* conversation cards */
+      .cv {
+        position: absolute;
+        top: 440px;
+        width: 420px;
+        height: 450px;
+        border-radius: 26px;
+        overflow: hidden;
+      }
+      .cv .hdr {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 86px;
+        background: #fff;
+        border-bottom: 1px solid #e3e0da;
+      }
+      .cv .hs {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 20px;
+      }
+      .cv .av {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        flex: none;
+        background: #e7e1d5;
+        display: grid;
+        place-items: center;
+      }
+      .cv .av svg {
+        width: 26px;
+        height: 26px;
+      }
+      .cv img.av {
+        background: none;
+      }
+      .cv .nm {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 22px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .cv .ln2 {
+        margin-top: 3px;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--green-ink);
+        white-space: nowrap;
+      }
+      .cv .body {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 86px;
+        bottom: 0;
+        padding: 22px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        background-color: #e4dbd3;
+        background-image: url("assets/img/wallpaper.png");
+        background-size: 520px auto;
+        font-family: "Inter", var(--sans);
+      }
+      .bb {
+        max-width: 310px;
+        padding: 12px 14px 8px;
+        border-radius: 14px;
+        font-size: 19px;
+        line-height: 1.38;
+        color: #111b21;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+      }
+      .bb .t {
+        display: block;
+        text-align: right;
+        font-size: 12px;
+        color: #5f676a;
+        margin-top: 2px;
+      }
+      .bb.in {
+        align-self: flex-start;
+        background: #fff;
+        border-top-left-radius: 4px;
+      }
+      .bb.out {
+        align-self: flex-end;
+        background: #e6fed8;
+        border-top-right-radius: 4px;
+      }
+      .own {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border-radius: 14px;
+        background: var(--tint);
+        border: 1px solid #c9ead6;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--green-ink);
+      }
+      .own svg {
+        width: 26px;
+        height: 20px;
+      }
+      .wtag {
+        position: absolute;
+        top: 386px;
+        width: 420px;
+        display: flex;
+        justify-content: center;
+      }
+      .wtag span {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+
+      /* Multi-WABA panel */
+      #pn {
+        left: 560px;
+        top: 300px;
+        width: 800px;
+        height: 610px;
+        border-radius: 28px;
+      }
+      #pn .ph {
+        height: 112px;
+        padding: 22px 30px 0;
+        border-bottom: 1px solid var(--line);
+        position: relative;
+      }
+      #pn .lab {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--green-ink);
+      }
+      #pn .ttl {
+        margin-top: 6px;
+        font-size: 34px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      #pn .ph img {
+        position: absolute;
+        right: 30px;
+        top: 40px;
+        height: 30px;
+        width: auto;
+      }
+      .row {
+        position: absolute;
+        left: 30px;
+        right: 30px;
+        height: 136px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 0 22px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--line);
+      }
+      .row .wb {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 10px;
+        background: var(--tint);
+        color: var(--green-ink);
+        font-size: 18px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .row img {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+      }
+      .row .who b {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 24px;
+        font-weight: 600;
+      }
+      .row .who span {
+        display: block;
+        margin-top: 3px;
+        font-size: 16px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .row .act {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--green-ink);
+      }
+      .row .act i {
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      /* KPIs */
+      .kpi {
+        position: absolute;
+        top: 340px;
+        width: 560px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .kpi .n {
+        font-family: var(--serif);
+        font-size: 176px;
+        line-height: 1;
+        letter-spacing: -0.045em;
+        color: var(--green-ink);
+        display: block;
+      }
+      .kpi .l {
+        margin-top: 18px;
+        font-size: 34px;
+        font-weight: 500;
+        letter-spacing: -0.015em;
+        display: block;
+        white-space: nowrap;
+      }
+
+      /* closing */
+      #end {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 190px;
+        text-align: center;
+      }
+      #endlogo {
+        height: 62px;
+        width: auto;
+      }
+      #e1 {
+        margin-top: 58px;
+        font-family: var(--serif);
+        font-size: 124px;
+        line-height: 1.02;
+        letter-spacing: -0.035em;
+        white-space: nowrap;
+        display: block;
+      }
+      #e2 {
+        margin-top: 18px;
+        font-size: 44px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        color: var(--muted);
+        display: block;
+      }
+      #cta {
+        position: relative;
+        overflow: hidden;
+        margin-top: 44px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 24px 44px;
+        border-radius: 999px;
+        background: var(--cta);
+        color: #fff;
+        font-size: 32px;
+        font-weight: 600;
+        box-shadow: 0 18px 40px rgba(23, 131, 79, 0.3);
+      }
+      #cta svg {
+        width: 30px;
+        height: 30px;
+      }
+      #shine {
+        position: absolute;
+        top: -20px;
+        bottom: -20px;
+        left: 0;
+        width: 120px;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+        display: block;
+      }
+      #proofs {
+        left: 0;
+        right: 0;
+        top: 880px;
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+      }
+      .pf {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        padding: 12px 24px;
+        border-radius: 999px;
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      .pf b {
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: 34px;
+        color: var(--green-ink);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="20" data-fps="30" data-width="1920" data-height="1080">
+      <svg width="0" height="0" style="position: absolute">
+        <defs>
+          <symbol id="i-vf" viewBox="0 0 24 24">
+            <path
+              fill="#1d8cf8"
+              d="M12 1.5l2.4 1.7 2.9-.2 1 2.7 2.5 1.5-.6 2.9 1.3 2.6-2 2.1-.2 2.9-2.8.8-1.6 2.4-2.8-.8-2.6 1.3-2-2.1-2.9-.4-.6-2.8-2.3-1.8 1-2.7-.6-2.9 2.4-1.6.9-2.8 2.9.1z"
+            />
+            <path d="M7.6 12.3l3 3 5.8-6.1" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+          </symbol>
+          <symbol id="i-dt" viewBox="0 0 74 54">
+            <path d="M3 30 L17 44" stroke="#2bb673" stroke-width="7" stroke-linecap="square" fill="none" />
+            <path d="M20 30 L34 44 L71 7" stroke="#2bb673" stroke-width="7" stroke-linecap="square" fill="none" />
+            <path d="M33 26 L52 7" stroke="#2bb673" stroke-width="7" stroke-linecap="square" fill="none" />
+          </symbol>
+          <symbol id="i-user" viewBox="0 0 24 24">
+            <circle cx="12" cy="8.5" r="4" fill="#a8a194" />
+            <path d="M4.5 21c1-4 4-6 7.5-6s6.5 2 7.5 6" fill="#a8a194" />
+          </symbol>
+        </defs>
+      </svg>
+
+      <div id="bg" class="clip" data-start="0" data-duration="20" data-track-index="0">
+        <div id="bg-dots"></div>
+        <div id="bg-glow"></div>
+      </div>
+
+      <div id="stage" class="clip" data-start="0" data-duration="20" data-track-index="1">
+        <div id="world">
+          <!-- headlines -->
+          <div class="hd abs" id="hA"><span class="split">Separate numbers.</span> <span class="split g" id="hA2">Limited visibility.</span></div>
+          <div class="sb abs" id="sA"><span id="sA0">Tracking</span><span class="dot">·</span><span id="sA1">Ownership</span><span class="dot">·</span><span id="sA2">Consistency</span></div>
+          <div class="hd abs split" id="hB">Own verified numbers.</div>
+          <div class="sb abs" id="sB">Personalized campaigns with clear ownership.</div>
+          <div class="hd abs" id="hC"><span class="split g">Multi-WABA.</span> <span class="split">One view.</span></div>
+          <div class="sb abs" id="sC">Centralized visibility and control</div>
+
+          <!-- connections -->
+          <svg id="lines" viewBox="0 0 1920 1080"></svg>
+          <div id="gl"></div>
+          <div id="mgr" class="node card">
+            <span class="pp"><svg viewBox="0 0 24 24"><use href="#i-user" /></svg></span>Manager
+            <svg class="eye" viewBox="0 0 24 24" fill="none" stroke="#8b8f8b" stroke-width="2" stroke-linecap="round"><path d="M3 12c2.5-4.5 5.5-6.5 9-6.5s6.5 2 9 6.5c-2.5 4.5-5.5 6.5-9 6.5S5.5 16.5 3 12z" /><circle cx="12" cy="12" r="3" /></svg>
+          </div>
+          <div id="dtn" class="node card"><img src="assets/img/doubletick-logo.png" alt="DoubleTick" /></div>
+          <div id="cnt" class="abs"><div class="pill"><b><span id="cntn">1,500</span>+</b>agents</div></div>
+
+          <!-- three conversation cards (built in script) -->
+          <div id="cards"></div>
+
+          <!-- Multi-WABA panel -->
+          <div id="pn" class="abs card">
+            <div class="ph" id="pnh">
+              <div class="lab">Centralized visibility</div>
+              <div class="ttl">Multi-WABA</div>
+              <img src="assets/img/doubletick-logo.png" alt="DoubleTick" />
+            </div>
+          </div>
+          <div id="rows"></div>
+
+          <!-- KPIs -->
+          <div class="kpi" id="k0" style="left: 140px"><span class="n">1,500+</span><span class="l">agents empowered</span></div>
+          <div class="kpi" id="k1" style="left: 680px"><span class="n">30%</span><span class="l">higher operational efficiency</span></div>
+          <div class="kpi" id="k2" style="left: 1220px"><span class="n">10%</span><span class="l">revenue growth</span></div>
+
+          <!-- closing -->
+          <div id="end" class="abs">
+            <img id="endlogo" src="assets/img/doubletick-logo.png" alt="DoubleTick" />
+            <span id="e1" class="split">Your team could be next.</span>
+            <span id="e2">Experience it live.</span>
+            <div id="cta">
+              <span id="shine"></span>Experience it live
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </div>
+          </div>
+          <div id="proofs" class="abs">
+            <div class="pf card" id="p0"><b>1,500+</b>agents empowered</div>
+            <div class="pf card" id="p1"><b>30%</b>higher operational efficiency</div>
+            <div class="pf card" id="p2"><b>10%</b>revenue growth</div>
+          </div>
+        </div>
+        <img id="dtlogo" src="assets/img/doubletick-logo.png" alt="DoubleTick" />
+        <div id="tag"><img src="assets/img/mmt-logo.png" alt="MakeMyTrip" />Customer story</div>
+      </div>
+
+      <audio id="a-music" src="assets/audio/music.mp3" data-start="0" data-duration="20" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="vo-p" src="assets/vo/vo_p.mp3" data-start="0.08" data-duration="6.86" data-track-index="11" data-volume="1"></audio>
+      <audio id="vo-s" src="assets/vo/vo_s.mp3" data-start="7.0" data-duration="5.95" data-track-index="11" data-volume="1"></audio>
+      <audio id="vo-r" src="assets/vo/vo_r.mp3" data-start="13.0" data-duration="4.13" data-track-index="11" data-volume="1"></audio>
+      <audio id="vo-c" src="assets/vo/vo_c.mp3" data-start="17.2" data-duration="2.26" data-track-index="11" data-volume="1"></audio>
+      <audio id="sfx-00-pop" src="assets/audio/pop.mp3" data-start="0.55" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
+      <audio id="sfx-01-pop" src="assets/audio/pop.mp3" data-start="0.75" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
+      <audio id="sfx-02-pop" src="assets/audio/pop.mp3" data-start="0.95" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
+      <audio id="sfx-03-pop" src="assets/audio/pop.mp3" data-start="1.05" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
+      <audio id="sfx-04-pop" src="assets/audio/pop.mp3" data-start="1.25" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
+      <audio id="sfx-05-pop" src="assets/audio/pop.mp3" data-start="1.45" data-duration="0.22" data-track-index="13" data-volume="0.32"></audio>
+      <audio id="sfx-06-pop" src="assets/audio/pop.mp3" data-start="1.75" data-duration="0.22" data-track-index="12" data-volume="0.32"></audio>
+      <audio id="sfx-07-click" src="assets/audio/click.mp3" data-start="1.9" data-duration="0.10" data-track-index="13" data-volume="0.35"></audio>
+      <audio id="sfx-08-tick" src="assets/audio/tick.mp3" data-start="2.2" data-duration="0.10" data-track-index="12" data-volume="0.3"></audio>
+      <audio id="sfx-09-tick" src="assets/audio/tick.mp3" data-start="2.45" data-duration="0.10" data-track-index="12" data-volume="0.3"></audio>
+      <audio id="sfx-10-sweep" src="assets/audio/sweep.mp3" data-start="5.0" data-duration="0.94" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="sfx-11-snap" src="assets/audio/snap.mp3" data-start="5.5" data-duration="0.19" data-track-index="13" data-volume="0.45"></audio>
+      <audio id="sfx-12-pulse" src="assets/audio/pulse.mp3" data-start="5.75" data-duration="0.43" data-track-index="13" data-volume="0.35"></audio>
+      <audio id="sfx-13-count" src="assets/audio/count.mp3" data-start="7.3" data-duration="0.07" data-track-index="12" data-volume="0.22"></audio>
+      <audio id="sfx-14-count" src="assets/audio/count.mp3" data-start="7.45" data-duration="0.07" data-track-index="12" data-volume="0.22"></audio>
+      <audio id="sfx-15-verify" src="assets/audio/verify.mp3" data-start="7.45" data-duration="0.34" data-track-index="13" data-volume="0.45"></audio>
+      <audio id="sfx-16-count" src="assets/audio/count.mp3" data-start="7.6" data-duration="0.07" data-track-index="12" data-volume="0.22"></audio>
+      <audio id="sfx-17-verify" src="assets/audio/verify.mp3" data-start="7.6" data-duration="0.34" data-track-index="14" data-volume="0.45"></audio>
+      <audio id="sfx-18-verify" src="assets/audio/verify.mp3" data-start="7.75" data-duration="0.34" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-19-count" src="assets/audio/count.mp3" data-start="7.8" data-duration="0.07" data-track-index="13" data-volume="0.22"></audio>
+      <audio id="sfx-20-click" src="assets/audio/click.mp3" data-start="10.1" data-duration="0.10" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-21-whoosh" src="assets/audio/whoosh.mp3" data-start="10.7" data-duration="0.58" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-22-snap" src="assets/audio/snap.mp3" data-start="11.0" data-duration="0.19" data-track-index="13" data-volume="0.5"></audio>
+      <audio id="sfx-23-snap" src="assets/audio/snap.mp3" data-start="11.1" data-duration="0.19" data-track-index="14" data-volume="0.4"></audio>
+      <audio id="sfx-24-snap" src="assets/audio/snap.mp3" data-start="11.2" data-duration="0.19" data-track-index="13" data-volume="0.4"></audio>
+      <audio id="sfx-25-impact1" src="assets/audio/impact1.mp3" data-start="13.15" data-duration="1.03" data-track-index="12" data-volume="0.55"></audio>
+      <audio id="sfx-26-impact2" src="assets/audio/impact2.mp3" data-start="13.4" data-duration="1.03" data-track-index="13" data-volume="0.5"></audio>
+      <audio id="sfx-27-impact1" src="assets/audio/impact1.mp3" data-start="13.65" data-duration="1.03" data-track-index="14" data-volume="0.45"></audio>
+      <audio id="sfx-28-whoosh" src="assets/audio/whoosh.mp3" data-start="16.95" data-duration="0.58" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-29-resolve" src="assets/audio/resolve.mp3" data-start="18.2" data-duration="1.40" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-30-click" src="assets/audio/click.mp3" data-start="18.3" data-duration="0.10" data-track-index="13" data-volume="0.5"></audio>
+    </div>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const VF = '<svg class="vf" viewBox="0 0 24 24"><use href="#i-vf"/></svg>';
+      const SIL = '<svg viewBox="0 0 24 24"><use href="#i-user"/></svg>';
+      const DT = '<svg viewBox="0 0 74 54"><use href="#i-dt"/></svg>';
+      document.querySelectorAll(".split").forEach((el) => {
+        el.innerHTML = el.textContent
+          .split(" ")
+          .map((w) => `<span class="w"><span class="wi">${w}</span></span>`)
+          .join(" ");
+      });
+
+      // ---------- the three conversations (persist through the film) ----------
+      const CX = [270, 750, 1230];
+      const AGENTS = [
+        ["Rahul", "rahul.jpg", "+91 98•• ••4512"],
+        ["Neha", "neha.jpg", "+91 99•• ••2087"],
+        ["Arjun", "arjun.jpg", "+91 97•• ••7731"],
+      ];
+      const CHATS = [
+        [
+          ["in", "Hi! Is the Goa package still available?", "10:02"],
+          ["out", "Yes! Sharing the details now.", "10:03"],
+        ],
+        [
+          ["in", "Can I change my flight date?", "11:15"],
+          ["out", "Sure, which date works for you?", "11:16"],
+          ["in", "Next Friday 🙏", "11:16"],
+        ],
+        [
+          ["in", "Need a hotel in Jaipur this weekend.", "12:40"],
+          ["out", "Got it, 3 options coming up.", "12:41"],
+        ],
+      ];
+      $("cards").innerHTML = CX.map((x, k) => {
+        const a = AGENTS[k];
+        const bubbles = CHATS[k].map((b, j) => `<div class="bb ${b[0]}" id="b${k}_${j}">${b[1]}<span class="t">${b[2]}</span></div>`).join("");
+        return `<div class="wtag" id="wt${k}" style="left:${x}px"><span>WABA 0${k + 1} ✓</span></div>
+          <div class="cv card" id="cv${k}" style="left:${x}px">
+            <div class="hdr">
+              <div class="hs" id="hs1_${k}"><span class="av">${SIL}</span><div><div class="nm">Agent 0${k + 1}</div><div class="ln2">✓ WhatsApp</div></div></div>
+              <div class="hs" id="hs2_${k}"><img class="av" src="assets/img/reps/${a[1]}" alt=""/><div><div class="nm">${a[0]} ${VF}</div><div class="ln2">Verified WhatsApp · ${a[2]}</div></div></div>
+            </div>
+            <div class="body">${bubbles}</div>
+            <div class="own" id="own${k}">${DT}Owned by ${a[0]}</div>
+          </div>`;
+      }).join("");
+
+      // ---------- lines: broken manager links (before) + DoubleTick links (after) ----------
+      const MB = { x: 960, y: 358 };
+      const CT = (k) => ({ x: CX[k] + 210, y: 440 });
+      let svg = "";
+      [0, 1, 2].forEach((k) => {
+        const e = CT(k);
+        const P = (t) => ({ x: MB.x + (e.x - MB.x) * t, y: MB.y + (e.y - MB.y) * t });
+        const a = P(0.06),
+          b = P(0.42),
+          c = P(0.6),
+          d = P(0.97);
+        svg += `<path id="bk${k}a" d="M${a.x} ${a.y} L${b.x} ${b.y}" stroke="#8f897d" stroke-width="3.5" stroke-dasharray="10 9" fill="none"/>`;
+        svg += `<path id="bk${k}b" d="M${c.x} ${c.y} L${d.x} ${d.y}" stroke="#8f897d" stroke-width="3.5" stroke-dasharray="10 9" fill="none"/>`;
+        svg += `<path id="ok${k}" d="M${MB.x} ${MB.y} C ${MB.x} ${MB.y + 40}, ${e.x} ${e.y - 40}, ${e.x} ${e.y}" stroke="#2bb673" stroke-width="3" fill="none"/>`;
+      });
+      $("lines").innerHTML = svg;
+
+      // ---------- Multi-WABA rows ----------
+      const RY = (k) => 300 + 112 + 24 + k * 154;
+      $("rows").innerHTML = AGENTS.map(
+        (a, k) =>
+          `<div class="row" id="rw${k}" style="left:${560 + 30}px;right:auto;width:740px;top:${RY(k)}px"><span class="wb">WABA 0${k + 1} ✓</span><img src="assets/img/reps/${a[1]}" alt=""/><div class="who"><b>${a[0]} ${VF}</b><span>Verified WhatsApp · ${a[2]}</span></div><span class="act"><i></i>Active</span></div>`,
+      ).join("");
+
+      // ================= timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const words = (sel, t, s = 0.06, d = 0.5) =>
+        tl.fromTo(`${sel} .wi`, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: d, ease: "power4.out", stagger: s }, t);
+      const enter = (sel, t, extra = {}) =>
+        tl.fromTo(sel, { opacity: 0, scale: 0.96, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(1.5)", ...extra }, t);
+      const drawPath = (id, t, d) => {
+        const p = $(id);
+        const L = p.getTotalLength();
+        p.style.strokeDasharray = `${L} ${L}`;
+        tl.fromTo(p, { strokeDashoffset: L }, { strokeDashoffset: 0, duration: d, ease: "power2.inOut" }, t);
+      };
+
+      tl.fromTo("#bg-dots", { x: 0, y: 0 }, { x: -72, y: -36, duration: 20, ease: "none" }, 0);
+      tl.fromTo("#bg-glow", { x: -160 }, { x: 160, duration: 20, ease: "sine.inOut" }, 0);
+      tl.fromTo("#world", { scale: 1 }, { scale: 1.015, duration: 4.8, ease: "sine.inOut" }, 0);
+      tl.to("#world", { scale: 1, duration: 0.6, ease: "power2.inOut" }, 4.9);
+      tl.fromTo("#tag", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 0.2);
+      tl.fromTo("#dtlogo", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "expo.out" }, 5.6);
+      tl.to("#dtlogo", { opacity: 0, duration: 0.3 }, 16.95);
+
+      // ===== SCENE 1 (0–5): three separate conversations, manager can't see across =====
+      words("#hA", 0.05, 0.07);
+      [0, 1, 2].forEach((k) => {
+        enter(`#cv${k}`, 0.15 + k * 0.1);
+      });
+      const BT = [
+        [0.55, 1.05],
+        [0.75, 1.25, 1.75],
+        [0.95, 1.45],
+      ];
+      BT.forEach((ts, k) => ts.forEach((t, j) => tl.fromTo(`#b${k}_${j}`, { opacity: 0, y: 16, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.8)", transformOrigin: CHATS[k][j][0] === "in" ? "0% 0%" : "100% 0%" }, t)));
+      enter("#mgr", 1.9);
+      [0, 1, 2].forEach((k) => {
+        drawPath(`bk${k}a`, 2.2 + k * 0.08, 0.3);
+        drawPath(`bk${k}b`, 2.45 + k * 0.08, 0.3);
+      });
+      tl.fromTo("#lines path[id^='bk']", { opacity: 1 }, { opacity: 0.7, duration: 0.5 }, 2.8);
+      [0, 1, 2].forEach((i) => tl.fromTo(`#sA${i}`, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 2.7 + i * 0.25));
+      tl.fromTo("#sA .dot", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.8);
+
+      // ===== TRANSITION (5–7): DoubleTick connects everything =====
+      tl.to(["#hA", "#sA"], { opacity: 0, y: -24, filter: "blur(6px)", duration: 0.3, ease: "power2.in" }, 4.85);
+      tl.fromTo("#gl", { scaleX: 0, opacity: 1 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 5.0);
+      tl.to("#lines path[id^='bk']", { opacity: 0, duration: 0.25 }, 5.15);
+      tl.to("#mgr", { opacity: 0, scale: 0.9, duration: 0.25, ease: "power2.in" }, 5.3);
+      tl.fromTo("#dtn", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 5.5);
+      [0, 1, 2].forEach((k) => drawPath(`ok${k}`, 5.7 + k * 0.06, 0.45));
+      tl.to("#gl", { opacity: 0, duration: 0.4 }, 6.0);
+      // cards snap into one organized row
+      tl.to("#cv0", { x: 24, duration: 0.5, ease: "back.out(2)" }, 5.65);
+      tl.to("#cv2", { x: -24, duration: 0.5, ease: "back.out(2)" }, 5.65);
+
+      // ===== SCENE 2 (7–10): own verified numbers =====
+      tl.to("#dtn", { opacity: 0, y: -10, duration: 0.25 }, 6.95);
+      tl.to("#lines path[id^='ok']", { opacity: 0, duration: 0.3 }, 6.95);
+      words("#hB", 7.0, 0.07);
+      tl.fromTo("#sB", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: E }, 7.35);
+      tl.fromTo("#cnt", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.8)" }, 7.2);
+      const c = { v: 0 };
+      tl.fromTo(c, { v: 0 }, { v: 1500, duration: 0.8, ease: "power2.out", onUpdate: () => ($("cntn").textContent = Math.round(c.v).toLocaleString("en-US")) }, 7.25);
+      [0, 1, 2].forEach((k) => {
+        const t = 7.2 + k * 0.15;
+        tl.to(`#hs1_${k}`, { opacity: 0, y: -12, duration: 0.2 }, t);
+        tl.fromTo(`#hs2_${k}`, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, t + 0.1);
+        tl.fromTo(`#hs2_${k} .vf`, { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(3)" }, t + 0.25);
+        tl.fromTo(`#own${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.8)" }, 7.85 + k * 0.12);
+      });
+
+      // ===== SCENE 3 (10–13): Multi-WABA — three numbers, one manager view =====
+      tl.to(["#hB", "#sB", "#cnt"], { opacity: 0, y: -20, duration: 0.28, ease: "power2.in" }, 9.9);
+      [0, 1, 2].forEach((k) => {
+        tl.to(`#cv${k}`, { scale: 0.92, y: 20, duration: 0.35, ease: "power2.out" }, 10.0);
+        tl.fromTo(`#wt${k}`, { opacity: 0, y: 14 }, { opacity: 1, y: 30, duration: 0.3, ease: "back.out(2)" }, 10.1 + k * 0.08);
+      });
+      words("#hC", 10.05, 0.07);
+      tl.fromTo("#sC", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: E }, 10.4);
+      // cards travel into the panel rows
+      [0, 1, 2].forEach((k) => {
+        const cx = CX[k] + 210 + [24, 0, -24][k],
+          cy = 665;
+        const rx = 960,
+          ry = RY(k) + 68;
+        tl.to(`#cv${k}`, { x: [24, 0, -24][k] + (rx - cx), y: ry - cy, scale: 0.26, opacity: 0, duration: 0.5, ease: "power3.inOut" }, 10.65 + k * 0.05);
+        tl.to(`#wt${k}`, { x: rx - cx, y: ry - 386 - 20, scale: 0.6, opacity: 0, duration: 0.5, ease: "power3.inOut" }, 10.65 + k * 0.05);
+      });
+      tl.fromTo("#pn", { opacity: 0, scale: 0.96, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.4)" }, 10.75);
+      [0, 1, 2].forEach((k) => tl.fromTo(`#rw${k}`, { opacity: 0, scale: 0.96, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 11.0 + k * 0.1));
+      [0, 1, 2].forEach((k) => tl.fromTo(`#rw${k} .act i`, { scale: 1 }, { scale: 1.6, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 11.5 + k * 0.1));
+
+      // ===== SCENE 4 (13–17): results =====
+      tl.to(["#hC", "#sC"], { opacity: 0, y: -20, duration: 0.28, ease: "power2.in" }, 12.85);
+      tl.to(["#pn", "#rows"], { opacity: 0, scale: 0.97, duration: 0.3, ease: "power2.in" }, 12.85);
+      [0, 1, 2].forEach((k) => tl.fromTo(`#k${k}`, { opacity: 0, y: 30, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, 13.15 + k * 0.25));
+      [0, 1, 2].forEach((k) => tl.to(`#k${k}`, { y: -8, duration: 3, ease: "sine.inOut" }, 13.7 + k * 0.1));
+
+      // ===== SCENE 5 (17–20): closing =====
+      [0, 1, 2].forEach((k) => tl.to(`#k${k}`, { opacity: 0, scale: 0.9, y: 60, duration: 0.4, ease: "power2.in" }, 16.95 + k * 0.04));
+      [0, 1, 2].forEach((k) => tl.fromTo(`#p${k}`, { opacity: 0, y: 20, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: E }, 17.3 + k * 0.08));
+      tl.fromTo("#endlogo", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.6, ease: "expo.out" }, 17.05);
+      words("#e1", 17.2, 0.07, 0.55);
+      tl.fromTo("#e2", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 17.7);
+      tl.fromTo("#cta", { opacity: 0, y: 24, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 17.9);
+      tl.fromTo("#shine", { x: -160 }, { x: 560, duration: 0.7, ease: "power2.inOut" }, 18.2);
+      tl.fromTo("#cta svg", { x: 0 }, { x: 8, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out" }, 18.35);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
