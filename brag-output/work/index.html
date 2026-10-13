@@ -1,0 +1,675 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>DoubleTick Customer Stories</title>
+<style>
+@font-face{font-family:Hedvig;src:url(node_modules/@fontsource/hedvig-letters-serif/files/hedvig-letters-serif-latin-400-normal.woff2) format('woff2');font-weight:400}
+@font-face{font-family:Geist;src:url(node_modules/@fontsource/geist/files/geist-latin-400-normal.woff2) format('woff2');font-weight:400}
+@font-face{font-family:Geist;src:url(node_modules/@fontsource/geist/files/geist-latin-500-normal.woff2) format('woff2');font-weight:500}
+@font-face{font-family:Geist;src:url(node_modules/@fontsource/geist/files/geist-latin-600-normal.woff2) format('woff2');font-weight:600}
+@font-face{font-family:Geist;src:url(node_modules/@fontsource/geist/files/geist-latin-ext-400-normal.woff2) format('woff2');font-weight:400;unicode-range:U+20B9}
+@font-face{font-family:Geist;src:url(node_modules/@fontsource/geist/files/geist-latin-ext-500-normal.woff2) format('woff2');font-weight:500;unicode-range:U+20B9}
+@font-face{font-family:Geist;src:url(node_modules/@fontsource/geist/files/geist-latin-ext-600-normal.woff2) format('woff2');font-weight:600;unicode-range:U+20B9}
+:root{--bg:#F6F3EC;--line:#E7E2D7;--line2:#EFEBE2;--ink:#171715;--ink2:#46443F;--mute:#8C887E;--g:#2F8F65;--gs:#E4F1E9;--gi:#1E6A49;--gb:#DDF1E5;--beige:#EFE9DD;--cream:#F3EEE3;--warn:#A4502F;--warnbg:#F8E8DF;--pir:#E8552B}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1080px;overflow:hidden;background:var(--bg)}
+body{font-family:Geist,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+#stage{position:relative;width:1080px;height:1080px;overflow:hidden;background:radial-gradient(1200px 800px at 70% 20%,#FAF8F3 0%,var(--bg) 60%)}
+.a{position:absolute}
+.o{opacity:0}
+.serif{font-family:Hedvig,serif;font-weight:400}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 1px 2px rgba(40,30,10,.04),0 14px 34px -16px rgba(40,30,10,.16)}
+.hl{position:absolute;left:56px;top:116px;width:968px;font-family:Hedvig,serif;font-size:58px;line-height:1.06;letter-spacing:-.018em;color:var(--ink);opacity:0}
+.hl .ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.hl .li{display:inline-block}
+.hl em{font-style:normal;color:var(--g)}
+.chip{display:inline-flex;align-items:center;gap:6px;font:500 12px/1 Geist;letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;border-radius:999px;background:var(--gs);color:var(--gi);white-space:nowrap}
+.chip.warn{background:var(--warnbg);color:var(--warn)}
+.chip.grey{background:#EEEBE4;color:#6E6A61}
+.chip.line{background:#fff;border:1px solid #CFE3D7}
+.chip svg{width:13px;height:13px}
+.row{display:flex;align-items:center;gap:10px}
+.av{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font:600 14px Geist}
+.nm{font:600 15px Geist}
+.sm{font:400 12.5px Geist;color:var(--mute)}
+.bub{font-size:14.5px;line-height:1.38;padding:9px 12px;border-radius:14px;max-width:88%;width:fit-content;color:#22211E}
+.in{background:#F2EFE8;border-top-left-radius:4px}
+.out{background:var(--gb);border-top-right-radius:4px;margin-left:auto}
+.ticks{display:inline-block;width:16px;height:10px;vertical-align:middle;margin-left:5px}
+.pill{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 20px;display:inline-flex;align-items:center;gap:16px;box-shadow:0 10px 30px -18px rgba(40,30,10,.25)}
+.pill img{display:block}
+.kpi{position:absolute;left:0;width:1080px;text-align:center;font-family:Hedvig,serif;color:var(--ink);letter-spacing:-.03em;line-height:1}
+.kpil{position:absolute;left:0;width:1080px;text-align:center;font:500 30px Geist;color:var(--ink2);letter-spacing:-.005em}
+.lab{font:500 11px/1 Geist;letter-spacing:.09em;text-transform:uppercase;color:var(--mute)}
+.f{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--line2);font-size:14px}
+.f b{font-weight:500;color:var(--mute);font-size:12.5px}
+.val{position:relative;font-weight:500;padding:2px 6px;border-radius:5px}
+.val .raw{position:relative;z-index:1}
+.val .hi{position:absolute;inset:0;background:rgba(232,85,43,.16);border-radius:5px;opacity:0}
+.mask{position:absolute;inset:-1px -2px;background:#21352B;color:#CFE7D9;border-radius:5px;display:flex;align-items:center;justify-content:flex-end;padding:0 7px;font:500 13px Geist;letter-spacing:.12em;transform-origin:left center;transform:scaleX(0);z-index:2;white-space:nowrap}
+#sub{position:absolute;left:90px;width:900px;bottom:34px;text-align:center;pointer-events:none}
+#sub span{display:inline-block;background:rgba(255,255,255,.92);border:1px solid var(--line);color:#1F1F1C;font:500 24px/1.32 Geist;padding:8px 16px;border-radius:12px;box-shadow:0 6px 18px -12px rgba(40,30,10,.3);max-width:900px}
+svg.ln2{position:absolute;left:0;top:0;overflow:visible}
+.ico{width:18px;height:18px;flex:none}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15px Geist;padding:11px 18px;border-radius:12px}
+.tool{position:absolute;font:500 15px Geist;color:var(--ink2);background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;gap:8px;align-items:center;box-shadow:0 8px 20px -14px rgba(40,30,10,.3)}
+.node{position:absolute;left:250px;width:600px;height:96px;display:flex;align-items:center;gap:18px;padding:0 22px}
+.node .ic{width:48px;height:48px;border-radius:14px;background:var(--gs);display:grid;place-items:center;color:var(--gi)}
+.node .t1{font:600 21px Geist}
+.node .t2{font:400 15px Geist;color:var(--mute);margin-top:4px}
+.rc{position:absolute;top:322px;width:312px;height:476px;padding:0;overflow:hidden}
+.rc .top{height:104px;display:grid;place-items:center;border-bottom:1px solid var(--line2);background:#fff}
+.rc .bd{padding:22px 24px}
+.rc .cap{font:600 18px Geist;color:var(--ink);margin-top:14px}
+.rc .res{font-family:Hedvig;font-size:46px;line-height:1;margin-top:26px;letter-spacing:-.02em}
+.rc .resl{font:500 16px Geist;color:var(--ink2);margin-top:8px}
+.rc .mot{height:118px;border-radius:12px;background:var(--cream);position:relative;overflow:hidden}
+.rupee{font-family:Geist;font-weight:500}
+</style></head>
+<body><div id="stage">
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M6 3h8l4 4v14H6z M14 3v4h4 M9 12h6 M9 16h6"/></symbol>
+  <symbol id="i-mega" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 10v4h3l8 4V6L7 10z M18 9a4 4 0 0 1 0 6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 19c.8-3 3.2-4.5 6-4.5s5.2 1.5 6 4.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="8" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M17 13.5c2 .2 3.5 1.5 4 3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 11a6 6 0 0 0 12 0 M12 17v4" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-miss" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2 M15 3l5 5 M20 3l-5 5"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 16 10"><path d="M1 5.5l2.8 3L9.5 1.5 M6.5 8.5l1 0L14.5 1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-dt" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#2F8F65"/><path d="M7 16.8l4.2 4.4L19.5 11.5 M14.6 20.4l.9.9L25 11.5" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+ </defs>
+</svg>
+
+<!-- persistent DoubleTick logo (recreated mark; swap for official SVG) -->
+<div id="dtlogo" class="a o row" style="left:54px;top:44px;gap:9px">
+ <svg width="30" height="30"><use href="#i-dt"/></svg>
+ <span style="font:600 21px Geist;letter-spacing:-.02em;color:#161614">DoubleTick</span>
+</div>
+
+<!-- customer logo pills (intro size; fly to top-right badge) -->
+<div id="lg-pir" class="a o" style="left:56px;top:118px;transform-origin:0 0"><div class="pill"><img src="assets/piramal.webp" style="height:64px"><span class="chip grey">Customer story · 01</span></div></div>
+<div id="lg-mmt" class="a o" style="left:56px;top:118px;transform-origin:0 0"><div class="pill"><img src="assets/mmt.webp" style="height:48px"><span class="chip grey">Customer story · 02</span></div></div>
+<div id="lg-sotc" class="a o" style="left:56px;top:118px;transform-origin:0 0"><div class="pill"><img src="assets/sotc.png" style="height:60px"><span class="chip grey">Customer story · 03</span></div></div>
+<div id="bd-pir" class="a o" style="right:52px;top:36px"><div class="pill" style="padding:7px 12px;border-radius:12px"><img src="assets/piramal.webp" style="height:40px"></div></div>
+<div id="bd-mmt" class="a o" style="right:52px;top:36px"><div class="pill" style="padding:9px 12px;border-radius:12px"><img src="assets/mmt.webp" style="height:30px"></div></div>
+<div id="bd-sotc" class="a o" style="right:52px;top:36px"><div class="pill" style="padding:6px 12px;border-radius:12px"><img src="assets/sotc.png" style="height:40px"></div></div>
+
+<!-- ============ S1 HOOK ============ -->
+<div id="h1a" class="hl"><span class="ln"><span class="li">Every conversation matters.</span></span></div>
+<div id="h1b" class="hl"><span class="ln"><span class="li">Every interaction</span></span><span class="ln"><span class="li">has an <em>impact.</em></span></span></div>
+
+<div id="c1" class="a o card" data-r="-2.5" style="left:56px;top:318px;width:250px;padding:14px">
+ <div class="row"><div class="av" style="background:#EDEAE3;color:#7A766C">A</div><div><div class="nm">Ankit</div><div class="sm">Agent's personal phone</div></div></div>
+ <div class="bub in" style="margin-top:12px;border:1px dashed #D4CEC1;background:#FAF8F4">Sent the details from my…</div>
+ <div class="bub in" style="margin-top:6px;opacity:.45;border:1px dashed #D4CEC1;background:#FAF8F4">…which number was it?</div>
+ <div style="margin-top:12px"><span class="chip warn">Fragmented</span></div>
+</div>
+<div id="c2" class="a o card" data-r="2" style="left:774px;top:330px;width:250px;padding:14px">
+ <div class="row"><div class="av" style="background:#F6E6DE;color:#A4502F">M</div><div><div class="nm">Meera</div><div class="sm">Loan enquiry</div></div></div>
+ <div class="bub in" style="margin-top:12px">My PAN is <span style="background:rgba(232,85,43,.16);padding:1px 4px;border-radius:4px;font-weight:500">ABCPV4821K</span></div>
+ <div style="margin-top:12px"><span class="chip warn">Sensitive data</span></div>
+</div>
+<div id="c3" class="a o card" data-r="1.5" style="left:56px;top:650px;width:250px;padding:14px">
+ <div class="row"><div class="av" style="background:#EEEBE4;color:#8C887E"><svg class="ico" style="width:16px"><use href="#i-mega"/></svg></div><div><div class="nm">Promo Offers</div><div class="sm">+91 80XXX XXXXX</div></div></div>
+ <div class="bub in" style="margin-top:12px">Exclusive offer, just for you!</div>
+ <div style="margin-top:12px"><span class="chip grey">Generic sender</span></div>
+</div>
+<div id="c4" class="a o card" data-r="-1.5" style="left:774px;top:668px;width:250px;padding:14px">
+ <div class="row"><div class="av" style="background:#F6E6DE;color:#A4502F"><svg class="ico" style="width:17px"><use href="#i-miss"/></svg></div><div><div class="nm">Missed call</div><div class="sm">2 attempts · no follow-up</div></div></div>
+ <div style="margin-top:14px"><span class="chip warn">Missed</span></div>
+</div>
+<div id="c0" class="a o card" style="left:330px;top:440px;width:420px;padding:18px;transform-origin:0 0">
+ <div class="row"><div class="av" style="background:#E4F1E9;color:#1E6A49">R</div><div><div class="nm">Rohan Verma</div><div class="sm">WhatsApp · just now</div></div></div>
+ <div class="bub in" style="margin-top:14px">Hi, what's the status of my loan application?</div>
+ <div class="bub out" style="margin-top:8px">Checking it for you right now <svg class="ticks" style="color:#3A8FD9"><use href="#i-tick"/></svg></div>
+</div>
+
+<!-- ============ S2 PIRAMAL ============ -->
+<div id="h2a" class="hl"><span class="ln"><span class="li">Scattered conversations.</span></span><span class="ln"><span class="li" style="color:#B4502F">Sensitive data at risk.</span></span></div>
+<div id="p2" class="a o card" data-r="1.5" style="left:400px;top:300px;width:290px;padding:14px">
+ <div class="row"><div class="av" style="background:#EEEBE4;color:#7A766C">P</div><div><div class="nm">Priya N.</div><div class="sm">Personal WhatsApp</div></div></div>
+ <div class="bub in" style="margin-top:12px">Sent my documents from my other number</div>
+</div>
+<div id="p3" class="a o card" data-r="-1.5" style="left:730px;top:330px;width:290px;padding:14px">
+ <div class="row"><div class="av" style="background:#EEEBE4;color:#7A766C">A</div><div><div class="nm">Amit K.</div><div class="sm">Branch phone</div></div></div>
+ <div class="bub in" style="margin-top:12px">Did anyone receive my salary slip?</div>
+</div>
+<div id="d1" class="a o card" data-r="-1" style="left:96px;top:548px;width:440px;padding:18px 20px 8px;background:#FFFEFB">
+ <div class="row" style="justify-content:space-between;margin-bottom:10px"><div class="row" style="gap:8px"><svg class="ico" style="color:#8C887E"><use href="#i-doc"/></svg><span class="nm">Loan application · LA-20931</span></div><span id="d1x" class="chip warn o">Exposed</span></div>
+ <div class="f"><b>Name</b><span>Rohan Verma</span></div>
+ <div class="f"><b>Mobile</b><span class="val"><i class="hi"></i><span class="raw">+91 98201 45673</span></span></div>
+ <div class="f"><b>PAN</b><span class="val"><i class="hi"></i><span class="raw">ABCPV4821K</span></span></div>
+ <div class="f"><b>Aadhaar</b><span class="val"><i class="hi"></i><span class="raw">4821 7730 9912</span></span></div>
+</div>
+<div id="d2" class="a o card" data-r="2.5" style="left:610px;top:590px;width:330px;padding:14px;background:#FBF8F1">
+ <div style="height:120px;border-radius:10px;background:linear-gradient(160deg,#EFE7D8,#E6DCC8);position:relative;overflow:hidden">
+  <div style="position:absolute;left:18px;top:18px;width:60px;height:72px;border-radius:6px;background:#D9CDB6"></div>
+  <div style="position:absolute;left:92px;top:22px;width:150px;height:8px;border-radius:4px;background:#D3C6AD"></div>
+  <div style="position:absolute;left:92px;top:40px;width:120px;height:8px;border-radius:4px;background:#D3C6AD"></div>
+  <div style="position:absolute;left:92px;top:58px;width:170px;height:8px;border-radius:4px;background:#D3C6AD"></div>
+  <div style="position:absolute;left:92px;top:76px;width:90px;height:8px;border-radius:4px;background:#D3C6AD"></div>
+ </div>
+ <div class="row" style="justify-content:space-between;margin-top:10px"><span class="sm" style="color:#5E5A52">KYC_scan_final(2).jpg</span><span id="d2x" class="chip warn o">Unprotected</span></div>
+</div>
+
+<!-- step labels -->
+<div id="stp" class="a o lab" style="left:58px;top:118px">The DoubleTick fix</div>
+<div id="h2b" class="hl" style="top:142px"><span class="ln"><span class="li">Shared inbox.</span></span></div>
+<div id="h2c" class="hl" style="top:142px"><span class="ln"><span class="li">Document digitisation.</span></span></div>
+<div id="h2d" class="hl" style="top:142px"><span class="ln"><span class="li">Data masking.</span></span></div>
+<div id="stpdots" class="a o row" style="left:58px;top:226px;gap:8px">
+ <span class="sd" style="width:28px;height:4px;border-radius:2px;background:#D9D4C9"></span><span class="sd" style="width:28px;height:4px;border-radius:2px;background:#D9D4C9"></span><span class="sd" style="width:28px;height:4px;border-radius:2px;background:#D9D4C9"></span>
+</div>
+<div id="sdf" class="a o" style="left:58px;top:226px;width:28px;height:4px;border-radius:2px;background:var(--g)"></div>
+
+<div id="inbox" class="a o card" style="left:56px;top:300px;width:968px;height:500px;overflow:hidden">
+ <div class="row" style="height:58px;padding:0 20px;border-bottom:1px solid var(--line2);justify-content:space-between">
+  <div class="row"><svg class="ico" style="color:var(--g)"><use href="#i-chat"/></svg><span style="font:600 17px Geist">Shared inbox</span><span class="chip grey">Piramal Finance</span></div>
+  <div class="row" style="gap:0"><div class="av" style="width:28px;height:28px;font-size:11px;background:#E4F1E9;color:#1E6A49;border:2px solid #fff">K</div><div class="av" style="width:28px;height:28px;font-size:11px;background:#F1E9DA;color:#8A6A3A;border:2px solid #fff;margin-left:-8px">S</div><div class="av" style="width:28px;height:28px;font-size:11px;background:#E6E9F3;color:#4A5A8A;border:2px solid #fff;margin-left:-8px">D</div><span class="sm" style="margin-left:10px">One team, every conversation</span></div>
+ </div>
+ <div class="a" style="left:0;top:58px;width:340px;bottom:0;border-right:1px solid var(--line2);background:#FCFBF8">
+  <div class="ir row" style="height:82px;padding:0 18px;border-bottom:1px solid var(--line2);background:#F1F7F3"><div class="av" style="background:#E4F1E9;color:#1E6A49">R</div><div style="flex:1"><div class="nm">Rohan Verma</div><div class="sm">Loan documents received</div></div><span style="width:8px;height:8px;border-radius:50%;background:var(--g)"></span></div>
+  <div class="ir row" style="height:82px;padding:0 18px;border-bottom:1px solid var(--line2)"><div class="av" style="background:#EEEBE4;color:#7A766C">P</div><div style="flex:1"><div class="nm">Priya N.</div><div class="sm">Now in one thread</div></div></div>
+  <div class="ir row" style="height:82px;padding:0 18px;border-bottom:1px solid var(--line2)"><div class="av" style="background:#EEEBE4;color:#7A766C">A</div><div style="flex:1"><div class="nm">Amit K.</div><div class="sm">Salary slip received</div></div></div>
+  <div class="ir row" style="height:82px;padding:0 18px;border-bottom:1px solid var(--line2)"><div class="av" style="background:#EEEBE4;color:#7A766C">M</div><div style="flex:1"><div class="nm">Meera S.</div><div class="sm">Assigned to Kavya</div></div></div>
+ </div>
+ <div class="a" style="left:340px;top:58px;right:0;bottom:0;padding:22px 28px">
+  <div class="row" style="justify-content:space-between"><div class="row"><div class="av" style="background:#E4F1E9;color:#1E6A49">R</div><div><div class="nm">Rohan Verma</div><div class="sm">Assigned to Kavya · Loan desk</div></div></div><span class="chip"><svg><use href="#i-check"/></svg>Shared</span></div>
+  <div class="bub in" style="margin-top:18px">Uploading my loan documents here.</div>
+  <div id="pdoc" class="card o" style="margin-top:16px;padding:16px 18px 6px;width:440px;box-shadow:none">
+   <div class="row" style="justify-content:space-between;margin-bottom:8px"><div class="row" style="gap:8px"><svg class="ico" style="color:var(--g)"><use href="#i-doc"/></svg><span class="nm">Loan application · LA-20931</span></div><span id="pdocc" class="chip">Digitised</span></div>
+   <div class="f"><b>Name</b><span>Rohan Verma</span></div>
+   <div class="f"><b>Mobile</b><span class="val"><span class="raw">+91 98201 45673</span><span class="mask">+91 •••• ••673</span></span></div>
+   <div class="f"><b>PAN</b><span class="val"><span class="raw">ABCPV4821K</span><span class="mask">•••••••21K</span></span></div>
+   <div class="f"><b>Aadhaar</b><span class="val"><span class="raw">4821 7730 9912</span><span class="mask">•••• •••• 9912</span></span></div>
+  </div>
+  <div id="pmsk" class="o" style="margin-top:12px"><span class="chip"><svg><use href="#i-lock"/></svg>Sensitive fields masked</span></div>
+ </div>
+</div>
+
+<!-- KPI piramal -->
+<div id="res1" class="a o" style="left:0;width:1080px;top:286px;text-align:center"><span class="chip grey">The result</span></div>
+<div id="k1" class="kpi o" style="top:356px;font-size:290px;height:300px">
+ <span style="display:inline-block;overflow:hidden;height:300px;vertical-align:top"><span id="k1r" style="display:flex;flex-direction:column"><span style="height:300px;line-height:300px">5</span><span style="height:300px;line-height:300px">7</span></span></span><span style="display:inline-block;height:300px;line-height:300px">0<span style="font-size:.62em;color:var(--g)">%</span></span>
+</div>
+<div id="k1a" class="kpil o" style="top:690px">Lower turnaround time</div>
+<div id="k1b" class="kpil o" style="top:690px">Faster conversions</div>
+
+<!-- security layer -->
+<div id="h2e" class="hl"><span class="ln"><span class="li">Customer conversations,</span></span><span class="ln"><span class="li"><em>kept secure.</em></span></span></div>
+<svg id="ring" class="ln2 o" width="1080" height="1080"><rect x="250" y="320" width="580" height="410" rx="40" fill="rgba(47,143,101,.035)" stroke="#2F8F65" stroke-width="1.6" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><rect x="226" y="296" width="628" height="458" rx="52" fill="none" stroke="#2F8F65" stroke-opacity=".25" stroke-width="1" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg>
+<div id="sec" class="a o card" style="left:290px;top:360px;width:500px;height:330px;padding:20px;overflow:hidden">
+ <div class="row" style="justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--line2)"><div class="row"><div class="av" style="background:#E4F1E9;color:#1E6A49">R</div><div><div class="nm">Rohan Verma</div><div class="sm">+91 •••• ••673</div></div></div><svg class="ico" style="color:var(--g)"><use href="#i-shield"/></svg></div>
+ <div class="bub in" style="margin-top:16px">Here's my PAN for the loan: <span style="background:#21352B;color:#CFE7D9;padding:1px 6px;border-radius:4px;letter-spacing:.1em;font-size:13px">•••••••21K</span></div>
+ <div class="bub out" style="margin-top:10px">Thanks! Documents verified <svg class="ticks" style="color:#3A8FD9"><use href="#i-tick"/></svg></div>
+ <div class="bub in" style="margin-top:10px">Call me on <span style="background:#21352B;color:#CFE7D9;padding:1px 6px;border-radius:4px;letter-spacing:.1em;font-size:13px">+91 •••• ••673</span></div>
+ <div class="bub out" style="margin-top:10px">Calling you now from the bank's line</div>
+</div>
+<div id="sb1" class="a o"><span class="chip line" style="font-size:13px;padding:9px 13px"><svg><use href="#i-lock"/></svg>PII masking</span></div>
+<div id="sb2" class="a o"><span class="chip line" style="font-size:13px;padding:9px 13px"><svg><use href="#i-phone"/></svg>Number masking</span></div>
+<div id="sb3" class="a o"><span class="chip line" style="font-size:13px;padding:9px 13px"><svg><use href="#i-shield"/></svg>DPDP-ready controls</span></div>
+
+<!-- ============ S3 MAKEMYTRIP ============ -->
+<div id="h3a" class="hl"><span class="ln"><span class="li">Too many systems?</span></span></div>
+<svg id="tlines" class="ln2 o" width="1080" height="1080"><g fill="none" stroke="#C9C2B4" stroke-width="1.4" stroke-dasharray="4 6">
+ <path d="M540 560 C460 480 320 430 250 400"/><path d="M540 560 C640 470 760 430 840 420"/><path d="M540 560 C420 620 300 700 240 740"/><path d="M540 560 C660 640 760 700 830 740"/><path d="M540 560 C540 680 540 760 540 800"/></g></svg>
+<div id="t1" class="tool o" style="left:150px;top:372px"><svg class="ico"><use href="#i-users"/></svg>CRM</div>
+<div id="t2" class="tool o" style="left:780px;top:392px"><svg class="ico"><use href="#i-phone"/></svg>Dialer</div>
+<div id="t3" class="tool o" style="left:120px;top:716px"><svg class="ico"><use href="#i-doc"/></svg>Spreadsheet</div>
+<div id="t4" class="tool o" style="left:760px;top:716px"><svg class="ico"><use href="#i-chat"/></svg>Personal WhatsApp</div>
+<div id="t5" class="tool o" style="left:478px;top:790px"><svg class="ico"><use href="#i-mega"/></svg>Bulk sender</div>
+<div id="rep" class="a o card" style="left:380px;top:500px;width:320px;padding:16px 18px">
+ <div class="row"><div class="av" style="width:44px;height:44px;background:#E4F1E9;color:#1E6A49;font-size:17px">N</div><div><div class="nm" style="font-size:17px">Neha Kapoor</div><div class="sm">Sales rep · Holidays</div></div></div>
+</div>
+
+<div id="h3b" class="hl"><span class="ln"><span class="li">Campaigns without</span></span><span class="ln"><span class="li">clear ownership.</span></span></div>
+<svg id="glines" class="ln2 o" width="1080" height="1080"><g fill="none" stroke="#CFC8BA" stroke-width="1.4"><path d="M460 390 C510 390 510 352 560 352"/><path d="M460 395 L560 472"/><path d="M460 400 C510 400 510 592 560 592"/></g></svg>
+<div id="gen" class="a o card" style="left:56px;top:330px;width:404px;padding:18px">
+ <div class="row"><div class="av" style="width:44px;height:44px;background:#EEEBE4;color:#8C887E"><svg class="ico" style="width:20px;height:20px"><use href="#i-mega"/></svg></div><div><div class="nm" style="font-size:17px">Holiday Offers</div><div class="sm">+91 80XXX XXXXX · campaign number</div></div></div>
+ <div style="margin-top:14px"><span class="chip grey">Generic identity</span></div>
+</div>
+<div id="reps" class="a o" style="left:56px;top:560px;width:404px;height:290px;border:1.5px dashed #D3CCBE;border-radius:20px;padding:18px">
+ <div class="row" style="justify-content:space-between"><span class="lab">Sales reps</span><span class="chip warn">Not linked</span></div>
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+  <div class="card row" style="padding:12px;box-shadow:none"><div class="av" style="background:#EEEBE4;color:#7A766C">N</div><span class="nm">Neha</span></div>
+  <div class="card row" style="padding:12px;box-shadow:none"><div class="av" style="background:#EEEBE4;color:#7A766C">A</div><span class="nm">Arjun</span></div>
+  <div class="card row" style="padding:12px;box-shadow:none"><div class="av" style="background:#EEEBE4;color:#7A766C">K</div><span class="nm">Kabir</span></div>
+  <div class="card row" style="padding:12px;box-shadow:none"><div class="av" style="background:#EEEBE4;color:#7A766C">I</div><span class="nm">Isha</span></div>
+ </div>
+</div>
+<div id="mc1" class="a o card" style="left:560px;top:302px;width:464px;height:100px;padding:16px 18px"><div class="row"><div class="av" style="background:#E6E9F3;color:#4A5A8A">A</div><div style="flex:1;min-width:0"><div class="row" style="justify-content:space-between"><span class="nm">Aarav M.</span><span class="sm mcs">Owner: none</span></div><div class="sm" style="color:#5E5A52;margin-top:4px">Flat 20% off on Goa packages! <svg class="ticks" style="color:#A9A49A"><use href="#i-tick"/></svg></div></div></div></div>
+<div id="mc2" class="a o card" style="left:560px;top:422px;width:464px;height:100px;padding:16px 18px"><div class="row"><div class="av" style="background:#F1E9DA;color:#8A6A3A">S</div><div style="flex:1;min-width:0"><div class="row" style="justify-content:space-between"><span class="nm">Sana K.</span><span class="sm mcs">Owner: none</span></div><div class="sm" style="color:#5E5A52;margin-top:4px">Flat 20% off on Goa packages! <svg class="ticks" style="color:#A9A49A"><use href="#i-tick"/></svg></div></div></div></div>
+<div id="mc3" class="a o card" style="left:560px;top:542px;width:464px;height:100px;padding:16px 18px"><div class="row"><div class="av" style="background:#EEEBE4;color:#7A766C">R</div><div style="flex:1;min-width:0"><div class="row" style="justify-content:space-between"><span class="nm">Rohit P.</span><span class="sm mcs">Owner: none</span></div><div class="sm" style="color:#5E5A52;margin-top:4px">Flat 20% off on Goa packages! <svg class="ticks" style="color:#A9A49A"><use href="#i-tick"/></svg></div></div></div></div>
+<!-- solved convos (crossfade over mc*) -->
+<div id="ms1" class="a o card" style="left:560px;top:322px;width:464px;height:100px;padding:16px 18px;border-color:#CFE3D7"><div class="row"><div class="av" style="background:#E6E9F3;color:#4A5A8A">A</div><div style="flex:1;min-width:0"><div class="row" style="justify-content:space-between"><span class="nm">Aarav M.</span><span class="chip" style="padding:5px 8px;font-size:10.5px">Replied</span></div><div class="sm" style="color:#5E5A52;margin-top:4px">“Yes! Can Neha share the itinerary?”</div></div></div></div>
+<div id="ms2" class="a o card" style="left:560px;top:452px;width:464px;height:100px;padding:16px 18px;border-color:#CFE3D7"><div class="row"><div class="av" style="background:#F1E9DA;color:#8A6A3A">S</div><div style="flex:1;min-width:0"><div class="row" style="justify-content:space-between"><span class="nm">Sana K.</span><span class="chip" style="padding:5px 8px;font-size:10.5px">Replied</span></div><div class="sm" style="color:#5E5A52;margin-top:4px">“Thanks Arjun, booking for 4.”</div></div></div></div>
+<div id="ms3" class="a o card" style="left:560px;top:582px;width:464px;height:100px;padding:16px 18px;border-color:#CFE3D7"><div class="row"><div class="av" style="background:#EEEBE4;color:#7A766C">R</div><div style="flex:1;min-width:0"><div class="row" style="justify-content:space-between"><span class="nm">Rohit P.</span><span class="chip" style="padding:5px 8px;font-size:10.5px">Replied</span></div><div class="sm" style="color:#5E5A52;margin-top:4px">“Kabir, call me after 6?”</div></div></div></div>
+<svg id="rlines" class="ln2 o" width="1080" height="1080"><g fill="none" stroke="#2F8F65" stroke-width="1.8"><path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M440 372 L560 372"/><path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M440 502 L560 502"/><path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M440 632 L560 632"/></g>
+ <g fill="none" stroke="#2F8F65" stroke-width="1.4" stroke-opacity=".55" class="hub"><path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M330 788 H36 V372 H56"/><path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M36 502 H56"/><path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M36 632 H56"/></g></svg>
+<div id="r1" class="a o card" style="left:56px;top:322px;width:384px;height:100px;padding:16px 18px"><div class="row"><div class="av" style="width:42px;height:42px;background:#E4F1E9;color:#1E6A49">N</div><div><div class="nm">Neha Kapoor</div><div class="sm">+91 98XXX 41207 · her own number</div></div></div></div>
+<div id="r2" class="a o card" style="left:56px;top:452px;width:384px;height:100px;padding:16px 18px"><div class="row"><div class="av" style="width:42px;height:42px;background:#E4F1E9;color:#1E6A49">A</div><div><div class="nm">Arjun Rao</div><div class="sm">+91 97XXX 88310 · his own number</div></div></div></div>
+<div id="r3" class="a o card" style="left:56px;top:582px;width:384px;height:100px;padding:16px 18px"><div class="row"><div class="av" style="width:42px;height:42px;background:#E4F1E9;color:#1E6A49">K</div><div><div class="nm">Kabir Shah</div><div class="sm">+91 99XXX 10452 · his own number</div></div></div></div>
+<div id="hub" class="a o card" style="left:330px;top:742px;width:420px;height:92px;padding:0 20px;display:flex;align-items:center;gap:14px;border-color:#CFE3D7">
+ <svg width="40" height="40"><use href="#i-dt"/></svg><div><div style="font:600 17px Geist">Central control</div><div class="sm">Templates · approvals · reporting</div></div>
+</div>
+<div id="big1500" class="a o row" style="left:54px;top:100px;gap:18px;align-items:flex-end">
+ <span id="n1500" class="serif" style="font-size:132px;line-height:1;letter-spacing:-.03em">1,500+</span>
+ <span style="font:600 22px Geist;letter-spacing:.14em;color:var(--g);padding-bottom:22px">AGENTS</span>
+</div>
+<div id="sup1500" class="a o" style="left:58px;top:246px;font:500 22px Geist;color:var(--ink2)">Personal outreach. <span style="color:var(--g)">Central control.</span></div>
+
+<!-- KPI mmt -->
+<div id="res2" class="a o" style="left:0;width:1080px;top:286px;text-align:center"><span class="chip grey">The result</span></div>
+<div id="k2a" class="a o" style="left:0;width:1080px;top:370px;text-align:center">
+ <div class="serif" style="font-size:250px;line-height:1;letter-spacing:-.03em">30<span style="font-size:.62em;color:var(--g)">%</span></div>
+ <div style="font:500 30px Geist;color:var(--ink2);margin-top:30px">Higher operational<br>efficiency</div>
+</div>
+<div id="k2div" class="a o" style="left:539px;top:380px;width:1px;height:400px;background:var(--line)"></div>
+<div id="k2b" class="a o" style="left:540px;width:540px;top:370px;text-align:center">
+ <div class="serif" style="font-size:180px;line-height:1;letter-spacing:-.03em">10<span style="font-size:.62em;color:var(--g)">%</span></div>
+ <div style="font:500 26px Geist;color:var(--ink2);margin-top:26px">Revenue<br>growth</div>
+</div>
+
+<!-- CRM -->
+<div id="h3c" class="hl"><span class="ln"><span class="li">Message and call.</span></span><span class="ln"><span class="li"><em>Right from your CRM.</em></span></span></div>
+<div id="nosw" class="a o" style="left:58px;top:252px"><span class="chip">No switching between tools</span></div>
+<div id="crm" class="a o card" style="left:56px;top:300px;width:968px;height:490px;overflow:hidden">
+ <div class="row" style="height:44px;padding:0 16px;border-bottom:1px solid var(--line2);background:#FBFAF6;gap:7px"><span style="width:10px;height:10px;border-radius:50%;background:#E3DED3"></span><span style="width:10px;height:10px;border-radius:50%;background:#E3DED3"></span><span style="width:10px;height:10px;border-radius:50%;background:#E3DED3"></span><span class="sm" style="margin-left:14px">CRM · Leads · Aarav Mehta</span></div>
+ <div class="a" style="left:0;top:44px;width:64px;bottom:0;border-right:1px solid var(--line2);background:#FBFAF6;padding:18px 0;display:flex;flex-direction:column;align-items:center;gap:18px"><span style="width:26px;height:26px;border-radius:8px;background:#E4F1E9"></span><span style="width:26px;height:26px;border-radius:8px;background:#EEEBE4"></span><span style="width:26px;height:26px;border-radius:8px;background:#EEEBE4"></span><span style="width:26px;height:26px;border-radius:8px;background:#EEEBE4"></span></div>
+ <div class="a" style="left:96px;top:76px;width:440px">
+  <div class="row" style="gap:16px"><div class="av" style="width:64px;height:64px;font-size:24px;background:#E6E9F3;color:#4A5A8A">A</div><div><div style="font:600 26px Geist;letter-spacing:-.01em">Aarav Mehta</div><div class="sm" style="font-size:14px;margin-top:4px">Goa family holiday · 4 travellers</div></div></div>
+  <div class="row" style="margin-top:24px;gap:12px"><span id="bwa" class="btn" style="background:var(--g);color:#fff"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span><span id="bcall" class="btn" style="border:1px solid var(--line);color:var(--ink)"><svg class="ico"><use href="#i-phone"/></svg>Call</span></div>
+  <div style="margin-top:28px">
+   <div class="f"><b>Phone</b><span>+91 98XXX 22314</span></div>
+   <div class="f"><b>Owner</b><span>Neha Kapoor</span></div>
+   <div class="f"><b>Stage</b><span class="chip" style="padding:5px 9px">Itinerary sent</span></div>
+   <div class="f"><b>Source</b><span>Campaign · Goa getaways</span></div>
+  </div>
+ </div>
+ <div id="crmChat" class="a o" style="left:596px;top:44px;right:0;bottom:0;border-left:1px solid var(--line2);background:#FCFBF8">
+  <div class="row" style="height:64px;padding:0 18px;border-bottom:1px solid var(--line2);justify-content:space-between"><div class="row"><span style="width:8px;height:8px;border-radius:50%;background:var(--g)"></span><span class="nm">WhatsApp · Aarav</span></div><span id="callpill" class="chip o" style="background:var(--g);color:#fff"><svg><use href="#i-phone"/></svg><span id="ctime">Calling…</span></span></div>
+  <div style="padding:18px">
+   <div class="bub in">Hi! Is the Goa package still available?</div>
+   <div id="typed" class="bub out o" style="margin-top:10px;min-height:20px"><span id="typedT"></span><svg id="typedK" class="ticks o" style="color:#3A8FD9"><use href="#i-tick"/></svg></div>
+  </div>
+ </div>
+</div>
+<svg id="cursor" class="a o" width="26" height="30" viewBox="0 0 26 30" style="left:0;top:0;transform-origin:3px 3px"><path d="M3 2l18 13-8 1.5 4.5 9-3.5 1.6-4.4-9L3 24z" fill="#171715" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+
+<!-- ============ S4 SOTC ============ -->
+<div id="srf" class="a o" style="left:578px;top:330px;width:446px;height:480px;border-radius:24px;background:var(--beige)"></div>
+<div id="lbP" class="a o lab" style="left:112px;top:304px">Phone</div>
+<div id="lbW" class="a o lab" style="left:602px;top:304px">WhatsApp</div>
+<svg id="gap" class="ln2 o" width="1080" height="1080"><g fill="none" stroke="#C9C2B4" stroke-width="1.6" stroke-dasharray="5 7"><path d="M456 540 L528 540"/><path d="M546 540 L590 540"/></g><path d="M532 528 l10 24" stroke="#B9B1A2" stroke-width="1.8"/></svg>
+<div id="call" class="a o card" style="left:108px;top:330px;width:348px;height:420px;overflow:hidden;transform-origin:50% 50%">
+ <div id="callh" class="row" style="height:74px;padding:0 20px;background:#3D906D;color:#fff;justify-content:space-between">
+  <div class="row"><svg class="ico"><use href="#i-phone"/></svg><div><div style="font:600 16px Geist">Outgoing call</div><div style="font:400 12.5px Geist;opacity:.85">SOTC Support</div></div></div>
+ </div>
+ <div id="callhm" class="a o row" style="left:0;top:0;width:100%;height:74px;padding:0 20px;background:#EFEBE3;color:#6E6A61"><svg class="ico"><use href="#i-miss"/></svg><div style="margin-left:10px"><div style="font:600 16px Geist">Call not answered</div><div style="font:400 12.5px Geist">SOTC Support</div></div></div>
+ <div style="text-align:center;padding-top:30px;position:relative">
+  <div style="position:relative;width:72px;height:72px;margin:0 auto">
+   <span class="pr a" style="inset:0;border-radius:50%;border:1.5px solid #B99AD8"></span><span class="pr a" style="inset:0;border-radius:50%;border:1.5px solid #B99AD8"></span>
+   <div class="av" style="width:72px;height:72px;font-size:26px;background:#EFE4F6;color:#8A5BB8;position:relative">C</div>
+  </div>
+  <div style="font:600 22px Geist;margin-top:16px">Customer</div>
+  <div class="sm" style="font-size:14px;margin-top:4px">+91 68*** 86412</div>
+  <div id="ring1" style="font:500 15px Geist;color:var(--ink2);margin-top:18px">Ringing…</div>
+  <div id="ring2" class="o" style="position:absolute;left:0;width:100%;bottom:-0px;font:600 15px Geist;letter-spacing:.12em;color:#A4502F;top:212px">MISSED CALL</div>
+ </div>
+ <div id="endb" style="position:absolute;left:24px;right:24px;bottom:24px;height:54px;border-radius:27px;background:#E35D52;display:grid;place-items:center;color:#fff"><svg class="ico" style="transform:rotate(135deg)"><use href="#i-phone"/></svg></div>
+</div>
+<div id="wa" class="a o card" style="left:608px;top:370px;width:386px;height:330px;padding:18px;transform-origin:0 0">
+ <div class="row" style="padding-bottom:14px;border-bottom:1px solid var(--line2)"><div class="av" style="background:#EFE4F6;color:#8A5BB8">C</div><div><div class="nm">Customer</div><div class="sm">WhatsApp · separate inbox</div></div></div>
+ <div class="bub in" style="margin-top:16px">Hi, I had a question about my Europe trip.</div>
+ <div class="bub in" style="margin-top:8px">Is anyone there?</div>
+ <div class="sm" style="margin-top:14px">Unanswered · 2 days</div>
+</div>
+<div id="h4a" class="hl"><span class="ln"><span class="li">Missed calls.</span></span><span class="ln"><span class="li">Disconnected conversations.</span></span></div>
+
+<!-- flow chips -->
+<div id="flow" class="a row" style="left:56px;top:156px;gap:16px;transform-origin:0 0;scale:1.25">
+ <span id="fl1" class="chip o" style="font-size:16px;padding:12px 16px"><svg style="width:16px;height:16px"><use href="#i-phone"/></svg>Call</span>
+ <svg id="fa1" class="o" width="26" height="12" viewBox="0 0 26 12"><path d="M1 6h22 M18 1l5 5-5 5" fill="none" stroke="#9AA59E" stroke-width="1.6"/></svg>
+ <span id="fl2" class="chip o" style="font-size:16px;padding:12px 16px"><svg style="width:16px;height:16px"><use href="#i-chat"/></svg>WhatsApp chat</span>
+ <svg id="fa2" class="o" width="26" height="12" viewBox="0 0 26 12"><path d="M1 6h22 M18 1l5 5-5 5" fill="none" stroke="#9AA59E" stroke-width="1.6"/></svg>
+ <span id="fl3" class="chip o" style="font-size:16px;padding:12px 16px"><svg style="width:16px;height:16px"><use href="#i-mic"/></svg>WhatsApp voice</span>
+</div>
+<div id="flowt" class="a o lab" style="left:58px;top:118px">One branded thread</div>
+
+<div id="thr" class="a o card" style="left:270px;top:300px;width:540px;height:440px;overflow:hidden">
+ <div class="row" style="height:72px;padding:0 20px;border-bottom:1px solid var(--line2);background:#FCFBF8">
+  <div class="pill" style="padding:4px 8px;border-radius:10px;box-shadow:none"><img src="assets/sotc.png" style="height:22px"></div>
+  <div><div class="row" style="gap:6px"><span class="nm">SOTC Holidays</span><span style="width:16px;height:16px;border-radius:50%;background:var(--g);display:grid;place-items:center;color:#fff"><svg style="width:10px;height:10px"><use href="#i-check"/></svg></span></div><div class="sm">Business account · chat + calls</div></div>
+ </div>
+ <div style="padding:20px">
+  <div id="tev" class="o" style="text-align:center"><span class="chip grey" style="text-transform:none;letter-spacing:0;font-size:13px"><svg><use href="#i-miss"/></svg>Missed voice call · 11:02</span></div>
+  <div id="tb1" class="bub out o" style="margin-top:16px">Sorry we missed you! Shall we continue planning your Europe holiday here?</div>
+  <div id="tb2" class="bub in o" style="margin-top:10px">Yes please. A quick call works too.</div>
+  <div id="tvc" class="o card" style="margin-top:16px;padding:14px 16px;box-shadow:none;border-color:#CFE3D7;background:#F5FAF7;display:flex;align-items:center;gap:12px">
+   <div class="av" style="background:var(--g);color:#fff;width:40px;height:40px"><svg class="ico"><use href="#i-mic"/></svg></div>
+   <div style="flex:1"><div class="nm">WhatsApp voice call</div><div class="sm">Connected · 04:12</div></div><span class="chip">Connected</span>
+  </div>
+ </div>
+</div>
+
+<!-- KPI sotc -->
+<div id="w60" class="a o" style="left:0;width:1080px;top:286px;text-align:center"><span class="chip">Within 60 days</span></div>
+<div id="k3a" class="a o" style="left:0;width:1080px;top:356px;text-align:center">
+ <div class="serif" style="font-size:250px;line-height:1;letter-spacing:-.03em">30<span style="font-size:.62em;color:var(--g)">%</span></div>
+ <div style="font:500 30px Geist;color:var(--ink2);margin-top:26px">Increase in call connectivity</div>
+</div>
+<svg id="conn" class="ln2 o" width="1080" height="1080">
+ <path d="M410 790 L670 790" stroke="#D2CBBE" stroke-width="2" stroke-dasharray="6 8" fill="none"/>
+ <path id="connG" d="M410 790 L670 790" stroke="#2F8F65" stroke-width="3" fill="none" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+ <circle cx="390" cy="790" r="20" fill="#fff" stroke="#D2CBBE" stroke-width="1.5"/><circle cx="690" cy="790" r="20" fill="#fff" stroke="#D2CBBE" stroke-width="1.5"/>
+ <circle id="cn1" cx="390" cy="790" r="20" fill="#2F8F65" opacity="0"/><circle id="cn2" cx="690" cy="790" r="20" fill="#2F8F65" opacity="0"/>
+</svg>
+<svg id="cni" class="a o" style="left:380px;top:780px;width:20px;height:20px;color:#fff"><use href="#i-phone"/></svg>
+<svg id="cni2" class="a o" style="left:680px;top:780px;width:20px;height:20px;color:#fff"><use href="#i-users"/></svg>
+<div id="k3b" class="a o" style="left:0;width:1080px;top:380px;text-align:center">
+ <div style="line-height:1;white-space:nowrap"><span class="rupee" style="font-size:150px;vertical-align:28px;color:var(--g)">₹</span><span class="serif" style="font-size:240px;letter-spacing:-.03em">5.04</span><span class="serif" style="font-size:96px;margin-left:16px">crore</span></div>
+ <div style="font:500 30px Geist;color:var(--ink2);margin-top:30px">Sales generated through WhatsApp</div>
+</div>
+
+<!-- journey -->
+<div id="h4b" class="hl"><span class="ln"><span class="li">Every channel.</span></span><span class="ln"><span class="li"><em>One connected journey.</em></span></span></div>
+<svg id="jline" class="ln2 o" width="1080" height="1080"><path d="M298 368 L298 818" stroke="#E2DDD2" stroke-width="2" fill="none"/><path id="jl" d="M298 368 L298 818" stroke="#2F8F65" stroke-width="2.4" fill="none" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg>
+<div id="n1" class="node card o" style="top:320px"><div class="ic"><svg class="ico" style="width:22px;height:22px"><use href="#i-chat"/></svg></div><div><div class="t1">WhatsApp Chat</div><div class="t2">“Your Europe itinerary is ready.”</div></div></div>
+<div id="n2" class="node card o" style="top:436px"><div class="ic"><svg class="ico" style="width:22px;height:22px"><use href="#i-phone"/></svg></div><div><div class="t1">Voice Calls</div><div class="t2">Outbound call from SOTC Support</div></div></div>
+<div id="n3" class="node card o" style="top:552px"><div class="ic"><svg class="ico" style="width:22px;height:22px"><use href="#i-mic"/></svg></div><div><div class="t1">WhatsApp Voice</div><div class="t2">Calls inside the same branded thread</div></div></div>
+<div id="n4" class="node card o" style="top:668px"><div class="ic"><svg class="ico" style="width:22px;height:22px"><use href="#i-users"/></svg></div><div><div class="t1">Groups</div><div class="t2">Europe departures · 24 travellers</div></div></div>
+
+<!-- ============ S5 RESOLVE ============ -->
+<div id="h5a" class="hl"><span class="ln"><span class="li">Three challenges.</span></span><span class="ln"><span class="li">Three proven outcomes.</span></span></div>
+<div id="h5b" class="hl"><span class="ln"><span class="li">One platform.</span></span><span class="ln"><span id="h5dt" class="li" style="color:var(--g)">DoubleTick.</span></span></div>
+<div id="dtf" class="a o card" style="left:110px;top:300px;width:860px;height:510px;overflow:hidden">
+ <div class="row" style="height:62px;padding:0 22px;border-bottom:1px solid var(--line2);justify-content:space-between;background:#FCFBF8">
+  <div class="row" style="gap:9px"><svg width="26" height="26"><use href="#i-dt"/></svg><span style="font:600 18px Geist;letter-spacing:-.02em">DoubleTick</span></div>
+  <div class="row" style="gap:18px;font:500 14px Geist;color:var(--mute)"><span style="color:var(--g)">Inbox</span><span>Campaigns</span><span>CRM</span><span>Calls</span><span>Security</span></div>
+ </div>
+</div>
+<div id="rc1" class="rc card o" style="left:56px">
+ <div class="top"><img src="assets/piramal.webp" style="height:60px"></div>
+ <div class="bd">
+  <div class="mot"><div class="a card" style="left:16px;top:16px;right:16px;padding:10px 12px;box-shadow:none;font-size:13px"><div class="row" style="justify-content:space-between"><span class="nm" style="font-size:13px">PAN</span><span style="background:#21352B;color:#CFE7D9;padding:2px 8px;border-radius:4px;letter-spacing:.1em;font-size:12px">•••••••21K</span></div><div class="row" style="justify-content:space-between;margin-top:8px"><span class="nm" style="font-size:13px">Mobile</span><span style="background:#21352B;color:#CFE7D9;padding:2px 8px;border-radius:4px;letter-spacing:.1em;font-size:12px">•••• ••673</span></div></div></div>
+  <div class="cap">Secure conversations</div>
+  <div class="res">50<span style="color:var(--g)">%</span></div>
+  <div class="resl">lower turnaround time</div>
+ </div>
+</div>
+<div id="rc2" class="rc card o" style="left:384px">
+ <div class="top"><img src="assets/mmt.webp" style="height:44px"></div>
+ <div class="bd">
+  <div class="mot"><div class="a row" style="left:16px;top:20px;gap:10px"><div class="av" style="width:40px;height:40px;background:#E4F1E9;color:#1E6A49">N</div><div><div class="nm" style="font-size:13px">Neha · own number</div><div class="sm" style="font-size:11.5px">CRM → WhatsApp</div></div></div><div class="a" style="left:16px;right:16px;bottom:16px;height:30px;border-radius:8px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;gap:8px;padding:0 10px;font:500 12px Geist;color:var(--g)"><svg style="width:14px;height:14px"><use href="#i-chat"/></svg>Message <svg style="width:14px;height:14px;margin-left:8px"><use href="#i-phone"/></svg>Call</div></div>
+  <div class="cap">Connected sales workflows</div>
+  <div class="res">1,500+</div>
+  <div class="resl">agents enabled</div>
+ </div>
+</div>
+<div id="rc3" class="rc card o" style="left:712px">
+ <div class="top"><img src="assets/sotc.png" style="height:58px"></div>
+ <div class="bd">
+  <div class="mot"><svg class="a" style="left:0;top:0" width="264" height="118"><path d="M50 59 H214" stroke="#2F8F65" stroke-width="2"/><circle cx="50" cy="59" r="18" fill="#fff" stroke="#CFE3D7"/><circle cx="132" cy="59" r="18" fill="#fff" stroke="#CFE3D7"/><circle cx="214" cy="59" r="18" fill="#2F8F65"/></svg><svg class="a" style="left:41px;top:50px;width:18px;height:18px;color:#1E6A49"><use href="#i-phone"/></svg><svg class="a" style="left:123px;top:50px;width:18px;height:18px;color:#1E6A49"><use href="#i-chat"/></svg><svg class="a" style="left:205px;top:50px;width:18px;height:18px;color:#fff"><use href="#i-mic"/></svg></div>
+  <div class="cap">Connected customer journeys</div>
+  <div class="res" style="font-size:42px"><span class="rupee" style="font-size:.8em">₹</span>5.04 crore</div>
+  <div class="resl">in WhatsApp sales</div>
+ </div>
+</div>
+
+<div id="sub"><span id="subt"></span></div>
+</div>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const tl=gsap.timeline({paused:true});
+const O='power3.out', IO='power2.inOut', IN='power2.in';
+function build(){
+document.querySelectorAll('[data-r]').forEach(e=>gsap.set(e,{rotation:+e.dataset.r}));
+
+function fin(sel,t,o={}){const {y=18,x=0,s=1,d=.42,ease=O}=o;
+  tl.fromTo(sel,{opacity:0,y,x,scale:s},{opacity:1,y:0,x:0,scale:1,duration:d,ease,immediateRender:false},t);}
+function fout(sel,t,o={}){const {y=-10,x=0,s=1,d=.32}=o;tl.to(sel,{opacity:0,y:'+='+y,x:'+='+x,scale:s,duration:d,ease:IN},t);}
+function hin(id,t){tl.set('#'+id+' .li',{yPercent:112},t);tl.set('#'+id,{opacity:1,y:0},t);tl.fromTo('#'+id+' .li',{yPercent:112},{yPercent:0,duration:.62,stagger:.1,ease:O,immediateRender:false},t);}
+function hout(id,t){tl.to('#'+id,{opacity:0,y:-14,duration:.34,ease:IN},t);}
+function draw(sel,t,d=.6,ease=IO){tl.fromTo(sel,{strokeDashoffset:1},{strokeDashoffset:0,duration:d,ease,immediateRender:false},t);}
+// logo intro → badge
+function logo(key,t,hold=.95){const el='#lg-'+key;
+  fin(el,t,{y:14,d:.45});
+  const r=$(el).getBoundingClientRect(), b=$('#bd-'+key).getBoundingClientRect();
+  const s=b.height/r.height;
+  tl.to(el+' .chip',{opacity:0,duration:.2},t+hold-.05);
+  tl.to(el,{x:b.left-r.left,y:b.top-r.top,scale:s,duration:.6,ease:'power3.inOut'},t+hold);
+  tl.set(el,{opacity:0},t+hold+.6); tl.set('#bd-'+key,{opacity:1},t+hold+.6);
+}
+
+/* ---------- S1 HOOK 0 – 3.3 ---------- */
+tl.fromTo('#dtlogo',{opacity:0,y:-8},{opacity:1,y:0,duration:.6,ease:O,immediateRender:false},0.05);
+fin('#c0',0.12,{y:24,s:.97,d:.45});
+hin('h1a',0.5);
+fin('#c1',0.85,{y:20}); fin('#c2',1.25,{y:20}); fin('#c3',1.65,{y:20}); fin('#c4',2.05,{y:20});
+hout('h1a',1.9); hin('h1b',2.08);
+// transition: side cards drift out, c0 becomes a scattered Piramal chat
+tl.to('#c1',{opacity:0,x:-40,duration:.45,ease:IN},3.25);
+tl.to('#c3',{opacity:0,x:-40,duration:.45,ease:IN},3.3);
+tl.to('#c2',{opacity:0,x:40,duration:.45,ease:IN},3.25);
+tl.to('#c4',{opacity:0,x:40,duration:.45,ease:IN},3.3);
+hout('h1b',3.35);
+tl.to('#c0',{x:56-330,y:330-440,scale:.74,rotation:-2,duration:.75,ease:'power3.inOut'},3.4);
+
+/* ---------- S2 PIRAMAL 3.3 – 29.85 ---------- */
+logo('pir',3.55,1.0);
+fin('#p2',3.95,{y:20}); fin('#p3',4.3,{y:20});
+hin('h2a',4.85);
+fin('#d1',5.4,{y:24}); fin('#d2',5.85,{y:24});
+tl.to('#d1 .hi',{opacity:1,duration:.3,stagger:.18,ease:O},7.0);
+fin('#d1x',7.35,{y:6,d:.3}); fin('#d2x',7.6,{y:6,d:.3});
+// solution
+hout('h2a',9.3);
+fin('#stp',9.55,{y:8}); hin('h2b',9.6); fin('#stpdots',9.6,{y:0}); fin('#sdf',9.6,{y:0});
+// cards collapse into inbox rows
+tl.to('#c0',{x:56+20-330,y:290+58-440,scale:.55,opacity:0,rotation:0,duration:.6,ease:'power3.inOut'},10.2);
+tl.to('#p2',{x:76-400,y:430-300,scale:.5,opacity:0,rotation:0,duration:.6,ease:'power3.inOut'},10.28);
+tl.to('#p3',{x:76-730,y:512-330,scale:.5,opacity:0,rotation:0,duration:.6,ease:'power3.inOut'},10.36);
+tl.to('#d1,#d2',{opacity:.0,y:'+=30',duration:.3,ease:IN},10.0);
+tl.to('#c0,#p2,#p3',{opacity:0,duration:.32,ease:IN,overwrite:false},10.25);
+fin('#inbox',10.6,{y:20,s:.985,d:.5});
+fin('#inbox .ir',10.8,{y:10,d:.35}); tl.to({},{duration:0},10.6);
+hout('h2b',12.95); hin('h2c',13.1); tl.to('#sdf',{x:36,duration:.4,ease:IO},13.1);
+fin('#pdoc',13.25,{y:26,s:.96,d:.5});
+fin('#pdocc',13.7,{y:6,d:.3});
+hout('h2c',14.65); hin('h2d',14.8); tl.to('#sdf',{x:72,duration:.4,ease:IO},14.8);
+tl.to('#pdoc .mask',{scaleX:1,duration:.32,stagger:.22,ease:'power3.inOut'},15.05);
+tl.to('#pdocc',{opacity:0,duration:.2},15.2);
+fin('#pmsk',15.85,{y:8,d:.3});
+// KPI 50 → 70
+hout('h2d',16.7); fout('#stp,#stpdots,#sdf',16.7);
+tl.to('#inbox',{opacity:0,scale:.97,y:20,duration:.45,ease:IN},16.75);
+fin('#res1',17.0,{y:8});
+fin('#k1',17.82,{y:30,d:.6}); fin('#k1a',18.0,{y:12,d:.45});
+tl.to('#k1r',{y:-300,duration:.6,ease:'power3.inOut'},20.15);
+tl.to('#k1a',{opacity:0,y:-10,duration:.25,ease:IN},20.1); fin('#k1b',20.4,{y:12,d:.45});
+// security layer
+fout('#k1,#k1b,#res1',22.3,{y:-14,d:.35});
+fin('#sec',22.55,{y:24,s:.97,d:.5});
+tl.set('#ring',{opacity:1},22.6); draw('#ring rect',22.6,1.1);
+fin('#sb1',22.85,{y:10}); tl.set('#sb1',{left:236,top:300},0);
+fin('#sb2',24.3,{y:10});  tl.set('#sb2',{left:700,top:500},0);
+fin('#sb3',25.5,{y:10});  tl.set('#sb3',{left:426,top:712},0);
+hin('h2e',26.4);
+// transition → campaign / rep card
+hout('h2e',28.95); fout('#sb1,#sb2,#sb3',28.9,{y:0,d:.3});
+tl.to('#ring',{opacity:0,duration:.35},28.9);
+tl.to('#sec',{x:90,y:140,scale:.64,opacity:0,duration:.7,ease:'power3.inOut'},29.0);
+tl.to('#bd-pir',{opacity:0,duration:.4},29.0);
+fin('#rep',29.45,{y:0,s:.9,d:.5});
+
+/* ---------- S3 MAKEMYTRIP 29.85 – 57.84 ---------- */
+hin('h3a',29.9);
+tl.set('#tlines',{opacity:0},0); tl.to('#tlines',{opacity:1,duration:.5},30.2);
+fin('#t1',30.25,{s:.9,y:6}); fin('#t2',30.5,{s:.9,y:6}); fin('#t3',30.75,{s:.9,y:6}); fin('#t4',31.0,{s:.9,y:6}); fin('#t5',31.25,{s:.9,y:6});
+hout('h3a',32.6);
+tl.to('#t1,#t2,#t3,#t4,#t5,#tlines',{opacity:0,scale:.92,duration:.35,ease:IN,stagger:.03},32.6);
+tl.to('#rep',{x:56+18-380,y:560+46-500,scale:.5,opacity:0,duration:.6,ease:'power3.inOut'},32.75);
+logo('mmt',32.95,.95);
+fin('#reps',33.0,{y:16});
+fin('#gen',33.3,{y:16});
+tl.to('#glines',{opacity:1,duration:.5},33.9);
+fin('#mc1',33.8,{x:20,y:0}); fin('#mc2',34.0,{x:20,y:0}); fin('#mc3',34.2,{x:20,y:0});
+hin('h3b',34.3);
+// solution
+hout('h3b',39.25);
+tl.to('#gen,#glines,#reps',{opacity:0,duration:.25,ease:IN},39.25);
+tl.to('#mc1',{y:20,opacity:0,duration:.3,ease:IN},39.3); tl.to('#mc2',{y:30,opacity:0,duration:.3,ease:IN},39.3); tl.to('#mc3',{y:40,opacity:0,duration:.3,ease:IN},39.3);
+fin('#r1',39.6,{x:-20,y:0}); fin('#r2',39.72,{x:-20,y:0}); fin('#r3',39.84,{x:-20,y:0});
+fin('#ms1',39.7,{x:20,y:0,d:.45}); fin('#ms2',39.82,{x:20,y:0,d:.45}); fin('#ms3',39.94,{x:20,y:0,d:.45});
+tl.set('#rlines',{opacity:1},39.9);
+draw('#rlines > g:first-child path',40.0,.45);
+fin('#big1500',39.85,{y:16,d:.5});
+fin('#sup1500',44.0,{y:10,d:.45});
+fin('#hub',44.5,{y:18,d:.45});
+draw('#rlines .hub path',44.8,.6);
+// KPI
+tl.to('#big1500,#sup1500,#r1,#r2,#r3,#ms1,#ms2,#ms3,#hub,#rlines',{opacity:0,duration:.4,ease:IN},46.15);
+fin('#res2',46.4,{y:8});
+fin('#k2a',47.15,{y:30,d:.6});
+tl.to('#k2a',{x:-270,scale:.72,duration:.7,ease:'power3.inOut'},49.2);
+fin('#k2div',49.6,{y:0,d:.4});
+fin('#k2b',49.55,{x:30,y:0,d:.55});
+// CRM
+tl.to('#res2,#k2a,#k2b,#k2div',{opacity:0,duration:.35,ease:IN},51.5);
+hin('h3c',51.85);
+fin('#crm',51.95,{y:24,s:.985,d:.55});
+// cursor path
+tl.set('#cursor',{x:760,y:880},0);
+tl.to('#cursor',{opacity:1,duration:.25},52.5);
+tl.to('#cursor',{x:240,y:500,duration:.65,ease:'power2.inOut'},52.6);
+tl.to('#bwa',{scale:.94,duration:.1,yoyo:true,repeat:1},53.3);
+tl.to('#cursor',{scale:.85,duration:.1,yoyo:true,repeat:1},53.3);
+fin('#crmChat',53.45,{x:40,y:0,d:.5});
+tl.set('#typed',{opacity:1},53.75);
+tl.to('#typedK',{opacity:1,duration:.2},55.0);
+tl.to('#cursor',{x:360,y:500,duration:.45,ease:'power2.inOut'},54.75);
+tl.to('#bcall',{scale:.94,duration:.1,yoyo:true,repeat:1},55.25);
+tl.to('#cursor',{scale:.85,duration:.1,yoyo:true,repeat:1},55.25);
+fin('#callpill',55.4,{y:0,s:.8,d:.3});
+fin('#nosw',55.95,{y:8});
+tl.to('#cursor',{opacity:0,duration:.25},56.3);
+// transition → call card (from call pill)
+hout('h3c',57.1); fout('#nosw',57.1);
+tl.to('#crm',{opacity:0,scale:.97,duration:.45,ease:IN},57.2);
+tl.to('#bd-mmt',{opacity:0,duration:.4},57.2);
+tl.fromTo('#call',{opacity:0,x:560,y:-190,scale:.32},{opacity:1,x:0,y:0,scale:1,duration:.75,ease:'power3.inOut',immediateRender:false},57.35);
+
+/* ---------- S4 SOTC 57.84 – 85.89 ---------- */
+fin('#srf',58.0,{y:0,s:.98,d:.5}); fin('#wa',58.25,{y:18});
+fin('#lbP',58.6,{y:6}); fin('#lbW',58.7,{y:6});
+tl.to('#gap',{opacity:1,duration:.5},59.0);
+logo('sotc',61.95,.95);
+// missed
+tl.to('#callhm',{opacity:1,duration:.3},62.5);
+tl.to('#ring1',{opacity:0,duration:.2},62.5); tl.to('#ring2',{opacity:1,duration:.3},62.6);
+tl.to('#endb',{opacity:0,y:8,duration:.3},62.5);
+hin('h4a',63.0);
+// solution: missed call drops into thread
+hout('h4a',66.75); fout('#lbP,#lbW',66.75,{y:0});
+tl.to('#gap,#srf',{opacity:0,duration:.35},66.8);
+tl.to('#call',{x:330,y:-12,scale:.38,duration:.7,ease:'power3.inOut'},66.95); tl.to('#call',{opacity:0,duration:.38,ease:IN},66.98);
+tl.to('#wa',{opacity:0,duration:.3},66.9);
+fin('#thr',67.15,{y:16,s:.98,d:.45});
+fin('#tev',67.45,{y:8,d:.3});
+fin('#flowt',67.0,{y:6}); fin('#fl1',67.25,{y:8,d:.35});
+fin('#fa1',68.05,{x:-6,y:0,d:.3}); fin('#fl2',68.15,{y:8,d:.35});
+fin('#tb1',67.9,{y:10}); fin('#tb2',68.7,{y:10});
+fin('#fa2',69.25,{x:-6,y:0,d:.3}); fin('#fl3',69.35,{y:8,d:.35});
+fin('#tvc',69.5,{y:12,d:.45});
+// KPIs
+tl.to('#thr,#flow,#flowt',{opacity:0,duration:.4,ease:IN},71.45);
+fin('#w60',71.75,{y:8});
+fin('#k3a',72.9,{y:30,d:.6});
+tl.set('#conn',{opacity:0},0); tl.to('#conn',{opacity:1,duration:.4},73.2);
+draw('#connG',73.6,.7);
+tl.to('#cn1',{opacity:1,duration:.3},73.55); tl.to('#cn2',{opacity:1,duration:.3},74.2);
+tl.to('#cni',{opacity:1,duration:.3},73.55); tl.to('#cni2',{opacity:1,duration:.3},74.2);
+tl.to('#k3a,#conn,#cni,#cni2',{opacity:0,y:-20,duration:.4,ease:IN},75.3);
+fin('#k3b',76.2,{y:30,d:.65});
+// journey
+tl.to('#k3b,#w60',{opacity:0,duration:.35,ease:IN},79.3);
+hin('h4b',79.55);
+tl.set('#jline',{opacity:1},79.9);
+fin('#n1',79.95,{x:-16,y:0}); draw('#jl',80.2,3.0,'none');
+fin('#n2',80.95,{x:-16,y:0}); fin('#n3',81.85,{x:-16,y:0}); fin('#n4',82.95,{x:-16,y:0});
+
+/* ---------- S5 RESOLVE 85.89 – end ---------- */
+hout('h4b',85.6); tl.to('#n1,#n2,#n3,#n4,#jline',{opacity:0,y:'-=10',duration:.35,ease:IN,stagger:.03},85.55);
+tl.to('#bd-sotc',{opacity:0,duration:.4},85.6);
+hin('h5a',85.95);
+fin('#rc1',86.05,{y:26,d:.5}); fin('#rc2',86.4,{y:26,d:.5}); fin('#rc3',86.75,{y:26,d:.5});
+// merge into one platform frame
+hout('h5a',89.15);
+fin('#dtf',89.3,{s:1.03,y:0,d:.6});
+const S=.8, cw=312*S, gap=20, x0=110+(860-(cw*3+gap*2))/2, y0=300+62+24;
+[['#rc1',56],['#rc2',384],['#rc3',712]].forEach(([id,l],i)=>{
+  tl.to(id,{x:(x0+i*(cw+gap))-l, y:y0-322, scale:S, transformOrigin:'0 0',boxShadow:'none',duration:.8,ease:'power3.inOut'},89.25+i*.04);
+});
+hin('h5b',89.4);
+tl.set('#h5dt',{opacity:0},0);
+tl.fromTo('#h5dt',{opacity:0,yPercent:112},{opacity:1,yPercent:0,duration:.6,ease:O,immediateRender:false},90.5);
+tl.to({},{duration:.01},94.5);
+}
+
+/* ---------- subtitles (pure function of t) ---------- */
+const SP=[[0.0,2.82,["Do you know what your team is telling customers on WhatsApp?"]],
+[3.30,9.02,["Piramal Finance struggled with scattered conversations","and the risk of sensitive customer data exposure."]],
+[9.41,12.98,["DoubleTick brought every conversation into one shared inbox,"]],
+[13.16,14.61,["digitised loan documents,"]],[14.78,16.55,["and masked sensitive information."]],
+[16.94,17.50,["The result?"]],
+[17.83,22.19,["50% lower turnaround time|fifty percent lower turnaround time","and 70% faster conversions.|and seventy percent faster conversions"]],
+[22.52,24.14,["See how PII masking,"]],
+[24.26,29.30,["number masking, and DPDP-ready controls|number masking and d p d p ready controls","help keep customer conversations secure."]],
+[29.85,32.52,["Are your sales reps working across too many systems?"]],
+[32.89,39.06,["MakeMyTrip relied on generic campaign numbers,","with low engagement and no clear ownership of conversations."]],
+[39.41,44.73,["DoubleTick enabled 1,500+ agents|doubletick enabled fifteen hundred plus agents","to run campaigns from their own numbers,"]],
+[44.85,45.97,["with central control."]],[46.36,46.93,["The result?"]],
+[47.19,51.43,["30% higher operational efficiency|thirty percent higher operational efficiency","and 10% revenue growth.|and ten percent revenue growth"]],
+[51.78,55.82,["Discover how reps can message and call customers","directly from their CRM,|directly from their c r m"]],
+[55.95,57.49,["without switching between tools."]],
+[57.84,61.54,["And what happens when customer conversations","are spread across different channels?"]],
+[61.95,66.61,["SOTC struggled with low call pickup rates|s o t c struggled with low call pickup rates","and no fallback for missed calls."]],
+[66.93,71.40,["DoubleTick brought WhatsApp chat and voice calls","together in one branded thread."]],
+[71.73,75.08,["Within 60 days, call connectivity rose 30%,|within sixty days call connectivity rose thirty percent"]],
+[75.28,79.18,["and WhatsApp generated ₹5.04 crore in sales.|and whatsapp generated five point zero four crore in sales"]],
+[79.50,80.60,["Explore how chat,"]],
+[80.81,85.53,["calls, WhatsApp Voice, and groups","work together in one connected customer journey."]],
+[85.89,86.98,["Three challenges."]],[87.27,88.89,["Three proven outcomes."]],
+[89.24,91.40,["One platform: DoubleTick."]]];
+const SUBS=[];
+SP.forEach(([s,e,ch])=>{const parts=ch.map(c=>c.split('|')),w=parts.map(p=>(p[1]||p[0]).length),W=w.reduce((a,b)=>a+b,0);let c=s;
+  parts.forEach((p,i)=>{const d=(e-s)*w[i]/W;SUBS.push({s:c,e:c+d,t:p[0]});c+=d;});});
+SUBS.forEach((x,i)=>{const n=SUBS[i+1];x.e2=n&&n.s-x.e<.7?n.s:x.e+.25;});
+SUBS[SUBS.length-1].e2=92.2;
+const subEl=$('#subt'),subBox=$('#sub');let lastSub=null;
+function subs(t){const x=SUBS.find(x=>t>=x.s-.05&&t<x.e2);
+  if(!x){subBox.style.opacity=0;return;}
+  if(lastSub!==x){subEl.textContent=x.t;lastSub=x;}
+  const a=Math.min(1,(t-(x.s-.05))/.12), b=Math.min(1,(x.e2-t)/.12);
+  subBox.style.opacity=Math.max(0,Math.min(a,b));}
+
+/* ---------- other pure-time bits ---------- */
+const clamp=v=>Math.max(0,Math.min(1,v)), eo=v=>1-Math.pow(1-v,3);
+const typedStr="Hi Aarav, Neha from MakeMyTrip here. Your Goa itinerary is ready!";
+const prs=document.querySelectorAll('.pr');
+function extras(t){
+  const n=Math.round(1500*eo(clamp((t-39.9)/1.0)));
+  $('#n1500').textContent=n.toLocaleString('en-US')+'+';
+  $('#typedT').textContent=typedStr.slice(0,Math.floor(typedStr.length*clamp((t-53.8)/1.1)));
+  const sec=Math.max(0,Math.floor(t-55.6)); $('#ctime').textContent=t<55.9?'Calling…':'Connected · 00:0'+Math.min(9,sec);
+  prs.forEach((p,i)=>{const ph=((t-57.4)/1.3+i*.5)%1; const on=t>57.4&&t<62.5;
+    p.style.transform=`scale(${1+ph*.7})`; p.style.opacity=on?(1-ph)*.8:0;});
+}
+window.seek=t=>{tl.seek(t,false);subs(t);extras(t);};
+window.DURATION=94.5;
+Promise.all([document.fonts.ready,...[...document.images].map(i=>i.decode().catch(()=>{}))]).then(()=>{build();window.seek(0);window.READY=true;});
+</script></body></html>

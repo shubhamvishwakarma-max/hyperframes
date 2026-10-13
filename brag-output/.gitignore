@@ -1,0 +1,10 @@
+work/node_modules/
+work/snaps/
+work/chk/
+work/seg*.mp4
+work/segs.txt
+work/video.mp4
+work/*.wav
+work/*.png
+work/*.log
+work/package-lock.json
