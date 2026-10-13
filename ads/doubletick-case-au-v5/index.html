@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" /><title>DoubleTick AU Written-off Leads</title>
+<style>
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  :root { --ink: #0A1A12; --ink-2: #3D4A44; --muted: #6E7B75; --bg: #F4F8F5; --line: #E1E9E4; --green: #007A5A; --mint: #2FBF8F; --soft: #E0F2EC; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; overflow: hidden; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+  .ad { position: relative; width: 1080px; height: 1080px;
+    background: radial-gradient(700px 520px at 100% 0%, rgba(0,122,90,.14), transparent 60%), radial-gradient(600px 500px at 0% 100%, rgba(0,122,90,.08), transparent 60%), var(--bg); }
+  .ad > * { position: absolute; }
+  .top { left: 72px; right: 72px; top: 52px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { height: 32px; display: block; }
+  .client { height: 104px; margin: -33px -22px -33px 0; mix-blend-mode: multiply; display: block; }
+
+  h1 { left: 72px; right: 72px; top: 150px; font-size: 70px; line-height: 1.07; letter-spacing: -0.045em; font-weight: 700; }
+  h1 em { font-style: normal; color: var(--green); }
+  .sub { left: 72px; right: 72px; top: 318px; font-size: 25px; line-height: 1.38; color: var(--ink-2); letter-spacing: -0.015em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* visual: dormant leads -> AI calls (phone + WhatsApp) -> RM gets a ready lead with context */
+  .vis { left: 72px; top: 446px; width: 936px; height: 390px; }
+  .vis > * { position: absolute; }
+  .lab { font-size: 16px; font-weight: 600; letter-spacing: .02em; color: var(--muted); white-space: nowrap; }
+  .grid { left: 0; top: 46px; width: 256px; height: 256px; }
+  .lines { left: 0; top: 0; width: 936px; height: 380px; overflow: visible; }
+  .orb { left: 352px; top: 104px; width: 140px; height: 140px; border-radius: 50%; display: grid; place-items: center;
+    background: radial-gradient(circle at 34% 28%, #9BEBCB 0%, #1FA77B 40%, #007A5A 75%, #005A42 100%);
+    box-shadow: 0 0 0 14px rgba(47,191,143,.13), 0 0 0 30px rgba(47,191,143,.06), 0 18px 36px -12px rgba(0,122,90,.7); }
+  .chan { left: 422px; top: 286px; transform: translateX(-50%); display: flex; gap: 8px; }
+  .chan span { font-size: 15px; font-weight: 600; padding: 7px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--line); display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+
+  .lead { left: 588px; top: 30px; width: 348px; background: #fff; border: 2px solid var(--green); border-radius: 22px; padding: 22px;
+    box-shadow: 0 24px 48px -26px rgba(0,60,43,.45); display: flex; flex-direction: column; gap: 14px; }
+  .lead .tg { align-self: flex-start; font-size: 14px; font-weight: 700; color: #fff; background: var(--green); padding: 6px 12px; border-radius: 999px; letter-spacing: .02em; }
+  .lead .who { display: flex; align-items: center; gap: 12px; }
+  .lead .av { width: 46px; height: 46px; border-radius: 50%; background: var(--soft); display: grid; place-items: center; }
+  .lead .nm { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+  .lead .sm { font-size: 15px; color: var(--muted); margin-top: 2px; }
+  .lead .ln { display: flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 500; padding-top: 12px; border-top: 1px solid #EEF2F0; }
+  .lead .ln i { width: 30px; height: 30px; border-radius: 9px; background: var(--soft); display: grid; place-items: center; flex: none; }
+  .lead .rm { display: flex; align-items: center; justify-content: space-between; background: #0B3B2C; color: #fff; border-radius: 14px; padding: 12px 14px; font-size: 16px; font-weight: 600; }
+  .lead .rm b { color: #8EF0C9; font-weight: 600; }
+  .more { left: 588px; top: 360px; width: 348px; text-align: center; font-size: 17px; font-weight: 600; color: var(--green); }
+
+  .cta { left: 72px; top: 880px; }
+  .btn { background: var(--green); color: #fff; font-size: 23px; font-weight: 600; letter-spacing: -0.01em; padding: 17px 28px; border-radius: 14px;
+    display: flex; align-items: center; gap: 12px; box-shadow: 0 14px 30px -10px rgba(0,122,90,.6); }
+</style></head>
+<body><div class="ad">
+  <div class="top"><img class="logo" src="doubletick-logo.webp" alt="DoubleTick" /><img class="client" src="au-bank-logo.png" alt="AU Small Finance Bank" /></div>
+
+  <h1><em>5,000+ qualified leads</em><br/>from leads already written off.</h1>
+  <p class="sub"><b>AU Small Finance Bank</b> used <b>DoubleTick AI Voice</b> to call unworked and dormant leads on phone and WhatsApp, then hand qualified ones to RMs with full context.</p>
+
+  <div class="vis">
+    <div class="lab" style="left:0;top:0">Unworked &amp; dormant leads</div>
+    <svg class="grid" viewBox="0 0 256 256"><circle cx="28" cy="28" r="20" fill="#E6ECE8"/><circle cx="28" cy="23.6" r="6.0" fill="#AEBAB4"/><path d="M17.6 40.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="78" cy="28" r="20" fill="#E6ECE8"/><circle cx="78" cy="23.6" r="6.0" fill="#AEBAB4"/><path d="M67.6 40.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="128" cy="28" r="20" fill="#E6ECE8"/><circle cx="128" cy="23.6" r="6.0" fill="#AEBAB4"/><path d="M117.6 40.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="178" cy="28" r="20" fill="#E6ECE8"/><circle cx="178" cy="23.6" r="6.0" fill="#AEBAB4"/><path d="M167.6 40.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="228" cy="28" r="20" fill="#E6ECE8"/><circle cx="228" cy="23.6" r="6.0" fill="#AEBAB4"/><path d="M217.6 40.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="28" cy="78" r="20" fill="#E6ECE8"/><circle cx="28" cy="73.6" r="6.0" fill="#AEBAB4"/><path d="M17.6 90.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="78" cy="78" r="20" fill="#E6ECE8"/><circle cx="78" cy="73.6" r="6.0" fill="#AEBAB4"/><path d="M67.6 90.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="128" cy="78" r="20" fill="#E6ECE8"/><circle cx="128" cy="73.6" r="6.0" fill="#AEBAB4"/><path d="M117.6 90.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="178" cy="78" r="20" fill="#E6ECE8"/><circle cx="178" cy="73.6" r="6.0" fill="#AEBAB4"/><path d="M167.6 90.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="228" cy="78" r="20" fill="#E6ECE8"/><circle cx="228" cy="73.6" r="6.0" fill="#AEBAB4"/><path d="M217.6 90.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="28" cy="128" r="20" fill="#E6ECE8"/><circle cx="28" cy="123.6" r="6.0" fill="#AEBAB4"/><path d="M17.6 140.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="78" cy="128" r="20" fill="#E6ECE8"/><circle cx="78" cy="123.6" r="6.0" fill="#AEBAB4"/><path d="M67.6 140.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="128" cy="128" r="20" fill="#E6ECE8"/><circle cx="128" cy="123.6" r="6.0" fill="#AEBAB4"/><path d="M117.6 140.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="178" cy="128" r="20" fill="#E6ECE8"/><circle cx="178" cy="123.6" r="6.0" fill="#AEBAB4"/><path d="M167.6 140.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="228" cy="128" r="20" fill="#E6ECE8"/><circle cx="228" cy="123.6" r="6.0" fill="#AEBAB4"/><path d="M217.6 140.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="28" cy="178" r="20" fill="#E6ECE8"/><circle cx="28" cy="173.6" r="6.0" fill="#AEBAB4"/><path d="M17.6 190.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="78" cy="178" r="20" fill="#E6ECE8"/><circle cx="78" cy="173.6" r="6.0" fill="#AEBAB4"/><path d="M67.6 190.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="128" cy="178" r="20" fill="#E6ECE8"/><circle cx="128" cy="173.6" r="6.0" fill="#AEBAB4"/><path d="M117.6 190.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="178" cy="178" r="20" fill="#E6ECE8"/><circle cx="178" cy="173.6" r="6.0" fill="#AEBAB4"/><path d="M167.6 190.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="228" cy="178" r="20" fill="#E6ECE8"/><circle cx="228" cy="173.6" r="6.0" fill="#AEBAB4"/><path d="M217.6 190.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="28" cy="228" r="20" fill="#E6ECE8"/><circle cx="28" cy="223.6" r="6.0" fill="#AEBAB4"/><path d="M17.6 240.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="78" cy="228" r="20" fill="#E6ECE8"/><circle cx="78" cy="223.6" r="6.0" fill="#AEBAB4"/><path d="M67.6 240.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="128" cy="228" r="20" fill="#E6ECE8"/><circle cx="128" cy="223.6" r="6.0" fill="#AEBAB4"/><path d="M117.6 240.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="178" cy="228" r="20" fill="#E6ECE8"/><circle cx="178" cy="223.6" r="6.0" fill="#AEBAB4"/><path d="M167.6 240.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/><circle cx="228" cy="228" r="20" fill="#E6ECE8"/><circle cx="228" cy="223.6" r="6.0" fill="#AEBAB4"/><path d="M217.6 240.0 a10.4 8.8 0 0 1 20.8 0 Z" fill="#AEBAB4"/></svg>
+    <svg class="lines" viewBox="0 0 936 380" fill="none">
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#007A5A"/></marker></defs>
+      <path d="M262 100 C 310 100, 310 174, 344 174" stroke="#C3D2CA" stroke-width="2"/>
+      <path d="M262 174 L 344 174" stroke="#C3D2CA" stroke-width="2"/>
+      <path d="M262 248 C 310 248, 310 174, 344 174" stroke="#C3D2CA" stroke-width="2"/>
+      <path d="M500 174 L 576 174" stroke="#007A5A" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+    </svg>
+    <div class="orb"><svg width="54" height="54" viewBox="0 0 24 24" fill="#fff"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+    <div class="chan"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="#007A5A"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Phone</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>WhatsApp</span></div>
+
+    <div class="lead">
+      <span class="tg">Qualified lead</span>
+      <div class="who"><span class="av"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><div><div class="nm">Ravi S.</div><div class="sm">Unworked lead</div></div></div>
+      <div class="ln"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg></i>Home loan top-up</div>
+      <div class="ln"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i>Call back 5 PM</div>
+      <div class="rm"><span>Handed to RM</span><b>with full context ✓</b></div>
+    </div>
+    <div class="more">1 of 5,000+ qualified leads</div>
+  </div>
+
+  <div class="cta"><div class="btn">See how AU did it
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
+</div></body></html>
