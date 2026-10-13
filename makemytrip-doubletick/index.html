@@ -331,8 +331,8 @@
         top: 40px;
         width: 960px;
         height: 1040px;
-        -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
-        mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+        -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+        mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
       }
       #s2-grid {
         position: absolute;
@@ -609,65 +609,191 @@
       }
       #s4-phone {
         position: absolute;
-        left: 1330px;
-        top: 120px;
-        width: 450px;
-        height: auto;
+        left: 1290px;
+        top: 96px;
+        width: 480px;
+        height: 888px;
+        border-radius: 44px;
+        background: #fff;
+        border: 1px solid var(--line);
+        overflow: hidden;
+        box-shadow:
+          0 2px 4px rgba(60, 50, 30, 0.06),
+          0 30px 70px rgba(60, 50, 30, 0.18);
       }
-      .s4-chip {
+      #wa-head {
         position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 96px;
         display: flex;
         align-items: center;
-        gap: 14px;
-        padding: 16px 22px;
-        border-radius: 18px;
-        font-size: 21px;
-        font-weight: 500;
-        white-space: nowrap;
+        gap: 12px;
+        padding: 18px 20px 0 18px;
+        background: #fff;
+        border-bottom: 1px solid #e6e1d8;
+        z-index: 2;
       }
-      .s4-chip .k {
-        font-size: 15px;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--green-ink);
-        display: block;
+      #wa-head .back,
+      #wa-head .icons svg {
+        width: 26px;
+        height: 26px;
+        flex: none;
       }
-      .s4-chip .v {
-        font-size: 22px;
-        font-weight: 600;
-        color: var(--ink);
-        display: block;
+      #wa-head .av {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        flex: none;
       }
-      .s4-chip .col {
+      #wa-head .who {
         display: flex;
         flex-direction: column;
         gap: 2px;
       }
-      #s4-chip1 {
-        left: 1180px;
-        top: 250px;
+      #wa-head .nm {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 21px;
+        font-weight: 600;
       }
-      #s4-chip2 {
-        left: 1500px;
-        top: 560px;
+      #wa-head .sub {
+        font-size: 15px;
+        color: #3b3f3c;
       }
-      #s4-chip3 {
-        left: 1200px;
-        top: 820px;
+      #wa-head .icons {
+        margin-left: auto;
+        display: flex;
+        gap: 18px;
       }
-      .pill-icon {
-        width: 44px;
-        height: 44px;
+      #wa-body {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 96px;
+        bottom: 78px;
+        overflow: hidden;
+        background-color: #efe7dd;
+        background-image: url("assets/img/wallpaper.png");
+        background-size: 520px auto;
+      }
+      #wa-thread {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        padding: 16px 16px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .wa-day {
+        align-self: center;
+        padding: 5px 14px;
+        border-radius: 8px;
+        background: #fff;
+        font-size: 15px;
+        color: #54595a;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+      }
+      .msg {
+        max-width: 86%;
+        padding: 10px 14px 8px;
+        font-size: 17.5px;
+        line-height: 1.38;
+        color: #111b21;
         border-radius: 12px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+        display: block;
+      }
+      .msg p + p {
+        margin-top: 8px;
+      }
+      .msg.in {
+        align-self: flex-start;
+        background: #fff;
+        border-top-left-radius: 4px;
+      }
+      .msg.out {
+        align-self: flex-end;
+        background: #d9fdd3;
+        border-top-right-radius: 4px;
+      }
+      .msg .t {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 4px;
+        margin-top: 2px;
+        font-size: 12.5px;
+        color: #55636b;
+      }
+      .msg .t svg {
+        width: 18px;
+        height: 12px;
+      }
+      .msg .ai {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--green-ink);
+      }
+      .msg .ai .spark {
+        width: 18px;
+        height: 18px;
+        border-radius: 5px;
         background: var(--tint);
         display: grid;
         place-items: center;
-        flex: none;
+        font-size: 11px;
       }
-      .pill-icon svg {
+      .typing {
+        align-self: flex-start;
+        display: flex;
+        gap: 5px;
+        padding: 14px 16px;
+        background: #fff;
+        border-radius: 12px;
+        border-top-left-radius: 4px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+      }
+      .typing span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #9aa3a6;
+        display: block;
+      }
+      #wa-input {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 78px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 18px;
+        background: #f3f1ec;
+        z-index: 2;
+      }
+      #wa-input .field {
+        flex: 1;
+        height: 46px;
+        border-radius: 23px;
+        background: #fff;
+        border: 1px solid #e3ded5;
+      }
+      #wa-input svg {
         width: 26px;
         height: 26px;
+        flex: none;
       }
 
       /* ---------- S5 CTA ---------- */
@@ -790,7 +916,7 @@
               <span>Delivered · 18,008</span>
             </div>
             <div id="s1-chip-b" class="frag-chip card">
-              <img src="assets/img/avatar-sanjay.png" alt="" style="width: 34px; height: 34px; border-radius: 50%" />
+              <img src="assets/img/reps/sanjay.png" alt="" style="width: 34px; height: 34px; border-radius: 50%" />
               <span>Sanjay · MMT replied</span>
             </div>
           </div>
@@ -859,20 +985,43 @@
       <!-- ===== S4 · Impact 12–16 ===== -->
       <section id="s4" class="clip" data-start="11.85" data-duration="4.4" data-track-index="4">
         <div id="s4-inner" class="fill">
-          <img id="s4-phone" class="shot" src="assets/img/chat.png" alt="" />
-          <div id="s4-chip1" class="s4-chip card">
-            <div class="pill-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#12784a" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg>
+          <div id="s4-phone">
+            <div id="wa-head">
+              <svg class="back" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 5l-7 7 7 7" /></svg>
+              <img class="av" src="assets/img/reps/sanjay.png" alt="" />
+              <div class="who">
+                <span class="nm">Sanjay - MMT <svg class="verified" viewBox="0 0 24 24"><use href="#i-verified" /></svg></span>
+                <span class="sub">Business Account</span>
+              </div>
+              <div class="icons">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg>
+                <svg viewBox="0 0 24 24" fill="#111"><circle cx="12" cy="5" r="2" /><circle cx="12" cy="12" r="2" /><circle cx="12" cy="19" r="2" /></svg>
+              </div>
             </div>
-            <div class="col"><span class="k">Personalized</span><span class="v">{{Customer Name}} → Mukesh</span></div>
-          </div>
-          <div id="s4-chip2" class="s4-chip card">
-            <img src="assets/img/avatar-sanjay.png" alt="" style="width: 44px; height: 44px; border-radius: 50%" />
-            <div class="col"><span class="k">Owner</span><span class="v">Sanjay · MMT</span></div>
-          </div>
-          <div id="s4-chip3" class="s4-chip card">
-            <div class="pill-icon"><svg viewBox="0 0 74 54"><use href="#i-dtick" /></svg></div>
-            <div class="col"><span class="k">Campaign control</span><span class="v">Read 70.0% · Replied 60.0%</span></div>
+            <div id="wa-body">
+              <div id="wa-thread">
+                <div class="wa-day">Today</div>
+                <div class="msg in" id="m1">
+                  <p>Hi Mukesh! 👋</p>
+                  <p>As a valued customer, we’re excited to offer you exclusive discounts of up to <b>30%</b> on our latest Allen Solly collection.</p>
+                  <p>Enjoy special offers across formal wear, smart-casuals, and premium styles, curated to suit your wardrobe.</p>
+                  <p>Warm regards,<br />Sanjay – Allen Solly</p>
+                  <div class="t">10:35 AM</div>
+                </div>
+                <div class="msg out" id="m2">Hi Sanjay! Does the 30% apply to formal shirts too?<div class="t">10:41 AM <svg viewBox="0 0 18 12" fill="none" stroke="#53bdeb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5l3 3L10.5 2"/><path d="M7 9.5l.5.5L15 2"/></svg></div></div>
+                <div class="typing" id="ty1"><span></span><span></span><span></span></div>
+                <div class="msg in" id="m3"><div class="ai"><span class="spark">✦</span>AI RM · for Sanjay</div>Yes, Mukesh! 30% off covers all formal shirts. Shall I share a few picks in your size?<div class="t">10:41 AM</div></div>
+                <div class="msg out" id="m4">Yes please, size 40 👍<div class="t">10:42 AM <svg viewBox="0 0 18 12" fill="none" stroke="#53bdeb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5l3 3L10.5 2"/><path d="M7 9.5l.5.5L15 2"/></svg></div></div>
+                <div class="typing" id="ty2"><span></span><span></span><span></span></div>
+                <div class="msg in" id="m5"><div class="ai"><span class="spark">✦</span>AI RM · for Sanjay</div>Done! 3 picks in size 40 are ready. Your code <b>MUKESH30</b> is active till Sunday 🛍️<div class="t">10:42 AM</div></div>
+              </div>
+            </div>
+            <div id="wa-input">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+              <div class="field"></div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z" /><circle cx="12" cy="13" r="3.5" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0M12 18v3" /></svg>
+            </div>
           </div>
           <div id="s4-left">
             <div class="impact" id="s4-i1">
@@ -930,9 +1079,10 @@
       <audio id="sfx-click-4" src="assets/audio/click.mp3" data-start="10.25" data-duration="0.2" data-track-index="11" data-volume="0.55"></audio>
       <audio id="sfx-click-5" src="assets/audio/click.mp3" data-start="11.0" data-duration="0.2" data-track-index="11" data-volume="0.55"></audio>
       <audio id="sfx-whoosh-3" src="assets/audio/whoosh.mp3" data-start="11.6" data-duration="0.6" data-track-index="12" data-volume="0.55"></audio>
-      <audio id="sfx-pop-3" src="assets/audio/pop.mp3" data-start="12.3" data-duration="0.3" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx-pop-3" src="assets/audio/pop.mp3" data-start="12.65" data-duration="0.3" data-track-index="11" data-volume="0.5"></audio>
       <audio id="sfx-pop-4" src="assets/audio/pop.mp3" data-start="13.4" data-duration="0.3" data-track-index="11" data-volume="0.5"></audio>
-      <audio id="sfx-pop-5" src="assets/audio/pop.mp3" data-start="14.5" data-duration="0.3" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx-pop-5" src="assets/audio/pop.mp3" data-start="14.0" data-duration="0.3" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx-pop-6" src="assets/audio/pop.mp3" data-start="14.75" data-duration="0.3" data-track-index="13" data-volume="0.5"></audio>
       <audio id="sfx-impact" src="assets/audio/impact.mp3" data-start="15.95" data-duration="1.2" data-track-index="12" data-volume="0.7"></audio>
       <audio id="sfx-click-6" src="assets/audio/click.mp3" data-start="18.35" data-duration="0.2" data-track-index="11" data-volume="0.7"></audio>
       <audio id="sfx-ding-2" src="assets/audio/ding.mp3" data-start="18.4" data-duration="0.9" data-track-index="13" data-volume="0.35"></audio>
@@ -941,40 +1091,31 @@
     <script>
       // ---------- data-driven UI (deterministic) ----------
       const AGENTS = [
-        ["Priya", "PS", "#a8532f", "+91 98201 •• 412"],
-        ["Arjun", "AK", "#2f5ea8", "+91 99302 •• 118"],
-        ["Neha", "NR", "#6a3fa3", "+91 98113 •• 907"],
-        ["Rohan", "RM", "#1f6e64", "+91 97690 •• 233"],
-        ["Sanjay", "", "", "+91 98330 •• 561"],
-        ["Kavya", "KI", "#a13a62", "+91 99870 •• 046"],
-        ["Vikram", "VS", "#86661b", "+91 98455 •• 780"],
-        ["Ananya", "AD", "#2a7443", "+91 97021 •• 395"],
-        ["Rahul", "RG", "#3d4aa8", "+91 98712 •• 652"],
-        ["Meera", "MJ", "#874727", "+91 99204 •• 871"],
-        ["Kabir", "KB", "#22617f", "+91 98190 •• 524"],
-        ["Isha", "IT", "#7a3690", "+91 97733 •• 160"],
-        ["Aditya", "AV", "#356a28", "+91 98922 •• 307"],
-        ["Pooja", "PN", "#a33f3f", "+91 99671 •• 849"],
-        ["Dev", "DS", "#3d5a7e", "+91 98067 •• 215"],
-        ["Tara", "TK", "#5c4a98", "+91 97418 •• 932"],
-        ["Nikhil", "NP", "#85591a", "+91 98345 •• 678"],
-        ["Riya", "RA", "#1d6c78", "+91 99045 •• 503"],
+        ["Priya", "priya.jpg", "+91 98201 •• 412"],
+        ["Arjun", "arjun.jpg", "+91 99302 •• 118"],
+        ["Meera", "meera.jpg", "+91 98113 •• 907"],
+        ["Rohan", "rohan.jpg", "+91 97690 •• 233"],
+        ["Sanjay", "sanjay.png", "+91 98330 •• 561"],
+        ["Kavya", "kavya.jpg", "+91 99870 •• 046"],
+        ["Vikram", "vikram.jpg", "+91 98455 •• 780"],
+        ["Ananya", "ananya.jpg", "+91 97021 •• 395"],
+        ["Rahul", "rahul.jpg", "+91 98712 •• 652"],
+        ["Neha", "neha.jpg", "+91 99204 •• 871"],
+        ["Kabir", "kabir.jpg", "+91 98190 •• 524"],
+        ["Aditya", "aditya.jpg", "+91 98922 •• 307"],
       ];
       const verified = '<svg class="verified" viewBox="0 0 24 24"><use href="#i-verified"/></svg>';
-      const avatarHtml = (a) =>
-        a[1]
-          ? `<div class="avatar" style="background:${a[2]}">${a[1]}</div>`
-          : `<div class="avatar"><img src="assets/img/avatar-sanjay.png" alt=""/></div>`;
+      const avatarHtml = (a) => `<div class="avatar"><img src="assets/img/reps/${a[1]}" alt=""/></div>`;
       const grid = document.getElementById("s2-grid");
       grid.innerHTML = AGENTS.map(
         (a, i) =>
-          `<div class="agent card${a[1] ? "" : " hero"}" id="s2-a${i}">${avatarHtml(a)}<div class="meta"><span class="name">${a[0]} - MMT ${verified}</span><span class="num">${a[3]}</span></div></div>`,
+          `<div class="agent card${a[0] === "Sanjay" ? " hero" : ""}" id="s2-a${i}">${avatarHtml(a)}<div class="meta"><span class="name">${a[0]} - MMT ${verified}</span><span class="num">${a[2]}</span></div></div>`,
       ).join("");
 
-      const WABAS = [AGENTS[0], AGENTS[4], AGENTS[1], AGENTS[5], AGENTS[2]];
+      const WABAS = [AGENTS[0], AGENTS[4], AGENTS[1], AGENTS[5], AGENTS[3]];
       document.getElementById("s3-wabas").innerHTML = WABAS.map(
         (a, i) =>
-          `<div class="waba card" id="s3-w${i}">${avatarHtml(a)}<div><div class="name">${a[0]} - MMT ${verified}</div><div class="num">${a[3]}</div></div><span class="live"></span></div>`,
+          `<div class="waba card" id="s3-w${i}">${avatarHtml(a)}<div><div class="name">${a[0]} - MMT ${verified}</div><div class="num">${a[2]}</div></div><span class="live"></span></div>`,
       ).join("");
 
       // connectors: from right edge of each WABA chip to panel's left edge
@@ -986,6 +1127,9 @@
           x1 = 1170;
         return `<path id="s3-l${i}" d="M${x0} ${y} C ${x0 + 60} ${y}, ${x1 - 60} ${hubY + (i - 2) * 30}, ${x1} ${hubY + (i - 2) * 30}" fill="none" stroke="#2bb673" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 10"/>`;
       }).join("");
+
+      // chat scroll offsets (px) after each new message lands
+      const SCROLL = [0, 0, 0, 60];
 
       // ---------- timeline ----------
       const tl = gsap.timeline({ paused: true });
@@ -1003,8 +1147,8 @@
 
       // ===== S1 =====
       tl.fromTo("#s1-frags", { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.out" }, 0);
-      tl.fromTo("#s1-frag-card", { y: 60, rotation: -8, filter: "blur(2px)" }, { y: 0, rotation: -5, duration: 4, ease: "power2.out" }, 0);
-      tl.fromTo("#s1-frag-chat", { y: -50, rotation: 7, filter: "blur(2px)" }, { y: 0, rotation: 4, duration: 4, ease: "power2.out" }, 0);
+      tl.fromTo("#s1-frag-card", { y: 60, filter: "blur(2px)" }, { y: 0, duration: 4, ease: "power2.out" }, 0);
+      tl.fromTo("#s1-frag-chat", { y: -50, filter: "blur(2px)" }, { y: 0, duration: 4, ease: "power2.out" }, 0);
       tl.fromTo("#s1-chip-a", { opacity: 0, y: 20 }, { opacity: 0.85, y: 0, duration: 0.7, ease: E }, 0.5);
       tl.fromTo("#s1-chip-b", { opacity: 0, y: 20 }, { opacity: 0.85, y: 0, duration: 0.7, ease: E }, 0.8);
       tl.set(["#s1-frag-card", "#s1-frag-chat"], { opacity: 0.55 }, 0);
@@ -1041,15 +1185,15 @@
         const col = i % 3,
           row = Math.floor(i / 3);
         const dx = (col - 1) * 90 + ((i * 37) % 50) - 25;
-        const dy = (row - 2.5) * 70 + ((i * 53) % 40) - 20;
+        const dy = (row - 1.5) * 70 + ((i * 53) % 40) - 20;
         tl.fromTo(
           `#s2-a${i}`,
           { opacity: 0, x: dx, y: dy, scale: 0.85 },
           { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.7, ease: "back.out(1.4)" },
-          4.15 + ((i * 7) % 18) * 0.035,
+          4.15 + ((i * 7) % 12) * 0.045,
         );
       });
-      tl.fromTo("#s2-grid", { y: 150 }, { y: 50, duration: 4.2, ease: "power1.inOut" }, 4.0);
+      tl.fromTo("#s2-grid", { y: 270 }, { y: 220, duration: 4.2, ease: "power1.inOut" }, 4.0);
       tl.fromTo("#s2-a4", { boxShadow: "0 0 0 0 rgba(43,182,115,0)" }, { boxShadow: "0 0 0 10px rgba(43,182,115,0.18)", duration: 0.5, ease: E }, 5.6);
       tl.fromTo("#s2-badge", { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 6.1);
       // exit: slide left + blur
@@ -1080,18 +1224,38 @@
 
       // ===== S4 =====
       tl.fromTo("#s4-inner", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 11.9);
-      tl.fromTo("#s4-phone", { opacity: 0, y: 80, rotation: 3 }, { opacity: 1, y: 0, rotation: 2, duration: 0.8, ease: E }, 11.95);
-      tl.fromTo("#s4-phone", { scale: 1 }, { scale: 1.04, duration: 4, ease: "none" }, 12.0);
+      tl.fromTo("#s4-phone", { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, 11.95);
+      // conversation: campaign → customer reply → AI RM → customer → AI RM (thread scrolls up as it grows)
+      const pop = (sel, t, origin) =>
+        tl.fromTo(sel, { opacity: 0, scale: 0.85, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.32, ease: "back.out(1.7)", transformOrigin: origin }, t);
+      const typing = (sel, t0, t1) => {
+        tl.fromTo(sel, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.2, ease: E, transformOrigin: "0% 100%" }, t0);
+        tl.fromTo(`${sel} span`, { y: 0 }, { y: -5, duration: 0.16, yoyo: true, repeat: 1, stagger: 0.08, ease: "sine.inOut" }, t0 + 0.1);
+        tl.to(sel, { opacity: 0, duration: 0.01 }, t1);
+        tl.set(sel, { display: "none" }, t1);
+      };
+      tl.set(["#ty1", "#ty2", "#m3", "#m4", "#m5"], { display: "none" }, 0);
+      tl.set(["#ty1"], { display: "flex" }, 13.0);
+      tl.set(["#ty2"], { display: "flex" }, 14.35);
+      ["#m3"].forEach((m) => tl.set(m, { display: "block" }, 13.4));
+      tl.set("#m4", { display: "block" }, 14.0);
+      tl.set("#m5", { display: "block" }, 14.75);
+      pop("#m1", 12.15, "0% 0%");
+      pop("#m2", 12.65, "100% 100%");
+      typing("#ty1", 13.0, 13.4);
+      pop("#m3", 13.4, "0% 100%");
+      pop("#m4", 14.0, "100% 100%");
+      typing("#ty2", 14.35, 14.75);
+      pop("#m5", 14.75, "0% 100%");
+      tl.fromTo("#wa-thread", { y: 0 }, { y: -SCROLL[0], duration: 0.35, ease: "power2.out" }, 12.65);
+      tl.to("#wa-thread", { y: -SCROLL[1], duration: 0.35, ease: "power2.out" }, 13.4);
+      tl.to("#wa-thread", { y: -SCROLL[2], duration: 0.35, ease: "power2.out" }, 14.0);
+      tl.to("#wa-thread", { y: -SCROLL[3], duration: 0.35, ease: "power2.out" }, 14.75);
       const impacts = ["#s4-i1", "#s4-i2", "#s4-i3"];
-      const chips = ["#s4-chip1", "#s4-chip2", "#s4-chip3"];
-      [12.2, 13.3, 14.4].forEach((t, i) => {
+      [12.2, 13.4, 14.5].forEach((t, i) => {
         tl.fromTo(impacts[i], { opacity: 0, x: -30, filter: "blur(14px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.55, ease: E }, t);
         tl.fromTo(`${impacts[i]} svg`, { scale: 0.4 }, { scale: 1, duration: 0.5, ease: "back.out(2.2)" }, t + 0.05);
-        tl.fromTo(chips[i], { opacity: 0, y: 26, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, t + 0.1);
-        if (i > 0) {
-          tl.to(impacts[i - 1], { opacity: 0.32, duration: 0.4, ease: "power1.out" }, t);
-          tl.to(chips[i - 1], { opacity: 0.55, duration: 0.4, ease: "power1.out" }, t);
-        }
+        if (i > 0) tl.to(impacts[i - 1], { opacity: 0.32, duration: 0.4, ease: "power1.out" }, t);
       });
       tl.to(["#s4-i1", "#s4-i2"], { opacity: 1, duration: 0.4, ease: "power1.out" }, 15.2);
       // exit
@@ -1099,8 +1263,8 @@
 
       // ===== S5 =====
       tl.fromTo("#s5-inner", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 15.9);
-      tl.fromTo("#s5-ui-l", { opacity: 0, y: 120, rotation: -10 }, { opacity: 0.4, y: 0, rotation: -7, duration: 1.0, ease: E }, 16.0);
-      tl.fromTo("#s5-ui-r", { opacity: 0, y: 120, rotation: 10 }, { opacity: 0.4, y: 0, rotation: 7, duration: 1.0, ease: E }, 16.1);
+      tl.fromTo("#s5-ui-l", { opacity: 0, y: 120 }, { opacity: 0.4, y: 0, duration: 1.0, ease: E }, 16.0);
+      tl.fromTo("#s5-ui-r", { opacity: 0, y: 120 }, { opacity: 0.4, y: 0, duration: 1.0, ease: E }, 16.1);
       tl.fromTo("#s5-logo", { opacity: 0, y: 20, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: E }, 16.0);
       tl.fromTo("#s5-l1", { opacity: 0, y: 50, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: E }, 16.25);
       tl.fromTo("#s5-l2", { opacity: 0, y: 50, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: E }, 17.0);
