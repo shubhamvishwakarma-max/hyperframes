@@ -46,42 +46,27 @@
   .sub { position: absolute; top: 346px; left: 64px; width: 952px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
   .sub b { color: var(--ink); font-weight: 600; }
 
-  /* ---------- night card ---------- */
-  .night { position: absolute; left: 64px; top: 484px; width: 404px; height: 322px; border-radius: 26px; background: var(--ink); color: var(--bg); padding: 26px; overflow: hidden; box-shadow: 0 30px 60px -28px rgba(19,19,22,0.5); display: flex; flex-direction: column; }
-  .night::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1.6px); background-size: 34px 34px; opacity: 0.18; }
-  .night > * { position: relative; }
+  /* ---------- night card (low fidelity) ---------- */
+  .night { position: absolute; left: 64px; top: 484px; width: 404px; height: 322px; border-radius: 24px; background: var(--ink); color: var(--bg); padding: 30px; display: flex; flex-direction: column; }
   .time-row { display: flex; align-items: center; gap: 12px; }
-  .time-row .t { white-space: nowrap; font-weight: 700; font-size: 42px; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
-  .time-row .lbl { white-space: nowrap; margin-left: auto; font-size: 14px; font-weight: 500; color: rgba(244,243,236,0.65); display: flex; align-items: center; gap: 7px; padding: 6px 11px; border-radius: 999px; background: rgba(255,255,255,0.08); }
-  .time-row .lbl i { width: 7px; height: 7px; border-radius: 50%; background: #F0564F; }
-  .bubble { margin-top: 26px; position: relative; max-width: 92%; padding: 10px 13px 9px; border-radius: 12px; border-top-left-radius: 0; background: #FFFFFF; color: #111B21; font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; font-size: 16.5px; line-height: 1.36; }
+  .time-row .t { white-space: nowrap; font-weight: 700; font-size: 40px; letter-spacing: -0.04em; }
+  .card-label { margin-top: 6px; font-size: 16px; color: rgba(244,243,236,0.6); }
+  .bubble { margin-top: auto; position: relative; padding: 14px 16px; border-radius: 14px; border-top-left-radius: 0; background: #FFFFFF; color: var(--ink); font-size: 19px; line-height: 1.35; letter-spacing: -0.01em; }
   .bubble::before { content: ""; position: absolute; left: -8px; top: 0; border-right: 8px solid #FFFFFF; border-bottom: 10px solid transparent; }
-  .bubble .meta { float: right; margin: 6px 0 -4px 10px; font-size: 11px; color: #667781; }
-  .bubble.ai { align-self: flex-end; margin-top: 10px; background: #D9FDD3; border-top-left-radius: 12px; border-top-right-radius: 0; }
-  .bubble.ai::before { left: auto; right: -8px; border-right: 0; border-left: 8px solid #D9FDD3; }
-  .bubble .sender { display: block; font-size: 12.5px; font-weight: 600; color: #007A5A; margin-bottom: 1px; }
-  .typing { margin-top: auto; display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; color: #6FD3AE; }
-  .typing .dots { display: flex; gap: 4px; padding: 9px 12px; border-radius: 999px; background: rgba(111,211,174,0.14); }
-  .typing .dots i { width: 6px; height: 6px; border-radius: 50%; background: #6FD3AE; }
-  .typing .dots i:nth-child(2) { opacity: 0.65; }
-  .typing .dots i:nth-child(3) { opacity: 0.35; }
 
   /* ---------- arrow ---------- */
-  .arrow { position: absolute; left: 474px; top: 621px; width: 48px; height: 48px; border-radius: 50%; background: var(--green); display: grid; place-items: center; box-shadow: 0 0 0 7px var(--bg), 0 10px 20px -8px rgba(0,122,90,0.6); z-index: 2; }
+  .arrow { position: absolute; left: 474px; top: 621px; width: 48px; height: 48px; border-radius: 50%; background: var(--green); display: grid; place-items: center; box-shadow: 0 0 0 7px var(--bg); z-index: 2; }
 
-  /* ---------- morning lead card ---------- */
-  .lead { position: absolute; left: 528px; top: 484px; width: 488px; height: 322px; border-radius: 26px; background: var(--card); border: 2px solid var(--green); padding: 24px 26px; box-shadow: 0 30px 60px -30px rgba(0,122,90,0.45); }
+  /* ---------- morning lead card (low fidelity) ---------- */
+  .lead { position: absolute; left: 528px; top: 484px; width: 488px; height: 322px; border-radius: 24px; background: var(--card); border: 2px solid var(--green); padding: 30px; display: flex; flex-direction: column; }
   .lead-head { display: flex; align-items: center; gap: 12px; }
-  .lead-head .t { font-weight: 700; font-size: 30px; letter-spacing: -0.035em; }
-  .lead-head .sm { font-size: 15px; color: var(--ink-2); font-weight: 500; }
-  .badge { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; background: var(--green); padding: 6px 11px; border-radius: 999px; }
-  .fields { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .f { background: #F6F6F1; border-radius: 14px; padding: 11px 14px; }
-  .f .k { font-size: 12.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-2); display: flex; align-items: center; gap: 6px; }
-  .f .v { margin-top: 3px; font-size: 19px; font-weight: 600; letter-spacing: -0.02em; display: flex; align-items: center; gap: 7px; }
-  .f .v svg { flex: none; }
-  .lead-foot { margin-top: 16px; padding-top: 14px; border-top: 1px dashed rgba(19,19,22,0.14); display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--ink-2); }
-  .lead-foot b { color: var(--ink); font-weight: 600; }
+  .lead-head .t { font-weight: 700; font-size: 40px; letter-spacing: -0.04em; }
+  .badge { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 600; color: var(--green); background: var(--green-tint); padding: 7px 13px; border-radius: 999px; }
+  .lead .card-label { color: var(--ink-2); }
+  .rows { margin-top: auto; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; border-top: 1px solid rgba(19,19,22,0.09); font-size: 19px; }
+  .row .k { color: var(--ink-2); }
+  .row .v { font-weight: 600; letter-spacing: -0.01em; }
 
   /* ---------- footer ---------- */
   .footer { position: absolute; left: 64px; bottom: 180px; display: flex; align-items: center; }
@@ -110,13 +95,11 @@
   <!-- night-time enquiry -->
   <div class="night">
     <div class="time-row">
-      <svg width="34" height="34" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" fill="#F2B544"/></svg>
+      <svg width="32" height="32" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" fill="#F2B544"/></svg>
       <span class="t">11:47 PM</span>
-      <span class="lbl"><i></i>Offline</span>
     </div>
-    <div class="bubble">Hi, planning a family trip to Georgia in March. Can you help?<span class="meta">11:47 pm</span></div>
-    <div class="bubble ai"><span class="sender">DoubleTick AI</span>Of course! 👋 Your dates, number of travellers and budget?<span class="meta">11:47 pm</span></div>
-    <div class="typing"><span class="dots"><i></i><i></i><i></i></span>Qualifying lead for your team…</div>
+    <div class="card-label">New WhatsApp enquiry</div>
+    <div class="bubble">Hi, planning a family trip to Georgia in March. Can you help?</div>
   </div>
 
   <div class="arrow"><svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -124,20 +107,16 @@
   <!-- morning lead card -->
   <div class="lead">
     <div class="lead-head">
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" fill="#F2B544"/><g stroke="#F2B544" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
-      <div>
-        <div class="t">9:00 AM</div>
-        <div class="sm">New lead, ready for your team</div>
-      </div>
-      <span class="badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Qualified</span>
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" fill="#F2B544"/><g stroke="#F2B544" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+      <span class="t">9:00 AM</span>
+      <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Qualified lead</span>
     </div>
-    <div class="fields">
-      <div class="f"><div class="k">Destination</div><div class="v">Georgia</div></div>
-      <div class="f"><div class="k">Dates</div><div class="v">12–18 Mar</div></div>
-      <div class="f"><div class="k">Travellers</div><div class="v">2 adults, 2 kids</div></div>
-      <div class="f"><div class="k">Budget</div><div class="v">AED 15,000</div></div>
+    <div class="card-label">Ready for your sales team</div>
+    <div class="rows">
+      <div class="row"><span class="k">Destination</span><span class="v">Georgia</span></div>
+      <div class="row"><span class="k">Dates</span><span class="v">12–18 Mar</span></div>
+      <div class="row"><span class="k">Budget</span><span class="v">AED 15,000</span></div>
     </div>
-    <div class="lead-foot"><span>Source: <b>WhatsApp</b></span><span>Assigned to <b>Sales team</b></span></div>
   </div>
 
   <!-- footer -->
