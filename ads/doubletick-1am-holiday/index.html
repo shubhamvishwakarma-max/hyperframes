@@ -44,13 +44,13 @@
   /* ---------- copy ---------- */
   .headline { isolation: isolate; position: absolute; top: 180px; left: 64px; width: 952px; font-weight: 700; font-size: 80px; line-height: 1.04; letter-spacing: -0.045em; }
   .headline .muted { color: var(--ink-2); font-weight: 600; }
-  .headline .hl { color: var(--green); white-space: nowrap; }
+  .headline .hl { color: var(--green); }
   .sub { position: absolute; top: 368px; left: 64px; width: 900px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
   .sub b { color: var(--ink); font-weight: 600; }
 
   /* ---------- WhatsApp messages ---------- */
-  .wa-msgs { position: absolute; left: 64px; top: 468px; width: 540px; height: 350px; display: flex; flex-direction: column; justify-content: center; gap: 10px; font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; }
-  .b { position: relative; max-width: 82%; padding: 7px 10px 9px 12px; border-radius: 10px; font-size: 17px; line-height: 1.35; color: #111B21; box-shadow: 0 1px 1px rgba(11,20,26,0.12), 0 8px 18px -12px rgba(11,20,26,0.25); }
+  .wa-msgs { position: absolute; left: 64px; top: 468px; width: 540px; height: 350px; display: flex; flex-direction: column; justify-content: center; gap: 8px; font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; }
+  .b { position: relative; max-width: 86%; padding: 7px 10px 9px 12px; border-radius: 10px; font-size: 17px; line-height: 1.35; color: #111B21; box-shadow: 0 1px 1px rgba(11,20,26,0.12), 0 8px 18px -12px rgba(11,20,26,0.25); }
   .b .meta { float: right; margin: 7px 0 -4px 12px; font-size: 11.5px; color: #667781; display: inline-flex; align-items: center; gap: 3px; }
   .b .sender { display: block; font-size: 13px; font-weight: 600; color: #007A5A; margin-bottom: 1px; }
   .b.in { align-self: flex-start; background: #FFFFFF; border-top-left-radius: 0; }
@@ -85,16 +85,16 @@
 
   <!-- copy -->
   <h1 class="headline">
-    <span class="muted">Your office closes.</span> But travel enquiries <span class="hl">don't.</span>
+    Your office closes. <span class="hl">But travel enquiries don't.</span>
   </h1>
   <p class="sub"><b>DoubleTick Agentic AI</b> answers travel questions <b>24/7</b>, captures trip requirements and hands <b>qualified leads</b> to your sales team on WhatsApp.</p>
 
   <!-- WhatsApp messages: traveller (white, left) / DoubleTick AI (green, right) -->
   <div class="wa-msgs">
-    <div class="b in">Hi! Maldives packages for December? 🏝️<span class="meta">1:00 am</span></div>
-    <div class="b out"><span class="sender">DoubleTick AI</span>Hi! 👋 Sure, I can help. What's your budget per person and travel dates?<span class="meta">1:00 am <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg></span></div>
-    <div class="b in">AED 6,000 per person, 18–24 Dec<span class="meta">1:01 am</span></div>
-    <div class="b out"><span class="sender">DoubleTick AI</span>Perfect! ✅ Our travel consultant will share the best options with you.<span class="meta">1:01 am <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg></span></div>
+    <div class="b in">Hi! Maldives for 2 in Dec? Budget AED&nbsp;12k 🏝️<span class="meta">1:00 am</span></div>
+    <div class="b out"><span class="sender">DoubleTick AI</span>Found 3 overwater villas for 18–24 Dec under AED&nbsp;12k, incl. flights from DXB ✈️ Shall I hold one?<span class="meta">1:00 am <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg></span></div>
+    <div class="b in">Yes please! Can someone call me tomorrow?<span class="meta">1:01 am</span></div>
+    <div class="b out"><span class="sender">DoubleTick AI</span>Done ✅ Villa held for 24 hrs. Sara, your travel expert, will call you at 10 AM with the full itinerary.<span class="meta">1:01 am <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg></span></div>
   </div>
 
   <!-- bot -->
