@@ -45,11 +45,11 @@
   .headline { isolation: isolate; position: absolute; top: 180px; left: 64px; width: 950px; font-weight: 700; font-size: 64px; line-height: 1.04; letter-spacing: -0.045em; }
   .headline .muted { color: var(--ink-2); font-weight: 600; }
   .headline .hl { color: var(--green); white-space: nowrap; }
-  .sub { position: absolute; top: 398px; left: 64px; width: 900px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub { position: absolute; top: 398px; left: 64px; width: 640px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
   .sub b { color: var(--ink); font-weight: 600; }
 
   /* ---------- WhatsApp messages ---------- */
-  .wa-msgs { position: absolute; left: 64px; top: 502px; width: 600px; height: 320px; display: flex; flex-direction: column; justify-content: center; gap: 10px; font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; }
+  .wa-msgs { position: absolute; left: 64px; top: 516px; width: 610px; height: 306px; display: flex; flex-direction: column; justify-content: center; gap: 10px; font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; }
   .b { position: relative; max-width: 82%; padding: 7px 10px 9px 12px; border-radius: 10px; font-size: 17px; line-height: 1.35; color: #111B21; box-shadow: 0 1px 1px rgba(11,20,26,0.12), 0 8px 18px -12px rgba(11,20,26,0.25); }
   .b .meta { float: right; margin: 7px 0 -4px 12px; font-size: 11.5px; color: #667781; display: inline-flex; align-items: center; gap: 3px; }
   .b .sender { display: block; font-size: 13px; font-weight: 600; color: #007A5A; margin-bottom: 1px; }
@@ -59,7 +59,7 @@
   .b.out::before { content: ""; position: absolute; right: -8px; top: 0; border-left: 8px solid #D9FDD3; border-bottom: 10px solid transparent; }
 
   /* ---------- bot ---------- */
-  .bot { position: absolute; right: 0; bottom: 180px; width: 470px; height: 470px; object-fit: contain; mix-blend-mode: multiply; }
+  .bot { position: absolute; right: 40px; top: 420px; height: 480px; width: auto; -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%); }
 
   /* ---------- footer ---------- */
   .footer { position: absolute; left: 64px; bottom: 180px; display: flex; align-items: center; }
@@ -98,7 +98,7 @@
   </div>
 
   <!-- bot -->
-  <img class="bot" src="bot.png" alt="" onerror="this.style.display='none'" />
+  <img class="bot" src="bot.png" alt="" />
 
   <!-- footer -->
   <div class="footer">
