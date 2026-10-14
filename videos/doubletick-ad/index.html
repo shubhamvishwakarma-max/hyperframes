@@ -1,0 +1,2129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>DoubleTick — Scale Every Conversation</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        src: url("assets/fonts/hedvig-letters-serif-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist-sans-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist-sans-latin-500-normal.woff2") format("woff2");
+        font-weight: 500;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist-sans-latin-600-normal.woff2") format("woff2");
+        font-weight: 600;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist-sans-latin-700-normal.woff2") format("woff2");
+        font-weight: 700;
+      }
+      :root {
+        --bg: #f4f3ec;
+        --surface: #ffffff;
+        --ink: #151b18;
+        --ink-2: #3c4642;
+        --muted: #5b6662;
+        --line: #e3e2da;
+        --line-2: #ecebe4;
+        --green: #27b378;
+        --green-ink: #12784e;
+        --green-soft: #e3f5ec;
+        --green-bubble: #d9fdd3;
+        --wa-bg: #efe9e1;
+        --dark: #111a20;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      body {
+        font-family: "Geist", sans-serif;
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+      .abs {
+        position: absolute;
+      }
+      .serif {
+        font-family: "Hedvig Letters Serif", serif;
+        font-weight: 400;
+      }
+      .g {
+        color: var(--green-ink);
+      }
+
+      /* ---------- background ---------- */
+      #bg-glow-a,
+      #bg-glow-b {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      #bg-glow-a {
+        width: 900px;
+        height: 900px;
+        left: -260px;
+        top: -320px;
+        background: radial-gradient(circle, rgba(39, 179, 120, 0.13), rgba(39, 179, 120, 0) 65%);
+      }
+      #bg-glow-b {
+        width: 1000px;
+        height: 1000px;
+        right: -380px;
+        bottom: -420px;
+        background: radial-gradient(circle, rgba(39, 179, 120, 0.1), rgba(39, 179, 120, 0) 65%);
+      }
+      #bg-dots {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(21, 27, 24, 0.07) 1.2px, transparent 1.2px);
+        background-size: 36px 36px;
+      }
+
+      /* ---------- header logo ---------- */
+      #hdr-wrap {
+        position: absolute;
+        left: 0;
+        top: 44px;
+        width: 1080px;
+        height: 34px;
+        display: flex;
+        justify-content: center;
+      }
+      #hdr {
+        display: block;
+        width: 266px;
+        height: 34px;
+        transform-origin: 50% 50%;
+      }
+      #hdr img {
+        display: block;
+        width: 266px;
+        height: auto;
+      }
+
+      /* ---------- headlines ---------- */
+      .hl {
+        position: absolute;
+        left: 60px;
+        width: 960px;
+        bottom: 66px;
+        text-align: center;
+        font-family: "Hedvig Letters Serif", serif;
+        font-size: 60px;
+        line-height: 1.12;
+        letter-spacing: -0.015em;
+        color: var(--ink);
+        opacity: 0;
+      }
+      .hl .line {
+        display: block;
+      }
+      .eyebrow {
+        font-family: "Geist", sans-serif;
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--green-ink);
+      }
+
+      /* ---------- generic UI ---------- */
+      .card {
+        position: absolute;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow:
+          0 1px 2px rgba(21, 27, 24, 0.04),
+          0 18px 40px -18px rgba(21, 27, 24, 0.18);
+        overflow: hidden;
+      }
+      .ava {
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        flex: none;
+      }
+      .bub {
+        position: relative;
+        max-width: 82%;
+        padding: 10px 14px 18px;
+        border-radius: 12px;
+        font-size: 17px;
+        line-height: 1.35;
+        color: var(--ink);
+        background: #fff;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+      }
+      .bub.out {
+        background: var(--green-bubble);
+        align-self: flex-end;
+      }
+      .bub .tm {
+        position: absolute;
+        right: 10px;
+        bottom: 4px;
+        font-size: 11px;
+        color: #4f5c57;
+      }
+      .bub .who {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--green-ink);
+        margin-bottom: 3px;
+      }
+      .wa-head {
+        height: 64px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 18px;
+        background: #fff;
+        border-bottom: 1px solid var(--line-2);
+      }
+      .wa-head .nm {
+        font-size: 18px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .wa-head .sub {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .vbadge {
+        width: 17px;
+        height: 17px;
+        border-radius: 50%;
+        background: var(--green);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .wa-body {
+        background: var(--wa-bg);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 16px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 6px 12px;
+      }
+      .pill.green {
+        background: var(--green-soft);
+        color: var(--green-ink);
+      }
+      .skel {
+        height: 10px;
+        border-radius: 6px;
+        background: #ebeae4;
+      }
+
+      /* ---------- scene 1 ---------- */
+      .numcard {
+        position: absolute;
+        width: 176px;
+        height: 66px;
+        border-radius: 16px;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: 0 10px 24px -16px rgba(21, 27, 24, 0.25);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 12px;
+      }
+      .numcard .ic {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      .numcard .n {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ink);
+        white-space: nowrap;
+      }
+      .numcard .s {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 2px;
+        white-space: nowrap;
+      }
+      #inbox {
+        left: 70px;
+        top: 190px;
+        width: 940px;
+        height: 590px;
+        display: flex;
+      }
+      #inbox .side {
+        width: 206px;
+        border-right: 1px solid var(--line-2);
+        padding: 20px 16px;
+        background: #fbfbf8;
+      }
+      #inbox .side h4 {
+        font-size: 19px;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+      .sitem {
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+        color: var(--ink-2);
+        padding: 8px 10px;
+        border-radius: 9px;
+      }
+      .sitem.on {
+        background: var(--green-soft);
+        color: var(--green-ink);
+        font-weight: 600;
+      }
+      .sitem b {
+        font-weight: 600;
+      }
+      .flab {
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 16px 0 6px 4px;
+      }
+      .fsel {
+        font-size: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 7px 10px;
+        color: var(--ink-2);
+        background: #fff;
+      }
+      #inbox .list {
+        width: 268px;
+        border-right: 1px solid var(--line-2);
+      }
+      #inbox .list .lh {
+        padding: 18px 16px 10px;
+        font-size: 17px;
+        font-weight: 600;
+      }
+      .tabs {
+        display: flex;
+        gap: 6px;
+        padding: 0 14px 12px;
+        border-bottom: 1px solid var(--line-2);
+      }
+      .tabs span {
+        font-size: 12px;
+        padding: 4px 9px;
+        border-radius: 7px;
+        color: var(--muted);
+        background: #f4f4f0;
+        white-space: nowrap;
+      }
+      .tabs span.on {
+        background: var(--green-soft);
+        color: var(--green-ink);
+        font-weight: 600;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        border-bottom: 1px solid #f2f1ec;
+        position: relative;
+      }
+      .row .t1 {
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .row .t2 {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 3px;
+        white-space: nowrap;
+      }
+      .row .badge {
+        margin-left: auto;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--green);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #inbox .chat {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      #inbox .chat .ch {
+        height: 58px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 18px;
+        border-bottom: 1px solid var(--line-2);
+        font-size: 16px;
+        font-weight: 600;
+      }
+      #inbox .chat .ch .asg {
+        margin-left: auto;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ink-2);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 5px 10px;
+      }
+      #inbox .wa-body {
+        flex: 1;
+      }
+      .sys {
+        align-self: center;
+        font-size: 12px;
+        color: var(--ink-2);
+        background: #fff7d9;
+        padding: 5px 12px;
+        border-radius: 8px;
+      }
+      .composer {
+        height: 58px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 14px;
+        border-top: 1px solid var(--line-2);
+        font-size: 14px;
+        color: var(--muted);
+        background: #fff;
+      }
+      .composer .send {
+        margin-left: auto;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #s1-expand {
+        left: 277px;
+        top: 302px;
+        width: 266px;
+        height: 64px;
+        border-radius: 14px;
+        background: #fff;
+        border: 2px solid var(--green);
+        box-shadow: 0 18px 40px -14px rgba(39, 179, 120, 0.45);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 12px;
+        opacity: 0;
+      }
+
+      /* ---------- scene 2 ---------- */
+      #steps {
+        position: absolute;
+        left: 0;
+        width: 1080px;
+        top: 862px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+      #steps .st {
+        width: 64px;
+        height: 5px;
+        border-radius: 3px;
+        background: #dcdbd2;
+        overflow: hidden;
+      }
+      #steps .st i {
+        display: block;
+        width: 64px;
+        height: 5px;
+        background: var(--green);
+        transform-origin: 0 50%;
+        transform: scaleX(0);
+      }
+      #tpl {
+        left: 300px;
+        top: 230px;
+        width: 480px;
+        padding: 24px 26px;
+      }
+      .tplhead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      .tplhead .k {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .tpltext {
+        font-size: 22px;
+        line-height: 1.5;
+        color: var(--ink);
+      }
+      .tok {
+        display: inline-block;
+        padding: 0 8px;
+        border-radius: 7px;
+        background: var(--green-soft);
+        color: var(--green-ink);
+        font-weight: 600;
+      }
+      .pmsg {
+        left: 560px;
+        width: 450px;
+        padding: 0;
+        border-radius: 18px;
+      }
+      .pmsg .wa-head {
+        height: 54px;
+      }
+      .pmsg .wa-body {
+        padding: 12px 14px 14px;
+      }
+      .pmsg .bub {
+        max-width: 100%;
+        font-size: 16px;
+      }
+      #fbad {
+        left: 80px;
+        top: 186px;
+        width: 400px;
+      }
+      .fbtop {
+        height: 54px;
+        display: flex;
+        align-items: center;
+        padding: 0 18px;
+        border-bottom: 1px solid var(--line-2);
+        font-weight: 700;
+        font-size: 26px;
+        color: #1877f2;
+        letter-spacing: -0.02em;
+      }
+      .fbpost {
+        padding: 14px 18px 10px;
+      }
+      .fbpost .who {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .fbpost .who small {
+        display: block;
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--muted);
+      }
+      .fbpost p {
+        font-size: 17px;
+        line-height: 1.35;
+        margin-top: 10px;
+      }
+      #fbad .photo {
+        display: block;
+        width: 400px;
+        height: 262px;
+        object-fit: cover;
+      }
+      .fbcta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 18px;
+        background: #f7f7f4;
+      }
+      .wabtn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--green);
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 9px 16px;
+        border-radius: 9px;
+      }
+      .fbcta .shop {
+        font-size: 14px;
+        color: var(--ink-2);
+        font-weight: 600;
+      }
+      #cursor {
+        left: 150px;
+        top: 760px;
+        width: 40px;
+        height: 46px;
+      }
+      #leadphone {
+        left: 580px;
+        top: 170px;
+        width: 420px;
+        height: 640px;
+        display: flex;
+        flex-direction: column;
+      }
+      #leadphone .wa-body {
+        flex: 1;
+      }
+      .refcard {
+        display: flex;
+        gap: 10px;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        padding: 8px;
+        margin-bottom: 8px;
+      }
+      .refcard img {
+        width: 64px;
+        height: 64px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+      .refcard div {
+        font-size: 13px;
+        line-height: 1.3;
+        color: var(--ink-2);
+      }
+      #leadinbox {
+        left: 80px;
+        top: 236px;
+        width: 400px;
+      }
+      .lihead {
+        padding: 18px 18px 12px;
+        font-size: 17px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 1px solid var(--line-2);
+      }
+      .tag {
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 6px;
+        padding: 3px 8px;
+        background: var(--green-soft);
+        color: var(--green-ink);
+        white-space: nowrap;
+      }
+      #toast {
+        left: 600px;
+        top: 120px;
+        width: 380px;
+        height: 58px;
+        border-radius: 14px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 17px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 18px;
+        box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.35);
+        opacity: 0;
+      }
+      #toast .ok {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #fu-phone {
+        left: 380px;
+        top: 168px;
+        width: 560px;
+        height: 650px;
+        display: flex;
+        flex-direction: column;
+      }
+      #fu-phone .wa-body {
+        flex: 1;
+        gap: 14px;
+      }
+      .autochip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--green-ink);
+        background: #fff;
+        border-radius: 999px;
+        padding: 3px 9px;
+        margin-bottom: 6px;
+      }
+      #fu-rail {
+        left: 120px;
+        top: 230px;
+        width: 230px;
+        height: 520px;
+      }
+      #fu-line {
+        position: absolute;
+        left: 17px;
+        top: 20px;
+        width: 2px;
+        height: 440px;
+        background: #cfd8d3;
+        transform-origin: 50% 0;
+      }
+      .fu-step {
+        position: absolute;
+        left: 0;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        opacity: 0;
+      }
+      .fu-step .dot {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--green-ink);
+      }
+      .fu-step .lab {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .fu-step .lab small {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      #crm-chat {
+        left: 60px;
+        top: 230px;
+        width: 400px;
+        height: 470px;
+        display: flex;
+        flex-direction: column;
+      }
+      #crm-chat .wa-body {
+        flex: 1;
+      }
+      #crm {
+        left: 590px;
+        top: 200px;
+        width: 430px;
+        height: 530px;
+      }
+      .crmbar {
+        height: 50px;
+        background: #0f3f6e;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 18px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .crmtitle {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 20px 12px;
+      }
+      .crmtitle .ic {
+        width: 40px;
+        height: 40px;
+        border-radius: 9px;
+        background: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .crmtitle .t {
+        font-size: 22px;
+        font-weight: 600;
+        color: #0b5cab;
+      }
+      .crmtitle small {
+        display: block;
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .fgrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px 18px;
+        padding: 10px 20px 0;
+      }
+      .fgrid .f {
+        border-bottom: 1px solid var(--line-2);
+        padding-bottom: 8px;
+      }
+      .fgrid .f span {
+        display: block;
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 3px;
+      }
+      .fgrid .f b {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .fgrid .f.hi b {
+        color: var(--green-ink);
+      }
+      #link-svg {
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1080px;
+        overflow: visible;
+      }
+      #syncpill {
+        left: 470px;
+        top: 432px;
+        opacity: 0;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: 0 8px 20px -10px rgba(21, 27, 24, 0.3);
+      }
+
+      /* ---------- scene 3 ---------- */
+      .callcard {
+        background: var(--dark);
+        border-radius: 32px;
+        color: #fff;
+        overflow: hidden;
+        box-shadow: 0 30px 60px -24px rgba(17, 26, 32, 0.55);
+      }
+      #call {
+        left: 120px;
+        top: 160px;
+        width: 360px;
+        height: 650px;
+      }
+      .callcard .top {
+        text-align: center;
+        padding-top: 28px;
+      }
+      .callcard .top .k {
+        font-size: 15px;
+        color: #c9d2d6;
+      }
+      .callcard .top .k2 {
+        font-size: 12px;
+        color: #a7b3b8;
+        margin-top: 3px;
+      }
+      .callcard .name {
+        text-align: center;
+        font-size: 24px;
+        font-weight: 600;
+        margin-top: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .callcard .role {
+        text-align: center;
+        font-size: 15px;
+        color: #b9c4c8;
+        margin-top: 4px;
+      }
+      .callava {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 34px auto 0;
+        background: #f1efe9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .ring {
+        position: absolute;
+        inset: -14px;
+        border-radius: 50%;
+        border: 2px solid rgba(39, 179, 120, 0.55);
+      }
+      .wave {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        height: 70px;
+      }
+      .wave i {
+        display: block;
+        width: 5px;
+        height: 60px;
+        border-radius: 3px;
+        background: var(--green);
+        transform-origin: 50% 50%;
+      }
+      .ctrls {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 34px;
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+      }
+      .ctrls span {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: #26323a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ctrls span.end {
+        background: #e5384f;
+      }
+      #group {
+        left: 530px;
+        top: 200px;
+        width: 450px;
+        height: 560px;
+        display: flex;
+        flex-direction: column;
+      }
+      .ginfo {
+        text-align: center;
+        padding: 26px 20px 18px;
+        border-bottom: 1px solid var(--line-2);
+      }
+      .gava {
+        width: 84px;
+        height: 84px;
+        margin: 0 auto 12px;
+        border-radius: 50%;
+        background: #e6e5df;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ginfo .t {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .ginfo .s {
+        font-size: 14px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+      .glink {
+        margin-top: 14px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        font-size: 14px;
+        background: #f3f8f6;
+        border-radius: 10px;
+        padding: 9px 12px;
+      }
+      .glink a {
+        color: #0b74c9;
+        text-decoration: none;
+      }
+      .glink b {
+        color: var(--green-ink);
+      }
+      #group .wa-body {
+        flex: 1;
+      }
+      #track {
+        left: 90px;
+        top: 300px;
+        width: 900px;
+        height: 500px;
+      }
+      .trtabs {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--line-2);
+      }
+      .trtabs span {
+        font-size: 13px;
+        padding: 6px 11px;
+        border-radius: 7px;
+        color: var(--muted);
+        border: 1px solid var(--line-2);
+      }
+      .trtabs span.on {
+        background: var(--green-soft);
+        color: var(--green-ink);
+        border-color: transparent;
+        font-weight: 600;
+      }
+      .trtabs .r {
+        margin-left: auto;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink-2);
+      }
+      .legend {
+        display: flex;
+        gap: 18px;
+        justify-content: center;
+        font-size: 13px;
+        color: var(--ink-2);
+      }
+      .legend i {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        margin-right: 6px;
+      }
+      table.tr {
+        width: 860px;
+        margin: 6px 20px 0;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      table.tr th {
+        text-align: left;
+        font-weight: 600;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 8px 10px;
+        background: #f7f7f3;
+      }
+      table.tr td {
+        padding: 9px 10px;
+        border-bottom: 1px solid var(--line-2);
+        color: var(--ink);
+      }
+      .tchips {
+        position: absolute;
+        left: 0;
+        width: 1080px;
+        top: 168px;
+        display: flex;
+        justify-content: center;
+        gap: 22px;
+      }
+      .tchip {
+        width: 286px;
+        height: 82px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 18px;
+        box-shadow: 0 12px 26px -18px rgba(21, 27, 24, 0.3);
+      }
+      .tchip .ic {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--green-soft);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .tchip .t {
+        white-space: nowrap;
+        font-size: 21px;
+        font-weight: 600;
+      }
+      .tchip .s {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      #ai-chat {
+        left: 60px;
+        top: 200px;
+        width: 470px;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+      }
+      #ai-chat .wa-body {
+        flex: 1;
+      }
+      #ai-voice {
+        left: 560px;
+        top: 200px;
+        width: 460px;
+        height: 600px;
+      }
+      .aitag {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        z-index: 3;
+      }
+      .live {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: #fff;
+        background: var(--green);
+        border-radius: 999px;
+        padding: 6px 12px;
+        box-shadow: 0 0 0 0 rgba(39, 179, 120, 0.5);
+      }
+      .live i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #fff;
+        display: block;
+      }
+      .aihead {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--line-2);
+      }
+      .aihead .t {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .aihead .s {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .typing {
+        display: flex;
+        gap: 5px;
+        padding: 12px 14px;
+        background: #fff;
+        border-radius: 12px;
+        width: 70px;
+      }
+      .typing i {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #9aa6a1;
+        display: block;
+      }
+      #agentimg {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+      }
+      #ai-glow {
+        left: 540px;
+        top: 180px;
+        width: 500px;
+        height: 640px;
+        border-radius: 40px;
+        background: radial-gradient(closest-side, rgba(39, 179, 120, 0.35), rgba(39, 179, 120, 0));
+        opacity: 0;
+      }
+      #ai-glow2 {
+        left: 40px;
+        top: 180px;
+        width: 510px;
+        height: 640px;
+        border-radius: 40px;
+        background: radial-gradient(closest-side, rgba(39, 179, 120, 0.3), rgba(39, 179, 120, 0));
+        opacity: 0;
+      }
+      .hl .livepill {
+        display: inline-block;
+        font-family: "Geist", sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        vertical-align: middle;
+        color: #fff;
+        background: var(--green-ink);
+        border-radius: 999px;
+        padding: 6px 16px 6px 14px;
+        margin-left: 12px;
+        position: relative;
+        top: -6px;
+      }
+
+      /* ---------- scene 4 ---------- */
+      #trust-eyebrow {
+        left: 0;
+        width: 1080px;
+        top: 250px;
+        text-align: center;
+      }
+      #trust-title {
+        left: 0;
+        width: 1080px;
+        top: 290px;
+        text-align: center;
+        font-size: 50px;
+        color: var(--ink);
+      }
+      .lslot {
+        position: absolute;
+        width: 300px;
+        height: 170px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .lslot img {
+        display: block;
+        max-width: 230px;
+        max-height: 92px;
+        width: auto;
+        height: auto;
+      }
+      .lslot img.tall {
+        max-height: 140px;
+      }
+      .lslot .nm {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      .ldiv {
+        position: absolute;
+        background: var(--line);
+      }
+
+      /* ---------- scene 5 ---------- */
+      #mmt {
+        left: 290px;
+        top: 360px;
+        width: 500px;
+        height: 170px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #mmt img {
+        display: block;
+        width: 440px;
+        height: auto;
+      }
+      #cs-eyebrow {
+        left: 0;
+        width: 1080px;
+        top: 300px;
+        text-align: center;
+        opacity: 0;
+      }
+      .metric {
+        position: absolute;
+        left: 0;
+        width: 1080px;
+        top: 360px;
+        text-align: center;
+        opacity: 0;
+      }
+      .metric .num {
+        font-family: "Hedvig Letters Serif", serif;
+        font-size: 210px;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+      }
+      .metric .num .acc {
+        color: var(--green-ink);
+      }
+      .metric .lab {
+        font-size: 34px;
+        font-weight: 500;
+        color: var(--ink-2);
+        margin-top: 14px;
+      }
+      #mrow {
+        left: 70px;
+        top: 380px;
+        width: 940px;
+        height: 230px;
+        display: flex;
+      }
+      .mcol {
+        flex: 1;
+        text-align: center;
+        position: relative;
+        opacity: 0;
+      }
+      .mcol .num {
+        font-family: "Hedvig Letters Serif", serif;
+        font-size: 96px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+      .mcol .lab {
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--ink-2);
+        margin-top: 14px;
+      }
+      .mdiv {
+        position: absolute;
+        top: 20px;
+        width: 1px;
+        height: 150px;
+        background: var(--line);
+      }
+      #cluster {
+        left: 0;
+        top: 640px;
+        width: 1080px;
+        height: 360px;
+      }
+      .pf {
+        position: absolute;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        box-shadow: 0 6px 14px -8px rgba(21, 27, 24, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      #hub {
+        position: absolute;
+        left: 490px;
+        top: 230px;
+        width: 100px;
+        height: 100px;
+        border-radius: 28px;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: 0 16px 34px -16px rgba(39, 179, 120, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #ctrl-label {
+        left: 0;
+        width: 1080px;
+        top: 650px;
+        text-align: center;
+        opacity: 0;
+      }
+
+      /* ---------- end card ---------- */
+      #end-title {
+        left: 60px;
+        width: 960px;
+        top: 590px;
+        text-align: center;
+        font-size: 64px;
+        line-height: 1.12;
+        letter-spacing: -0.015em;
+      }
+      #end-rule {
+        left: 470px;
+        top: 556px;
+        width: 140px;
+        height: 3px;
+        border-radius: 2px;
+        background: var(--green);
+        transform-origin: 50% 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute">
+      <defs>
+        <symbol id="i-wa" viewBox="0 0 24 24">
+          <path
+            fill="#fff"
+            d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.8 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"
+          />
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24">
+          <path fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.4 4.4L19 7.5" />
+        </symbol>
+        <symbol id="i-send" viewBox="0 0 24 24">
+          <path fill="#fff" d="M3 11.3 20.2 3.6c.6-.3 1.2.3.9.9L13.4 21.7c-.3.6-1.1.5-1.2-.1l-1.6-7.2-7.4-1.8c-.6-.1-.7-.9-.2-1.3Z" />
+        </symbol>
+        <symbol id="i-abc" viewBox="0 0 64 64">
+          <path fill="#151b18" d="M8 46 26 14h7L18 46Zm14 0 14-24h7l-8 14h12l4 10h-7l-2-5H33l-3 5Z" />
+        </symbol>
+        <symbol id="i-group" viewBox="0 0 24 24">
+          <path fill="#8b9692" d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.5 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2 19c0-3.3 3.1-5.5 7-5.5s7 2.2 7 5.5v1H2Zm14.6-5.3c2.9.2 5.4 1.9 5.4 4.8V20h-4.5v-1c0-2-.9-3.9-2.6-5Z" />
+        </symbol>
+        <symbol id="i-hash" viewBox="0 0 24 24">
+          <path fill="none" stroke="#12784e" stroke-width="2" stroke-linecap="round" d="M8 3 6 21M18 3l-2 18M3.5 8.5h17M2.5 15.5h17" />
+        </symbol>
+        <symbol id="i-user" viewBox="0 0 24 24">
+          <path fill="#12784e" d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-8 9c0-4 3.6-7 8-7s8 3 8 7v1H4Z" />
+        </symbol>
+        <symbol id="i-mega" viewBox="0 0 24 24">
+          <path fill="#12784e" d="M3 10v4c0 .6.4 1 1 1h2l4 5h2l-2-5h1l9 4V5l-9 4H4c-.6 0-1 .4-1 1Z" />
+        </symbol>
+        <symbol id="i-bot" viewBox="0 0 24 24">
+          <path fill="#fff" d="M11 2h2v3h4a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-3l-2 3-2-3H7a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h4Zm-2 8.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z" />
+        </symbol>
+        <symbol id="i-lead" viewBox="0 0 24 24">
+          <path fill="#fff" d="M4 4h16v4H4Zm0 6h10v4H4Zm0 6h16v4H4Z" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <div id="root" data-composition-id="main" data-start="0" data-duration="41" data-width="1080" data-height="1080">
+      <!-- ============ AUDIO ============ -->
+      <audio id="vo" src="assets/audio/voiceover.mp3" data-start="0" data-duration="38.69" data-track-index="20" data-volume="1"></audio>
+      <audio id="bgm" src="assets/audio/bgm.mp3" data-start="0" data-duration="41" data-track-index="21" data-volume="0.16"></audio>
+
+      <!-- ============ BACKGROUND (persistent) ============ -->
+      <div id="bg" class="clip" data-start="0" data-duration="41" data-track-index="0">
+        <div id="bg-dots"></div>
+        <div id="bg-glow-a"></div>
+        <div id="bg-glow-b"></div>
+      </div>
+
+      <!-- ============ SCENE 1 — One governed inbox ============ -->
+      <section id="s1" class="clip" data-start="0" data-duration="6.0" data-track-index="1">
+        <div id="s1-cards"></div>
+        <div id="inbox" class="card">
+          <div class="side">
+            <h4>Inbox</h4>
+            <div class="sitem on"><span>All</span><b>2,143</b></div>
+            <div class="sitem"><span>Unread</span><b>1,502</b></div>
+            <div class="sitem"><span>Awaiting reply</span><b>1,185</b></div>
+            <div class="sitem"><span>Resolved</span><b>4,846</b></div>
+            <div class="sitem"><span>Expired</span><b>460</b></div>
+            <div class="flab">Assigned to</div>
+            <div class="fsel">Deepak S.</div>
+            <div class="flab">WABA</div>
+            <div class="fsel">All numbers</div>
+          </div>
+          <div class="list">
+            <div class="lh">All Chats</div>
+            <div class="tabs"><span class="on">All</span><span>Needs attention</span><span>Hot lead</span></div>
+            <div class="row" id="s1-row-a">
+              <div class="ava" style="width: 38px; height: 38px; background: #e9e4fb; color: #5b45c4">D</div>
+              <div><div class="t1">Customer</div><div class="t2">Budget is moderate.</div></div>
+              <div class="badge">2</div>
+            </div>
+            <div class="row">
+              <div class="ava" style="width: 38px; height: 38px; background: #fbe3ef; color: #b33a76">G</div>
+              <div><div class="t1">Group Name</div><div class="t2">Deepak: Hi! I would love…</div></div>
+              <div class="badge">5</div>
+            </div>
+            <div class="row"><div class="ava" style="width: 38px; height: 38px; background: #f3ecdf; color: #9a6a1c">S</div><div style="flex: 1"><div class="skel" style="width: 110px"></div><div class="skel" style="width: 160px; margin-top: 8px"></div></div></div>
+            <div class="row"><div class="ava" style="width: 38px; height: 38px; background: #e3f5ec; color: #12784e">M</div><div style="flex: 1"><div class="skel" style="width: 90px"></div><div class="skel" style="width: 150px; margin-top: 8px"></div></div></div>
+            <div class="row"><div class="ava" style="width: 38px; height: 38px; background: #e6eef8; color: #2b5c9a">T</div><div style="flex: 1"><div class="skel" style="width: 120px"></div><div class="skel" style="width: 140px; margin-top: 8px"></div></div></div>
+            <div class="row"><div class="ava" style="width: 38px; height: 38px; background: #fbe8e3; color: #b0482c">P</div><div style="flex: 1"><div class="skel" style="width: 100px"></div><div class="skel" style="width: 170px; margin-top: 8px"></div></div></div>
+          </div>
+          <div class="chat">
+            <div class="ch">
+              <div class="ava" style="width: 32px; height: 32px; background: #e9e4fb; color: #5b45c4; font-size: 14px">D</div>
+              Customer
+              <span class="asg">Deepak S.</span>
+            </div>
+            <div class="wa-body">
+              <div class="bub">Hi, I'm planning to travel next month. Can you help me with some options?<span class="tm">10:02</span></div>
+              <div class="sys">Chat assigned to Amar Sharma (Sales)</div>
+              <div class="bub out"><span class="who">Amar Sharma (Sales)</span>Hi! This is Amar Sharma, your travel consultant. I'd be happy to help you plan your trip.<span class="tm">10:03</span></div>
+              <div class="bub">We are 2 adults planning to visit Dubai in April for 5 days. Budget is moderate.<span class="tm">10:05</span></div>
+            </div>
+            <div class="composer">Type a message to send<span class="send"><svg width="18" height="18"><use href="#i-send" /></svg></span></div>
+          </div>
+        </div>
+        <div id="s1-expand" class="abs" data-layout-allow-overlap>
+          <div class="ava" style="width: 38px; height: 38px; background: #e9e4fb; color: #5b45c4">D</div>
+          <div><div class="row-t1" style="font-size: 15px; font-weight: 600">Customer</div><div style="font-size: 13px; color: var(--muted); margin-top: 3px">Budget is moderate.</div></div>
+        </div>
+        <h2 id="hl-1" class="hl"><span class="line"><span class="g" id="hl1-num">1,000+</span> WhatsApp Numbers.</span><span class="line" id="hl1-b"><span class="g">One Governed Inbox.</span></span></h2>
+      </section>
+
+      <!-- ============ SCENE 2 — Personalise, leads, automation, CRM ============ -->
+      <section id="s2" class="clip" data-start="5.2" data-duration="8.6" data-track-index="2">
+        <!-- 2a personalise -->
+        <div id="tpl" class="card">
+          <div class="tplhead"><span class="k">Template · trip_offer</span><span class="pill green">Approved</span></div>
+          <div class="tpltext">Hi <span class="tok">{{name}}</span>, this is Amar Sharma, your travel consultant. Your <span class="tok">{{destination}}</span> plan is ready to review.</div>
+        </div>
+        <div id="pm-1" class="card pmsg" style="top: 186px">
+          <div class="wa-head"><div class="ava" style="width: 32px; height: 32px; background: #e9e4fb; color: #5b45c4; font-size: 14px">D</div><div class="nm" style="font-size: 16px">Deepak</div></div>
+          <div class="wa-body"><div class="bub out">Hi <b>Deepak</b>, this is Amar Sharma, your travel consultant. Your <b>Dubai</b> plan is ready to review.<span class="tm">10:30 ✓✓</span></div></div>
+        </div>
+        <div id="pm-2" class="card pmsg" style="top: 396px">
+          <div class="wa-head"><div class="ava" style="width: 32px; height: 32px; background: #fbe3ef; color: #b33a76; font-size: 14px">P</div><div class="nm" style="font-size: 16px">Priya</div></div>
+          <div class="wa-body"><div class="bub out">Hi <b>Priya</b>, this is Amar Sharma, your travel consultant. Your <b>Bali</b> plan is ready to review.<span class="tm">10:30 ✓✓</span></div></div>
+        </div>
+        <div id="pm-3" class="card pmsg" style="top: 606px">
+          <div class="wa-head"><div class="ava" style="width: 32px; height: 32px; background: #e6eef8; color: #2b5c9a; font-size: 14px">R</div><div class="nm" style="font-size: 16px">Rahul</div></div>
+          <div class="wa-body"><div class="bub out">Hi <b>Rahul</b>, this is Amar Sharma, your travel consultant. Your <b>Goa</b> plan is ready to review.<span class="tm">10:30 ✓✓</span></div></div>
+        </div>
+
+        <!-- 2b capture lead -->
+        <div id="fbad" class="card">
+          <div class="fbtop">facebook</div>
+          <div class="fbpost">
+            <div class="who"><div class="ava" style="width: 36px; height: 36px; background: #f1efe9"><svg width="26" height="26"><use href="#i-abc" /></svg></div><div>ABC Enterprise<small>Sponsored</small></div></div>
+            <p>Buy 2 Get Extra 10% Off — Shop ABC Enterprise on WhatsApp</p>
+          </div>
+          <img class="photo" src="assets/ui/ad-photo.png" alt="" />
+          <div class="fbcta"><div class="wabtn" id="wabtn"><svg width="18" height="18"><use href="#i-wa" /></svg>WhatsApp</div><div class="shop">Shop ABC Enterprise</div></div>
+        </div>
+        <svg id="cursor" class="abs" viewBox="0 0 40 46"><path d="M4 3v34l9-8 6 13 6-3-6-12h12Z" fill="#151b18" stroke="#fff" stroke-width="2.5" stroke-linejoin="round" /></svg>
+        <div id="leadphone" class="card">
+          <div class="wa-head">
+            <div class="ava" style="width: 38px; height: 38px; background: #f1efe9"><svg width="28" height="28"><use href="#i-abc" /></svg></div>
+            <div><div class="nm">ABC Enterprise <span class="vbadge"><svg width="11" height="11"><use href="#i-check" /></svg></span></div><div class="sub">Business account</div></div>
+          </div>
+          <div class="wa-body">
+            <div class="bub out" id="lead-msg" style="max-width: 88%">
+              <div class="refcard"><img src="assets/ui/ad-photo.png" alt="" /><div><b>ABC Enterprise · Ad</b><br />Buy 2 Get Extra 10% Off — Shop on WhatsApp</div></div>
+              Hi, I am interested in this post and would like to know more.<span class="tm">11:42</span>
+            </div>
+            <div class="bub" id="lead-reply">Thanks for reaching out to ABC Enterprise! Could you share your size and preferred colour?<span class="tm">11:42</span></div>
+          </div>
+        </div>
+        <div id="leadinbox" class="card">
+          <div class="lihead">All Chats <span class="tag" style="margin-left: auto">Click-to-WhatsApp</span></div>
+          <div class="row" id="lead-row" style="background: #f3fbf7">
+            <div class="ava" style="width: 40px; height: 40px; background: #e3f5ec; color: #12784e">R</div>
+            <div><div class="t1">Rohan Mehta</div><div class="t2">Interested in this post…</div></div>
+            <span class="tag" style="margin-left: auto">New lead</span>
+          </div>
+          <div class="row"><div class="ava" style="width: 40px; height: 40px; background: #e9e4fb; color: #5b45c4">D</div><div><div class="t1">Customer</div><div class="t2">Budget is moderate.</div></div></div>
+          <div class="row"><div class="ava" style="width: 40px; height: 40px; background: #fbe3ef; color: #b33a76">G</div><div><div class="t1">Group Name</div><div class="t2">Deepak: Hi! I would love…</div></div></div>
+          <div class="row"><div class="ava" style="width: 40px; height: 40px; background: #f3ecdf; color: #9a6a1c">S</div><div style="flex: 1"><div class="skel" style="width: 110px"></div><div class="skel" style="width: 170px; margin-top: 8px"></div></div></div>
+        </div>
+        <div id="toast" class="abs"><span class="ok"><svg width="16" height="16"><use href="#i-check" /></svg></span>Lead captured from ad</div>
+
+        <!-- 2c follow-ups -->
+        <div id="fu-rail" class="abs">
+          <div id="fu-line"></div>
+          <div class="fu-step" id="fu-s1" style="top: 26px"><span class="dot">D0</span><span class="lab">Day 0<small>Lead enquiry</small></span></div>
+          <div class="fu-step" id="fu-s2" style="top: 206px"><span class="dot">D1</span><span class="lab">Day 1<small>Auto follow-up</small></span></div>
+          <div class="fu-step" id="fu-s3" style="top: 386px"><span class="dot">D3</span><span class="lab">Day 3<small>Auto reminder</small></span></div>
+        </div>
+        <div id="fu-phone" class="card">
+          <div class="wa-head">
+            <div class="ava" style="width: 38px; height: 38px; background: #e3f5ec; color: #12784e">R</div>
+            <div><div class="nm">Rohan Mehta</div><div class="sub">Click-to-WhatsApp lead</div></div>
+          </div>
+          <div class="wa-body">
+            <div class="bub" id="fu-b1">Hi, I am interested in this post and would like to know more.<span class="tm">Mon 11:42</span></div>
+            <div class="bub out" id="fu-b2"><span class="autochip">Automated follow-up</span><br />Hi Rohan! Still thinking it over? Your Buy 2 offer is saved — reply YES to see sizes.<span class="tm">Tue 10:00 ✓✓</span></div>
+            <div class="bub out" id="fu-b3"><span class="autochip">Automated reminder</span><br />Last day for the extra 10% off. Want us to reserve your picks?<span class="tm">Thu 10:00 ✓✓</span></div>
+            <div class="bub" id="fu-b4">Yes, please share the sizes.<span class="tm">Thu 10:04</span></div>
+          </div>
+        </div>
+
+        <!-- 2d CRM -->
+        <div id="crm-chat" class="card">
+          <div class="wa-head">
+            <div class="ava" style="width: 38px; height: 38px; background: #e3f5ec; color: #12784e">R</div>
+            <div><div class="nm">Rohan Mehta</div><div class="sub">+91 98201 44318</div></div>
+          </div>
+          <div class="wa-body">
+            <div class="bub">Sounds good. How long will it take?<span class="tm">12:10</span></div>
+            <div class="bub out"><span class="who">Amar Sharma (Sales)</span>Just 15–20 minutes. I'll make sure it's smooth and hassle-free. Shall I book it for you?<span class="tm">12:11 ✓✓</span></div>
+            <div class="bub">Yes, lets do it.<span class="tm">12:12</span></div>
+          </div>
+        </div>
+        <div id="crm" class="card">
+          <div class="crmbar">
+            <svg width="18" height="18" viewBox="0 0 18 18"><g fill="#fff"><circle cx="3" cy="3" r="1.6" /><circle cx="9" cy="3" r="1.6" /><circle cx="15" cy="3" r="1.6" /><circle cx="3" cy="9" r="1.6" /><circle cx="9" cy="9" r="1.6" /><circle cx="15" cy="9" r="1.6" /><circle cx="3" cy="15" r="1.6" /><circle cx="9" cy="15" r="1.6" /><circle cx="15" cy="15" r="1.6" /></g></svg>
+            Marketing CRM Cloud
+          </div>
+          <div class="crmtitle"><span class="ic"><svg width="20" height="20"><use href="#i-lead" /></svg></span><div><small>Lead</small><span class="t">New Lead</span></div><span class="tag" style="margin-left: auto" id="crm-tag">Synced via DoubleTick</span></div>
+          <div class="fgrid">
+            <div class="f"><span>Name</span><b>Rohan Mehta</b></div>
+            <div class="f"><span>Title</span><b>Senior Marketing Manager</b></div>
+            <div class="f"><span>Company</span><b>ABC Private Limited</b></div>
+            <div class="f"><span>Phone</span><b>+91 98201 44318</b></div>
+            <div class="f hi" id="crm-f1"><span>Lead source</span><b>WhatsApp · Ad</b></div>
+            <div class="f"><span>Location</span><b>Bengaluru</b></div>
+            <div class="f hi" id="crm-f2"><span>Last message</span><b>Yes, lets do it.</b></div>
+            <div class="f hi" id="crm-f3"><span>Owner</span><b>Amar Sharma</b></div>
+          </div>
+        </div>
+        <svg id="link-svg" class="abs" viewBox="0 0 1080 1080">
+          <path id="link-path" d="M460 465 C 520 465, 530 465, 590 465" fill="none" stroke="#27b378" stroke-width="3" stroke-linecap="round" />
+          <circle id="link-a" cx="460" cy="465" r="7" fill="#27b378" />
+          <circle id="link-b" cx="590" cy="465" r="7" fill="#27b378" />
+        </svg>
+        <div id="syncpill" class="pill green abs" style="background: #fff">Synced</div>
+
+        <div id="steps"><span class="st"><i id="st1"></i></span><span class="st"><i id="st2"></i></span><span class="st"><i id="st3"></i></span><span class="st"><i id="st4"></i></span></div>
+        <h2 id="hl-2a" class="hl">Personalise <span class="g">at Scale</span></h2>
+        <h2 id="hl-2b" class="hl">Capture <span class="g">Every Lead</span></h2>
+        <h2 id="hl-2c" class="hl">Automate <span class="g">Follow-ups</span></h2>
+        <h2 id="hl-2d" class="hl">Connect <span class="g">Your CRM</span></h2>
+      </section>
+
+      <!-- ============ SCENE 3 — Calls, groups, tracking, AI ============ -->
+      <section id="s3" class="clip" data-start="13.1" data-duration="10.9" data-track-index="3">
+        <div id="s3-wave" class="abs wave" style="left: 0; width: 1080px; top: 430px"></div>
+        <div id="call" class="card callcard">
+          <div class="top"><div class="k">Customer</div><div class="k2">WhatsApp voice call</div></div>
+          <div class="name">ABC Enterprise <span class="vbadge"><svg width="11" height="11"><use href="#i-check" /></svg></span></div>
+          <div class="role" id="call-timer">Connected · 00:12</div>
+          <div class="callava"><span class="ring" id="call-ring"></span><svg width="96" height="96"><use href="#i-abc" /></svg></div>
+          <div class="wave" id="call-wave" style="margin-top: 44px"></div>
+          <div class="ctrls"><span><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2" fill="#fff" /><circle cx="12" cy="12" r="2" fill="#fff" /><circle cx="19" cy="12" r="2" fill="#fff" /></svg></span><span><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2" fill="#fff" /><path d="M17 10l4-3v10l-4-3Z" fill="#fff" /></svg></span><span><svg width="20" height="20" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4Z" fill="#fff" /></svg></span><span class="end"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M3 14c5-5 13-5 18 0l-2 3-4-2v-2a10 10 0 0 0-6 0v2l-4 2Z" fill="#fff" /></svg></span></div>
+        </div>
+        <div id="group" class="card">
+          <div class="ginfo">
+            <div class="gava"><svg width="46" height="46"><use href="#i-group" /></svg></div>
+            <div class="t">Amar Sharma created this group</div>
+            <div class="s">3 members · Created 2 hours ago</div>
+            <div class="glink"><a>chat.whatsapp.com/doubletick…</a><b>Copy</b></div>
+          </div>
+          <div class="wa-body">
+            <div class="bub out" id="g-b1"><span class="who">Amar Sharma</span>Welcome! Sharing your Dubai itinerary here.<span class="tm">14:02</span></div>
+            <div class="bub" id="g-b2"><span class="who" style="color: #b33a76">Deepak</span>Thanks! Adding my wife to the group.<span class="tm">14:03</span></div>
+          </div>
+        </div>
+
+        <div class="tchips">
+          <div class="tchip" id="tc1"><span class="ic"><svg width="22" height="22"><use href="#i-hash" /></svg></span><div><div class="t">Every Number</div><div class="s">All WABA numbers</div></div></div>
+          <div class="tchip" id="tc2"><span class="ic"><svg width="22" height="22"><use href="#i-user" /></svg></span><div><div class="t">Every Agent</div><div class="s">Assignments &amp; SLAs</div></div></div>
+          <div class="tchip" id="tc3"><span class="ic"><svg width="22" height="22"><use href="#i-mega" /></svg></span><div><div class="t">Every Campaign</div><div class="s">Sent, read, replied</div></div></div>
+        </div>
+        <svg id="tc-links" class="abs" style="left: 0; top: 0; width: 1080px; height: 1080px" viewBox="0 0 1080 1080">
+          <path id="tl1" d="M242 252 L242 276 Q242 296 284 296 L540 296 L540 300" fill="none" stroke="#27b378" stroke-width="2.5" />
+          <path id="tl2" d="M540 252 L540 300" fill="none" stroke="#27b378" stroke-width="2.5" />
+          <path id="tl3" d="M838 252 L838 276 Q838 296 796 296 L540 296 L540 300" fill="none" stroke="#27b378" stroke-width="2.5" />
+        </svg>
+        <div id="track" class="card">
+          <div class="trtabs"><span>Custom</span><span>Today</span><span>Yesterday</span><span>7D</span><span class="on">30D</span><span class="r">Segmentation: Team members</span></div>
+          <svg id="chart" width="900" height="210" viewBox="0 0 900 210">
+            <g stroke="#ecebe4" stroke-width="1"><line x1="50" y1="30" x2="870" y2="30" /><line x1="50" y1="80" x2="870" y2="80" /><line x1="50" y1="130" x2="870" y2="130" /><line x1="50" y1="180" x2="870" y2="180" /></g>
+            <g font-family="Geist" font-size="12" fill="#5b6662"><text x="30" y="34">15</text><text x="30" y="84">10</text><text x="34" y="134">5</text><text x="34" y="184">0</text></g>
+            <path id="ln-o" d="M60 96 L196 88 L332 80 L468 74 L604 70 L740 62 L860 52" fill="none" stroke="#e8913a" stroke-width="3" stroke-linecap="round" />
+            <path id="ln-g" d="M60 128 L196 116 L332 108 L468 104 L604 100 L740 94 L860 84" fill="none" stroke="#27b378" stroke-width="3" stroke-linecap="round" />
+            <path id="ln-p" d="M60 140 L196 152 L332 150 L468 132 L604 108 L740 104 L860 132" fill="none" stroke="#8a63d2" stroke-width="3" stroke-linecap="round" />
+          </svg>
+          <div class="legend"><span><i style="background: #27b378"></i>Active chats</span><span><i style="background: #e8913a"></i>Chats opened</span><span><i style="background: #8a63d2"></i>Chats assigned</span></div>
+          <table class="tr">
+            <tr><th>Type</th><th>13 Aug</th><th>14 Aug</th><th>15 Aug</th><th>16 Aug</th></tr>
+            <tr><td>Active chats</td><td>35</td><td>40</td><td>38</td><td>59</td></tr>
+            <tr><td>Chats opened</td><td>18</td><td>40</td><td>50</td><td>65</td></tr>
+          </table>
+        </div>
+
+        <div id="ai-glow2" class="abs"></div>
+        <div id="ai-glow" class="abs"></div>
+        <div id="ai-chat" class="card">
+          <div class="aitag"><span class="live" id="live-1"><i></i>LIVE</span></div>
+          <div class="aihead"><div class="ava" style="width: 42px; height: 42px; background: var(--green)"><svg width="24" height="24"><use href="#i-bot" /></svg></div><div><div class="t">AI Agent — Chat</div><div class="s">ABC Enterprise · 24/7</div></div></div>
+          <div class="wa-body">
+            <div class="bub" id="ai-c1">Do you have Dubai packages for April?<span class="tm">21:14</span></div>
+            <div class="typing" id="ai-typing"><i></i><i></i><i></i></div>
+            <div class="bub out" id="ai-c2"><span class="who">AI Agent</span>Yes! 5-day Dubai packages for April are available. Shall I share three options within your budget?<span class="tm">21:14 ✓✓</span></div>
+            <div class="bub" id="ai-c3">Yes please.<span class="tm">21:15</span></div>
+          </div>
+        </div>
+        <div id="ai-voice" class="card callcard">
+          <div class="aitag"><span class="live" id="live-2"><i></i>LIVE</span></div>
+          <div class="top"><div class="k">Customer</div><div class="k2">WhatsApp voice call</div></div>
+          <div class="name">Sameer Malhotra <span class="vbadge"><svg width="11" height="11"><use href="#i-check" /></svg></span></div>
+          <div class="role">AI Agent — Voice</div>
+          <div class="callava" style="background: #fff"><span class="ring" id="ai-ring"></span><img id="agentimg" src="assets/ui/agent.png" alt="" /></div>
+          <div class="wave" id="ai-wave" style="margin-top: 40px"></div>
+          <div class="ctrls"><span><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2" fill="#fff" /><circle cx="12" cy="12" r="2" fill="#fff" /><circle cx="19" cy="12" r="2" fill="#fff" /></svg></span><span><svg width="20" height="20" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4Z" fill="#fff" /></svg></span><span class="end"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M3 14c5-5 13-5 18 0l-2 3-4-2v-2a10 10 0 0 0-6 0v2l-4 2Z" fill="#fff" /></svg></span></div>
+        </div>
+
+        <h2 id="hl-3a" class="hl">WhatsApp <span class="g">Calls + Groups</span></h2>
+        <h2 id="hl-3b" class="hl"><span class="line"><span class="w" id="w1">Track Every</span> <span class="w g" id="w2">Number.</span></span><span class="line"><span class="w g" id="w3">Agent.</span> <span class="w g" id="w4">Campaign.</span></span></h2>
+        <h2 id="hl-3c" class="hl">AI Agents for <span class="g">Chat + Voice</span><span class="livepill" id="hl-live">LIVE</span></h2>
+      </section>
+
+      <!-- ============ SCENE 4 — Trusted by ============ -->
+      <section id="s4" class="clip" data-start="23.5" data-duration="5.6" data-track-index="4">
+        <div id="trust-eyebrow" class="abs eyebrow">Trusted by leading brands</div>
+        <div id="trust-title" class="abs serif">Enterprise teams run on <span class="g">DoubleTick</span></div>
+        <div class="lslot" id="ls-nissan" style="left: 90px; top: 430px"><img class="tall" src="assets/brand/logo-nissan.png" alt="Nissan" /></div>
+        <div class="lslot" id="ls-navi" style="left: 390px; top: 430px"><img src="assets/brand/logo-navi.png" alt="Navi" /></div>
+        <div class="lslot" id="ls-shaadi" style="left: 690px; top: 430px"><img src="assets/brand/logo-shaadi.png" alt="Shaadi.com" /></div>
+        <div class="lslot" id="ls-justdial" style="left: 240px; top: 660px"><img src="assets/brand/logo-justdial.png" alt="Justdial" /></div>
+        <div class="lslot" id="ls-sobha" style="left: 540px; top: 660px"><img src="assets/brand/logo-sobha.png" alt="Sobha" /></div>
+        <div class="ldiv" id="ld-h" style="left: 140px; top: 628px; width: 800px; height: 1px"></div>
+      </section>
+
+      <!-- ============ SCENE 5 — MakeMyTrip ============ -->
+      <section id="s5" class="clip" data-start="28.3" data-duration="10.5" data-track-index="5">
+        <div id="cs-eyebrow" class="abs eyebrow">Customer story</div>
+        <div id="mmt" class="abs"><img src="assets/brand/logo-makemytrip.png" alt="MakeMyTrip" /></div>
+        <div class="metric" id="m1"><div class="num"><span id="m1-n">0</span><span class="acc">+</span></div><div class="lab">Agents Enabled</div></div>
+        <div class="metric" id="m2"><div class="num"><span id="m2-n">0</span><span class="acc">%</span></div><div class="lab">Higher Efficiency</div></div>
+        <div class="metric" id="m3"><div class="num"><span id="m3-n">0</span><span class="acc">%</span></div><div class="lab">More Revenue</div></div>
+        <div id="mrow" class="abs">
+          <div class="mcol" id="mc1"><div class="num">1,500<span class="g">+</span></div><div class="lab">Agents Enabled</div></div>
+          <div class="mcol" id="mc2"><div class="num">30<span class="g">%</span></div><div class="lab">Higher Efficiency</div></div>
+          <div class="mcol" id="mc3"><div class="num">10<span class="g">%</span></div><div class="lab">More Revenue</div></div>
+          <span class="mdiv" style="left: 313px" id="md1"></span><span class="mdiv" style="left: 626px" id="md2"></span>
+        </div>
+        <div id="cluster" class="abs">
+          <svg id="cl-lines" width="1080" height="360" viewBox="0 0 1080 360" style="position: absolute; left: 0; top: 0"></svg>
+          <div id="cl-pf"></div>
+          <div id="hub"><div style="width: 74px; height: 40px; overflow: hidden"><img src="assets/brand/logo-doubletick.png" alt="" style="display: block; height: 40px; width: auto" /></div></div>
+        </div>
+      </section>
+
+      <!-- ============ END CARD ============ -->
+      <section id="s6" class="clip" data-start="38.4" data-duration="2.6" data-track-index="6">
+        <div id="end-rule" class="abs"></div>
+        <h2 id="end-title" class="abs serif"><span class="line" style="display: block">Scale Every Conversation.</span><span class="line g" style="display: block">Stay in Control.</span></h2>
+      </section>
+
+      <!-- ============ HEADER LOGO (persistent, top centre) ============ -->
+      <div id="hdr-clip" class="clip" data-start="0" data-duration="41" data-track-index="10" style="pointer-events: none">
+        <div id="hdr-wrap"><div id="hdr"><img src="assets/brand/logo-doubletick.png" alt="DoubleTick" /></div></div>
+      </div>
+
+      <!-- ============ SFX ============ -->
+      <audio id="sfx-w1" src="assets/audio/whoosh.wav" data-start="0.9" data-duration="0.7" data-track-index="22" data-volume="0.35"></audio>
+      <audio id="sfx-p1" src="assets/audio/pop.wav" data-start="1.25" data-duration="0.25" data-track-index="23" data-volume="0.3"></audio>
+      <audio id="sfx-m1" src="assets/audio/merge.wav" data-start="4.05" data-duration="0.9" data-track-index="22" data-volume="0.55"></audio>
+      <audio id="sfx-w2" src="assets/audio/whoosh.wav" data-start="5.2" data-duration="0.7" data-track-index="23" data-volume="0.3"></audio>
+      <audio id="sfx-c1" src="assets/audio/click.wav" data-start="6.35" data-duration="0.08" data-track-index="22" data-volume="0.35"></audio>
+      <audio id="sfx-p2" src="assets/audio/pop.wav" data-start="6.5" data-duration="0.25" data-track-index="24" data-volume="0.22"></audio>
+      <audio id="sfx-p3" src="assets/audio/pop.wav" data-start="6.7" data-duration="0.25" data-track-index="23" data-volume="0.22"></audio>
+      <audio id="sfx-p4" src="assets/audio/pop.wav" data-start="6.9" data-duration="0.25" data-track-index="24" data-volume="0.22"></audio>
+      <audio id="sfx-w3" src="assets/audio/whoosh.wav" data-start="7.55" data-duration="0.7" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-c2" src="assets/audio/click.wav" data-start="8.55" data-duration="0.08" data-track-index="23" data-volume="0.45"></audio>
+      <audio id="sfx-p5" src="assets/audio/pop.wav" data-start="9.45" data-duration="0.25" data-track-index="24" data-volume="0.35"></audio>
+      <audio id="sfx-w4" src="assets/audio/whoosh.wav" data-start="10.05" data-duration="0.7" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-c3" src="assets/audio/click.wav" data-start="10.75" data-duration="0.08" data-track-index="23" data-volume="0.3"></audio>
+      <audio id="sfx-c4" src="assets/audio/click.wav" data-start="11.2" data-duration="0.08" data-track-index="24" data-volume="0.3"></audio>
+      <audio id="sfx-w5" src="assets/audio/whoosh.wav" data-start="11.6" data-duration="0.7" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-ch1" src="assets/audio/chime.wav" data-start="12.45" data-duration="1.0" data-track-index="23" data-volume="0.22"></audio>
+      <audio id="sfx-r1" src="assets/audio/ring.wav" data-start="13.7" data-duration="0.7" data-track-index="24" data-volume="0.4"></audio>
+      <audio id="sfx-p6" src="assets/audio/pop.wav" data-start="15.65" data-duration="0.25" data-track-index="22" data-volume="0.3"></audio>
+      <audio id="sfx-w6" src="assets/audio/whoosh.wav" data-start="16.5" data-duration="0.7" data-track-index="23" data-volume="0.28"></audio>
+      <audio id="sfx-c5" src="assets/audio/click.wav" data-start="17.3" data-duration="0.08" data-track-index="24" data-volume="0.35"></audio>
+      <audio id="sfx-c6" src="assets/audio/click.wav" data-start="18.05" data-duration="0.08" data-track-index="22" data-volume="0.35"></audio>
+      <audio id="sfx-c7" src="assets/audio/click.wav" data-start="18.62" data-duration="0.08" data-track-index="23" data-volume="0.35"></audio>
+      <audio id="sfx-w7" src="assets/audio/whoosh.wav" data-start="19.6" data-duration="0.7" data-track-index="24" data-volume="0.28"></audio>
+      <audio id="sfx-ch2" src="assets/audio/chime.wav" data-start="22.66" data-duration="1.4" data-track-index="22" data-volume="0.4"></audio>
+      <audio id="sfx-w8" src="assets/audio/whoosh.wav" data-start="23.35" data-duration="0.7" data-track-index="23" data-volume="0.25"></audio>
+      <audio id="sfx-l1" src="assets/audio/pop.wav" data-start="24.25" data-duration="0.25" data-track-index="24" data-volume="0.25"></audio>
+      <audio id="sfx-l2" src="assets/audio/pop.wav" data-start="25.12" data-duration="0.25" data-track-index="22" data-volume="0.25"></audio>
+      <audio id="sfx-l3" src="assets/audio/pop.wav" data-start="25.82" data-duration="0.25" data-track-index="23" data-volume="0.25"></audio>
+      <audio id="sfx-l4" src="assets/audio/pop.wav" data-start="26.99" data-duration="0.25" data-track-index="24" data-volume="0.25"></audio>
+      <audio id="sfx-l5" src="assets/audio/pop.wav" data-start="27.85" data-duration="0.25" data-track-index="22" data-volume="0.25"></audio>
+      <audio id="sfx-w9" src="assets/audio/whoosh.wav" data-start="28.3" data-duration="0.7" data-track-index="23" data-volume="0.28"></audio>
+      <audio id="sfx-k1" src="assets/audio/rise.wav" data-start="30.35" data-duration="0.6" data-track-index="24" data-volume="0.35"></audio>
+      <audio id="sfx-k2" src="assets/audio/pop.wav" data-start="32.35" data-duration="0.25" data-track-index="22" data-volume="0.3"></audio>
+      <audio id="sfx-k3" src="assets/audio/pop.wav" data-start="35.6" data-duration="0.25" data-track-index="23" data-volume="0.3"></audio>
+      <audio id="sfx-m2" src="assets/audio/merge.wav" data-start="37.15" data-duration="0.9" data-track-index="24" data-volume="0.45"></audio>
+      <audio id="sfx-ch3" src="assets/audio/chime.wav" data-start="38.55" data-duration="1.6" data-track-index="22" data-volume="0.35"></audio>
+    </div>
+
+    <script>
+      (function () {
+        // ---------- deterministic helpers ----------
+        let seed = 20261014;
+        function rnd() {
+          seed = (seed * 1664525 + 1013904223) % 4294967296;
+          return seed / 4294967296;
+        }
+        const $ = (s) => document.querySelector(s);
+
+        // ---------- build generated DOM (setup only) ----------
+        // Scene 1 number cards: 5 cols x 4 rows
+        const cardsHost = $("#s1-cards");
+        const nums = ["+91 98201 44318", "+91 99300 12876", "+91 98110 55402", "+91 97690 30011", "+91 98923 77450", "+91 90040 61239", "+91 98337 20984", "+91 99877 41120", "+91 97022 86613", "+91 98190 04527", "+91 98670 33918", "+91 90290 77104", "+91 98209 16642", "+91 99201 58830", "+91 98925 40017", "+91 97730 62291", "+91 98330 18765", "+91 99674 20453", "+91 98194 77306", "+91 90824 11982"];
+        const subs = ["Sales · 12 chats", "Support · 8 chats", "Mumbai · 21 chats", "Delhi · 6 chats", "Pune · 14 chats"];
+        const numCards = [];
+        for (let r = 0; r < 4; r++) {
+          for (let c = 0; c < 5; c++) {
+            const i = r * 5 + c;
+            const el = document.createElement("div");
+            el.className = "numcard";
+            el.style.left = 68 + c * 192 + "px";
+            el.style.top = 260 + r * 84 + "px";
+            el.innerHTML = '<span class="ic"><svg width="20" height="20"><use href="#i-wa"/></svg></span><div><div class="n">' + nums[i] + '</div><div class="s">' + subs[(i * 3) % 5] + "</div></div>";
+            cardsHost.appendChild(el);
+            numCards.push({ el, c, r });
+          }
+        }
+        // wave bars
+        function bars(host, n, h) {
+          const out = [];
+          for (let i = 0; i < n; i++) {
+            const b = document.createElement("i");
+            b.style.height = h + "px";
+            host.appendChild(b);
+            out.push(b);
+          }
+          return out;
+        }
+        const s3Bars = bars($("#s3-wave"), 46, 64);
+        const callBars = bars($("#call-wave"), 24, 56);
+        const aiBars = bars($("#ai-wave"), 24, 56);
+
+        // cluster profiles (scene 5)
+        const pfHost = $("#cl-pf");
+        const pfCols = ["#f3ecdf", "#e9e4fb", "#fbe3ef", "#e6eef8", "#e3f5ec", "#fbe8e3"];
+        const pfIn = "AKRSPMNVTDJH";
+        const pfs = [];
+        const hubC = { x: 540, y: 280 };
+        for (let i = 0; i < 12; i++) {
+          const el = document.createElement("div");
+          el.className = "pf";
+          el.textContent = pfIn[i];
+          el.style.background = pfCols[i % pfCols.length];
+          // final: orderly arc above hub
+          const a = Math.PI * (0.08 + (0.84 * i) / 11);
+          const fx = 540 - Math.cos(a) * 420 - 26;
+          const fy = 250 - Math.sin(a) * 170 - 26 + 40;
+          // loose start
+          const sx = 60 + rnd() * 900;
+          const sy = 10 + rnd() * 150;
+          el.style.left = fx + "px";
+          el.style.top = fy + "px";
+          pfHost.appendChild(el);
+          pfs.push({ el, fx, fy, dx: sx - fx, dy: sy - fy });
+        }
+        const svgNS = "http://www.w3.org/2000/svg";
+        const clLines = $("#cl-lines");
+        const lines = pfs.map((p) => {
+          const l = document.createElementNS(svgNS, "line");
+          l.setAttribute("x1", p.fx + 26);
+          l.setAttribute("y1", p.fy + 26);
+          l.setAttribute("x2", hubC.x);
+          l.setAttribute("y2", hubC.y);
+          l.setAttribute("stroke", "#27b378");
+          l.setAttribute("stroke-width", "1.5");
+          l.setAttribute("stroke-opacity", "0.55");
+          const len = Math.hypot(p.fx + 26 - hubC.x, p.fy + 26 - hubC.y);
+          l.setAttribute("stroke-dasharray", len);
+          l.setAttribute("stroke-dashoffset", len);
+          l.dataset.len = len;
+          clLines.appendChild(l);
+          return l;
+        });
+
+        // ---------- timeline ----------
+        const tl = gsap.timeline({ paused: true });
+        const E = "power3.out";
+        const EI = "power2.inOut";
+        function hlIn(sel, t, out) {
+          tl.fromTo(sel, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.55, ease: E }, t);
+          if (out != null) tl.to(sel, { opacity: 0, y: -14, duration: 0.3, ease: "power2.in" }, out);
+        }
+        function cardIn(sel, t, from) {
+          tl.fromTo(sel, Object.assign({ opacity: 0, y: 30, scale: 0.97 }, from || {}), { opacity: 1, y: 0, x: 0, scale: 1, duration: 0.45, ease: E }, t);
+        }
+        function cardOut(sel, t, to) {
+          tl.to(sel, Object.assign({ opacity: 0, y: -20, scale: 0.98, duration: 0.35, ease: "power2.in" }, to || {}), t);
+        }
+        function waveLoop(barsArr, t0, t1, amp) {
+          barsArr.forEach((b, i) => {
+            const dur = 0.16 + ((i * 7) % 5) * 0.035;
+            const reps = Math.max(0, Math.floor((t1 - t0) / dur) - 1);
+            const lo = 0.12 + ((i * 13) % 7) * 0.02;
+            const hi = Math.min(1, (0.35 + ((i * 11) % 9) * 0.075) * amp);
+            tl.fromTo(b, { scaleY: lo }, { scaleY: hi, duration: dur, ease: "sine.inOut", repeat: reps, yoyo: true }, t0 + (i % 6) * 0.03);
+          });
+        }
+
+        // background ambience
+        tl.fromTo("#bg-glow-a", { x: 0, y: 0, scale: 1 }, { x: 80, y: 60, scale: 1.12, duration: 41, ease: "sine.inOut" }, 0);
+        tl.fromTo("#bg-glow-b", { x: 0, y: 0, scale: 1.05 }, { x: -90, y: -40, scale: 0.95, duration: 41, ease: "sine.inOut" }, 0);
+        tl.fromTo("#bg-dots", { y: 0 }, { y: -36, duration: 41, ease: "none" }, 0);
+
+        // ===== HEADER LOGO: centre reveal → top centre =====
+        tl.fromTo("#hdr", { opacity: 0, y: 486, scale: 2.4 }, { opacity: 1, y: 476, scale: 2.4, duration: 0.6, ease: E }, 0.15);
+        tl.to("#hdr", { y: 0, scale: 1, duration: 0.7, ease: "power3.inOut" }, 0.95);
+
+        // ===== SCENE 1 =====
+        numCards.forEach(({ el, c, r }, i) => {
+          const order = [7, 2, 12, 11, 13, 6, 8, 1, 3, 16, 17, 18, 0, 4, 5, 9, 10, 14, 15, 19].indexOf(i);
+          const t = 1.2 + (order < 3 ? order * 0.12 : 0.5 + (order - 3) * 0.06);
+          tl.fromTo(el, { opacity: 0, scale: 0.6, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.38, ease: "back.out(1.6)" }, t);
+          // converge to centre
+          const cx = 540 - (68 + c * 192 + 88);
+          const cy = 470 - (260 + r * 84 + 33);
+          tl.to(el, { x: cx, y: cy, scale: 0.35, opacity: 0, duration: 0.5, ease: "power3.in" }, 3.75 + ((Math.abs(c - 2) + Math.abs(r - 1.5)) * 0.04));
+        });
+        hlIn("#hl-1", 2.25, 5.2);
+        tl.fromTo("#hl1-b", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 4.25);
+        const cnt = { v: 0 };
+        tl.fromTo(cnt, { v: 0 }, { v: 1000, duration: 0.7, ease: "power2.out", onUpdate: () => { $("#hl1-num").textContent = Math.round(cnt.v).toLocaleString("en-US") + "+"; } }, 2.3);
+        tl.fromTo("#inbox", { opacity: 0, scale: 0.55 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 4.1);
+        tl.fromTo("#inbox .wa-body > *", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.08, ease: E }, 4.45);
+        tl.to("#s1-row-a", { backgroundColor: "#e3f5ec", duration: 0.25 }, 4.85);
+        tl.fromTo("#s1-expand", { opacity: 0, scale: 1 }, { opacity: 1, scale: 1.04, duration: 0.2, ease: E }, 5.05);
+        tl.to("#s1-expand", { x: 263, y: -50, scale: 1.7, opacity: 0, duration: 0.5, ease: "power2.in" }, 5.3);
+        tl.to("#inbox", { opacity: 0, scale: 0.96, duration: 0.45, ease: "power2.in" }, 5.3);
+
+        // ===== SCENE 2 =====
+        // step progress
+        tl.fromTo("#steps", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 5.6);
+        tl.fromTo("#st1", { scaleX: 0 }, { scaleX: 1, duration: 2.1, ease: "none" }, 5.65);
+        tl.fromTo("#st2", { scaleX: 0 }, { scaleX: 1, duration: 2.5, ease: "none" }, 7.8);
+        tl.fromTo("#st3", { scaleX: 0 }, { scaleX: 1, duration: 1.5, ease: "none" }, 10.35);
+        tl.fromTo("#st4", { scaleX: 0 }, { scaleX: 1, duration: 1.3, ease: "none" }, 11.85);
+        tl.to("#steps", { opacity: 0, duration: 0.3 }, 13.2);
+
+        // 2a personalise
+        hlIn("#hl-2a", 5.62, 7.55);
+        tl.fromTo("#tpl", { opacity: 0, scale: 0.88, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: E }, 5.55);
+        tl.to("#tpl", { x: -240, y: 120, duration: 0.55, ease: "power3.inOut" }, 6.1);
+        tl.fromTo(".tok", { backgroundColor: "#e3f5ec" }, { backgroundColor: "#bfe9d3", duration: 0.2, yoyo: true, repeat: 1 }, 6.15);
+        ["#pm-1", "#pm-2", "#pm-3"].forEach((s, i) => {
+          tl.fromTo(s, { opacity: 0, x: -200, scale: 0.85 }, { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: E }, 6.4 + i * 0.2);
+        });
+        cardOut("#tpl", 7.5);
+        ["#pm-1", "#pm-2", "#pm-3"].forEach((s, i) => cardOut(s, 7.5 + i * 0.04, { x: 40 }));
+
+        // 2b capture lead
+        hlIn("#hl-2b", 7.84, 10.1);
+        cardIn("#fbad", 7.7);
+        tl.fromTo("#cursor", { opacity: 0, x: 120, y: 60 }, { opacity: 1, x: 0, y: 0, duration: 0.55, ease: "power2.inOut" }, 7.96);
+        tl.to("#cursor", { scale: 0.85, duration: 0.08, yoyo: true, repeat: 1, transformOrigin: "20% 10%" }, 8.52);
+        tl.to("#wabtn", { scale: 0.94, duration: 0.08, yoyo: true, repeat: 1 }, 8.52);
+        tl.to("#cursor", { opacity: 0, duration: 0.2 }, 8.9);
+        tl.fromTo("#leadphone", { opacity: 0, x: -150, scale: 0.6 }, { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: E }, 8.65);
+        tl.fromTo("#lead-msg", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 8.95);
+        tl.fromTo("#lead-reply", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 9.6);
+        tl.to("#fbad", { opacity: 0, x: -40, duration: 0.35, ease: "power2.in" }, 9.05);
+        tl.fromTo("#leadinbox", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: E }, 9.3);
+        tl.fromTo("#lead-row", { opacity: 0, x: 220, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 9.42);
+        tl.fromTo("#toast", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 9.45);
+        tl.to("#toast", { opacity: 0, duration: 0.25 }, 10.05);
+        cardOut("#leadinbox", 10.05);
+        tl.to("#leadphone", { opacity: 0, x: -100, duration: 0.35, ease: "power2.in" }, 10.05);
+
+        // 2c follow-ups
+        hlIn("#hl-2c", 10.38, 11.6);
+        cardIn("#fu-phone", 10.2);
+        tl.fromTo("#fu-line", { scaleY: 0 }, { scaleY: 1, duration: 1.1, ease: "power1.inOut" }, 10.3);
+        tl.fromTo("#fu-b1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.25 }, 10.35);
+        tl.fromTo("#fu-s1", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.25 }, 10.35);
+        tl.fromTo("#fu-s2", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.25 }, 10.75);
+        tl.fromTo("#fu-b2", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: E }, 10.75);
+        tl.fromTo("#fu-s3", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.25 }, 11.2);
+        tl.fromTo("#fu-b3", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: E }, 11.2);
+        tl.fromTo("#fu-b4", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.25 }, 11.45);
+        cardOut("#fu-phone", 11.62, { x: -160, scale: 0.85, y: 40 });
+        tl.to("#fu-rail", { opacity: 0, duration: 0.3 }, 11.62);
+
+        // 2d CRM
+        hlIn("#hl-2d", 11.87, 13.05);
+        tl.fromTo("#crm-chat", { opacity: 0, x: 140, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: E }, 11.75);
+        tl.fromTo("#crm", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.45, ease: E }, 11.95);
+        tl.fromTo("#link-path", { strokeDasharray: 140, strokeDashoffset: 140 }, { strokeDashoffset: 0, duration: 0.4, ease: EI }, 12.25);
+        tl.fromTo(["#link-a", "#link-b"], { opacity: 0, scale: 0, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.25, stagger: 0.25, ease: "back.out(2)" }, 12.2);
+        tl.fromTo("#syncpill", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 12.5);
+        tl.fromTo(["#crm-f1", "#crm-f2", "#crm-f3"], { backgroundColor: "rgba(39,179,120,0)" }, { backgroundColor: "rgba(39,179,120,0.12)", duration: 0.3, stagger: 0.12 }, 12.55);
+        // line extends → becomes waveform
+        tl.to("#crm-chat", { opacity: 0, x: -80, duration: 0.35, ease: "power2.in" }, 13.0);
+        tl.to("#crm", { opacity: 0, x: 80, duration: 0.35, ease: "power2.in" }, 13.0);
+        tl.to("#syncpill", { opacity: 0, duration: 0.2 }, 13.0);
+        tl.to("#link-svg", { scaleX: 7.5, transformOrigin: "525px 465px", duration: 0.45, ease: "power2.inOut" }, 13.05);
+        tl.to("#link-svg", { opacity: 0, duration: 0.2 }, 13.4);
+
+        // ===== SCENE 3 =====
+        // waveform born from the CRM line
+        tl.fromTo("#s3-wave", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 13.35);
+        waveLoop(s3Bars, 13.35, 14.1, 1);
+        tl.to("#s3-wave", { opacity: 0, scaleX: 0.3, duration: 0.35, ease: "power2.in" }, 13.75);
+        tl.fromTo("#call", { opacity: 0, scale: 0.8, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: E }, 13.65);
+        tl.fromTo("#call-ring", { scale: 1, opacity: 0.9 }, { scale: 1.3, opacity: 0, duration: 0.9, repeat: 1, ease: "power1.out" }, 13.75);
+        waveLoop(callBars, 13.9, 16.6, 1);
+        hlIn("#hl-3a", 14.75, 16.55);
+        cardIn("#group", 15.55, { x: 60, y: 0 });
+        tl.fromTo("#g-b1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3 }, 15.85);
+        tl.fromTo("#g-b2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3 }, 16.1);
+        cardOut("#call", 16.55, { scale: 0.9 });
+        cardOut("#group", 16.55, { scale: 0.9 });
+
+        // tracking
+        hlIn("#hl-3b", 16.9, 19.55);
+        tl.fromTo(["#w2", "#w3", "#w4"], { opacity: 0.18 }, { opacity: 0.18, duration: 0.01 }, 16.9);
+        tl.to("#w2", { opacity: 1, duration: 0.25 }, 17.3);
+        tl.to("#w3", { opacity: 1, duration: 0.25 }, 18.05);
+        tl.to("#w4", { opacity: 1, duration: 0.25 }, 18.62);
+        cardIn("#track", 16.8);
+        tl.fromTo(["#ln-o", "#ln-g", "#ln-p"], { strokeDasharray: 900, strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 1.4, stagger: 0.15, ease: "power2.inOut" }, 17.05);
+        [["#tc1", "#tl1", 17.3], ["#tc2", "#tl2", 18.05], ["#tc3", "#tl3", 18.62]].forEach(([c, l, t]) => {
+          tl.fromTo(c, { opacity: 0, y: -16, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, t - 0.05);
+          tl.fromTo(c + " .ic", { backgroundColor: "#e3f5ec" }, { backgroundColor: "#bfe9d3", duration: 0.2, yoyo: true, repeat: 1 }, t + 0.1);
+          tl.fromTo(l, { strokeDasharray: 400, strokeDashoffset: 400 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, t + 0.05);
+        });
+        tl.to(["#tc1", "#tc2", "#tc3", "#tc-links", "#track"], { opacity: 0, y: -20, duration: 0.35, ease: "power2.in" }, 19.55);
+
+        // AI agents
+        hlIn("#hl-3c", 20.0, 23.2);
+        tl.fromTo("#hl-live", { opacity: 0, scale: 0.5 }, { opacity: 0, scale: 0.5, duration: 0.01 }, 20.0);
+        tl.to("#hl-live", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.2)" }, 22.68);
+        tl.fromTo("#ai-chat", { opacity: 0, x: -50, scale: 0.95 }, { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: E }, 19.9);
+        tl.fromTo("#ai-voice", { opacity: 0, x: 50, scale: 0.95 }, { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: E }, 20.05);
+        tl.fromTo("#ai-c1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3 }, 20.35);
+        tl.fromTo("#ai-typing", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 20.75);
+        tl.fromTo("#ai-typing i", { y: 0 }, { y: -5, duration: 0.18, stagger: 0.08, yoyo: true, repeat: 3, ease: "sine.inOut" }, 20.8);
+        tl.to("#ai-typing", { opacity: 0, duration: 0.15 }, 21.65);
+        tl.fromTo("#ai-c2", { opacity: 0, y: -50 }, { opacity: 1, y: -64, duration: 0.35, ease: E }, 21.75);
+        tl.fromTo("#ai-c3", { opacity: 0, y: -52 }, { opacity: 1, y: -64, duration: 0.3 }, 22.75);
+        waveLoop(aiBars, 20.3, 23.7, 1);
+        tl.fromTo("#ai-ring", { scale: 1, opacity: 0.8 }, { scale: 1.25, opacity: 0, duration: 0.9, repeat: 2, ease: "power1.out" }, 20.4);
+        // live! activation
+        tl.fromTo(["#live-1", "#live-2"], { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.4)" }, 22.68);
+        tl.fromTo(["#ai-glow", "#ai-glow2"], { opacity: 0 }, { opacity: 1, duration: 0.3, ease: E }, 22.68);
+        tl.to(["#ai-glow", "#ai-glow2"], { opacity: 0.35, duration: 0.5 }, 23.0);
+        tl.fromTo(["#ai-chat", "#ai-voice"], { boxShadow: "0 0 0 0 rgba(39,179,120,0)" }, { boxShadow: "0 0 0 4px rgba(39,179,120,0.55)", duration: 0.3 }, 22.68);
+        // align into a clean horizontal line, clearing space for logos
+        tl.to("#ai-chat", { x: 120, y: -120, scale: 0.5, duration: 0.55, ease: "power3.inOut" }, 23.3);
+        tl.to("#ai-voice", { x: -120, y: -120, scale: 0.5, duration: 0.55, ease: "power3.inOut" }, 23.3);
+        tl.to(["#ai-chat", "#ai-voice", "#ai-glow", "#ai-glow2"], { opacity: 0, duration: 0.3 }, 23.6);
+
+        // ===== SCENE 4 =====
+        tl.fromTo("#trust-eyebrow", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 23.8);
+        tl.fromTo("#trust-title", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.55, ease: E }, 23.9);
+        tl.fromTo("#ld-h", { scaleX: 0, transformOrigin: "50% 50%" }, { scaleX: 1, duration: 0.8, ease: EI }, 23.9);
+        [["#ls-nissan", 24.2], ["#ls-navi", 25.08], ["#ls-shaadi", 25.78], ["#ls-justdial", 26.95], ["#ls-sobha", 27.8]].forEach(([s, t]) => {
+          tl.fromTo(s, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, t);
+        });
+        tl.to(["#ls-nissan", "#ls-navi", "#ls-shaadi", "#ls-justdial", "#ls-sobha", "#ld-h", "#trust-title", "#trust-eyebrow"], { opacity: 0, y: -16, duration: 0.4, stagger: 0.02, ease: "power2.in" }, 28.4);
+
+        // ===== SCENE 5 =====
+        tl.fromTo("#mmt", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: E }, 28.75);
+        tl.fromTo("#cs-eyebrow", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 28.9);
+        tl.to("#mmt", { y: -220, scale: 0.62, duration: 0.6, ease: "power3.inOut" }, 30.35);
+        tl.to("#cs-eyebrow", { y: -160, duration: 0.6, ease: "power3.inOut" }, 30.35);
+        // cluster ambient (loose)
+        pfs.forEach((p, i) => {
+          tl.fromTo(p.el, { x: p.dx, y: p.dy, opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: E }, 30.9 + i * 0.05);
+          tl.to(p.el, { x: p.dx + (i % 2 ? 10 : -10), y: p.dy + (i % 3 ? 8 : -8), duration: 5.5, ease: "sine.inOut" }, 31.4);
+        });
+        tl.fromTo("#hub", { opacity: 0, scale: 0.5 }, { opacity: 0, scale: 0.5, duration: 0.01 }, 30.0);
+        // metric 1
+        tl.fromTo("#m1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 30.85);
+        const c1 = { v: 0 };
+        tl.fromTo(c1, { v: 0 }, { v: 1500, duration: 0.9, ease: "power2.out", onUpdate: () => { $("#m1-n").textContent = Math.round(c1.v).toLocaleString("en-US"); } }, 30.85);
+        tl.to("#m1", { opacity: 0, y: -30, duration: 0.3, ease: "power2.in" }, 32.1);
+        // metric 2
+        tl.fromTo("#m2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 32.35);
+        const c2 = { v: 0 };
+        tl.fromTo(c2, { v: 0 }, { v: 30, duration: 0.8, ease: "power2.out", onUpdate: () => { $("#m2-n").textContent = Math.round(c2.v); } }, 32.35);
+        tl.to("#m2", { opacity: 0, y: -30, duration: 0.3, ease: "power2.in" }, 35.3);
+        // metric 3
+        tl.fromTo("#m3", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 35.6);
+        const c3 = { v: 0 };
+        tl.fromTo(c3, { v: 0 }, { v: 10, duration: 0.7, ease: "power2.out", onUpdate: () => { $("#m3-n").textContent = Math.round(c3.v); } }, 35.6);
+        tl.to("#m3", { opacity: 0, y: -24, duration: 0.3, ease: "power2.in" }, 36.95);
+        // without losing control → unified, orderly
+        tl.fromTo(["#mc1", "#mc2", "#mc3"], { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.08, ease: E }, 37.1);
+        tl.fromTo(["#md1", "#md2"], { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: E }, 37.3);
+        pfs.forEach((p, i) => {
+          tl.to(p.el, { x: 0, y: 0, duration: 0.6, ease: "power3.inOut" }, 37.15 + i * 0.015);
+        });
+        tl.to("#hub", { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 37.3);
+        lines.forEach((l, i) => {
+          tl.fromTo(l, { attr: { "stroke-dashoffset": l.dataset.len } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.45, ease: "power2.out" }, 37.55 + i * 0.02);
+        });
+        tl.to(["#mmt", "#cs-eyebrow", "#mrow", "#cluster"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 38.45);
+
+        // ===== END CARD =====
+        tl.to("#hdr", { y: 420, scale: 2.2, duration: 0.8, ease: "power3.inOut" }, 38.45);
+        tl.fromTo("#end-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: EI }, 39.0);
+        tl.fromTo("#end-title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 39.1);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
