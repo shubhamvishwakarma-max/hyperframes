@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>DoubleTick — Scale Every Conversation</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        src: url("assets/fonts/hedvig-letters-serif-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist-latin-500-normal.woff2") format("woff2");
+        font-weight: 500;
+      }
+      @font-face {
+        font-family: "Geist";
+        src: url("assets/fonts/geist-latin-600-normal.woff2") format("woff2");
+        font-weight: 600;
+      }
+      :root {
+        --bg: #f6f4ee;
+        --ink: #15171a;
+        --muted: #5a5e62;
+        --line: #e4e0d6;
+        --green: #27b378;
+        --green-ink: #0f7a4b;
+        --green-soft: rgba(39, 179, 120, 0.14);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg);
+        font-family: "Geist", sans-serif;
+        color: var(--ink);
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      .abs {
+        position: absolute;
+      }
+      #glow {
+        position: absolute;
+        left: 140px;
+        top: 520px;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(39, 179, 120, 0.13) 0%, rgba(39, 179, 120, 0) 65%);
+      }
+      #brand {
+        position: absolute;
+        left: 440px;
+        top: 44px;
+        width: 200px;
+        height: 26px;
+      }
+      #brand img {
+        display: block;
+        width: 200px;
+      }
+      /* headlines */
+      .hl {
+        position: absolute;
+        left: 60px;
+        top: 98px;
+        width: 960px;
+        text-align: center;
+        font-family: "Hedvig Letters Serif", serif;
+        font-size: 56px;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+      }
+      .hl .g {
+        color: var(--green-ink);
+      }
+      .hl .line {
+        display: block;
+      }
+      .card {
+        position: absolute;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 18px 40px -22px rgba(20, 30, 25, 0.28);
+      }
+      .card > img.full {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .band {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .cover {
+        position: absolute;
+        left: 0;
+        width: 100%;
+      }
+      .ring {
+        position: absolute;
+        border-radius: 50%;
+        border: 3px solid var(--green);
+      }
+      .pill {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 44px;
+        padding: 0 18px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        font: 500 18px/1 "Geist", sans-serif;
+        color: var(--ink);
+        white-space: nowrap;
+        box-shadow: 0 8px 20px -12px rgba(20, 30, 25, 0.3);
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--green);
+        flex: none;
+      }
+      .tick {
+        width: 26px;
+        height: 18px;
+        flex: none;
+      }
+      /* scene 1 number cards */
+      .ncard {
+        position: absolute;
+        width: 296px;
+        height: 72px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 16px;
+        box-shadow: 0 10px 24px -18px rgba(20, 30, 25, 0.35);
+      }
+      .ncard .ic {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--green-soft);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      .ncard .t1 {
+        font: 500 18px/1.15 "Geist", sans-serif;
+        color: var(--ink);
+      }
+      .ncard .t2 {
+        font: 400 14px/1.2 "Geist", sans-serif;
+        color: var(--muted);
+        margin-top: 3px;
+      }
+      .ncard .badge {
+        margin-left: auto;
+        min-width: 26px;
+        height: 22px;
+        border-radius: 11px;
+        background: var(--green-ink);
+        color: #fff;
+        font: 600 12px/22px "Geist", sans-serif;
+        text-align: center;
+        padding: 0 7px;
+      }
+      /* scene 2 steps */
+      #steps {
+        position: absolute;
+        left: 460px;
+        top: 186px;
+        width: 160px;
+        height: 4px;
+        display: flex;
+        gap: 8px;
+      }
+      #steps div {
+        flex: 1;
+        height: 4px;
+        border-radius: 2px;
+        background: #dcd8cd;
+      }
+      .rail-label {
+        position: absolute;
+        width: 150px;
+        text-align: right;
+        font: 500 16px/1.2 "Geist", sans-serif;
+        color: var(--muted);
+      }
+      .rail-node {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #fff;
+        border: 3px solid var(--green);
+      }
+      /* waveform */
+      #wave {
+        position: absolute;
+        left: 115px;
+        top: 560px;
+        width: 850px;
+        height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      #wave div {
+        width: 10px;
+        height: 4px;
+        border-radius: 5px;
+        background: var(--green);
+      }
+      .agent-label {
+        position: absolute;
+        width: 440px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font: 600 20px/1 "Geist", sans-serif;
+        color: var(--ink);
+      }
+      .live {
+        position: absolute;
+        height: 32px;
+        padding: 0 12px;
+        border-radius: 16px;
+        background: var(--green);
+        color: #fff;
+        font: 600 14px/32px "Geist", sans-serif;
+        letter-spacing: 0.08em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .live i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #fff;
+        display: block;
+      }
+      /* logos */
+      .ltile {
+        position: absolute;
+        width: 290px;
+        height: 150px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 14px 30px -24px rgba(20, 30, 25, 0.3);
+      }
+      .ltile img {
+        display: block;
+        max-width: 200px;
+        max-height: 78px;
+      }
+      .overline {
+        position: absolute;
+        left: 0;
+        width: 1080px;
+        text-align: center;
+        font: 600 16px/1 "Geist", sans-serif;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--green-ink);
+      }
+      /* metrics */
+      .metric {
+        position: absolute;
+        left: 140px;
+        top: 400px;
+        width: 800px;
+        text-align: center;
+      }
+      .metric .num {
+        font-family: "Hedvig Letters Serif", serif;
+        font-size: 200px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+      .metric .num .g {
+        color: var(--green-ink);
+      }
+      .metric .lab {
+        margin-top: 18px;
+        font: 500 32px/1 "Geist", sans-serif;
+        color: var(--muted);
+      }
+      .mrow {
+        position: absolute;
+        top: 420px;
+        width: 300px;
+        text-align: center;
+      }
+      .mrow .num {
+        font-family: "Hedvig Letters Serif", serif;
+        font-size: 92px;
+        line-height: 1;
+        color: var(--green-ink);
+      }
+      .mrow .lab {
+        margin-top: 12px;
+        font: 500 22px/1 "Geist", sans-serif;
+        color: var(--muted);
+      }
+      .av {
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font: 500 18px/1 "Geist", sans-serif;
+        border: 2px solid #fff;
+        box-shadow: 0 6px 14px -8px rgba(20, 30, 25, 0.4);
+      }
+      #hub {
+        position: absolute;
+        left: 504px;
+        top: 896px;
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #endline {
+        position: absolute;
+        left: 90px;
+        top: 590px;
+        width: 900px;
+        text-align: center;
+        font-family: "Hedvig Letters Serif", serif;
+        font-size: 58px;
+        line-height: 1.12;
+        color: var(--ink);
+      }
+      #endline .g {
+        color: var(--green-ink);
+      }
+      #endline .line {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="40"
+      data-width="1080"
+      data-height="1080"
+    >
+      <!-- ============ persistent backdrop ============ -->
+      <div id="bg" class="clip layer" data-start="0" data-duration="40" data-track-index="0">
+        <div id="glow"></div>
+      </div>
+
+      <!-- ============ SCENE 1 — one governed inbox ============ -->
+      <section id="s1" class="clip layer" data-start="0" data-duration="5.4" data-track-index="1">
+        <div id="s1-hl" class="hl" data-layout-allow-overlap>
+          <span class="line" id="s1-l1"><span class="g">1,000+</span> WhatsApp Numbers.</span>
+          <span class="line g" id="s1-l2">One Governed Inbox.</span>
+        </div>
+        <div id="s1-cards" class="layer"></div>
+        <div id="inbox" class="card" style="left: 90px; top: 262px; width: 900px; height: 770px">
+          <img class="full" src="assets/ui/inbox.png" alt="DoubleTick inbox" />
+          <div
+            id="inbox-row"
+            class="abs"
+            style="
+              left: 320px;
+              top: 112px;
+              width: 318px;
+              height: 73px;
+              border: 3px solid var(--green);
+              border-radius: 10px;
+            "
+          ></div>
+        </div>
+      </section>
+
+      <!-- shared element: inbox conversation row -> personalised message card -->
+      <div id="morph" class="clip abs" data-start="4.3" data-duration="1.4" data-track-index="9">
+        <div
+          id="morph-box"
+          class="abs"
+          style="
+            left: 240px;
+            top: 300px;
+            width: 600px;
+            height: 686px;
+            background: #fff;
+          "
+        ></div>
+      </div>
+
+      <!-- ============ SCENE 2 — personalise, leads, follow-ups, CRM ============ -->
+      <section id="s2" class="clip layer" data-start="5" data-duration="8.4" data-track-index="2">
+        <div id="steps"><div id="st1"></div><div id="st2"></div><div id="st3"></div><div id="st4"></div></div>
+        <div id="s2-h1" class="hl" data-layout-allow-overlap><span class="g">Personalise</span> at Scale</div>
+        <div id="s2-h2" class="hl" data-layout-allow-overlap>Capture Every <span class="g">Lead</span></div>
+        <div id="s2-h3" class="hl" data-layout-allow-overlap><span class="g">Automate</span> Follow-ups</div>
+        <div id="s2-h4" class="hl" data-layout-allow-overlap>Connect Your <span class="g">CRM</span></div>
+
+        <!-- 2a personalise -->
+        <div id="p-wrap" class="layer">
+          <div id="p-ghostL" class="card" style="left: 240px; top: 300px; width: 600px; height: 686px">
+            <img class="full" src="assets/ui/personalise.png" alt="" />
+          </div>
+          <div id="p-ghostR" class="card" style="left: 240px; top: 300px; width: 600px; height: 686px">
+            <img class="full" src="assets/ui/personalise.png" alt="" />
+          </div>
+          <div id="p-main" class="card" style="left: 240px; top: 300px; width: 600px; height: 686px">
+            <img class="full" src="assets/ui/personalise.png" alt="Personalised WhatsApp message" />
+            <div
+              id="p-hi"
+              class="abs"
+              style="
+                left: 14px;
+                top: 124px;
+                width: 432px;
+                height: 133px;
+                border: 3px solid var(--green);
+                border-radius: 12px;
+              "
+            ></div>
+          </div>
+          <div id="p-chip0" class="pill" data-layout-allow-overlap style="left: 470px; top: 268px"><span class="dot"></span>Sam</div>
+          <div id="p-chipL" class="pill" data-layout-allow-overlap style="left: 92px; top: 330px"><span class="dot"></span>Priya</div>
+          <div id="p-chipR" class="pill" data-layout-allow-overlap style="left: 886px; top: 330px"><span class="dot"></span>Arjun</div>
+        </div>
+
+        <!-- 2b click-to-whatsapp -->
+        <div id="c-wrap" class="layer">
+          <div class="card" style="left: 110px; top: 266px; width: 860px; height: 764px">
+            <div id="c-stage" class="abs" style="left: 30px; top: 16px; width: 800px; height: 734px">
+              <img
+                id="c-base"
+                class="abs"
+                src="assets/ui/ctwa.png"
+                alt="Click-to-WhatsApp ad"
+                style="
+                  left: 0;
+                  top: 0;
+                  width: 800px;
+                  height: 734px;
+                  clip-path: polygon(0 0, 55.6% 0, 55.6% 35.1%, 35.1% 35.1%, 35.1% 100%, 0 100%);
+                "
+              />
+              <div id="c-rip" class="ring" style="left: 59px; top: 532px; width: 60px; height: 60px"></div>
+              <div
+                id="c-dot"
+                class="abs"
+                style="left: 81px; top: 554px; width: 16px; height: 16px; border-radius: 50%; background: var(--green)"
+              ></div>
+              <img
+                id="c-chat"
+                class="abs"
+                src="assets/ui/ctwa_chat.png"
+                alt="WhatsApp chat from ad"
+                style="left: 277px; top: 254px; width: 523px; height: 480px"
+              />
+            </div>
+          </div>
+          <div id="c-pill" class="pill" data-layout-allow-overlap style="left: 600px; top: 238px">
+            <svg class="tick" viewBox="0 0 26 18"><path d="M1 9l5 5L15 4M9 13l2 2L24 2" fill="none" stroke="#27b378" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Lead captured in inbox
+          </div>
+        </div>
+
+        <!-- 2c follow-ups -->
+        <div id="f-wrap" class="layer">
+          <div id="f-card" class="card" style="left: 240px; top: 300px; width: 600px; height: 683px">
+            <img class="full" src="assets/ui/followup.png" alt="Automated follow-up conversation" />
+            <div class="cover" style="top: 17%; height: 12.7%; background: #ebe5dd"></div>
+            <div class="cover" style="top: 31.8%; height: 49.3%; background: #ebe5dd"></div>
+            <img id="f-b" class="band" src="assets/ui/followup.png" alt="" style="clip-path: inset(17.6% 0 70.8% 0)" />
+            <img id="f-c" class="band" src="assets/ui/followup.png" alt="" style="clip-path: inset(32.4% 0 19.4% 0)" />
+          </div>
+          <div id="f-rail" class="abs" style="left: 214px; top: 425px; width: 2px; height: 360px; background: #d6d2c7"></div>
+          <div id="f-n1" class="rail-node" style="left: 208px; top: 418px"></div>
+          <div id="f-n2" class="rail-node" style="left: 208px; top: 560px"></div>
+          <div id="f-n3" class="rail-node" style="left: 208px; top: 778px"></div>
+          <div id="f-l1" class="rail-label" style="left: 44px; top: 416px">Enquiry</div>
+          <div id="f-l2" class="rail-label" style="left: 44px; top: 558px">Auto-reply</div>
+          <div id="f-l3" class="rail-label" style="left: 44px; top: 776px">Follow-up</div>
+        </div>
+
+        <!-- 2d CRM -->
+        <div id="m-wrap" class="layer">
+          <div id="m-card" class="card" style="left: 420px; top: 392px; width: 620px; height: 497px">
+            <img class="full" src="assets/ui/crm.png" alt="CRM lead record" />
+          </div>
+          <svg id="m-svg" class="abs" style="left: 0; top: 0" width="1080" height="1080" viewBox="0 0 1080 1080">
+            <line id="m-line" x1="342" y1="640" x2="420" y2="640" stroke="#27b378" stroke-width="4" stroke-linecap="round" />
+          </svg>
+          <div id="m-node" class="abs" style="left: 365px; top: 624px; width: 32px; height: 32px; border-radius: 50%; background: #fff; border: 3px solid var(--green)"></div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 3 — calls, groups, tracking, AI ============ -->
+      <section id="s3" class="clip layer" data-start="12.6" data-duration="11" data-track-index="3">
+        <div id="s3-h1" class="hl" data-layout-allow-overlap>WhatsApp <span class="g">Calls + Groups</span></div>
+        <div id="s3-h2" class="hl" data-layout-allow-overlap>
+          <span class="line">Track Every <span class="g">Number.</span></span>
+          <span class="line"><span class="g">Agent. Campaign.</span></span>
+        </div>
+        <div id="s3-h3" class="hl" data-layout-allow-overlap><span class="g">AI Agents</span> for Chat + Voice</div>
+
+        <div id="wave"></div>
+
+        <!-- 3a call -->
+        <div id="k-card" class="card" style="left: 272px; top: 300px; width: 536px; height: 640px; background: #121a1e">
+          <img class="full" src="assets/ui/call.png" alt="WhatsApp call" />
+          <div id="k-r1" class="ring" style="left: 156px; top: 298px; width: 222px; height: 222px"></div>
+          <div id="k-r2" class="ring" style="left: 156px; top: 298px; width: 222px; height: 222px"></div>
+        </div>
+
+        <!-- 3b groups -->
+        <div id="g-card" class="card" style="left: 160px; top: 320px; width: 760px; height: 656px">
+          <img class="full" src="assets/ui/groups.png" alt="WhatsApp group" />
+          <div class="cover" style="top: 63.6%; height: 35.6%; background: #f3f0ea"></div>
+          <img id="g-r1" class="band" src="assets/ui/groups.png" alt="" style="clip-path: inset(64% 0 27% 0)" />
+          <img id="g-r2" class="band" src="assets/ui/groups.png" alt="" style="clip-path: inset(73% 0 18% 0)" />
+          <img id="g-r3" class="band" src="assets/ui/groups.png" alt="" style="clip-path: inset(82% 0 9% 0)" />
+          <img id="g-r4" class="band" src="assets/ui/groups.png" alt="" style="clip-path: inset(91% 0 1% 0)" />
+        </div>
+
+        <!-- 3c tracking -->
+        <div id="t-wrap" class="layer">
+          <div id="t-card" class="card" style="left: 100px; top: 352px; width: 880px; height: 666px">
+            <img class="full" src="assets/ui/tracking.png" alt="Tracking dashboard" />
+            <div id="t-cover" class="abs" style="left: 72px; top: 112px; width: 790px; height: 192px; background: #fff"></div>
+          </div>
+          <svg id="t-svg" class="abs" style="left: 0; top: 0" width="1080" height="1080" viewBox="0 0 1080 1080">
+            <path id="t-p1" d="M240 290 C240 330 540 320 540 352" fill="none" stroke="#27b378" stroke-width="2.5" />
+            <path id="t-p2" d="M540 290 L540 352" fill="none" stroke="#27b378" stroke-width="2.5" />
+            <path id="t-p3" d="M840 290 C840 330 540 320 540 352" fill="none" stroke="#27b378" stroke-width="2.5" />
+          </svg>
+          <div id="t-c1" class="pill" data-layout-allow-overlap style="left: 172px; top: 244px"><span class="dot"></span>Numbers</div>
+          <div id="t-c2" class="pill" data-layout-allow-overlap style="left: 482px; top: 244px"><span class="dot"></span>Agents</div>
+          <div id="t-c3" class="pill" data-layout-allow-overlap style="left: 762px; top: 244px"><span class="dot"></span>Campaigns</div>
+        </div>
+
+        <!-- 3d AI agents -->
+        <div id="a-wrap" class="layer">
+          <div id="a-chatbox" class="layer">
+            <div id="a-l1" class="agent-label" style="left: 70px; top: 290px">
+              <span class="dot"></span>AI Agent — Chat
+            </div>
+            <div id="a-chat" class="card" style="left: 70px; top: 330px; width: 440px; height: 501px">
+              <img class="full" src="assets/ui/followup.png" alt="AI chat agent conversation" />
+              <div class="cover" style="top: 17%; height: 12.7%; background: #ebe5dd"></div>
+              <div class="cover" style="top: 31.8%; height: 49.3%; background: #ebe5dd"></div>
+              <img id="a-b" class="band" src="assets/ui/followup.png" alt="" style="clip-path: inset(17.6% 0 70.8% 0)" />
+              <img id="a-c" class="band" src="assets/ui/followup.png" alt="" style="clip-path: inset(32.4% 0 19.4% 0)" />
+              <div id="a-typing" class="abs" style="left: 24px; top: 172px; width: 74px; height: 34px; border-radius: 17px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px">
+                <i class="dot" style="background: #9aa09c"></i><i class="dot" style="background: #9aa09c"></i><i class="dot" style="background: #9aa09c"></i>
+              </div>
+            </div>
+            <div id="a-live1" class="live" style="background: #0f7a4b; left: 428px; top: 283px"><i></i>LIVE</div>
+          </div>
+          <div id="a-voicebox" class="layer">
+            <div id="a-l2" class="agent-label" style="left: 570px; top: 290px">
+              <span class="dot"></span>AI Agent — Voice
+            </div>
+            <div id="a-voice" class="card" style="left: 570px; top: 330px; width: 440px; height: 502px; background: #121a1e">
+              <img class="full" src="assets/ui/aivoice.png" alt="AI voice agent call" />
+              <div id="a-r1" class="ring" style="left: 106px; top: 227px; width: 228px; height: 228px"></div>
+              <div id="a-r2" class="ring" style="left: 106px; top: 227px; width: 228px; height: 228px"></div>
+            </div>
+            <div id="a-live2" class="live" style="background: #0f7a4b; left: 928px; top: 283px"><i></i>LIVE</div>
+          </div>
+          <div id="a-link" class="abs" style="left: 510px; top: 579px; width: 60px; height: 3px; background: var(--green)"></div>
+          <div id="a-wave" class="abs" style="left: 300px; top: 870px; width: 480px; height: 90px; display: flex; align-items: center; justify-content: space-between"></div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 4 — trusted by ============ -->
+      <section id="s4" class="clip layer" data-start="23" data-duration="5.8" data-track-index="4">
+        <div id="s4-hl" class="hl" data-layout-allow-overlap>Trusted by <span class="g">Leading Brands</span></div>
+        <div id="s4-tiles" class="layer">
+          <div id="lg-nissan" class="ltile" style="left: 85px; top: 360px"><img src="assets/logos/nissan.png" alt="Nissan" style="max-height: 104px" /></div>
+          <div id="lg-navi" class="ltile" style="left: 395px; top: 360px"><img src="assets/logos/navi.png" alt="Navi" /></div>
+          <div id="lg-shaadi" class="ltile" style="left: 705px; top: 360px"><img src="assets/logos/shaadi.png" alt="Shaadi.com" /></div>
+          <div id="lg-justdial" class="ltile" style="left: 240px; top: 540px"><img src="assets/logos/justdial.png" alt="Justdial" /></div>
+          <div id="lg-sobha" class="ltile" style="left: 550px; top: 540px"><img src="assets/logos/sobha.png" alt="Sobha Realty" /></div>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 5 — MakeMyTrip results ============ -->
+      <section id="s5" class="clip layer" data-start="27.8" data-duration="10.7" data-track-index="5">
+        <div id="mmt-ov" class="overline" style="top: 118px">Customer Story</div>
+        <div id="mmt" class="ltile" style="left: 330px; top: 150px; width: 420px; height: 150px">
+          <img src="assets/logos/makemytrip.png" alt="MakeMyTrip" style="max-width: 330px; max-height: 110px" />
+        </div>
+
+        <div id="m1" class="metric" data-layout-allow-overlap>
+          <div class="num"><span id="m1n">1,500</span><span class="g">+</span></div>
+          <div class="lab">Agents Enabled</div>
+        </div>
+        <div id="m2" class="metric" data-layout-allow-overlap>
+          <div class="num"><span id="m2n">30</span><span class="g">%</span></div>
+          <div class="lab">Higher Efficiency</div>
+        </div>
+        <div id="m3" class="metric" data-layout-allow-overlap>
+          <div class="num"><span id="m3n">10</span><span class="g">%</span></div>
+          <div class="lab">More Revenue</div>
+        </div>
+
+        <div id="r1" class="mrow" data-layout-allow-overlap style="left: 90px"><div class="num">1,500+</div><div class="lab">Agents Enabled</div></div>
+        <div id="r2" class="mrow" data-layout-allow-overlap style="left: 390px"><div class="num">30%</div><div class="lab">Higher Efficiency</div></div>
+        <div id="r3" class="mrow" data-layout-allow-overlap style="left: 690px"><div class="num">10%</div><div class="lab">More Revenue</div></div>
+
+        <svg id="net" class="abs" style="left: 0; top: 0" width="1080" height="1080" viewBox="0 0 1080 1080"></svg>
+        <div id="avs" class="layer"></div>
+        <div id="hub">
+          <svg viewBox="0 0 26 18" width="38" height="26"><path d="M1 9l5 5L15 4M9 13l2 2L24 2" fill="none" stroke="#27b378" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </section>
+
+      <!-- ============ END CARD ============ -->
+      <section id="end" class="clip layer" data-start="38" data-duration="2" data-track-index="6">
+        <img id="end-logo" class="abs" src="assets/logos/doubletick.png" alt="DoubleTick" style="left: 270px; top: 420px; width: 540px" />
+        <div id="endline" data-layout-allow-overlap>
+          <span class="line">Scale Every Conversation.</span>
+          <span class="line g">Stay in Control.</span>
+        </div>
+      </section>
+
+      <!-- persistent brand mark, top centre -->
+      <div id="brandclip" class="clip layer" data-start="0" data-duration="38.4" data-track-index="8">
+        <div id="brand"><img src="assets/logos/doubletick.png" alt="DoubleTick" /></div>
+      </div>
+
+      <!-- ============ AUDIO ============ -->
+      <audio id="vo" src="assets/audio/voiceover.mp3" data-start="0" data-media-start="0.5" data-duration="38.19" data-track-index="20" data-volume="1"></audio>
+      <audio id="bgm" src="assets/audio/music-bed.mp3" data-start="0" data-duration="40" data-track-index="21" data-volume="0.17"></audio>
+      <audio id="sfx-01-whoosh" src="assets/audio/sfx-whoosh-synth.wav" data-start="2.95" data-duration="0.7" data-track-index="22" data-volume="0.35"></audio>
+      <audio id="sfx-02-hit" src="assets/audio/sfx-hit.wav" data-start="3.4" data-duration="0.6" data-track-index="25" data-volume="0.35"></audio>
+      <audio id="sfx-03-pop" src="assets/audio/sfx-pop.wav" data-start="4.05" data-duration="0.18" data-track-index="23" data-volume="0.22"></audio>
+      <audio id="sfx-04-whoosh" src="assets/audio/sfx-whoosh-synth.wav" data-start="4.5" data-duration="0.7" data-track-index="22" data-volume="0.3"></audio>
+      <audio id="sfx-05-pop" src="assets/audio/sfx-pop.wav" data-start="5.55" data-duration="0.18" data-track-index="23" data-volume="0.22"></audio>
+      <audio id="sfx-06-pop" src="assets/audio/sfx-pop.wav" data-start="5.9" data-duration="0.18" data-track-index="23" data-volume="0.18"></audio>
+      <audio id="sfx-07-whoosh" src="assets/audio/sfx-whoosh-synth.wav" data-start="7.2" data-duration="0.7" data-track-index="22" data-volume="0.25"></audio>
+      <audio id="sfx-08-pop" src="assets/audio/sfx-pop.wav" data-start="7.75" data-duration="0.18" data-track-index="23" data-volume="0.28"></audio>
+      <audio id="sfx-09-chime" src="assets/audio/sfx-chime.wav" data-start="8.55" data-duration="1.15" data-track-index="24" data-volume="0.16"></audio>
+      <audio id="sfx-10-whoosh" src="assets/audio/sfx-whoosh-synth.wav" data-start="9.7" data-duration="0.7" data-track-index="22" data-volume="0.25"></audio>
+      <audio id="sfx-11-pop" src="assets/audio/sfx-pop.wav" data-start="9.95" data-duration="0.18" data-track-index="23" data-volume="0.2"></audio>
+      <audio id="sfx-12-pop" src="assets/audio/sfx-pop.wav" data-start="10.3" data-duration="0.18" data-track-index="23" data-volume="0.2"></audio>
+      <audio id="sfx-13-pop" src="assets/audio/sfx-pop.wav" data-start="10.65" data-duration="0.18" data-track-index="23" data-volume="0.18"></audio>
+      <audio id="sfx-14-whoosh" src="assets/audio/sfx-whoosh-synth.wav" data-start="11.0" data-duration="0.7" data-track-index="22" data-volume="0.25"></audio>
+      <audio id="sfx-15-pop" src="assets/audio/sfx-pop.wav" data-start="11.6" data-duration="0.18" data-track-index="23" data-volume="0.25"></audio>
+      <audio id="sfx-16-whoosh" src="assets/audio/sfx-whoosh-synth.wav" data-start="12.6" data-duration="0.7" data-track-index="22" data-volume="0.3"></audio>
+      <audio id="sfx-17-chime" src="assets/audio/sfx-chime.wav" data-start="13.5" data-duration="1.15" data-track-index="24" data-volume="0.17"></audio>
+      <audio id="sfx-18-whoosh" src="assets/audio/sfx-whoosh-synth.wav" data-start="14.95" data-duration="0.7" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-19-pop" src="assets/audio/sfx-pop.wav" data-start="15.35" data-duration="0.18" data-track-index="23" data-volume="0.16"></audio>
+      <audio id="sfx-20-pop" src="assets/audio/sfx-pop.wav" data-start="15.67" data-duration="0.18" data-track-index="23" data-volume="0.16"></audio>
+      <audio id="sfx-21-pop" src="assets/audio/sfx-pop.wav" data-start="16.55" data-duration="0.18" data-track-index="23" data-volume="0.2"></audio>
+      <audio id="sfx-22-pop" src="assets/audio/sfx-pop.wav" data-start="17.75" data-duration="0.18" data-track-index="23" data-volume="0.2"></audio>
+      <audio id="sfx-23-pop" src="assets/audio/sfx-pop.wav" data-start="18.45" data-duration="0.18" data-track-index="23" data-volume="0.2"></audio>
+      <audio id="sfx-24-whoosh" src="assets/audio/sfx-whoosh-synth.wav" data-start="19.4" data-duration="0.7" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-25-chime" src="assets/audio/sfx-chime.wav" data-start="22.15" data-duration="1.15" data-track-index="24" data-volume="0.22"></audio>
+      <audio id="sfx-26-whoosh" src="assets/audio/sfx-whoosh-synth.wav" data-start="22.85" data-duration="0.7" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-27-pop" src="assets/audio/sfx-pop.wav" data-start="23.8" data-duration="0.18" data-track-index="23" data-volume="0.22"></audio>
+      <audio id="sfx-28-pop" src="assets/audio/sfx-pop.wav" data-start="24.58" data-duration="0.18" data-track-index="23" data-volume="0.22"></audio>
+      <audio id="sfx-29-pop" src="assets/audio/sfx-pop.wav" data-start="25.28" data-duration="0.18" data-track-index="23" data-volume="0.22"></audio>
+      <audio id="sfx-30-pop" src="assets/audio/sfx-pop.wav" data-start="26.45" data-duration="0.18" data-track-index="23" data-volume="0.22"></audio>
+      <audio id="sfx-31-pop" src="assets/audio/sfx-pop.wav" data-start="27.3" data-duration="0.18" data-track-index="23" data-volume="0.22"></audio>
+      <audio id="sfx-32-whoosh" src="assets/audio/sfx-whoosh-synth.wav" data-start="27.95" data-duration="0.7" data-track-index="22" data-volume="0.3"></audio>
+      <audio id="sfx-33-hit" src="assets/audio/sfx-hit.wav" data-start="30.5" data-duration="0.6" data-track-index="25" data-volume="0.4"></audio>
+      <audio id="sfx-34-hit" src="assets/audio/sfx-hit.wav" data-start="32.9" data-duration="0.6" data-track-index="25" data-volume="0.4"></audio>
+      <audio id="sfx-35-hit" src="assets/audio/sfx-hit.wav" data-start="34.8" data-duration="0.6" data-track-index="25" data-volume="0.4"></audio>
+      <audio id="sfx-36-whoosh" src="assets/audio/sfx-whoosh-synth.wav" data-start="36.6" data-duration="0.7" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-37-chime" src="assets/audio/sfx-chime.wav" data-start="38.1" data-duration="1.15" data-track-index="24" data-volume="0.2"></audio>
+    </div>
+
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const E = "power3.out";
+        const EI = "power2.inOut";
+        const $ = (id) => document.getElementById(id);
+
+        /* ---------------- persistent ---------------- */
+        tl.fromTo("#brand", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 0.15);
+        tl.to("#brand", { opacity: 0, y: -8, duration: 0.4, ease: EI }, 37.9);
+        tl.fromTo("#glow", { opacity: 0.6, scale: 0.9 }, { opacity: 1, scale: 1.1, duration: 40, ease: "none" }, 0);
+
+        /* ---------------- SCENE 1 ---------------- */
+        // number cards — 3 x 5 grid, outer ones faded to imply "more"
+        const cardsHost = $("s1-cards");
+        const nums = ["+91 98XXX X4512", "+91 99XXX X1083", "+91 97XXX X7720", "+91 90XXX X3391", "+91 88XXX X5208", "+91 96XXX X6647", "+91 93XXX X0915", "+91 91XXX X2876", "+91 95XXX X8134", "+91 87XXX X4460", "+91 94XXX X7302", "+91 98XXX X1957", "+91 89XXX X3618", "+91 92XXX X9045", "+91 99XXX X5521"];
+        const teams = ["Sales", "Support", "Mumbai", "Delhi", "Bengaluru", "Pune", "Sales", "Hyderabad", "Support", "Chennai", "Kolkata", "Sales", "Jaipur", "Support", "Ahmedabad"];
+        const phoneSvg = '<svg width="20" height="20" viewBox="0 0 24 24"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z" fill="none" stroke="#27b378" stroke-width="2" stroke-linejoin="round"/></svg>';
+        const cards = [];
+        for (let i = 0; i < 15; i++) {
+          const c = document.createElement("div");
+          c.className = "ncard";
+          const col = i % 3, row = Math.floor(i / 3);
+          c.style.left = 66 + col * 326 + "px";
+          c.style.top = 286 + row * 92 + "px";
+          c.innerHTML = '<div class="ic">' + phoneSvg + '</div><div><div class="t1">' + nums[i] + '</div><div class="t2">' + teams[i] + " · WhatsApp</div></div>" + '<div class="badge">' + (3 + ((i * 7) % 19)) + "</div>";
+          cardsHost.appendChild(c);
+          cards.push({ el: c, col, row });
+        }
+        // order of appearance: centre row first, then outward
+        const order = cards.slice().sort((a, b) => Math.abs(a.row - 2) - Math.abs(b.row - 2) || Math.abs(a.col - 1) - Math.abs(b.col - 1));
+        order.forEach((c, k) => {
+          const outer = c.row === 0 || c.row === 4;
+          const t = k < 3 ? 0.55 + k * 0.1 : 1.35 + (k - 3) * 0.075;
+          tl.fromTo(c.el, { opacity: 0, y: 18, scale: 0.96 }, { opacity: outer ? 0.55 : 1, y: 0, scale: 1, duration: 0.36, ease: E }, t);
+        });
+        // headline line 1 on "bring 1,000+"
+        tl.fromTo("#s1-l1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, ease: E }, 1.3);
+        // merge into one inbox — "into one governed inbox"
+        cards.forEach((c) => {
+          const cx = 66 + c.col * 326 + 148, cy = 286 + c.row * 92 + 36;
+          tl.to(c.el, { x: 540 - cx, y: 640 - cy, scale: 0.35, opacity: 0, duration: 0.5, ease: "power3.in" }, 3.0 + Math.abs(c.row - 2) * 0.03 + Math.abs(c.col - 1) * 0.03);
+        });
+        tl.fromTo("#inbox", { opacity: 0, scale: 0.42 }, { opacity: 1, scale: 1, duration: 0.6, ease: E }, 3.38);
+        tl.fromTo("#s1-l2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, ease: E }, 3.4);
+        tl.fromTo("#inbox-row", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.3, ease: E }, 4.05);
+        // transition: the conversation row lifts out and expands into the personalised message card
+        tl.to("#inbox", { opacity: 0, scale: 0.96, duration: 0.45, ease: EI }, 4.55);
+        tl.to("#s1-hl", { opacity: 0, y: -14, duration: 0.4, ease: EI }, 4.6);
+        tl.fromTo("#morph-box", { opacity: 0 }, { opacity: 1, duration: 0.12 }, 4.42);
+        tl.fromTo("#morph-box", { clipPath: "inset(76px 114px 541px 172px round 12px)" }, { clipPath: "inset(0px 0px 0px 0px round 22px)", duration: 0.6, ease: "power3.inOut" }, 4.55);
+        tl.to("#morph-box", { opacity: 0, duration: 0.2 }, 5.2);
+
+        /* ---------------- SCENE 2 (local 0 = 5.0) ---------------- */
+        gsap.set(["#c-wrap", "#f-wrap", "#m-wrap"], { opacity: 0 });
+        tl.fromTo("#steps", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 5.1);
+        const stepOn = (id, t) => tl.fromTo(id, { backgroundColor: "#dcd8cd" }, { backgroundColor: "#27b378", duration: 0.3 }, t);
+        stepOn("#st1", 5.15); stepOn("#st2", 7.3); stepOn("#st3", 9.85); stepOn("#st4", 11.0);
+        const swapHl = (outId, inId, t) => {
+          if (outId) tl.to(outId, { opacity: 0, y: -16, duration: 0.3, ease: EI }, t - 0.12);
+          tl.fromTo(inId, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, t + 0.08);
+        };
+        swapHl(null, "#s2-h1", 5.05);
+        swapHl("#s2-h1", "#s2-h2", 7.3);
+        swapHl("#s2-h2", "#s2-h3", 9.85);
+        swapHl("#s2-h3", "#s2-h4", 11.0);
+        tl.to(["#s2-h4", "#steps"], { opacity: 0, y: -14, duration: 0.35, ease: EI }, 12.75);
+
+        // 2a personalise — one template becomes many customer conversations
+        tl.fromTo("#p-main", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: E }, 5.05);
+        gsap.set(["#p-ghostL", "#p-ghostR"], { opacity: 0 });
+        tl.fromTo("#p-hi", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 5.45);
+        tl.fromTo("#p-chip0", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 5.55);
+        tl.fromTo("#p-ghostL", { opacity: 0, x: 0, rotation: 0, scale: 1 }, { opacity: 1, x: -205, y: 30, rotation: -5, scale: 0.86, duration: 0.5, ease: E }, 5.85);
+        tl.fromTo("#p-ghostR", { opacity: 0, x: 0, rotation: 0, scale: 1 }, { opacity: 1, x: 205, y: 30, rotation: 5, scale: 0.86, duration: 0.5, ease: E }, 5.95);
+        tl.fromTo("#p-chipL", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 6.25);
+        tl.fromTo("#p-chipR", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 6.35);
+        tl.to(["#p-ghostL", "#p-ghostR"], { x: 0, y: 0, rotation: 0, scale: 1, opacity: 0, duration: 0.35, ease: "power2.in" }, 7.0);
+        tl.to("#p-wrap", { opacity: 0, duration: 0.3, ease: EI }, 7.2);
+
+        // 2b click-to-WhatsApp lead
+        tl.fromTo("#c-wrap", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 7.25);
+        gsap.set("#c-chat", { opacity: 0, x: 70 });
+        gsap.set(["#c-rip", "#c-pill"], { opacity: 0 });
+        tl.fromTo("#c-rip", { opacity: 0.9, scale: 0.4 }, { opacity: 0, scale: 1.6, duration: 0.5, ease: "power2.out" }, 7.75);
+        tl.fromTo("#c-dot", { opacity: 0, x: 0, y: 0, scale: 1 }, { opacity: 1, duration: 0.08 }, 7.8);
+        tl.to("#c-dot", { x: 448, y: 26, duration: 0.55, ease: "power2.inOut" }, 7.88);
+        tl.to("#c-dot", { opacity: 0, scale: 0.4, duration: 0.15 }, 8.38);
+        tl.to("#c-chat", { opacity: 1, x: 0, duration: 0.45, ease: E }, 8.0);
+        tl.fromTo("#c-pill", { opacity: 0, y: 12, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: E }, 8.55);
+        tl.to("#c-wrap", { opacity: 0, duration: 0.3, ease: EI }, 9.7);
+
+        // 2c automated follow-ups along the conversation timeline
+        tl.fromTo("#f-wrap", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 9.75);
+        tl.fromTo("#f-card", { y: 16 }, { y: 0, duration: 0.4, ease: E }, 9.75);
+        tl.fromTo("#f-b", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.28, ease: E }, 9.95);
+        tl.fromTo("#f-c", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 10.3);
+        tl.fromTo("#f-rail", { scaleY: 0, transformOrigin: "50% 0%" }, { scaleY: 1, duration: 0.8, ease: "power2.inOut" }, 9.9);
+        [["#f-n1", "#f-l1", 9.95], ["#f-n2", "#f-l2", 10.3], ["#f-n3", "#f-l3", 10.65]].forEach(([n, l, t]) => {
+          tl.fromTo(n, { scale: 0, backgroundColor: "#ffffff" }, { scale: 1, backgroundColor: "#27b378", duration: 0.25, ease: "back.out(2)" }, t);
+          tl.fromTo(l, { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: 0.25, ease: E }, t);
+        });
+        // into CRM: chat card shrinks left, rail retreats
+        tl.to(["#f-rail", "#f-n1", "#f-n2", "#f-n3", "#f-l1", "#f-l2", "#f-l3"], { opacity: 0, duration: 0.25 }, 10.95);
+        tl.to("#f-card", { x: -200, scale: 0.5, transformOrigin: "0% 50%", duration: 0.55, ease: "power3.inOut" }, 11.0);
+        tl.fromTo("#m-wrap", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 11.0);
+        tl.fromTo("#m-card", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, 11.25);
+        tl.fromTo("#m-line", { attr: { x2: 342 } }, { attr: { x2: 420 }, duration: 0.35, ease: E }, 11.55);
+        tl.fromTo("#m-node", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 11.6);
+        tl.to("#m-node", { backgroundColor: "#27b378", duration: 0.2 }, 11.85);
+        // line extends across frame -> becomes the call waveform
+        tl.to(["#f-card", "#m-card"], { opacity: 0, y: 20, duration: 0.35, ease: EI }, 12.55);
+        tl.to("#m-node", { opacity: 0, scale: 0.5, duration: 0.2 }, 12.55);
+        tl.to("#m-line", { attr: { x1: 120, x2: 960 }, duration: 0.45, ease: "power3.inOut" }, 12.6);
+        tl.to("#m-line", { opacity: 0, duration: 0.15 }, 13.05);
+
+        /* ---------------- SCENE 3 ---------------- */
+        const wave = $("wave");
+        const bars = [];
+        for (let i = 0; i < 36; i++) {
+          const b = document.createElement("div");
+          wave.appendChild(b);
+          const h = 18 + Math.abs(Math.sin(i * 1.7) * 70 + Math.sin(i * 0.53) * 40);
+          bars.push({ el: b, h });
+        }
+        tl.fromTo("#wave", { opacity: 0 }, { opacity: 1, duration: 0.1 }, 13.0);
+        bars.forEach((b, i) => {
+          tl.fromTo(b.el, { height: 4 }, { height: b.h, duration: 0.35, ease: E }, 13.05 + Math.abs(i - 17.5) * 0.008);
+        });
+        // waveform tucks below the call card
+        tl.to("#wave", { y: 330, scale: 0.42, opacity: 0.9, duration: 0.5, ease: "power3.inOut" }, 13.45);
+        bars.forEach((b, i) => {
+          tl.to(b.el, { height: b.h * 0.35 + 6, duration: 0.24, ease: "sine.inOut", yoyo: true, repeat: 5 }, 13.95 + (i % 5) * 0.04);
+        });
+        tl.to("#wave", { opacity: 0, duration: 0.3 }, 14.85);
+        swapHl(null, "#s3-h1", 13.05);
+        tl.fromTo("#k-card", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 13.45);
+        [["#k-r1", 13.9], ["#k-r2", 14.3]].forEach(([r, t]) => {
+          tl.fromTo(r, { opacity: 0.85, scale: 1 }, { opacity: 0, scale: 1.45, duration: 0.8, ease: "power2.out", repeat: 1, repeatDelay: 0 }, t);
+        });
+        // groups
+        tl.to("#k-card", { x: -120, opacity: 0, duration: 0.45, ease: EI }, 14.95);
+        tl.fromTo("#g-card", { opacity: 0, x: 120 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, 15.0);
+        ["#g-r1", "#g-r2", "#g-r3", "#g-r4"].forEach((r, i) => {
+          tl.fromTo(r, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.28, ease: E }, 15.35 + i * 0.16);
+        });
+        tl.to("#g-card", { opacity: 0, y: 20, duration: 0.35, ease: EI }, 16.2);
+        tl.to("#s3-h1", { opacity: 0, y: -16, duration: 0.3, ease: EI }, 16.2);
+        // tracking — numbers, agents, campaigns feeding one view
+        swapHl(null, "#s3-h2", 16.38);
+        tl.fromTo("#t-card", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 16.4);
+        gsap.set(["#t-c1", "#t-c2", "#t-c3"], { opacity: 0 });
+        const draw = (id, t) => {
+          const p = $(id.slice(1)), len = p.getTotalLength();
+          tl.fromTo(id, { attr: { "stroke-dasharray": len, "stroke-dashoffset": len } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.4, ease: E }, t);
+        };
+        [["#t-c1", "#t-p1", 16.55], ["#t-c2", "#t-p2", 17.75], ["#t-c3", "#t-p3", 18.45]].forEach(([c, p, t]) => {
+          tl.fromTo(c, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, t);
+          draw(p, t + 0.12);
+        });
+        tl.fromTo("#t-cover", { scaleX: 1, transformOrigin: "100% 50%" }, { scaleX: 0, duration: 1.6, ease: "power1.inOut" }, 16.8);
+        tl.to(["#t-wrap", "#s3-h2"], { opacity: 0, duration: 0.35, ease: EI }, 19.2);
+        // AI agents — chat + voice running together, "live!"
+        swapHl(null, "#s3-h3", 19.45);
+        tl.fromTo("#a-chatbox", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, 19.5);
+        tl.fromTo("#a-voicebox", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, 19.6);
+        tl.fromTo("#a-link", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: E }, 20.0);
+        gsap.set(["#a-b", "#a-c", "#a-live1", "#a-live2"], { opacity: 0 });
+        tl.fromTo("#a-b", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: E }, 19.95);
+        tl.fromTo("#a-typing", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 20.25);
+        tl.to("#a-typing .dot", { y: -5, duration: 0.18, ease: "sine.inOut", yoyo: true, repeat: 5, stagger: 0.08 }, 20.3);
+        tl.to("#a-typing", { opacity: 0, duration: 0.15 }, 21.25);
+        tl.fromTo("#a-c", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.32, ease: E }, 21.3);
+        [["#a-r1", 20.0], ["#a-r2", 20.45]].forEach(([r, t]) => {
+          tl.fromTo(r, { opacity: 0.85, scale: 1 }, { opacity: 0, scale: 1.4, duration: 0.9, ease: "power2.out", repeat: 2 }, t);
+        });
+        // voice waveform under both cards, running simultaneously
+        const aw = $("a-wave");
+        const abars = [];
+        for (let i = 0; i < 28; i++) {
+          const b = document.createElement("div");
+          b.style.cssText = "width:8px;height:6px;border-radius:4px;background:#27b378";
+          aw.appendChild(b);
+          abars.push(b);
+        }
+        tl.fromTo("#a-wave", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 20.0);
+        abars.forEach((b, i) => {
+          const h = 14 + Math.abs(Math.sin(i * 1.3) * 46 + Math.sin(i * 0.4) * 20);
+          tl.fromTo(b, { height: 6 }, { height: h, duration: 0.26, ease: "sine.inOut", yoyo: true, repeat: 9 }, 20.05 + (i % 6) * 0.045);
+        });
+        // live!
+        tl.fromTo(["#a-live1", "#a-live2"], { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.28, ease: "back.out(2.2)" }, 22.15);
+        tl.to(["#a-chat", "#a-voice"], { borderColor: "#27b378", boxShadow: "0 0 0 3px rgba(39,179,120,0.35), 0 22px 60px -18px rgba(39,179,120,0.55)", duration: 0.25, ease: E }, 22.15);
+        // align into a clean horizontal strip, making room for logos
+        tl.to(["#a-wave", "#a-link", "#s3-h3"], { opacity: 0, duration: 0.25 }, 22.8);
+        tl.to("#a-chatbox", { scale: 0.36, x: 150, y: -220, opacity: 0, duration: 0.6, ease: "power3.inOut" }, 22.85);
+        tl.to("#a-voicebox", { scale: 0.36, x: -150, y: -220, opacity: 0, duration: 0.6, ease: "power3.inOut" }, 22.85);
+
+        /* ---------------- SCENE 4 ---------------- */
+        swapHl(null, "#s4-hl", 23.2);
+        [["#lg-nissan", 23.8], ["#lg-navi", 24.58], ["#lg-shaadi", 25.28], ["#lg-justdial", 26.45], ["#lg-sobha", 27.3]].forEach(([id, t]) => {
+          tl.fromTo(id, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, t);
+        });
+        // settle, then hand focus to MakeMyTrip
+        tl.to("#s4-tiles", { y: -30, opacity: 0, duration: 0.55, ease: EI }, 28.0);
+        tl.to("#s4-hl", { opacity: 0, y: -16, duration: 0.4, ease: EI }, 27.95);
+
+        /* ---------------- SCENE 5 ---------------- */
+        tl.fromTo("#mmt", { opacity: 0, y: 280, scale: 1.45 }, { opacity: 1, y: 280, scale: 1.45, duration: 0.5, ease: E }, 28.35);
+        tl.to("#mmt", { y: 0, scale: 1, duration: 0.7, ease: "power3.inOut" }, 29.9);
+        tl.fromTo("#mmt-ov", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 30.3);
+        gsap.set(["#m1", "#m2", "#m3", "#r1", "#r2", "#r3"], { opacity: 0 });
+        const countUp = (spanId, to, t, fmt) => {
+          const o = { v: 0 };
+          tl.fromTo(o, { v: 0 }, { v: to, duration: 0.8, ease: "power2.out", onUpdate: () => { $(spanId).textContent = fmt(Math.round(o.v)); } }, t);
+        };
+        const fmtK = (v) => v.toLocaleString("en-US");
+        tl.fromTo("#m1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 30.5);
+        countUp("m1n", 1500, 30.5, fmtK);
+        tl.to("#m1", { opacity: 0, y: -24, duration: 0.35, ease: EI }, 32.55);
+        tl.fromTo("#m2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 32.9);
+        countUp("m2n", 30, 32.9, String);
+        tl.to("#m2", { opacity: 0, y: -24, duration: 0.35, ease: EI }, 34.5);
+        tl.fromTo("#m3", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 34.8);
+        countUp("m3n", 10, 34.8, String);
+        tl.to("#m3", { opacity: 0, scale: 0.6, y: 20, duration: 0.4, ease: EI }, 36.55);
+        // "without losing control" — all results resolve into one orderly row
+        ["#r1", "#r2", "#r3"].forEach((r, i) => {
+          tl.fromTo(r, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 36.7 + i * 0.08);
+        });
+
+        // scale + central control: agent cluster connected to one platform hub
+        const net = $("net"), avs = $("avs");
+        const pal = [["#ede4f8", "#5f2a9e"], ["#fde8e6", "#9e3329"], ["#fff1dc", "#8a5310"], ["#e3f1fb", "#185a8e"], ["#e4f6ec", "#16693f"], ["#f6e6f2", "#80295f"], ["#e9eef9", "#2f4a96"], ["#fbeee3", "#8f4416"]];
+        const letters = ["S", "M", "T", "W", "F", "A", "R", "K"];
+        const scatter = [[150, 780], [270, 860], [210, 960], [380, 790], [700, 790], [870, 860], [810, 960], [930, 780]];
+        const orderly = scatter.map((_, i) => [150 + i * 107, 790]);
+        const hubC = [540, 932];
+        scatter.forEach((p, i) => {
+          const a = document.createElement("div");
+          a.className = "av";
+          a.style.left = p[0] - 24 + "px";
+          a.style.top = p[1] - 24 + "px";
+          a.style.background = pal[i][0];
+          a.style.color = pal[i][1];
+          a.textContent = letters[i];
+          avs.appendChild(a);
+          const ln = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          ln.setAttribute("x1", p[0]); ln.setAttribute("y1", p[1]);
+          ln.setAttribute("x2", hubC[0]); ln.setAttribute("y2", hubC[1]);
+          ln.setAttribute("stroke", "#27b378"); ln.setAttribute("stroke-width", "2"); ln.setAttribute("stroke-opacity", "0.55");
+          net.appendChild(ln);
+          tl.fromTo(a, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: E }, 30.75 + i * 0.07);
+          tl.fromTo(ln, { opacity: 0 }, { opacity: 1, duration: 0.35 }, 30.9 + i * 0.07);
+          // resolve into an orderly line on "without losing control"
+          const dx = orderly[i][0] - p[0], dy = orderly[i][1] - p[1];
+          tl.to(a, { x: dx, y: dy, duration: 0.6, ease: "power3.inOut" }, 36.75);
+          tl.to(ln, { attr: { x1: orderly[i][0], y1: orderly[i][1] }, duration: 0.6, ease: "power3.inOut" }, 36.75);
+        });
+        tl.fromTo("#hub", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 30.7);
+        tl.to("#hub", { backgroundColor: "#e9f7f0", boxShadow: "0 0 0 10px rgba(39,179,120,0.12), 0 0 40px rgba(39,179,120,0.35)", duration: 0.4, ease: E }, 37.1);
+        // clear for end card
+        tl.to(["#mmt", "#mmt-ov", "#r1", "#r2", "#r3", "#avs", "#net", "#hub"], { opacity: 0, y: -10, duration: 0.4, ease: EI }, 37.85);
+
+        /* ---------------- END CARD ---------------- */
+        tl.fromTo("#end-logo", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 38.1);
+        tl.fromTo("#endline .line", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.55, ease: E, stagger: 0.18 }, 38.4);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
