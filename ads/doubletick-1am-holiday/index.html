@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1080, height=1080" />
+<title>DoubleTick 1 AM Ad</title>
+<style>
+  :root {
+    --bg: #F4F3EC;
+    --ink: #10201A;
+    --ink-2: #4A564F;
+    --line: rgba(16, 32, 26, 0.075);
+    --green: #0E9F6E;
+    --green-deep: #0B4D37;
+    --wa: #25D366;
+    --wa-bubble: #D9FDD3;
+    --amber: #F2A93B;
+    --card: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
+  body { font-family: "Inter", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+  .ad { position: relative; width: 1080px; height: 1080px; background: var(--bg); overflow: hidden; }
+
+  /* ---------- dynamic grid ---------- */
+  .grid, .grid-fine, .grid-cells, .grid-marks { position: absolute; inset: 0; pointer-events: none; }
+  .grid {
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: -1px -1px;
+    -webkit-mask-image: radial-gradient(ellipse 85% 80% at 62% 62%, #000 45%, rgba(0,0,0,0.35) 100%);
+  }
+  .grid-fine {
+    background-image:
+      linear-gradient(to right, rgba(16,32,26,0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(16,32,26,0.035) 1px, transparent 1px);
+    background-size: 15px 15px;
+    background-position: -1px -1px;
+    -webkit-mask-image: radial-gradient(circle 380px at 760px 640px, #000 0%, transparent 100%);
+  }
+  .cell { position: absolute; width: 60px; height: 60px; }
+  .cell.g1 { background: rgba(14, 159, 110, 0.10); }
+  .cell.g2 { background: rgba(14, 159, 110, 0.055); }
+  .cell.a1 { background: rgba(242, 169, 59, 0.14); }
+  .cell.ink { background: rgba(16, 32, 26, 0.04); }
+  .mark { position: absolute; width: 13px; height: 13px; transform: translate(-6px, -6px); }
+  .mark::before, .mark::after { content: ""; position: absolute; background: rgba(16,32,26,0.35); }
+  .mark::before { left: 6px; top: 0; width: 1px; height: 13px; }
+  .mark::after { top: 6px; left: 0; height: 1px; width: 13px; }
+  .dot { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--green); transform: translate(-3px, -3px); box-shadow: 0 0 0 5px rgba(14,159,110,0.15); }
+  .trace { position: absolute; height: 2px; background: linear-gradient(90deg, transparent, rgba(14,159,110,0.55), transparent); }
+  .trace.v { width: 2px; height: auto; background: linear-gradient(180deg, transparent, rgba(14,159,110,0.55), transparent); }
+
+  /* ---------- header ---------- */
+  .header { position: absolute; top: 56px; left: 64px; right: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 12px; font-family: "Inter Display", "Inter", sans-serif; font-weight: 800; font-size: 30px; letter-spacing: -0.02em; }
+  .logo-mark { width: 42px; height: 42px; border-radius: 12px; background: var(--green-deep); display: grid; place-items: center; }
+  .pill { display: flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 999px; background: var(--card); border: 1px solid rgba(16,32,26,0.08); font-size: 17px; font-weight: 600; color: var(--ink-2); }
+  .pill .live { width: 9px; height: 9px; border-radius: 50%; background: var(--wa); box-shadow: 0 0 0 4px rgba(37,211,102,0.2); }
+
+  /* ---------- copy ---------- */
+  .headline { isolation: isolate; position: absolute; top: 140px; left: 64px; width: 960px; font-family: "Inter Display", "Inter", sans-serif; font-weight: 800; font-size: 66px; line-height: 1.04; letter-spacing: -0.035em; }
+  .headline .muted { color: var(--ink-2); font-weight: 700; }
+  .headline .hl { position: relative; white-space: nowrap; color: var(--green-deep); }
+  .headline .hl::after { content: ""; position: absolute; left: -6px; right: -6px; bottom: 4px; height: 22px; background: rgba(242,169,59,0.45); z-index: -1; border-radius: 4px; }
+  .sub { position: absolute; top: 368px; left: 64px; width: 900px; font-size: 25px; line-height: 1.4; color: var(--ink-2); font-weight: 500; }
+  .sub b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- clock ---------- */
+  .clock-card { position: absolute; left: 64px; top: 478px; width: 400px; height: 432px; border-radius: 28px; background: var(--ink); color: #F4F3EC; padding: 30px; overflow: hidden; box-shadow: 0 30px 60px -25px rgba(16,32,26,0.45); }
+  .clock-card::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.22) 1px, transparent 1.5px); background-size: 24px 24px; opacity: 0.35; }
+  .clock-top { position: relative; display: flex; justify-content: space-between; align-items: center; font-size: 16px; font-weight: 600; color: rgba(244,243,236,0.7); }
+  .closed { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,0.08); }
+  .closed i { width: 8px; height: 8px; border-radius: 50%; background: #E5484D; }
+  .face { position: relative; margin: 22px auto 0; width: 196px; height: 196px; }
+  .time { position: relative; text-align: center; margin-top: 16px; font-family: "Inter Display", "Inter", sans-serif; font-weight: 800; font-size: 92px; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .time small { font-size: 40px; letter-spacing: -0.01em; margin-left: 6px; color: var(--amber); }
+
+  /* ---------- chat ---------- */
+  .chat { position: absolute; left: 488px; top: 478px; width: 528px; height: 318px; border-radius: 26px; background: #EFEAE2; overflow: hidden; box-shadow: 0 30px 60px -28px rgba(16,32,26,0.35); border: 1px solid rgba(16,32,26,0.06); }
+  .chat-head { display: flex; align-items: center; gap: 12px; height: 62px; padding: 0 18px; background: var(--green-deep); color: #fff; }
+  .avatar { width: 38px; height: 38px; border-radius: 50%; background: #F4F3EC; display: grid; place-items: center; font-size: 19px; }
+  .chat-head .name { font-weight: 700; font-size: 17px; }
+  .chat-head .status { font-size: 13px; opacity: 0.8; display: flex; align-items: center; gap: 6px; }
+  .chat-head .ai-tag { margin-left: auto; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,0.15); }
+  .msgs { padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+  .msg { max-width: 90%; padding: 9px 13px 7px; border-radius: 14px; font-size: 16px; line-height: 1.32; position: relative; box-shadow: 0 1px 0 rgba(16,32,26,0.08); }
+  .msg .t { display: inline-block; margin-left: 10px; font-size: 11px; color: #6B7A72; vertical-align: -2px; }
+  .msg.in { align-self: flex-start; background: #fff; border-top-left-radius: 4px; }
+  .msg.out { align-self: flex-end; background: var(--wa-bubble); border-top-right-radius: 4px; }
+  .ticks { color: #53BDEB; font-size: 12px; margin-left: 3px; letter-spacing: -3px; }
+
+  /* ---------- lead card ---------- */
+  .lead { position: absolute; left: 488px; top: 812px; width: 528px; height: 98px; border-radius: 22px; background: var(--card); border: 1.5px solid rgba(14,159,110,0.35); box-shadow: 0 24px 40px -24px rgba(11,77,55,0.45); display: flex; align-items: center; gap: 16px; padding: 0 20px; }
+  .lead-icon { flex: none; width: 54px; height: 54px; border-radius: 16px; background: rgba(14,159,110,0.12); display: grid; place-items: center; }
+  .lead-body { flex: 1; min-width: 0; }
+  .lead-top { display: flex; align-items: center; gap: 10px; }
+  .lead-top .nm { font-weight: 800; font-size: 19px; }
+  .badge { font-size: 12px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--green-deep); background: rgba(14,159,110,0.14); padding: 4px 9px; border-radius: 999px; }
+  .facts { margin-top: 7px; display: flex; gap: 10px; font-size: 14px; color: var(--ink-2); font-weight: 600; white-space: nowrap; }
+  .facts span::before { content: "•"; margin-right: 5px; color: var(--green); }
+  .facts span:first-child::before { content: none; }
+  .assign { flex: none; text-align: right; font-size: 13px; color: var(--ink-2); font-weight: 600; line-height: 1.35; }
+  .assign b { display: block; font-size: 15px; color: var(--ink); }
+
+  .connector { position: absolute; left: 1000px; top: 790px; width: 2px; height: 26px; background: repeating-linear-gradient(180deg, var(--green) 0 5px, transparent 5px 9px); }
+
+  /* ---------- footer ---------- */
+  .footer { position: absolute; left: 64px; right: 64px; bottom: 52px; display: flex; align-items: center; justify-content: space-between; }
+  .cta { display: inline-flex; align-items: center; gap: 14px; padding: 22px 34px; border-radius: 999px; background: var(--green-deep); color: #fff; font-weight: 800; font-size: 26px; letter-spacing: -0.01em; box-shadow: 0 18px 30px -16px rgba(11,77,55,0.7); }
+  .cta .arrow { width: 34px; height: 34px; border-radius: 50%; background: var(--wa); display: grid; place-items: center; }
+  .foot-note { text-align: right; font-size: 17px; color: var(--ink-2); font-weight: 600; line-height: 1.45; }
+  .foot-note b { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="ad">
+  <!-- dynamic grid background -->
+  <div class="grid"></div>
+  <div class="grid-fine"></div>
+  <div class="grid-cells">
+    <div class="cell g1" style="left:960px;top:60px"></div>
+    <div class="cell g2" style="left:900px;top:120px"></div>
+    <div class="cell ink" style="left:1020px;top:180px"></div>
+    <div class="cell a1" style="left:840px;top:360px"></div>
+    <div class="cell g2" style="left:960px;top:420px"></div>
+    <div class="cell g1" style="left:0px;top:420px"></div>
+    <div class="cell ink" style="left:60px;top:360px"></div>
+    <div class="cell g2" style="left:420px;top:960px"></div>
+    <div class="cell a1" style="left:0px;top:960px"></div>
+    <div class="cell g1" style="left:1020px;top:900px"></div>
+    <div class="cell ink" style="left:960px;top:960px"></div>
+    <div class="cell g2" style="left:780px;top:0px"></div>
+    <div class="trace" style="left:600px;top:120px;width:300px"></div>
+    <div class="trace v" style="left:1020px;top:240px;height:240px"></div>
+    <div class="trace" style="left:0px;top:960px;width:360px"></div>
+  </div>
+  <div class="grid-marks">
+    <div class="mark" style="left:900px;top:120px"></div>
+    <div class="mark" style="left:1020px;top:420px"></div>
+    <div class="mark" style="left:60px;top:480px"></div>
+    <div class="mark" style="left:480px;top:960px"></div>
+    <div class="mark" style="left:720px;top:60px"></div>
+    <div class="dot" style="left:900px;top:120px"></div>
+    <div class="dot" style="left:1020px;top:480px"></div>
+    <div class="dot" style="left:360px;top:960px"></div>
+  </div>
+
+  <!-- header -->
+  <div class="header">
+    <div class="logo">
+      <div class="logo-mark">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M2.5 13.5l4.5 4.5L15.5 8.5" stroke="#25D366" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 17l1 1L23 7" stroke="#F4F3EC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      DoubleTick
+    </div>
+    <div class="pill"><span class="live"></span>AI agent for travel businesses</div>
+  </div>
+
+  <!-- copy -->
+  <h1 class="headline">
+    <span class="muted">Office closes.</span> Then who's answering your <span class="hl">1&nbsp;AM</span> holiday enquiries?
+  </h1>
+  <p class="sub">Let <b>DoubleTick AI</b> engage travellers instantly, collect their <b>budgets and travel dates</b>, and pass <b>qualified enquiries</b> to your consultants.</p>
+
+  <!-- clock -->
+  <div class="clock-card">
+    <div class="clock-top">
+      <span>Tue, 14 Oct</span>
+      <span class="closed"><i></i>Office closed</span>
+    </div>
+    <svg class="face" viewBox="0 0 196 196">
+      <circle cx="98" cy="98" r="94" fill="rgba(255,255,255,0.04)" stroke="rgba(244,243,236,0.25)" stroke-width="2"/>
+      <g stroke="rgba(244,243,236,0.55)" stroke-linecap="round">
+        <line x1="98" y1="12" x2="98" y2="26" stroke-width="4"/>
+        <line x1="184" y1="98" x2="170" y2="98" stroke-width="4"/>
+        <line x1="98" y1="184" x2="98" y2="170" stroke-width="4"/>
+        <line x1="12" y1="98" x2="26" y2="98" stroke-width="4"/>
+        <line x1="141" y1="23.5" x2="137" y2="30.5" stroke-width="2.5"/>
+        <line x1="172.5" y1="55" x2="165.5" y2="59" stroke-width="2.5"/>
+        <line x1="172.5" y1="141" x2="165.5" y2="137" stroke-width="2.5"/>
+        <line x1="141" y1="172.5" x2="137" y2="165.5" stroke-width="2.5"/>
+        <line x1="55" y1="172.5" x2="59" y2="165.5" stroke-width="2.5"/>
+        <line x1="23.5" y1="141" x2="30.5" y2="137" stroke-width="2.5"/>
+        <line x1="23.5" y1="55" x2="30.5" y2="59" stroke-width="2.5"/>
+        <line x1="55" y1="23.5" x2="59" y2="30.5" stroke-width="2.5"/>
+      </g>
+      <!-- moon -->
+      <path d="M104 128a14 14 0 1 1-13-22 11 11 0 0 0 13 22z" fill="#F2A93B" transform="translate(-2 4)"/>
+      <!-- hour hand at 1 o'clock (30deg) -->
+      <line x1="98" y1="98" x2="125" y2="51" stroke="#F4F3EC" stroke-width="7" stroke-linecap="round"/>
+      <!-- minute hand at 12 -->
+      <line x1="98" y1="98" x2="98" y2="30" stroke="#F4F3EC" stroke-width="4.5" stroke-linecap="round"/>
+      <circle cx="98" cy="98" r="7" fill="#25D366"/>
+    </svg>
+    <div class="time">1:00<small>AM</small></div>
+  </div>
+
+  <!-- WhatsApp chat -->
+  <div class="chat">
+    <div class="chat-head">
+      <div class="avatar">✈️</div>
+      <div>
+        <div class="name">Your Travel Co.</div>
+        <div class="status">replying instantly</div>
+      </div>
+      <div class="ai-tag">DOUBLETICK AI</div>
+    </div>
+    <div class="msgs">
+      <div class="msg in">Hi! Any Bali packages for December? 🌴<span class="t">1:00 am</span></div>
+      <div class="msg out">Hi Priya! 😊 What's your budget per person and travel dates?<span class="t">1:00 am<span class="ticks">✓✓</span></span></div>
+      <div class="msg in">₹80k pp, 18–24 Dec, 2 adults<span class="t">1:01 am</span></div>
+      <div class="msg out">Perfect! Your consultant sends 3 options at 9 AM ✅<span class="t">1:01 am<span class="ticks">✓✓</span></span></div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- qualified lead -->
+  <div class="lead">
+    <div class="lead-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0B4D37" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 9.5-4.9"/><path d="M14.5 18l2.5 2.5 5-5"/></svg>
+    </div>
+    <div class="lead-body">
+      <div class="lead-top"><span class="nm">Priya S.</span><span class="badge">Qualified lead</span></div>
+      <div class="facts"><span>Bali</span><span>18–24 Dec</span><span>₹80k pp</span><span>2 adults</span></div>
+    </div>
+    <div class="assign">Handed to<b>Rohan</b></div>
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <div class="cta">Book a Free Demo
+      <span class="arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#0B4D37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </div>
+    <div class="foot-note"><b>24/7 AI replies.</b><br/>Human handoff, every time.</div>
+  </div>
+</div>
+</body>
+</html>
