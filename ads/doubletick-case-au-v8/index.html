@@ -9,6 +9,7 @@
   body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; overflow: hidden; }
   .ad { position: relative; width: 1080px; height: 1080px;
     background: radial-gradient(700px 520px at 100% 0%, rgba(0,122,90,.14), transparent 60%), radial-gradient(600px 500px at 0% 100%, rgba(0,122,90,.08), transparent 60%), var(--bg); }
+  .ad::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(#D3DDD8 1.3px, transparent 1.3px); background-size: 20px 20px; pointer-events: none; }
   .ad > * { position: absolute; }
   .top { left: 72px; right: 72px; top: 52px; display: flex; align-items: center; justify-content: space-between; }
   .logo { height: 32px; display: block; }
@@ -20,8 +21,8 @@
   .sub b { color: var(--ink); font-weight: 600; }
 
   /* visual: SaaS workflow canvas, decluttered */
-  .vis { left: 72px; top: 520px; width: 936px; height: 300px; border-radius: 24px; border: 1px solid var(--line); overflow: hidden;
-    background-color: #fff; background-image: radial-gradient(#DDE5E1 1.2px, transparent 1.2px); background-size: 20px 20px; }
+  .vis { left: 72px; top: 520px; width: 936px; height: 300px; overflow: visible;
+    background: transparent; }
   .nodes { position: absolute; left: 28px; right: 28px; top: 50%; transform: translateY(-50%); display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
   .node { background: #fff; border: 1px solid #DCE4E0; border-radius: 18px; padding: 22px 16px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; position: relative;
     box-shadow: 0 12px 26px -18px rgba(10,26,18,.35); }
