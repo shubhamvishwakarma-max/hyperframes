@@ -162,6 +162,154 @@
         height: 18px;
         flex: none;
       }
+      /* plain WhatsApp shell (header + wallpaper from supplied UI; bubbles cut from supplied UI or generated to match) */
+      .wa {
+        position: absolute;
+        background: #e2dad2 url("assets/wa/wall.png") repeat;
+        background-size: 600px auto;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 18px 40px -22px rgba(20, 30, 25, 0.28);
+      }
+      .wa-hd {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 600px;
+        height: 107px;
+        display: block;
+      }
+      .wa-body {
+        position: absolute;
+        left: 0;
+        top: 107px;
+        width: 600px;
+        bottom: 64px;
+        overflow: hidden;
+      }
+      .wa-bar {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 600px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 14px;
+        background: #f0ebe4;
+      }
+      .wa-in {
+        flex: 1;
+        height: 42px;
+        border-radius: 21px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        padding: 0 18px;
+        font: 400 16px/1 "Roboto", sans-serif;
+        color: #667781;
+      }
+      .wa-mic {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #1b8f5a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .bimg {
+        position: absolute;
+        display: block;
+        height: auto;
+      }
+      .bub {
+        position: absolute;
+        background: #fff;
+        border-radius: 10px;
+        padding: 9px 12px 24px;
+        font: 400 19px/1.4 "Roboto", sans-serif;
+        color: #111b21;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+      }
+      .bub.out {
+        background: #e7fed9;
+      }
+      .bub .ts {
+        position: absolute;
+        right: 10px;
+        bottom: 5px;
+        font: 400 13px/1 "Roboto", sans-serif;
+        color: #4f5f68;
+      }
+      .bub .lbl {
+        font: 500 15px/1.3 "Roboto", sans-serif;
+        color: #0f7a4b;
+        margin-bottom: 2px;
+      }
+      .bub .nm {
+        font-weight: 400;
+      }
+      .tok {
+        display: inline-block;
+        padding: 0 6px;
+        border-radius: 6px;
+        background: rgba(39, 179, 120, 0.18);
+        color: #0f7a4b;
+        font-weight: 500;
+      }
+      .typing {
+        position: absolute;
+        width: 74px;
+        height: 36px;
+        border-radius: 18px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .typing i {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #8f9a96;
+        display: block;
+      }
+      .callbar {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 112px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        background: linear-gradient(rgba(18, 26, 30, 0), #121a1e 42%);
+      }
+      .callbar i {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        background: #2b3438;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .callbar i.end {
+        background: #e5484d;
+      }
+      .callbar.sm {
+        height: 92px;
+        gap: 12px;
+      }
+      .callbar.sm i {
+        width: 44px;
+        height: 44px;
+      }
       /* scene 1 number cards */
       .ncard {
         position: absolute;
@@ -459,26 +607,21 @@
 
         <!-- 2a personalise -->
         <div id="p-wrap" class="layer">
-          <div id="p-ghostL" class="card" style="left: 240px; top: 300px; width: 600px; height: 686px">
-            <img class="full" src="assets/ui/personalise.png" alt="" />
+          <div id="p-ghostL" class="wa" style="left: 240px; top: 300px; width: 600px; height: 686px">
+            <img class="wa-hd" src="assets/wa/header.png" alt="" /><div class="wa-body"><div class="bub" style="left: 10px; top: 12px; width: 430px"><div>Hi <b class="nm">Priya</b>, this is Yash from ABC Enterprise</div><div style="margin-top: 6px">Sharing styles similar to what you were checking in-store today</div><span class="ts">10.35 AM</span></div><img class="bimg" src="assets/wa/p-image.png" alt="" style="left: 10px; top: 160px; width: 430px" /></div><div class="wa-bar"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="#54656f" stroke-width="2" stroke-linecap="round"/></svg><div class="wa-in">Type a message</div><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4z" fill="none" stroke="#54656f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" fill="none" stroke="#54656f" stroke-width="1.8"/></svg><div class="wa-mic"><svg width="18" height="18" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div></div>
           </div>
-          <div id="p-ghostR" class="card" style="left: 240px; top: 300px; width: 600px; height: 686px">
-            <img class="full" src="assets/ui/personalise.png" alt="" />
+          <div id="p-ghostR" class="wa" style="left: 240px; top: 300px; width: 600px; height: 686px">
+            <img class="wa-hd" src="assets/wa/header.png" alt="" /><div class="wa-body"><div class="bub" style="left: 10px; top: 12px; width: 430px"><div>Hi <b class="nm">Arjun</b>, this is Yash from ABC Enterprise</div><div style="margin-top: 6px">Sharing styles similar to what you were checking in-store today</div><span class="ts">10.35 AM</span></div><img class="bimg" src="assets/wa/p-image.png" alt="" style="left: 10px; top: 160px; width: 430px" /></div><div class="wa-bar"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="#54656f" stroke-width="2" stroke-linecap="round"/></svg><div class="wa-in">Type a message</div><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4z" fill="none" stroke="#54656f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" fill="none" stroke="#54656f" stroke-width="1.8"/></svg><div class="wa-mic"><svg width="18" height="18" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div></div>
           </div>
-          <div id="p-main" class="card" style="left: 240px; top: 300px; width: 600px; height: 686px">
-            <img class="full" src="assets/ui/personalise.png" alt="Personalised WhatsApp message" />
-            <div
-              id="p-hi"
-              class="abs"
-              style="
-                left: 14px;
-                top: 124px;
-                width: 432px;
-                height: 133px;
-                border: 3px solid var(--green);
-                border-radius: 12px;
-              "
-            ></div>
+          <div id="p-main" class="wa" style="left: 240px; top: 300px; width: 600px; height: 686px">
+            <img class="wa-hd" src="assets/wa/header.png" alt="" />
+            <div class="wa-body">
+              <div id="p-tpl" class="bub" style="left: 10px; top: 12px; width: 430px"><div>Hi <span class="tok">{{first_name}}</span>, this is Yash from ABC Enterprise</div><div style="margin-top: 6px">Sharing styles similar to what you were checking in-store today</div><span class="ts">10.35 AM</span></div>
+              <img id="p-text" class="bimg" src="assets/wa/p-text.png" alt="Personalised message to Sam" style="left: 10px; top: 12px; width: 430px" />
+              <img id="p-img" class="bimg" src="assets/wa/p-image.png" alt="Catalogue message" style="left: 10px; top: 160px; width: 430px" />
+              <div id="p-hi" class="abs" style="left: 5px; top: 7px; width: 440px; height: 149px; border: 3px solid var(--green); border-radius: 13px"></div>
+            </div>
+            <div class="wa-bar"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="#54656f" stroke-width="2" stroke-linecap="round"/></svg><div class="wa-in">Type a message</div><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4z" fill="none" stroke="#54656f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" fill="none" stroke="#54656f" stroke-width="1.8"/></svg><div class="wa-mic"><svg width="18" height="18" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div></div>
           </div>
           <div id="p-chip0" class="pill" data-layout-allow-overlap style="left: 470px; top: 268px"><span class="dot"></span>Sam</div>
           <div id="p-chipL" class="pill" data-layout-allow-overlap style="left: 92px; top: 330px"><span class="dot"></span>Priya</div>
@@ -525,12 +668,17 @@
 
         <!-- 2c follow-ups -->
         <div id="f-wrap" class="layer">
-          <div id="f-card" class="card" style="left: 240px; top: 300px; width: 600px; height: 683px">
-            <img class="full" src="assets/ui/followup.png" alt="Automated follow-up conversation" />
-            <div class="cover" style="top: 17%; height: 12.7%; background: #ebe5dd"></div>
-            <div class="cover" style="top: 31.8%; height: 49.3%; background: #ebe5dd"></div>
-            <img id="f-b" class="band" src="assets/ui/followup.png" alt="" style="clip-path: inset(17.6% 0 70.8% 0)" />
-            <img id="f-c" class="band" src="assets/ui/followup.png" alt="" style="clip-path: inset(32.4% 0 19.4% 0)" />
+          <div id="f-card" class="wa" style="left: 240px; top: 300px; width: 600px; height: 686px">
+            <img class="wa-hd" src="assets/wa/header.png" alt="" />
+            <div class="wa-body">
+              <div id="f-scroll" class="layer">
+                <img id="f-ask" class="bimg" src="assets/wa/f-ask.png" alt="Customer enquiry" style="left: 220px; top: 12px; width: 370px" />
+                <div id="f-typ" class="typing" style="left: 10px; top: 98px"><i></i><i></i><i></i></div>
+                <img id="f-rep" class="bimg" src="assets/wa/f-reply.png" alt="Automated reply" style="left: 10px; top: 98px; width: 420px" />
+                <div id="f-fu" class="bub" style="left: 10px; top: 442px; width: 430px"><div class="lbl">Automated follow-up</div><div>Hi! Just checking in. Our formal shirt offer ends today. Shall I reserve your size?</div><span class="ts">Next day · 10.30 AM</span></div>
+              </div>
+            </div>
+            <div class="wa-bar"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="#54656f" stroke-width="2" stroke-linecap="round"/></svg><div class="wa-in">Type a message</div><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4z" fill="none" stroke="#54656f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" fill="none" stroke="#54656f" stroke-width="1.8"/></svg><div class="wa-mic"><svg width="18" height="18" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div></div>
           </div>
           <div id="f-rail" class="abs" style="left: 214px; top: 425px; width: 2px; height: 360px; background: #d6d2c7"></div>
           <div id="f-n1" class="rail-node" style="left: 208px; top: 418px"></div>
@@ -569,6 +717,7 @@
           <img class="full" src="assets/ui/call.png" alt="WhatsApp call" />
           <div id="k-r1" class="ring" style="left: 156px; top: 298px; width: 222px; height: 222px"></div>
           <div id="k-r2" class="ring" style="left: 156px; top: 298px; width: 222px; height: 222px"></div>
+          <div class="callbar"><i><svg width="22" height="22" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2" fill="#fff"/><circle cx="12" cy="12" r="2" fill="#fff"/><circle cx="19" cy="12" r="2" fill="#fff"/></svg></i><i><svg width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="10" rx="2" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M15 11l6-3v8l-6-3z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></i><i><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><path d="M17 9a4 4 0 0 1 0 6" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></i><i><svg width="22" height="22" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M4 4l16 16" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></i><i class="end"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 14c5-5 13-5 18 0l-2.5 2.5-3.5-1.5v-2.5a10 10 0 0 0-6 0V15l-3.5 1.5z" fill="#fff"/></svg></i></div>
         </div>
 
         <!-- 3b groups -->
@@ -603,14 +752,17 @@
             <div id="a-l1" class="agent-label" style="left: 70px; top: 290px">
               <span class="dot"></span>AI Agent — Chat
             </div>
-            <div id="a-chat" class="card" style="left: 70px; top: 330px; width: 440px; height: 501px">
-              <img class="full" src="assets/ui/followup.png" alt="AI chat agent conversation" />
-              <div class="cover" style="top: 17%; height: 12.7%; background: #ebe5dd"></div>
-              <div class="cover" style="top: 31.8%; height: 49.3%; background: #ebe5dd"></div>
-              <img id="a-b" class="band" src="assets/ui/followup.png" alt="" style="clip-path: inset(17.6% 0 70.8% 0)" />
-              <img id="a-c" class="band" src="assets/ui/followup.png" alt="" style="clip-path: inset(32.4% 0 19.4% 0)" />
-              <div id="a-typing" class="abs" style="left: 24px; top: 172px; width: 74px; height: 34px; border-radius: 17px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px">
-                <i class="dot" style="background: #9aa09c"></i><i class="dot" style="background: #9aa09c"></i><i class="dot" style="background: #9aa09c"></i>
+            <div id="a-chat" class="card" style="left: 70px; top: 330px; width: 440px; height: 501px; background: #e2dad2">
+              <div class="wa" style="left: 0; top: 0; width: 600px; height: 683px; border: 0; border-radius: 0; box-shadow: none; transform: scale(0.7334); transform-origin: 0 0">
+                <img class="wa-hd" src="assets/wa/header.png" alt="" />
+                <div class="wa-body">
+                  <div id="a-q" class="bub out" style="left: 250px; top: 14px; width: 340px"><div>Do you have formal shirts in size M?</div><span class="ts">10.41 AM</span></div>
+                  <div id="a-typ" class="typing" style="left: 10px; top: 104px"><i></i><i></i><i></i></div>
+                  <div id="a-ans" class="bub" style="left: 10px; top: 104px; width: 440px"><div class="lbl">AI Agent</div><div>Yes! We have 12 formal styles in size M, starting at ₹1,499. Shall I share the catalogue?</div><span class="ts">10.41 AM</span></div>
+                  <div id="a-q2" class="bub out" style="left: 410px; top: 262px; width: 180px"><div>Yes, please!</div><span class="ts">10.42 AM</span></div>
+                  <div id="a-ans2" class="bub" style="left: 10px; top: 352px; width: 440px"><div class="lbl">AI Agent</div><div>Sharing it now. I can also reserve your size for checkout.</div><span class="ts">10.42 AM</span></div>
+                </div>
+                <div class="wa-bar"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="#54656f" stroke-width="2" stroke-linecap="round"/></svg><div class="wa-in">Type a message</div><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4z" fill="none" stroke="#54656f" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" fill="none" stroke="#54656f" stroke-width="1.8"/></svg><div class="wa-mic"><svg width="18" height="18" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div></div>
               </div>
             </div>
             <div id="a-live1" class="live" style="background: #0f7a4b; left: 428px; top: 283px"><i></i>LIVE</div>
@@ -623,6 +775,7 @@
               <img class="full" src="assets/ui/aivoice.png" alt="AI voice agent call" />
               <div id="a-r1" class="ring" style="left: 106px; top: 227px; width: 228px; height: 228px"></div>
               <div id="a-r2" class="ring" style="left: 106px; top: 227px; width: 228px; height: 228px"></div>
+              <div class="callbar sm"><i><svg width="22" height="22" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2" fill="#fff"/><circle cx="12" cy="12" r="2" fill="#fff"/><circle cx="19" cy="12" r="2" fill="#fff"/></svg></i><i><svg width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="10" rx="2" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M15 11l6-3v8l-6-3z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></i><i><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><path d="M17 9a4 4 0 0 1 0 6" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></i><i><svg width="22" height="22" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M4 4l16 16" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></i><i class="end"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 14c5-5 13-5 18 0l-2.5 2.5-3.5-1.5v-2.5a10 10 0 0 0-6 0V15l-3.5 1.5z" fill="#fff"/></svg></i></div>
             </div>
             <div id="a-live2" class="live" style="background: #0f7a4b; left: 928px; top: 283px"><i></i>LIVE</div>
           </div>
@@ -798,16 +951,20 @@
         swapHl("#s2-h3", "#s2-h4", 11.0);
         tl.to(["#s2-h4", "#steps"], { opacity: 0, y: -14, duration: 0.35, ease: EI }, 12.75);
 
-        // 2a personalise — one template becomes many customer conversations
+        // 2a personalise — a template bubble becomes one customer's message, then many customers'
         tl.fromTo("#p-main", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: E }, 5.05);
         gsap.set(["#p-ghostL", "#p-ghostR"], { opacity: 0 });
-        tl.fromTo("#p-hi", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 5.45);
-        tl.fromTo("#p-chip0", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 5.55);
-        tl.fromTo("#p-ghostL", { opacity: 0, x: 0, rotation: 0, scale: 1 }, { opacity: 1, x: -205, y: 30, rotation: -5, scale: 0.86, duration: 0.5, ease: E }, 5.85);
-        tl.fromTo("#p-ghostR", { opacity: 0, x: 0, rotation: 0, scale: 1 }, { opacity: 1, x: 205, y: 30, rotation: 5, scale: 0.86, duration: 0.5, ease: E }, 5.95);
+        tl.fromTo("#p-tpl", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 5.15);
+        tl.fromTo("#p-text", { opacity: 0, scale: 0.98 }, { opacity: 1, scale: 1, duration: 0.25, ease: E }, 5.5);
+        tl.to("#p-tpl", { opacity: 0, duration: 0.2 }, 5.55);
+        tl.fromTo("#p-hi", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 5.55);
+        tl.fromTo("#p-img", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: E }, 5.75);
+        tl.fromTo("#p-chip0", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 5.6);
+        tl.fromTo("#p-ghostL", { opacity: 0, x: 0, scale: 1 }, { opacity: 1, x: -250, y: 34, scale: 0.8, duration: 0.5, ease: E }, 5.95);
+        tl.fromTo("#p-ghostR", { opacity: 0, x: 0, scale: 1 }, { opacity: 1, x: 250, y: 34, scale: 0.8, duration: 0.5, ease: E }, 6.05);
         tl.fromTo("#p-chipL", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 6.25);
         tl.fromTo("#p-chipR", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 6.35);
-        tl.to(["#p-ghostL", "#p-ghostR"], { x: 0, y: 0, rotation: 0, scale: 1, opacity: 0, duration: 0.35, ease: "power2.in" }, 7.0);
+        tl.to(["#p-ghostL", "#p-ghostR"], { x: 0, y: 0, scale: 1, opacity: 0, duration: 0.35, ease: "power2.in" }, 7.0);
         tl.to("#p-wrap", { opacity: 0, duration: 0.3, ease: EI }, 7.2);
 
         // 2b click-to-WhatsApp lead
@@ -825,8 +982,13 @@
         // 2c automated follow-ups along the conversation timeline
         tl.fromTo("#f-wrap", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 9.75);
         tl.fromTo("#f-card", { y: 16 }, { y: 0, duration: 0.4, ease: E }, 9.75);
-        tl.fromTo("#f-b", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.28, ease: E }, 9.95);
-        tl.fromTo("#f-c", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 10.3);
+        tl.fromTo("#f-ask", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.28, ease: E }, 9.92);
+        tl.fromTo("#f-typ", { opacity: 0 }, { opacity: 1, duration: 0.12 }, 10.08);
+        tl.fromTo("#f-typ i", { y: 0 }, { y: -5, duration: 0.09, ease: "sine.inOut", yoyo: true, repeat: 1, stagger: 0.05 }, 10.1);
+        tl.to("#f-typ", { opacity: 0, duration: 0.1 }, 10.28);
+        tl.fromTo("#f-rep", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 10.3);
+        tl.to("#f-scroll", { y: -96, duration: 0.35, ease: "power2.inOut" }, 10.6);
+        tl.fromTo("#f-fu", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 10.66);
         tl.fromTo("#f-rail", { scaleY: 0, transformOrigin: "50% 0%" }, { scaleY: 1, duration: 0.8, ease: "power2.inOut" }, 9.9);
         [["#f-n1", "#f-l1", 9.95], ["#f-n2", "#f-l2", 10.3], ["#f-n3", "#f-l3", 10.65]].forEach(([n, l, t]) => {
           tl.fromTo(n, { scale: 0, backgroundColor: "#ffffff" }, { scale: 1, backgroundColor: "#27b378", duration: 0.25, ease: "back.out(2)" }, t);
@@ -897,12 +1059,14 @@
         tl.fromTo("#a-chatbox", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, 19.5);
         tl.fromTo("#a-voicebox", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, 19.6);
         tl.fromTo("#a-link", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: E }, 20.0);
-        gsap.set(["#a-b", "#a-c", "#a-live1", "#a-live2"], { opacity: 0 });
-        tl.fromTo("#a-b", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: E }, 19.95);
-        tl.fromTo("#a-typing", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 20.25);
-        tl.to("#a-typing .dot", { y: -5, duration: 0.18, ease: "sine.inOut", yoyo: true, repeat: 5, stagger: 0.08 }, 20.3);
-        tl.to("#a-typing", { opacity: 0, duration: 0.15 }, 21.25);
-        tl.fromTo("#a-c", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.32, ease: E }, 21.3);
+        gsap.set(["#a-live1", "#a-live2"], { opacity: 0 });
+        tl.fromTo("#a-q", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.28, ease: E }, 19.95);
+        tl.fromTo("#a-typ", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 20.25);
+        tl.fromTo("#a-typ i", { y: 0 }, { y: -5, duration: 0.15, ease: "sine.inOut", yoyo: true, repeat: 3, stagger: 0.07 }, 20.3);
+        tl.to("#a-typ", { opacity: 0, duration: 0.12 }, 20.9);
+        tl.fromTo("#a-ans", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 20.92);
+        tl.fromTo("#a-q2", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.26, ease: E }, 21.45);
+        tl.fromTo("#a-ans2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 21.85);
         [["#a-r1", 20.0], ["#a-r2", 20.45]].forEach(([r, t]) => {
           tl.fromTo(r, { opacity: 0.85, scale: 1 }, { opacity: 0, scale: 1.4, duration: 0.9, ease: "power2.out", repeat: 2 }, t);
         });

@@ -23,6 +23,7 @@ calls + groups → tracking → AI agents for chat + voice → customer logos �
 
 - Voiceover (master track, unchanged): `assets/audio/voiceover.mp3` (ElevenLabs "Hale"), 0.5s of leading silence trimmed.
 - Product UI: stills cut from the supplied UI reel (`uia.mp4`) into `assets/ui/*.png`.
+- Plain WhatsApp shell (`assets/wa/`): header, wallpaper and message bubbles cut at full resolution from the supplied UI, following the layout of the supplied UI strip (that strip itself is too low-res to use directly). Generated to match where no source exists: input bar, personalised variants (Priya, Arjun), the template bubble, the automated follow-up, the AI-agent chat, and call control bars.
 - Logos: `assets/logos/*.png` extracted from the supplied logo sheet (original colours and proportions, background removed); DoubleTick wordmark from the supplied PNG.
 - Fonts: Hedvig Letters Serif (headlines, numbers) and Geist (UI, labels), bundled locally from @fontsource.
 - Music bed `assets/audio/music-bed.mp3` and SFX `assets/audio/sfx-*.wav`: synthesized locally (ElevenLabs generation failed because the account ran out of credits).
