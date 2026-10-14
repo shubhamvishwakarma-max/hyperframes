@@ -47,31 +47,48 @@
   .sub b { color: var(--ink); font-weight: 600; }
 
   /* ---------- departing agent ---------- */
-  .agent { position: absolute; left: 64px; top: 468px; width: 330px; height: 338px; border-radius: 24px; background: #ECEBE3; border: 2px dashed rgba(19,19,22,0.18); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-  .avatar { position: relative; width: 104px; height: 104px; border-radius: 50%; background: #D9D8CF; display: grid; place-items: center; opacity: 0.85; }
-  .exit { position: absolute; right: -6px; bottom: -2px; width: 40px; height: 40px; border-radius: 50%; background: #E5484D; display: grid; place-items: center; box-shadow: 0 0 0 5px #ECEBE3; }
-  .agent .nm { margin-top: 20px; font-weight: 700; font-size: 26px; letter-spacing: -0.03em; color: var(--ink-2); }
-  .agent .role { margin-top: 2px; font-size: 17px; color: var(--ink-2); opacity: 0.8; }
-  .left-chip { margin-top: 18px; font-size: 15px; font-weight: 600; color: #C2363B; background: rgba(229,72,77,0.12); padding: 7px 14px; border-radius: 999px; }
+  .agent { position: absolute; left: 64px; top: 440px; width: 262px; height: 380px; border-radius: 24px; background: #ECEBE3; border: 2px dashed rgba(19,19,22,0.18); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .avatar { position: relative; width: 96px; height: 96px; border-radius: 50%; background: #D9D8CF; display: grid; place-items: center; opacity: 0.85; }
+  .exit { position: absolute; right: -6px; bottom: -2px; width: 38px; height: 38px; border-radius: 50%; background: #E5484D; display: grid; place-items: center; box-shadow: 0 0 0 5px #ECEBE3; }
+  .agent .nm { margin-top: 18px; font-weight: 700; font-size: 25px; letter-spacing: -0.03em; color: var(--ink-2); }
+  .agent .role { margin-top: 2px; font-size: 16px; color: var(--ink-2); opacity: 0.8; }
+  .left-chip { margin-top: 16px; font-size: 14.5px; font-weight: 600; color: #C2363B; background: rgba(229,72,77,0.12); padding: 7px 14px; border-radius: 999px; }
 
   /* ---------- arrow ---------- */
-  .arrow { position: absolute; left: 400px; top: 613px; width: 48px; height: 48px; border-radius: 50%; background: var(--green); display: grid; place-items: center; box-shadow: 0 0 0 7px var(--bg); z-index: 2; }
+  .arrow { position: absolute; left: 331px; top: 607px; width: 46px; height: 46px; border-radius: 50%; background: var(--green); display: grid; place-items: center; box-shadow: 0 0 0 7px var(--bg); z-index: 2; }
 
-  /* ---------- business inbox ---------- */
-  .inbox { position: absolute; left: 454px; top: 468px; width: 562px; height: 338px; border-radius: 24px; background: var(--card); border: 2px solid var(--green); overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0,122,90,0.45); }
-  .inbox-head { display: flex; align-items: center; gap: 12px; height: 68px; padding: 0 22px; border-bottom: 1px solid rgba(19,19,22,0.08); }
-  .inbox-head .ttl { font-weight: 700; font-size: 21px; letter-spacing: -0.02em; }
-  .owned { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--green); background: var(--green-tint); padding: 6px 12px; border-radius: 999px; }
-  .chat-row { display: flex; align-items: center; gap: 14px; padding: 14px 22px; border-bottom: 1px solid rgba(19,19,22,0.06); }
-  .ini { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 16px; color: var(--green); background: var(--green-tint); }
-  .cr-body { flex: 1; min-width: 0; }
-  .cr-top { display: flex; align-items: center; gap: 8px; }
-  .cr-top .n { font-weight: 600; font-size: 17.5px; letter-spacing: -0.01em; }
-  .cr-top .tm { margin-left: auto; font-size: 13px; color: var(--ink-2); }
-  .cr-msg { margin-top: 2px; font-size: 15.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .with { font-size: 12.5px; font-weight: 600; color: #fff; background: var(--green); padding: 3px 9px; border-radius: 999px; }
-  .inbox-foot { display: flex; align-items: center; gap: 8px; padding: 0 22px; height: 48px; font-size: 15px; color: var(--ink-2); }
-  .inbox-foot b { color: var(--ink); font-weight: 600; }
+  /* ---------- DoubleTick inbox (simplified) ---------- */
+  .inbox { position: absolute; left: 382px; top: 440px; width: 634px; height: 380px; border-radius: 22px; background: var(--card); border: 1.5px solid rgba(19,19,22,0.10); overflow: hidden; display: flex; box-shadow: 0 30px 60px -30px rgba(19,19,22,0.35); font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; }
+  .list { width: 206px; flex: none; border-right: 1px solid rgba(19,19,22,0.08); }
+  .list-head { height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; font-weight: 600; font-size: 15px; border-bottom: 1px solid rgba(19,19,22,0.07); }
+  .count { font-size: 11.5px; font-weight: 700; color: #fff; background: var(--green); padding: 2px 7px; border-radius: 6px; }
+  .row { display: flex; gap: 10px; padding: 18px 12px; border-bottom: 1px solid rgba(19,19,22,0.05); }
+  .row.on { background: #EAF4EF; }
+  .av { position: relative; flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 13px; }
+  .av::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
+  .row.on .av::after { box-shadow: 0 0 0 2px #EAF4EF; }
+  .a1 { background: #E3E7FB; color: #4F5BD5; } .a2 { background: #FBE3EE; color: #C2407A; } .a3 { background: #E0F2E9; color: #1E8A5A; } .a4 { background: #FFF0D9; color: #B7791F; }
+  .rb { min-width: 0; flex: 1; }
+  .rt { display: flex; justify-content: space-between; font-size: 14.5px; font-weight: 600; color: #111B21; }
+  .rt span:last-child { font-size: 10.5px; font-weight: 400; color: #8696A0; }
+  .rm { margin-top: 2px; font-size: 13px; color: #667781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .conv { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .conv-head { height: 50px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 16px; border-bottom: 1px solid rgba(19,19,22,0.07); }
+  .conv-head .n { font-weight: 600; font-size: 15px; color: #111B21; }
+  .assign { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--green); background: var(--green-tint); padding: 5px 10px; border-radius: 999px; }
+  .assign s { color: #8696A0; font-weight: 500; }
+  .thread { flex: 1; background: #F5F2EB; padding: 10px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .composer { flex: none; height: 44px; display: flex; align-items: center; gap: 10px; padding: 0 14px; border-top: 1px solid rgba(19,19,22,0.07); font-size: 13px; color: #8696A0; }
+  .composer .send { margin-left: auto; width: 28px; height: 28px; border-radius: 8px; background: var(--green); display: grid; place-items: center; }
+  .day { align-self: center; font-size: 11px; font-weight: 500; color: #54656F; background: #E9E6DE; padding: 3px 9px; border-radius: 6px; }
+  .m { max-width: 86%; padding: 6px 10px 7px; border-radius: 8px; font-size: 14px; line-height: 1.32; color: #111B21; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .m .who { display: block; font-size: 11.5px; font-weight: 600; color: var(--green); margin-bottom: 1px; }
+  .m.in { align-self: flex-start; background: #fff; border-top-left-radius: 0; }
+  .m.out { align-self: flex-end; background: #D9FDD3; border-top-right-radius: 0; }
+  .m.note { align-self: flex-end; background: #FFF6D6; border: 1px solid #F2DE9B; box-shadow: none; }
+  .m.note .who { color: #B7791F; }
+  .m.note .who em { font-style: normal; float: right; margin-left: 14px; font-weight: 700; letter-spacing: 0.04em; }
 
   /* ---------- footer ---------- */
   .footer { position: absolute; left: 64px; bottom: 180px; display: flex; align-items: center; }
@@ -110,35 +127,31 @@
 
   <div class="arrow"><svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 
-  <!-- business-owned inbox -->
+  <!-- business-owned DoubleTick inbox -->
   <div class="inbox">
-    <div class="inbox-head">
-      <svg width="30" height="20" viewBox="0 0 26 18" fill="none"><path d="M1.5 9.5l4.5 4.5L14.5 4.5" stroke="#29B47A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 13l1 1L22 3" stroke="#29B47A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span class="ttl">Business inbox</span>
-      <span class="owned"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Company-owned</span>
+    <div class="list">
+      <div class="list-head">All chats <span class="count">Open 170</span></div>
+      <div class="row on"><div class="av a1">A</div><div class="rb"><div class="rt"><span>Ahmed K.</span><span>10:24</span></div><div class="rm">Adding 2 nights now</div></div></div>
+      <div class="row"><div class="av a2">M</div><div class="rb"><div class="rt"><span>Mariam S.</span><span>09:58</span></div><div class="rm">Passport copies sent</div></div></div>
+      <div class="row"><div class="av a3">J</div><div class="rb"><div class="rt"><span>James R.</span><span>Mon</span></div><div class="rm">Booking confirmed!</div></div></div>
+      <div class="row"><div class="av a4">F</div><div class="rb"><div class="rt"><span>Fatima A.</span><span>Sun</span></div><div class="rm">Georgia visa docs?</div></div></div>
     </div>
-    <div class="chat-row">
-      <div class="ini">AK</div>
-      <div class="cr-body">
-        <div class="cr-top"><span class="n">Ahmed K.</span><span class="with">Now with Sara</span><span class="tm">10:24</span></div>
-        <div class="cr-msg">Can we add 2 nights in Baku to the trip?</div>
+    <div class="conv">
+      <div class="conv-head">
+        <div class="av a1">A</div>
+        <span class="n">Ahmed K.</span>
+        <span class="assign"><s>Rahul</s> → Sara</span>
       </div>
-    </div>
-    <div class="chat-row">
-      <div class="ini">MS</div>
-      <div class="cr-body">
-        <div class="cr-top"><span class="n">Mariam S.</span><span class="tm">Yesterday</span></div>
-        <div class="cr-msg">Passport copies sent ✅</div>
+      <div class="thread">
+        <span class="day">Monday</span>
+        <div class="m out"><span class="who">Rahul</span>Here's your Baku itinerary 📎</div>
+        <div class="m in">Can we add 2 more nights?</div>
+        <div class="m note"><span class="who">Rahul <em>NOTE</em></span>Prefers 4-star, budget AED 9k</div>
+        <span class="day">Today</span>
+        <div class="m out"><span class="who">Sara</span>Hi Ahmed, Sara here! Adding 2 nights now ✅</div>
       </div>
+      <div class="composer">Type a message…<span class="send"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span></div>
     </div>
-    <div class="chat-row">
-      <div class="ini">JR</div>
-      <div class="cr-body">
-        <div class="cr-top"><span class="n">James R.</span><span class="tm">Mon</span></div>
-        <div class="cr-msg">Booking confirmed for 12 Mar, thanks!</div>
-      </div>
-    </div>
-    <div class="inbox-foot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><b>Full chat history kept</b> · every message, every customer</div>
   </div>
 
   <!-- footer -->
