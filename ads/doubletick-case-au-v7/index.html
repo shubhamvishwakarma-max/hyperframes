@@ -19,11 +19,33 @@
   .sub { left: 72px; right: 72px; top: 394px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.015em; }
   .sub b { color: var(--ink); font-weight: 600; }
 
-  /* visual: big, unboxed flow — grey leads -> AI Voice -> green qualified leads */
-  .vis { left: 0; top: 512px; width: 1080px; height: 360px; }
-  .vis svg { width: 1080px; height: 360px; display: block; }
-  .lb { position: absolute; top: 284px; transform: translateX(-50%); font-size: 20px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
-  .cta { left: 72px; top: 874px; }
+  /* visual: campaign dashboard (adapted from DoubleTick UI), fading to the bottom edge */
+  .vis { left: 72px; top: 500px; width: 936px; height: 580px; overflow: hidden; background: #fff; border: 1px solid var(--line); border-bottom: 0; border-radius: 20px 20px 0 0;
+    -webkit-mask-image: linear-gradient(#000 50%, rgba(0,0,0,.18) 64%, rgba(0,0,0,.06) 80%, transparent 95%);
+    mask-image: linear-gradient(#000 50%, rgba(0,0,0,.18) 64%, rgba(0,0,0,.06) 80%, transparent 95%); }
+  .dh { display: flex; align-items: center; gap: 12px; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+  .dh .tt { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+  .chip { font-size: 13px; font-weight: 600; padding: 5px 10px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; }
+  .chip.wa { background: #E3F9EA; color: #1A8A47; border: 1px solid #BDEBCB; }
+  .chip.ph { background: #F1F3F2; color: var(--ink-2); border: 1px solid var(--line); }
+  .dh .live { margin-left: auto; font-size: 13px; font-weight: 600; color: var(--green); display: flex; align-items: center; gap: 7px; }
+  .dh .live i { width: 8px; height: 8px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgba(47,191,143,.2); }
+  .tabs { display: flex; gap: 26px; padding: 0 22px; border-bottom: 1px solid var(--line); font-size: 16px; color: var(--muted); }
+  .tabs span { padding: 14px 0; display: flex; align-items: center; gap: 8px; }
+  .tabs .n { font-size: 13px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: #F1F3F2; color: var(--ink-2); }
+  .tabs .on { color: var(--green); font-weight: 600; box-shadow: inset 0 -3px 0 var(--green); }
+  .tabs .hq { color: var(--green); font-weight: 600; }
+  .tabs .hq .n { background: var(--green); color: #fff; font-size: 15px; padding: 3px 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 16px; }
+  th { text-align: left; font-size: 12.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 11px 22px; background: #F7F9F8; }
+  td { padding: 13px 22px; border-top: 1px solid #EEF2F0; }
+  td.nm { font-weight: 600; }
+  td.du { color: var(--muted); }
+  .st { font-size: 13px; font-weight: 600; padding: 5px 11px; border-radius: 999px; white-space: nowrap; }
+  .st.q { background: #E0F2EC; color: var(--green); }
+  .st.c { background: #FFF4DB; color: #B7791F; }
+  .st.n { background: #F1F3F2; color: var(--muted); }
+  .cta { left: 72px; top: 874px; z-index: 2; }
   .btn { background: var(--green); color: #fff; font-size: 23px; font-weight: 600; letter-spacing: -0.01em; padding: 17px 28px; border-radius: 14px;
     display: flex; align-items: center; gap: 12px; box-shadow: 0 14px 30px -10px rgba(0,122,90,.6); }
 </style></head>
@@ -34,26 +56,9 @@
   <p class="sub"><b>AU Small Finance Bank</b> used <b>DoubleTick AI Voice</b> to re-engage dormant prospects, capture customer interest, and pass qualified leads to sales teams.</p>
 
   <div class="vis">
-    <svg viewBox="0 0 1080 360">
-      <defs>
-        <radialGradient id="og" cx="34%" cy="28%" r="80%"><stop offset="0" stop-color="#9BEBCB"/><stop offset=".4" stop-color="#1FA77B"/><stop offset=".75" stop-color="#007A5A"/><stop offset="1" stop-color="#005A42"/></radialGradient>
-        <radialGradient id="hl"><stop offset="0" stop-color="#2FBF8F" stop-opacity=".3"/><stop offset="1" stop-color="#2FBF8F" stop-opacity="0"/></radialGradient>
-        <marker id="ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#007A5A"/></marker>
-      </defs>
-      <path d="M300 62 C 380 62, 400 150, 448 150" stroke="#C9D5CF" stroke-width="2" fill="none"/><path d="M300 120 C 380 120, 400 150, 448 150" stroke="#C9D5CF" stroke-width="2" fill="none"/><path d="M300 178 C 380 178, 400 150, 448 150" stroke="#C9D5CF" stroke-width="2" fill="none"/><path d="M300 236 C 380 236, 400 150, 448 150" stroke="#C9D5CF" stroke-width="2" fill="none"/>
-      <circle cx="102" cy="62" r="24" fill="#E1E8E4"/><circle cx="102" cy="56.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M89.52 76.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="160" cy="62" r="24" fill="#E1E8E4"/><circle cx="160" cy="56.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M147.52 76.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="218" cy="62" r="24" fill="#E1E8E4"/><circle cx="218" cy="56.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M205.52 76.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="276" cy="62" r="24" fill="#E1E8E4"/><circle cx="276" cy="56.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M263.52 76.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="102" cy="120" r="24" fill="#E1E8E4"/><circle cx="102" cy="114.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M89.52 134.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="160" cy="120" r="24" fill="#E1E8E4"/><circle cx="160" cy="114.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M147.52 134.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="218" cy="120" r="24" fill="#E1E8E4"/><circle cx="218" cy="114.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M205.52 134.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="276" cy="120" r="24" fill="#E1E8E4"/><circle cx="276" cy="114.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M263.52 134.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="102" cy="178" r="24" fill="#E1E8E4"/><circle cx="102" cy="172.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M89.52 192.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="160" cy="178" r="24" fill="#E1E8E4"/><circle cx="160" cy="172.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M147.52 192.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="218" cy="178" r="24" fill="#E1E8E4"/><circle cx="218" cy="172.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M205.52 192.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="276" cy="178" r="24" fill="#E1E8E4"/><circle cx="276" cy="172.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M263.52 192.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="102" cy="236" r="24" fill="#E1E8E4"/><circle cx="102" cy="230.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M89.52 250.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="160" cy="236" r="24" fill="#E1E8E4"/><circle cx="160" cy="230.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M147.52 250.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="218" cy="236" r="24" fill="#E1E8E4"/><circle cx="218" cy="230.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M205.52 250.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/><circle cx="276" cy="236" r="24" fill="#E1E8E4"/><circle cx="276" cy="230.72" r="7.199999999999999" fill="#AEBAB4"/><path d="M263.52 250.4 a12.48 10.56 0 0 1 24.96 0 Z" fill="#AEBAB4"/>
-      <circle cx="540" cy="150" r="150" fill="url(#hl)"/>
-      <circle cx="540" cy="150" r="112" fill="none" stroke="#2FBF8F" stroke-width="2" opacity=".35"/>
-      <circle cx="540" cy="150" r="88" fill="url(#og)"/>
-      <path transform="translate(506 116) scale(2.85)" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" fill="#fff"/>
-      <path d="M658 150 L 768 150" stroke="#007A5A" stroke-width="4" stroke-linecap="round" marker-end="url(#ah)"/>
-      <circle cx="812" cy="92" r="26" fill="#007A5A"/><circle cx="812" cy="86.28" r="7.8" fill="#FFFFFF"/><path d="M798.48 107.6 a13.52 11.44 0 0 1 27.04 0 Z" fill="#FFFFFF"/><circle cx="872" cy="92" r="26" fill="#007A5A"/><circle cx="872" cy="86.28" r="7.8" fill="#FFFFFF"/><path d="M858.48 107.6 a13.52 11.44 0 0 1 27.04 0 Z" fill="#FFFFFF"/><circle cx="932" cy="92" r="26" fill="#007A5A"/><circle cx="932" cy="86.28" r="7.8" fill="#FFFFFF"/><path d="M918.48 107.6 a13.52 11.44 0 0 1 27.04 0 Z" fill="#FFFFFF"/><circle cx="842" cy="150" r="26" fill="#007A5A"/><circle cx="842" cy="144.28" r="7.8" fill="#FFFFFF"/><path d="M828.48 165.6 a13.52 11.44 0 0 1 27.04 0 Z" fill="#FFFFFF"/><circle cx="902" cy="150" r="26" fill="#007A5A"/><circle cx="902" cy="144.28" r="7.8" fill="#FFFFFF"/><path d="M888.48 165.6 a13.52 11.44 0 0 1 27.04 0 Z" fill="#FFFFFF"/><circle cx="812" cy="208" r="26" fill="#007A5A"/><circle cx="812" cy="202.28" r="7.8" fill="#FFFFFF"/><path d="M798.48 223.6 a13.52 11.44 0 0 1 27.04 0 Z" fill="#FFFFFF"/><circle cx="872" cy="208" r="26" fill="#007A5A"/><circle cx="872" cy="202.28" r="7.8" fill="#FFFFFF"/><path d="M858.48 223.6 a13.52 11.44 0 0 1 27.04 0 Z" fill="#FFFFFF"/><circle cx="932" cy="208" r="26" fill="#007A5A"/><circle cx="932" cy="202.28" r="7.8" fill="#FFFFFF"/><path d="M918.48 223.6 a13.52 11.44 0 0 1 27.04 0 Z" fill="#FFFFFF"/>
-      <circle cx="966" cy="58" r="22" fill="#fff" stroke="#007A5A" stroke-width="3"/>
-      <path d="M955 58 l7 7 l13 -14" stroke="#007A5A" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <div class="lb" style="left:189px;color:#7A8781">Dormant leads</div>
-    <div class="lb" style="left:540px;color:#007A5A">AI Voice calls them</div>
-    <div class="lb" style="left:872px;color:#0A1A12">5,062 qualified</div>
+    <div class="dh"><span class="tt">Dormant lead re-engagement</span><span class="chip wa"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1A8A47"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>WhatsApp</span><span class="chip ph">Phone</span><span class="live"><i></i>AI Voice</span></div>
+    <div class="tabs"><span class="on">All</span><span class="hq">Qualified<span class="n">5,062</span></span><span>Call back</span><span>Not interested</span></div>
+    <table><thead><tr><th>Status</th><th>Customer</th><th>Interest captured</th><th>Duration</th></tr></thead><tbody><tr><td><span class="st q">Qualified</span></td><td class="nm">Ravi Sharma</td><td>Home loan top-up</td><td class="du">1m 13s</td></tr><tr><td><span class="st q">Qualified</span></td><td class="nm">Meena Kulkarni</td><td>Credit card</td><td class="du">49s</td></tr><tr><td><span class="st c">Call back</span></td><td class="nm">Arjun Pillai</td><td>Callback Fri, 5 PM</td><td class="du">35s</td></tr><tr><td><span class="st q">Qualified</span></td><td class="nm">Fatima Rizvi</td><td>Personal loan</td><td class="du">1m 15s</td></tr><tr><td><span class="st n">Not interested</span></td><td class="nm">Karan Mehta</td><td>—</td><td class="du">22s</td></tr><tr><td><span class="st q">Qualified</span></td><td class="nm">Neha Tiwari</td><td>Gold loan</td><td class="du">58s</td></tr><tr><td><span class="st q">Qualified</span></td><td class="nm">Vikram Jain</td><td>Business loan</td><td class="du">1m 02s</td></tr></tbody></table>
   </div>
 
   <div class="cta"><div class="btn">Book your Free Pilot
