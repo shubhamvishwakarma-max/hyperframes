@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1080, height=1080" />
+<title>DoubleTick Agent Leaves Ad</title>
+<style>
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin.woff2) format("woff2"); font-weight: 100 900;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin-ext.woff2) format("woff2"); font-weight: 100 900;
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+  :root {
+    --bg: #F4F3EC;
+    --ink: #131316;
+    --ink-2: #5A5A63;
+    --green: #007A5A;
+    --green-tint: rgba(0, 122, 90, 0.10);
+    --line: rgba(19, 19, 22, 0.07);
+    --card: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .ad { position: relative; width: 1080px; height: 1080px; background: var(--bg); overflow: hidden; }
+
+  /* ---------- dynamic grid ---------- */
+  .grid { position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: -1px -1px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 85% at 60% 65%, #000 40%, rgba(0,0,0,0.3) 100%);
+  }
+  .cell { position: absolute; width: 60px; height: 60px; background: var(--green-tint); }
+  .cell.soft { background: rgba(0, 122, 90, 0.05); }
+  .dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--green); transform: translate(-4px, -4px); box-shadow: 0 0 0 6px rgba(0,122,90,0.14); }
+
+  /* ---------- header ---------- */
+  .logo { position: absolute; top: 70px; left: 64px; height: 38px; }
+
+  /* ---------- copy ---------- */
+  .headline { position: absolute; top: 180px; left: 64px; width: 960px; font-weight: 700; font-size: 68px; line-height: 1.05; letter-spacing: -0.045em; color: var(--ink); }
+  .headline .hl { color: var(--green); white-space: nowrap; }
+  .sub { position: absolute; top: 340px; left: 64px; width: 900px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- departing agent ---------- */
+  .agent { position: absolute; left: 64px; top: 468px; width: 330px; height: 338px; border-radius: 24px; background: #ECEBE3; border: 2px dashed rgba(19,19,22,0.18); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .avatar { position: relative; width: 104px; height: 104px; border-radius: 50%; background: #D9D8CF; display: grid; place-items: center; opacity: 0.85; }
+  .exit { position: absolute; right: -6px; bottom: -2px; width: 40px; height: 40px; border-radius: 50%; background: #E5484D; display: grid; place-items: center; box-shadow: 0 0 0 5px #ECEBE3; }
+  .agent .nm { margin-top: 20px; font-weight: 700; font-size: 26px; letter-spacing: -0.03em; color: var(--ink-2); }
+  .agent .role { margin-top: 2px; font-size: 17px; color: var(--ink-2); opacity: 0.8; }
+  .left-chip { margin-top: 18px; font-size: 15px; font-weight: 600; color: #C2363B; background: rgba(229,72,77,0.12); padding: 7px 14px; border-radius: 999px; }
+
+  /* ---------- arrow ---------- */
+  .arrow { position: absolute; left: 400px; top: 613px; width: 48px; height: 48px; border-radius: 50%; background: var(--green); display: grid; place-items: center; box-shadow: 0 0 0 7px var(--bg); z-index: 2; }
+
+  /* ---------- business inbox ---------- */
+  .inbox { position: absolute; left: 454px; top: 468px; width: 562px; height: 338px; border-radius: 24px; background: var(--card); border: 2px solid var(--green); overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0,122,90,0.45); }
+  .inbox-head { display: flex; align-items: center; gap: 12px; height: 68px; padding: 0 22px; border-bottom: 1px solid rgba(19,19,22,0.08); }
+  .inbox-head .ttl { font-weight: 700; font-size: 21px; letter-spacing: -0.02em; }
+  .owned { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--green); background: var(--green-tint); padding: 6px 12px; border-radius: 999px; }
+  .chat-row { display: flex; align-items: center; gap: 14px; padding: 14px 22px; border-bottom: 1px solid rgba(19,19,22,0.06); }
+  .ini { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 16px; color: var(--green); background: var(--green-tint); }
+  .cr-body { flex: 1; min-width: 0; }
+  .cr-top { display: flex; align-items: center; gap: 8px; }
+  .cr-top .n { font-weight: 600; font-size: 17.5px; letter-spacing: -0.01em; }
+  .cr-top .tm { margin-left: auto; font-size: 13px; color: var(--ink-2); }
+  .cr-msg { margin-top: 2px; font-size: 15.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .with { font-size: 12.5px; font-weight: 600; color: #fff; background: var(--green); padding: 3px 9px; border-radius: 999px; }
+  .inbox-foot { display: flex; align-items: center; gap: 8px; padding: 0 22px; height: 48px; font-size: 15px; color: var(--ink-2); }
+  .inbox-foot b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- footer ---------- */
+  .footer { position: absolute; left: 64px; bottom: 180px; display: flex; align-items: center; }
+  .cta { display: inline-flex; align-items: center; gap: 14px; padding: 0 32px; height: 62px; border-radius: 999px; background: var(--green); color: #fff; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; box-shadow: 0 18px 30px -16px rgba(0,122,90,0.7); }
+</style>
+</head>
+<body>
+<div class="ad">
+  <!-- dynamic grid background -->
+  <div class="grid"></div>
+  <div class="cell" style="left:960px;top:60px"></div>
+  <div class="cell soft" style="left:900px;top:120px"></div>
+  <div class="cell soft" style="left:1020px;top:360px"></div>
+  <div class="cell" style="left:0px;top:420px"></div>
+  <div class="cell soft" style="left:420px;top:960px"></div>
+  <div class="cell" style="left:1020px;top:960px"></div>
+  <div class="dot" style="left:900px;top:120px"></div>
+
+  <!-- header -->
+  <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+
+  <!-- copy -->
+  <h1 class="headline">What happens to customer chats when an <span class="hl">agent leaves?</span></h1>
+  <p class="sub">Keep business conversations and <b>customer history</b> accessible through DoubleTick's <b>centrally managed WhatsApp workspace</b>.</p>
+
+  <!-- departing agent -->
+  <div class="agent">
+    <div class="avatar">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#8C8B84" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 14 0v1"/></svg>
+      <span class="exit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg></span>
+    </div>
+    <div class="nm">Rahul</div>
+    <div class="role">Sales agent</div>
+    <div class="left-chip">Left the team</div>
+  </div>
+
+  <div class="arrow"><svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+  <!-- business-owned inbox -->
+  <div class="inbox">
+    <div class="inbox-head">
+      <svg width="30" height="20" viewBox="0 0 26 18" fill="none"><path d="M1.5 9.5l4.5 4.5L14.5 4.5" stroke="#29B47A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 13l1 1L22 3" stroke="#29B47A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="ttl">Business inbox</span>
+      <span class="owned"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Company-owned</span>
+    </div>
+    <div class="chat-row">
+      <div class="ini">AK</div>
+      <div class="cr-body">
+        <div class="cr-top"><span class="n">Ahmed K.</span><span class="with">Now with Sara</span><span class="tm">10:24</span></div>
+        <div class="cr-msg">Can we add 2 nights in Baku to the trip?</div>
+      </div>
+    </div>
+    <div class="chat-row">
+      <div class="ini">MS</div>
+      <div class="cr-body">
+        <div class="cr-top"><span class="n">Mariam S.</span><span class="tm">Yesterday</span></div>
+        <div class="cr-msg">Passport copies sent ✅</div>
+      </div>
+    </div>
+    <div class="chat-row">
+      <div class="ini">JR</div>
+      <div class="cr-body">
+        <div class="cr-top"><span class="n">James R.</span><span class="tm">Mon</span></div>
+        <div class="cr-msg">Booking confirmed for 12 Mar, thanks!</div>
+      </div>
+    </div>
+    <div class="inbox-foot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><b>Full chat history kept</b> · every message, every customer</div>
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <div class="cta">Take Control
+      <svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>
