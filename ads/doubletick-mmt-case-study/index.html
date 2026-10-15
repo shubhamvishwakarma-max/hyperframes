@@ -43,7 +43,7 @@
   /* ---------- copy ---------- */
   .headline { position: absolute; top: 180px; left: 64px; width: 960px; font-weight: 700; font-size: 58px; line-height: 1.06; letter-spacing: -0.045em; color: var(--ink); }
   .headline .hl { color: #D32F2F; }
-  .sub { position: absolute; top: 324px; left: 64px; width: 952px; font-size: 26px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub { position: absolute; top: 322px; left: 64px; width: 952px; font-size: 22px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
   .sub b { color: var(--ink); font-weight: 600; }
 
   /* ---------- customer story pill ---------- */
@@ -51,20 +51,20 @@
   .pill i { width: 8px; height: 8px; border-radius: 50%; background: #2BB673; }
   .sub img { height: 30px; vertical-align: -7px; margin-right: 6px; }
 
-  /* ---------- results card ---------- */
-  .card { position: absolute; left: 64px; top: 404px; width: 952px; height: 400px; border-radius: 26px; background: var(--card); border: 1.5px solid rgba(19,19,22,0.08); box-shadow: 0 30px 60px -30px rgba(19,19,22,0.3); padding: 30px 32px; }
-  .lockup { display: flex; align-items: center; gap: 22px; }
-  .lockup .mmt { height: 46px; }
-  .lockup .x { font-size: 26px; color: #A3A39C; font-weight: 300; }
-  .lockup .dt { height: 34px; }
-  .lockup .tag { margin-left: auto; font-size: 14px; font-weight: 600; color: var(--green); background: var(--green-tint); padding: 7px 14px; border-radius: 999px; }
-  .story { margin-top: 18px; font-size: 21px; line-height: 1.45; color: var(--ink-2); max-width: 860px; }
-  .story b { color: var(--ink); font-weight: 600; }
-  .stats { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .stat { border-radius: 20px; background: #F2F7F4; border: 1px solid rgba(0,122,90,0.14); padding: 26px 22px 28px; }
-  .stat .n { font-weight: 800; font-size: 66px; letter-spacing: -0.05em; color: var(--green); line-height: 1; }
-  .stat .n small { font-size: 34px; letter-spacing: -0.02em; }
-  .stat .l { margin-top: 10px; font-size: 17px; line-height: 1.35; color: var(--ink); font-weight: 500; }
+  /* ---------- results card (left) ---------- */
+  .card { position: absolute; left: 64px; top: 470px; width: 470px; height: 334px; border-radius: 24px; background: var(--card); border: 1.5px solid rgba(19,19,22,0.08); box-shadow: 0 30px 60px -30px rgba(19,19,22,0.3); padding: 24px 26px; }
+  .lockup { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; border-bottom: 1px solid rgba(19,19,22,0.08); }
+  .lockup .mmt { height: 36px; }
+  .lockup .x { font-size: 22px; color: #A3A39C; font-weight: 300; }
+  .lockup .dt { height: 27px; }
+  .row { display: flex; align-items: center; gap: 18px; padding: 14px 0; border-bottom: 1px solid rgba(19,19,22,0.06); }
+  .row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .row .n { width: 150px; flex: none; font-weight: 800; font-size: 46px; letter-spacing: -0.05em; color: var(--green); line-height: 1; }
+  .row .n small { font-size: 28px; }
+  .row .l { font-size: 17px; line-height: 1.3; color: var(--ink); font-weight: 500; }
+
+  /* ---------- MakeMyTrip chat (right, fades at bottom) ---------- */
+  .chat { position: absolute; left: 566px; top: 446px; width: 462px; z-index: 3; -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 608px, transparent 634px); }
 
   /* ---------- footer ---------- */
   .footer { position: absolute; left: 64px; bottom: 180px; display: flex; align-items: center; }
@@ -87,7 +87,7 @@
 
   <!-- copy -->
   <h1 class="headline">Managing hundreds of travel agents on <span class="hl">separate WhatsApp numbers?</span></h1>
-  <p class="sub"><b>MakeMyTrip faced the same challenge.</b></p>
+  <p class="sub"><b>MakeMyTrip faced the same challenge.</b> With DoubleTick, MakeMyTrip centralised WhatsApp conversations across <b>1,500+ agents</b>, achieving <b>30% higher operational efficiency</b> and <b>10% growth in booking intent and revenue.</b></p>
 
   <!-- results -->
   <div class="card">
@@ -95,15 +95,14 @@
       <img class="mmt" src="mmt-logo.png" alt="MakeMyTrip" />
       <span class="x">×</span>
       <img class="dt" src="doubletick-logo.webp" alt="DoubleTick" />
-      <span class="tag">Results with DoubleTick</span>
     </div>
-    <p class="story">With DoubleTick, MakeMyTrip centralised WhatsApp conversations across <b>1,500+ agents</b> in one place.</p>
-    <div class="stats">
-      <div class="stat"><div class="n">1,500+</div><div class="l">agents on one centralised WhatsApp workspace</div></div>
-      <div class="stat"><div class="n">30<small>%</small></div><div class="l">higher operational efficiency</div></div>
-      <div class="stat"><div class="n">10<small>%</small></div><div class="l">growth in booking intent and revenue</div></div>
-    </div>
+    <div class="row"><div class="n">1,500+</div><div class="l">agents on one WhatsApp workspace</div></div>
+    <div class="row"><div class="n">30<small>%</small></div><div class="l">higher operational efficiency</div></div>
+    <div class="row"><div class="n">10<small>%</small></div><div class="l">growth in booking intent and revenue</div></div>
   </div>
+
+  <!-- MakeMyTrip WhatsApp chat -->
+  <img class="chat" src="mmt-chat.png" alt="" />
 
   <!-- footer -->
   <div class="footer">
