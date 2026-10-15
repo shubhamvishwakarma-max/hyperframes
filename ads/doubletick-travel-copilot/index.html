@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1080, height=1080" />
+<title>DoubleTick Travel Co-pilot Ad</title>
+<style>
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin.woff2) format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin-ext.woff2) format("woff2"); font-weight: 100 900; unicode-range: U+0100-02BA, U+20A0-20C4; }
+  @font-face { font-family: "Geist Mono"; src: url(fonts/geist-mono-latin.woff2) format("woff2"); font-weight: 500; }
+  :root { --bg: #F4F9F5; --ink: #0F1A14; --ink-2: #4A5550; --muted: #7D8A84; --green: #007A5A; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .ad { position: relative; width: 1080px; height: 1080px; overflow: hidden;
+    background: radial-gradient(ellipse 420px 360px at 1080px 0, rgba(0,122,90,0.16), transparent 70%), var(--bg); }
+  .grid { position: absolute; inset: 0;
+    background-image: linear-gradient(to right, rgba(15,26,20,0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(15,26,20,0.035) 1px, transparent 1px);
+    background-size: 52px 52px; -webkit-mask-image: radial-gradient(ellipse 70% 60% at 60% 70%, #000 30%, transparent 80%); }
+
+  .logo { position: absolute; left: 70px; top: 62px; height: 42px; }
+  .pill { position: absolute; right: 72px; top: 66px; height: 38px; padding: 0 18px; border-radius: 999px; background: #0F1A14; color: #EAF4EF; display: flex; align-items: center; gap: 10px; font-family: "Geist Mono", monospace; font-size: 14px; font-weight: 500; letter-spacing: 0.1em; }
+  .pill i { width: 9px; height: 9px; border-radius: 50%; background: #2BB673; box-shadow: 0 0 0 3px rgba(43,182,115,0.25); }
+
+  .headline { position: absolute; left: 68px; top: 160px; width: 980px; font-weight: 700; font-size: 74px; line-height: 1.0; letter-spacing: -0.05em; }
+  .headline .l1 { color: var(--muted); }
+  .headline .l3 { color: var(--green); }
+  .sub { position: absolute; left: 70px; top: 404px; width: 940px; font-size: 19px; line-height: 1.5; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  .cta { position: absolute; left: 78px; top: 520px; height: 68px; padding: 0 30px; display: flex; align-items: center; background: linear-gradient(180deg, #0E8A64, #007A5A); color: #fff; border-radius: 4px; border: 1px solid #006B4F; font-family: "Geist Mono", monospace; font-size: 25px; font-weight: 500; letter-spacing: 0.06em; box-shadow: 0 10px 22px -10px rgba(0,122,90,0.6); z-index: 4; }
+  .cta .rv { position: absolute; width: 5px; height: 5px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.7); }
+  .cursor { position: absolute; left: 178px; top: 572px; z-index: 6; filter: drop-shadow(2px 3px 0 rgba(0,0,0,0.15)); }
+
+  .photo { position: absolute; left: 0; bottom: 0; width: 1080px; height: 443px; z-index: 2; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 40px); }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="grid"></div>
+  <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+  <div class="pill"><i></i>TRAVEL · AI CO-PILOT</div>
+
+  <h1 class="headline"><span class="l1">Less enquiry chasing,</span><br/>more trips &amp; holidays sold<br/><span class="l3">with AI Agent &amp; Co-pilot.</span></h1>
+  <p class="sub">Give every travel consultant <b>full traveller context across WhatsApp, email, calls &amp; more</b> with AI Co-pilot. Deploy <b>AI agents at scale</b> to qualify enquiries, collect passport copies and send payment reminders.</p>
+
+  <div class="cta">APPLY FOR FREE PILOT
+    <span class="rv" style="left:6px;top:6px"></span><span class="rv" style="right:6px;top:6px"></span><span class="rv" style="left:6px;bottom:6px"></span><span class="rv" style="right:6px;bottom:6px"></span>
+  </div>
+  <!-- pixel arrow cursor -->
+  <svg class="cursor" width="56" height="88" viewBox="0 0 14 22" shape-rendering="crispEdges">
+    <path fill="#000" d="M0 0h1v1H0zM0 1h2v1H0zM0 2h1v1H0zM2 2h1v1H2zM0 3h1v1H0zM3 3h1v1H3zM0 4h1v1H0zM4 4h1v1H4zM0 5h1v1H0zM5 5h1v1H5zM0 6h1v1H0zM6 6h1v1H6zM0 7h1v1H0zM7 7h1v1H7zM0 8h1v1H0zM8 8h1v1H8zM0 9h1v1H0zM9 9h1v1H9zM0 10h1v1H0zM10 10h1v1h-1zM0 11h1v1H0zM6 11h5v1H6zM0 12h1v1H0zM3 12h1v1H3zM6 12h1v1H6zM0 13h1v1H0zM2 13h1v1H2zM4 13h1v1H4zM7 13h1v1H7zM0 14h2v1H0zM4 14h1v1H4zM7 14h1v1H7zM0 15h1v1H0zM5 15h1v1H5zM8 15h1v1H8zM5 16h1v1H5zM8 16h1v1H8zM6 17h1v1H6zM9 17h1v1H9zM6 18h1v1H6zM9 18h1v1H9zM7 19h2v1H7z"/>
+    <path fill="#fff" d="M1 2h1v1H1zM1 3h2v1H1zM1 4h3v1H1zM1 5h4v1H1zM1 6h5v1H1zM1 7h6v1H1zM1 8h7v1H1zM1 9h8v1H1zM1 10h9v1H1zM1 11h5v1H1zM1 12h2v1H1zM4 12h2v1H4zM1 13h1v1H1zM5 13h2v1H5zM2 14h2v1H2zM5 14h2v1H5zM6 15h2v1H6zM6 16h2v1H6zM7 17h2v1H7zM7 18h2v1H7z"/>
+  </svg>
+
+  <img class="photo" src="photo.png" alt="" />
+</div>
+</body>
+</html>
