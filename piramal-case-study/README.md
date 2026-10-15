@@ -7,6 +7,20 @@
 | 1:1 · 1080 × 1080 | [`renders/piramal-finance-doubletick-case-study-1080x1080.mp4`](renders/piramal-finance-doubletick-case-study-1080x1080.mp4) |
 | 16:9 · 1920 × 1080 | [`renders/piramal-finance-doubletick-case-study-1920x1080.mp4`](renders/piramal-finance-doubletick-case-study-1920x1080.mp4) |
 
+### v1 (46 s) in 16:9
+
+`dt_piramal-finance_customer_video_01_v1_1080x1080.mp4` is the 46 s render from commit `5a87914`. That version has the full original narration, upbeat music, the hook on screen from frame 0, the 5,704+ / 1,343 / 51.6% KPIs and "Apply for Free Pilot".
+
+- **Render:** [`renders/dt_piramal-finance_customer_video_01_v1_1920x1080.mp4`](renders/dt_piramal-finance_customer_video_01_v1_1920x1080.mp4) is its 16:9 cut.
+- **Source:** `scripts/build_v1_16x9.py` reads v1's `index.html` from git and applies the same widescreen layout described below, plus one centring rule for v1's 51.6% progress line. It writes `variants/v1-46s-landscape-16x9.html`.
+- **Audio:** v1's stems are kept under `assets/audio/v1/`. The 16:9 cut's audio is identical to the square v1 file.
+
+```bash
+python3 scripts/build_v1_16x9.py
+npx hyperframes@0.8.91 render --strict -c variants/v1-46s-landscape-16x9.html -q delivery --crf 14 -f 30 \
+  -o renders/dt_piramal-finance_customer_video_01_v1_1920x1080.mp4
+```
+
 ### 16:9 layout
 
 `index.html` is the only composition you edit. Its widescreen layout lives in `#root.wide` CSS rules plus a few `WIDE` switches in the script. `scripts/build_16x9.py` generates `variants/landscape-16x9.html` by changing the canvas to 1920 × 1080 and turning that mode on. Timing, copy, audio and assets are shared.
