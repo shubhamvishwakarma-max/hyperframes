@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1080, height=1080" />
+<title>DoubleTick MakeMyTrip Story</title>
+<style>
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin.woff2) format("woff2"); font-weight: 100 900;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin-ext.woff2) format("woff2"); font-weight: 100 900;
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+  :root {
+    --bg: #F4F3EC;
+    --ink: #131316;
+    --ink-2: #5A5A63;
+    --green: #007A5A;
+    --green-tint: rgba(0, 122, 90, 0.10);
+    --line: rgba(19, 19, 22, 0.07);
+    --card: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .ad { position: relative; width: 1080px; height: 1080px; background: var(--bg); overflow: hidden; }
+
+  /* ---------- dynamic grid ---------- */
+  .grid { position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: -1px -1px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 85% at 60% 65%, #000 40%, rgba(0,0,0,0.3) 100%);
+  }
+  .cell { position: absolute; width: 60px; height: 60px; background: var(--green-tint); }
+  .cell.soft { background: rgba(0, 122, 90, 0.05); }
+  .dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--green); transform: translate(-4px, -4px); box-shadow: 0 0 0 6px rgba(0,122,90,0.14); }
+
+  /* ---------- header ---------- */
+  .logo { position: absolute; top: 70px; left: 64px; height: 38px; }
+
+  /* ---------- copy ---------- */
+  .headline { position: absolute; top: 180px; left: 64px; width: 960px; font-weight: 700; font-size: 58px; line-height: 1.06; letter-spacing: -0.045em; color: var(--ink); }
+  .headline .hl { color: #D32F2F; }
+  .sub { position: absolute; top: 324px; left: 64px; width: 952px; font-size: 26px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- customer story pill ---------- */
+  .pill { position: absolute; right: 64px; top: 72px; height: 36px; padding: 0 16px; border-radius: 999px; background: var(--ink); color: #F4F3EC; display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: #2BB673; }
+  .sub img { height: 30px; vertical-align: -7px; margin-right: 6px; }
+
+  /* ---------- results card ---------- */
+  .card { position: absolute; left: 64px; top: 404px; width: 952px; height: 400px; border-radius: 26px; background: var(--card); border: 1.5px solid rgba(19,19,22,0.08); box-shadow: 0 30px 60px -30px rgba(19,19,22,0.3); padding: 30px 32px; }
+  .lockup { display: flex; align-items: center; gap: 22px; }
+  .lockup .mmt { height: 46px; }
+  .lockup .x { font-size: 26px; color: #A3A39C; font-weight: 300; }
+  .lockup .dt { height: 34px; }
+  .lockup .tag { margin-left: auto; font-size: 14px; font-weight: 600; color: var(--green); background: var(--green-tint); padding: 7px 14px; border-radius: 999px; }
+  .story { margin-top: 18px; font-size: 21px; line-height: 1.45; color: var(--ink-2); max-width: 860px; }
+  .story b { color: var(--ink); font-weight: 600; }
+  .stats { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .stat { border-radius: 20px; background: #F2F7F4; border: 1px solid rgba(0,122,90,0.14); padding: 26px 22px 28px; }
+  .stat .n { font-weight: 800; font-size: 66px; letter-spacing: -0.05em; color: var(--green); line-height: 1; }
+  .stat .n small { font-size: 34px; letter-spacing: -0.02em; }
+  .stat .l { margin-top: 10px; font-size: 17px; line-height: 1.35; color: var(--ink); font-weight: 500; }
+
+  /* ---------- footer ---------- */
+  .footer { position: absolute; left: 64px; bottom: 180px; display: flex; align-items: center; }
+  .cta { display: inline-flex; align-items: center; gap: 14px; padding: 0 32px; height: 62px; border-radius: 999px; background: var(--green); color: #fff; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; box-shadow: 0 18px 30px -16px rgba(0,122,90,0.7); }
+</style>
+</head>
+<body>
+<div class="ad">
+  <!-- dynamic grid background -->
+  <div class="grid"></div>
+  <div class="cell soft" style="left:1020px;top:360px"></div>
+  <div class="cell" style="left:0px;top:420px"></div>
+  <div class="cell soft" style="left:420px;top:960px"></div>
+  <div class="cell" style="left:1020px;top:960px"></div>
+
+  <!-- header -->
+  <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+
+  <div class="pill"><i></i>CUSTOMER STORY</div>
+
+  <!-- copy -->
+  <h1 class="headline">Managing hundreds of travel agents on <span class="hl">separate WhatsApp numbers?</span></h1>
+  <p class="sub"><b>MakeMyTrip faced the same challenge.</b></p>
+
+  <!-- results -->
+  <div class="card">
+    <div class="lockup">
+      <img class="mmt" src="mmt-logo.png" alt="MakeMyTrip" />
+      <span class="x">×</span>
+      <img class="dt" src="doubletick-logo.webp" alt="DoubleTick" />
+      <span class="tag">Results with DoubleTick</span>
+    </div>
+    <p class="story">With DoubleTick, MakeMyTrip centralised WhatsApp conversations across <b>1,500+ agents</b> in one place.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">1,500+</div><div class="l">agents on one centralised WhatsApp workspace</div></div>
+      <div class="stat"><div class="n">30<small>%</small></div><div class="l">higher operational efficiency</div></div>
+      <div class="stat"><div class="n">10<small>%</small></div><div class="l">growth in booking intent and revenue</div></div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <div class="cta">Book Your Free Pilot Today
+      <svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>
