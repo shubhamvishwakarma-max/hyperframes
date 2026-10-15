@@ -1,8 +1,20 @@
 # Piramal Finance × DoubleTick AI Voice — customer story
 
-1080 × 1080 · 30 fps · H.264 + AAC · 30.0 s
+30 fps · H.264 + AAC · 30.0 s, in two cuts from one source:
 
-Final export: [`renders/piramal-finance-doubletick-case-study-1080x1080.mp4`](renders/piramal-finance-doubletick-case-study-1080x1080.mp4)
+| Cut | File |
+| --- | --- |
+| 1:1 · 1080 × 1080 | [`renders/piramal-finance-doubletick-case-study-1080x1080.mp4`](renders/piramal-finance-doubletick-case-study-1080x1080.mp4) |
+| 16:9 · 1920 × 1080 | [`renders/piramal-finance-doubletick-case-study-1920x1080.mp4`](renders/piramal-finance-doubletick-case-study-1920x1080.mp4) |
+
+### 16:9 layout
+
+`index.html` is the only composition you edit. Its widescreen layout lives in `#root.wide` CSS rules plus a few `WIDE` switches in the script. `scripts/build_16x9.py` generates `variants/landscape-16x9.html` by changing the canvas to 1920 × 1080 and turning that mode on. Timing, copy, audio and assets are shared.
+
+- **Hook:** the card field runs full-bleed and the headline grows to 92 px.
+- **Problem, solution, outreach, handoff:** headlines sit in a left column. The product UI (columns, campaign panel, AI call, RM handoff) moves to the right as one block, so every shared-element morph stays intact. "Reach / Understand / Capture intent" stacks vertically.
+- **KPIs:** stay centred.
+- **End frame:** headline on the left, the organised conversations kept on the right, and a full-width lockup row with "Apply for Free Pilot".
 
 ## Timing
 
@@ -48,9 +60,12 @@ All customer, RM and campaign data on screen is fictional. No phone numbers are 
 ```bash
 python3 scripts/build_vo.py           # VO edit + timemap (needs ffmpeg with rubberband)
 python3 scripts/build_audio.py        # music + SFX on the same map (numpy + scipy)
+python3 scripts/build_16x9.py         # regenerate the 16:9 file from index.html
 npx hyperframes@0.8.91 check
-npx hyperframes@0.8.91 render -q delivery --crf 14 -f 30 \
+npx hyperframes@0.8.91 render --strict -q delivery --crf 14 -f 30 \
   -o renders/piramal-finance-doubletick-case-study-1080x1080.mp4
+npx hyperframes@0.8.91 render --strict -c variants/landscape-16x9.html -q delivery --crf 14 -f 30 \
+  -o renders/piramal-finance-doubletick-case-study-1920x1080.mp4
 ```
 
 Fonts (Hedvig Letters Serif, Geist; SIL OFL) and GSAP are vendored in `assets/`, so a render makes no network requests.

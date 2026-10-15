@@ -1450,6 +1450,114 @@
         letter-spacing: 0.02em;
         box-shadow: 0 16px 30px -18px rgba(23, 138, 89, 0.75);
       }
+
+      /* ================= 16:9 layout (index-16x9.html) =================
+         Same height, 840 px more width: headlines move into a left column,
+         the product stage moves right, backgrounds and the hook field go
+         full-bleed, KPIs stay centred. */
+      #root.wide #logo {
+        left: 72px;
+        top: 52px;
+        height: 32px;
+      }
+      #root.wide #sec {
+        right: 72px;
+        top: 60px;
+      }
+      #root.wide #subs {
+        left: 260px;
+        right: 260px;
+        bottom: 46px;
+      }
+      #root.wide #s1-top {
+        left: 96px;
+        top: 124px;
+      }
+      #root.wide #s1-tilt {
+        left: 960px;
+      }
+      #root.wide #s1-hl {
+        left: 90px;
+        top: 668px;
+        font-size: 92px;
+      }
+      #root.wide #camshift {
+        left: 800px;
+        right: -800px;
+      }
+      #root.wide #s2-hl {
+        left: -704px;
+        top: 372px;
+      }
+      #root.wide #s2-hl .l1 {
+        font-size: 74px;
+      }
+      #root.wide #s2-hl .l2 {
+        font-size: 96px;
+      }
+      #root.wide #s3-title {
+        left: 96px;
+        top: 410px;
+        font-size: 80px;
+      }
+      #root.wide #s3-sub {
+        left: 100px;
+        top: 515px;
+        font-size: 26px;
+      }
+      #root.wide #steps {
+        left: 96px;
+        top: 318px;
+        font-size: 76px;
+        flex-direction: column;
+        gap: 6px;
+      }
+      #root.wide #ichips {
+        left: 800px;
+        right: -800px;
+      }
+      #root.wide #s5-hl {
+        left: 96px;
+        top: 438px;
+        font-size: 76px;
+      }
+      #root.wide #rings {
+        left: 420px;
+      }
+      #root.wide #funnel {
+        left: 420px;
+        right: auto;
+        width: 1080px;
+      }
+      #root.wide #s9-hl {
+        left: 96px;
+        top: 336px;
+        font-size: 60px;
+      }
+      #root.wide #s9-hl .li {
+        white-space: normal;
+        width: 740px;
+      }
+      #root.wide #s9-cmp {
+        left: 800px;
+        right: -800px;
+        top: -40px;
+        bottom: 40px;
+      }
+      #root.wide #end-eyebrow {
+        left: 96px;
+        top: 276px;
+      }
+      #root.wide #end-rule {
+        left: 96px;
+        top: 760px;
+        width: 1728px;
+      }
+      #root.wide #end-lock {
+        left: 96px;
+        top: 796px;
+        width: 1728px;
+      }
     </style>
   </head>
   <body>
@@ -1482,6 +1590,7 @@
         </div>
 
         <!-- CAMERA: scenes 2–5 share one space so the hero card can travel -->
+        <div id="camshift" class="layer">
         <div id="cam" class="layer">
           <!-- SCENE 2 — manual follow-up problem -->
           <div id="s2" class="layer">
@@ -1625,6 +1734,7 @@
             </div>
           </div>
         </div>
+        </div>
 
         <!-- SCENE 3/4 overlays (outside camera so they stay put during push-ins) -->
         <div id="s3-title" class="abs serif hl"><span class="line"><span class="li">DoubleTick AI Voice</span></span></div>
@@ -1736,16 +1846,23 @@
         };
         $$("[data-ico]").forEach((e) => (e.innerHTML = ICON[e.dataset.ico]));
 
+        // 16:9 build (index-16x9.html) sets class="wide" on the root
+        const WIDE = document.getElementById("root").classList.contains("wide");
+        const CX = WIDE ? 960 : 540; // horizontal centre of the frame
+
         const AVC = ["#f8e3d2", "#e3eefc", "#e6f4ec", "#f3e1e8", "#efe9dd", "#e9e3f6", "#fdf0cf", "#dff2f2"];
 
         // ---------- SCENE 1: card field ----------
-        const COLS = 8,
+        const COLS = WIDE ? 13 : 8,
           ROWS = 7,
           CW = 206,
           CH = 72,
           GX = 18,
           GY = 16;
         const grid = $("#s1-grid");
+        const GRID_W = COLS * (CW + GX) - 12; // 1780 px at 8 columns (square)
+        grid.style.width = GRID_W + "px";
+        grid.style.left = -GRID_W / 2 + "px";
         const rich = [
           ["Rohan Mehta", "Income proof pending"],
           ["Aditi Shah", "EMI due this week"],
@@ -1759,7 +1876,7 @@
             const off = r % 2 ? 60 : 0;
             const x = c * (CW + GX) + off - 30;
             const y = r * (CH + GY);
-            const dx = x + CW / 2 - 890,
+            const dx = x + CW / 2 - GRID_W / 2,
               dy = y + CH / 2 - 330;
             cells.push({ x, y, d: Math.hypot(dx, dy * 1.6) + ((c * 37 + r * 91) % 23) });
           }
@@ -2287,7 +2404,7 @@
         tl.to("#funnel-done", { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 34.45);
 
         // =========== SCENE 9 (39 – 46) ===========
-        tl.to("#kpi", { opacity: 0, scale: 0.96, transformOrigin: "540px 480px", duration: 0.5, ease: E.in }, 38.95);
+        tl.to("#kpi", { opacity: 0, scale: 0.96, transformOrigin: CX + "px 480px", duration: 0.5, ease: E.in }, 38.95);
         tl.to("#kpi-bg", { clipPath: "circle(0% at 50% 45%)", duration: 0.8, ease: E.io }, 39.0);
         tl.to("#sec3", { opacity: 0, duration: 0.3 }, 39.0);
         tl.set("#s9", { opacity: 1 }, 39.2);
@@ -2308,8 +2425,14 @@
         });
         tl.to("#lbl-int", { opacity: 1, y: 0, duration: 0.4 }, 41.9);
         // end frame
-        tl.to("#s9-cmp", { opacity: 0, y: 10, duration: 0.5, ease: E.in }, 43.25);
-        tl.to("#s9-hl", { y: 232, duration: 0.9, ease: E.io }, 43.45);
+        if (WIDE) {
+          // 16:9 end frame keeps the organised conversations beside the headline
+          tl.to(["#s9-left", "#lbl-man", "#lbl-int", "#beam", "#ripple", "#node"], { opacity: 0, duration: 0.5, ease: E.in }, 43.25);
+          tl.to("#s9-right", { x: 40, duration: 0.9, ease: E.io }, 43.45);
+        } else {
+          tl.to("#s9-cmp", { opacity: 0, y: 10, duration: 0.5, ease: E.in }, 43.25);
+          tl.to("#s9-hl", { y: 232, duration: 0.9, ease: E.io }, 43.45);
+        }
         tl.to("#s9-hl .l1", { opacity: 0.4, duration: 0.3 }, 43.45);
         tl.to("#end-eyebrow", { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 43.9);
         tl.to("#end-rule", { scaleX: 1, duration: 0.8, ease: E.io }, 43.95);
