@@ -46,29 +46,53 @@
   .sub { position: absolute; top: 324px; left: 64px; width: 952px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
   .sub b { color: var(--ink); font-weight: 600; }
 
-  /* ---------- workspace ---------- */
-  .ws { position: absolute; left: 64px; top: 444px; width: 952px; height: 376px; border-radius: 24px; background: var(--card); border: 1.5px solid rgba(19,19,22,0.10); overflow: hidden; box-shadow: 0 30px 60px -30px rgba(19,19,22,0.35); font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; }
-  .ws-head { height: 72px; display: flex; align-items: center; gap: 14px; padding: 0 24px; background: var(--green); color: #fff; }
-  .brand-logo { width: 42px; height: 42px; border-radius: 12px; background: #fff; display: grid; place-items: center; }
-  .brand .nm { font-family: "Geist", sans-serif; font-weight: 700; font-size: 21px; letter-spacing: -0.02em; }
-  .brand .sm { font-size: 13px; opacity: 0.85; margin-top: 1px; }
+  /* ---------- workspace (DoubleTick inbox, simplified) ---------- */
+  .ws { position: absolute; left: 64px; top: 432px; width: 952px; height: 390px; border-radius: 22px; background: var(--card); border: 1.5px solid rgba(19,19,22,0.10); overflow: hidden; box-shadow: 0 30px 60px -30px rgba(19,19,22,0.35); font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; display: flex; flex-direction: column; }
+  .ws-head { height: 56px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 20px; background: var(--green); color: #fff; }
+  .brand-logo { width: 34px; height: 34px; border-radius: 10px; background: #fff; display: grid; place-items: center; }
+  .brand-nm { font-family: "Geist", sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
   .chips { margin-left: auto; display: flex; gap: 8px; }
-  .chip { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,0.16); }
-  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 16px 18px; background: #F6F5F0; height: calc(100% - 72px); }
-  .col { display: flex; flex-direction: column; gap: 10px; }
-  .agent { display: flex; align-items: center; gap: 9px; padding: 2px 2px 4px; }
-  .agent .ava { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 12.5px; color: #fff; }
-  .agent .an { font-weight: 600; font-size: 15px; color: #111B21; }
-  .agent .ac { margin-left: auto; font-size: 12px; font-weight: 600; color: var(--ink-2); background: #fff; border: 1px solid rgba(19,19,22,0.08); padding: 3px 9px; border-radius: 999px; }
-  .card { background: #fff; border: 1px solid rgba(19,19,22,0.07); border-radius: 14px; padding: 12px 13px; box-shadow: 0 1px 2px rgba(19,19,22,0.04); }
-  .ct { display: flex; align-items: center; gap: 9px; }
-  .ci { position: relative; flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 13px; }
-  .ci::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
-  .cn { font-weight: 600; font-size: 14.5px; color: #111B21; }
-  .tm { margin-left: auto; font-size: 11px; color: #8696A0; }
-  .cm { margin-top: 7px; font-size: 13.5px; line-height: 1.35; color: #54656F; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tag { display: inline-block; margin-top: 8px; font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: var(--green-tint); color: var(--green); }
-  .a1 { background: #E3E7FB; color: #4F5BD5; } .a2 { background: #FBE3EE; color: #C2407A; } .a3 { background: #E0F2E9; color: #1E8A5A; } .a4 { background: #FFF0D9; color: #B7791F; } .a5 { background: #E6F4FA; color: #2B7FA8; } .a6 { background: #F1E8FB; color: #7B4FC2; }
+  .chip { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; padding: 6px 11px; border-radius: 999px; background: rgba(255,255,255,0.16); }
+  .ws-body { flex: 1; display: flex; min-height: 0; }
+
+  .side { width: 176px; flex: none; border-right: 1px solid rgba(19,19,22,0.08); padding: 12px 10px; background: #FBFBF8; }
+  .sec { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #8696A0; padding: 8px 8px 4px; }
+  .it { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 8px; font-size: 13.5px; color: #3B4A54; }
+  .it.on { background: #E3F1EA; color: var(--green); font-weight: 600; }
+  .it .c { margin-left: auto; font-size: 11px; font-weight: 700; color: #fff; background: var(--green); padding: 1px 7px; border-radius: 6px; }
+  .it .c.g { background: #E9EDEF; color: #54656F; }
+  .tdot { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; font-weight: 700; color: #fff; flex: none; }
+  .ln { width: 8px; height: 8px; border-radius: 50%; background: #25D366; margin: 0 5px; flex: none; }
+
+  .list { width: 276px; flex: none; border-right: 1px solid rgba(19,19,22,0.08); }
+  .list-head { height: 42px; display: flex; align-items: center; padding: 0 14px; font-weight: 600; font-size: 14.5px; border-bottom: 1px solid rgba(19,19,22,0.07); }
+  .row { display: flex; gap: 10px; padding: 14px 14px; border-bottom: 1px solid rgba(19,19,22,0.05); }
+  .row.on { background: #EAF4EF; }
+  .av { position: relative; flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 13px; }
+  .av::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
+  .row.on .av::after { box-shadow: 0 0 0 2px #EAF4EF; }
+  .rb { flex: 1; min-width: 0; }
+  .rt { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; color: #111B21; }
+  .rt span:last-child { font-size: 10.5px; font-weight: 400; color: #8696A0; }
+  .rm { margin-top: 2px; font-size: 12.5px; color: #667781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .meta { margin-top: 5px; display: flex; gap: 5px; }
+  .pill { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 600; padding: 2px 7px; border-radius: 5px; background: #F0F2F5; color: #54656F; }
+  .pill i { width: 7px; height: 7px; border-radius: 50%; }
+
+  .conv { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .conv-head { height: 50px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 16px; border-bottom: 1px solid rgba(19,19,22,0.07); }
+  .conv-head .n { font-weight: 600; font-size: 15px; color: #111B21; }
+  .conv-head .tags { margin-left: auto; display: flex; gap: 6px; }
+  .conv-head .pill { font-size: 11.5px; padding: 4px 9px; border-radius: 999px; }
+  .thread { flex: 1; background: #F5F2EB; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+  .day { align-self: center; font-size: 11px; font-weight: 500; color: #54656F; background: #E9E6DE; padding: 3px 9px; border-radius: 6px; }
+  .m { max-width: 78%; padding: 7px 10px 8px; border-radius: 9px; font-size: 14px; line-height: 1.33; color: #111B21; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .m .who { display: block; font-size: 11.5px; font-weight: 600; color: var(--green); margin-bottom: 1px; }
+  .m.in { align-self: flex-start; background: #fff; border-top-left-radius: 0; }
+  .m.out { align-self: flex-end; background: #D9FDD3; border-top-right-radius: 0; }
+  .composer { flex: none; height: 42px; display: flex; align-items: center; padding: 0 16px; border-top: 1px solid rgba(19,19,22,0.07); font-size: 13px; color: #8696A0; }
+  .composer .send { margin-left: auto; width: 28px; height: 28px; border-radius: 8px; background: var(--green); display: grid; place-items: center; }
+  .a1 { background: #E3E7FB; color: #4F5BD5; } .a2 { background: #FBE3EE; color: #C2407A; } .a3 { background: #E0F2E9; color: #1E8A5A; } .a4 { background: #FFF0D9; color: #B7791F; }
 
   /* ---------- footer ---------- */
   .footer { position: absolute; left: 64px; bottom: 180px; display: flex; align-items: center; }
@@ -97,28 +121,41 @@
   <!-- one organised workspace -->
   <div class="ws">
     <div class="ws-head">
-      <div class="brand-logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="#007A5A"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg></div>
-      <div class="brand"><div class="nm">Wanderlust Holidays</div><div class="sm">One shared WhatsApp workspace</div></div>
-      <div class="chips">
-        <span class="chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg>3 agents</span>
-        <span class="chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg>2 numbers</span>
-      </div>
+      <div class="brand-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="#007A5A"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg></div>
+      <span class="brand-nm">Wanderlust Holidays</span>
+      <div class="chips"><span class="chip">3 agents</span><span class="chip">2 WhatsApp numbers</span></div>
     </div>
-    <div class="cols">
-      <div class="col">
-        <div class="agent"><div class="ava" style="background:#007A5A">S</div><span class="an">Sara</span><span class="ac">12 chats</span></div>
-        <div class="card"><div class="ct"><div class="ci a1">A</div><span class="cn">Ahmed K.</span><span class="tm">10:24</span></div><div class="cm">Can we add 2 nights in Baku?</div><span class="tag">Baku · Mar</span></div>
-        <div class="card"><div class="ct"><div class="ci a2">M</div><span class="cn">Mariam S.</span><span class="tm">09:58</span></div><div class="cm">Passport copies sent ✅</div><span class="tag">Maldives · Dec</span></div>
+    <div class="ws-body">
+      <div class="side">
+        <div class="sec">Inbox</div>
+        <div class="it on">All chats <span class="c">28</span></div>
+        <div class="it">Unassigned <span class="c g">0</span></div>
+        <div class="sec">Team</div>
+        <div class="it"><span class="tdot" style="background:#007A5A">S</span>Sara <span class="c g">12</span></div>
+        <div class="it"><span class="tdot" style="background:#2B7FA8">R</span>Rohan <span class="c g">9</span></div>
+        <div class="it"><span class="tdot" style="background:#7B4FC2">N</span>Nadia <span class="c g">7</span></div>
+        <div class="sec">Numbers</div>
+        <div class="it"><span class="ln"></span>Main line</div>
+        <div class="it"><span class="ln"></span>Sales line</div>
       </div>
-      <div class="col">
-        <div class="agent"><div class="ava" style="background:#2B7FA8">R</div><span class="an">Rohan</span><span class="ac">9 chats</span></div>
-        <div class="card"><div class="ct"><div class="ci a3">J</div><span class="cn">James R.</span><span class="tm">10:02</span></div><div class="cm">Is breakfast included?</div><span class="tag">Georgia · Mar</span></div>
-        <div class="card"><div class="ct"><div class="ci a4">F</div><span class="cn">Fatima A.</span><span class="tm">Yesterday</span></div><div class="cm">Sharing visa documents now</div><span class="tag">Thailand · Jan</span></div>
+      <div class="list">
+        <div class="list-head">All chats</div>
+        <div class="row on"><div class="av a1">A</div><div class="rb"><div class="rt"><span>Ahmed K.</span><span>10:24</span></div><div class="rm">Perfect, thanks!</div><div class="meta"><span class="pill"><i style="background:#007A5A"></i>Sara</span><span class="pill">Main line</span></div></div></div>
+        <div class="row"><div class="av a2">M</div><div class="rb"><div class="rt"><span>Mariam S.</span><span>10:02</span></div><div class="rm">Is breakfast included?</div><div class="meta"><span class="pill"><i style="background:#2B7FA8"></i>Rohan</span><span class="pill">Sales line</span></div></div></div>
+        <div class="row"><div class="av a3">O</div><div class="rb"><div class="rt"><span>Omar H.</span><span>09:41</span></div><div class="rm">Family of 4, Turkey in April</div><div class="meta"><span class="pill"><i style="background:#7B4FC2"></i>Nadia</span><span class="pill">Main line</span></div></div></div>
       </div>
-      <div class="col">
-        <div class="agent"><div class="ava" style="background:#7B4FC2">N</div><span class="an">Nadia</span><span class="ac">7 chats</span></div>
-        <div class="card"><div class="ct"><div class="ci a5">O</div><span class="cn">Omar H.</span><span class="tm">09:41</span></div><div class="cm">Family of 4, budget AED 20k</div><span class="tag">Turkey · Apr</span></div>
-        <div class="card"><div class="ct"><div class="ci a6">L</div><span class="cn">Leena P.</span><span class="tm">Mon</span></div><div class="cm">Booking confirmed, thank you!</div><span class="tag">Bali · Feb</span></div>
+      <div class="conv">
+        <div class="conv-head">
+          <div class="av a1">A</div><span class="n">Ahmed K.</span>
+          <div class="tags"><span class="pill"><i style="background:#007A5A"></i>Sara</span><span class="pill">Main line</span></div>
+        </div>
+        <div class="thread">
+          <span class="day">Today</span>
+          <div class="m in">Hi! Can we add 2 nights in Baku? 🏙️</div>
+          <div class="m out"><span class="who">Sara</span>Sure! Updated itinerary attached 📎</div>
+          <div class="m in">Perfect, thanks!</div>
+        </div>
+        <div class="composer">Type a message…<span class="send"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span></div>
       </div>
     </div>
   </div>
