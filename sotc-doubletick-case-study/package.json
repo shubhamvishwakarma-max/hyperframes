@@ -1,0 +1,9 @@
+{
+  "name": "sotc-doubletick-case-study",
+  "private": true,
+  "scripts": {
+    "check": "npx hyperframes@0.8.162 check",
+    "preview": "npx hyperframes@0.8.162 preview",
+    "render": "npx hyperframes@0.8.162 render -o renders/sotc-doubletick-case-study-1080x1080.mp4"
+  }
+}

@@ -1,0 +1,1275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>SOTC × DoubleTick — Customer Story</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        src: url("assets/fonts/HedvigLettersSerif-latin.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2212;
+      }
+      @font-face {
+        font-family: "Hedvig Letters Serif";
+        src: url("assets/fonts/HedvigLettersSerif-latin-ext.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF;
+      }
+      @font-face {
+        font-family: "Rupee Serif";
+        src: url("assets/fonts/NotoSerif-rupee.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Geist";
+        font-weight: 100 900;
+        src: url("assets/fonts/Geist-latin.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212;
+      }
+      @font-face {
+        font-family: "Geist";
+        font-weight: 100 900;
+        src: url("assets/fonts/Geist-latin-ext.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+20A0-20AB, U+20AD-20C4, U+1E00-1EFF;
+      }
+
+      :root {
+        --bg: #f4f3ec;
+        --paper: #ffffff;
+        --beige: #ebe6da;
+        --line: #e2ded3;
+        --ink: #1b1c19;
+        --ink-2: #4a4b46;
+        --mute: #6d6d67;
+        --green: #27b378;
+        --green-deep: #117c4f;
+        --green-soft: #e6f4ec;
+        --miss: #a8483f;
+        --amber: #8a6215;
+        --serif: "Hedvig Letters Serif", "Rupee Serif", Georgia, serif;
+        --sans: "Geist", "Helvetica Neue", Arial, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      .abs {
+        position: absolute;
+      }
+
+      /* ---------- backgrounds ---------- */
+      #bg-green {
+        background: radial-gradient(120% 90% at 50% 45%, #eef7f1 0%, #e3f1e8 60%, #dcedE2 100%);
+        opacity: 0;
+      }
+      #bg-glow {
+        background: radial-gradient(40% 50% at 70% 60%, rgba(39, 179, 120, 0.08), rgba(39, 179, 120, 0) 70%);
+      }
+
+      /* ---------- brand ---------- */
+      #dt-logo {
+        left: 120px;
+        top: 64px;
+        height: 40px;
+        width: auto;
+      }
+      .eyebrow {
+        font-family: var(--sans);
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--green-deep);
+      }
+
+      /* ---------- headlines ---------- */
+      .headline {
+        position: absolute;
+        left: 120px;
+        width: 920px;
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: 74px;
+        line-height: 1.08;
+        letter-spacing: -0.012em;
+        color: var(--ink);
+        margin: 0;
+      }
+      .line {
+        display: block;
+        overflow: hidden;
+        padding-bottom: 0.08em;
+        margin-bottom: -0.08em;
+      }
+      .line > span {
+        display: block;
+      }
+      .accent {
+        color: var(--green-deep);
+        position: relative;
+        display: inline-block;
+      }
+      .accent .uline {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0.02em;
+        height: 0.07em;
+        background: var(--green);
+        border-radius: 4px;
+        transform-origin: left center;
+      }
+
+      /* ---------- phone screens ---------- */
+      .screen {
+        position: absolute;
+        z-index: 2;
+        left: 1110px;
+        width: 500px;
+        filter: drop-shadow(0 30px 50px rgba(40, 38, 30, 0.16)) drop-shadow(0 4px 10px rgba(40, 38, 30, 0.08));
+      }
+      .screen-inner {
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform-origin: 0 0;
+      }
+      .screen-inner > img.base {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      #scr-call {
+        top: 300px;
+        height: 777px;
+      }
+      #scr-call .screen-inner {
+        width: 816px;
+        height: 1269px;
+        transform: scale(0.61275);
+      }
+      #scr-chat {
+        top: 150px;
+        height: 1032px;
+      }
+      #scr-chat .screen-inner {
+        width: 1097px;
+        height: 2264px;
+        transform: scale(0.45579);
+      }
+      #scr-wa {
+        top: 150px;
+        height: 1071px;
+      }
+      #scr-wa .screen-inner {
+        width: 1215px;
+        height: 2603px;
+        transform: scale(0.41152);
+      }
+      .bub {
+        position: absolute;
+        overflow: hidden;
+      }
+      .bub img {
+        position: absolute;
+        width: 1097px;
+        height: 2264px;
+      }
+      .ring {
+        position: absolute;
+        border-radius: 50%;
+      }
+      #call-dim {
+        position: absolute;
+        inset: 0;
+        border-radius: 30px;
+        background: rgba(30, 31, 28, 0.45);
+        opacity: 0;
+      }
+
+      /* ---------- cards ---------- */
+      .card {
+        position: absolute;
+        z-index: 3;
+        width: 520px;
+        height: 104px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 10px 24px rgba(40, 38, 30, 0.06), 0 1px 2px rgba(40, 38, 30, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 0 20px;
+      }
+      .card .ic {
+        flex: 0 0 54px;
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        background: #f1efe8;
+        display: grid;
+        place-items: center;
+        color: var(--ink-2);
+      }
+      .card .ic svg {
+        width: 22px;
+        height: 22px;
+      }
+      .card .meta {
+        flex: 1;
+        min-width: 0;
+      }
+      .card .ttl {
+        font-size: 23px;
+        font-weight: 600;
+        color: var(--ink);
+        white-space: nowrap;
+      }
+      .card .st {
+        position: relative;
+        height: 27px;
+        margin-top: 4px;
+      }
+      .card .st > span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 19px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .card .tm {
+        font-size: 17px;
+        color: var(--mute);
+        align-self: flex-start;
+        margin-top: 22px;
+      }
+      .s-calling {
+        color: var(--green-deep);
+      }
+      .s-calling .dot {
+        background: var(--green);
+      }
+      .s-noans {
+        color: var(--mute);
+      }
+      .s-noans .dot {
+        background: #b9b8b0;
+      }
+      .s-missed {
+        color: var(--miss);
+      }
+      .s-missed .dot {
+        background: var(--miss);
+      }
+      .s-pending {
+        color: var(--amber);
+      }
+      .s-pending .dot {
+        background: #d1a548;
+      }
+      .card.ghost {
+        background: transparent;
+        border: 1.5px dashed #cfcabd;
+        box-shadow: none;
+      }
+      .card.ghost .ic {
+        background: transparent;
+        border: 1.5px dashed #cfcabd;
+      }
+
+      /* chips */
+      .chips {
+        position: absolute;
+        left: 120px;
+        top: 500px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .chip {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 54px;
+        padding: 0 22px;
+        border-radius: 27px;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: var(--ink-2);
+      }
+      .chip svg {
+        width: 22px;
+        height: 22px;
+        color: var(--green);
+      }
+      .chip-sep {
+        width: 1px;
+        height: 30px;
+        background: #cfcabd;
+      }
+      #wave-card {
+        left: 120px;
+        top: 610px;
+        width: 470px;
+      }
+      .bars {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        height: 30px;
+      }
+      .bars i {
+        display: block;
+        width: 5px;
+        height: 30px;
+        border-radius: 3px;
+        background: var(--green);
+        transform-origin: center;
+      }
+
+      /* ---------- KPI ---------- */
+      .kpi-wrap {
+        position: absolute;
+        left: 0;
+        width: 1920px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .kpi-num {
+        font-family: var(--serif);
+        font-weight: 400;
+        color: var(--ink);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+      }
+      .kpi-label {
+        font-family: var(--sans);
+        font-size: 36px;
+        font-weight: 500;
+        color: var(--ink-2);
+        letter-spacing: -0.005em;
+      }
+      #k30 {
+        top: 250px;
+      }
+      #k30 .kpi-num {
+        font-size: 300px;
+      }
+      #k30 .pct {
+        color: var(--green-deep);
+      }
+      #k30 .kpi-label {
+        margin-top: 18px;
+      }
+      #conn {
+        position: absolute;
+        left: 610px;
+        top: 760px;
+        width: 700px;
+        height: 40px;
+      }
+      #conn .track {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 19px;
+        height: 2px;
+        background: #c9dccf;
+      }
+      #conn .fill {
+        position: absolute;
+        left: 0;
+        width: 700px;
+        top: 19px;
+        height: 2px;
+        background: var(--green);
+        transform-origin: left center;
+      }
+      #conn .node {
+        position: absolute;
+        top: 8px;
+        width: 24px;
+        height: 24px;
+        margin-left: -12px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid #c9dccf;
+      }
+      #conn .node b {
+        position: absolute;
+        inset: 3px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      #days {
+        position: absolute;
+        left: 660px;
+        top: 236px;
+        width: 600px;
+      }
+      #days .lbls {
+        display: flex;
+        justify-content: space-between;
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        color: var(--mute);
+        text-transform: uppercase;
+      }
+      #days .bar {
+        position: relative;
+        margin-top: 14px;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--beige);
+      }
+      #days .bar i {
+        position: absolute;
+        inset: 0;
+        border-radius: 2px;
+        background: var(--green);
+        transform-origin: left center;
+        display: block;
+      }
+      #rev {
+        top: 330px;
+      }
+      #rev .kpi-num {
+        font-size: 200px;
+      }
+      #rev .unit {
+        font-size: 0.5em;
+        letter-spacing: 0.02em;
+        color: var(--green-deep);
+        margin-left: 0.18em;
+      }
+      #rev .rupee {
+        font-family: "Rupee Serif", serif;
+        font-size: 0.8em;
+        margin-right: 0.04em;
+        color: var(--ink);
+      }
+      #rev .kpi-label {
+        margin-top: 22px;
+      }
+
+      .mini {
+        position: absolute;
+        width: 400px;
+        height: 106px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 10px 24px rgba(40, 38, 30, 0.06);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 18px;
+      }
+      .mini .ic {
+        flex: 0 0 52px;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--green-soft);
+        display: grid;
+        place-items: center;
+        color: var(--green-deep);
+      }
+      .mini .ic svg {
+        width: 22px;
+        height: 22px;
+      }
+      .mini .ttl {
+        font-size: 22px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .mini .st {
+        position: relative;
+        height: 25px;
+        margin-top: 4px;
+      }
+      .mini .st > span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 18px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .s-active {
+        color: var(--ink-2);
+      }
+      .s-active .dot {
+        background: var(--green);
+      }
+      .s-done {
+        color: var(--green-deep);
+      }
+      .check {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--green);
+        display: inline-grid;
+        place-items: center;
+      }
+      .check svg {
+        width: 12px;
+        height: 12px;
+      }
+      .mini .badge {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--green);
+        display: grid;
+        place-items: center;
+      }
+      .mini .badge svg {
+        width: 15px;
+        height: 15px;
+      }
+
+      #k135 {
+        position: absolute;
+        left: 120px;
+        top: 300px;
+        width: 820px;
+      }
+      #k135 .kpi-num {
+        font-size: 260px;
+      }
+      #k135 .plus {
+        color: var(--green-deep);
+      }
+      #k135 .kpi-label {
+        margin-top: 20px;
+      }
+      #k135 .kpi-label b {
+        color: var(--green-deep);
+        font-weight: 600;
+      }
+
+      /* ---------- end frame ---------- */
+      #end-head {
+        position: absolute;
+        left: 0;
+        top: 190px;
+        width: 1920px;
+        text-align: center;
+        font-family: var(--serif);
+        font-size: 78px;
+        line-height: 1.08;
+        letter-spacing: -0.012em;
+        margin: 0;
+      }
+      .ecard {
+        position: absolute;
+        top: 500px;
+        width: 400px;
+        height: 150px;
+        border-radius: 22px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        box-shadow: 0 14px 30px rgba(40, 38, 30, 0.07);
+        padding: 24px 26px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .ecard .k {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        color: var(--mute);
+        text-transform: uppercase;
+      }
+      .ecard .row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .ecard .ic {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        flex: 0 0 48px;
+      }
+      .ecard .ic svg {
+        width: 22px;
+        height: 22px;
+      }
+      .ecard .v {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      #ec1 {
+        left: 300px;
+      }
+      #ec1 .ic {
+        background: #f1efe8;
+        color: var(--mute);
+      }
+      #ec1 .v {
+        color: var(--mute);
+      }
+      #ec2 {
+        left: 760px;
+        border-color: #bfe3cf;
+      }
+      #ec2 .ic {
+        background: var(--green-soft);
+        color: var(--green-deep);
+      }
+      #ec3 {
+        left: 1220px;
+        background: #f3faf6;
+        border-color: #bfe3cf;
+      }
+      #ec3 .ic {
+        background: var(--green);
+        color: #fff;
+      }
+      #ec3 .v {
+        color: var(--green-deep);
+      }
+      #elink {
+        position: absolute;
+        left: 700px;
+        top: 574px;
+        width: 520px;
+        height: 2px;
+      }
+      .elink-base {
+        position: absolute;
+        inset: 0;
+        background: #d8d3c6;
+      }
+      .elink-fill {
+        position: absolute;
+        inset: 0;
+        background: var(--green);
+        transform-origin: left center;
+      }
+      #end-sub {
+        position: absolute;
+        left: 0;
+        top: 716px;
+        width: 1920px;
+        text-align: center;
+        font-size: 30px;
+        font-weight: 500;
+        color: var(--ink-2);
+      }
+      #lockup {
+        position: absolute;
+        left: 0;
+        top: 818px;
+        width: 1920px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+      }
+      #lockup .x {
+        font-size: 30px;
+        color: var(--mute);
+        font-weight: 300;
+      }
+      #lockup .dt {
+        height: 46px;
+      }
+      #lockup .so {
+        height: 66px;
+      }
+      #lockup .div {
+        width: 1px;
+        height: 54px;
+        background: #cfcabd;
+      }
+
+      /* ---------- customer story label ---------- */
+      #story {
+        position: absolute;
+        left: 120px;
+        top: 168px;
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+      #story img {
+        height: 58px;
+      }
+      #story .div {
+        width: 1px;
+        height: 40px;
+        background: #cfcabd;
+      }
+
+      /* ---------- subtitles ---------- */
+      .sub {
+        position: absolute;
+        left: 0;
+        width: 1920px;
+        bottom: 54px;
+        display: flex;
+        justify-content: center;
+        pointer-events: none;
+      }
+      .sub.left {
+        justify-content: flex-start;
+        padding-left: 120px;
+      }
+      .sub.left .subin {
+        max-width: 970px;
+        text-align: left;
+      }
+      .subin {
+        max-width: 1180px;
+        padding: 12px 26px 14px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(207, 202, 189, 0.7);
+        box-shadow: 0 6px 18px rgba(40, 38, 30, 0.06);
+        font-family: var(--sans);
+        font-size: 31px;
+        font-weight: 500;
+        line-height: 1.3;
+        color: #151613;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="clip" id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-width="1920"
+      data-height="1080"
+      data-duration="34"
+    >
+      <!-- ===== audio ===== -->
+      <audio id="vo" src="assets/audio/voiceover.mp3" data-start="0" data-duration="32.03" data-track-index="20" data-volume="1"></audio>
+      <audio id="music" src="assets/audio/music.wav" data-start="0" data-duration="34" data-track-index="21" data-volume="1"></audio>
+      <audio id="sfx" src="assets/audio/sfx.wav" data-start="0" data-duration="34" data-track-index="22" data-volume="1"></audio>
+
+      <!-- ===== backgrounds ===== -->
+      <div id="bg-glow" class="layer"></div>
+      <div id="bg-green" class="layer"></div>
+
+      <!-- ===== Scene 1 + 2: call cards ===== -->
+      <div id="cards">
+        <div class="card clip" id="cc3" data-start="0" data-duration="12.2" data-track-index="3">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/><path d="M16 2l6 6M22 2l-6 6"/></svg>
+          </div>
+          <div class="meta">
+            <div class="ttl">Customer · +91 97•• ••• 418</div>
+            <div class="st">
+              <span class="s-noans st-a"><i class="dot"></i>No answer</span>
+              <span class="s-pending st-b"><i class="dot"></i>Follow-up pending</span>
+            </div>
+          </div>
+          <div class="tm">10:18 AM</div>
+        </div>
+        <div class="card clip" id="cc2" data-start="0" data-duration="12.2" data-track-index="3">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/><path d="M16 2l6 6M22 2l-6 6"/></svg>
+          </div>
+          <div class="meta">
+            <div class="ttl">Customer · +91 99•• ••• 062</div>
+            <div class="st">
+              <span class="s-noans st-a"><i class="dot"></i>No answer</span>
+              <span class="s-missed st-b"><i class="dot"></i>Call missed</span>
+            </div>
+          </div>
+          <div class="tm">10:24 AM</div>
+        </div>
+        <div class="card clip" id="cc1" data-start="0" data-duration="12.2" data-track-index="3">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/><path d="M15 3h6v6M21 3l-7 7"/></svg>
+          </div>
+          <div class="meta">
+            <div class="ttl">Customer · +91 98•• ••• 210</div>
+            <div class="st">
+              <span class="s-calling st-a"><i class="dot"></i>Calling…</span>
+              <span class="s-noans st-b"><i class="dot"></i>No answer</span>
+            </div>
+          </div>
+          <div class="tm">10:32 AM</div>
+        </div>
+        <div class="card ghost clip" id="cc4" data-start="0" data-duration="12.2" data-track-index="3">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#a9a598" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>
+          </div>
+          <div class="meta">
+            <div class="ttl" style="color: #6d6d67">Follow-up channel</div>
+            <div class="st"><span style="color: #75736b">None — the conversation ends here</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== phone screens (exact UI from the reference PDF) ===== -->
+      <div class="screen clip" id="scr-call" data-start="0" data-duration="12.0" data-track-index="2">
+        <div class="screen-inner">
+          <img class="base" src="assets/ui/call_unanswered.png" alt="" />
+          <div class="ring" id="r-call-1" style="left: 273px; top: 574px; width: 270px; height: 270px; border: 5px solid rgba(255, 255, 255, 0.5)"></div>
+          <div class="ring" id="r-call-2" style="left: 273px; top: 574px; width: 270px; height: 270px; border: 5px solid rgba(255, 255, 255, 0.5)"></div>
+        </div>
+        <div id="call-dim"></div>
+      </div>
+
+      <div class="screen clip" id="scr-chat" data-start="11.6" data-duration="4.7" data-track-index="2">
+        <div class="screen-inner">
+          <img class="base" src="assets/ui/chat_empty.png" alt="" />
+          <div class="bub" id="b1" style="left: 10px; top: 293px; width: 808px; height: 526px"><img src="assets/ui/chat_full.png" alt="" style="left: -10px; top: -293px" /></div>
+          <div class="bub" id="b2" style="left: 830px; top: 822px; width: 261px; height: 156px"><img src="assets/ui/chat_full.png" alt="" style="left: -830px; top: -822px" /></div>
+          <div class="bub" id="b3" style="left: 10px; top: 980px; width: 352px; height: 154px"><img src="assets/ui/chat_full.png" alt="" style="left: -10px; top: -980px" /></div>
+          <div class="bub" id="b4" style="left: 22px; top: 1140px; width: 597px; height: 249px"><img src="assets/ui/chat_full.png" alt="" style="left: -22px; top: -1140px" /></div>
+        </div>
+      </div>
+
+      <div class="screen clip" id="scr-wa" data-start="15.6" data-duration="2.4" data-track-index="2">
+        <div class="screen-inner">
+          <img class="base" src="assets/ui/wa_call.png" alt="" />
+          <div class="ring" id="r-wa-1" style="left: 353px; top: 680px; width: 508px; height: 508px; border: 8px solid rgba(39, 179, 120, 0.85)"></div>
+          <div class="ring" id="r-wa-2" style="left: 353px; top: 680px; width: 508px; height: 508px; border: 8px solid rgba(39, 179, 120, 0.85)"></div>
+          <div class="ring" id="r-wa-3" style="left: 353px; top: 680px; width: 508px; height: 508px; border: 8px solid rgba(39, 179, 120, 0.85)"></div>
+        </div>
+      </div>
+
+      <!-- ===== Scene 1 headline ===== -->
+      <h1 class="headline clip" id="h1" data-start="0" data-duration="5.0" data-track-index="4" style="top: 290px">
+        <span class="line"><span>Unanswered calls.</span></span>
+        <span class="line"><span>Still, a chance to <span class="accent">close.<i class="uline"></i></span></span></span>
+      </h1>
+
+      <!-- ===== Scene 2 ===== -->
+      <div class="clip" id="story" data-start="4.8" data-duration="6.9" data-track-index="5">
+        <img src="assets/logos/sotc.png" alt="SOTC" />
+        <div class="div"></div>
+        <div class="eyebrow">Customer Story</div>
+      </div>
+      <h1 class="headline clip" id="h2" data-start="4.9" data-duration="6.9" data-track-index="4" style="top: 262px">
+        <span class="line"><span>Missed calls.</span></span>
+        <span class="line"><span style="color: #6e6e67">Missed opportunities.</span></span>
+      </h1>
+
+      <!-- ===== Scene 3 ===== -->
+      <h1 class="headline clip" id="h3" data-start="12.0" data-duration="5.85" data-track-index="4" style="top: 290px; font-size: 66px">
+        <span class="line"><span>From missed calls</span></span>
+        <span class="line"><span>to <span class="accent">meaningful conversations.<i class="uline"></i></span></span></span>
+      </h1>
+      <div class="chips clip" id="chips" data-start="14.1" data-duration="3.65" data-track-index="5">
+        <div class="chip" id="chip-chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>
+          WHATSAPP CHAT
+        </div>
+        <div class="chip-sep"></div>
+        <div class="chip" id="chip-call">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+          WHATSAPP CALLS
+        </div>
+      </div>
+      <div class="card clip" id="wave-card" data-start="15.9" data-duration="1.85" data-track-index="3">
+        <div class="ic" style="background: var(--green-soft); color: var(--green-deep)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+        </div>
+        <div class="meta">
+          <div class="ttl">WhatsApp call</div>
+          <div class="st"><span class="s-calling"><i class="dot"></i>Connected</span></div>
+        </div>
+        <div class="bars" id="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+
+      <!-- ===== Scene 4: 30% ===== -->
+      <div class="kpi-wrap clip" id="k30" data-start="17.8" data-duration="3.3" data-track-index="4">
+        <div class="kpi-num"><span id="n30">0</span><span class="pct">%</span></div>
+        <div class="kpi-label">Higher call connectivity</div>
+      </div>
+      <div class="clip" id="conn" data-start="18.8" data-duration="2.5" data-track-index="5">
+        <div class="track"></div>
+        <div class="fill" id="conn-fill"></div>
+        <div class="node" style="left: 0px"><b></b></div>
+        <div class="node" style="left: 175px"><b></b></div>
+        <div class="node" style="left: 350px"><b></b></div>
+        <div class="node" style="left: 525px"><b></b></div>
+        <div class="node" style="left: 700px"><b></b></div>
+      </div>
+
+      <!-- ===== Scene 5: revenue ===== -->
+      <div class="clip" id="days" data-start="21.0" data-duration="6.5" data-track-index="5">
+        <div class="lbls"><span>Day 1</span><span style="color: var(--green-deep)">In just 60 days</span><span>Day 60</span></div>
+        <div class="bar"><i id="days-fill"></i></div>
+      </div>
+      <div class="kpi-wrap clip" id="rev" data-start="23.0" data-duration="4.5" data-track-index="4">
+        <div class="kpi-num"><span class="rupee">₹</span><span id="nrev">0.00</span><span class="unit">CRORE</span></div>
+        <div class="kpi-label">Revenue generated in 60 days</div>
+      </div>
+
+      <!-- conversation cards: 3 in scene 5, grid of 6 in scene 6 -->
+      <div id="minis">
+        <div class="mini clip" id="m1" data-start="21.0" data-duration="9.65" data-track-index="3">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg></div>
+          <div class="meta"><div class="ttl">Holiday package enquiry</div><div class="st"><span class="s-active sa"><i class="dot"></i>Active conversation</span><span class="s-done sb"><i class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Deal closed</span></div></div>
+        </div>
+        <div class="mini clip" id="m2" data-start="21.0" data-duration="9.65" data-track-index="3">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg></div>
+          <div class="meta"><div class="ttl">Family trip · 4 travelers</div><div class="st"><span class="s-active sa"><i class="dot"></i>Active conversation</span><span class="s-done sb"><i class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Deal closed</span></div></div>
+        </div>
+        <div class="mini clip" id="m3" data-start="21.0" data-duration="9.65" data-track-index="3">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg></div>
+          <div class="meta"><div class="ttl">Honeymoon package</div><div class="st"><span class="s-active sa"><i class="dot"></i>Active conversation</span><span class="s-done sb"><i class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Deal closed</span></div></div>
+        </div>
+        <div class="mini clip" id="m4" data-start="27.5" data-duration="3.15" data-track-index="3">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+          <div class="meta"><div class="ttl">Group tour enquiry</div><div class="st"><span class="s-active sa"><i class="dot"></i>WhatsApp call</span><span class="s-done sb"><i class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Deal closed</span></div></div>
+        </div>
+        <div class="mini clip" id="m5" data-start="27.5" data-duration="3.15" data-track-index="3">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg></div>
+          <div class="meta"><div class="ttl">International holiday</div><div class="st"><span class="s-active sa"><i class="dot"></i>Active conversation</span><span class="s-done sb"><i class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Deal closed</span></div></div>
+        </div>
+        <div class="mini clip" id="m6" data-start="27.5" data-duration="3.15" data-track-index="3">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg></div>
+          <div class="meta"><div class="ttl">Weekend getaway</div><div class="st"><span class="s-active sa"><i class="dot"></i>Active conversation</span><span class="s-done sb"><i class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Deal closed</span></div></div>
+        </div>
+      </div>
+
+      <!-- ===== Scene 6: 135+ ===== -->
+      <div class="clip" id="k135" data-start="27.35" data-duration="3.3" data-track-index="4">
+        <div class="eyebrow" style="margin-bottom: 18px">Closed on WhatsApp</div>
+        <div class="kpi-num"><span id="n135">0</span><span class="plus">+</span></div>
+        <div class="kpi-label">Deals closed <b>purely on WhatsApp</b></div>
+      </div>
+
+      <!-- ===== Scene 7: end frame ===== -->
+      <h1 class="clip" id="end-head" data-start="30.5" data-duration="3.5" data-track-index="4">
+        <span class="line"><span>Turn missed connections</span></span>
+        <span class="line"><span>into <span class="accent">closed deals.<i class="uline"></i></span></span></span>
+      </h1>
+      <div class="clip" id="elink" data-start="30.9" data-duration="3.1" data-track-index="5"><div class="elink-base"></div><div class="elink-fill" id="elink-fill"></div></div>
+      <div class="ecard clip" id="ec1" data-start="30.75" data-duration="3.25" data-track-index="3">
+        <div class="k">Missed call</div>
+        <div class="row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/><path d="M16 2l6 6M22 2l-6 6"/></svg></div>
+          <div class="v">No answer</div>
+        </div>
+      </div>
+      <div class="ecard clip" id="ec2" data-start="31.15" data-duration="2.85" data-track-index="3">
+        <div class="k" style="color: var(--green-deep)">WhatsApp conversation</div>
+        <div class="row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg></div>
+          <div class="v">Chat &amp; call</div>
+        </div>
+      </div>
+      <div class="ecard clip" id="ec3" data-start="31.55" data-duration="2.45" data-track-index="3">
+        <div class="k" style="color: var(--green-deep)">Outcome</div>
+        <div class="row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+          <div class="v">Deal closed</div>
+        </div>
+      </div>
+      <div class="clip" id="end-sub" data-start="32.05" data-duration="1.95" data-track-index="5">Customer conversations that drive business growth.</div>
+      <div class="clip" id="lockup" data-start="32.3" data-duration="1.7" data-track-index="5">
+        <img class="dt" src="assets/logos/doubletick.png" alt="DoubleTick" />
+        <div class="div"></div>
+        <img class="so" src="assets/logos/sotc.png" alt="SOTC" />
+      </div>
+
+      <!-- persistent brand mark -->
+      <img id="dt-logo" class="abs" src="assets/logos/doubletick.png" alt="DoubleTick" />
+
+      <!-- ===== subtitles (synced to supplied VO) ===== -->
+      <div id="sub-01" class="sub left clip" data-start="0.1" data-duration="4.15" data-track-index="10"><div class="subin">What if unanswered calls could still turn into closed deals?</div></div>
+      <div id="sub-02" class="sub left clip" data-start="5" data-duration="4.3" data-track-index="10"><div class="subin">SOTC’s travel agents struggled to connect with customers over phone calls,</div></div>
+      <div id="sub-03" class="sub left clip" data-start="9.4" data-duration="2.1" data-track-index="10"><div class="subin">with no effective follow-up channel.</div></div>
+      <div id="sub-04" class="sub left clip" data-start="12.2" data-duration="3.25" data-track-index="10"><div class="subin">With DoubleTick, customers can continue the conversation</div></div>
+      <div id="sub-05" class="sub left clip" data-start="15.45" data-duration="2.15" data-track-index="10"><div class="subin">on WhatsApp chat and calls,</div></div>
+      <div id="sub-06" class="sub clip" data-start="17.7" data-duration="2.95" data-track-index="10"><div class="subin">driving 30% higher call connectivity.</div></div>
+      <div id="sub-07" class="sub clip" data-start="21.1" data-duration="1.75" data-track-index="10"><div class="subin">In just 60 days,</div></div>
+      <div id="sub-08" class="sub clip" data-start="22.9" data-duration="4.3" data-track-index="10"><div class="subin">SOTC generated ₹5.04 crore in revenue</div></div>
+      <div id="sub-09" class="sub clip" data-start="27.35" data-duration="3.0" data-track-index="10"><div class="subin">and closed 135+ deals</div></div>
+      <div id="sub-10" class="sub clip" data-start="30.45" data-duration="1.75" data-track-index="10"><div class="subin">purely on WhatsApp.</div></div>
+    </div>
+
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => Array.from(document.querySelectorAll(s));
+        const E = "power3.out";
+        const IO = "power2.inOut";
+
+        // ---------- line-mask headline helper ----------
+        function linesOut(sel, at) {
+          const spans = $$(sel + " .line > span");
+          tl.to(spans, { yPercent: -135, duration: 0.45, ease: "power2.in", stagger: 0.06 }, at);
+        }
+
+        // ---------- initial state ----------
+        gsap.set($$(".headline .line > span, #end-head .line > span"), { yPercent: 135 });
+        gsap.set($$(".uline"), { scaleX: 0 });
+        gsap.set("#dt-logo", { opacity: 0, y: -10 });
+        gsap.set("#scr-call", { y: 160, opacity: 0 });
+        gsap.set("#scr-chat", { y: 120, opacity: 0 });
+        gsap.set("#scr-wa", { y: 60, opacity: 0, scale: 0.97 });
+        gsap.set(["#b1", "#b2", "#b3", "#b4"], { opacity: 0, y: 26 });
+        gsap.set(["#r-call-1", "#r-call-2", "#r-wa-1", "#r-wa-2", "#r-wa-3"], { opacity: 0, scale: 1 });
+        // call cards: S1 stacked layout
+        gsap.set("#cc1", { left: 120, top: 620, opacity: 0, y: 24 });
+        gsap.set("#cc2", { left: 120, top: 620, opacity: 0, y: -14, scale: 0.95 });
+        gsap.set("#cc3", { left: 120, top: 620, opacity: 0, y: -28, scale: 0.9 });
+        gsap.set("#cc4", { left: 120, top: 804, opacity: 0, y: 16 });
+        gsap.set($$(".card .st-b"), { opacity: 0, y: 10 });
+        gsap.set("#story", { opacity: 0, y: 14 });
+        gsap.set($$("#cc2 > *, #cc3 > *"), { opacity: 0 });
+        gsap.set("#scr-call .base", { filter: "grayscale(0)" });
+        gsap.set("#chips", { opacity: 0, y: 16 });
+        gsap.set(["#chip-chat", "#chip-call"], { borderColor: "#e2ded3", color: "#4a4b46" });
+        gsap.set("#wave-card", { opacity: 0, y: 16 });
+        gsap.set($$("#bars i"), { scaleY: 0.25 });
+        gsap.set("#k30", { opacity: 0, y: 30 });
+        gsap.set("#conn", { opacity: 0 });
+        gsap.set("#conn-fill", { scaleX: 0 });
+        gsap.set($$("#conn .node b"), { scale: 0 });
+        gsap.set("#days", { opacity: 0, y: 12 });
+        gsap.set("#days-fill", { scaleX: 0 });
+        gsap.set("#rev", { opacity: 0, y: 30 });
+        gsap.set("#rev .kpi-label", { opacity: 0, y: 12 });
+        // mini cards: S5 row layout (3 visible), 4-6 waiting for the S6 grid
+        const row = [
+          [320, 690],
+          [760, 690],
+          [1200, 690],
+        ];
+        ["#m1", "#m2", "#m3"].forEach((id, i) => gsap.set(id, { left: row[i][0], top: row[i][1], opacity: 0, y: 24 }));
+        const grid = [
+          [1000, 290],
+          [1420, 290],
+          [1000, 416],
+          [1420, 416],
+          [1000, 542],
+          [1420, 542],
+        ];
+        ["#m4", "#m5", "#m6"].forEach((id, i) => gsap.set(id, { left: grid[i + 3][0], top: grid[i + 3][1], opacity: 0, y: 24 }));
+        gsap.set($$(".mini .sb"), { opacity: 0, y: 8 });
+        gsap.set("#k135", { opacity: 0, y: 30 });
+        gsap.set("#k135 .kpi-label", { opacity: 0, y: 12 });
+        gsap.set(["#ec1", "#ec2", "#ec3"], { opacity: 0, y: 30 });
+        gsap.set("#elink", { opacity: 0 });
+        gsap.set("#elink-fill", { scaleX: 0 });
+        gsap.set("#end-sub", { opacity: 0, y: 12 });
+        gsap.set("#lockup", { opacity: 0, y: 14 });
+        gsap.set($$(".subin"), { opacity: 0, y: 8 });
+
+        // ---------- subtitles: simple fades ----------
+        $$(".sub").forEach((el) => {
+          const s = parseFloat(el.dataset.start);
+          const d = parseFloat(el.dataset.duration);
+          const inner = el.querySelector(".subin");
+          tl.to(inner, { opacity: 1, y: 0, duration: 0.22, ease: "power2.out" }, s);
+          tl.to(inner, { opacity: 0, duration: 0.18, ease: "power1.in" }, s + d - 0.18);
+        });
+
+        // =========================================================
+        // SCENE 01 — HOOK (0 – 4.6)
+        // =========================================================
+        tl.to("#dt-logo", { opacity: 1, y: 0, duration: 0.5, ease: E }, 0.05);
+        tl.to("#scr-call", { y: 0, opacity: 1, duration: 0.75, ease: E }, 0.1);
+        // outbound call card: "Calling…"
+        tl.to("#cc1", { opacity: 1, y: 0, duration: 0.4, ease: E }, 0.35);
+        // ringing pulses on the avatar
+        [0.45, 1.05].forEach((t0) => {
+          ["#r-call-1", "#r-call-2"].forEach((r, k) => {
+            const at = t0 + k * 0.3;
+            tl.fromTo(r, { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 1.45, duration: 0.9, ease: "power1.out", immediateRender: false }, at);
+          });
+        });
+        tl.to("#cc1 .s-calling .dot", { opacity: 0.35, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0.5);
+        // unanswered → "No answer"
+        tl.to("#cc1 .st-a", { opacity: 0, y: -10, duration: 0.24, ease: "power2.in" }, 2.0);
+        tl.to("#cc1 .st-b", { opacity: 1, y: 0, duration: 0.26, ease: E }, 2.12);
+        tl.to("#call-dim", { opacity: 1, duration: 0.4, ease: IO }, 2.0);
+        tl.to("#scr-call .base", { filter: "grayscale(0.7)", duration: 0.4, ease: IO }, 2.0);
+        // more unanswered cards build behind it
+        tl.to("#cc2", { opacity: 0.85, y: -16, duration: 0.4, ease: E }, 2.35);
+        tl.to("#cc3", { opacity: 0.6, y: -32, duration: 0.4, ease: E }, 2.55);
+        // headline
+        tl.to("#h1 .line:nth-child(1) > span", { yPercent: 0, duration: 0.6, ease: E }, 0.55);
+        tl.to("#h1 .line:nth-child(2) > span", { yPercent: 0, duration: 0.6, ease: E }, 2.45);
+        tl.to("#h1 .uline", { scaleX: 1, duration: 0.5, ease: IO }, 3.05);
+
+        // =========================================================
+        // SCENE 02 — PROBLEM (4.6 – 11.9)
+        // =========================================================
+        linesOut("#h1", 4.45);
+        tl.to("#story", { opacity: 1, y: 0, duration: 0.5, ease: E }, 4.85);
+        tl.to("#h2 .line:nth-child(1) > span", { yPercent: 0, duration: 0.6, ease: E }, 5.05);
+        tl.to("#h2 .line:nth-child(2) > span", { yPercent: 0, duration: 0.6, ease: E }, 5.5);
+        // stack unfolds into the agent's call queue
+        tl.to("#cc3", { y: -164, scale: 1, opacity: 1, duration: 0.6, ease: IO }, 5.1);
+        tl.to("#cc2", { y: -48, scale: 1, opacity: 1, duration: 0.6, ease: IO }, 5.18);
+        tl.to("#cc1", { y: 68, duration: 0.6, ease: IO }, 5.26);
+        tl.to($$("#cc2 > *, #cc3 > *"), { opacity: 1, duration: 0.35, ease: IO }, 5.35);
+        // statuses: No answer / Call missed / Follow-up pending
+        tl.to("#cc2 .st-a", { opacity: 0, y: -10, duration: 0.22, ease: "power2.in" }, 6.4);
+        tl.to("#cc2 .st-b", { opacity: 1, y: 0, duration: 0.26, ease: E }, 6.5);
+        tl.to("#cc3 .st-a", { opacity: 0, y: -10, duration: 0.22, ease: "power2.in" }, 7.2);
+        tl.to("#cc3 .st-b", { opacity: 1, y: 0, duration: 0.26, ease: E }, 7.3);
+        // the phone keeps ringing out unanswered
+        tl.to("#scr-call", { y: 20, duration: 6.3, ease: "none" }, 5.0);
+        // no effective follow-up channel
+        tl.to("#cc4", { opacity: 1, y: 0, duration: 0.45, ease: E }, 9.6);
+
+        // transition: one missed call slides into the WhatsApp window
+        tl.to(["#cc2", "#cc3", "#cc4"], { opacity: 0, x: -30, duration: 0.4, ease: "power2.in", stagger: 0.05 }, 11.2);
+        tl.to("#story", { opacity: 0, y: -10, duration: 0.4, ease: "power2.in" }, 11.2);
+        linesOut("#h2", 11.2);
+        tl.to("#cc1", { x: 1020, y: -100, scale: 0.92, duration: 0.6, ease: IO }, 11.35);
+        tl.to("#cc1", { opacity: 0, duration: 0.25, ease: "power1.in" }, 11.8);
+        tl.to("#scr-call", { y: 140, opacity: 0, duration: 0.5, ease: "power2.in" }, 11.4);
+        tl.to("#scr-chat", { y: 0, opacity: 1, duration: 0.7, ease: E }, 11.7);
+
+        // =========================================================
+        // SCENE 03 — SOLUTION (11.9 – 17.6)
+        // =========================================================
+        tl.to("#h3 .line:nth-child(1) > span", { yPercent: 0, duration: 0.6, ease: E }, 12.2);
+        tl.to("#h3 .line:nth-child(2) > span", { yPercent: 0, duration: 0.6, ease: E }, 12.6);
+        tl.to("#h3 .uline", { scaleX: 1, duration: 0.6, ease: IO }, 13.4);
+        // the exact SOTC conversation from the reference, bubble by bubble
+        tl.to("#b1", { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.2)" }, 12.55);
+        tl.to("#b2", { opacity: 1, y: 0, duration: 0.28, ease: "back.out(1.2)" }, 13.75);
+        tl.to("#b3", { opacity: 1, y: 0, duration: 0.28, ease: "back.out(1.2)" }, 14.55);
+        tl.to("#b4", { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.2)" }, 15.15);
+        // chips: chat | calls
+        tl.to("#chips", { opacity: 1, y: 0, duration: 0.45, ease: E }, 14.2);
+        tl.to("#chip-chat", { borderColor: "#27b378", color: "#117c4f", duration: 0.25, ease: IO }, 16.2);
+        tl.to("#chip-call", { borderColor: "#27b378", color: "#117c4f", duration: 0.25, ease: IO }, 16.85);
+        // chat → WhatsApp call
+        tl.to("#scr-chat", { opacity: 0, scale: 0.97, duration: 0.45, ease: IO }, 15.65);
+        tl.to("#scr-wa", { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: E }, 15.7);
+        ["#r-wa-1", "#r-wa-2", "#r-wa-3"].forEach((r, k) => {
+          [16.0, 16.9].forEach((t0) => {
+            tl.fromTo(r, { opacity: 0.8, scale: 1 }, { opacity: 0, scale: 1.4, duration: 1.0, ease: "power1.out", immediateRender: false }, t0 + k * 0.3);
+          });
+        });
+        tl.to("#wave-card", { opacity: 1, y: 0, duration: 0.4, ease: E }, 15.95);
+        $$("#bars i").forEach((b, i) => {
+          tl.to(b, { scaleY: 1, duration: 0.22, ease: "sine.inOut", yoyo: true, repeat: 5, delay: 0 }, 16.05 + i * 0.07);
+        });
+
+        // =========================================================
+        // SCENE 04 — 30% (17.6 – 20.9)
+        // =========================================================
+        linesOut("#h3", 17.3);
+        tl.to(["#chips", "#wave-card"], { opacity: 0, y: -10, duration: 0.35, ease: "power2.in" }, 17.3);
+        tl.to("#scr-wa", { y: 160, opacity: 0, duration: 0.55, ease: "power2.in" }, 17.35);
+        tl.to("#bg-green", { opacity: 1, duration: 0.6, ease: IO }, 17.5);
+        tl.to("#k30", { opacity: 1, y: 0, duration: 0.55, ease: E }, 17.85);
+        const c30 = { v: 0 };
+        tl.fromTo(c30, { v: 0 }, { v: 30, duration: 0.95, ease: "power2.out", immediateRender: false, onUpdate: () => ($("#n30").textContent = Math.round(c30.v)) }, 17.95);
+        tl.to("#conn", { opacity: 1, duration: 0.3 }, 18.9);
+        tl.to("#conn-fill", { scaleX: 1, duration: 1.1, ease: IO }, 19.0);
+        $$("#conn .node b").forEach((b, i) => tl.to(b, { scale: 1, duration: 0.26, ease: "back.out(1.4)" }, 19.0 + i * 0.25));
+
+        // =========================================================
+        // SCENE 05 — ₹5.04 CRORE (20.9 – 27.3)
+        // =========================================================
+        tl.to("#k30", { opacity: 0, y: -30, duration: 0.45, ease: "power2.in" }, 20.6);
+        tl.to("#bg-green", { opacity: 0, duration: 0.7, ease: IO }, 20.8);
+        // connection nodes gather into conversation cards
+        tl.to("#conn", { opacity: 0, scaleX: 0.6, duration: 0.45, ease: "power2.in" }, 20.75);
+        tl.to("#days", { opacity: 1, y: 0, duration: 0.45, ease: E }, 21.1);
+        tl.to("#days-fill", { scaleX: 1, duration: 1.5, ease: IO }, 21.3);
+        ["#m1", "#m2", "#m3"].forEach((id, i) => tl.to(id, { opacity: 1, y: 0, duration: 0.42, ease: E }, 21.05 + i * 0.1));
+        tl.to("#rev", { opacity: 1, y: 0, duration: 0.55, ease: E }, 23.1);
+        const crev = { v: 0 };
+        tl.fromTo(crev, { v: 0 }, { v: 5.04, duration: 1.1, ease: "power2.out", immediateRender: false, onUpdate: () => ($("#nrev").textContent = crev.v.toFixed(2)) }, 24.1);
+        tl.to("#rev .kpi-label", { opacity: 1, y: 0, duration: 0.45, ease: E }, 25.3);
+        tl.fromTo("#rev .kpi-num", { scale: 1 }, { scale: 1.025, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1, immediateRender: false }, 25.2);
+
+        // =========================================================
+        // SCENE 06 — 135+ DEALS (27.3 – 30.4)
+        // =========================================================
+        tl.to(["#rev", "#days"], { opacity: 0, y: -30, duration: 0.45, ease: "power2.in" }, 27.0);
+        // the three conversation cards rearrange into a grid of six
+        ["#m1", "#m2", "#m3"].forEach((id, i) => tl.to(id, { x: grid[i][0] - row[i][0], y: grid[i][1] - row[i][1], duration: 0.6, ease: IO }, 27.15 + i * 0.05));
+        ["#m4", "#m5", "#m6"].forEach((id, i) => tl.to(id, { opacity: 1, y: 0, duration: 0.4, ease: E }, 27.55 + i * 0.08));
+        tl.to("#k135", { opacity: 1, y: 0, duration: 0.55, ease: E }, 27.4);
+        const c135 = { v: 0 };
+        tl.fromTo(c135, { v: 0 }, { v: 135, duration: 1.15, ease: "power2.out", immediateRender: false, onUpdate: () => ($("#n135").textContent = Math.round(c135.v)) }, 27.95);
+        tl.to("#k135 .kpi-label", { opacity: 1, y: 0, duration: 0.45, ease: E }, 29.0);
+        // active conversations → deal closed
+        ["#m1", "#m2", "#m3", "#m4", "#m5", "#m6"].forEach((id, i) => {
+          const at = 28.3 + i * 0.16;
+          tl.to(id + " .sa", { opacity: 0, y: -8, duration: 0.18, ease: "power2.in" }, at);
+          tl.to(id + " .sb", { opacity: 1, y: 0, duration: 0.24, ease: E }, at + 0.08);
+          tl.to(id, { borderColor: "#bfe3cf", duration: 0.24, ease: IO }, at + 0.08);
+        });
+
+        // =========================================================
+        // SCENE 07 — FINAL TRANSFORMATION + END FRAME (30.4 – 34)
+        // =========================================================
+        tl.to("#k135", { opacity: 0, y: -24, duration: 0.45, ease: "power2.in" }, 30.15);
+        tl.to(["#m1", "#m2", "#m3", "#m4", "#m5", "#m6"], { opacity: 0, y: 20, scale: 0.96, duration: 0.4, ease: "power2.in", stagger: 0.03 }, 30.15);
+        tl.to("#end-head .line:nth-child(1) > span", { yPercent: 0, duration: 0.6, ease: E }, 30.55);
+        tl.to("#end-head .line:nth-child(2) > span", { yPercent: 0, duration: 0.6, ease: E }, 30.75);
+        tl.to("#ec1", { opacity: 1, y: 0, duration: 0.45, ease: E }, 30.8);
+        tl.to("#elink", { opacity: 1, duration: 0.3 }, 30.95);
+        tl.to("#ec2", { opacity: 1, y: 0, duration: 0.45, ease: E }, 31.2);
+        tl.to("#elink-fill", { scaleX: 1, duration: 1.1, ease: IO }, 31.05);
+        tl.to("#ec3", { opacity: 1, y: 0, duration: 0.45, ease: E }, 31.6);
+        tl.to("#end-head .uline", { scaleX: 1, duration: 0.55, ease: IO }, 31.7);
+        tl.to("#end-sub", { opacity: 1, y: 0, duration: 0.5, ease: E }, 32.1);
+        tl.to("#lockup", { opacity: 1, y: 0, duration: 0.55, ease: E }, 32.35);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
