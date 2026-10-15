@@ -2,9 +2,17 @@
 import numpy as np, wave, sys
 
 SR = 44100
-DUR = 26.0
+DUR = 36.9
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
+
+# same [newTime, animTime] keypoints as index.html; W() maps animation time -> video time
+KP = [[0,0],[2.2,2.2],[4.75,2.2],[5.55,3.0],[7.3,3.0],[7.5,4.3],[9.8,6.6],[11.3,6.6],[11.6,7.85],[12.65,8.9],[14.75,11.0],[16.9,11.0],[17.2,13.4],[19.8,16.0],[21.4,16.0],[21.6,17.4],[22.6,18.0],[22.9,18.3],[24.95,18.3],[25.6,18.95],[27.75,18.95],[28.4,19.6],[30.3,19.6],[30.5,21.3],[31.0,21.8],[31.3,22.1],[32.4,22.1],[33.4,23.1],[34.4,24.1],[34.9,24.6],[36.9,26.0]]
+def W(o):
+    for (n0, o0), (n1, o1) in zip(KP, KP[1:]):
+        if o1 > o0 and o0 <= o <= o1: return n0 + (n1 - n0) * (o - o0) / (o1 - o0)
+    return KP[-1][0]
+P_END, S_END = W(8.0), W(21.3)
 
 def t_(d): return np.arange(int(SR * d)) / SR
 def place(buf, sig, at, gain=1.0):
@@ -44,37 +52,29 @@ problem = [[57, 60, 64], [53, 57, 60]] * 2                    # Am  F  (0-8s)
 solution = [[48, 55, 64], [55, 59, 62], [57, 60, 64], [53, 57, 65]] * 3 + [[48, 55, 64]]  # C G Am F (8-34 trimmed)
 roots_p = [45, 41] * 2
 roots_s = [36, 43, 45, 41] * 3 + [36]
-for b, ch in enumerate(problem):
-    place(music, pad(ch, 2.05, 0.07), b * 2.0)
-    place(music, bass(roots_p[b], 1.9, 0.12), b * 2.0)
-for b in range(int(8.0 / BEAT)):
+nb = int(np.ceil(P_END / 2.0))
+for b in range(nb):
+    ch = problem[b % 4]; place(music, pad(ch, 2.05, 0.07), b * 2.0); place(music, bass(roots_p[b % 4], 1.9, 0.12), b * 2.0)
+for b in range(int(P_END / BEAT)):
     t0 = b * BEAT
     place(music, kick(0.55 if b % 2 == 0 else 0.0), t0)
     place(music, hat(0.10), t0 + BEAT / 2)
-# solution section 8.0 - 21.4 : full groove
-for b, ch in enumerate(solution):
-    t0 = 8.0 + b * 2.0
-    if t0 >= 21.4: break
-    place(music, pad([m + 12 for m in ch], 2.05, 0.06), t0)
-    place(music, pad(ch, 2.05, 0.05), t0)
+for b in range(int(np.ceil((S_END - P_END) / 2.0))):
+    t0 = P_END + b * 2.0
+    ch = solution[b % 4]
+    place(music, pad([m + 12 for m in ch], 2.05, 0.06), t0); place(music, pad(ch, 2.05, 0.05), t0)
     for q in range(4):
-        place(music, bass(roots_s[b], 0.45, 0.2), t0 + q * BEAT)
-for b in range(int((21.4 - 8.0) / BEAT)):
-    t0 = 8.0 + b * BEAT
-    place(music, kick(0.8), t0)
-    place(music, hat(0.13), t0 + BEAT / 2)
-    place(music, hat(0.06, 0.03), t0 + BEAT / 4)
+        if t0 + q * BEAT < S_END: place(music, bass(roots_s[b % 4], 0.45, 0.2), t0 + q * BEAT)
+for b in range(int((S_END - P_END) / BEAT)):
+    t0 = P_END + b * BEAT
+    place(music, kick(0.8), t0); place(music, hat(0.13), t0 + BEAT / 2); place(music, hat(0.06, 0.03), t0 + BEAT / 4)
     if b % 2 == 1: place(music, clap(0.3), t0)
-# CTA: warm sustain + light hats
-place(music, pad([53, 57, 60, 65], 2.4, 0.08), 21.4)
-place(music, pad([48, 55, 60, 64], 2.8, 0.08), 23.6)
-place(music, bass(41, 2.2, 0.16), 21.4)
-place(music, bass(36, 2.6, 0.16), 23.6)
-for b in range(int((25.6 - 21.4) / BEAT)):
-    place(music, hat(0.06), 21.4 + b * BEAT + BEAT / 2)
-# riser into the green sweep
+for i, ch in enumerate([[53, 57, 60, 65], [48, 55, 60, 64], [53, 57, 60, 65]]):
+    place(music, pad(ch, 2.5, 0.08), S_END + i * 2.2); place(music, bass([41, 36, 41][i], 2.3, 0.16), S_END + i * 2.2)
+for b in range(int((DUR - 0.6 - S_END) / BEAT)):
+    place(music, hat(0.06), S_END + b * BEAT + BEAT / 2)
 tt = t_(1.0); n = rng.standard_normal(len(tt)); n = n - lowpass(n, 4)
-place(music, 0.12 * n * (tt / 1.0) ** 2, 7.0)
+place(music, 0.12 * n * (tt / 1.0) ** 2, P_END - 1.0)
 
 # master fade in/out
 env = np.ones(N); fi = int(0.05 * SR); fo = int(1.2 * SR)
@@ -110,25 +110,25 @@ def chime(amp=0.3):
     tt = t_(1.4); s = sum(np.sin(2 * np.pi * note(m) * tt) * w for m, w in ((72, 1), (79, .7), (84, .5), (88, .35)))
     return amp * s / 2.5 * np.exp(-tt * 2.6) * np.minimum(1, tt / 0.005)
 
-for i, at in enumerate((0.45, 0.57, 0.69)): place(sfx, pop(780 + 120 * i), at)
-place(sfx, whoosh(0.5, 0.12), 1.35)
-place(sfx, tick_s(0.15), 2.72)
-for i, at in enumerate((5.25, 5.37, 5.49)): place(sfx, pop(520, 0.06, 0.18), at)
-for i, at in enumerate((6.0, 6.15, 6.3)): place(sfx, blip_down(0.22), at)
-place(sfx, whoosh(0.9, 0.35), 7.75)
-place(sfx, impact(0.28), 8.6)
-for i, at in enumerate((9.3, 9.42, 9.54)): place(sfx, tick_s(0.28), at)
-for i, at in enumerate((10.0, 10.25, 10.5)): place(sfx, pop(1040 + 80 * i, 0.1, 0.32), at)
-place(sfx, whoosh(0.6, 0.22), 13.5)
-for i, at in enumerate((14.3, 14.4, 14.5)): place(sfx, snap(0.4), at)
-for i, at in enumerate((15.42, 15.54, 15.66)): place(sfx, tick_s(0.16), at)
-place(sfx, whoosh(0.5, 0.16), 17.45)
-place(sfx, impact(0.6), 18.0)
-place(sfx, impact(0.5), 18.35)
-place(sfx, pop(900, 0.1, 0.25), 19.05)
-place(sfx, whoosh(0.5, 0.16), 21.3)
-place(sfx, chime(0.32), 22.55)
-place(sfx, pop(1200, 0.08, 0.14), 24.15)
+for i, at in enumerate((0.45, 0.57, 0.69)): place(sfx, pop(780 + 120 * i), W(at))
+place(sfx, whoosh(0.5, 0.12), W(1.35))
+place(sfx, tick_s(0.15), W(2.72))
+for i, at in enumerate((5.25, 5.37, 5.49)): place(sfx, pop(520, 0.06, 0.18), W(at))
+for i, at in enumerate((6.0, 6.15, 6.3)): place(sfx, blip_down(0.22), W(at))
+place(sfx, whoosh(0.9, 0.35), W(7.75))
+place(sfx, impact(0.28), W(8.6))
+for i, at in enumerate((9.3, 9.42, 9.54)): place(sfx, tick_s(0.28), W(at))
+for i, at in enumerate((10.0, 10.25, 10.5)): place(sfx, pop(1040 + 80 * i, 0.1, 0.32), W(at))
+place(sfx, whoosh(0.6, 0.22), W(13.5))
+for i, at in enumerate((14.3, 14.4, 14.5)): place(sfx, snap(0.4), W(at))
+for i, at in enumerate((15.42, 15.54, 15.66)): place(sfx, tick_s(0.16), W(at))
+place(sfx, whoosh(0.5, 0.16), W(17.45))
+place(sfx, impact(0.6), W(18.0))
+place(sfx, impact(0.5), W(18.35))
+place(sfx, pop(900, 0.1, 0.25), W(19.05))
+place(sfx, whoosh(0.5, 0.16), W(21.3))
+place(sfx, chime(0.32), W(22.55))
+place(sfx, pop(1200, 0.08, 0.14), W(24.15))
 
 def write(path, x):
     x = x / max(1e-9, np.max(np.abs(x))) * 0.89
@@ -137,6 +137,6 @@ def write(path, x):
         w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
         w.writeframes((st * 32767).astype(np.int16).tobytes())
 
-mix = 0.55 * music / np.max(np.abs(music)) + 0.75 * sfx / np.max(np.abs(sfx))
-write(sys.argv[1] if len(sys.argv) > 1 else "music_sfx.wav", mix)
+write("music.wav", music)
+write("sfx.wav", sfx)
 print("ok", DUR)
