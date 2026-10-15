@@ -1,15 +1,30 @@
 """Deterministic synthesis of the music bed and SFX track for the SOTC case study.
 
 Usage: python3 -I scripts/synth_audio.py <out_dir>
-Writes music.wav and sfx.wav (44.1 kHz mono, 34 s).
+Writes music.wav and sfx.wav (44.1 kHz mono, 30 s).
+Cue times are authored on the original 34 s cut and mapped onto the
+final voiceover with T().
 """
 import sys, wave
 import numpy as np
 
 SR = 44100
-DUR = 34.0
+DUR = 30.0
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
+
+# original-cut seconds -> final-voiceover seconds (piecewise linear)
+ANCHORS = [(0, 0), (4.0, 3.55), (5.05, 4.17), (9.14, 8.46), (9.48, 8.62), (11.28, 10.49), (12.25, 11.0),
+           (13.49, 12.05), (17.39, 15.65), (17.75, 15.87), (20.46, 18.41), (21.14, 18.9), (22.63, 20.25),
+           (22.95, 20.45), (27.02, 24.44), (27.42, 24.64), (30.17, 27.25), (30.53, 27.38), (31.95, 28.63), (34, 30.0)]
+
+
+def T(t):
+    for (a0, b0), (a1, b1) in zip(ANCHORS, ANCHORS[1:]):
+        if t <= a1:
+            return b0 + (t - a0) * (b1 - b0) / (a1 - a0)
+    return ANCHORS[-1][1]
+
 t_all = np.arange(N) / SR
 
 
@@ -70,7 +85,7 @@ music = np.zeros(N)
 n_bars = int(np.ceil(DUR / BAR)) + 1
 for b in range(n_bars):
     st = b * BAR
-    ch = CHORDS[b % 4] if st < 30.4 else CHORDS[0]
+    ch = CHORDS[b % 4] if st < T(30.4) else CHORDS[0]
     length = BAR + 1.2
     n = int(length * SR)
     tt = np.arange(n) / SR
@@ -83,7 +98,7 @@ for b in range(n_bars):
     sig *= env_adsr(n, 0.9, 0.4, 0.8, 1.2, BAR)
     # pad swells slightly through the film
     lvl = 0.010 + 0.006 * min(1, st / 20)
-    if st >= 30.4:
+    if st >= T(30.4):
         lvl = 0.016
     add(music, sig * lvl, st)
 
@@ -91,8 +106,8 @@ for b in range(n_bars):
 PAT = [0, 2, 1, 3, 2, 4, 3, 1]
 eighth = BEAT / 2
 k = 0
-t = 4.8
-while t < 30.3:
+t = T(4.8)
+while t < T(30.3):
     bar_idx = int(t // BAR)
     ch = CHORDS[bar_idx % 4]
     m = ch[PAT[k % 8]] + 12
@@ -101,7 +116,7 @@ while t < 30.3:
     f = midi(m)
     sig = (np.sin(2 * np.pi * f * tt) + 0.25 * np.sin(4 * np.pi * f * tt) + 0.08 * np.sin(6 * np.pi * f * tt)) * np.exp(-tt * 9)
     sig *= np.minimum(1, tt / 0.004)
-    lvl = 0.020 if t < 11.9 else (0.030 if t < 17.6 else 0.036)
+    lvl = 0.020 if t < T(11.9) else (0.030 if t < T(17.6) else 0.036)
     if k % 2:
         lvl *= 0.7
     add(music, sig * lvl, t)
@@ -111,9 +126,9 @@ while t < 30.3:
 # sub bass from scene 3
 for b in range(n_bars):
     st = b * BAR
-    if st < 11.9 - BAR or st >= 30.4:
+    if st < T(11.9) - BAR or st >= T(30.4):
         continue
-    st = max(st, 12.0)
+    st = max(st, T(12.0))
     ch = CHORDS[int(st // BAR) % 4]
     n = int((BAR) * SR)
     tt = np.arange(n) / SR
@@ -123,9 +138,9 @@ for b in range(n_bars):
     add(music, sig * 0.055, st)
 
 # soft kick on quarters during the KPI section (momentum), hats from scene 3
-t = 12.0
-while t < 30.3:
-    if t >= 17.6:
+t = T(12.0)
+while t < T(30.3):
+    if t >= T(17.6):
         n = int(0.35 * SR)
         tt = np.arange(n) / SR
         f = 48 + 70 * np.exp(-tt * 30)
@@ -137,7 +152,7 @@ while t < 30.3:
     nz = rng.standard_normal(n)
     nz = np.diff(np.concatenate([[0], nz]))
     hat = nz * np.exp(-np.arange(n) / SR * 70)
-    add(music, hat * (0.006 if t < 17.6 else 0.009), t + BEAT / 2)
+    add(music, hat * (0.006 if t < T(17.6) else 0.009), t + BEAT / 2)
     t += BEAT
 
 # gentle fade in and resolve
@@ -194,7 +209,6 @@ def impact(start, lvl=0.16, f0=70):
 
 
 def tick(start, lvl=0.06):
-    add(sfx, tone([1760, 2640], 0.09, 45), start) if False else None
     add(sfx, tone([1760], 0.08, 50) * lvl, start)
     add(sfx, tone([2637], 0.10, 40) * lvl * 0.8, start + 0.07)
 
@@ -209,27 +223,27 @@ def chime(start):
         add(sfx, tone([midi(m)], 1.4, 3.2) * 0.035, start + i * 0.08)
 
 
-ringback(0.25)
-add(sfx, tone([520], 0.12, 20) * 0.04, 2.05)   # call ends: muted down blip
-add(sfx, tone([390], 0.18, 16) * 0.04, 2.17)
-whoosh(4.35, 0.6, 0.035)
-whoosh(11.45, 0.7, 0.04)
-impact(11.95, 0.07, 90)
-pop(12.55, 880, 0.06)
-pop(13.75, 1175, 0.045)
-pop(14.55, 880, 0.055)
-pop(15.15, 880, 0.055)
-connect(15.75)
-whoosh(17.35, 0.6, 0.04)
-impact(18.9, 0.15)
-whoosh(20.65, 0.6, 0.035)
-impact(25.2, 0.2, 52)
-whoosh(27.05, 0.55, 0.035)
-for i, tt0 in enumerate((28.35, 28.6, 28.85)):
-    tick(tt0, 0.05)
-tick(29.25, 0.07)
-whoosh(30.15, 0.6, 0.035)
-chime(32.35)
+ringback(T(0.25))
+add(sfx, tone([520], 0.12, 20) * 0.04, T(2.05))   # call ends: muted down blip
+add(sfx, tone([390], 0.18, 16) * 0.04, T(2.17))
+whoosh(T(4.35), 0.6, 0.035)
+whoosh(T(11.45), 0.7, 0.04)
+impact(T(11.95), 0.07, 90)
+pop(T(12.55), 880, 0.06)
+pop(T(13.75), 1175, 0.045)
+pop(T(14.55), 880, 0.055)
+pop(T(15.15), 880, 0.055)
+connect(T(15.75))
+whoosh(T(17.35), 0.6, 0.04)
+impact(T(18.9), 0.15)
+whoosh(T(20.65), 0.6, 0.035)
+impact(T(25.2), 0.2, 52)
+whoosh(T(27.05), 0.55, 0.035)
+for tt0 in (28.35, 28.6, 28.85):
+    tick(T(tt0), 0.05)
+tick(T(29.25), 0.07)
+whoosh(T(30.15), 0.6, 0.035)
+chime(T(32.35))
 
 
 def write(path, x):
