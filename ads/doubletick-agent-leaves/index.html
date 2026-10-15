@@ -41,13 +41,13 @@
   .logo { position: absolute; top: 70px; left: 64px; height: 38px; }
 
   /* ---------- copy ---------- */
-  .headline { position: absolute; top: 180px; left: 64px; width: 960px; font-weight: 700; font-size: 68px; line-height: 1.05; letter-spacing: -0.045em; color: var(--ink); }
-  .headline .hl { color: #D32F2F; white-space: nowrap; }
-  .sub { position: absolute; top: 340px; left: 64px; width: 900px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
+  .headline { position: absolute; top: 180px; left: 64px; width: 960px; font-weight: 700; font-size: 56px; line-height: 1.06; letter-spacing: -0.045em; color: var(--ink); }
+  .headline .hl { color: #D32F2F; }
+  .sub { position: absolute; top: 374px; left: 64px; width: 952px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
   .sub b { color: var(--ink); font-weight: 600; }
 
   /* ---------- departing agent ---------- */
-  .agent { position: absolute; left: 64px; top: 440px; width: 262px; height: 380px; border-radius: 24px; background: #ECEBE3; border: 2px dashed rgba(19,19,22,0.18); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .agent { position: absolute; left: 64px; top: 466px; width: 262px; height: 356px; border-radius: 24px; background: #ECEBE3; border: 2px dashed rgba(19,19,22,0.18); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
   .avatar { position: relative; width: 96px; height: 96px; border-radius: 50%; background: #D9D8CF; display: grid; place-items: center; opacity: 0.85; }
   .exit { position: absolute; right: -6px; bottom: -2px; width: 38px; height: 38px; border-radius: 50%; background: #D32F2F; display: grid; place-items: center; box-shadow: 0 0 0 5px #ECEBE3; }
   .agent .nm { margin-top: 18px; font-weight: 700; font-size: 25px; letter-spacing: -0.03em; color: var(--ink-2); }
@@ -55,14 +55,14 @@
   .left-chip { margin-top: 16px; font-size: 14.5px; font-weight: 600; color: #D32F2F; background: rgba(211,47,47,0.10); padding: 7px 14px; border-radius: 999px; }
 
   /* ---------- arrow ---------- */
-  .arrow { position: absolute; left: 331px; top: 607px; width: 46px; height: 46px; border-radius: 50%; background: var(--green); display: grid; place-items: center; box-shadow: 0 0 0 7px var(--bg); z-index: 2; }
+  .arrow { position: absolute; left: 331px; top: 621px; width: 46px; height: 46px; border-radius: 50%; background: var(--green); display: grid; place-items: center; box-shadow: 0 0 0 7px var(--bg); z-index: 2; }
 
   /* ---------- DoubleTick inbox (simplified) ---------- */
-  .inbox { position: absolute; left: 382px; top: 440px; width: 634px; height: 380px; border-radius: 22px; background: var(--card); border: 1.5px solid rgba(19,19,22,0.10); overflow: hidden; display: flex; box-shadow: 0 30px 60px -30px rgba(19,19,22,0.35); font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; }
+  .inbox { position: absolute; left: 382px; top: 466px; width: 634px; height: 356px; border-radius: 22px; background: var(--card); border: 1.5px solid rgba(19,19,22,0.10); overflow: hidden; display: flex; box-shadow: 0 30px 60px -30px rgba(19,19,22,0.35); font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; }
   .list { width: 206px; flex: none; border-right: 1px solid rgba(19,19,22,0.08); }
   .list-head { height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; font-weight: 600; font-size: 15px; border-bottom: 1px solid rgba(19,19,22,0.07); }
   .count { font-size: 11.5px; font-weight: 700; color: #fff; background: var(--green); padding: 2px 7px; border-radius: 6px; }
-  .row { display: flex; gap: 10px; padding: 18px 12px; border-bottom: 1px solid rgba(19,19,22,0.05); }
+  .row { display: flex; gap: 10px; padding: 15px 12px; border-bottom: 1px solid rgba(19,19,22,0.05); }
   .row.on { background: #EAF4EF; }
   .av { position: relative; flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 13px; }
   .av::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
@@ -78,8 +78,8 @@
   .conv-head .n { font-weight: 600; font-size: 15px; color: #111B21; }
   .assign { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--green); background: var(--green-tint); padding: 5px 10px; border-radius: 999px; }
   .assign s { color: #8696A0; font-weight: 500; }
-  .thread { flex: 1; background: #F5F2EB; padding: 10px 14px; display: flex; flex-direction: column; gap: 6px; }
-  .composer { flex: none; height: 44px; display: flex; align-items: center; gap: 10px; padding: 0 14px; border-top: 1px solid rgba(19,19,22,0.07); font-size: 13px; color: #8696A0; }
+  .thread { flex: 1; background: #F5F2EB; padding: 8px 14px; display: flex; flex-direction: column; gap: 5px; }
+  .composer { flex: none; height: 40px; display: flex; align-items: center; gap: 10px; padding: 0 14px; border-top: 1px solid rgba(19,19,22,0.07); font-size: 13px; color: #8696A0; }
   .composer .send { margin-left: auto; width: 28px; height: 28px; border-radius: 8px; background: var(--green); display: grid; place-items: center; }
   .day { align-self: center; font-size: 11px; font-weight: 500; color: #54656F; background: #E9E6DE; padding: 3px 9px; border-radius: 6px; }
   .m { max-width: 86%; padding: 6px 10px 7px; border-radius: 8px; font-size: 14px; line-height: 1.32; color: #111B21; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
@@ -111,8 +111,8 @@
   <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
 
   <!-- copy -->
-  <h1 class="headline">What happens to customer chats when an <span class="hl">agent leaves?</span></h1>
-  <p class="sub">Keep business conversations and <b>customer history</b> accessible through DoubleTick's <b>centrally managed WhatsApp workspace</b>.</p>
+  <h1 class="headline">Your travel agent left.<br/>Did your customer chats<br/><span class="hl">leave with them too?</span></h1>
+  <p class="sub">With DoubleTick, centralise <b>WhatsApp conversations, travel enquiries and booking history</b>, so another agent can take over customer follow-ups <b>without losing context</b>.</p>
 
   <!-- departing agent -->
   <div class="agent">
