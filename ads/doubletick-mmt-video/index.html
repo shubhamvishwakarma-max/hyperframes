@@ -18,9 +18,9 @@
   #rose { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 45%, rgba(196,120,132,0.16), rgba(196,120,132,0.06) 70%, transparent); }
 
   /* top context lockup */
-  #top { left: 60px; top: 48px; display: flex; align-items: center; gap: 12px; }
-  #top img.mmt { height: 26px; }
-  #top img.dt { height: 22px; }
+  #top { left: 60px; top: 40px; display: flex; align-items: center; gap: 12px; }
+  #top img.mmt { height: 40px; }
+  #top img.dt { height: 36px; }
   #top .x { color: #A3A39C; font-size: 18px; }
   #top .lbl { margin-left: 10px; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; color: var(--ink-2); padding: 6px 11px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,0.6); }
 
@@ -34,57 +34,87 @@
   .rose { color: var(--rose); }
   .green { color: var(--green); }
 
-  /* seller cards */
-  .card { z-index: 6; width: 290px; height: 200px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 18px 40px -22px rgba(19,19,22,0.28); padding: 18px; }
-  .ghost { width: 290px; height: 200px; border-radius: 22px; background: #FBFAF6; border: 1px solid var(--line); }
-  .ch { display: flex; align-items: center; gap: 11px; }
-  .av { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 15px; color: #fff; flex: none; position: relative; }
-  .av::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 13px; height: 13px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2.5px #fff; }
-  .cn { font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
-  .num { font-size: 13.5px; color: var(--mute); margin-top: 1px; display: flex; align-items: center; gap: 5px; }
+  /* seller WhatsApp chats (customer view of each seller's own WABA) */
+  .phone { z-index: 6; width: 300px; height: 400px; border-radius: 24px; background: #EFEAE2; border: 2px solid #E2E0D8; overflow: hidden; box-shadow: 0 22px 44px -24px rgba(19,19,22,0.35); font-family: "Geist", sans-serif; display: flex; flex-direction: column; }
+  .ghost { width: 300px; height: 400px; border-radius: 24px; background: #FBFAF6; border: 1px solid var(--line); }
+  .wh { height: 56px; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: #fff; border-bottom: 1px solid #E9EDEF; color: #111B21; }
+  .wh .ph { width: 34px; height: 34px; border-radius: 50%; flex: none; object-fit: cover; }
+  .wh .pi { width: 34px; height: 34px; border-radius: 50%; flex: none; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 14px; background: #D7263D; }
+  .wh .nm { font-weight: 600; font-size: 14.5px; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .wh .ba { font-size: 11px; color: #3B4A54; margin-top: 1px; }
+  .wh .ic { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .wbody { flex: 1; position: relative; background: #EFEAE2; }
+  .wbody::before { content: ""; position: absolute; inset: 0; opacity: 0.35; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' fill='none' stroke='%23D6CFC4' stroke-width='1.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='14' r='5'/%3E%3Cpath d='M42 9l7 7m0-7l-7 7'/%3E%3Cpath d='M18 46c4-5 9-5 12 0'/%3E%3Crect x='47' y='42' width='10' height='10' rx='3'/%3E%3C/svg%3E"); }
+  .day { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); font-size: 10.5px; color: #54656F; background: #fff; padding: 3px 9px; border-radius: 6px; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .cust { position: absolute; right: 12px; top: 40px; max-width: 220px; background: #D9FDD3; border-radius: 10px; border-top-right-radius: 2px; padding: 7px 9px 6px; font-size: 13px; color: #111B21; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .gen { position: absolute; left: 12px; top: 88px; max-width: 230px; background: #fff; border-radius: 10px; border-top-left-radius: 2px; padding: 7px 9px 6px; font-size: 13px; color: #111B21; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .tm { float: right; margin: 4px 0 -2px 8px; font-size: 9.5px; color: #8696A0; }
+  .camp { position: absolute; left: 10px; top: 38px; width: 252px; background: #fff; border-radius: 10px; border-top-left-radius: 2px; padding: 4px 4px 0; box-shadow: 0 1px 0.5px rgba(11,20,26,0.15); }
+  .camp img { width: 100%; height: 92px; object-fit: cover; border-radius: 7px; display: block; }
+  .camp .tx { padding: 6px 6px 2px; font-size: 11.5px; line-height: 1.38; color: #111B21; }
+  .camp .tx p + p { margin-top: 4px; }
+  .camp .ex { border-top: 1px solid #E9EDEF; text-align: center; padding: 6px 0 7px; color: #0A84C1; font-size: 12.5px; font-weight: 500; }
+  .wcomp { height: 44px; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 10px; background: #F7F5F0; border-top: 1px solid #E6E2DA; }
+  .wcomp .fd { flex: 1; height: 28px; border-radius: 999px; background: #fff; border: 1px solid #E6E2DA; }
+  .chipw { position: absolute; z-index: 7; width: 300px; display: flex; justify-content: center; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; padding: 7px 12px; border-radius: 999px; white-space: nowrap; box-shadow: 0 8px 18px -10px rgba(19,19,22,0.35); }
+  .chip.bad { color: var(--rose); background: #F8E9EB; border: 1px solid rgba(184,92,107,0.25); }
+  .chip.ok { color: var(--green); background: #E3F2EC; border: 1px solid rgba(0,122,90,0.25); }
   .vt { display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 50%; background: var(--green); }
-  .bub { margin-top: 16px; background: #F1F0EA; border-radius: 12px; border-top-left-radius: 3px; padding: 10px 12px; font-size: 15.5px; color: #3B4A54; }
-  .chips { position: relative; margin-top: 14px; height: 30px; }
-  .chip { position: absolute; left: 0; top: 0; display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; padding: 6px 11px; border-radius: 999px; white-space: nowrap; }
-  .chip.bad { color: var(--rose); background: var(--rose-bg); }
-  .chip.ok { color: var(--green); background: var(--tint); }
 
   /* manager + lines */
-  #mgr { left: 430px; top: 392px; width: 220px; height: 64px; border-radius: 16px; background: var(--ink); color: #F4F3EC; display: flex; align-items: center; gap: 12px; padding: 0 16px; box-shadow: 0 14px 30px -16px rgba(19,19,22,0.5); }
+  #mgr { left: 430px; top: 374px; width: 220px; height: 64px; border-radius: 16px; background: var(--ink); color: #F4F3EC; display: flex; align-items: center; gap: 12px; padding: 0 16px; box-shadow: 0 14px 30px -16px rgba(19,19,22,0.5); }
   #mgr .mav { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.14); display: grid; place-items: center; }
   #mgr b { font-size: 17px; } #mgr small { display: block; font-size: 12px; opacity: 0.65; }
   #lines { left: 0; top: 0; width: 1080px; height: 1080px; pointer-events: none; }
   #sweep { left: 0; top: 0; height: 4px; width: 1080px; border-radius: 4px; background: linear-gradient(90deg, rgba(0,122,90,0), #29B47A 30%, #007A5A 70%, #29B47A); box-shadow: 0 0 18px 2px rgba(41,180,122,0.55); transform-origin: left center; }
 
-  /* personalised bubbles */
-  .pb { width: 290px; background: #D9FDD3; border-radius: 14px; border-top-right-radius: 3px; padding: 10px 13px 9px; font-size: 15px; line-height: 1.35; color: #111B21; box-shadow: 0 10px 24px -16px rgba(0,122,90,0.55); }
-  .pb .to { display: block; font-size: 11.5px; font-weight: 700; color: var(--green); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 3px; }
-  .pb .tk { float: right; margin: 5px 0 -3px 8px; }
-
-  /* dashboard */
-  #dash { left: 90px; top: 380px; width: 900px; height: 470px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 30px 60px -30px rgba(19,19,22,0.35); overflow: hidden; display: flex; flex-direction: column; }
-  .dtop { height: 56px; flex: none; display: flex; align-items: center; gap: 6px; padding: 0 18px; border-bottom: 1px solid var(--line); font-size: 15px; font-weight: 500; color: var(--ink-2); }
-  .dtop img { height: 20px; margin-right: 14px; }
-  .tab { padding: 8px 12px; border-radius: 8px; }
-  .tab.on { background: var(--tint); color: var(--green); font-weight: 700; }
-  .dbody { flex: 1; display: flex; }
-  .dside { width: 230px; flex: none; border-right: 1px solid var(--line); background: #FBFBF8; padding: 16px 14px; }
-  .dside .lab { font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; color: var(--mute); margin-bottom: 10px; }
-  .waba { display: flex; align-items: center; gap: 9px; padding: 9px 10px; border-radius: 10px; font-size: 15px; font-weight: 600; margin-bottom: 6px; background: #fff; border: 1px solid var(--line); }
-  .waba.all { background: var(--tint); border-color: rgba(0,122,90,0.25); color: var(--green); }
-  .waba i { width: 9px; height: 9px; border-radius: 50%; background: #25D366; flex: none; }
-  .waba .ck { margin-left: auto; }
-  .dmain { flex: 1; padding: 0 22px; }
-  .thead { display: grid; grid-template-columns: 1.1fr 1.3fr 1fr; padding: 16px 6px 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: var(--mute); border-bottom: 1px solid var(--line); }
-  .row { display: grid; grid-template-columns: 1.1fr 1.3fr 1fr; align-items: center; padding: 0 6px; height: 72px; border-bottom: 1px solid #EFEDE6; }
-  .row .who { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 16px; }
-  .row .who .av { width: 36px; height: 36px; font-size: 13px; }
-  .row .who small { display: block; font-weight: 500; font-size: 12px; color: var(--mute); }
-  .row .cv { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--ink-2); }
-  .st { justify-self: start; font-size: 13px; font-weight: 700; padding: 6px 11px; border-radius: 999px; }
-  .st.today { background: #FFF1DA; color: #A86A0C; }
-  .st.active { background: var(--tint); color: var(--green); }
-  .st.tom { background: #EEEDE7; color: #5A5A63; }
+  /* inbox (simplified DoubleTick UI) */
+  #dash { left: 40px; top: 306px; width: 1000px; height: 590px; border-radius: 20px; background: #fff; border: 1px solid var(--line); box-shadow: 0 30px 60px -30px rgba(19,19,22,0.35); overflow: hidden; display: flex; flex-direction: column; font-family: "Geist", sans-serif; color: #111B21; }
+  .tabs { height: 44px; flex: none; display: flex; align-items: center; gap: 4px; padding: 0 12px; border-bottom: 1px solid #E9EDEF; font-size: 13px; font-weight: 500; color: #3B4A54; }
+  .tab { padding: 5px 10px; border-radius: 6px; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .tab.on { background: #E3F1EA; color: var(--green); font-weight: 600; }
+  .tab b { font-size: 11px; font-weight: 600; background: #F0F2F5; color: #54656F; padding: 0 5px; border-radius: 4px; }
+  .dbody { flex: 1; display: flex; min-height: 0; }
+  .colh { height: 44px; display: flex; align-items: center; padding: 0 14px; font-weight: 600; font-size: 14.5px; border-bottom: 1px solid #E9EDEF; gap: 8px; }
+  .dside { width: 214px; flex: none; border-right: 1px solid #E9EDEF; background: #FBFBFA; }
+  .grp { padding: 8px 8px 2px; }
+  .gh { display: flex; align-items: center; gap: 7px; padding: 6px; font-size: 13px; font-weight: 600; color: #3B4A54; }
+  .it { display: flex; align-items: center; gap: 7px; padding: 5px 6px 5px 26px; border-radius: 6px; font-size: 13px; color: #54656F; }
+  .it.on { background: #E3F1EA; color: var(--green); font-weight: 600; }
+  .it .c { font-size: 10.5px; font-weight: 700; padding: 0 5px; border-radius: 4px; background: #E9EDEF; color: #54656F; }
+  .it.on .c { background: var(--green); color: #fff; }
+  .sl { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #8696A0; padding: 12px 14px 6px; }
+  .waba { display: flex; align-items: center; gap: 8px; margin: 0 8px 6px; padding: 7px 8px; border-radius: 9px; background: #fff; border: 1px solid #E9EDEF; font-size: 12.5px; font-weight: 600; }
+  .waba img, .waba .pi { width: 24px; height: 24px; border-radius: 50%; flex: none; }
+  .waba .pi { display: grid; place-items: center; color: #fff; font-size: 10px; background: #D7263D; }
+  .waba .ck { margin-left: auto; color: var(--green); font-size: 12px; }
+  .dlist { width: 300px; flex: none; border-right: 1px solid #E9EDEF; }
+  .lrow { display: flex; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #F0F2F5; height: 74px; }
+  .lrow.on { background: #EEF6F2; }
+  .lav { position: relative; flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 13px; }
+  .lav::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
+  .lb { flex: 1; min-width: 0; }
+  .lt { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; }
+  .lt span:last-child { font-size: 10.5px; font-weight: 400; color: #8696A0; }
+  .lm { margin-top: 2px; font-size: 12px; color: #667781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tg { display: inline-flex; align-items: center; gap: 4px; margin-top: 5px; margin-right: 4px; font-size: 10.5px; font-weight: 600; padding: 2px 7px; border-radius: 4px; background: #F0F2F5; color: #54656F; }
+  .tg.g { background: #E3F1EA; color: var(--green); } .tg.a { background: #FFF1DA; color: #A86A0C; }
+  .dconv { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .asg { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 4px 8px; border: 1px solid #E1E4E6; border-radius: 6px; }
+  .asg img { width: 18px; height: 18px; border-radius: 50%; }
+  .thread { flex: 1; position: relative; background: #EFEAE2; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+  .thread::before { content: ""; position: absolute; inset: 0; opacity: 0.35; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' fill='none' stroke='%23D6CFC4' stroke-width='1.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='14' r='5'/%3E%3Cpath d='M42 9l7 7m0-7l-7 7'/%3E%3Cpath d='M18 46c4-5 9-5 12 0'/%3E%3Crect x='47' y='42' width='10' height='10' rx='3'/%3E%3C/svg%3E"); }
+  .thread > * { position: relative; }
+  .tday { align-self: center; font-size: 10.5px; color: #54656F; background: #E1DCD3; padding: 3px 10px; border-radius: 6px; }
+  .m { max-width: 82%; padding: 6px 9px 7px; border-radius: 8px; font-size: 13px; line-height: 1.35; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .m .who { display: block; font-size: 10.5px; font-weight: 600; color: var(--green); margin-bottom: 1px; }
+  .m.in { align-self: flex-start; background: #fff; border-top-left-radius: 0; }
+  .m.out { align-self: flex-end; background: #D9FDD3; border-top-right-radius: 0; }
+  .m.note { align-self: flex-end; background: #FFF6D6; border: 1px solid #F2DE9B; box-shadow: none; }
+  .m.note .who { color: #B7791F; }
+  .dcomp { height: 46px; flex: none; display: flex; align-items: center; padding: 0 16px; border-top: 1px solid #E9EDEF; font-size: 12.5px; color: #8696A0; }
+  .dcomp .snd { margin-left: auto; width: 28px; height: 28px; border-radius: 8px; background: var(--green); display: grid; place-items: center; }
 
   /* KPIs */
   .kpi { width: 440px; text-align: center; }
@@ -97,7 +127,7 @@
 
   /* CTA */
   #lock { left: 0; width: 1080px; display: flex; justify-content: center; align-items: center; gap: 16px; }
-  #lock img.mmt { height: 40px; } #lock img.dt { height: 34px; } #lock .x { color: #A3A39C; font-size: 24px; }
+  #lock img.mmt { height: 58px; } #lock img.dt { height: 50px; } #lock .x { color: #A3A39C; font-size: 24px; }
   #ctaH { left: 90px; width: 900px; text-align: center; font-size: 82px; }
   #cta { left: 0; width: 1080px; display: flex; justify-content: center; }
   #cta .btn { display: inline-flex; align-items: center; gap: 14px; height: 86px; padding: 0 40px; border-radius: 999px; background: var(--green); color: #fff; font-size: 30px; font-weight: 600; letter-spacing: -0.015em; box-shadow: 0 22px 40px -18px rgba(0,122,90,0.75), inset 0 1px 0 rgba(255,255,255,0.18); }
@@ -111,27 +141,27 @@
   <div class="grid"></div>
   <div id="rose"></div>
 
-  <div id="top" class="abs"><img class="mmt" src="mmt-logo.png" alt="MakeMyTrip" /><span class="x">×</span><img class="dt" src="doubletick-logo.webp" alt="DoubleTick" /><span class="lbl">CUSTOMER STORY</span></div>
+  <div id="top" class="abs"><img class="dt" src="doubletick-logo.webp" alt="DoubleTick" /><span class="x">×</span><img class="mmt" src="mmt-logo.png" alt="MakeMyTrip" /><span class="lbl">CUSTOMER STORY</span></div>
 
   <!-- headlines -->
-  <div id="h1a" class="abs hl" style="top:128px">
+  <div id="h1a" class="abs hl" style="top:136px">
     <div class="ln serif" style="font-size:104px"><span>2,000+ travel sellers</span></div>
     <div class="ln sub"><span>Separate WhatsApp numbers.</span></div>
   </div>
-  <div id="h1b" class="abs hl" style="top:128px">
+  <div id="h1b" class="abs hl" style="top:136px">
     <div class="ln serif" style="font-size:78px"><span>2,000+ sellers.</span></div>
     <div class="ln serif" style="font-size:78px"><span>But <span class="rose">who could see</span> the conversations?</span></div>
   </div>
-  <div id="h2" class="abs hl" style="top:128px">
+  <div id="h2" class="abs hl" style="top:136px">
     <div class="ln serif" style="font-size:86px"><span>Scattered chats.</span></div>
     <div class="ln serif rose" style="font-size:86px"><span>Missed visibility.</span></div>
     <div class="ln tags"><span>Ownership · Follow-ups · Engagement</span></div>
   </div>
-  <div id="h3" class="abs hl" style="top:128px">
+  <div id="h3" class="abs hl" style="top:136px">
     <div class="ln serif" style="font-size:80px"><span>Personalised campaigns.</span></div>
     <div class="ln serif green" style="font-size:80px"><span>From their own numbers.</span></div>
   </div>
-  <div id="h4" class="abs hl" style="top:128px">
+  <div id="h4" class="abs hl" style="top:136px">
     <div class="ln serif" style="font-size:96px"><span>One central view.</span></div>
     <div class="ln tags"><span>Conversations · Ownership · Follow-ups</span></div>
   </div>
@@ -143,25 +173,39 @@
   <svg id="lines" class="abs" viewBox="0 0 1080 1080"></svg>
   <div id="mgr" class="abs"><div class="mav"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4F3EC" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><div><b>Manager</b><small>Needs visibility</small></div></div>
 
-  <!-- seller cards -->
+  <!-- seller WhatsApp chats -->
   <div id="cards"></div>
-  <div id="bubbles"></div>
   <div id="sweep" class="abs"></div>
 
-  <!-- dashboard -->
+  <!-- inbox -->
   <div id="dash" class="abs">
-    <div class="dtop"><img src="doubletick-logo.webp" alt="" /><span class="tab on">All Conversations</span><span class="tab">Open</span><span class="tab">Follow-ups</span></div>
+    <div class="tabs"><span class="tab on">All</span><span class="tab">Follow-up today <b>3</b></span><span class="tab">Awaiting reply <b>2</b></span><span class="tab">Quote sent <b>4</b></span><span class="tab">Booked <b>9</b></span></div>
     <div class="dbody">
       <div class="dside">
-        <div class="lab">ACCOUNTS</div>
-        <div class="waba all" id="w0"><i></i>All accounts<span class="ck">✓</span></div>
-        <div class="waba" id="w1"><i></i>WABA 01</div>
-        <div class="waba" id="w2"><i></i>WABA 02</div>
-        <div class="waba" id="w3"><i></i>WABA 03</div>
+        <div class="colh">Inbox</div>
+        <div class="grp"><div class="gh">All chats</div><div class="it on">Open <span class="c">28</span></div><div class="it">Awaiting reply <span class="c">5</span></div><div class="it">Unassigned <span class="c">0</span></div></div>
+        <div class="sl">WHATSAPP NUMBERS</div>
+        <div class="waba" id="w1"><img src="assets/av-rajesh.png" alt="" />Rajesh - MMT<span class="ck">✓</span></div>
+        <div class="waba" id="w2"><img src="assets/av-shivam.png" alt="" />Shivam - MMT<span class="ck">✓</span></div>
+        <div class="waba" id="w3"><span class="pi">P</span>Priya - MMT<span class="ck">✓</span></div>
       </div>
-      <div class="dmain">
-        <div class="thead"><span>SELLER</span><span>CONVERSATION</span><span>STATUS</span></div>
-        <div id="rows"></div>
+      <div class="dlist">
+        <div class="colh">All chats</div>
+        <div class="lrow on" id="r0"><div class="lav" style="background:#E3E7FB;color:#4F5BD5">R</div><div class="lb"><div class="lt"><span>Ria</span><span>10:35</span></div><div class="lm">Bali shortlist, please share</div><span class="tg">Rajesh - MMT</span><span class="tg a">Follow-up today</span></div></div>
+        <div class="lrow" id="r1"><div class="lav" style="background:#FBE3EE;color:#C2407A">A</div><div class="lb"><div class="lt"><span>Ananya</span><span>10:21</span></div><div class="lm">Booking the Goa resort now</div><span class="tg">Shivam - MMT</span><span class="tg g">Active</span></div></div>
+        <div class="lrow" id="r2"><div class="lav" style="background:#E0F2E9;color:#1E8A5A">K</div><div class="lb"><div class="lt"><span>Kabir</span><span>09:58</span></div><div class="lm">Will confirm Kerala dates</div><span class="tg">Priya - MMT</span><span class="tg">Follow-up tomorrow</span></div></div>
+        <div class="lrow" id="r3"><div class="lav" style="background:#FFF0D9;color:#B7791F">M</div><div class="lb"><div class="lt"><span>Meera</span><span>Mon</span></div><div class="lm">Thanks, received the visa list</div><span class="tg">Rajesh - MMT</span></div></div>
+      </div>
+      <div class="dconv">
+        <div class="colh"><div class="lav" style="background:#E3E7FB;color:#4F5BD5;width:30px;height:30px">R</div>Ria<span class="asg"><img src="assets/av-rajesh.png" alt="" />Rajesh - MMT ▾</span></div>
+        <div class="thread">
+          <span class="tday">Today</span>
+          <div class="m in">Any Bali packages for December? 🌴</div>
+          <div class="m out"><span class="who">Rajesh</span>Hi Ria! Your Bali shortlist is ready, with ₹3,000 off 🎯</div>
+          <div class="m in">Great, please share the options</div>
+          <div class="m note"><span class="who">Rajesh · NOTE</span>Follow-up today, 6 PM</div>
+        </div>
+        <div class="dcomp">Type a message…<span class="snd"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span></div>
       </div>
     </div>
   </div>
@@ -173,7 +217,7 @@
   <div id="proof" class="abs" style="top:700px"><span><i></i>2,000+ sellers enabled</span></div>
 
   <!-- CTA -->
-  <div id="lock" class="abs" style="top:190px"><img class="mmt" src="mmt-logo.png" alt="" /><span class="x">×</span><img class="dt" src="doubletick-logo.webp" alt="DoubleTick" /></div>
+  <div id="lock" class="abs" style="top:180px"><img class="dt" src="doubletick-logo.webp" alt="DoubleTick" /><span class="x">×</span><img class="mmt" src="mmt-logo.png" alt="MakeMyTrip" /></div>
   <div id="ctaH" class="abs serif" style="top:318px">Your travel business could be next.</div>
   <div id="cta" class="abs" style="top:600px"><div class="btn">Book Your Free DoubleTick Pilot Today <svg width="28" height="28" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
 
@@ -183,43 +227,53 @@
 <script>
 // ---------- data ----------
 const SELLERS = [
-  { n: "Seller 01", c: "#4F5BD5", i: "S1", num: "+91 98•• •••• 101", msg: "Customer inquiry", bad: "Owner unclear", pb: ["Ananya", "Hi Ananya, here are the Bali holiday options you asked about 🌴"] },
-  { n: "Seller 02", c: "#C2407A", i: "S2", num: "+91 97•• •••• 202", msg: "Booking follow-up", bad: "Follow-up pending", pb: ["Rohit", "Hi Rohit, your Goa resort is on hold until 6 PM today 🏖️"] },
-  { n: "Seller 03", c: "#B7791F", i: "S3", num: "+91 99•• •••• 303", msg: "Customer request", bad: "Campaign · Generic sender", pb: ["Meera", "Hi Meera, the Kerala family package you liked, with flights ✈️"] },
+  { n: "Rajesh - MMT", av: '<img class="ph" src="assets/av-rajesh.png" alt="" />', cust: "Any Bali packages for Dec?", bad: "Owner unclear",
+    camp: ["Hi Ria, 👋", "Your Bali shortlist is ready 🌴", "🎯 Flat ₹3,000 OFF on your booking<br>⏳ Offer ends Sunday"] },
+  { n: "Shivam - MMT", av: '<img class="ph" src="assets/av-shivam.png" alt="" />', cust: "Is my Goa booking confirmed?", bad: "Follow-up pending",
+    camp: ["Hi Ananya, 👋", "The Goa stays you viewed are back 🏖️", "🏨 Beach resorts + flights<br>⏳ Only 2 rooms left"] },
+  { n: "Priya - MMT", av: '<span class="pi">P</span>', cust: "Need a Kerala trip for 4", bad: "Campaign · Generic sender",
+    camp: ["Hi Kabir, 👋", "Your Kerala family package, as discussed 🌿", "🧒 Kids stay free<br>✈️ Flights included"] },
 ];
-const CARD_X = [60, 395, 730], CARD_Y = 470;
+const CARD_X = [45, 390, 735], CARD_Y = 440;
 const tick = '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
-const wa = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg>';
-const blue = '<svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg>';
+const verified = '<svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 1.5l2.6 2 3.2-.3 1 3.1 2.8 1.6-.9 3.1.9 3.1-2.8 1.6-1 3.1-3.2-.3-2.6 2-2.6-2-3.2.3-1-3.1L2.4 14l.9-3.1-.9-3.1 2.8-1.6 1-3.1 3.2.3z" fill="#1D9BF0"/><path d="M8 12.2l2.6 2.6L16 9.4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const icons = '<span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111B21" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#111B21"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span>';
+const backA = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111B21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>';
+const blue = '<svg width="14" height="10" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg>';
 
 const $ = s => document.querySelector(s);
-const cardsEl = $("#cards"), ghostsEl = $("#ghosts"), bubEl = $("#bubbles"), rowsEl = $("#rows");
+const cardsEl = $("#cards");
 SELLERS.forEach((s, k) => {
-  for (let g = 2; g >= 1; g--) ghostsEl.insertAdjacentHTML("beforeend", `<div class="abs ghost" id="g${k}${g}" style="left:${CARD_X[k]}px;top:${CARD_Y}px"></div>`);
+  for (let g = 2; g >= 1; g--) cardsEl.insertAdjacentHTML("beforeend", `<div class="abs ghost" id="g${k}${g}" style="left:${CARD_X[k]}px;top:${CARD_Y}px"></div>`);
   cardsEl.insertAdjacentHTML("beforeend", `
-    <div class="abs card" id="c${k}" style="left:${CARD_X[k]}px;top:${CARD_Y}px">
-      <div class="ch"><div class="av" style="background:${s.c}">${s.i}</div><div><div class="cn">${s.n}</div><div class="num"><span id="vt${k}" class="vt">${tick}</span><span id="nm${k}">${s.num}</span></div></div></div>
-      <div class="bub">${s.msg}</div>
-      <div class="chips"><span class="chip bad" id="cb${k}">● ${s.bad}</span><span class="chip ok" id="co${k}"><span class="vt">${tick}</span> Own WhatsApp number</span></div>
+    <div class="abs phone" id="c${k}" style="left:${CARD_X[k]}px;top:${CARD_Y}px">
+      <div class="wh">${backA}${s.av}<div><div class="nm">${s.n} ${verified}</div><div class="ba">Business Account</div></div>${icons}</div>
+      <div class="wbody">
+        <span class="day">Today</span>
+        <div class="cust" id="cu${k}">${s.cust}<span class="tm">10:3${k} ${blue}</span></div>
+        <div class="gen" id="ge${k}">Hello! Check out our holiday deals.<span class="tm">10:3${k}</span></div>
+        <div class="camp" id="ca${k}"><img src="assets/mmt-banner.png" alt="" /><div class="tx"><p>${s.camp[0]}</p><p>${s.camp[1]}</p><p>${s.camp[2]}</p></div><div class="ex">Explore</div></div>
+      </div>
+      <div class="wcomp"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B4A54" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><div class="fd"></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B4A54" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
+    </div>
+    <div class="chipw" id="chw${k}" style="left:${CARD_X[k]}px;top:${CARD_Y + 382}px">
+      <span class="chip bad" id="cb${k}">● ${s.bad}</span>
+    </div>
+    <div class="chipw" id="cow${k}" style="left:${CARD_X[k]}px;top:${CARD_Y + 382}px">
+      <span class="chip ok" id="co${k}"><span class="vt">${tick}</span> Own WhatsApp number</span>
     </div>`);
-  bubEl.insertAdjacentHTML("beforeend", `<div class="abs pb" id="b${k}" style="left:${CARD_X[k]}px;top:710px"><span class="to">To ${s.pb[0]} · from ${s.n}</span>${s.pb[1]}<span class="tk">${blue}</span></div>`);
-  const st = [["today", "Follow-up Today"], ["active", "Active"], ["tom", "Follow-up Tomorrow"]][k];
-  rowsEl.insertAdjacentHTML("beforeend", `<div class="row" id="r${k}"><div class="who"><div class="av" style="background:${s.c}">${s.i}</div><div>${s.n}<small>WABA 0${k + 1}</small></div></div><div class="cv">${wa}Customer conversation</div><span class="st ${st[0]}">${st[1]}</span></div>`);
 });
 
-// manager → card lines (SVG)
+// manager → chat lines (SVG)
 const svg = $("#lines");
-const LINE = [];
-for (let k = 0; k < 3; k++) {
-  svg.insertAdjacentHTML("beforeend", `<path id="l${k}" fill="none" stroke="#B85C6B" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6 8"/><g id="x${k}"><circle r="13" fill="#F6E5E7" stroke="#B85C6B" stroke-width="1.5"/><path d="M-5 -5L5 5M5 -5L-5 5" stroke="#B85C6B" stroke-width="2.4" stroke-linecap="round"/></g>`);
-}
+for (let k = 0; k < 3; k++) svg.insertAdjacentHTML("beforeend", `<path id="l${k}" fill="none" stroke="#B85C6B" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6 8"/><g id="x${k}"><circle r="13" fill="#F6E5E7" stroke="#B85C6B" stroke-width="1.5"/><path d="M-5 -5L5 5M5 -5L-5 5" stroke="#B85C6B" stroke-width="2.4" stroke-linecap="round"/></g>`);
 
 // ---------- helpers ----------
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const lerp = (a, b, t) => a + (b - a) * t;
 const eOut = t => 1 - Math.pow(1 - t, 3);
 const eIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-const eSpring = t => { const c = 0.9; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); }; // gentle overshoot
+const eSpring = t => { const c = 0.9; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
 const p = (t, a, d, e = eOut) => e(clamp((t - a) / d));
 function set(el, { x = 0, y = 0, s = 1, r = 0, o = 1, blur = 0 } = {}) {
   el.style.transform = `translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;
@@ -227,17 +281,15 @@ function set(el, { x = 0, y = 0, s = 1, r = 0, o = 1, blur = 0 } = {}) {
   el.style.filter = blur > 0.05 ? `blur(${blur}px)` : "none";
   el.style.visibility = o <= 0.001 ? "hidden" : "visible";
 }
-// headline block: lines rise in (mask) and lift out
 function headline(id, t, tin, tout, firstFrame = false) {
   const el = $(id); const lines = el.querySelectorAll(".ln > span");
   let vis = false;
   lines.forEach((ln, i) => {
     const a = firstFrame ? 1 : p(t, tin + i * 0.1, 0.45);
     const b = p(t, tout + i * 0.05, 0.3, eIO);
-    const y = (1 - a) * 70 - b * 40;
     const o = Math.min(a, 1 - b);
     if (o > 0) vis = true;
-    ln.style.transform = `translateY(${y}px)`; ln.style.opacity = o;
+    ln.style.transform = `translateY(${(1 - a) * 70 - b * 40}px)`; ln.style.opacity = o;
   });
   el.style.visibility = vis ? "visible" : "hidden";
 }
@@ -253,121 +305,102 @@ const SUBS = [
   [21.8, 26.0, "Your travel business could be next.<br>Book your free DoubleTick pilot today."],
 ];
 const T_END = 26.0;
+// inbox chat-list row centres (for the snap)
+const ROW_X = 40 + 214 + 150, ROW_Y = [306 + 44 + 44 + 37, 306 + 44 + 44 + 37 + 74, 306 + 44 + 44 + 37 + 148];
 
-// ---------- render(t) ----------
 window.render = function (t) {
-  // top context lockup: visible until CTA lockup takes over
   set($("#top"), { o: 1 - p(t, 21.4, 0.4) });
-
-  // problem tint
   $("#rose").style.opacity = 1 - p(t, 8.25, 0.7, eIO);
 
-  // headlines
   headline("#h1a", t, 0, 2.55, t < 2.55);
   headline("#h1b", t, 2.7, 4.45);
   headline("#h2", t, 4.65, 8.55);
   headline("#h3", t, 8.95, 13.4);
   headline("#h4", t, 13.6, 17.4);
 
-  // camera push (subtle)
   const push = 1 + 0.02 * p(t, 0, 4.5, eIO) - 0.02 * p(t, 4.5, 0.6) + 0.02 * p(t, 9, 4.4, eIO) - 0.02 * p(t, 13.4, 0.5);
 
-  // ---- seller cards ----
-  const fromDir = [{ x: -220, y: 0 }, { x: 0, y: 200 }, { x: 220, y: 0 }];
-  const scat = [{ x: -16, y: 118, r: -3 }, { x: 0, y: 96, r: 2.2 }, { x: 16, y: 124, r: -2 }];
+  const fromDir = [{ x: -240, y: 0 }, { x: 0, y: 220 }, { x: 240, y: 0 }];
+  const scat = [{ x: -10, y: 46, r: -3 }, { x: 0, y: 58, r: 2.2 }, { x: 10, y: 50, r: -2 }];
   for (let k = 0; k < 3; k++) {
     const c = $("#c" + k);
     const ein = p(t, 0.35 + k * 0.12, 0.5, eSpring);
     let x = lerp(fromDir[k].x, 0, ein), y = lerp(fromDir[k].y, 0, ein), s = lerp(0.95, 1, ein), r = 0, o = clamp(ein * 1.4);
-    // scatter (S2)
     const sc = p(t, 4.6 + k * 0.06, 0.55, eIO);
     x += scat[k].x * sc; y += scat[k].y * sc; r += scat[k].r * sc;
-    // green line pulls into alignment (S2→S3)
     const al = p(t, 8.3 + k * 0.08, 0.55, eSpring);
-    x -= scat[k].x * al; y += (-scat[k].y - 60) * al; r -= scat[k].r * al;
-    // S4: shrink + snap into dashboard rows
+    x -= scat[k].x * al; y -= scat[k].y * al; r -= scat[k].r * al;
+    // S4: shrink + snap into inbox chat-list rows
     const fly = p(t, 13.75 + k * 0.1, 0.55, eIO);
-    const tx = 310 + 334 - (CARD_X[k] + 145), ty = (380 + 56 + 44 + 36 + k * 72) - (CARD_Y + 100) + 60;
-    x += tx * fly; y += (ty - 0) * fly; s *= lerp(1, 0.3, fly);
+    const tx = ROW_X - (CARD_X[k] + 150), ty = ROW_Y[k] - (CARD_Y + 200);
+    x += tx * fly; y += ty * fly; s *= lerp(1, 0.2, fly);
     o *= 1 - p(t, 14.2 + k * 0.1, 0.18);
-    set(c, { x: x * push, y, s: s * push, r, o, blur: fly > 0 && fly < 1 ? 1.2 * Math.sin(fly * Math.PI) : 0 });
-    // chips: problem → ok
-    set($("#cb" + k), { o: p(t, 5.6 + k * 0.15, 0.3) * (1 - p(t, 8.4, 0.25)), y: (1 - p(t, 5.6 + k * 0.15, 0.3)) * 8 });
+    const blur = fly > 0 && fly < 1 ? 1.2 * Math.sin(fly * Math.PI) : 0;
+    set(c, { x: x * push, y, s: s * push, r, o, blur });
+    // chips ride with the chat
+    const ba = p(t, 5.6 + k * 0.15, 0.3);
+    set($("#chw" + k), { x: x * push, y: y + (1 - ba) * 8, r, o: ba * (1 - p(t, 8.4, 0.25)) });
     const okA = p(t, 9.3 + k * 0.12, 0.35, eSpring);
-    set($("#co" + k), { o: okA, s: lerp(0.9, 1, okA) });
-    $("#vt" + k).style.display = t > 9.3 + k * 0.12 ? "inline-grid" : "none";
-    // ghosts (scale hint)
+    set($("#cow" + k), { x: x * push, y, s: lerp(0.9, 1, okA), o: okA * (1 - p(t, 13.5, 0.25)) });
+    // chat contents: customer msg + generic reply → personalised campaign
+    set($("#cu" + k), { o: p(t, 0.75 + k * 0.12, 0.3) * (1 - p(t, 9.6, 0.25)), y: (1 - p(t, 0.75 + k * 0.12, 0.3)) * 10 });
+    set($("#ge" + k), { o: p(t, 1.2 + k * 0.12, 0.3) * (1 - p(t, 9.6, 0.25)), y: (1 - p(t, 1.2 + k * 0.12, 0.3)) * 10 });
+    const ca = p(t, 10.0 + k * 0.25, 0.45, eSpring);
+    set($("#ca" + k), { o: ca, y: (1 - ca) * 30, s: lerp(0.95, 1, ca) });
     for (let g = 1; g <= 2; g++) {
       const ga = p(t, 1.35 + k * 0.08 + g * 0.08, 0.4);
       const go = ga * (g === 1 ? 0.75 : 0.45) * (1 - p(t, 4.35, 0.3));
       set($(`#g${k}${g}`), { x: (x + g * 14) * push, y: y - g * 14, s: s * push, r, o: go });
     }
-    // personalised bubbles
-    const ba = p(t, 10.0 + k * 0.25, 0.45, eSpring);
-    set($("#b" + k), { o: ba * (1 - p(t, 13.45, 0.3)), y: (1 - ba) * 26 - 60, s: lerp(0.95, 1, ba) });
   }
 
-  // ---- manager + broken lines (S2) ----
+  // manager + broken lines
   const ma = p(t, 4.9, 0.45, eSpring), mo = ma * (1 - p(t, 8.2, 0.3));
   set($("#mgr"), { o: mo, y: (1 - ma) * -20, s: lerp(0.95, 1, ma) });
   for (let k = 0; k < 3; k++) {
-    const sx = 540, sy = 456;
-    const cx = CARD_X[k] + 145 + [-16, 0, 16][k], cy = CARD_Y + [118, 96, 124][k] - 4;
-    const draw = p(t, 5.2 + k * 0.12, 0.6);
-    const brk = p(t, 6.0 + k * 0.15, 0.35);
-    // line reaches only ~55% then retreats
+    const sx = 540, sy = 438;
+    const cx = CARD_X[k] + 150 + scat[k].x, cy = CARD_Y + scat[k].y + 4;
+    const draw = p(t, 5.2 + k * 0.12, 0.6), brk = p(t, 6.0 + k * 0.15, 0.35);
     const reach = 0.62 * draw - 0.12 * brk;
-    const ex = lerp(sx, cx, reach), ey = lerp(sy, cy, reach);
-    const path = $("#l" + k);
-    path.setAttribute("d", `M${sx} ${sy} L${ex} ${ey}`);
-    path.style.opacity = (draw > 0 ? 1 : 0) * (1 - 0.45 * brk) * (1 - p(t, 8.2, 0.3));
+    $("#l" + k).setAttribute("d", `M${sx} ${sy} L${lerp(sx, cx, reach)} ${lerp(sy, cy, reach)}`);
+    $("#l" + k).style.opacity = (draw > 0 ? 1 : 0) * (1 - 0.45 * brk) * (1 - p(t, 8.2, 0.3));
     const xg = $("#x" + k);
-    const xo = brk * (1 - p(t, 8.2, 0.3));
     xg.setAttribute("transform", `translate(${lerp(sx, cx, 0.66)} ${lerp(sy, cy, 0.66)}) scale(${lerp(0.6, 1, brk)})`);
-    xg.style.opacity = xo;
+    xg.style.opacity = brk * (1 - p(t, 8.2, 0.3));
   }
 
-  // ---- green connection sweep (transformation moment) ----
+  // green connection sweep
   const sw = p(t, 7.9, 0.75, eIO);
-  const swo = (t > 7.9 ? 1 : 0) * (1 - p(t, 8.75, 0.35));
-  $("#sweep").style.top = (CARD_Y + 108) + "px";
-  set($("#sweep"), { o: swo });
+  $("#sweep").style.top = (CARD_Y + 230) + "px";
+  set($("#sweep"), { o: (t > 7.9 ? 1 : 0) * (1 - p(t, 8.75, 0.35)) });
   $("#sweep").style.transform = `scaleX(${sw})`;
 
-  // ---- dashboard (S4) ----
-  const da = p(t, 13.65, 0.5, eSpring);
-  const back = p(t, 17.45, 0.6, eIO);
+  // inbox
+  const da = p(t, 13.65, 0.5, eSpring), back = p(t, 17.45, 0.6, eIO);
   set($("#dash"), { o: da * lerp(1, 0.16, back) * (1 - p(t, 21.3, 0.4)), s: lerp(0.96, 1, da) * lerp(1, 0.9, back), y: (1 - da) * 24 + back * 20, blur: back * 5 });
-  for (let k = 0; k < 3; k++) {
-    const ra = p(t, 14.25 + k * 0.1, 0.35, eSpring);
-    set($("#r" + k), { o: ra, x: (1 - ra) * -18 });
-  }
-  set($("#w0"), { o: p(t, 14.6, 0.3) });
-  for (let k = 1; k <= 3; k++) { const wa_ = p(t, 15.3 + k * 0.12, 0.35, eSpring); set($("#w" + k), { o: wa_, x: (1 - wa_) * -14 }); }
+  for (let k = 0; k < 4; k++) { const ra = p(t, 14.25 + k * 0.1, 0.35, eSpring); set($("#r" + k), { o: ra, x: (1 - ra) * -18 }); }
+  for (let k = 1; k <= 3; k++) { const wa_ = p(t, 15.2 + k * 0.14, 0.35, eSpring); set($("#w" + k), { o: wa_, x: (1 - wa_) * -14 }); }
 
-  // ---- KPIs (S5) ----
-  const k1 = p(t, 18.0, 0.45, eOut), k2 = p(t, 18.35, 0.45, eOut);
-  const kout = p(t, 21.3, 0.45, eIO);
+  // KPIs
+  const k1 = p(t, 18.0, 0.45), k2 = p(t, 18.35, 0.45), kout = p(t, 21.3, 0.45, eIO);
   set($("#resLbl"), { o: p(t, 17.7, 0.35) * (1 - kout), y: (1 - p(t, 17.7, 0.35)) * 10 });
   set($("#k1"), { o: k1 * (1 - kout), s: lerp(0.92, 1, k1) * lerp(1, 0.9, kout), y: (1 - k1) * 24 });
   set($("#k2"), { o: k2 * (1 - kout), s: lerp(0.92, 1, k2) * lerp(1, 0.9, kout), y: (1 - k2) * 24 });
   const pr = p(t, 19.0, 0.4, eSpring);
   set($("#proof"), { o: pr * (1 - kout), y: (1 - pr) * 16 });
 
-  // ---- CTA (S6) ----
-  const la = p(t, 21.75, 0.45), ha = p(t, 21.9, 0.5), ca = p(t, 22.5, 0.5, eSpring);
+  // CTA
+  const la = p(t, 21.75, 0.45), ha = p(t, 21.9, 0.5), ca2 = p(t, 22.5, 0.5, eSpring);
   set($("#lock"), { o: la, y: (1 - la) * 14 });
   set($("#ctaH"), { o: ha, y: (1 - ha) * 30 });
-  const pulse = Math.sin(clamp((t - 24.1) / 0.5) * Math.PI) * 0.03;
-  set($("#cta"), { o: ca, s: lerp(0.95, 1, ca) + pulse });
+  set($("#cta"), { o: ca2, s: lerp(0.95, 1, ca2) + Math.sin(clamp((t - 24.1) / 0.5) * Math.PI) * 0.03 });
 
-  // ---- subtitles ----
+  // subtitles
   const sub = SUBS.find(sv => t >= sv[0] && t < sv[1]);
   const se = $("#subs");
   if (sub) {
     if (se.dataset.k !== String(sub[0])) { se.innerHTML = sub[2]; se.dataset.k = String(sub[0]); }
-    const so = Math.min(p(t, sub[0], 0.15), 1 - p(t, sub[1] - 0.12, 0.12));
-    se.style.opacity = so;
+    se.style.opacity = Math.min(p(t, sub[0], 0.15), 1 - p(t, sub[1] - 0.12, 0.12));
   } else se.style.opacity = 0;
 };
 window.T_END = T_END;
