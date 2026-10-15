@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1080, height=1080" />
+<title>DoubleTick Smart Campaigns Ad</title>
+<style>
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin.woff2) format("woff2"); font-weight: 100 900;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin-ext.woff2) format("woff2"); font-weight: 100 900;
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+  :root {
+    --bg: #F4F3EC;
+    --ink: #131316;
+    --ink-2: #5A5A63;
+    --green: #007A5A;
+    --green-tint: rgba(0, 122, 90, 0.10);
+    --line: rgba(19, 19, 22, 0.07);
+    --card: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .ad { position: relative; width: 1080px; height: 1080px; background: var(--bg); overflow: hidden; }
+
+  /* ---------- dynamic grid ---------- */
+  .grid { position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: -1px -1px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 85% at 60% 65%, #000 40%, rgba(0,0,0,0.3) 100%);
+  }
+  .cell { position: absolute; width: 60px; height: 60px; background: var(--green-tint); }
+  .cell.soft { background: rgba(0, 122, 90, 0.05); }
+  .dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--green); transform: translate(-4px, -4px); box-shadow: 0 0 0 6px rgba(0,122,90,0.14); }
+
+  /* ---------- header ---------- */
+  .logo { position: absolute; top: 70px; left: 64px; height: 38px; }
+
+  /* ---------- copy ---------- */
+  .headline { position: absolute; top: 180px; left: 64px; width: 960px; font-weight: 700; font-size: 64px; line-height: 1.05; letter-spacing: -0.045em; color: var(--ink); }
+  .headline .hl { color: #D32F2F; }
+  .sub { position: absolute; top: 334px; left: 64px; width: 952px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- generic blast (crossed out) ---------- */
+  .blast { position: absolute; left: 64px; top: 444px; width: 300px; height: 376px; border-radius: 24px; background: #ECEBE3; border: 2px dashed rgba(19,19,22,0.18); padding: 22px; display: flex; flex-direction: column; font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; }
+  .blast .lbl { font-family: "Geist", sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+  .blast .bub { position: relative; margin-top: 16px; background: #fff; border-radius: 12px; border-top-left-radius: 0; padding: 12px 14px; font-size: 15.5px; line-height: 1.4; color: #54656F; opacity: 0.75; text-decoration: line-through; text-decoration-color: #D32F2F; text-decoration-thickness: 2px; }
+  .blast .bub b { color: #3B4A54; }
+  .blast .to { margin-top: auto; display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-2); }
+  .blast .to b { color: var(--ink); }
+  .cross { position: absolute; left: 50%; top: 60%; transform: translate(-50%,-50%); width: 92px; height: 92px; border-radius: 50%; background: #D32F2F; display: grid; place-items: center; box-shadow: 0 0 0 8px #ECEBE3, 0 14px 28px -10px rgba(211,47,47,0.6); }
+  .strike { position: absolute; left: 34px; right: 34px; top: 46%; height: 3px; background: #D32F2F; transform: rotate(-14deg); opacity: 0.85; border-radius: 3px; }
+
+  /* ---------- arrow ---------- */
+  .arrow { position: absolute; left: 368px; top: 609px; width: 46px; height: 46px; border-radius: 50%; background: var(--green); display: grid; place-items: center; box-shadow: 0 0 0 7px var(--bg); z-index: 2; }
+
+  /* ---------- segments ---------- */
+  .segs { position: absolute; left: 420px; top: 444px; width: 596px; height: 376px; display: flex; flex-direction: column; gap: 12px; font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; }
+  .seg { flex: 1; display: flex; align-items: center; gap: 14px; padding: 0 16px; border-radius: 20px; background: var(--card); border: 1.5px solid rgba(0,122,90,0.25); box-shadow: 0 18px 36px -26px rgba(0,122,90,0.5); }
+  .who { width: 150px; flex: none; display: flex; align-items: center; gap: 10px; }
+  .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; flex: none; }
+  .who .n { font-family: "Geist", sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.02em; color: var(--ink); line-height: 1.15; }
+  .who .c { font-size: 12px; color: var(--ink-2); margin-top: 2px; }
+  .offer { flex: 1; position: relative; background: #D9FDD3; border-radius: 12px; border-top-left-radius: 0; padding: 10px 13px 9px; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .offer::before { content: ""; position: absolute; left: -8px; top: 0; border-right: 8px solid #D9FDD3; border-bottom: 10px solid transparent; }
+  .offer .t { font-weight: 600; font-size: 15px; color: #111B21; }
+  .offer .d { margin-top: 2px; font-size: 13px; color: #3B4A54; }
+  .offer .tk { position: absolute; right: 10px; bottom: 7px; }
+
+  /* ---------- footer ---------- */
+  .footer { position: absolute; left: 64px; bottom: 180px; display: flex; align-items: center; }
+  .cta { display: inline-flex; align-items: center; gap: 14px; padding: 0 32px; height: 62px; border-radius: 999px; background: var(--green); color: #fff; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; box-shadow: 0 18px 30px -16px rgba(0,122,90,0.7); }
+</style>
+</head>
+<body>
+<div class="ad">
+  <!-- dynamic grid background -->
+  <div class="grid"></div>
+  <div class="cell" style="left:960px;top:60px"></div>
+  <div class="cell soft" style="left:900px;top:120px"></div>
+  <div class="cell soft" style="left:1020px;top:360px"></div>
+  <div class="cell" style="left:0px;top:420px"></div>
+  <div class="cell soft" style="left:420px;top:960px"></div>
+  <div class="cell" style="left:1020px;top:960px"></div>
+  <div class="dot" style="left:900px;top:120px"></div>
+
+  <!-- header -->
+  <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+
+  <!-- copy -->
+  <h1 class="headline">Still sending <span class="hl">the same holiday offer</span> to everyone?</h1>
+  <p class="sub">Segment travellers using <b>available customer data</b> and send <b>relevant package campaigns</b> through DoubleTick WhatsApp broadcasts.</p>
+
+  <!-- generic blast, crossed out -->
+  <div class="blast">
+    <div class="lbl">Generic blast</div>
+    <div class="bub">🎉 <b>20% off all holiday packages!</b> Book now before the offer ends.</div>
+    <div class="to"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5A5A63" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg>Sent to <b>everyone</b></div>
+    <div class="cross"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+  </div>
+
+  <div class="arrow"><svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+  <!-- three segments, three offers -->
+  <div class="segs">
+    <div class="seg">
+      <div class="who"><div class="ic" style="background:#FFF0D9"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B7791F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="6" r="2.5"/><circle cx="16" cy="6" r="2.5"/><circle cx="12" cy="13" r="2"/><path d="M4 21v-5a4 4 0 0 1 4-4M20 21v-5a4 4 0 0 0-4-4M9 21v-2a3 3 0 0 1 6 0v2"/></svg></div><div><div class="n">Families</div><div class="c">840 travellers</div></div></div>
+      <div class="offer"><div class="t">Turkey family break 🏖️</div><div class="d">Kids stay free · 6 nights</div><span class="tk"><svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg></span></div>
+    </div>
+    <div class="seg">
+      <div class="who"><div class="ic" style="background:#E6F4FA"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2B7FA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l6.5-11 4 6.5 2.5-4L21 20z"/><path d="M8 11.5l1.5 1.5 1.5-1.5"/></svg></div><div><div class="n">Adventure seekers</div><div class="c">610 travellers</div></div></div>
+      <div class="offer"><div class="t">Georgia hike &amp; paraglide 🪂</div><div class="d">5 days · small groups</div><span class="tk"><svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg></span></div>
+    </div>
+    <div class="seg">
+      <div class="who"><div class="ic" style="background:#F1E8FB"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7B4FC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18M9 3l3 18 3-18"/></svg></div><div><div class="n">Luxury travellers</div><div class="c">320 travellers</div></div></div>
+      <div class="offer"><div class="t">Maldives overwater villa 🌴</div><div class="d">Private transfer included</div><span class="tk"><svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg></span></div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <div class="cta">Explore Smart Campaigns
+      <svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>
