@@ -8,7 +8,7 @@
   @font-face { font-family: "Geist"; src: url(fonts/geist-latin.woff2) format("woff2"); font-weight: 100 900; }
   @font-face { font-family: "Geist"; src: url(fonts/geist-latin-ext.woff2) format("woff2"); font-weight: 100 900; unicode-range: U+0100-02BA, U+20A0-20C4; }
   @font-face { font-family: "Hedvig"; src: url(fonts/hedvig-latin.woff2) format("woff2"); font-weight: 400; }
-  :root { --bg: #F4F3EC; --ink: #131316; --ink-2: #5A5A63; --mute: #8C8B84; --line: #E4E2D9; --card: #FFFFFF; --green: #007A5A; --green-2: #29B47A; --tint: rgba(0,122,90,0.10); --rose: #B85C6B; --rose-bg: rgba(184,92,107,0.10); }
+  :root { --bg: #F4F3EC; --ink: #131316; --ink-2: #5A5A63; --mute: #8C8B84; --line: #E4E2D9; --card: #FFFFFF; --green: #007A5A; --green-2: #29B47A; --tint: rgba(0,122,90,0.10); --rose: #D32F2F; --rose-bg: rgba(211,47,47,0.10); }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
   body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
@@ -19,7 +19,7 @@
 
   /* top context lockup */
   #top { left: 60px; top: 40px; display: flex; align-items: center; gap: 12px; }
-  #top img.mmt { height: 40px; }
+  #top img.mmt { height: 46px; }
   #top img.dt { height: 36px; }
   #top .x { color: #A3A39C; font-size: 18px; }
   #top .lbl { margin-left: 10px; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; color: var(--ink-2); padding: 6px 11px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,0.6); }
@@ -62,7 +62,7 @@
   .wcomp .fd { flex: 1; height: 28px; border-radius: 999px; background: #fff; border: 1px solid #E6E2DA; }
   .chipw { position: absolute; z-index: 7; width: 300px; display: flex; justify-content: center; }
   .chip { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; padding: 7px 12px; border-radius: 999px; white-space: nowrap; box-shadow: 0 8px 18px -10px rgba(19,19,22,0.35); }
-  .chip.bad { color: var(--rose); background: #F8E9EB; border: 1px solid rgba(184,92,107,0.25); }
+  .chip.bad { color: var(--rose); background: #FBE9E9; border: 1px solid rgba(211,47,47,0.25); }
   .chip.ok { color: var(--green); background: #E3F2EC; border: 1px solid rgba(0,122,90,0.25); }
   .vt { display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 50%; background: var(--green); }
 
@@ -131,7 +131,7 @@
 
   /* CTA */
   #lock { left: 0; width: 1080px; display: flex; justify-content: center; align-items: center; gap: 16px; }
-  #lock img.mmt { height: 58px; } #lock img.dt { height: 50px; } #lock .x { color: #A3A39C; font-size: 24px; }
+  #lock img.mmt { height: 64px; } #lock img.dt { height: 50px; } #lock .x { color: #A3A39C; font-size: 24px; }
   #ctaH { left: 90px; width: 900px; text-align: center; font-size: 82px; }
   #cta { left: 0; width: 1080px; display: flex; justify-content: center; }
   #cta .btn { display: inline-flex; align-items: center; gap: 14px; height: 86px; padding: 0 40px; border-radius: 999px; background: var(--green); color: #fff; font-size: 30px; font-weight: 600; letter-spacing: -0.015em; box-shadow: 0 22px 40px -18px rgba(0,122,90,0.75), inset 0 1px 0 rgba(255,255,255,0.18); }
@@ -153,8 +153,8 @@
     <div class="ln sub"><span>Separate WhatsApp numbers.</span></div>
   </div>
   <div id="h1b" class="abs hl" style="top:136px">
-    <div class="ln serif" style="font-size:78px"><span>2,000+ agents.</span></div>
-    <div class="ln serif" style="font-size:78px"><span>But <span class="rose">who could see</span> the conversations?</span></div>
+    <div class="ln serif" style="font-size:72px"><span>Separate WhatsApp numbers.</span></div>
+    <div class="ln serif" style="font-size:72px"><span>But <span class="rose">managers couldn't see</span> the conversations?</span></div>
   </div>
   <div id="h2" class="abs hl" style="top:136px">
     <div class="ln serif" style="font-size:86px"><span>Scattered chats.</span></div>
@@ -162,8 +162,8 @@
     <div class="ln tags"><span>Ownership · Follow-ups · Engagement</span></div>
   </div>
   <div id="h3" class="abs hl" style="top:136px">
-    <div class="ln serif" style="font-size:80px"><span>Personalised campaigns.</span></div>
-    <div class="ln serif green" style="font-size:80px"><span>From their own numbers.</span></div>
+    <div class="ln serif" style="font-size:80px"><span>Personalised campaigns</span></div>
+    <div class="ln serif green" style="font-size:80px"><span>from their own numbers.</span></div>
   </div>
   <div id="h4" class="abs hl" style="top:136px">
     <div class="ln serif" style="font-size:96px"><span>One central view.</span></div>
@@ -223,7 +223,7 @@
   <!-- CTA -->
   <div id="lock" class="abs" style="top:180px"><img class="dt" src="doubletick-logo.webp" alt="DoubleTick" /><span class="x">×</span><img class="mmt" src="mmt-logo.png" alt="MakeMyTrip" /></div>
   <div id="ctaH" class="abs serif" style="top:318px">Your travel business could be next.</div>
-  <div id="cta" class="abs" style="top:600px"><div class="btn">Book Your Free DoubleTick Pilot Today <svg width="28" height="28" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+  <div id="cta" class="abs" style="top:600px"><div class="btn">Book your Free Pilot Today <svg width="28" height="28" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
 
   <div id="subs" class="abs"></div>
 </div>
@@ -270,7 +270,7 @@ SELLERS.forEach((s, k) => {
 
 // manager → chat lines (SVG)
 const svg = $("#lines");
-for (let k = 0; k < 3; k++) svg.insertAdjacentHTML("beforeend", `<path id="l${k}" fill="none" stroke="#B85C6B" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6 8"/><g id="x${k}"><circle r="13" fill="#F6E5E7" stroke="#B85C6B" stroke-width="1.5"/><path d="M-5 -5L5 5M5 -5L-5 5" stroke="#B85C6B" stroke-width="2.4" stroke-linecap="round"/></g>`);
+for (let k = 0; k < 3; k++) svg.insertAdjacentHTML("beforeend", `<path id="l${k}" fill="none" stroke="#D32F2F" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6 8"/><g id="x${k}"><circle r="13" fill="#FBE9E9" stroke="#D32F2F" stroke-width="1.5"/><path d="M-5 -5L5 5M5 -5L-5 5" stroke="#D32F2F" stroke-width="2.4" stroke-linecap="round"/></g>`);
 
 // ---------- helpers ----------
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
