@@ -164,7 +164,24 @@
   #cta { left: 0; width: 1080px; top: 580px; display: flex; justify-content: center; }
   #cta .btn { display: inline-flex; align-items: center; gap: 14px; height: 88px; padding: 0 42px; border-radius: 999px; background: var(--green); color: #fff; font-size: 30px; font-weight: 600; letter-spacing: -0.015em; box-shadow: 0 22px 40px -18px rgba(0,122,90,0.75), inset 0 1px 0 rgba(255,255,255,0.18); }
 
-  #subs { left: 90px; width: 900px; top: 950px; text-align: center; font-size: 27px; font-weight: 500; line-height: 1.32; color: var(--ink); text-shadow: 0 0 12px rgba(244,243,236,0.95), 0 0 2px rgba(244,243,236,1); z-index: 20; }
+  #subs { left: 90px; width: 900px; top: 950px; text-align: center; font-size: 28px; font-weight: 500; line-height: 1.32; color: var(--ink); text-shadow: 0 0 12px rgba(244,243,236,0.95), 0 0 2px rgba(244,243,236,1); z-index: 20; }
+
+  /* v2 additions */
+  .wcard { height: 322px; }
+  .plab { position: relative; height: 30px; flex: none; }
+  .plab > span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; }
+  .plab .pA { color: var(--rose); background: var(--rose-bg); }
+  .plab .pB { color: var(--green); background: var(--tint); }
+  #brand { left: 24px; top: 446px; width: 1032px; height: 404px; border-radius: 28px; border: 2px solid rgba(0,122,90,0.55); background: rgba(227,241,234,0.45); z-index: 2; }
+  #brand .bt { position: absolute; left: 50%; top: -22px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px; border-radius: 999px; background: #fff; border: 1.5px solid rgba(0,122,90,0.45); font-size: 16px; font-weight: 600; white-space: nowrap; box-shadow: 0 12px 24px -16px rgba(19,19,22,0.4); }
+  #brand .bt small { font-size: 13px; color: var(--ink-2); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line); }
+  .brandchip { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; padding: 6px 11px; border-radius: 8px; border: 1px solid #E1E4E6; white-space: nowrap; }
+  #mgr .eye { display: flex; align-items: center; gap: 5px; }
+  #fuBox { margin-top: 14px; }
+  #fuBox .fr { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-size: 16px; font-weight: 600; }
+  #fuBox .mv { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 12.5px; color: #667781; font-weight: 500; }
+  #chks { left: 0; width: 1080px; top: 760px; display: flex; justify-content: center; gap: 12px; z-index: 4; }
+  #chks .chk { position: relative; }
 </style>
 </head>
 <body>
@@ -175,39 +192,51 @@
 
   <!-- headlines -->
   <div id="h1" class="abs hl" style="top:84px">
-    <div class="ln serif muted" style="font-size:56px"><span>Your agent left.</span></div>
-    <div class="ln serif" style="font-size:64px"><span>Did your customer conversations</span></div>
+    <div class="ln serif muted" style="font-size:58px"><span>Your agent just left.</span></div>
+    <div class="ln serif" style="font-size:66px"><span>Did the customer conversations</span></div>
     <div class="ln serif rose" style="font-size:96px"><span>leave too?</span></div>
   </div>
-  <div id="h2" class="abs hl">
-    <div class="ln serif" style="font-size:84px"><span>Scattered chats.</span></div>
-    <div class="ln serif rose" style="font-size:84px"><span>Limited visibility.</span></div>
+  <div id="h2" class="abs hl" style="top:96px">
+    <div class="ln serif" style="font-size:66px"><span>Chats. Quotes. Promises.</span></div>
+    <div class="ln serif rose" style="font-size:62px"><span>Locked inside personal WhatsApp.</span></div>
+  </div>
+  <div id="h2s" class="abs small" style="left:60px;top:880px;width:960px;text-align:center;font-size:22px">What happens when the agent leaves?</div>
+  <div id="h2b" class="abs hl">
+    <div class="ln serif muted" style="font-size:76px"><span>From agent-owned</span></div>
+    <div class="ln serif green" style="font-size:76px"><span>to business-owned.</span></div>
   </div>
   <div id="h3" class="abs hl">
-    <div class="ln serif" style="font-size:80px"><span>Every conversation.</span></div>
-    <div class="ln serif green" style="font-size:80px"><span>One dashboard.</span></div>
+    <div class="ln serif" style="font-size:80px"><span>One brand number.</span></div>
+    <div class="ln serif green" style="font-size:80px"><span>One central view.</span></div>
   </div>
-  <div id="h3s" class="abs small" style="left:60px;top:740px;width:960px;text-align:center">History stays with your business.</div>
   <div id="h4" class="abs hl">
-    <div class="ln serif" style="font-size:80px"><span>The agent can change.</span></div>
-    <div class="ln serif green" style="font-size:80px"><span>The context stays.</span></div>
+    <div class="ln serif green" style="font-size:84px"><span>The history stays.</span></div>
+    <div class="ln small"><span>Chats · Quotes · Commitments</span></div>
   </div>
   <div id="h5" class="abs hl">
-    <div class="ln serif" style="font-size:80px"><span>Know exactly</span></div>
-    <div class="ln serif green" style="font-size:80px"><span>what was promised.</span></div>
+    <div class="ln serif" style="font-size:84px"><span>Never lose</span></div>
+    <div class="ln serif green" style="font-size:84px"><span>the next action.</span></div>
   </div>
   <div id="h6" class="abs hl">
+    <div class="ln serif" style="font-size:84px"><span>New agent.</span></div>
+    <div class="ln serif green" style="font-size:84px"><span>Same context.</span></div>
+  </div>
+  <div id="h7" class="abs hl">
     <div class="ln serif" style="font-size:76px"><span>Sensitive guest details</span></div>
     <div class="ln serif green" style="font-size:76px"><span>stay protected.</span></div>
     <div class="ln small"><span>Role-based visibility</span></div>
   </div>
-  <div id="h7" class="abs hl">
-    <div class="ln serif" style="font-size:80px"><span>Catch issues</span></div>
-    <div class="ln serif green" style="font-size:80px"><span>before customers do.</span></div>
-  </div>
   <div id="h8" class="abs hl">
+    <div class="ln serif" style="font-size:80px"><span>Catch issues</span></div>
+    <div class="ln serif green" style="font-size:80px"><span>before they escalate.</span></div>
+  </div>
+  <div id="h9" class="abs hl">
     <div class="ln serif" style="font-size:70px"><span>Keep the customer relationship</span></div>
-    <div class="ln serif green" style="font-size:70px"><span>with the business.</span></div>
+    <div class="ln serif green" style="font-size:70px"><span>with your business.</span></div>
+  </div>
+  <div id="h9b" class="abs hl">
+    <div class="ln serif" style="font-size:76px"><span>Stay in control</span></div>
+    <div class="ln serif green" style="font-size:76px"><span>of every commitment.</span></div>
   </div>
 
   <!-- S1 -->
@@ -215,13 +244,14 @@
   <div id="agent" class="abs">
     <div class="big"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#8C8B84" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 14 0v1"/></svg></div>
     <div><div class="k">TRAVEL AGENT</div><div class="n">Rahul</div></div>
-    <span class="pill ros left" id="leftChip"><span class="dot"></span>Left the team</span>
+    <span class="pill ros left" id="leftChip"><span class="dot"></span>Left the company</span>
   </div>
   <div id="tcards"></div>
 
   <!-- S2 -->
+  <div id="brand" class="abs"><div class="bt"><img src="assets/whatsapp-logo.png" alt="" style="width:22px;height:22px" />ABC Holidays<span class="vt" style="background:#1D9BF0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><small>Brand WhatsApp</small></div></div>
   <svg id="lines" class="abs" viewBox="0 0 1080 1080"></svg>
-  <div id="mgr" class="abs"><div class="mav"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4F3EC" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><div><b>Manager</b><small>Needs visibility</small></div></div>
+  <div id="mgr" class="abs"><div class="mav"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4F3EC" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><div><b>Manager</b><small class="eye" id="mgrEye"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F4F3EC" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.9 17.9A10 10 0 0 1 12 20c-7 0-10-8-10-8a18 18 0 0 1 5.1-5.9M9.9 4.2A9 9 0 0 1 12 4c7 0 10 8 10 8a18 18 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2M2 2l20 20"/></svg>Limited visibility</small></div></div>
   <div id="wcards"></div>
   <div id="sweep" class="abs"></div>
 
@@ -236,66 +266,67 @@
     </div>
     <div class="main">
       <div id="list">
-        <div class="topbar"><span class="ttl">All Conversations</span><span class="tab on">All <b>28</b></span><span class="tab">Unassigned <b>0</b></span><span class="tab">Follow-up today <b>3</b></span><span class="srch"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Search</span></div>
+        <div class="topbar"><span class="ttl">All Conversations</span><span class="tab on">All <b>28</b></span><span class="tab">Unassigned <b>0</b></span><span class="tab">Follow-up today <b>3</b></span><span class="brandchip"><img src="assets/whatsapp-logo.png" alt="" style="width:16px;height:16px" />ABC Holidays<span class="vt" style="width:15px;height:15px;background:#1D9BF0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span></div>
         <div class="cols"><span>CUSTOMER</span><span>STATUS</span><span>OWNER</span><span>LAST INTERACTION</span></div>
         <div id="rows"></div>
       </div>
       <div id="detail">
-        <div class="dh"><div class="av a1">A</div><div><b>Ananya Sharma</b><small>Bali Trip · 2 travellers</small></div><span class="pill amb"><span class="dot"></span>Follow-up Today</span><span class="wab"><img src="assets/whatsapp-logo.png" alt="" style="width:18px;height:18px" />ABC Travels · Business</span></div>
+        <div class="dh"><div class="av a1">A</div><div><b>Ananya Sharma</b><small>Bali Holiday · 2 travellers</small></div><span class="pill amb"><span class="dot"></span>Follow-up Today</span><span class="wab"><img src="assets/whatsapp-logo.png" alt="" style="width:18px;height:18px" />ABC Holidays · Brand WhatsApp</span></div>
         <div id="hist">
           <div class="lab" style="margin-bottom:16px">CONVERSATION HISTORY</div>
-          <div class="step" id="st0"><i></i><b>Enquiry received</b><small>10 Nov · via WhatsApp</small></div>
-          <div class="step" id="st1"><i></i><b>Quote shared</b><small>10 Nov · Bali Package</small></div>
-          <div class="step" id="st2"><i></i><b>Customer requested hotel change</b><small>11 Nov · Ubud → Seminyak</small></div>
-          <div class="step" id="st3"><i></i><b>Follow-up scheduled</b><small>Today · 6:00 PM</small></div>
+          <div class="step" id="st0"><i></i><b>Initial enquiry</b><small>10 Nov · via WhatsApp</small></div>
+          <div class="step" id="st1"><i></i><b>Quote shared</b><small>10 Nov · Bali Package · ₹1.45L</small></div>
+          <div class="step" id="st2"><i></i><b>Airport transfer promised</b><small>11 Nov · by Rahul</small></div>
+          <div class="step" id="st3"><i></i><b>Follow-up scheduled</b><small>Today · 4:00 PM</small></div>
         </div>
         <div id="side">
           <div class="box" id="ownBox">
             <div class="lab">OWNER</div>
-            <div class="oline" id="oRahul" style="top:48px"><div class="av a5">R</div><span id="oRahulTxt">Rahul</span><span class="pill ros tag" id="oRahulTag">Left the team</span></div>
+            <div class="oline" id="oRahul" style="top:48px"><div class="av a5">R</div><span>Rahul</span><span class="pill ros tag">Left the company</span></div>
             <div class="oline" id="oPrev" style="top:44px;font-size:13.5px;color:#8696A0;font-weight:500"><div class="av a5" style="width:24px;height:24px;font-size:10px">R</div>Previous Agent · Rahul</div>
-            <div class="oline" id="oNeha" style="top:78px"><div class="av a6">N</div>Assigned to Neha<span class="vt"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="pill gry tag" id="route">Bali desk</span></div>
+            <div class="oline" id="oNeha" style="top:78px"><div class="av a6">N</div>Neha<span class="vt"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="pill grn tag" id="route">Full context</span></div>
           </div>
-          <div class="box card2" id="qCard"><div class="ic" style="background:var(--tint)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div><div><small>Quote</small><b>Bali Package · ₹1.42L</b></div><svg class="pin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 11.1l-9.2 9.2a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 0 1-2.8-2.8l8.5-8.5"/></svg></div>
-          <div class="box card2" id="pCard"><div class="ic" style="background:#EEF0F7"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4F5BD5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg></div><div><small>Cancellation Policy</small><b>Free cancellation until 12 Nov</b></div><svg class="pin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 11.1l-9.2 9.2a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 0 1-2.8-2.8l8.5-8.5"/></svg></div>
-          <div id="vis"><span class="pill grn" style="font-size:14px;padding:7px 13px"><span class="vt" style="width:17px;height:17px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Visible to the next agent</span></div>
+          <div class="box" id="fuBox">
+            <div class="lab">NEXT ACTION</div>
+            <div class="fr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A86A0C" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Follow-up · Today, 4:00 PM<span class="pill amb" id="fuPend" style="margin-left:auto"><span class="dot"></span>Pending</span></div>
+            <div class="mv" id="fuMgr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Visible to manager</div>
+          </div>
         </div>
-        <svg id="pins" viewBox="0 0 904 570"><path id="pinQ" d="M300 212 C 400 212, 410 232, 470 232" fill="none" stroke="#29B47A" stroke-width="2" stroke-dasharray="4 5"/><path id="pinP" d="M300 212 C 400 212, 410 318, 470 318" fill="none" stroke="#29B47A" stroke-width="2" stroke-dasharray="4 5"/></svg>
       </div>
     </div>
   </div>
 
-  <!-- S6 -->
+  <!-- PII -->
   <div id="prof" class="abs">
-    <div class="ph"><div class="av a1">A</div><b>Guest profile</b><span class="pill gry" id="roleB"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.9 17.9A10 10 0 0 1 12 20c-7 0-10-8-10-8a18 18 0 0 1 5.1-5.9M9.9 4.2A9 9 0 0 1 12 4c7 0 10 8 10 8a18 18 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2M2 2l20 20"/></svg>Viewing as Agent</span></div>
-    <div class="prow"><span class="k">Guest Name</span><span class="v">Ananya Sharma</span></div>
+    <div class="ph"><div class="av a1">A</div><b>Guest details</b><span class="pill gry" id="roleB"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.9 17.9A10 10 0 0 1 12 20c-7 0-10-8-10-8a18 18 0 0 1 5.1-5.9M9.9 4.2A9 9 0 0 1 12 4c7 0 10 8 10 8a18 18 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2M2 2l20 20"/></svg>Viewing as Agent</span></div>
+    <div class="prow"><span class="k">Guest</span><span class="v">Ananya Sharma</span></div>
     <div class="prow"><span class="k">Phone</span><span class="v" id="mv0"></span><span class="lk" id="lk0"></span></div>
     <div class="prow"><span class="k">Passport</span><span class="v" id="mv1"></span><span class="lk" id="lk1"></span></div>
-    <div class="prow"><span class="k">Payment Detail</span><span class="v" id="mv2"></span><span class="lk" id="lk2"></span></div>
+    <div class="prow"><span class="k">Payment</span><span class="v" id="mv2"></span><span class="lk" id="lk2"></span></div>
   </div>
 
-  <!-- S7 -->
+  <!-- AI flags -->
   <div id="f0" class="abs frow" style="top:356px"><span class="edge"></span>
-    <div class="fh"><div class="av a2">R</div>Rohan · Dubai Holiday</div>
-    <div class="fb"><div class="bub out"><span class="who">Agent</span>Your package price is <span class="ul" id="u0">₹1.15L</span>.</div><div class="ref"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Attached quote · <b>₹1.25L</b></div></div>
+    <div class="fh"><div class="av a1">A</div>Ananya · Bali Holiday</div>
+    <div class="fb"><div class="ref"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Stored quote · <b>₹1.45L</b></div><div class="bub out"><span class="who">Agent</span>Your package total is <span class="ul" id="u0">₹1.35L</span>.</div></div>
     <div class="flag" id="fl0"><span class="ai">AI</span>Price mismatch detected</div>
   </div>
   <div id="f1" class="abs frow" style="top:516px"><span class="edge" style="background:var(--rose)"></span>
-    <div class="fh"><div class="av a3">M</div>Meera · Maldives Booking</div>
-    <div class="fb"><div class="bub in">Can you confirm the airport transfer?</div><span class="noreply"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>No reply · <span id="nr">3h</span></span></div>
+    <div class="fh"><div class="av a2">R</div>Rohan · Dubai Trip</div>
+    <div class="fb"><div class="bub in">Can you confirm the airport pickup?</div><span class="noreply"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>No reply · <span id="nr">3h</span></span></div>
     <div class="flag r" id="fl1"><span class="ai">AI</span>Reply overdue</div>
   </div>
   <div id="f2" class="abs frow" style="top:676px"><span class="edge"></span>
-    <div class="fh"><div class="av a4">K</div>Kabir · Kerala Getaway</div>
-    <div class="fb"><div class="bub out"><span class="who">Agent</span><span class="ul" id="u2">Free cancellation up to 2 days before travel.</span></div><div class="ref">Stored policy · <b>Until 12 Nov</b></div></div>
+    <div class="fh"><div class="av a3">M</div>Meera · Maldives Booking</div>
+    <div class="fb"><div class="ref">Stored policy · <b>50% refund after 12 Nov</b></div><div class="bub out"><span class="who">Agent</span><span class="ul" id="u2">You'll receive a full refund.</span></div></div>
     <div class="flag" id="fl2"><span class="ai">AI</span>Policy mismatch</div>
   </div>
 
-  <!-- S8 -->
+  <!-- journey -->
   <svg id="jsvg" class="abs" viewBox="0 0 1080 1080"><path id="jline" d="M113 650 H 967" fill="none" stroke="#007A5A" stroke-width="4" stroke-linecap="round"/><g id="jcon"></g></svg>
   <div id="ctrl" class="abs"><img src="doubletick-logo.webp" alt="DoubleTick" /><span>Business-owned view</span></div>
   <div id="nodes"></div>
-  <div id="chks"></div>
+  <div id="chks" class="abs"></div>
 
   <!-- CTA -->
   <div id="ctaLogo" class="abs"><img src="doubletick-logo.webp" alt="DoubleTick" /></div>
@@ -304,7 +335,6 @@
 
   <div id="subs" class="abs"></div>
 </div>
-
 <script>
 const $ = s => document.querySelector(s);
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
@@ -332,14 +362,14 @@ function headline(id, t, tin, tout, first = false) {
 }
 const TICK = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 const BLUE = '<svg width="14" height="10" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg>';
+const DOC = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>';
 
-// ---------- S1: cards tied to Rahul ----------
+// ---------- S1: Rahul + what is tied to him ----------
 const TC = [
-  { x: 45, y: 600, h: `<div class="av a1">A<span class="wa"></span></div><div class="b"><div class="t">Ananya<small>10:42</small></div><div class="m">Can you hold the Bali villa?</div></div>` },
-  { x: 390, y: 600, h: `<div class="av a2">R<span class="wa"></span></div><div class="b"><div class="t">Rohan<small>09:15</small></div><div class="m">Waiting for the Dubai quote</div></div>` },
-  { x: 735, y: 600, h: `<div class="av a3">M<span class="wa"></span></div><div class="b"><div class="t">Meera<small>Mon</small></div><div class="m">What if I need to cancel?</div></div>` },
-  { x: 215, y: 750, h: `<div class="ic" style="background:var(--amber-bg)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A86A0C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16l20-6-3-3-6 2-6-5-2 1 4 6-4 1-2-2-2 1z"/></svg></div><div class="b"><div class="t">Pending booking<small></small></div><div class="m">Maldives · 2 travellers</div></div>` },
-  { x: 560, y: 750, h: `<div class="ic" style="background:var(--rose-bg)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B5524F" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M5 3L2 6M19 3l3 3"/></svg></div><div class="b"><div class="t">Follow-up reminder<small></small></div><div class="m">Today · 6:00 PM</div></div>` },
+  { x: 45, y: 600, h: `<div class="av a1">A<span class="wa"></span></div><div class="b"><div class="t">Ananya<small>10:42</small></div><div class="m">Is my airport transfer included?</div></div>` },
+  { x: 390, y: 600, h: `<div class="av a3">M<span class="wa"></span></div><div class="b"><div class="t">Meera<small>Mon</small></div><div class="m">Full refund if I cancel?</div></div>` },
+  { x: 735, y: 600, h: `<div class="ic" style="background:var(--tint)">${DOC}</div><div class="b"><div class="t">Quote<small></small></div><div class="m">Bali Package · ₹1.45L</div></div>` },
+  { x: 390, y: 750, h: `<div class="ic" style="background:var(--amber-bg)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A86A0C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16l20-6-3-3-6 2-6-5-2 1 4 6-4 1-2-2-2 1z"/></svg></div><div class="b"><div class="t">Pending booking<small></small></div><div class="m">Maldives · 2 travellers</div></div>` },
 ];
 const tcEl = $("#tcards"), teth = $("#tethers");
 TC.forEach((c, k) => {
@@ -347,37 +377,38 @@ TC.forEach((c, k) => {
   teth.insertAdjacentHTML("beforeend", `<path id="te${k}" fill="none" stroke="#B5524F" stroke-width="2" stroke-dasharray="5 6" stroke-linecap="round"/>`);
 });
 
-// ---------- S2: scattered conversations ----------
+// ---------- S2: personal WhatsApp chats ----------
 const WX = [45, 395, 745], WY = 470, WOFF = [34, 0, 44], WROT = [-4, 2.5, -2.5];
+const PHONE = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>';
 const WC = [
-  { av: "a1", i: "A", n: "Ananya", tag: "Customer 01", st: ["amb", "Follow-up pending"], issue: "Follow-up?",
-    b: `<div class="bub in">Can you call me tomorrow about Bali?<span class="tm">7:12 PM</span></div><div class="bub out"><span class="who">Rahul</span>Sure, I'll follow up 👍<span class="tm">7:14 PM ${BLUE}</span></div>` },
-  { av: "a2", i: "R", n: "Rohan", tag: "Customer 02", st: ["grn", "Quote shared"], issue: "Which quote was shared?",
-    b: `<div class="bub out"><span class="who">Rahul</span><div class="doc">📄 Dubai_Quote_v2.pdf</div>Here's the updated price<span class="tm">11:02 AM ${BLUE}</span></div><div class="bub in">Okay, will check 🙏<span class="tm">11:20 AM</span></div>` },
-  { av: "a3", i: "M", n: "Meera", tag: "Customer 03", st: ["ros", "Cancellation discussed"], issue: "What was promised?",
-    b: `<div class="bub in">Can I cancel if plans change?<span class="tm">Mon</span></div><div class="bub out"><span class="who">Rahul</span>Yes, no problem at all 😊<span class="tm">Mon ${BLUE}</span></div>` },
+  { av: "a1", i: "A", n: "Ananya", st: ["amb", "Customer commitment"],
+    b: `<div class="bub in">Can you confirm my airport transfer?<span class="tm">7:12 PM</span></div><div class="bub out"><span class="who">Rahul</span>Yes, it's included.<span class="tm">7:14 PM ${BLUE}</span></div>` },
+  { av: "a2", i: "R", n: "Rohan", st: ["grn", "Quote shared"],
+    b: `<div class="bub out"><span class="who">Rahul</span><div class="doc">${DOC} Bali Package · ₹1.45L</div>Here's your quote 🌴<span class="tm">11:02 AM ${BLUE}</span></div><div class="bub in">Thanks, will check 🙏<span class="tm">11:20 AM</span></div>` },
+  { av: "a3", i: "M", n: "Meera", st: ["ros", "Refund promise"],
+    b: `<div class="bub in">Will I get a full refund if I cancel before Friday?<span class="tm">Mon</span></div><div class="bub out"><span class="who">Rahul</span>Yes, that should be fine.<span class="tm">Mon ${BLUE}</span></div>` },
 ];
 const wcEl = $("#wcards"), lsvg = $("#lines");
 WC.forEach((c, k) => {
   wcEl.insertAdjacentHTML("beforeend", `<div class="abs wcard" id="wc${k}" style="left:${WX[k]}px;top:${WY + WOFF[k]}px">
-    <div class="wh"><div class="av ${c.av}">${c.i}</div><div><div class="nm">${c.n}</div><div class="sm">${c.tag}</div></div></div>
+    <div class="plab"><span class="pA" id="pA${k}">${PHONE} PERSONAL WHATSAPP</span><span class="pB" id="pB${k}">ABC HOLIDAYS ✓ · BRAND WHATSAPP</span></div>
+    <div class="wh"><div class="av ${c.av}">${c.i}</div><div><div class="nm">${c.n}</div><div class="sm">Customer</div></div></div>
     <div class="wb">${c.b}</div>
-    <div class="wf"><span class="pill ${c.st[0]}"><span class="dot"></span>${c.st[1]}</span></div></div>
-    <div class="abs issue" id="is${k}" style="left:${WX[k] + 145}px;top:${WY + WOFF[k] + 304}px">${c.issue}</div>`);
-  lsvg.insertAdjacentHTML("beforeend", `<path id="l${k}" fill="none" stroke="#B5524F" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6 8"/><g id="x${k}"><circle r="13" fill="#F7E6E3" stroke="#B5524F" stroke-width="1.5"/><path d="M-5 -5L5 5M5 -5L-5 5" stroke="#B5524F" stroke-width="2.4" stroke-linecap="round"/></g>`);
+    <div class="wf"><span class="pill ${c.st[0]}" id="sl${k}"><span class="dot"></span>${c.st[1]}</span></div></div>`);
+  lsvg.insertAdjacentHTML("beforeend", `<path id="l${k}" fill="none" stroke="#9A9890" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="6 7"/><circle id="le${k}" r="4" fill="#B5524F"/>`);
 });
 
 // ---------- dashboard rows ----------
 const ROWS = [
-  { av: "a1", i: "A", n: "Ananya", trip: "Bali Trip", st: ["amb", "Follow-up Today"], own: ["a5", "R", "Rahul"], ls: "Today, 10:42 AM" },
-  { av: "a2", i: "R", n: "Rohan", trip: "Dubai Holiday", st: ["grn", "Quote Shared"], own: ["a5", "R", "Rahul"], ls: "Yesterday" },
-  { av: "a3", i: "M", n: "Meera", trip: "Maldives Booking", st: ["ros", "Cancellation Query"], own: ["a4", "P", "Priya"], ls: "Mon, 4:10 PM" },
+  { av: "a1", i: "A", n: "Ananya", trip: "Bali Holiday", st: ["amb", "Follow-up Today"], own: ["a5", "R", "Rahul"], ls: "Today, 10:42 AM" },
+  { av: "a2", i: "R", n: "Rohan", trip: "Dubai Trip", st: ["grn", "Quote Shared"], own: ["a5", "R", "Rahul"], ls: "Yesterday" },
+  { av: "a3", i: "M", n: "Meera", trip: "Maldives Booking", st: ["ros", "Refund Query"], own: ["a4", "P", "Priya"], ls: "Mon, 4:10 PM" },
 ];
 const ROW_TOP = 94;
 ROWS.forEach((r, k) => $("#rows").insertAdjacentHTML("beforeend", `<div class="row" id="r${k}" style="top:${ROW_TOP + k * 76}px">
   <div class="cu"><div class="av ${r.av}">${r.i}</div><div><b>${r.n}</b><small>${r.trip}</small></div></div>
   <div><span class="pill ${r.st[0]}"><span class="dot"></span>${r.st[1]}</span></div>
-  <div><span class="own" id="ow${k}"><span class="av ${r.own[0]}">${r.own[1]}</span>${r.own[2]}</span></div>
+  <div><span class="own"><span class="av ${r.own[0]}">${r.own[1]}</span>${r.own[2]}</span></div>
   <div class="ls">${r.ls}</div></div>`));
 
 // ---------- masking ----------
@@ -385,33 +416,33 @@ const MASK = [["+91 982015 4832", "+91 •••••• 4832"], ["P84321545", 
 const LOCK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
 function maskStr(i, m) {
   const [a, b] = MASK[i]; const diff = [...a].map((c, j) => c !== b[j] ? j : -1).filter(j => j >= 0);
-  const n = Math.floor(m * diff.length + 1e-6); const set_ = new Set(diff.slice(0, n));
-  return [...a].map((c, j) => set_.has(j) ? b[j] : c).join("");
+  const on = new Set(diff.slice(0, Math.floor(m * diff.length + 1e-6)));
+  return [...a].map((c, j) => on.has(j) ? b[j] : c).join("");
 }
 
 // ---------- journey ----------
-const JN = ["Enquiry", "Agent", "Quote", "Follow-up", "Booking", "Support"];
+const JN = ["Enquiry", "Conversation", "Quote", "Follow-up", "Booking", "Support"];
 const JX = JN.map((_, i) => 113 + i * 170.8);
 JN.forEach((n, i) => {
-  $("#nodes").insertAdjacentHTML("beforeend", `<div class="abs node" id="n${i}" style="left:${JX[i] - 73}px;top:621px">${n}</div>`);
+  $("#nodes").insertAdjacentHTML("beforeend", `<div class="abs node" id="n${i}" style="left:${JX[i] - 76}px;top:621px;width:152px">${n}</div>`);
   $("#jcon").insertAdjacentHTML("beforeend", `<path id="jc${i}" d="M540 502 C 540 560, ${JX[i]} 560, ${JX[i]} 621" fill="none" stroke="#29B47A" stroke-width="1.6" stroke-dasharray="3 5"/>`);
 });
-const CK = ["Conversation History", "Ownership", "Policies", "Visibility"];
-const CKX = [96, 410, 612, 778];
-CK.forEach((c, i) => $("#chks").insertAdjacentHTML("beforeend", `<div class="abs chk" id="k${i}" style="left:${CKX[i]}px;top:760px"><span class="vt">${TICK}</span>${c}</div>`));
+["Customer History", "Commitments", "Ownership", "Service Quality"].forEach((c, i) => $("#chks").insertAdjacentHTML("beforeend", `<div class="chk" id="k${i}"><span class="vt">${TICK}</span>${c}</div>`));
 const jlen = $("#jline").getTotalLength(); $("#jline").style.strokeDasharray = jlen;
 
-// ---------- VO + subtitles ----------
-const VO = [[0.15, 4.47], [5.0, 6.16], [11.9, 3.94], [16.05, 4.27], [20.4, 2.47], [23.4, 2.71], [26.4, 5.56], [32.3, 4.34], [37.0, 1.92]];
+// ---------- VO + subtitles (video time) ----------
+const VO = [[0.15, 5.05], [5.6, 6.05], [11.8, 3.72], [16.6, 5.87], [22.65, 1.2], [24.0, 0.87], [25.05, 2.63], [28.0, 2.68], [31.05, 5.64], [37.0, 4.07], [41.4, 1.93]];
 const SUBL = [
-  ["Your travel agent just left.", "Did your customer chats and pending bookings leave with them?"],
-  ["Scattered WhatsApp conversations make it difficult", "to track follow-ups, customer commitments,", "and what agents actually promised."],
-  ["With DoubleTick, centralise your team's", "WhatsApp conversations in one dashboard."],
-  ["Keep customer history accessible,", "route enquiries to the right agent or property,"],
-  ["and track every quote and cancellation policy."],
+  ["Your travel agent just left the company.", "Did your customer chats and pending bookings leave with them?"],
+  ["In many travel businesses, customer conversations,", "quotes, and refund promises live on agents' personal WhatsApp."],
+  ["When an agent leaves, managers lose", "visibility into what was promised."],
+  ["With DoubleTick, keep customer conversations", "on your brand's WhatsApp number", "and manage everything from one dashboard."],
+  ["Preserve chat history,"],
+  ["track follow-ups,"],
+  ["and reassign enquiries without losing context."],
   ["DoubleTick also masks sensitive guest details,"],
   ["and uses AI to flag incorrect prices, missed replies,", "and policy violations before they escalate."],
-  ["Keep customer relationships, conversations,", "and service quality under your control."],
+  ["Keep customer relationships, commitments,", "and service quality under your control."],
   ["Book your free DoubleTick pilot today."],
 ];
 const SUBS = [];
@@ -419,151 +450,154 @@ SUBL.forEach((ch, i) => {
   const [st, d] = VO[i]; const tot = ch.reduce((a, c) => a + c.length, 0); let acc = st;
   ch.forEach((c, j) => { const dd = d * c.length / tot; SUBS.push([acc - (j === 0 ? 0.05 : 0), acc + dd + (j === ch.length - 1 ? 0.25 : 0), c]); acc += dd; });
 });
-window.T_END = 40.9;
+window.T_END = 45.0;
 
-// dashboard row centres (for the snap)
 const ROWC = k => ({ x: 60 + 60 + 450, y: 330 + ROW_TOP + 38 + k * 76 });
+// scene clock (video time)
+const T2 = 5.55, TR = 15.25, T3 = 16.55, T4 = 22.55, T5 = 23.95, T6 = 25.0, T7 = 27.9, T8 = 30.95, T9 = 36.9, T9B = 39.3, T10 = 41.15;
 
 window.render = function (t) {
-  // background + logo
-  $("#rose").style.opacity = 1 - p(t, 10.7, 0.8, eIO);
-  set($("#logo"), { o: p(t, 11.7, 0.45) * (1 - p(t, 36.6, 0.3)), y: (1 - p(t, 11.7, 0.45)) * -8 });
+  $("#rose").style.opacity = 1 - p(t, TR + 0.2, 0.8, eIO);
+  set($("#logo"), { o: p(t, T3, 0.45) * (1 - p(t, T10 - 0.3, 0.3)), y: (1 - p(t, T3, 0.45)) * -8 });
 
-  headline("#h1", t, 0, 4.55, true);
-  headline("#h2", t, 5.0, 10.45);
-  headline("#h3", t, 11.85, 15.95);
-  headline("#h4", t, 16.05, 20.3);
-  headline("#h5", t, 20.45, 23.2);
-  headline("#h6", t, 23.35, 26.25);
-  headline("#h7", t, 26.4, 32.1);
-  headline("#h8", t, 32.3, 36.6);
-  const h3s = p(t, 13.3, 0.4);
-  set($("#h3s"), { o: h3s * (1 - p(t, 15.9, 0.25)), y: (1 - h3s) * 10 });
+  headline("#h1", t, 0, T2 - 0.1, true);
+  headline("#h2", t, T2, TR - 0.05);
+  headline("#h2b", t, TR + 0.2, T3 - 0.1);
+  headline("#h3", t, T3, T4 - 0.05);
+  headline("#h4", t, T4 + 0.05, T5 - 0.05);
+  headline("#h5", t, T5 + 0.05, T6 - 0.05);
+  headline("#h6", t, T6 + 0.05, T7 - 0.05);
+  headline("#h7", t, T7 + 0.05, T8 - 0.05);
+  headline("#h8", t, T8 + 0.05, T9 - 0.05);
+  headline("#h9", t, T9 + 0.05, T9B - 0.05);
+  headline("#h9b", t, T9B + 0.05, T10 - 0.1);
+  const h2s = p(t, 11.9, 0.4);
+  set($("#h2s"), { o: h2s * (1 - p(t, TR - 0.1, 0.25)), y: (1 - h2s) * 10 });
 
-  // ---- S1: Rahul exits, his cards follow, freeze ----
-  const out1 = p(t, 4.5, 0.4, eIO);
-  const ag = p(t, 1.75, 1.45, eIn);
-  set($("#agent"), { x: 820 * ag, r: 3 * ag, o: (t < 0.05 ? 1 : p(t, 0, 0.3)) * (1 - p(t, 2.75, 0.4)) });
-  set($("#leftChip"), { o: p(t, 1.05, 0.3), s: lerp(0.85, 1, p(t, 1.05, 0.35, eSp)) });
-  const FOL = [210, 250, 300, 170, 240], FROT = [4, 3, 6, 3.5, 5];
+  // ---- S1: Rahul exits, his chats/quote/booking follow, freeze halfway ----
+  const out1 = p(t, T2 - 0.15, 0.4, eIO);
+  const ag = p(t, 1.9, 1.5, eIn);
+  set($("#agent"), { x: 820 * ag, r: 3 * ag, o: (t < 0.05 ? 1 : p(t, 0, 0.3)) * (1 - p(t, 2.95, 0.4)) });
+  set($("#leftChip"), { o: p(t, 1.15, 0.3), s: lerp(0.85, 1, p(t, 1.15, 0.35, eSp)) });
+  const FOL = [230, 270, 310, 250], FROT = [4, 3, 6, 4.5];
   const agX = 540 + 820 * ag, agY = 524;
   TC.forEach((c, k) => {
-    const ein = k === 0 || t < 0.05 ? 1 : p(t, 0.12 + k * 0.08, 0.4, eSp);
-    const f = p(t, 1.95 + k * 0.09, 1.5, eOut);          // follow then freeze
+    const ein = t < 0.05 ? 1 : p(t, 0.1 + k * 0.08, 0.4, eSp);
+    const f = p(t, 2.1 + k * 0.09, 1.6, eOut);
     const x = FOL[k] * f + 60 * out1, r = FROT[k] * f;
     const o = (t < 0.05 ? 1 : clamp(ein * 1.3)) * (1 - out1);
     set($("#tc" + k), { x, y: (1 - ein) * 18, r, o, blur: out1 * 3 });
     const cx = c.x + 150 + x, cy = c.y + (1 - ein) * 18;
     const te = $("#te" + k);
     te.setAttribute("d", `M${Math.min(agX, 1200)} ${agY} C ${agX} ${agY + 40}, ${cx} ${cy - 50}, ${cx} ${cy}`);
-    te.style.opacity = o * (1 - p(t, 3.1, 0.4) * 0.55);
+    te.style.opacity = o * (1 - p(t, 3.3, 0.4) * 0.55);
   });
 
-  // ---- S2: scattered conversations ----
-  const sweep = p(t, 10.45, 0.7, eIO);
+  // ---- S2: personal WhatsApp + manager can't reach ----
+  const sweep = p(t, TR, 0.7, eIO);
+  const IN2 = [6.6, 7.3, 8.05];             // conversations / quotes / refund promises
   for (let k = 0; k < 3; k++) {
-    const ein = p(t, 5.1 + k * 0.12, 0.55, eSp);
-    const al = p(t, 10.85 + k * 0.05, 0.5, eSp);      // aligned by the green line
-    let x = lerp(k === 0 ? -200 : k === 2 ? 200 : 0, 0, ein), y = (1 - ein) * 120 + WOFF[k] * 0 + (0 - WOFF[k]) * al, r = WROT[k] * (1 - al);
-    const fly = p(t, 11.55 + k * 0.1, 0.55, eIO);
-    const rc = ROWC(k), cx0 = WX[k] + 145, cy0 = WY + 146;
+    const ein = p(t, IN2[k] - 0.35, 0.55, eSp);
+    const al = p(t, TR + 0.35 + k * 0.05, 0.5, eSp);
+    let x = lerp(k === 0 ? -200 : k === 2 ? 200 : 0, 0, ein), y = (1 - ein) * 120 - WOFF[k] * al, r = WROT[k] * (1 - al);
+    const fly = p(t, T3 - 0.05 + k * 0.1, 0.55, eIO);
+    const rc = ROWC(k), cx0 = WX[k] + 145, cy0 = WY + 161;
     x += (rc.x - cx0) * fly; y += (rc.y - cy0) * fly;
-    const s = lerp(1, 0.22, fly);
-    const o = clamp(ein * 1.4) * (1 - p(t, 11.95 + k * 0.1, 0.18));
-    set($("#wc" + k), { x, y, s, r, o, blur: fly > 0 && fly < 1 ? 1.2 * Math.sin(fly * Math.PI) : 0 });
-    const ia = p(t, [7.4, 9.6, 8.5][k], 0.35, eSp);
-    set($("#is" + k), { x: -$("#is" + k).offsetWidth / 2 + x, y: y + (1 - ia) * 10, s: lerp(0.85, 1, ia), r: r * 0.5, o: ia * (1 - p(t, 10.4, 0.25)) });
+    const o = clamp(ein * 1.4) * (1 - p(t, T3 + 0.35 + k * 0.1, 0.18));
+    set($("#wc" + k), { x, y, s: lerp(1, 0.22, fly), r, o, blur: fly > 0 && fly < 1 ? 1.2 * Math.sin(fly * Math.PI) : 0 });
+    const sl = p(t, IN2[k] + 0.25, 0.35, eSp);
+    set($("#sl" + k), { o: sl, s: lerp(0.85, 1, sl) });
+    const sw_ = p(t, TR + 0.45 + k * 0.08, 0.35);
+    $("#pA" + k).style.opacity = 1 - sw_; $("#pB" + k).style.opacity = sw_;
   }
-  const ma = p(t, 5.55, 0.45, eSp), mo = ma * (1 - p(t, 10.4, 0.3));
+  const br = p(t, TR + 0.5, 0.45, eSp);
+  set($("#brand"), { o: br * (1 - p(t, T3 + 0.1, 0.35)), s: lerp(1.04, 1, br) });
+  const ma = p(t, 11.85, 0.45, eSp), mo = ma * (1 - p(t, TR - 0.1, 0.3));
   set($("#mgr"), { o: mo, y: (1 - ma) * -16, s: lerp(0.95, 1, ma) });
+  set($("#mgrEye"), { o: p(t, 13.2, 0.3) });
   for (let k = 0; k < 3; k++) {
-    const sx = 540, sy = 388, cx = WX[k] + 145, cy = WY + WOFF[k] + 2;
-    const draw = p(t, 5.9 + k * 0.12, 0.6), brk = p(t, 6.6 + k * 0.3, 0.35);
-    const ok = k === 1 ? 0 : 1;   // middle line connects, outer two break
-    const reach = lerp(0, 1, draw) * (ok ? lerp(1, 0.55, brk) : 1);
-    $("#l" + k).setAttribute("d", `M${sx} ${sy} L${lerp(sx, cx, reach)} ${lerp(sy, cy, reach)}`);
-    $("#l" + k).style.opacity = (draw > 0 ? 1 : 0) * (1 - p(t, 10.35, 0.3));
-    $("#l" + k).setAttribute("stroke", ok ? "#B5524F" : "#9A9890");
-    const xg = $("#x" + k);
-    xg.setAttribute("transform", `translate(${lerp(sx, cx, 0.62)} ${lerp(sy, cy, 0.62)}) scale(${lerp(0.6, 1, brk)})`);
-    xg.style.opacity = ok * brk * (1 - p(t, 10.35, 0.3));
+    const sx = 540, sy = 388, cx = WX[k] + 145, cy = WY + WOFF[k] - 4;
+    const reach = 0.72 * p(t, 12.3 + k * 0.15, 0.8);   // stops short of the personal chats
+    const ex = lerp(sx, cx, reach), ey = lerp(sy, cy, reach);
+    $("#l" + k).setAttribute("d", `M${sx} ${sy} L${ex} ${ey}`);
+    const lo = (reach > 0 ? 1 : 0) * (1 - p(t, TR - 0.1, 0.3));
+    $("#l" + k).style.opacity = lo;
+    const le = $("#le" + k); le.setAttribute("cx", ex); le.setAttribute("cy", ey); le.style.opacity = lo * p(t, 12.9 + k * 0.15, 0.25);
   }
-  $("#sweep").style.top = (WY + 150) + "px";
-  set($("#sweep"), { o: (t > 10.45 ? 1 : 0) * (1 - p(t, 11.25, 0.35)) });
+  $("#sweep").style.top = (WY + 165) + "px";
+  set($("#sweep"), { o: (t > TR ? 1 : 0) * (1 - p(t, TR + 0.8, 0.35)) });
   $("#sweep").style.transform = `scaleX(${sweep})`;
 
   // ---- dashboard ----
-  const da = p(t, 11.6, 0.5, eSp), dOut = p(t, 26.1, 0.4, eIO), dim = p(t, 23.25, 0.45, eIO) * (1 - p(t, 26.1, 0.01));
-  $("#dash").style.height = lerp(384, 570, p(t, 16.2, 0.6, eIO)) + "px";
+  const da = p(t, T3 + 0.05, 0.5, eSp), dOut = p(t, T8 - 0.1, 0.4, eIO), dim = p(t, T7, 0.45, eIO) * (1 - p(t, T8 - 0.1, 0.01));
+  $("#dash").style.height = lerp(384, 570, p(t, T4, 0.6, eIO)) + "px";
   set($("#dash"), { o: da * (1 - dOut) * lerp(1, 0.35, dim), s: lerp(0.96, 1, da) * lerp(1, 0.97, dim), y: (1 - da) * 24, blur: dim * 3 });
-  for (let k = 0; k < 3; k++) { const ra = p(t, 11.95 + k * 0.1, 0.35, eSp); set($("#r" + k), { o: ra * (k ? 1 - p(t, 16.15, 0.3) : 1), x: (1 - ra) * -16 }); }
-  $("#r0").classList.toggle("sel", t > 16.05);
-  // detail view slides over the list
-  const dv = p(t, 16.45, 0.55, eIO);
+  for (let k = 0; k < 3; k++) { const ra = p(t, T3 + 0.4 + k * 0.1, 0.35, eSp); set($("#r" + k), { o: ra * (k ? 1 - p(t, T4 + 0.1, 0.3) : 1), x: (1 - ra) * -16 }); }
+  $("#r0").classList.toggle("sel", t > T4);
+  const dv = p(t, T4 + 0.25, 0.5, eIO);
   set($("#detail"), { o: dv, x: (1 - dv) * 60 });
-  set($("#list"), { o: 1 - p(t, 16.6, 0.4) });
-  for (let k = 0; k < 4; k++) { const sa = p(t, 16.85 + k * 0.28, 0.35, eSp); set($("#st" + k), { o: sa, x: (1 - sa) * -14 }); }
-  // owner change Rahul -> Neha (history stays put)
-  const oa = p(t, 17.0, 0.35);
+  set($("#list"), { o: 1 - p(t, T4 + 0.35, 0.4) });
+  for (let k = 0; k < 4; k++) { const sa = p(t, T4 + 0.45 + k * 0.2, 0.35, eSp); set($("#st" + k), { o: sa, y: (1 - sa) * -12 }); }
+  $("#st3").querySelector("i").style.background = t > T5 + 0.2 ? "#A86A0C" : "#fff";
+  $("#st3").querySelector("i").style.borderColor = t > T5 + 0.2 ? "#A86A0C" : "";
+  // owner box
+  const oa = p(t, T4 + 0.6, 0.35);
   set($("#ownBox"), { o: oa, y: (1 - oa) * 10 });
-  const sw = p(t, 18.55, 0.45, eIO);
+  // follow-up box
+  const fu = p(t, T5 + 0.1, 0.4, eSp);
+  set($("#fuBox"), { o: fu, y: (1 - fu) * 16 });
+  set($("#fuPend"), { o: p(t, T5 + 0.45, 0.3), s: lerp(0.85, 1, p(t, T5 + 0.45, 0.35, eSp)) });
+  set($("#fuMgr"), { o: p(t, T5 + 0.7, 0.3) });
+  // reassign: only the owner chip changes
+  const sw = p(t, T6 + 0.55, 0.45, eIO);
   set($("#oRahul"), { o: 1 - sw, y: -10 * sw });
-  set($("#oPrev"), { o: p(t, 18.75, 0.35), y: (1 - p(t, 18.75, 0.35)) * 8 });
-  const ne = p(t, 18.85, 0.45, eSp);
+  set($("#oPrev"), { o: p(t, T6 + 0.75, 0.35), y: (1 - p(t, T6 + 0.75, 0.35)) * 8 });
+  const ne = p(t, T6 + 0.85, 0.45, eSp);
   set($("#oNeha"), { o: ne, x: (1 - ne) * 30 });
-  set($("#route"), { o: p(t, 19.4, 0.3), s: lerp(0.85, 1, p(t, 19.4, 0.35, eSp)) });
-  // quote + policy pinned to the same conversation
-  const qa = p(t, 20.75, 0.45, eSp), pa = p(t, 21.45, 0.45, eSp), va = p(t, 22.2, 0.4, eSp);
-  set($("#qCard"), { o: qa, y: (1 - qa) * 18 });
-  set($("#pCard"), { o: pa, y: (1 - pa) * 18 });
-  set($("#vis"), { o: va, s: lerp(0.9, 1, va) });
-  const pq = $("#pinQ"), pp = $("#pinP");
-  [pq, pp].forEach((el, i) => { const L = 200, d = p(t, [20.95, 21.65][i], 0.5); el.style.strokeDasharray = `4 5`; el.style.opacity = d; });
-  set($("#st1"), { o: p(t, 17.13, 0.35, eSp), x: (1 - p(t, 17.13, 0.35, eSp)) * -14 });
-  $("#st1").querySelector("i").style.background = t > 20.9 ? "#007A5A" : "#fff";
+  set($("#route"), { o: p(t, T6 + 1.4, 0.3), s: lerp(0.85, 1, p(t, T6 + 1.4, 0.35, eSp)) });
 
-  // ---- S6: masking ----
-  const pf = p(t, 23.45, 0.5, eSp), pOut = p(t, 26.15, 0.35, eIO);
-  set($("#prof"), { o: pf * (1 - pOut), y: (1 - pf) * 28 + pOut * -20, s: lerp(0.96, 1, pf) });
-  set($("#roleB"), { o: p(t, 23.9, 0.3) });
+  // ---- PII masking (zoom into guest details) ----
+  const pf = p(t, T7 + 0.1, 0.55, eSp), pOut = p(t, T8 - 0.15, 0.35, eIO);
+  set($("#prof"), { o: clamp(pf * 1.5) * (1 - pOut), y: (1 - pf) * -60 + pOut * -20, s: lerp(0.78, 1, pf) });
+  set($("#roleB"), { o: p(t, T7 + 0.5, 0.3) });
   for (let i = 0; i < 3; i++) {
-    const m = p(t, 24.15 + i * 0.45, 0.55, x => x);
+    const m = p(t, T7 + 0.75 + i * 0.45, 0.55, x => x);
     const s_ = maskStr(i, m), el = $("#mv" + i);
     if (el.textContent !== s_) el.textContent = s_;
     $("#lk" + i).innerHTML = m >= 1 ? LOCK : "";
-    set($("#lk" + i), { o: p(t, 24.15 + i * 0.45 + 0.55, 0.25) });
+    set($("#lk" + i), { o: p(t, T7 + 1.3 + i * 0.45, 0.25) });
   }
 
-  // ---- S7: AI flags, one after another ----
-  const FT = [26.85, 28.35, 29.6], FF = [27.65, 29.0, 30.3];
+  // ---- AI flags: price, missed reply, policy ----
+  const FT = [31.2, 32.8, 33.85], FF = [32.15, 33.35, 34.5];
   for (let i = 0; i < 3; i++) {
-    const ra = p(t, FT[i], 0.45, eSp), fo = p(t, 31.95, 0.4, eIO);
+    const ra = p(t, FT[i], 0.45, eSp), fo = p(t, T9 - 0.1, 0.4, eIO);
     set($("#f" + i), { o: ra * (1 - fo), y: (1 - ra) * 24 - fo * 16 });
     const fa = p(t, FF[i], 0.4, eSp);
     set($("#fl" + i), { o: fa, x: (1 - fa) * 16, s: lerp(0.92, 1, fa) });
     $("#f" + i).querySelector(".edge").style.opacity = fa;
   }
-  $("#u0").style.setProperty("--u", p(t, 27.5, 0.35));
-  $("#u2").style.setProperty("--u", p(t, 30.15, 0.45));
-  $("#nr").textContent = t < 28.9 ? "2h" : "3h";
+  $("#u0").style.setProperty("--u", p(t, FF[0] - 0.15, 0.35));
+  $("#u2").style.setProperty("--u", p(t, FF[2] - 0.15, 0.45));
+  $("#nr").textContent = t < FF[1] - 0.1 ? "2h" : "3h";
 
-  // ---- S8: governed journey ----
-  const jOut = p(t, 36.55, 0.35, eIO);
-  for (let i = 0; i < 6; i++) { const na = p(t, 32.6 + i * 0.1, 0.4, eSp); set($("#n" + i), { o: na * (1 - jOut), y: (1 - na) * 16 }); }
-  $("#jline").style.strokeDashoffset = jlen * (1 - p(t, 33.1, 1.1, eIO));
+  // ---- governed journey: nodes snap onto one green line ----
+  const jOut = p(t, T10 - 0.2, 0.35, eIO);
+  $("#jline").style.strokeDashoffset = jlen * (1 - p(t, T9 + 0.2, 0.9, eIO));
   $("#jline").style.opacity = 1 - jOut;
-  const ca = p(t, 33.6, 0.45, eSp);
+  for (let i = 0; i < 6; i++) { const na = p(t, T9 + 0.55 + i * 0.1, 0.45, eSp); set($("#n" + i), { o: clamp(na * 2) * (1 - jOut), y: (1 - na) * -40 }); $("#n" + i).style.borderColor = na > 0.9 ? "rgba(0,122,90,0.45)" : ""; }
+  const ca = p(t, T9 + 1.2, 0.45, eSp);
   set($("#ctrl"), { o: ca * (1 - jOut), y: (1 - ca) * -14 });
-  for (let i = 0; i < 6; i++) { const c = $("#jc" + i); c.style.opacity = p(t, 34.0 + i * 0.06, 0.35) * (1 - jOut); }
-  for (let i = 0; i < 6; i++) $("#n" + i).style.borderColor = t > 33.1 + 1.1 * (i / 5) ? "rgba(0,122,90,0.45)" : "";
-  for (let i = 0; i < 4; i++) { const ka = p(t, 34.6 + i * 0.22, 0.4, eSp); set($("#k" + i), { o: ka * (1 - jOut), y: (1 - ka) * 14 }); }
+  for (let i = 0; i < 6; i++) $("#jc" + i).style.opacity = p(t, T9 + 1.5 + i * 0.06, 0.35) * (1 - jOut);
+  for (let i = 0; i < 4; i++) { const ka = p(t, T9 + 1.9 + i * 0.2, 0.4, eSp); set($("#k" + i), { o: ka * (1 - jOut), y: (1 - ka) * 14 }); }
+  $("#chks").style.visibility = t < T10 + 0.3 ? "visible" : "hidden";
 
   // ---- CTA ----
-  const la = p(t, 36.85, 0.45), ha = p(t, 37.0, 0.5), cb = p(t, 37.55, 0.6, eSp);
+  const la = p(t, T10 + 0.1, 0.45), ha = p(t, T10 + 0.2, 0.5), cb = p(t, T10 + 0.55, 0.6, eSp);
   set($("#ctaLogo"), { o: la, y: (1 - la) * 12 });
   set($("#ctaH"), { o: ha, y: (1 - ha) * 28 });
-  const pulse = Math.sin(clamp((t - 38.9) / 0.5) * Math.PI) * 0.03;
-  set($("#cta"), { o: clamp((t - 37.55) / 0.35), s: lerp(0.96, 1, cb) + pulse });
+  const pulse = Math.sin(clamp((t - 43.0) / 0.5) * Math.PI) * 0.03;
+  set($("#cta"), { o: clamp((t - T10 - 0.55) / 0.35), s: lerp(0.96, 1, cb) + pulse });
 
   // subtitles
   const sub = SUBS.find(sv => t >= sv[0] && t < sv[1]); const se = $("#subs");

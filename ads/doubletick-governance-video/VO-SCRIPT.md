@@ -1,19 +1,20 @@
-# DoubleTick — Travel Ops + WhatsApp Governance (40.9s, 1080×1080)
+# DoubleTick — Travel WhatsApp Governance (45s, 1080×1080)
 
-Placeholder VO: offline Kokoro TTS (`make_vo.py`, voice bm_george). Swap in a recorded take
-(e.g. Yousef) and update `VO` in `index.html` plus the start times in the mix step.
+Placeholder VO: offline Kokoro TTS (`make_vo.py`, voice bm_george, +7% tempo). Swap in a
+recorded take and update `VO` + the scene clock (`T2…T10`) in `index.html` and the start
+times in the mix step.
 
 | Video time | VO line | Scene |
 |---|---|---|
-| 0:00.15 | Your travel agent just left. Did your customer chats and pending bookings leave with them? | Rahul exits, his chats/booking/reminder follow and freeze |
-| 0:05.0 | Scattered WhatsApp conversations make it difficult to track follow-ups, customer commitments, and what agents actually promised. | 3 scattered chats, manager, broken lines, issue labels |
-| 0:10.4 | (music) | Green line catches the chats, rose tint clears |
-| 0:11.9 | With DoubleTick, centralise your team's WhatsApp conversations in one dashboard. | All Conversations dashboard |
-| 0:16.05 | Keep customer history accessible, route enquiries to the right agent or property, | Ananya history; Rahul → Neha (Bali desk) |
-| 0:20.4 | and track every quote and cancellation policy. | Quote ₹1.42L + policy pinned, visible to next agent |
-| 0:23.4 | DoubleTick also masks sensitive guest details, | Guest profile masking |
-| 0:26.4 | and uses AI to flag incorrect prices, missed replies, and policy violations before they escalate. | Price mismatch / Reply overdue / Policy mismatch |
-| 0:32.3 | Keep customer relationships, conversations, and service quality under your control. | Governed journey |
-| 0:37.0 | Book your free DoubleTick pilot today. | CTA, held to 0:40.9 |
-
-Rebuild: `python3 audio.py`, mix (see brag/MMT notes), then render `index.html` frame by frame.
+| 0:00.15 | Your travel agent just left the company. Did your customer chats and pending bookings leave with them? | Rahul exits; 2 chats, quote, pending booking follow and freeze halfway |
+| 0:05.6 | In many travel businesses, customer conversations, quotes, and refund promises live on agents' personal WhatsApp. | 3 "Personal WhatsApp" chats: commitment / quote / refund promise |
+| 0:11.8 | When an agent leaves, managers lose visibility into what was promised. | Manager lines stop short, "Limited visibility" |
+| 0:15.25 | (music) | Green line → ABC Holidays ✓ Brand WhatsApp; agent-owned → business-owned |
+| 0:16.6 | With DoubleTick, keep customer conversations on your brand's WhatsApp number and manage everything from one dashboard. | All Conversations (Ananya / Rohan / Meera) |
+| 0:22.65 | Preserve chat history, | Ananya history timeline |
+| 0:24.0 | track follow-ups, | Follow-up · Today, 4:00 PM · Pending · visible to manager |
+| 0:25.05 | and reassign enquiries without losing context. | Owner chip Rahul → Neha |
+| 0:28.0 | DoubleTick also masks sensitive guest details, | Guest details masking |
+| 0:31.05 | and uses AI to flag incorrect prices, missed replies, and policy violations before they escalate. | Price mismatch / Reply overdue / Policy mismatch |
+| 0:37.0 | Keep customer relationships, commitments, and service quality under your control. | Journey on one green line + 4 checks |
+| 0:41.4 | Book your free DoubleTick pilot today. | CTA, held to 0:45 |

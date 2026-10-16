@@ -2,11 +2,11 @@
 import numpy as np, wave, sys
 
 SR = 44100
-DUR = 40.9
+DUR = 45.0
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
 
-P_END, S_END = 10.9, 36.7   # tense problem bed -> brighter solution -> CTA resolve
+P_END, S_END = 15.9, 41.1   # tense problem bed -> brighter solution -> CTA resolve
 
 def t_(d): return np.arange(int(SR * d)) / SR
 def place(buf, sig, at, gain=1.0):
@@ -105,36 +105,36 @@ def chime(amp=0.3):
     return amp * s / 2.5 * np.exp(-tt * 2.6) * np.minimum(1, tt / 0.005)
 
 # all times are video time
-for i, at in enumerate((0.15, 0.27, 0.35, 0.43, 0.51)): place(sfx, pop(700 + 70 * i, 0.07, 0.16), at)
-place(sfx, tick_s(0.16), 1.05)                                  # "Left the team"
-place(sfx, whoosh(1.2, 0.34), 1.8)                              # agent card exits
-place(sfx, whoosh(1.0, 0.16), 2.05)                             # cards drag after him
-place(sfx, snap(0.3), 3.45)                                     # freeze
-place(sfx, whoosh(0.5, 0.12), 4.5)
-for i in range(3): place(sfx, pop(560 + 60 * i, 0.07, 0.18), 5.15 + i * 0.12)
-place(sfx, pop(420, 0.1, 0.2), 5.6)
-for i in range(3): place(sfx, blip_down(0.16), 6.75 + i * 0.3)
-for at in (7.4, 8.5, 9.6): place(sfx, tick_s(0.2), at)
-place(sfx, whoosh(0.9, 0.34), 10.35); place(sfx, impact(0.3), 10.95)    # green sweep catches the chats
-for i in range(3): place(sfx, snap(0.32), 11.95 + i * 0.1)              # snap into dashboard
-place(sfx, chime(0.2), 13.3)
-place(sfx, tick_s(0.2), 16.1); place(sfx, whoosh(0.5, 0.14), 16.45)
-for i in range(4): place(sfx, pop(900 + 60 * i, 0.06, 0.12), 16.9 + i * 0.28)
-place(sfx, snap(0.42), 18.9)                                    # Rahul -> Neha
-place(sfx, pop(1100, 0.08, 0.16), 19.45)
-place(sfx, pop(980, 0.09, 0.22), 20.8); place(sfx, pop(1080, 0.09, 0.22), 21.5); place(sfx, chime(0.18), 22.25)
-place(sfx, whoosh(0.5, 0.14), 23.3)
-for i in range(3):                                               # masking clicks
-    for j in range(6): place(sfx, tick_s(0.07), 24.15 + i * 0.45 + j * 0.09)
-place(sfx, whoosh(0.5, 0.14), 26.2)
-for a, f in ((26.9, 27.7), (28.4, 29.05), (29.65, 30.35)):
+for i, at in enumerate((0.12, 0.2, 0.28, 0.36)): place(sfx, pop(700 + 70 * i, 0.07, 0.16), at)
+place(sfx, tick_s(0.16), 1.15)                                  # "Left the company"
+place(sfx, whoosh(1.2, 0.34), 1.95)                             # agent card exits
+place(sfx, whoosh(1.0, 0.16), 2.2)                              # cards drag after him
+place(sfx, snap(0.3), 3.7)                                      # freeze halfway
+place(sfx, whoosh(0.5, 0.12), 5.4)
+for at in (6.25, 6.95, 7.7): place(sfx, pop(860, 0.09, 0.22), at)       # WhatsApp messages
+for at in (6.85, 7.55, 8.3): place(sfx, tick_s(0.14), at)
+place(sfx, pop(420, 0.1, 0.2), 11.85)
+for i in range(3): place(sfx, blip_down(0.14), 12.9 + i * 0.15)         # lines stop short
+place(sfx, whoosh(0.9, 0.34), 15.2); place(sfx, impact(0.3), 15.8)      # green sweep -> brand WhatsApp
+place(sfx, chime(0.18), 15.9)
+for i in range(3): place(sfx, snap(0.32), 16.9 + i * 0.1)               # snap into dashboard rows
+place(sfx, tick_s(0.2), 22.6); place(sfx, whoosh(0.5, 0.14), 22.8)
+for i in range(4): place(sfx, pop(900 + 60 * i, 0.06, 0.12), 23.0 + i * 0.2)
+place(sfx, pop(1040, 0.09, 0.2), 24.05); place(sfx, tick_s(0.18), 24.4)
+place(sfx, snap(0.42), 25.85); place(sfx, pop(1100, 0.08, 0.16), 26.4)  # Rahul -> Neha
+place(sfx, whoosh(0.5, 0.14), 27.9)
+for i in range(3):                                               # masking ticks
+    for j in range(6): place(sfx, tick_s(0.07), 28.65 + i * 0.45 + j * 0.09)
+place(sfx, whoosh(0.5, 0.14), 30.85)
+for a, f in ((31.2, 32.15), (32.8, 33.35), (33.85, 34.5)):       # AI warning pings
     place(sfx, pop(860, 0.08, 0.18), a); place(sfx, tick_s(0.24), f); place(sfx, blip_down(0.08), f + 0.04)
-place(sfx, whoosh(0.5, 0.14), 32.0)
-for i in range(6): place(sfx, pop(700 + 80 * i, 0.05, 0.1), 32.65 + i * 0.1)
-place(sfx, whoosh(1.2, 0.14), 33.1); place(sfx, chime(0.2), 33.7)
-for i in range(4): place(sfx, tick_s(0.16), 34.65 + i * 0.22)
-place(sfx, whoosh(0.5, 0.14), 36.55)
-place(sfx, chime(0.3), 37.6); place(sfx, pop(1200, 0.08, 0.14), 39.0)
+place(sfx, whoosh(0.5, 0.14), 36.8)
+place(sfx, whoosh(1.0, 0.12), 37.1)
+for i in range(6): place(sfx, snap(0.2), 37.75 + i * 0.1)        # nodes snap onto the line
+place(sfx, chime(0.2), 38.1)
+for i in range(4): place(sfx, tick_s(0.16), 39.1 + i * 0.2)
+place(sfx, whoosh(0.5, 0.14), 40.95)
+place(sfx, chime(0.3), 41.75); place(sfx, pop(1200, 0.08, 0.14), 43.05)
 
 def write(path, x):
     x = x / max(1e-9, np.max(np.abs(x))) * 0.89
