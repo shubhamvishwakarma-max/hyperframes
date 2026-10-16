@@ -3,7 +3,7 @@
 **Angle:** one WhatsApp conversation, followed from a missed 1 AM enquiry to a consultant-ready booking opportunity.
 **Hook:** a 1:00 AM clock next to an unanswered WhatsApp enquiry: "It's 1 AM. Who's responding?"
 **Tone:** polished, warm, product-led (DoubleTick beige, charcoal, green; Hedvig Letters Serif + Geist).
-**Format:** 1080×1080, 30 fps, 47.3 s (the supplied VO at a natural pace sets the length).
+**Format:** 1080×1080, 30 fps, 48.8 s. VO: `work/vo/yousef-vo.mp3` (ElevenLabs "Yousef – Warm Customer Support", supplied), placed at 0:00.2. Scene times below are animation time; `KP`/`warp()` in `index.html` (mirrored by `W()` in `audio.py`) start each scene on its VO line, using line boundaries found by silence detection.
 
 | Time | Scene | What moves |
 |---|---|---|
@@ -17,4 +17,4 @@
 | 31.25–35.65 | Path B: still deciding | Path rewinds → No response → Next day → follow-up brings back the same quote (tagged "Original quote") |
 | 35.65–40.85 | Human handoff | High-intent ask → the same chips fly into a DoubleTick consultant card → assigned to a travel consultant |
 | 40.85–43.6 | Journey | Seven nodes joined by one green line, ending on "Booking Opportunity ✓" |
-| 43.6–47.3 | CTA | DoubleTick logo, "Your next booking could start on WhatsApp.", Book Your Free Pilot Today |
+| 43.6–47.3 (video 45.0–48.8) | CTA | DoubleTick logo, "Your next booking could start on WhatsApp.", Book Your Free Pilot Today |

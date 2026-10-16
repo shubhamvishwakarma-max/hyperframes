@@ -292,14 +292,14 @@ function headline(id, t, tin, tout, first = false) {
 }
 
 // ---------- illustrations ----------
-const BALI = (h) => `<svg width="100%" height="${h}" viewBox="0 0 380 132" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bs${h}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7B26A"/><stop offset=".55" stop-color="#F9D9A0"/><stop offset="1" stop-color="#FCEBCB"/></linearGradient></defs><rect width="380" height="132" fill="url(#bs${h})"/><circle cx="272" cy="56" r="20" fill="#FFF2D6"/><path d="M0 92c40-20 80-22 120-12s70 6 110-10 90-10 150 6v56H0z" fill="#7FB069"/><path d="M0 104c50-12 100-10 150-2s90 6 130-6 70-6 100 2v36H0z" fill="#5E9A50"/><path d="M0 116c60-8 120-6 180 0s120 2 200-6v24H0z" fill="#447F3D"/><g fill="#3A3226"><path d="M150 92v-26l6-4 6 4v26z"/><path d="M147 66h18l-3-6h-12z"/><path d="M151 60h10l-2-6h-6z"/><path d="M154 54h4l-2-6z"/><path d="M186 92v-26l6-4 6 4v26z"/><path d="M183 66h18l-3-6h-12z"/><path d="M187 60h10l-2-6h-6z"/><path d="M190 54h4l-2-6z"/></g><path d="M60 100c3-18 1-30-3-40" stroke="#3A3226" stroke-width="3" fill="none"/><path d="M57 60c-10-3-18 1-22 7 8-4 15-4 22-1zm0 0c8-6 17-6 23-2-8 0-15 1-23 4zm0 0c-3-8-1-15 4-19-1 7-2 13-4 19z" fill="#2F6B35"/></svg>`;
-$("#qiBig").innerHTML = BALI(132);
+const BALI = () => `<img src="assets/bali.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block">`;
+$("#qiBig").innerHTML = BALI();
 
 // ---------- WhatsApp thread ----------
 const BLUE = '<svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg>';
 const GREY = BLUE.replace('#53BDEB', '#8696A0');
 const AG = '<span class="ag">✦ AGENTIC AI</span>';
-const QB = (orig) => `<div class="qb"><div class="qi">${BALI(74)}</div><div class="qt"><b>Bali Holiday</b>${orig ? '<span class="orig">↺ Original quote</span>' : ''}<small>6 Nights · 2 Travellers · Hotel + Transfers + Activities</small></div><div class="qx">View Quote</div></div>`;
+const QB = (orig) => `<div class="qb"><div class="qi">${BALI()}</div><div class="qt"><b>Bali Holiday</b>${orig ? '<span class="orig">↺ Original quote</span>' : ''}<small>6 Nights · 2 Travellers · Hotel + Transfers + Activities</small></div><div class="qx">View Quote</div></div>`;
 // [id, html, tin, tout]
 const ITEMS = [
   ["d0", `<div class="sys">Today</div>`, 0.35, 99],
@@ -339,7 +339,7 @@ CHIP.forEach(([k, v, ic], i) => $("#chips").insertAdjacentHTML("beforeend", `<di
 
 // ---------- sources ----------
 const SRC = [
-  ["Instagram", "DMs & ads", 112, 400, "#FBE6EF", '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C2407A" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#C2407A"/></svg>'],
+  ["Instagram", "DMs & ads", 112, 400, "#FBE6EF", '<img src="assets/instagram.png" alt="" style="width:28px;height:28px">'],
   ["Ads", "Click-to-WhatsApp", 732, 400, "#E6EEFB", '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D6FD1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M16 8.5a5 5 0 0 1 0 7"/></svg>'],
   ["Website", "Chat & forms", 112, 790, "#E9F3EE", '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>'],
   ["Other sources", "QR, email, referrals", 732, 790, "#F3EFE6", '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8A6D3B" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><path d="M17 14v6M14 17h6"/></svg>'],
@@ -355,7 +355,11 @@ const JN = ["Enquiry", "AI Response", "Trip Details", "Quote", "Follow-up", "Con
 JN.forEach((n, i) => $("#jr").insertAdjacentHTML("beforeend", `<div class="jn" id="jn${i}" style="left:${70 + i * (860 / 6)}px"><div class="d" id="jd${i}"><i></i></div><div class="t">${n}</div></div>`));
 
 // ---------- subtitles (timed to VO) ----------
-const VO = [[0.25, 3.88], [4.45, 5.34], [10.35, 6.70], [17.3, 6.10], [23.6, 4.12], [28.6, 2.33], [31.25, 4.12], [35.65, 4.88], [40.85, 2.74], [43.95, 1.58]];
+// Yousef VO placed at +0.2s; [video start, duration] per line (from detected pauses).
+const VO = [[0.2, 4.38], [5.28, 6.01], [11.68, 8.04], [20.02, 6.0], [26.25, 3.94], [30.6, 2.35], [33.39, 4.02], [37.8, 4.59], [42.67, 2.47], [45.44, 1.75]];
+// VO-driven time warp: [videoTime, animTime]. Each scene starts on its VO line.
+const KP = [[0, 0], [0.2, 0.25], [5.28, 4.45], [11.68, 10.35], [20.02, 17.3], [26.25, 23.6], [30.6, 28.6], [33.39, 31.25], [37.8, 35.65], [42.67, 40.85], [45.44, 43.95], [48.8, 47.3]];
+function warp(T) { for (let i = 1; i < KP.length; i++) { const [n0, o0] = KP[i - 1], [n1, o1] = KP[i]; if (T <= n1) return o0 + (o1 - o0) * clamp((T - n0) / (n1 - n0)); } return KP[KP.length - 1][1]; }
 const SUBL = [
   ["It’s 1 AM. A traveller wants to book a holiday.", "Who’s responding?"],
   ["Your team is offline. Replies get delayed,", "quotes are pending, and potential bookings slip away."],
@@ -373,9 +377,10 @@ SUBL.forEach((chunks, i) => {
   const [st, d] = VO[i]; const tot = chunks.reduce((a, c) => a + c.length, 0); let acc = st;
   chunks.forEach((c, j) => { const dd = d * c.length / tot; SUBS.push([acc - (j === 0 ? 0.05 : 0), acc + dd + (j === chunks.length - 1 ? 0.25 : 0), c]); acc += dd; });
 });
-window.T_END = 47.3;
+window.T_END = 48.8;
 
-window.render = function (t) {
+window.render = function (T) {
+  const t = warp(T);
   // background: night → day
   const day = p(t, 9.8, 0.9, eIO);
   $("#night").style.opacity = 1 - day;
@@ -515,7 +520,7 @@ window.render = function (t) {
   set($("#ctaSub"), { o: cs });
 
   // subtitles
-  const sub = SUBS.find(sv => t >= sv[0] && t < sv[1]); const se = $("#subs");
+  const sub = SUBS.find(sv => T >= sv[0] && T < sv[1]); const se = $("#subs");
   if (sub) { if (se.dataset.k !== sub[2]) { se.textContent = sub[2]; se.dataset.k = sub[2]; } se.style.opacity = Math.min(p(t, sub[0], 0.12), 1 - p(t, sub[1] - 0.1, 0.1)); } else se.style.opacity = 0;
 };
 render(0);
