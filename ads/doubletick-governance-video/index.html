@@ -182,6 +182,74 @@
   #fuBox .mv { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 12.5px; color: #667781; font-weight: 500; }
   #chks { left: 0; width: 1080px; top: 760px; display: flex; justify-content: center; gap: 12px; z-index: 4; }
   #chks .chk { position: relative; }
+
+  /* v3: DoubleTick inbox (reference UI, simplified) */
+  #dash { left: 20px; top: 318px; width: 1040px; height: 610px; border-radius: 16px; background: #fff; border: 1px solid #E3E3DE; box-shadow: 0 30px 60px -30px rgba(19,19,22,0.35); overflow: hidden; color: #111B21; z-index: 2; font-size: 12px; }
+  .stabs { position: absolute; left: 0; right: 0; top: 0; height: 38px; display: flex; align-items: center; gap: 2px; padding: 0 10px; border-bottom: 1px solid #ECECEC; white-space: nowrap; overflow: hidden; }
+  .stabs span { padding: 5px 9px; border-radius: 6px; font-size: 11.5px; font-weight: 500; color: #3B4A54; display: inline-flex; align-items: center; gap: 5px; }
+  .stabs span.on { background: #E3F1EA; color: var(--green); font-weight: 600; }
+  .stabs b { font-size: 10px; font-weight: 600; background: #EEF0F1; color: #54656F; padding: 0 5px; border-radius: 4px; }
+  .pane { position: absolute; top: 38px; bottom: 0; }
+  #pSide { left: 0; width: 168px; border-right: 1px solid #ECECEC; }
+  #pList { left: 168px; width: 252px; border-right: 1px solid #ECECEC; }
+  #pConv { left: 420px; width: 400px; border-right: 1px solid #ECECEC; display: flex; flex-direction: column; }
+  #pDet { left: 820px; width: 220px; }
+  .ph2 { height: 46px; display: flex; align-items: center; gap: 8px; padding: 0 12px; border-bottom: 1px solid #ECECEC; font-size: 14px; font-weight: 600; }
+  .ph2 .r { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .si { display: flex; align-items: center; gap: 8px; padding: 7px 12px; font-size: 12.5px; color: #3B4A54; }
+  .si.h { font-weight: 600; color: #111B21; }
+  .si .r { margin-left: auto; }
+  .si.sub { padding-left: 34px; }
+  .si.on { background: #EDF6F1; color: var(--green); font-weight: 600; }
+  .cnt { font-size: 10px; font-weight: 600; padding: 0 5px; border-radius: 4px; background: #EEF0F1; color: #54656F; }
+  .si.on .cnt { background: var(--green); color: #fff; }
+  .sdiv { height: 1px; background: #ECECEC; margin: 4px 0; }
+  .slab { font-size: 11px; color: #667781; padding: 10px 12px 6px; }
+  .sel2 { margin: 0 12px; height: 30px; border: 1px solid #E3E3DE; border-radius: 6px; display: flex; align-items: center; padding: 0 9px; font-size: 11.5px; color: #3B4A54; justify-content: space-between; }
+  .crow { position: absolute; left: 0; right: 0; height: 92px; display: flex; gap: 10px; padding: 11px 12px; border-bottom: 1px solid #F2F2F2; }
+  .crow.sel { background: #EDF6F1; }
+  .av2 { position: relative; flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 13px; }
+  .wa2 { position: absolute; right: -2px; bottom: -2px; width: 12px; height: 12px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
+  .crow .b { flex: 1; min-width: 0; }
+  .crow .nm { font-size: 13.5px; font-weight: 500; color: #111B21; }
+  .crow .pv { display: flex; justify-content: space-between; gap: 6px; margin-top: 2px; font-size: 11.5px; color: #667781; }
+  .crow .pv span:first-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .crow .pv span:last-child { flex: none; font-size: 10px; color: #8696A0; }
+  .crow .tg2 { margin-top: 7px; display: flex; gap: 5px; }
+  .tg2 span { font-size: 10.5px; padding: 3px 7px; border-radius: 4px; background: #E3F1EA; color: #1E7A57; }
+  .tg2 span.amb { background: #FFF1DA; color: #A86A0C; } .tg2 span.ros { background: #F7E6E3; color: #B5524F; } .tg2 span.gry { background: #F0F2F5; color: #54656F; }
+  .newb { position: absolute; right: 12px; bottom: 12px; background: var(--green); color: #fff; font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 7px; }
+  .waba { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 5px 9px; border: 1px solid #E3E3DE; border-radius: 7px; }
+  .thr { flex: 1; position: relative; background: #EFEAE2; padding: 12px 14px; display: flex; flex-direction: column; gap: 9px; overflow: hidden; }
+  .thr::before { content: ""; position: absolute; inset: 0; opacity: 0.35; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' fill='none' stroke='%23D6CFC4' stroke-width='1.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='14' r='5'/%3E%3Cpath d='M42 9l7 7m0-7l-7 7'/%3E%3Cpath d='M18 46c4-5 9-5 12 0'/%3E%3Crect x='47' y='42' width='10' height='10' rx='3'/%3E%3C/svg%3E"); }
+  .thr > * { position: relative; }
+  .dchip { align-self: center; font-size: 10.5px; color: #54656F; background: #E1DCD3; padding: 3px 10px; border-radius: 6px; }
+  .mrow { position: relative; display: flex; }
+  .mrow.out, .mrow.note { justify-content: flex-end; }
+  .msg { max-width: 72%; padding: 6px 9px 6px; border-radius: 8px; font-size: 12.5px; line-height: 1.35; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .mrow.in .msg { background: #fff; border-top-left-radius: 0; }
+  .mrow.out .msg { background: #D9FDD3; border-top-right-radius: 0; }
+  .mrow.note .msg { background: #FFF6D6; border: 1px solid #F2DE9B; box-shadow: none; }
+  .msg .who { display: block; font-size: 10.5px; font-weight: 600; color: var(--green); margin-bottom: 1px; }
+  .mrow.note .msg .who { color: #B7791F; }
+  .msg .tm { float: right; margin: 4px 0 -2px 8px; font-size: 9.5px; color: #8696A0; }
+  .mk { position: absolute; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; color: var(--green); background: #fff; border: 1.5px solid rgba(0,122,90,0.45); padding: 3px 8px; border-radius: 999px; white-space: nowrap; box-shadow: 0 6px 14px -8px rgba(19,19,22,0.35); }
+  .mrow.in .mk { right: 0; } .mrow.out .mk, .mrow.note .mk { left: 0; }
+  .mk i { font-style: normal; display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 50%; background: var(--green); color: #fff; font-size: 9.5px; }
+  .comp { height: 48px; flex: none; display: flex; align-items: center; gap: 10px; margin: 8px 10px; padding: 0 12px; border: 1px solid #E3E3DE; border-radius: 10px; font-size: 12px; color: #8696A0; background: #fff; }
+  .comp .r { margin-left: auto; display: flex; gap: 10px; }
+  .dtabs { height: 46px; display: flex; align-items: flex-end; gap: 18px; padding: 0 14px; border-bottom: 1px solid #ECECEC; font-size: 12.5px; color: #667781; }
+  .dtabs span { padding-bottom: 12px; } .dtabs span.on { color: var(--green); font-weight: 600; border-bottom: 2px solid var(--green); }
+  .dsec { padding: 9px 14px 0; }
+  .dl { font-size: 10.5px; color: #667781; } .dv { font-size: 12.5px; color: #111B21; margin-top: 2px; }
+  .dh2 { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; color: #3B4A54; display: flex; align-items: center; gap: 6px; }
+  .ownr { position: relative; height: 54px; margin-top: 6px; }
+  .ownr > div { position: absolute; left: 0; right: 0; display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; }
+  .ownr .av2 { width: 24px; height: 24px; font-size: 10px; }
+  .fu { margin-top: 6px; border: 1px solid #F2DE9B; background: #FFFBEC; border-radius: 8px; padding: 7px 9px; }
+  .fu .l1 { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
+  .fu .l2 { display: flex; align-items: center; gap: 6px; margin-top: 5px; font-size: 10.5px; color: #667781; }
+  .focus { position: absolute; border: 2px solid rgba(0,122,90,0.6); border-radius: 12px; box-shadow: 0 0 0 4px rgba(0,122,90,0.12); pointer-events: none; z-index: 5; }
 </style>
 </head>
 <body>
@@ -243,7 +311,7 @@
   <svg id="tethers" class="abs" viewBox="0 0 1080 1080"></svg>
   <div id="agent" class="abs">
     <div class="big"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#8C8B84" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 14 0v1"/></svg></div>
-    <div><div class="k">TRAVEL AGENT</div><div class="n">Rahul</div></div>
+    <div><div class="k">TRAVEL AGENT</div><div class="n">Omar</div></div>
     <span class="pill ros left" id="leftChip"><span class="dot"></span>Left the company</span>
   </div>
   <div id="tcards"></div>
@@ -255,51 +323,66 @@
   <div id="wcards"></div>
   <div id="sweep" class="abs"></div>
 
-  <!-- dashboard -->
+  <!-- dashboard: DoubleTick inbox (reference UI, simplified) -->
   <div id="dash" class="abs">
-    <div class="rail">
-      <div class="lg"><svg width="20" height="14" viewBox="0 0 26 16" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5l4.5 4.5L15 3M11 12l1 1L23 3"/></svg></div>
-      <div class="ri on"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
-      <div class="ri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></svg></div>
-      <div class="ri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
-      <div class="ri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></div>
+    <div class="stabs"><span class="on">All</span><span>Waiting for Customer</span><span>Follow-up Today <b>3</b></span><span>Quote Shared <b>4</b></span><span>Refund Query <b>2</b></span><span>Escalated</span><span>Call Back</span><span>Booked <b>9</b></span><span>Open <b>6</b></span><span>Closed <b>6</b></span></div>
+    <div class="pane" id="pSide">
+      <div class="ph2">Inbox</div>
+      <div class="si h"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>All chats<span class="r"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></span></div>
+      <div class="si sub on">Open <span class="cnt">186</span></div>
+      <div class="si sub">Closed <span class="cnt">1K+</span></div>
+      <div class="si sub">Awaiting reply <span class="cnt">144</span></div>
+      <div class="si sub">Unread <span class="cnt">1K+</span></div>
+      <div class="si sub">All</div>
+      <div class="sdiv"></div>
+      <div class="si h"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>My chats<span class="r"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>
+      <div class="si h"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>SLA breached<span class="r"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>
+      <div class="si h"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-5M17 15l4 4M21 15l-4 4"/></svg>Unassigned<span class="r"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>
+      <div class="sdiv"></div>
+      <div class="slab">Team member</div><div class="sel2">Filter by member <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+      <div class="slab">Channels</div><div class="sel2">ABC Holidays <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
     </div>
-    <div class="main">
-      <div id="list">
-        <div class="topbar"><span class="ttl">All Conversations</span><span class="tab on">All <b>28</b></span><span class="tab">Unassigned <b>0</b></span><span class="tab">Follow-up today <b>3</b></span><span class="brandchip"><img src="assets/whatsapp-logo.png" alt="" style="width:16px;height:16px" />ABC Holidays<span class="vt" style="width:15px;height:15px;background:#1D9BF0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span></div>
-        <div class="cols"><span>CUSTOMER</span><span>STATUS</span><span>OWNER</span><span>LAST INTERACTION</span></div>
-        <div id="rows"></div>
-      </div>
-      <div id="detail">
-        <div class="dh"><div class="av a1">A</div><div><b>Ananya Sharma</b><small>Bali Holiday · 2 travellers</small></div><span class="pill amb"><span class="dot"></span>Follow-up Today</span><span class="wab"><img src="assets/whatsapp-logo.png" alt="" style="width:18px;height:18px" />ABC Holidays · Brand WhatsApp</span></div>
-        <div id="hist">
-          <div class="lab" style="margin-bottom:16px">CONVERSATION HISTORY</div>
-          <div class="step" id="st0"><i></i><b>Initial enquiry</b><small>10 Nov · via WhatsApp</small></div>
-          <div class="step" id="st1"><i></i><b>Quote shared</b><small>10 Nov · Bali Package · ₹1.45L</small></div>
-          <div class="step" id="st2"><i></i><b>Airport transfer promised</b><small>11 Nov · by Rahul</small></div>
-          <div class="step" id="st3"><i></i><b>Follow-up scheduled</b><small>Today · 4:00 PM</small></div>
-        </div>
-        <div id="side">
-          <div class="box" id="ownBox">
-            <div class="lab">OWNER</div>
-            <div class="oline" id="oRahul" style="top:48px"><div class="av a5">R</div><span>Rahul</span><span class="pill ros tag">Left the company</span></div>
-            <div class="oline" id="oPrev" style="top:44px;font-size:13.5px;color:#8696A0;font-weight:500"><div class="av a5" style="width:24px;height:24px;font-size:10px">R</div>Previous Agent · Rahul</div>
-            <div class="oline" id="oNeha" style="top:78px"><div class="av a6">N</div>Neha<span class="vt"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="pill grn tag" id="route">Full context</span></div>
-          </div>
-          <div class="box" id="fuBox">
-            <div class="lab">NEXT ACTION</div>
-            <div class="fr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A86A0C" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Follow-up · Today, 4:00 PM<span class="pill amb" id="fuPend" style="margin-left:auto"><span class="dot"></span>Pending</span></div>
-            <div class="mv" id="fuMgr"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Visible to manager</div>
-          </div>
-        </div>
-      </div>
+    <div class="pane" id="pList">
+      <div class="ph2">All chats<span class="r"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16M3 8l4-4 4 4M17 20V4M13 16l4 4 4-4"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#54656F"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span></div>
+      <div class="crow" id="cr0" style="top:46px"><div class="av2 a1">A<span class="wa2"></span></div><div class="b"><div class="nm">Aisha Rahman</div><div class="pv"><span>Is the airport transfer included?</span><span>10:42 am</span></div><div class="tg2"><span class="amb">Follow-up Today</span><span class="gry">Omar</span></div></div></div><div class="crow" id="cr1" style="top:138px"><div class="av2 a2">K<span class="wa2"></span></div><div class="b"><div class="nm">Khalid Al Mansoori</div><div class="pv"><span>Thanks, will check 🙏</span><span>10:21 am</span></div><div class="tg2"><span class="">Quote Shared</span><span class="gry">Omar</span></div></div></div><div class="crow" id="cr2" style="top:230px"><div class="av2 a3">M<span class="wa2"></span></div><div class="b"><div class="nm">Mariam Saeed</div><div class="pv"><span>Full refund before Friday?</span><span>09:58 am</span></div><div class="tg2"><span class="ros">Refund Query</span><span class="gry">Noura</span></div></div></div><div class="crow" id="cr3" style="top:322px"><div class="av2 a4">Y<span class="wa2"></span></div><div class="b"><div class="nm">Yousef Ali</div><div class="pv"><span>Passport copies sent ✅</span><span>Yesterday</span></div><div class="tg2"><span class="">Booked</span><span class="gry">Sara</span></div></div></div><div class="crow" id="cr4" style="top:414px"><div class="av2 a6">F<span class="wa2"></span></div><div class="b"><div class="nm">Fatima Hassan</div><div class="pv"><span>Thank you so much!</span><span>Mon</span></div><div class="tg2"><span class="gry">Closed</span></div></div></div>
+      <div class="newb">+ New</div>
     </div>
+    <div class="pane" id="pConv">
+      <div class="ph2"><div class="av2 a1" style="width:30px;height:30px">A<span class="wa2"></span></div>Aisha Rahman<span class="r"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span class="waba"><img src="assets/whatsapp-logo.png" alt="" style="width:15px;height:15px" />ABC Holidays <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#54656F"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span></div>
+      <div class="thr">
+        <span class="dchip">Monday</span>
+        <div class="mrow in" id="m0"><div class="msg">Hi! Bali for 2 in December? 🌴<span class="tm">7:02 pm</span></div><span class="mk" id="mk0"><i>1</i>Initial enquiry</span></div>
+        <div class="mrow out" id="m1"><div class="msg"><span class="who">Omar</span><div class="doc"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Bali Package · AED 6,450</div>Here's your quote<span class="tm">7:10 pm</span></div><span class="mk" id="mk1"><i>2</i>Quote shared</span></div>
+        <div class="mrow in" id="m2"><div class="msg">Is the airport transfer included?<span class="tm">7:12 pm</span></div></div>
+        <div class="mrow out" id="m3"><div class="msg"><span class="who">Omar</span>Yes, it's included ✅<span class="tm">7:14 pm</span></div><span class="mk" id="mk2"><i>3</i>Airport transfer promised</span></div>
+        <span class="dchip">Today</span>
+        <div class="mrow note" id="m4"><div class="msg"><span class="who">Omar · NOTE</span>Follow-up today, 4:00 PM</div><span class="mk" id="mk3"><i>4</i>Follow-up scheduled</span></div>
+        <div class="mrow out" id="m5"><div class="msg"><span class="who">Sara</span>Hi Aisha, Sara here! Your transfer is confirmed ✅<span class="tm">10:45 am</span></div></div>
+      </div>
+      <div class="comp"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>Type message or use "/" for quick replies<span class="r"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 11.1l-9.2 9.2a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 0 1-2.8-2.8l8.5-8.5"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span></div>
+    </div>
+    <div class="pane" id="pDet">
+      <div class="dtabs"><span class="on">Details</span><span>Calls</span><span>Notes</span></div>
+      <div class="dsec" style="display:flex;align-items:center;gap:9px;padding-top:12px"><div class="av2 a1">A<span class="wa2"></span></div><b style="font-size:14px;font-weight:600">Aisha Rahman</b></div>
+      <div class="dsec"><div class="dl">Phone number</div><div class="dv">+971 50 482 4832</div></div>
+      <div class="dsec"><div class="dl">Contacted on</div><div class="dv" style="display:flex;align-items:center;gap:7px;margin-top:4px"><span style="width:26px;height:26px;border-radius:50%;background:#131316;display:grid;place-items:center"><svg width="14" height="10" viewBox="0 0 26 16" fill="none" stroke="#29B47A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5l4.5 4.5L15 3M11 12l1 1L23 3"/></svg></span><span>ABC Holidays<br><span style="color:#667781;font-size:11px">+971 4 555 0142</span></span></div></div>
+      <div class="dsec" id="ownSec"><div class="dh2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>ASSIGNED TO</div>
+        <div class="ownr">
+          <div id="oA" style="top:4px"><div class="av2 a5">O</div>Omar<span class="pill ros" style="margin-left:auto;font-size:10.5px;padding:2px 7px">Left</span></div>
+          <div id="oPrev" style="top:0;font-size:11px;color:#8696A0;font-weight:500">Previous · Omar</div>
+          <div id="oB" style="top:20px"><div class="av2 a6">S</div>Sara<span class="vt" style="width:16px;height:16px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="pill grn" id="route" style="margin-left:auto;font-size:10.5px;padding:2px 7px">Full context</span></div>
+        </div></div>
+      <div class="dsec" id="fuSec"><div class="dh2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>NEXT ACTION</div>
+        <div class="fu"><div class="l1">Follow-up · Today, 4:00 PM</div><div class="l2"><span class="pill amb" id="fuPend" style="font-size:10.5px;padding:2px 7px"><span class="dot"></span>Pending</span><span id="fuMgr" style="display:inline-flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Visible to manager</span></div></div></div>
+      <div class="dsec"><div class="dh2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5"/></svg>TAGS</div><div class="tg2"><span class="amb">Follow-up Today</span><span>Bali Holiday</span></div></div>
+    </div>
+    <div class="focus" id="focus"></div>
   </div>
 
   <!-- PII -->
   <div id="prof" class="abs">
     <div class="ph"><div class="av a1">A</div><b>Guest details</b><span class="pill gry" id="roleB"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.9 17.9A10 10 0 0 1 12 20c-7 0-10-8-10-8a18 18 0 0 1 5.1-5.9M9.9 4.2A9 9 0 0 1 12 4c7 0 10 8 10 8a18 18 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2M2 2l20 20"/></svg>Viewing as Agent</span></div>
-    <div class="prow"><span class="k">Guest</span><span class="v">Ananya Sharma</span></div>
+    <div class="prow"><span class="k">Guest</span><span class="v">Aisha Rahman</span></div>
     <div class="prow"><span class="k">Phone</span><span class="v" id="mv0"></span><span class="lk" id="lk0"></span></div>
     <div class="prow"><span class="k">Passport</span><span class="v" id="mv1"></span><span class="lk" id="lk1"></span></div>
     <div class="prow"><span class="k">Payment</span><span class="v" id="mv2"></span><span class="lk" id="lk2"></span></div>
@@ -307,17 +390,17 @@
 
   <!-- AI flags -->
   <div id="f0" class="abs frow" style="top:356px"><span class="edge"></span>
-    <div class="fh"><div class="av a1">A</div>Ananya · Bali Holiday</div>
-    <div class="fb"><div class="ref"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Stored quote · <b>₹1.45L</b></div><div class="bub out"><span class="who">Agent</span>Your package total is <span class="ul" id="u0">₹1.35L</span>.</div></div>
+    <div class="fh"><div class="av a1">A</div>Aisha · Bali Holiday</div>
+    <div class="fb"><div class="ref"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Stored quote · <b>AED 6,450</b></div><div class="bub out"><span class="who">Agent</span>Your package total is <span class="ul" id="u0">AED 5,950</span>.</div></div>
     <div class="flag" id="fl0"><span class="ai">AI</span>Price mismatch detected</div>
   </div>
   <div id="f1" class="abs frow" style="top:516px"><span class="edge" style="background:var(--rose)"></span>
-    <div class="fh"><div class="av a2">R</div>Rohan · Dubai Trip</div>
+    <div class="fh"><div class="av a2">K</div>Khalid · Baku Trip</div>
     <div class="fb"><div class="bub in">Can you confirm the airport pickup?</div><span class="noreply"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>No reply · <span id="nr">3h</span></span></div>
     <div class="flag r" id="fl1"><span class="ai">AI</span>Reply overdue</div>
   </div>
   <div id="f2" class="abs frow" style="top:676px"><span class="edge"></span>
-    <div class="fh"><div class="av a3">M</div>Meera · Maldives Booking</div>
+    <div class="fh"><div class="av a3">M</div>Mariam · Maldives Booking</div>
     <div class="fb"><div class="ref">Stored policy · <b>50% refund after 12 Nov</b></div><div class="bub out"><span class="who">Agent</span><span class="ul" id="u2">You'll receive a full refund.</span></div></div>
     <div class="flag" id="fl2"><span class="ai">AI</span>Policy mismatch</div>
   </div>
@@ -364,11 +447,11 @@ const TICK = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke
 const BLUE = '<svg width="14" height="10" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg>';
 const DOC = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>';
 
-// ---------- S1: Rahul + what is tied to him ----------
+// ---------- S1: Omar + what is tied to him ----------
 const TC = [
-  { x: 45, y: 600, h: `<div class="av a1">A<span class="wa"></span></div><div class="b"><div class="t">Ananya<small>10:42</small></div><div class="m">Is my airport transfer included?</div></div>` },
-  { x: 390, y: 600, h: `<div class="av a3">M<span class="wa"></span></div><div class="b"><div class="t">Meera<small>Mon</small></div><div class="m">Full refund if I cancel?</div></div>` },
-  { x: 735, y: 600, h: `<div class="ic" style="background:var(--tint)">${DOC}</div><div class="b"><div class="t">Quote<small></small></div><div class="m">Bali Package · ₹1.45L</div></div>` },
+  { x: 45, y: 600, h: `<div class="av a1">A<span class="wa"></span></div><div class="b"><div class="t">Aisha<small>10:42</small></div><div class="m">Is my airport transfer included?</div></div>` },
+  { x: 390, y: 600, h: `<div class="av a3">M<span class="wa"></span></div><div class="b"><div class="t">Mariam<small>Mon</small></div><div class="m">Full refund if I cancel?</div></div>` },
+  { x: 735, y: 600, h: `<div class="ic" style="background:var(--tint)">${DOC}</div><div class="b"><div class="t">Quote<small></small></div><div class="m">Bali Package · AED 6,450</div></div>` },
   { x: 390, y: 750, h: `<div class="ic" style="background:var(--amber-bg)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A86A0C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16l20-6-3-3-6 2-6-5-2 1 4 6-4 1-2-2-2 1z"/></svg></div><div class="b"><div class="t">Pending booking<small></small></div><div class="m">Maldives · 2 travellers</div></div>` },
 ];
 const tcEl = $("#tcards"), teth = $("#tethers");
@@ -381,12 +464,12 @@ TC.forEach((c, k) => {
 const WX = [45, 395, 745], WY = 470, WOFF = [34, 0, 44], WROT = [-4, 2.5, -2.5];
 const PHONE = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>';
 const WC = [
-  { av: "a1", i: "A", n: "Ananya", st: ["amb", "Customer commitment"],
-    b: `<div class="bub in">Can you confirm my airport transfer?<span class="tm">7:12 PM</span></div><div class="bub out"><span class="who">Rahul</span>Yes, it's included.<span class="tm">7:14 PM ${BLUE}</span></div>` },
-  { av: "a2", i: "R", n: "Rohan", st: ["grn", "Quote shared"],
-    b: `<div class="bub out"><span class="who">Rahul</span><div class="doc">${DOC} Bali Package · ₹1.45L</div>Here's your quote 🌴<span class="tm">11:02 AM ${BLUE}</span></div><div class="bub in">Thanks, will check 🙏<span class="tm">11:20 AM</span></div>` },
-  { av: "a3", i: "M", n: "Meera", st: ["ros", "Refund promise"],
-    b: `<div class="bub in">Will I get a full refund if I cancel before Friday?<span class="tm">Mon</span></div><div class="bub out"><span class="who">Rahul</span>Yes, that should be fine.<span class="tm">Mon ${BLUE}</span></div>` },
+  { av: "a1", i: "A", n: "Aisha", st: ["amb", "Customer commitment"],
+    b: `<div class="bub in">Can you confirm my airport transfer?<span class="tm">7:12 PM</span></div><div class="bub out"><span class="who">Omar</span>Yes, it's included.<span class="tm">7:14 PM ${BLUE}</span></div>` },
+  { av: "a2", i: "K", n: "Khalid", st: ["grn", "Quote shared"],
+    b: `<div class="bub out"><span class="who">Omar</span><div class="doc">${DOC} Bali Package · AED 6,450</div>Here's your quote 🌴<span class="tm">11:02 AM ${BLUE}</span></div><div class="bub in">Thanks, will check 🙏<span class="tm">11:20 AM</span></div>` },
+  { av: "a3", i: "M", n: "Mariam", st: ["ros", "Refund promise"],
+    b: `<div class="bub in">Will I get a full refund if I cancel before Friday?<span class="tm">Mon</span></div><div class="bub out"><span class="who">Omar</span>Yes, that should be fine.<span class="tm">Mon ${BLUE}</span></div>` },
 ];
 const wcEl = $("#wcards"), lsvg = $("#lines");
 WC.forEach((c, k) => {
@@ -398,21 +481,8 @@ WC.forEach((c, k) => {
   lsvg.insertAdjacentHTML("beforeend", `<path id="l${k}" fill="none" stroke="#9A9890" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="6 7"/><circle id="le${k}" r="4" fill="#B5524F"/>`);
 });
 
-// ---------- dashboard rows ----------
-const ROWS = [
-  { av: "a1", i: "A", n: "Ananya", trip: "Bali Holiday", st: ["amb", "Follow-up Today"], own: ["a5", "R", "Rahul"], ls: "Today, 10:42 AM" },
-  { av: "a2", i: "R", n: "Rohan", trip: "Dubai Trip", st: ["grn", "Quote Shared"], own: ["a5", "R", "Rahul"], ls: "Yesterday" },
-  { av: "a3", i: "M", n: "Meera", trip: "Maldives Booking", st: ["ros", "Refund Query"], own: ["a4", "P", "Priya"], ls: "Mon, 4:10 PM" },
-];
-const ROW_TOP = 94;
-ROWS.forEach((r, k) => $("#rows").insertAdjacentHTML("beforeend", `<div class="row" id="r${k}" style="top:${ROW_TOP + k * 76}px">
-  <div class="cu"><div class="av ${r.av}">${r.i}</div><div><b>${r.n}</b><small>${r.trip}</small></div></div>
-  <div><span class="pill ${r.st[0]}"><span class="dot"></span>${r.st[1]}</span></div>
-  <div><span class="own"><span class="av ${r.own[0]}">${r.own[1]}</span>${r.own[2]}</span></div>
-  <div class="ls">${r.ls}</div></div>`));
-
 // ---------- masking ----------
-const MASK = [["+91 982015 4832", "+91 •••••• 4832"], ["P84321545", "P••••••45"], ["4590 6721", "•••• 6721"]];
+const MASK = [["+971 50 482 4832", "+971 •• ••• 4832"], ["P84321545", "P••••••45"], ["4590 6721", "•••• 6721"]];
 const LOCK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
 function maskStr(i, m) {
   const [a, b] = MASK[i]; const diff = [...a].map((c, j) => c !== b[j] ? j : -1).filter(j => j >= 0);
@@ -452,7 +522,7 @@ SUBL.forEach((ch, i) => {
 });
 window.T_END = 45.0;
 
-const ROWC = k => ({ x: 60 + 60 + 450, y: 330 + ROW_TOP + 38 + k * 76 });
+const ROWC = k => ({ x: 20 + 168 + 126, y: 318 + 38 + 46 + 46 + k * 92 });
 // scene clock (video time)
 const T2 = 5.55, TR = 15.25, T3 = 16.55, T4 = 22.55, T5 = 23.95, T6 = 25.0, T7 = 27.9, T8 = 30.95, T9 = 36.9, T9B = 39.3, T10 = 41.15;
 
@@ -474,7 +544,7 @@ window.render = function (t) {
   const h2s = p(t, 11.9, 0.4);
   set($("#h2s"), { o: h2s * (1 - p(t, TR - 0.1, 0.25)), y: (1 - h2s) * 10 });
 
-  // ---- S1: Rahul exits, his chats/quote/booking follow, freeze halfway ----
+  // ---- S1: Omar exits, his chats/quote/booking follow, freeze halfway ----
   const out1 = p(t, T2 - 0.15, 0.4, eIO);
   const ag = p(t, 1.9, 1.5, eIn);
   set($("#agent"), { x: 820 * ag, r: 3 * ag, o: (t < 0.05 ? 1 : p(t, 0, 0.3)) * (1 - p(t, 2.95, 0.4)) });
@@ -528,33 +598,38 @@ window.render = function (t) {
   set($("#sweep"), { o: (t > TR ? 1 : 0) * (1 - p(t, TR + 0.8, 0.35)) });
   $("#sweep").style.transform = `scaleX(${sweep})`;
 
-  // ---- dashboard ----
+  // ---- dashboard (reference inbox UI) ----
   const da = p(t, T3 + 0.05, 0.5, eSp), dOut = p(t, T8 - 0.1, 0.4, eIO), dim = p(t, T7, 0.45, eIO) * (1 - p(t, T8 - 0.1, 0.01));
-  $("#dash").style.height = lerp(384, 570, p(t, T4, 0.6, eIO)) + "px";
   set($("#dash"), { o: da * (1 - dOut) * lerp(1, 0.35, dim), s: lerp(0.96, 1, da) * lerp(1, 0.97, dim), y: (1 - da) * 24, blur: dim * 3 });
-  for (let k = 0; k < 3; k++) { const ra = p(t, T3 + 0.4 + k * 0.1, 0.35, eSp); set($("#r" + k), { o: ra * (k ? 1 - p(t, T4 + 0.1, 0.3) : 1), x: (1 - ra) * -16 }); }
-  $("#r0").classList.toggle("sel", t > T4);
-  const dv = p(t, T4 + 0.25, 0.5, eIO);
-  set($("#detail"), { o: dv, x: (1 - dv) * 60 });
-  set($("#list"), { o: 1 - p(t, T4 + 0.35, 0.4) });
-  for (let k = 0; k < 4; k++) { const sa = p(t, T4 + 0.45 + k * 0.2, 0.35, eSp); set($("#st" + k), { o: sa, y: (1 - sa) * -12 }); }
-  $("#st3").querySelector("i").style.background = t > T5 + 0.2 ? "#A86A0C" : "#fff";
-  $("#st3").querySelector("i").style.borderColor = t > T5 + 0.2 ? "#A86A0C" : "";
-  // owner box
-  const oa = p(t, T4 + 0.6, 0.35);
-  set($("#ownBox"), { o: oa, y: (1 - oa) * 10 });
-  // follow-up box
-  const fu = p(t, T5 + 0.1, 0.4, eSp);
-  set($("#fuBox"), { o: fu, y: (1 - fu) * 16 });
-  set($("#fuPend"), { o: p(t, T5 + 0.45, 0.3), s: lerp(0.85, 1, p(t, T5 + 0.45, 0.35, eSp)) });
-  set($("#fuMgr"), { o: p(t, T5 + 0.7, 0.3) });
+  for (let k = 0; k < 5; k++) { const ra = p(t, T3 + 0.4 + k * 0.1, 0.35, eSp); set($("#cr" + k), { o: ra, x: (1 - ra) * -16 }); }
+  $("#cr0").classList.toggle("sel", t > T4);
+  // focus: dim panes that are not the point of the current beat
+  const fH = p(t, T4, 0.4) * (1 - p(t, T7, 0.3));                 // history .. reassign
+  const fConv = 1, fSide = lerp(1, 0.3, fH), fList = lerp(1, 0.4, fH);
+  $("#pSide").style.opacity = fSide; $("#pList").style.opacity = fList; $("#pConv").style.opacity = fConv;
+  $(".stabs").style.opacity = lerp(1, 0.4, fH);
+  // thread: the same conversation, never rebuilt
+  for (let k = 0; k < 5; k++) set($("#m" + k), { o: p(t, T3 + 0.6 + k * 0.12, 0.3) });
+  const m5 = p(t, T6 + 1.5, 0.4, eSp);
+  set($("#m5"), { o: m5, y: (1 - m5) * 12 });
+  for (let k = 0; k < 4; k++) { const ka = p(t, T4 + 0.3 + k * 0.22, 0.35, eSp); set($("#mk" + k), { o: ka * (1 - p(t, T6 + 1.3, 0.3)), s: lerp(0.85, 1, ka), y: -0 }); $("#mk" + k).style.transform += " translateY(-50%)"; }
+  // focus ring: history -> follow-up -> owner
+  const FR = [[424, 86, 392, 430], [824, 300, 212, 104], [824, 222, 212, 80]];
+  const fi = t < T5 ? 0 : t < T6 ? 1 : 2, fr = FR[fi];
+  const fo = p(t, T4 + 0.2, 0.3) * (1 - p(t, T7 - 0.1, 0.25)) * (t > T5 - 0.05 && t < T5 + 0.1 || t > T6 - 0.05 && t < T6 + 0.1 ? 0 : 1);
+  Object.assign($("#focus").style, { left: fr[0] + "px", top: fr[1] + "px", width: fr[2] + "px", height: fr[3] + "px" });
+  set($("#focus"), { o: fo });
+  set($("#fuPend"), { o: 0.35 + 0.65 * p(t, T5 + 0.3, 0.3), s: lerp(0.9, 1, p(t, T5 + 0.3, 0.35, eSp)) });
+  set($("#fuMgr"), { o: 0.35 + 0.65 * p(t, T5 + 0.55, 0.3) });
   // reassign: only the owner chip changes
   const sw = p(t, T6 + 0.55, 0.45, eIO);
-  set($("#oRahul"), { o: 1 - sw, y: -10 * sw });
-  set($("#oPrev"), { o: p(t, T6 + 0.75, 0.35), y: (1 - p(t, T6 + 0.75, 0.35)) * 8 });
+  set($("#oA"), { o: 1 - sw, y: -8 * sw });
+  set($("#oPrev"), { o: p(t, T6 + 0.75, 0.35) });
   const ne = p(t, T6 + 0.85, 0.45, eSp);
-  set($("#oNeha"), { o: ne, x: (1 - ne) * 30 });
+  set($("#oB"), { o: ne, x: (1 - ne) * 24 });
   set($("#route"), { o: p(t, T6 + 1.4, 0.3), s: lerp(0.85, 1, p(t, T6 + 1.4, 0.35, eSp)) });
+  // list row owner chip follows the reassignment
+  $("#cr0").querySelectorAll(".tg2 span")[1].textContent = t > T6 + 0.9 ? "Sara" : "Omar";
 
   // ---- PII masking (zoom into guest details) ----
   const pf = p(t, T7 + 0.1, 0.55, eSp), pOut = p(t, T8 - 0.15, 0.35, eIO);
