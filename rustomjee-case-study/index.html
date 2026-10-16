@@ -218,8 +218,8 @@
       #kpi-45 .pill { font-size: 18px; background: #fff; border: 1px solid #cfe7d8; color: var(--green-d); padding: 8px 16px; }
       #kpi-voice { left: 1470px; top: 176px; width: 330px; height: 716px; border-radius: 36px; overflow: hidden; background: #0f1418 url("assets/img/call-bg.png") center/cover; border: 1px solid #cfd6d2; }
       .vc-t { position: absolute; left: 0; right: 0; text-align: center; color: #fff; }
-      #kpi-ring { position: absolute; left: 50%; top: 230px; width: 250px; height: 250px; margin-left: -125px; mix-blend-mode: screen; }
-      #kpi-agent { position: absolute; left: 50%; top: 286px; width: 140px; height: 140px; margin-left: -70px; border-radius: 50%; object-fit: cover; object-position: 50% 15%; }
+      #kpi-ring { position: absolute; left: 50%; top: 226px; width: 270px; height: 270px; margin-left: -135px; mix-blend-mode: screen; }
+      #kpi-agent { position: absolute; left: 50%; top: 270px; width: 182px; height: 182px; margin-left: -91px; border-radius: 50%; object-fit: cover; object-position: 50% 12%; background: #fff; border: 3px solid #fff; }
       #kpi-chat { left: 1040px; top: 176px; width: 390px; padding: 18px; }
       .srow { position: absolute; left: 1040px; width: 390px; height: 92px; }
       .srow > div { position: absolute; inset: 0; display: flex; align-items: center; gap: 12px; padding: 0 16px; border-radius: 16px; }
@@ -233,8 +233,7 @@
       #kpi-stage { left: 1206px; top: 772px; background: #fff; border: 1px solid #bfe5cf; color: var(--green-d); font-size: 17px; padding: 10px 16px; box-shadow: 0 8px 24px rgba(18,138,88,.12); }
 
       /* S8 close */
-      #s8-mark { left: 0; right: 0; top: 196px; display: flex; justify-content: center; }
-      #s8-h { left: 0; right: 0; top: 300px; text-align: center; font-size: 100px; line-height: 1.08; }
+      #s8-h { left: 0; right: 0; top: 270px; text-align: center; font-size: 100px; line-height: 1.08; }
       #s8-cards { left: 300px; top: 610px; width: 1320px; display: flex; gap: 30px; align-items: stretch; }
       #s8-cards .card { flex: 1; padding: 20px 22px; }
       .mini-h { font-size: 14px; letter-spacing: .12em; font-weight: 600; color: var(--mute); margin-bottom: 12px; }
@@ -430,7 +429,8 @@
           </div>
           <div id="kpi-rows"></div>
           <div class="abs" id="kpi-voice">
-                                    <div class="vc-t" style="top:120px;font-size:24px;font-weight:600;display:flex;justify-content:center;gap:6px;align-items:center">Rustomjee <svg class="verified" viewBox="0 0 24 24"><path d="M12 1l2.6 2.2 3.4-.4.9 3.3 3 1.7-1.2 3.2 1.2 3.2-3 1.7-.9 3.3-3.4-.4L12 23l-2.6-2.2-3.4.4-.9-3.3-3-1.7L3.3 13 2.1 9.8l3-1.7.9-3.3 3.4.4z" fill="#1d8cf8"/><path d="M7.5 12.2l3 3 6-6" stroke="#fff" stroke-width="2.2" fill="none"/></svg></div>
+                                    <div class="vc-t" style="top:40px;font-size:15px;font-weight:500">Customer</div>
+            <div class="vc-t" style="top:120px;font-size:24px;font-weight:600;display:flex;justify-content:center;gap:6px;align-items:center">Rustomjee <svg class="verified" viewBox="0 0 24 24"><path d="M12 1l2.6 2.2 3.4-.4.9 3.3 3 1.7-1.2 3.2 1.2 3.2-3 1.7-.9 3.3-3.4-.4L12 23l-2.6-2.2-3.4.4-.9-3.3-3-1.7L3.3 13 2.1 9.8l3-1.7.9-3.3 3.4.4z" fill="#1d8cf8"/><path d="M7.5 12.2l3 3 6-6" stroke="#fff" stroke-width="2.2" fill="none"/></svg></div>
             <div class="vc-t" style="top:156px;font-size:18px;opacity:.7">AI Agent · Connected</div>
             <img id="kpi-ring" src="assets/img/voice-ring.png" alt="" />
             <img id="kpi-agent" src="assets/img/ai-agent.png" alt="" />
@@ -455,7 +455,6 @@
       <section id="s8" class="clip scene" data-start="32.9" data-duration="5.1" data-track-index="8">
         <div class="inner" id="s8-in">
           <div class="abs" id="s8-cust"><span class="eyebrow" style="font-size:15px"><i></i>Customer story</span><img src="assets/img/rustomjee-logo.webp" alt="Rustomjee" /></div>
-          <div class="abs" id="s8-mark"><svg width="110" height="62" viewBox="0 0 44 25"><path  d="M1 12 L11 22" fill="none" stroke="#22b573" stroke-width="3.2"/><path  d="M12.5 12 L21.5 21 L42 1" fill="none" stroke="#22b573" stroke-width="3.2"/><path  d="M20 11 L30 1" fill="none" stroke="#22b573" stroke-width="3.2"/></svg></div>
           <div class="abs serif" id="s8-h"><span class="mask"><span>Turn every conversation</span></span><span class="mask"><span>into an <span class="g">opportunity.</span></span></span></div>
           <div class="abs" id="s8-cards">
             <div class="card" id="s8-c1">
@@ -735,7 +734,6 @@
         tl.to("#kpi-in", { opacity: 0, duration: 0.4, ease: "power2.in" }, 32.95);
 
         // ===== S8 close =====
-        tl.fromTo("#s8-mark path", { strokeDasharray: 50, strokeDashoffset: 50 }, { strokeDashoffset: 0, duration: 0.5, stagger: 0.12, ease: E }, 33.25);
         tl.fromTo("#s8-h .mask > span", { yPercent: 110 }, { yPercent: 0, duration: 0.65, stagger: 0.18, ease: "expo.out" }, 34.25);
         tl.fromTo("#s8-cards .card", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: E }, 33.5);
         tl.fromTo("#s8-cust", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 33.6);
