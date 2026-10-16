@@ -281,9 +281,9 @@
 
   <!-- headlines -->
   <div id="h1" class="abs hl" style="top:84px">
-    <div class="ln serif muted" style="font-size:58px"><span>Your agent just left.</span></div>
-    <div class="ln serif" style="font-size:66px"><span>Did the customer conversations</span></div>
-    <div class="ln serif rose" style="font-size:96px"><span>leave too?</span></div>
+    <div class="ln serif" style="font-size:68px"><span>Your travel agent just left.</span></div>
+    <div class="ln serif" style="font-size:68px"><span>Did the customer conversations</span></div>
+    <div class="ln serif rose" style="font-size:68px"><span>leave too?</span></div>
   </div>
   <div id="h2" class="abs hl" style="top:96px">
     <div class="ln serif" style="font-size:66px"><span>Chats. Quotes. Promises.</span></div>
@@ -514,7 +514,11 @@ JN.forEach((n, i) => {
 const jlen = $("#jline").getTotalLength(); $("#jline").style.strokeDasharray = jlen;
 
 // ---------- VO + subtitles (video time) ----------
-const VO = [[0.15, 5.05], [5.6, 6.05], [11.8, 3.72], [16.6, 5.87], [22.65, 1.2], [24.0, 0.87], [25.05, 2.63], [28.0, 2.68], [31.05, 5.64], [37.0, 4.07], [41.4, 1.93]];
+// Yousef VO placed at +0.15s; [video start, duration] per line (from detected pauses).
+const VO = [[0.15, 5.61], [6.32, 6.37], [13.33, 3.69], [17.42, 7.44], [25.2, 1.13], [26.44, 0.82], [27.35, 2.49], [30.09, 3.06], [33.15, 6.18], [39.75, 4.25], [44.34, 2.02]];
+// VO-driven time warp: [videoTime, animTime]; each scene starts on its VO line.
+const KP = [[0, 0], [0.15, 0.15], [6.32, 5.6], [13.33, 11.8], [16.55, 15.25], [17.42, 16.6], [25.2, 22.65], [26.44, 24.0], [27.35, 25.05], [30.09, 28.0], [33.15, 31.05], [34.85, 32.15], [35.6, 33.35], [36.3, 34.45], [39.75, 37.0], [44.34, 41.4], [47.5, 45.0]];
+function warp(T) { for (let i = 1; i < KP.length; i++) { const [n0, o0] = KP[i - 1], [n1, o1] = KP[i]; if (T <= n1) return o0 + (o1 - o0) * clamp((T - n0) / (n1 - n0)); } return KP[KP.length - 1][1]; }
 const SUBL = [
   ["Your travel agent just left the company.", "Did your customer chats and pending bookings leave with them?"],
   ["In many travel businesses, customer conversations,", "quotes, and refund promises live on agents' personal WhatsApp."],
@@ -533,13 +537,14 @@ SUBL.forEach((ch, i) => {
   const [st, d] = VO[i]; const tot = ch.reduce((a, c) => a + c.length, 0); let acc = st;
   ch.forEach((c, j) => { const dd = d * c.length / tot; SUBS.push([acc - (j === 0 ? 0.05 : 0), acc + dd + (j === ch.length - 1 ? 0.25 : 0), c]); acc += dd; });
 });
-window.T_END = 45.0;
+window.T_END = 47.5;
 
 const ROWC = k => ({ x: 20 + 168 + 126, y: 318 + 38 + 46 + 46 + k * 92 });
 // scene clock (video time)
 const T2 = 5.55, TR = 15.25, T3 = 16.55, T4 = 22.55, T5 = 23.95, T6 = 25.0, T7 = 27.9, T8 = 30.95, T9 = 36.9, T9B = 39.3, T10 = 41.15;
 
-window.render = function (t) {
+window.render = function (T) {
+  const t = warp(T);
   $("#rose").style.opacity = 1 - p(t, TR + 0.2, 0.8, eIO);
   set($("#logo"), { o: p(t, T3, 0.45) * (1 - p(t, T10 - 0.3, 0.3)), y: (1 - p(t, T3, 0.45)) * -8 });
 
@@ -688,10 +693,10 @@ window.render = function (t) {
   set($("#cta"), { o: clamp((t - T10 - 0.55) / 0.35), s: lerp(0.96, 1, cb) + pulse });
 
   // subtitles
-  const sub = SUBS.find(sv => t >= sv[0] && t < sv[1]); const se = $("#subs");
+  const sub = SUBS.find(sv => T >= sv[0] && T < sv[1]); const se = $("#subs");
   if (sub) {
     if (se.dataset.k !== String(sub[0])) { se.textContent = sub[2]; se.dataset.k = String(sub[0]); }
-    se.style.opacity = Math.min(p(t, sub[0], 0.12), 1 - p(t, sub[1] - 0.1, 0.1));
+    se.style.opacity = Math.min(p(T, sub[0], 0.12), 1 - p(T, sub[1] - 0.1, 0.1));
   } else se.style.opacity = 0;
 };
 render(0);

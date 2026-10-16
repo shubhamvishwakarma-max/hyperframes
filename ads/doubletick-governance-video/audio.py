@@ -2,11 +2,10 @@
 import numpy as np, wave, sys
 
 SR = 44100
-DUR = 45.0
+DUR = 47.5
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
 
-P_END, S_END = 15.9, 41.1   # tense problem bed -> brighter solution -> CTA resolve
 
 def t_(d): return np.arange(int(SR * d)) / SR
 def place(buf, sig, at, gain=1.0):
@@ -15,6 +14,14 @@ def place(buf, sig, at, gain=1.0):
 def lowpass(x, k):  # moving-average FIR (cheap low-pass)
     return np.convolve(x, np.ones(k) / k, mode="same")
 def note(m): return 440.0 * 2 ** ((m - 69) / 12)
+
+# same [videoTime, animTime] keypoints as index.html; W() maps animation time -> video time
+KP = [[0, 0], [0.15, 0.15], [6.32, 5.6], [13.33, 11.8], [16.55, 15.25], [17.42, 16.6], [25.2, 22.65], [26.44, 24.0], [27.35, 25.05], [30.09, 28.0], [33.15, 31.05], [34.85, 32.15], [35.6, 33.35], [36.3, 34.45], [39.75, 37.0], [44.34, 41.4], [47.5, 45.0]]
+def W(o):
+    for (n0, o0), (n1, o1) in zip(KP, KP[1:]):
+        if o <= o1: return n0 + (n1 - n0) * min(1, max(0, (o - o0) / (o1 - o0)))
+    return KP[-1][0]
+P_END, S_END = W(15.9), W(41.1)
 
 # ---------------- music ----------------
 music = np.zeros(N)
@@ -104,37 +111,38 @@ def chime(amp=0.3):
     tt = t_(1.4); s = sum(np.sin(2 * np.pi * note(m) * tt) * w for m, w in ((72, 1), (79, .7), (84, .5), (88, .35)))
     return amp * s / 2.5 * np.exp(-tt * 2.6) * np.minimum(1, tt / 0.005)
 
-# all times are video time
-for i, at in enumerate((0.12, 0.2, 0.28, 0.36)): place(sfx, pop(700 + 70 * i, 0.07, 0.16), at)
-place(sfx, tick_s(0.16), 1.15)                                  # "Left the company"
-place(sfx, whoosh(1.2, 0.34), 1.95)                             # agent card exits
-place(sfx, whoosh(1.0, 0.16), 2.2)                              # cards drag after him
-place(sfx, snap(0.3), 3.7)                                      # freeze halfway
-place(sfx, whoosh(0.5, 0.12), 5.4)
-for at in (6.25, 6.95, 7.7): place(sfx, pop(860, 0.09, 0.22), at)       # WhatsApp messages
-for at in (6.85, 7.55, 8.3): place(sfx, tick_s(0.14), at)
-place(sfx, pop(420, 0.1, 0.2), 11.85)
-for i in range(3): place(sfx, blip_down(0.14), 12.9 + i * 0.15)         # lines stop short
-place(sfx, whoosh(0.9, 0.34), 15.2); place(sfx, impact(0.3), 15.8)      # green sweep -> brand WhatsApp
-place(sfx, chime(0.18), 15.9)
-for i in range(3): place(sfx, snap(0.32), 16.9 + i * 0.1)               # snap into dashboard rows
-place(sfx, tick_s(0.2), 22.6); place(sfx, whoosh(0.5, 0.14), 22.8)
-for i in range(4): place(sfx, pop(900 + 60 * i, 0.06, 0.12), 23.0 + i * 0.2)
-place(sfx, pop(1040, 0.09, 0.2), 24.05); place(sfx, tick_s(0.18), 24.4)
-place(sfx, snap(0.42), 25.85); place(sfx, pop(1100, 0.08, 0.16), 26.4)  # Rahul -> Neha
-place(sfx, whoosh(0.5, 0.14), 27.9)
+# times are animation time, warped to video time
+def ps(sig, at, g=1.0): place(sfx, sig, W(at), g)
+for i, at in enumerate((0.12, 0.2, 0.28, 0.36)): ps( pop(700 + 70 * i, 0.07, 0.16), at)
+ps( tick_s(0.16), 1.15)                                  # "Left the company"
+ps( whoosh(1.2, 0.34), 1.95)                             # agent card exits
+ps( whoosh(1.0, 0.16), 2.2)                              # cards drag after him
+ps( snap(0.3), 3.7)                                      # freeze halfway
+ps( whoosh(0.5, 0.12), 5.4)
+for at in (6.25, 6.95, 7.7): ps( pop(860, 0.09, 0.22), at)       # WhatsApp messages
+for at in (6.85, 7.55, 8.3): ps( tick_s(0.14), at)
+ps( pop(420, 0.1, 0.2), 11.85)
+for i in range(3): ps( blip_down(0.14), 12.9 + i * 0.15)         # lines stop short
+ps( whoosh(0.9, 0.34), 15.2); ps( impact(0.3), 15.8)      # green sweep -> brand WhatsApp
+ps( chime(0.18), 15.9)
+for i in range(3): ps( snap(0.32), 16.9 + i * 0.1)               # snap into dashboard rows
+ps( tick_s(0.2), 22.6); ps( whoosh(0.5, 0.14), 22.8)
+for i in range(4): ps( pop(900 + 60 * i, 0.06, 0.12), 23.0 + i * 0.2)
+ps( pop(1040, 0.09, 0.2), 24.05); ps( tick_s(0.18), 24.4)
+ps( snap(0.42), 25.85); ps( pop(1100, 0.08, 0.16), 26.4)  # Rahul -> Neha
+ps( whoosh(0.5, 0.14), 27.9)
 for i in range(3):                                               # masking ticks
-    for j in range(6): place(sfx, tick_s(0.07), 28.65 + i * 0.45 + j * 0.09)
-place(sfx, whoosh(0.5, 0.14), 30.85)
+    for j in range(6): ps( tick_s(0.07), 28.65 + i * 0.45 + j * 0.09)
+ps( whoosh(0.5, 0.14), 30.85)
 for a, f in ((31.2, 32.15), (32.8, 33.35), (33.85, 34.5)):       # AI warning pings
-    place(sfx, pop(860, 0.08, 0.18), a); place(sfx, tick_s(0.24), f); place(sfx, blip_down(0.08), f + 0.04)
-place(sfx, whoosh(0.5, 0.14), 36.8)
-place(sfx, whoosh(1.0, 0.12), 37.1)
-for i in range(6): place(sfx, snap(0.2), 37.75 + i * 0.1)        # nodes snap onto the line
-place(sfx, chime(0.2), 38.1)
-for i in range(4): place(sfx, tick_s(0.16), 39.1 + i * 0.2)
-place(sfx, whoosh(0.5, 0.14), 40.95)
-place(sfx, chime(0.3), 41.75); place(sfx, pop(1200, 0.08, 0.14), 43.05)
+    ps( pop(860, 0.08, 0.18), a); ps( tick_s(0.24), f); ps( blip_down(0.08), f + 0.04)
+ps( whoosh(0.5, 0.14), 36.8)
+ps( whoosh(1.0, 0.12), 37.1)
+for i in range(6): ps( snap(0.2), 37.75 + i * 0.1)        # nodes snap onto the line
+ps( chime(0.2), 38.1)
+for i in range(4): ps( tick_s(0.16), 39.1 + i * 0.2)
+ps( whoosh(0.5, 0.14), 40.95)
+ps( chime(0.3), 41.75); ps( pop(1200, 0.08, 0.14), 43.05)
 
 def write(path, x):
     x = x / max(1e-9, np.max(np.abs(x))) * 0.89
