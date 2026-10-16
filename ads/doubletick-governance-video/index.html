@@ -172,7 +172,7 @@
   .plab > span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; }
   .plab .pA { color: var(--rose); background: var(--rose-bg); }
   .plab .pB { color: var(--green); background: var(--tint); }
-  #brand { left: 24px; top: 446px; width: 1032px; height: 404px; border-radius: 28px; border: 2px solid rgba(0,122,90,0.55); background: rgba(227,241,234,0.45); z-index: 2; }
+  #brand { left: 24px; top: 392px; width: 1032px; height: 500px; border-radius: 28px; border: 2px solid rgba(0,122,90,0.55); background: rgba(227,241,234,0.45); z-index: 2; }
   #brand .bt { position: absolute; left: 50%; top: -22px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px; border-radius: 999px; background: #fff; border: 1.5px solid rgba(0,122,90,0.45); font-size: 16px; font-weight: 600; white-space: nowrap; box-shadow: 0 12px 24px -16px rgba(19,19,22,0.4); }
   #brand .bt small { font-size: 13px; color: var(--ink-2); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line); }
   .brandchip { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; padding: 6px 11px; border-radius: 8px; border: 1px solid #E1E4E6; white-space: nowrap; }
@@ -271,6 +271,27 @@
   #cx .msgb { height: 50px; border: 1px solid #DADAD5; border-radius: 4px; display: flex; align-items: center; padding: 0 10px; font-size: 12.5px; color: #3B4A54; line-height: 1.3; }
   #cx .msgb .hlm { background: #FFF1DA; box-shadow: 0 -2px 0 #FFF1DA, 0 2px 0 #FFF1DA; border-bottom: 2px solid #D32F2F; }
   #cx tr.flag td:first-child { box-shadow: inset 4px 0 0 #D32F2F; }
+
+  /* v5: real WhatsApp phone cards; Personal WhatsApp is a tag above the phone */
+  .wwrap { width: 290px; z-index: 4; }
+  .wwrap .wcard { position: relative; height: 330px; }
+  .ptag { position: absolute; left: 50%; top: -42px; transform: translateX(-50%); height: 32px; white-space: nowrap; }
+  .ptag > span { position: absolute; left: 50%; top: 0; transform: translateX(-50%); height: 32px; display: inline-flex; align-items: center; gap: 7px; padding: 0 13px; border-radius: 999px; font-size: 13px; font-weight: 600; white-space: nowrap; box-shadow: 0 8px 18px -12px rgba(19,19,22,0.35); }
+  .ptag .pA { color: #D32F2F; background: #fff; border: 1.5px solid rgba(211,47,47,0.35); }
+  .ptag .pB { color: var(--green); background: #fff; border: 1.5px solid rgba(0,122,90,0.4); }
+  .wcard .wh { position: relative; height: 58px; gap: 8px; padding: 0 10px; }
+  .wcard .wh .idA, .wcard .wh .idB { position: absolute; left: 32px; top: 0; height: 100%; display: flex; align-items: center; gap: 8px; }
+  .wcard .wh .ph { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex: none; }
+  .wcard .wh .gav { width: 36px; height: 36px; border-radius: 50%; background: #DFE5E7; display: grid; place-items: center; flex: none; }
+  .wcard .wh .nm { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .wcard .wh .idB .nm { font-size: 12.5px; letter-spacing: -0.01em; }
+  .wcard .wh .idB .ph { width: 32px; height: 32px; }
+  .wcard .wh .sm { font-size: 11px; color: #3B4A54; margin-top: 1px; }
+  .wcard .wh .ic { margin-left: auto; display: flex; align-items: center; gap: 9px; }
+  .wcard .wb .day2 { align-self: center; font-size: 10.5px; color: #54656F; background: #fff; padding: 3px 9px; border-radius: 6px; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .wcard .wb .slw { position: absolute; left: 10px; bottom: 10px; }
+  .wcomp2 { height: 46px; flex: none; display: flex; align-items: center; gap: 9px; padding: 0 10px; background: #F7F5F0; border-top: 1px solid #E6E2DA; }
+  .wcomp2 .fd { flex: 1; height: 30px; border-radius: 999px; background: #fff; border: 1px solid #E6E2DA; display: flex; align-items: center; justify-content: flex-end; padding-right: 9px; }
 </style>
 </head>
 <body>
@@ -365,7 +386,7 @@
     </div>
     <div class="pane" id="pList">
       <div class="ph2">All chats<span class="r"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16M3 8l4-4 4 4M17 20V4M13 16l4 4 4-4"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#54656F"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span></div>
-      <div class="crow" id="cr0" style="top:46px"><div class="av2 a1">A<span class="wa2"></span></div><div class="b"><div class="nm">Aisha Rahman</div><div class="pv"><span>Is the airport transfer included?</span><span>10:42 am</span></div><div class="tg2"><span class="amb">Follow-up Today</span><span class="gry">Omar</span></div></div></div><div class="crow" id="cr1" style="top:138px"><div class="av2 a2">K<span class="wa2"></span></div><div class="b"><div class="nm">Khalid Al Mansoori</div><div class="pv"><span>Thanks, will check 🙏</span><span>10:21 am</span></div><div class="tg2"><span class="">Quote Shared</span><span class="gry">Omar</span></div></div></div><div class="crow" id="cr2" style="top:230px"><div class="av2 a3">M<span class="wa2"></span></div><div class="b"><div class="nm">Mariam Saeed</div><div class="pv"><span>Full refund before Friday?</span><span>09:58 am</span></div><div class="tg2"><span class="ros">Refund Query</span><span class="gry">Noura</span></div></div></div><div class="crow" id="cr3" style="top:322px"><div class="av2 a4">Y<span class="wa2"></span></div><div class="b"><div class="nm">Yousef Ali</div><div class="pv"><span>Passport copies sent ✅</span><span>Yesterday</span></div><div class="tg2"><span class="">Booked</span><span class="gry">Sara</span></div></div></div><div class="crow" id="cr4" style="top:414px"><div class="av2 a6">F<span class="wa2"></span></div><div class="b"><div class="nm">Fatima Hassan</div><div class="pv"><span>Thank you so much!</span><span>Mon</span></div><div class="tg2"><span class="gry">Closed</span></div></div></div>
+      <div class="crow" id="cr0" style="top:46px"><div class="av2 a1">A<span class="wa2"></span></div><div class="b"><div class="nm">Aisha Rahman</div><div class="pv"><span>Is the airport transfer included?</span><span>10:42 am</span></div><div class="tg2"><span class="amb">Follow-up Today</span><span class="gry">Omar</span></div></div></div><div class="crow" id="cr1" style="top:138px"><div class="av2 a2">K<span class="wa2"></span></div><div class="b"><div class="nm">Khalid Al Mansoori</div><div class="pv"><span>Thanks, will check 🙏</span><span>10:21 am</span></div><div class="tg2"><span class="">Quote Shared</span><span class="gry">Faisal</span></div></div></div><div class="crow" id="cr2" style="top:230px"><div class="av2 a3">M<span class="wa2"></span></div><div class="b"><div class="nm">Mariam Saeed</div><div class="pv"><span>Full refund before Friday?</span><span>09:58 am</span></div><div class="tg2"><span class="ros">Refund Query</span><span class="gry">Rashid</span></div></div></div><div class="crow" id="cr3" style="top:322px"><div class="av2 a4">Y<span class="wa2"></span></div><div class="b"><div class="nm">Yousef Ali</div><div class="pv"><span>Passport copies sent ✅</span><span>Yesterday</span></div><div class="tg2"><span class="">Booked</span><span class="gry">Sara</span></div></div></div><div class="crow" id="cr4" style="top:414px"><div class="av2 a6">F<span class="wa2"></span></div><div class="b"><div class="nm">Fatima Hassan</div><div class="pv"><span>Thank you so much!</span><span>Mon</span></div><div class="tg2"><span class="gry">Closed</span></div></div></div>
       <div class="newb">+ New</div>
     </div>
     <div class="pane" id="pConv">
@@ -463,7 +484,7 @@ const DOC = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke=
 // ---------- S1: Omar + what is tied to him ----------
 const TC = [
   { x: 45, y: 600, h: `<div class="av a1">A<span class="wa"></span></div><div class="b"><div class="t">Aisha<small>10:42</small></div><div class="m">Is my airport transfer included?</div></div>` },
-  { x: 390, y: 600, h: `<div class="av a3">M<span class="wa"></span></div><div class="b"><div class="t">Mariam<small>Mon</small></div><div class="m">Full refund if I cancel?</div></div>` },
+  { x: 390, y: 600, h: `<div class="av a3">L<span class="wa"></span></div><div class="b"><div class="t">Layla<small>Mon</small></div><div class="m">Can we add one more night?</div></div>` },
   { x: 735, y: 600, h: `<div class="ic" style="background:var(--tint)">${DOC}</div><div class="b"><div class="t">Quote<small></small></div><div class="m">Bali Package · AED 6,450</div></div>` },
   { x: 390, y: 750, h: `<div class="ic" style="background:var(--amber-bg)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A86A0C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16l20-6-3-3-6 2-6-5-2 1 4 6-4 1-2-2-2 1z"/></svg></div><div class="b"><div class="t">Pending booking<small></small></div><div class="m">Maldives · 2 travellers</div></div>` },
 ];
@@ -474,23 +495,34 @@ TC.forEach((c, k) => {
 });
 
 // ---------- S2: personal WhatsApp chats ----------
-const WX = [45, 395, 745], WY = 470, WOFF = [34, 0, 44], WROT = [-4, 2.5, -2.5];
+const WX = [45, 395, 745], WY = 488, WOFF = [34, 0, 44], WROT = [-4, 2.5, -2.5];
 const PHONE = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>';
+const VER = '<svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 1.5l2.6 2 3.2-.3 1 3.1 2.8 1.6-.9 3.1.9 3.1-2.8 1.6-1 3.1-3.2-.3-2.6 2-2.6-2-3.2.3-1-3.1L2.4 14l.9-3.1-.9-3.1 2.8-1.6 1-3.1 3.2.3z" fill="#1D9BF0"/><path d="M8 12.2l2.6 2.6L16 9.4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const BACK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111B21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>';
+const WICONS = '<span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111B21" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#111B21"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span>';
+const GAV = '<span class="gav"><svg width="20" height="20" viewBox="0 0 24 24" fill="#9AA6AC"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21a8.5 8.5 0 0 1 17 0z"/></svg></span>';
+const COMP = '<div class="wcomp2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B4A54" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><div class="fd"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2" stroke-linejoin="round"><path d="M15 3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h9l6-6V6a3 3 0 0 0-3-3z"/></svg></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B4A54" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B4A54" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>';
+// customer's phone view: the agent is the contact, customer's own messages are green
 const WC = [
-  { av: "a1", i: "A", n: "Aisha", st: ["amb", "Customer commitment"],
-    b: `<div class="bub in">Can you confirm my airport transfer?<span class="tm">7:12 PM</span></div><div class="bub out"><span class="who">Omar</span>Yes, it's included.<span class="tm">7:14 PM ${BLUE}</span></div>` },
-  { av: "a2", i: "K", n: "Khalid", st: ["grn", "Quote shared"],
-    b: `<div class="bub out"><span class="who">Omar</span><div class="doc">${DOC} Bali Package · AED 6,450</div>Here's your quote 🌴<span class="tm">11:02 AM ${BLUE}</span></div><div class="bub in">Thanks, will check 🙏<span class="tm">11:20 AM</span></div>` },
-  { av: "a3", i: "M", n: "Mariam", st: ["ros", "Refund promise"],
-    b: `<div class="bub in">Will I get a full refund if I cancel before Friday?<span class="tm">Mon</span></div><div class="bub out"><span class="who">Omar</span>Yes, that should be fine.<span class="tm">Mon ${BLUE}</span></div>` },
+  { agent: "Omar", num: "+971 50 318 4421", av: "assets/av-omar.png", st: ["amb", "Customer commitment"],
+    b: `<div class="bub out">Can you confirm my airport transfer?<span class="tm">7:12 PM ${BLUE}</span></div><div class="bub in">Yes, it's included.<span class="tm">7:14 PM</span></div>` },
+  { agent: "Faisal", num: "+971 55 207 9134", av: "assets/av-faisal.png", st: ["grn", "Quote shared"],
+    b: `<div class="bub in"><div class="doc">${DOC} Bali Package · AED 6,450</div>Here's your quote 🌴<span class="tm">11:02 AM</span></div><div class="bub out">Thanks, will check 🙏<span class="tm">11:20 AM ${BLUE}</span></div>` },
+  { agent: "Rashid", num: "+971 52 664 0187", av: "assets/av-rashid.png", st: ["ros", "Refund promise"],
+    b: `<div class="bub out">Will I get a full refund if I cancel before Friday?<span class="tm">Mon ${BLUE}</span></div><div class="bub in">Yes, that should be fine.<span class="tm">Mon</span></div>` },
 ];
 const wcEl = $("#wcards"), lsvg = $("#lines");
 WC.forEach((c, k) => {
-  wcEl.insertAdjacentHTML("beforeend", `<div class="abs wcard" id="wc${k}" style="left:${WX[k]}px;top:${WY + WOFF[k]}px">
-    <div class="plab"><span class="pA" id="pA${k}">${PHONE} PERSONAL WHATSAPP</span><span class="pB" id="pB${k}">ABC HOLIDAYS ✓ · BRAND WHATSAPP</span></div>
-    <div class="wh"><div class="av ${c.av}">${c.i}</div><div><div class="nm">${c.n}</div><div class="sm">Customer</div></div></div>
-    <div class="wb">${c.b}</div>
-    <div class="wf"><span class="pill ${c.st[0]}" id="sl${k}"><span class="dot"></span>${c.st[1]}</span></div></div>`);
+  wcEl.insertAdjacentHTML("beforeend", `<div class="abs wwrap" id="wc${k}" style="left:${WX[k]}px;top:${WY + WOFF[k]}px">
+    <div class="ptag"><span class="pA" id="pA${k}">${PHONE} Personal WhatsApp</span><span class="pB" id="pB${k}"><img src="assets/whatsapp-logo.png" alt="" style="width:16px;height:16px" />Brand WhatsApp</span></div>
+    <div class="wcard">
+      <div class="wh">${BACK}
+        <div class="idA" id="iA${k}">${GAV}<div><div class="nm">${c.num}</div><div class="sm">${c.agent}</div></div></div>
+        <div class="idB" id="iB${k}"><img class="ph" src="${c.av}" alt="" /><div><div class="nm">${c.agent} - ABC Holidays ${VER}</div><div class="sm">Business Account</div></div></div>
+        ${WICONS}</div>
+      <div class="wb"><span class="day2">Today</span>${c.b}<span class="slw"><span class="pill ${c.st[0]}" id="sl${k}"><span class="dot"></span>${c.st[1]}</span></span></div>
+      ${COMP}
+    </div></div>`);
   lsvg.insertAdjacentHTML("beforeend", `<path id="l${k}" fill="none" stroke="#9A9890" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="6 7"/><circle id="le${k}" r="4" fill="#D32F2F"/>`);
 });
 
@@ -589,7 +621,7 @@ window.render = function (T) {
     const al = p(t, TR + 0.35 + k * 0.05, 0.5, eSp);
     let x = lerp(k === 0 ? -200 : k === 2 ? 200 : 0, 0, ein), y = (1 - ein) * 120 - WOFF[k] * al, r = WROT[k] * (1 - al);
     const fly = p(t, T3 - 0.05 + k * 0.1, 0.55, eIO);
-    const rc = ROWC(k), cx0 = WX[k] + 145, cy0 = WY + 161;
+    const rc = ROWC(k), cx0 = WX[k] + 145, cy0 = WY + 165;
     x += (rc.x - cx0) * fly; y += (rc.y - cy0) * fly;
     const o = clamp(ein * 1.4) * (1 - p(t, T3 + 0.35 + k * 0.1, 0.18));
     set($("#wc" + k), { x, y, s: lerp(1, 0.22, fly), r, o, blur: fly > 0 && fly < 1 ? 1.2 * Math.sin(fly * Math.PI) : 0 });
@@ -597,6 +629,7 @@ window.render = function (T) {
     set($("#sl" + k), { o: sl, s: lerp(0.85, 1, sl) });
     const sw_ = p(t, TR + 0.45 + k * 0.08, 0.35);
     $("#pA" + k).style.opacity = 1 - sw_; $("#pB" + k).style.opacity = sw_;
+    set($("#iA" + k), { o: 1 - sw_, y: -8 * sw_ }); set($("#iB" + k), { o: sw_, y: 8 * (1 - sw_) });
   }
   const br = p(t, TR + 0.5, 0.45, eSp);
   set($("#brand"), { o: br * (1 - p(t, T3 + 0.1, 0.35)), s: lerp(1.04, 1, br) });
@@ -604,7 +637,7 @@ window.render = function (T) {
   set($("#mgr"), { o: mo, y: (1 - ma) * -16, s: lerp(0.95, 1, ma) });
   set($("#mgrEye"), { o: p(t, 13.2, 0.3) });
   for (let k = 0; k < 3; k++) {
-    const sx = 540, sy = 388, cx = WX[k] + 145, cy = WY + WOFF[k] - 4;
+    const sx = 540, sy = 388, cx = WX[k] + 145, cy = WY + WOFF[k] - 46;
     const reach = 0.72 * p(t, 12.3 + k * 0.15, 0.8);   // stops short of the personal chats
     const ex = lerp(sx, cx, reach), ey = lerp(sy, cy, reach);
     $("#l" + k).setAttribute("d", `M${sx} ${sy} L${ex} ${ey}`);
