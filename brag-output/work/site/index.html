@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1080, height=1080" />
+<title>DoubleTick Agentic AI for Travel</title>
+<style>
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin.woff2) format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin-ext.woff2) format("woff2"); font-weight: 100 900; unicode-range: U+0100-02BA, U+20A0-20C4; }
+  @font-face { font-family: "Hedvig"; src: url(fonts/hedvig-latin.woff2) format("woff2"); font-weight: 400; }
+  :root { --ink: #131316; --ink-2: #5A5A63; --mute: #8C8B84; --line: #E4E2D9; --card: #FFFFFF; --green: #007A5A; --green-2: #29B47A; --tint: rgba(0,122,90,0.10); --rose: #B4505E; --rose-bg: rgba(180,80,94,0.10); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: #F4F3EC; }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  #stage { position: relative; width: 1080px; height: 1080px; overflow: hidden; background: #F4F3EC; }
+  .abs { position: absolute; will-change: transform, opacity; }
+  #night { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 50% 40%, #E2DBCB, #D6CEBC); }
+  #rose { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 55%, rgba(190,110,122,0.16), rgba(190,110,122,0.05) 70%, transparent); }
+  .grid { position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(19,19,22,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(19,19,22,0.05) 1px, transparent 1px); background-size: 60px 60px; background-position: -1px -1px; -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 55%, #000 30%, transparent 85%); }
+  #logo { left: 60px; top: 44px; height: 32px; }
+
+  /* headlines */
+  .hl { left: 60px; width: 960px; top: 104px; }
+  .ln { overflow: hidden; padding-bottom: 4px; }
+  .ln > span { display: inline-block; will-change: transform, opacity; }
+  .serif { font-family: "Hedvig", Georgia, serif; font-weight: 400; letter-spacing: -0.03em; line-height: 1.04; }
+  .small { font-size: 22px; color: var(--ink-2); font-weight: 500; margin-top: 12px; }
+  .rose { color: var(--rose); } .green { color: var(--green); } .muted { color: #6E6A60; }
+  .center { text-align: center; }
+
+  /* clock + offline */
+  #clock { left: 60px; top: 360px; width: 440px; height: 320px; border-radius: 28px; background: rgba(255,255,255,0.55); border: 1px solid rgba(19,19,22,0.08); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 24px 50px -30px rgba(19,19,22,0.35); }
+  #clock .moon { margin-bottom: 8px; }
+  #clock .t { font-family: "Hedvig", serif; font-size: 132px; letter-spacing: -0.04em; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+  #clock .ap { font-size: 26px; font-weight: 600; letter-spacing: 0.14em; color: var(--ink-2); margin-top: 6px; }
+  #off { left: 60px; top: 712px; width: 440px; display: flex; justify-content: center; }
+  .pill { display: inline-flex; align-items: center; gap: 9px; font-size: 16px; font-weight: 600; padding: 9px 15px; border-radius: 999px; }
+  .pill.rose { color: var(--rose); background: #F5E4E6; border: 1px solid rgba(180,80,94,0.22); }
+  .avs { display: flex; } .avs i { width: 22px; height: 22px; border-radius: 50%; background: #CFCAC0; border: 2px solid #F5E4E6; margin-left: -6px; } .avs i:first-child { margin-left: 0; }
+
+  /* problem states */
+  .state { left: 60px; width: 440px; height: 78px; border-radius: 18px; background: rgba(255,255,255,0.7); border: 1px solid rgba(180,80,94,0.18); display: flex; align-items: center; gap: 14px; padding: 0 20px; box-shadow: 0 16px 34px -24px rgba(19,19,22,0.3); }
+  .state .k { font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); width: 92px; }
+  .state .v { font-family: "Hedvig", serif; font-size: 34px; color: var(--rose); letter-spacing: -0.02em; }
+  .state .ic { margin-left: auto; }
+  #sweep { left: 0; top: 0; height: 4px; width: 1080px; border-radius: 4px; background: linear-gradient(90deg, rgba(0,122,90,0), #29B47A 30%, #007A5A 70%, #29B47A); box-shadow: 0 0 18px 2px rgba(41,180,122,0.5); transform-origin: left center; }
+
+  /* sources → hub */
+  .src { width: 236px; height: 72px; border-radius: 18px; background: #fff; border: 1px solid var(--line); display: flex; align-items: center; gap: 12px; padding: 0 16px; box-shadow: 0 16px 32px -22px rgba(19,19,22,0.35); }
+  .src .sic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; flex: none; }
+  .src b { font-size: 18px; font-weight: 600; } .src small { display: block; font-size: 12.5px; color: var(--mute); margin-top: 1px; }
+  #srcLines { left: 0; top: 0; width: 1080px; height: 1080px; }
+  #hub { left: 470px; top: 550px; width: 140px; height: 140px; border-radius: 50%; background: #fff; border: 1px solid var(--line); display: grid; place-items: center; box-shadow: 0 20px 44px -20px rgba(37,211,102,0.55); }
+  #hub img { width: 76px; height: 76px; }
+  #hubLbl { left: 390px; top: 704px; width: 300px; text-align: center; font-size: 19px; font-weight: 600; }
+
+  /* phone */
+  #phone { left: 110px; top: 330px; width: 460px; height: 560px; border-radius: 28px; background: #EFEAE2; border: 2px solid #E2E0D8; overflow: hidden; box-shadow: 0 26px 54px -26px rgba(19,19,22,0.4); display: flex; flex-direction: column; z-index: 5; transform-origin: 50% 50%; }
+  .wh { position: relative; height: 62px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 14px; background: #fff; border-bottom: 1px solid #E9EDEF; }
+  .wav { width: 40px; height: 40px; border-radius: 50%; background: #F26B3A; color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 13px; letter-spacing: -0.02em; flex: none; }
+  .wn { font-weight: 600; font-size: 17px; display: flex; align-items: center; gap: 5px; }
+  .st { position: relative; height: 16px; margin-top: 2px; font-size: 12.5px; }
+  .st span { position: absolute; left: 0; top: 0; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
+  .st .off { color: var(--rose); } .st .on { color: var(--green); font-weight: 600; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; }
+  #hi { position: absolute; right: 14px; top: 17px; font-size: 12.5px; font-weight: 700; color: #A0610B; background: #FFF0D6; border: 1px solid #F2D29B; padding: 5px 10px; border-radius: 999px; }
+  .wbody { flex: 1; position: relative; overflow: hidden; }
+  .wbody::before { content: ""; position: absolute; inset: 0; opacity: 0.35; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' fill='none' stroke='%23D6CFC4' stroke-width='1.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='14' r='5'/%3E%3Cpath d='M42 9l7 7m0-7l-7 7'/%3E%3Cpath d='M18 46c4-5 9-5 12 0'/%3E%3Crect x='47' y='42' width='10' height='10' rx='3'/%3E%3C/svg%3E"); }
+  #thread { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 14px 10px; }
+  .it { overflow: hidden; flex: none; }
+  .it > .in { padding-top: 8px; display: flex; flex-direction: column; }
+  .b { max-width: 340px; padding: 8px 11px 7px; border-radius: 12px; font-size: 15.5px; line-height: 1.38; color: #111B21; box-shadow: 0 1px 0.5px rgba(11,20,26,0.13); }
+  .b.c { align-self: flex-end; background: #D9FDD3; border-top-right-radius: 3px; }
+  .b.a { align-self: flex-start; background: #fff; border-top-left-radius: 3px; }
+  .b .ag { display: flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: var(--green); margin-bottom: 2px; letter-spacing: 0.02em; }
+  .meta { float: right; margin: 6px 0 -3px 10px; font-size: 11px; color: #8696A0; display: inline-flex; align-items: center; gap: 3px; }
+  .dl { align-self: flex-end; font-size: 11.5px; color: #8696A0; margin-top: 3px; padding-right: 2px; }
+  .typ { align-self: flex-start; display: flex; gap: 4px; background: #fff; border-radius: 12px; border-top-left-radius: 3px; padding: 11px 13px; box-shadow: 0 1px 0.5px rgba(11,20,26,0.13); }
+  .typ i { width: 7px; height: 7px; border-radius: 50%; background: #8696A0; }
+  .sys { align-self: center; font-size: 12px; font-weight: 500; color: #54656F; background: #fff; padding: 4px 11px; border-radius: 7px; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .sys.no { color: var(--rose); background: #F7E8EA; }
+  .qb { align-self: flex-start; width: 300px; background: #fff; border-radius: 12px; border-top-left-radius: 3px; padding: 4px 4px 0; box-shadow: 0 1px 0.5px rgba(11,20,26,0.15); }
+  .qb .qi { height: 74px; border-radius: 8px; overflow: hidden; }
+  .qb .qt { padding: 6px 7px 2px; } .qb .qt b { font-size: 14.5px; } .qb .qt small { display: block; font-size: 12px; color: #54656F; margin-top: 1px; }
+  .qb .qx { border-top: 1px solid #E9EDEF; margin-top: 6px; text-align: center; padding: 7px 0 8px; color: #0A84C1; font-size: 14px; font-weight: 500; }
+  .qb .orig { display: inline-flex; margin: 0 0 0 7px; font-size: 10.5px; font-weight: 700; color: var(--green); background: var(--tint); padding: 2px 7px; border-radius: 5px; }
+  .pay { margin-top: 7px; border-top: 1px solid #E9EDEF; padding-top: 7px; text-align: center; color: #0A84C1; font-weight: 600; font-size: 14.5px; display: flex; align-items: center; justify-content: center; gap: 6px; position: relative; }
+  .tap { position: absolute; left: 50%; top: 55%; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; background: rgba(10,132,193,0.28); }
+  .wcomp { height: 50px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 12px; background: #F7F5F0; border-top: 1px solid #E6E2DA; }
+  .wcomp .fd { flex: 1; height: 32px; border-radius: 999px; background: #fff; border: 1px solid #E6E2DA; }
+
+  /* chips */
+  .chip { left: 640px; width: 300px; height: 60px; border-radius: 16px; background: #fff; border: 1px solid var(--line); display: flex; align-items: center; gap: 12px; padding: 0 14px; box-shadow: 0 14px 30px -20px rgba(19,19,22,0.35); z-index: 7; }
+  .chip .ci { width: 36px; height: 36px; border-radius: 10px; background: var(--tint); display: grid; place-items: center; flex: none; }
+  .chip .k { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--mute); text-transform: uppercase; }
+  .chip .v { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+
+  /* system + quote */
+  #sys { left: 630px; top: 370px; width: 390px; height: 330px; border-radius: 24px; background: #fff; border: 1px solid var(--line); box-shadow: 0 26px 50px -28px rgba(19,19,22,0.4); padding: 22px; }
+  #sys .h { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  #sys .sub { font-size: 13.5px; color: var(--mute); margin-top: 3px; }
+  .conn { margin-top: 16px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--ink-2); font-weight: 600; }
+  .conn .node { display: flex; align-items: center; gap: 6px; padding: 6px 9px; border-radius: 9px; background: #F6F5F0; border: 1px solid var(--line); }
+  .conn .ln2 { flex: 1; height: 2px; background: repeating-linear-gradient(90deg, #29B47A 0 6px, transparent 6px 11px); }
+  .chk { margin-top: 14px; height: 52px; border-radius: 13px; border: 1px solid var(--line); display: flex; align-items: center; padding: 0 14px; font-size: 16px; font-weight: 600; position: relative; overflow: hidden; }
+  .chk .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: linear-gradient(90deg, transparent, rgba(41,180,122,0.18), transparent); }
+  .chk .ok { margin-left: auto; width: 26px; height: 26px; border-radius: 50%; background: var(--green); display: grid; place-items: center; }
+  #quote { left: 630px; top: 350px; width: 390px; border-radius: 24px; background: #fff; border: 1px solid var(--line); box-shadow: 0 26px 50px -28px rgba(19,19,22,0.4); padding: 10px 10px 0; z-index: 8; }
+  #quote .lab { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--green); padding: 6px 6px 10px; }
+  #quote .qi { height: 132px; border-radius: 14px; overflow: hidden; }
+  #quote .qt { padding: 14px 8px 0; } #quote .qt b { font-family: "Hedvig", serif; font-weight: 400; font-size: 34px; letter-spacing: -0.02em; }
+  #quote .qt .r { margin-top: 6px; font-size: 16px; color: var(--ink-2); }
+  #quote .qx { margin: 14px -10px 0; border-top: 1px solid var(--line); text-align: center; padding: 14px 0 15px; color: #0A84C1; font-weight: 600; font-size: 17px; }
+
+  /* branches */
+  .br { left: 630px; width: 390px; height: 104px; border-radius: 20px; background: #fff; border: 1px solid var(--line); display: flex; align-items: center; gap: 14px; padding: 0 18px; box-shadow: 0 16px 34px -24px rgba(19,19,22,0.35); }
+  .br .bi { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; flex: none; }
+  .br .k { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--mute); }
+  .br .v { font-family: "Hedvig", serif; font-size: 28px; letter-spacing: -0.02em; margin-top: 2px; }
+  .br.on { border: 2px solid var(--green); box-shadow: 0 18px 40px -22px rgba(0,122,90,0.55); }
+
+  /* consultant */
+  #cons { left: 620px; top: 330px; width: 410px; border-radius: 24px; background: #fff; border: 1px solid var(--line); box-shadow: 0 26px 54px -28px rgba(19,19,22,0.4); overflow: hidden; z-index: 6; }
+  #cons .ch { height: 60px; display: flex; align-items: center; gap: 10px; padding: 0 18px; border-bottom: 1px solid var(--line); }
+  #cons .ch img { height: 22px; }
+  #cons .ch span { margin-left: auto; font-size: 12px; font-weight: 700; color: #A0610B; background: #FFF0D6; padding: 4px 9px; border-radius: 999px; }
+  .row { display: flex; align-items: center; height: 46px; padding: 0 18px; border-bottom: 1px solid #F0EEE7; font-size: 15px; }
+  .row .k { width: 120px; color: var(--mute); font-weight: 500; font-size: 13.5px; }
+  .row .v { font-weight: 600; }
+  .row .v.g { color: var(--green); }
+  #cons .ft { display: flex; align-items: center; gap: 10px; padding: 14px 18px 16px; background: #F3F8F5; }
+  #cons .ft .ca { width: 36px; height: 36px; border-radius: 50%; background: #2B7FA8; color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+  #cons .ft b { font-size: 15px; } #cons .ft small { display: block; font-size: 12.5px; color: var(--green); font-weight: 600; }
+
+  /* journey */
+  #jr { left: 40px; top: 560px; width: 1000px; height: 200px; }
+  .jn { position: absolute; top: 0; width: 140px; margin-left: -70px; text-align: center; }
+  .jn .d { width: 44px; height: 44px; margin: 0 auto; border-radius: 50%; background: #fff; border: 2px solid #D9D6CC; display: grid; place-items: center; position: relative; z-index: 2; }
+  .jn .d i { width: 12px; height: 12px; border-radius: 50%; background: #D9D6CC; }
+  .jn .t { margin-top: 14px; font-size: 16px; font-weight: 600; line-height: 1.25; color: var(--ink); }
+  #jline { position: absolute; left: 70px; top: 21px; height: 3px; width: 860px; background: #E1DED4; }
+  #jfill { position: absolute; left: 70px; top: 21px; height: 3px; width: 860px; background: var(--green); transform-origin: left center; box-shadow: 0 0 10px rgba(41,180,122,0.5); }
+
+  /* CTA */
+  #ctaLogo { left: 0; width: 1080px; top: 250px; display: flex; justify-content: center; }
+  #ctaLogo img { height: 52px; }
+  #ctaH { left: 90px; width: 900px; top: 360px; text-align: center; font-size: 80px; }
+  #cta { left: 0; width: 1080px; top: 610px; display: flex; justify-content: center; }
+  #cta .btn { display: inline-flex; align-items: center; gap: 14px; height: 88px; padding: 0 42px; border-radius: 999px; background: var(--green); color: #fff; font-size: 31px; font-weight: 600; letter-spacing: -0.015em; box-shadow: 0 22px 40px -18px rgba(0,122,90,0.75), inset 0 1px 0 rgba(255,255,255,0.18); }
+  #ctaSub { left: 0; width: 1080px; top: 734px; text-align: center; font-size: 20px; color: var(--ink-2); font-weight: 500; }
+
+  #subs { left: 90px; width: 900px; top: 958px; text-align: center; font-size: 28px; font-weight: 500; line-height: 1.3; color: var(--ink); text-shadow: 0 0 12px rgba(244,243,236,0.95), 0 0 2px rgba(244,243,236,1); z-index: 20; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="night"></div>
+  <div class="grid"></div>
+  <div id="rose"></div>
+  <img id="logo" class="abs" src="doubletick-logo.webp" alt="DoubleTick" />
+
+  <!-- headlines -->
+  <div id="h1" class="abs hl"><div class="ln serif muted" style="font-size:62px"><span>It’s 1 AM.</span></div><div class="ln serif" style="font-size:104px"><span>Who’s responding?</span></div></div>
+  <div id="h2" class="abs hl"><div class="ln serif" style="font-size:84px"><span>Travel intent <span class="rose">doesn’t wait.</span></span></div><div class="ln small"><span>Delayed replies · Pending quotes · Lost opportunities</span></div></div>
+  <div id="h3" class="abs hl"><div class="ln serif" style="font-size:78px"><span>Every enquiry.</span></div><div class="ln serif green" style="font-size:78px"><span>Straight to WhatsApp.</span></div></div>
+  <div id="h4" class="abs hl"><div class="ln serif" style="font-size:84px"><span>AI responds <span class="green">24/7.</span></span></div><div class="ln small"><span>Destination · Dates · Budget</span></div></div>
+  <div id="h5" class="abs hl"><div class="ln serif" style="font-size:74px"><span>From enquiry to</span></div><div class="ln serif green" style="font-size:74px"><span>personalised quote.</span></div></div>
+  <div id="h7" class="abs hl"><div class="ln serif" style="font-size:80px"><span>Ready to book?</span></div><div class="ln serif green" style="font-size:56px"><span>Make the next step easy.</span></div></div>
+  <div id="h8" class="abs hl"><div class="ln serif" style="font-size:80px"><span>No reply?</span></div><div class="ln serif green" style="font-size:56px"><span>The original quote follows up.</span></div></div>
+  <div id="h9" class="abs hl"><div class="ln serif" style="font-size:84px"><span>Human help.</span></div><div class="ln serif green" style="font-size:84px"><span>Full context.</span></div></div>
+  <div id="h10" class="abs hl center" style="top:170px"><div class="ln serif" style="font-size:76px"><span>Turn more enquiries into</span></div><div class="ln serif green" style="font-size:76px"><span>booking opportunities.</span></div></div>
+
+  <!-- scene 1: clock + offline -->
+  <div id="clock" class="abs">
+    <svg class="moon" width="38" height="38" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" fill="#D9A441"/></svg>
+    <div class="t"><span id="hh">1:00</span></div><div class="ap">AM</div>
+  </div>
+  <div id="off" class="abs"><span class="pill rose"><span class="avs"><i></i><i></i><i></i></span>Team offline</span></div>
+
+  <!-- scene 2: states -->
+  <div id="s1" class="abs state" style="top:370px"><span class="k">Reply</span><span class="v">Delayed</span><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B4505E" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+  <div id="s2" class="abs state" style="top:466px"><span class="k">Quote</span><span class="v">Pending</span><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B4505E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></div>
+  <div id="s3" class="abs state" style="top:562px"><span class="k">Booking</span><span class="v">At risk</span><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B4505E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></div>
+  <div id="sweep" class="abs"></div>
+
+  <!-- scene 3: sources -->
+  <svg id="srcLines" class="abs" viewBox="0 0 1080 1080"></svg>
+  <div id="srcs"></div>
+  <div id="hub" class="abs"><img src="assets/whatsapp-logo.png" alt="" /></div>
+  <div id="hubLbl" class="abs">WhatsApp</div>
+
+  <!-- phone -->
+  <div id="phone" class="abs">
+    <div class="wh">
+      <div class="wav">ABC</div>
+      <div><div class="wn">ABC Holidays <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 1.5l2.6 2 3.2-.3 1 3.1 2.8 1.6-.9 3.1.9 3.1-2.8 1.6-1 3.1-3.2-.3-2.6 2-2.6-2-3.2.3-1-3.1L2.4 14l.9-3.1-.9-3.1 2.8-1.6 1-3.1 3.2.3z" fill="#1D9BF0"/><path d="M8 12.2l2.6 2.6L16 9.4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="st"><span class="off" id="stOff"><i class="dot" style="background:#B4505E"></i>Team offline</span><span class="on" id="stOn">✦ Agentic AI · replies 24/7</span></div></div>
+      <span id="hi">● High intent</span>
+    </div>
+    <div class="wbody"><div id="thread"></div></div>
+    <div class="wcomp"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B4A54" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><div class="fd"></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B4A54" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
+  </div>
+
+  <!-- chips -->
+  <div id="chips"></div>
+
+  <!-- system card -->
+  <div id="sys" class="abs">
+    <div class="h">Pricing &amp; Availability</div>
+    <div class="sub">Live from your connected systems</div>
+    <div class="conn"><span class="node">🏨 Hotel inventory</span><span class="ln2"></span><span class="node">💱 Rates</span></div>
+    <div class="chk" id="ck1"><span class="bar" id="bar1"></span>Availability<span class="ok" id="ok1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
+    <div class="chk" id="ck2"><span class="bar" id="bar2"></span>Pricing<span class="ok" id="ok2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
+  </div>
+  <div id="quote" class="abs">
+    <div class="lab">✦ PERSONALISED QUOTE</div>
+    <div class="qi" id="qiBig"></div>
+    <div class="qt"><b>Bali Holiday</b><div class="r">6 Nights · 2 Travellers</div><div class="r">Hotel + Transfers + Activities</div></div>
+    <div class="qx">View Quote</div>
+  </div>
+
+  <!-- branches -->
+  <div id="brA" class="abs br" style="top:420px"><div class="bi" style="background:#E3F2EC"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><div><div class="k">PATH A</div><div class="v">Ready to book</div></div></div>
+  <div id="brB" class="abs br" style="top:548px"><div class="bi" style="background:#F1EFE8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5A5A63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><div class="k">PATH B</div><div class="v">Still deciding</div></div></div>
+
+  <!-- consultant -->
+  <div id="cons" class="abs">
+    <div class="ch"><img src="doubletick-logo.webp" alt="" /><span>High intent</span></div>
+    <div class="row" id="rw0"><span class="k">Customer</span><span class="v">Ananya</span></div>
+    <div class="row" id="rw1"><span class="k">Destination</span><span class="v" id="rv1">Bali</span></div>
+    <div class="row" id="rw2"><span class="k">Dates</span><span class="v" id="rv2">12–18 Nov</span></div>
+    <div class="row" id="rw3"><span class="k">Budget</span><span class="v" id="rv3">₹1.5L</span></div>
+    <div class="row" id="rw4"><span class="k">Quote</span><span class="v g" id="rv4">Shared ✓</span></div>
+    <div class="row" id="rw5"><span class="k">Request</span><span class="v">Hotel upgrade + Multi-city</span></div>
+    <div class="ft" id="cft"><div class="ca">S</div><div><b>Assigned to Travel Consultant</b><small>Sara · full conversation attached</small></div></div>
+  </div>
+
+  <!-- journey -->
+  <div id="jr" class="abs"><div id="jline"></div><div id="jfill"></div></div>
+
+  <!-- CTA -->
+  <div id="ctaLogo" class="abs"><img src="doubletick-logo.webp" alt="DoubleTick" /></div>
+  <div id="ctaH" class="abs serif">Your next booking could start on WhatsApp.</div>
+  <div id="cta" class="abs"><div class="btn">Book Your Free Pilot Today <svg width="28" height="28" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+  <div id="ctaSub" class="abs">Built for modern travel teams</div>
+
+  <div id="subs" class="abs"></div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, t) => a + (b - a) * t;
+const eOut = t => 1 - Math.pow(1 - t, 3);
+const eIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const eSp = t => { const c = 0.85; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
+const p = (t, a, d, e = eOut) => e(clamp((t - a) / d));
+function set(el, { x = 0, y = 0, s = 1, o = 1, b = 0 } = {}) {
+  el.style.transform = `translate(${x}px,${y}px) scale(${s})`;
+  el.style.opacity = o;
+  el.style.filter = b > 0.05 ? `blur(${b}px)` : "none";
+  el.style.visibility = o <= 0.002 ? "hidden" : "visible";
+}
+// keyframe track: [[t,{x,y,s,o,b}],...] eased between keys
+function kf(t, keys) {
+  if (t <= keys[0][0]) return keys[0][1];
+  for (let i = 1; i < keys.length; i++) {
+    if (t <= keys[i][0]) {
+      const [t0, a] = keys[i - 1], [t1, b] = keys[i]; const u = eIO((t - t0) / (t1 - t0)); const o = {};
+      for (const k of ["x", "y", "s", "o", "b"]) o[k] = lerp(a[k] ?? (k === "s" || k === "o" ? 1 : 0), b[k] ?? (k === "s" || k === "o" ? 1 : 0), u);
+      return o;
+    }
+  }
+  return keys[keys.length - 1][1];
+}
+function headline(id, t, tin, tout, first = false) {
+  const el = $(id); const ls = el.querySelectorAll(".ln > span"); let vis = false;
+  ls.forEach((ln, i) => {
+    const a = first ? 1 : p(t, tin + i * 0.12, 0.5);
+    const b = p(t, tout + i * 0.05, 0.32, eIO);
+    const o = Math.min(a, 1 - b); if (o > 0) vis = true;
+    ln.style.transform = `translateY(${(1 - a) * 64 - b * 36}px)`; ln.style.opacity = o;
+  });
+  el.style.visibility = vis ? "visible" : "hidden";
+}
+
+// ---------- illustrations ----------
+const BALI = (h) => `<svg width="100%" height="${h}" viewBox="0 0 380 132" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bs${h}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7B26A"/><stop offset=".55" stop-color="#F9D9A0"/><stop offset="1" stop-color="#FCEBCB"/></linearGradient></defs><rect width="380" height="132" fill="url(#bs${h})"/><circle cx="272" cy="56" r="20" fill="#FFF2D6"/><path d="M0 92c40-20 80-22 120-12s70 6 110-10 90-10 150 6v56H0z" fill="#7FB069"/><path d="M0 104c50-12 100-10 150-2s90 6 130-6 70-6 100 2v36H0z" fill="#5E9A50"/><path d="M0 116c60-8 120-6 180 0s120 2 200-6v24H0z" fill="#447F3D"/><g fill="#3A3226"><path d="M150 92v-26l6-4 6 4v26z"/><path d="M147 66h18l-3-6h-12z"/><path d="M151 60h10l-2-6h-6z"/><path d="M154 54h4l-2-6z"/><path d="M186 92v-26l6-4 6 4v26z"/><path d="M183 66h18l-3-6h-12z"/><path d="M187 60h10l-2-6h-6z"/><path d="M190 54h4l-2-6z"/></g><path d="M60 100c3-18 1-30-3-40" stroke="#3A3226" stroke-width="3" fill="none"/><path d="M57 60c-10-3-18 1-22 7 8-4 15-4 22-1zm0 0c8-6 17-6 23-2-8 0-15 1-23 4zm0 0c-3-8-1-15 4-19-1 7-2 13-4 19z" fill="#2F6B35"/></svg>`;
+$("#qiBig").innerHTML = BALI(132);
+
+// ---------- WhatsApp thread ----------
+const BLUE = '<svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg>';
+const GREY = BLUE.replace('#53BDEB', '#8696A0');
+const AG = '<span class="ag">✦ AGENTIC AI</span>';
+const QB = (orig) => `<div class="qb"><div class="qi">${BALI(74)}</div><div class="qt"><b>Bali Holiday</b>${orig ? '<span class="orig">↺ Original quote</span>' : ''}<small>6 Nights · 2 Travellers · Hotel + Transfers + Activities</small></div><div class="qx">View Quote</div></div>`;
+// [id, html, tin, tout]
+const ITEMS = [
+  ["m1", `<div class="b c">Hi, I’m planning a Bali trip for 2 people next month. Can you help?<span class="meta">1:00 AM <span id="t1">${GREY}</span></span></div><div class="dl" id="dlv">Delivered</div>`, 0.6, 99],
+  ["ty1", `<div class="typ"><i></i><i></i><i></i></div>`, 1.75, 2.75],
+  ["ty2", `<div class="typ"><i></i><i></i><i></i></div>`, 17.4, 17.95],
+  ["m2", `<div class="b a">${AG}Absolutely! I can help you plan that. When would you like to travel?<span class="meta">1:00 AM</span></div>`, 17.95, 99],
+  ["m3", `<div class="b c">12–18 November<span class="meta">1:01 AM ${BLUE}</span></div>`, 19.3, 99],
+  ["ty4", `<div class="typ"><i></i><i></i><i></i></div>`, 19.8, 20.2],
+  ["m4", `<div class="b a">${AG}What’s your approximate budget?<span class="meta">1:01 AM</span></div>`, 20.2, 99],
+  ["m5", `<div class="b c">Around ₹1.5 lakh<span class="meta">1:01 AM ${BLUE}</span></div>`, 21.2, 99],
+  ["ty6", `<div class="typ"><i></i><i></i><i></i></div>`, 27.05, 27.45],
+  ["m6", `<div class="b a">${AG}Here’s a personalised Bali itinerary based on your dates and budget.<span class="meta">1:02 AM</span></div>`, 27.45, 99],
+  ["m7", QB(false), 27.75, 99],
+  ["m8", `<div class="b c">Looks good. I’d like to proceed.<span class="meta">1:04 AM ${BLUE}</span></div>`, 28.75, 31.05],
+  ["ty9", `<div class="typ"><i></i><i></i><i></i></div>`, 29.2, 29.55],
+  ["m9", `<div class="b a">${AG}Great! You can confirm your booking with the secure deposit link below.<div class="pay">🔒 Pay Deposit Securely<span class="tap" id="tap"></span></div></div>`, 29.55, 31.05],
+  ["n1", `<div class="sys no">No response</div>`, 31.55, 99],
+  ["n2", `<div class="sys">Next day</div>`, 32.15, 99],
+  ["m10", `<div class="b a">${AG}Hi! Just checking if you’d like to continue with the Bali itinerary we shared yesterday.<span class="meta">10:00 AM</span></div>`, 32.65, 99],
+  ["m11", QB(true), 33.25, 99],
+  ["m12", `<div class="b c">Can I speak with someone about upgrading the hotel and adding another city?<span class="meta">10:12 AM ${BLUE}</span></div>`, 35.85, 99],
+];
+const thread = $("#thread");
+ITEMS.forEach(([id, html]) => thread.insertAdjacentHTML("beforeend", `<div class="it" id="${id}"><div class="in">${html}</div></div>`));
+const H = {};
+ITEMS.forEach(([id]) => { H[id] = $("#" + id + " > .in").offsetHeight; });
+
+// ---------- chips ----------
+const CHIP = [
+  ["Destination", "Bali", '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>'],
+  ["Dates", "12–18 Nov", '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>'],
+  ["Budget", "₹1.5L", '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="2.5"/></svg>'],
+  ["Quote", "Shared", '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>'],
+];
+CHIP.forEach(([k, v, ic], i) => $("#chips").insertAdjacentHTML("beforeend", `<div class="abs chip" id="cp${i}" style="top:${400 + i * 74}px"><span class="ci">${ic}</span><div><div class="k">${k}</div><div class="v">${v}</div></div></div>`));
+
+// ---------- sources ----------
+const SRC = [
+  ["Instagram", "DMs & ads", 112, 400, "#FBE6EF", '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C2407A" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#C2407A"/></svg>'],
+  ["Ads", "Click-to-WhatsApp", 732, 400, "#E6EEFB", '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D6FD1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M16 8.5a5 5 0 0 1 0 7"/></svg>'],
+  ["Website", "Chat & forms", 112, 790, "#E9F3EE", '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>'],
+  ["Other sources", "QR, email, referrals", 732, 790, "#F3EFE6", '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8A6D3B" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><path d="M17 14v6M14 17h6"/></svg>'],
+];
+SRC.forEach(([n, s, x, y, bg, ic], i) => {
+  $("#srcs").insertAdjacentHTML("beforeend", `<div class="abs src" id="sr${i}" style="left:${x}px;top:${y}px"><span class="sic" style="background:${bg}">${ic}</span><div><b>${n}</b><small>${s}</small></div></div>`);
+  const cx = x + 118, cy = y + 36;
+  $("#srcLines").insertAdjacentHTML("beforeend", `<path id="sl${i}" d="M${cx} ${cy} L540 620" fill="none" stroke="#29B47A" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1000" stroke-dashoffset="1000"/><circle id="sd${i}" r="6" fill="#007A5A"/>`);
+});
+
+// ---------- journey ----------
+const JN = ["Enquiry", "AI Response", "Trip Details", "Quote", "Follow-up", "Consultant", "Booking Opportunity"];
+JN.forEach((n, i) => $("#jr").insertAdjacentHTML("beforeend", `<div class="jn" id="jn${i}" style="left:${70 + i * (860 / 6)}px"><div class="d" id="jd${i}"><i></i></div><div class="t">${n}</div></div>`));
+
+// ---------- subtitles (timed to VO) ----------
+const VO = [[0.25, 3.88], [4.45, 5.34], [10.35, 6.70], [17.3, 6.10], [23.6, 4.12], [28.6, 2.33], [31.25, 4.12], [35.65, 4.88], [40.85, 2.74], [43.95, 1.58]];
+const SUBL = [
+  ["It’s 1 AM. A traveller wants to book a holiday.", "Who’s responding?"],
+  ["Your team is offline. Replies get delayed,", "quotes are pending, and potential bookings slip away."],
+  ["With DoubleTick, travel enquiries coming from Instagram,", "ads, websites, and other sources land directly on WhatsApp."],
+  ["DoubleTick Agentic AI responds 24/7,", "captures destinations, travel dates and budgets,"],
+  ["checks connected pricing and availability,", "and shares personalised quotes."],
+  ["Ready to book? Send a secure deposit link."],
+  ["Still deciding? Automated WhatsApp follow-ups", "bring back the original quote."],
+  ["High-value enquiries reach your consultant", "with the full conversation and trip details."],
+  ["Turn more enquiries into booking opportunities."],
+  ["Book your free pilot today."],
+];
+const SUBS = [];
+SUBL.forEach((chunks, i) => {
+  const [st, d] = VO[i]; const tot = chunks.reduce((a, c) => a + c.length, 0); let acc = st;
+  chunks.forEach((c, j) => { const dd = d * c.length / tot; SUBS.push([acc - (j === 0 ? 0.05 : 0), acc + dd + (j === chunks.length - 1 ? 0.25 : 0), c]); acc += dd; });
+});
+window.T_END = 47.3;
+
+window.render = function (t) {
+  // background: night → day
+  const day = p(t, 9.8, 0.9, eIO);
+  $("#night").style.opacity = 1 - day;
+  $("#rose").style.opacity = p(t, 4.5, 1.0) * (1 - p(t, 9.75, 0.7, eIO));
+  set($("#logo"), { o: p(t, 10.4, 0.5) * (1 - p(t, 43.5, 0.4)) });
+
+  // headlines
+  headline("#h1", t, 0, 4.4, t < 4.4);
+  headline("#h2", t, 4.6, 10.25);
+  headline("#h3", t, 10.5, 17.1);
+  headline("#h4", t, 17.3, 23.45);
+  headline("#h5", t, 23.65, 28.45);
+  headline("#h7", t, 28.65, 31.05);
+  headline("#h8", t, 31.25, 35.45);
+  headline("#h9", t, 35.75, 40.55);
+  headline("#h10", t, 40.85, 43.5);
+
+  // clock + offline
+  set($("#clock"), kf(t, [[0, { x: -30, o: 0 }], [0.35, { x: 0, o: 1 }], [4.45, { x: 0, o: 1 }], [4.95, { x: -40, o: 0 }]]));
+  const tick = p(t, 3.05, 0.25);
+  $("#hh").textContent = t < 3.1 ? "1:00" : "1:03";
+  $("#hh").style.opacity = t < 3.05 ? 1 : lerp(0.2, 1, tick);
+  set($("#off"), { o: p(t, 2.35, 0.35) * (1 - p(t, 4.45, 0.4)), y: (1 - p(t, 2.35, 0.35)) * 10 });
+
+  // problem states
+  [5.0, 6.2, 7.4].forEach((a, i) => { const q = p(t, a, 0.45, eSp); set($("#s" + (i + 1)), { o: q * (1 - p(t, 9.7, 0.4)), x: (1 - q) * -30 }); });
+  const sw = p(t, 9.45, 0.7, eIO);
+  $("#sweep").style.top = "612px";
+  set($("#sweep"), { o: (t > 9.45 ? 1 : 0) * (1 - p(t, 10.2, 0.3)) });
+  $("#sweep").style.transform = `scaleX(${sw})`;
+
+  // sources → hub
+  for (let i = 0; i < 4; i++) {
+    const a = p(t, 10.75 + i * 0.09, 0.4, eSp), out = p(t, 15.9, 0.4, eIO);
+    set($("#sr" + i), { o: a * (1 - out), s: lerp(0.95, 1, a) });
+    const dr = p(t, 11.5 + i * 0.12, 0.9, eIO);
+    const pth = $("#sl" + i); pth.style.strokeDashoffset = 1000 - dr * 1000 * 0.6; pth.style.opacity = (dr > 0 ? 0.8 : 0) * (1 - out);
+    const len = pth.getTotalLength(); const dd = p(t, 12.2 + i * 0.25, 1.0, eIO); const pt = pth.getPointAtLength(len * dd);
+    const dot = $("#sd" + i); dot.setAttribute("cx", pt.x); dot.setAttribute("cy", pt.y); dot.style.opacity = (dd > 0 && dd < 1 ? 1 : 0) * (1 - out);
+    pth.setAttribute("stroke-dasharray", `${len}`); pth.style.strokeDashoffset = len * (1 - dr);
+  }
+  const hub = p(t, 11.1, 0.5, eSp), hubOut = p(t, 16.05, 0.35, eIO);
+  const pulse = 1 + 0.06 * Math.sin(clamp((t - 13.4) / 0.4) * Math.PI) + 0.05 * Math.sin(clamp((t - 14.2) / 0.4) * Math.PI);
+  set($("#hub"), { o: hub * (1 - hubOut), s: lerp(0.6, 1, hub) * pulse });
+  set($("#hubLbl"), { o: p(t, 11.4, 0.4) * (1 - hubOut), y: (1 - p(t, 11.4, 0.4)) * 8 });
+
+  // phone
+  set($("#phone"), kf(t, [[0, { x: 450, y: 24, s: 0.97, o: 0 }], [0.4, { x: 450, y: 0, s: 1, o: 1 }], [4.7, { x: 450, y: 0, s: 1, o: 1 }],
+    [9.4, { x: 495, y: 34, s: 0.93, o: 0.42, b: 2 }], [10.15, { x: 450, y: 0, s: 1, o: 1 }], [10.45, { x: 450, y: 0, s: 1, o: 1 }],
+    [11.05, { x: 200, y: 10, s: 0.2, o: 0 }], [16.1, { x: 200, y: 10, s: 0.2, o: 0 }], [16.8, { x: 0, y: 0, s: 1, o: 1 }],
+    [40.45, { x: 0, y: 0, s: 1, o: 1 }], [40.95, { x: 0, y: 24, s: 0.96, o: 0 }]]));
+  $("#stOff").style.opacity = 1 - p(t, 16.4, 0.3);
+  $("#stOn").style.opacity = p(t, 16.6, 0.3);
+  const hi = p(t, 36.55, 0.35, eSp); set($("#hi"), { o: hi, s: lerp(0.7, 1, hi) });
+  $("#t1").innerHTML = t < 17.95 ? GREY : BLUE;
+  $("#dlv").style.opacity = 1 - p(t, 17.4, 0.3);
+
+  // thread items: grow height in, shrink out
+  ITEMS.forEach(([id, , tin, tout]) => {
+    const a = p(t, tin, 0.32, eOut), r = p(t, tout, 0.35, eIO);
+    const g = a * (1 - r); const el = $("#" + id);
+    el.style.height = (H[id] * g) + "px"; el.style.opacity = Math.min(1, a * 1.4) * (1 - r);
+    el.firstChild.style.transform = `translateY(${(1 - a) * 10}px)`;
+  });
+  const tp = clamp((t - 30.45) / 0.45);
+  set($("#tap"), { o: tp > 0 && tp < 1 ? (1 - tp) * 0.9 : 0, s: lerp(0.4, 2.6, tp) });
+
+  // chips: detach → dock (scene 4) → absorbed into system (scene 5) → re-emerge to consultant (scene 9)
+  const DOCK = (i) => ({ x: 0, y: 0 });
+  const ROWY = [450, 496, 542, 588]; // consultant row centres
+  for (let i = 0; i < 4; i++) {
+    const el = $("#cp" + i); const baseY = 400 + i * 74;
+    const tin = [18.45, 19.75, 21.65, 99][i];
+    let st;
+    if (t < 37.2) {
+      st = kf(t, [[tin, { x: -150, y: 320 - baseY + 380, s: 0.6, o: 0 }], [tin + 0.45, { x: 0, y: 0, s: 1, o: 1 }],
+        [23.75 + i * 0.08, { x: 0, y: 0, s: 1, o: 1 }], [24.35 + i * 0.08, { x: 30, y: 470 - baseY + 40, s: 0.4, o: 0 }]]);
+      if (t < tin) st = { o: 0 };
+    } else {
+      // from the phone's edge into the consultant card row
+      const a = 37.35 + i * 0.16;
+      st = kf(t, [[a, { x: -110, y: 620 - baseY, s: 0.7, o: 0 }], [a + 0.12, { x: -90, y: 610 - baseY, s: 0.75, o: 1 }], [a + 0.65, { x: 120, y: ROWY[i] - baseY - 30, s: 0.62, o: 1 }], [a + 0.85, { x: 130, y: ROWY[i] - baseY - 30, s: 0.6, o: 0 }]]);
+    }
+    set(el, st);
+  }
+
+  // system card → quote
+  const sa = p(t, 24.05, 0.45, eSp), sout = p(t, 26.05, 0.35, eIO);
+  set($("#sys"), { o: sa * (1 - sout), s: lerp(0.94, 1, sa) * lerp(1, 0.96, sout) });
+  [[24.7, 25.15], [25.15, 25.6]].forEach(([s0, s1], i) => {
+    const sc = clamp((t - s0) / (s1 - s0));
+    $("#bar" + (i + 1)).style.transform = `translateX(${lerp(-100, 100, sc)}%)`; $("#bar" + (i + 1)).style.opacity = sc > 0 && sc < 1 ? 1 : 0;
+    const ok = p(t, s1, 0.3, eSp); set($("#ok" + (i + 1)), { o: ok, s: lerp(0.5, 1, ok) });
+  });
+  const qa = p(t, 26.15, 0.5, eSp);
+  const fly = p(t, 27.2, 0.6, eIO);
+  set($("#quote"), { o: qa * (1 - p(t, 27.55, 0.25)), s: lerp(0.94, 1, qa) * lerp(1, 0.55, fly), x: -470 * fly, y: 240 * fly });
+
+  // branches
+  const ba = p(t, 28.75, 0.4, eSp), bb = p(t, 28.9, 0.4, eSp), bout = p(t, 35.5, 0.35, eIO);
+  set($("#brA"), { o: ba * (1 - bout) * (t > 31.1 ? lerp(1, 0.45, p(t, 31.1, 0.3)) : 1), x: (1 - ba) * 30 });
+  set($("#brB"), { o: bb * (1 - bout) * (t < 31.1 ? 0.45 : lerp(0.45, 1, p(t, 31.1, 0.3))), x: (1 - bb) * 30 });
+  $("#brA").classList.toggle("on", t < 31.15);
+  $("#brB").classList.toggle("on", t >= 31.15);
+
+  // consultant
+  const ca = p(t, 37.0, 0.5, eSp), cout = p(t, 40.5, 0.4, eIO);
+  set($("#cons"), { o: ca * (1 - cout), x: (1 - ca) * 40, s: lerp(0.96, 1, ca) });
+  for (let i = 0; i < 6; i++) {
+    const at = [37.35, 37.35 + 0.16 + 0.75, 37.35 + 0.32 + 0.75, 37.35 + 0.48 + 0.75, 37.35 + 0.64 + 0.75, 38.75][i];
+    const r = p(t, at, 0.3); const row = $("#rw" + i);
+    row.querySelector(".v").style.opacity = r; row.querySelector(".v").style.transform = `translateX(${(1 - r) * 8}px)`;
+  }
+  const ft = p(t, 39.15, 0.4, eSp); set($("#cft"), { o: ft, y: (1 - ft) * 10 });
+
+  // journey
+  const ja = p(t, 40.9, 0.4), jout = p(t, 43.5, 0.4, eIO);
+  set($("#jr"), { o: ja * (1 - jout), y: (1 - ja) * 16 });
+  const jf = p(t, 41.15, 1.5, eIO);
+  $("#jfill").style.transform = `scaleX(${jf})`;
+  for (let i = 0; i < 7; i++) {
+    const on = jf * 6 >= i - 0.02;
+    const d = $("#jd" + i);
+    const last = i === 6;
+    const sn = last ? p(t, 42.65, 0.3, eSp) : 0;
+    d.style.borderColor = on ? "#007A5A" : "#D9D6CC";
+    d.style.background = last && on ? "#007A5A" : "#fff";
+    d.firstChild.style.background = on ? "#007A5A" : "#D9D6CC";
+    if (last) { d.innerHTML = on ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>' : "<i></i>"; d.style.transform = `scale(${on ? lerp(1.4, 1.15, sn) : 1})`; }
+  }
+
+  // CTA
+  const la = p(t, 43.75, 0.4), ha = p(t, 43.9, 0.5), cb = p(t, 44.5, 0.3, eOut), cs = p(t, 45.2, 0.4);
+  set($("#ctaLogo"), { o: la, y: (1 - la) * 12 });
+  set($("#ctaH"), { o: ha, y: (1 - ha) * 26 });
+  set($("#cta"), { o: cb, s: lerp(0.96, 1, cb) + 0.03 * Math.sin(clamp((t - 45.7) / 0.5) * Math.PI) });
+  set($("#ctaSub"), { o: cs });
+
+  // subtitles
+  const sub = SUBS.find(sv => t >= sv[0] && t < sv[1]); const se = $("#subs");
+  if (sub) { if (se.dataset.k !== sub[2]) { se.textContent = sub[2]; se.dataset.k = sub[2]; } se.style.opacity = Math.min(p(t, sub[0], 0.12), 1 - p(t, sub[1] - 0.1, 0.1)); } else se.style.opacity = 0;
+};
+render(0);
+</script>
+</body>
+</html>
