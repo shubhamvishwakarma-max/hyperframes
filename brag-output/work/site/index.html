@@ -360,23 +360,26 @@ const VO = [[0.2, 4.38], [5.28, 6.01], [11.68, 8.04], [20.02, 6.0], [26.25, 3.94
 // VO-driven time warp: [videoTime, animTime]. Each scene starts on its VO line.
 const KP = [[0, 0], [0.2, 0.25], [5.28, 4.45], [11.68, 10.35], [20.02, 17.3], [26.25, 23.6], [30.6, 28.6], [33.39, 31.25], [37.8, 35.65], [42.67, 40.85], [45.44, 43.95], [48.8, 47.3]];
 function warp(T) { for (let i = 1; i < KP.length; i++) { const [n0, o0] = KP[i - 1], [n1, o1] = KP[i]; if (T <= n1) return o0 + (o1 - o0) * clamp((T - n0) / (n1 - n0)); } return KP[KP.length - 1][1]; }
-const SUBL = [
-  ["It’s 1 AM. A traveller wants to book a holiday.", "Who’s responding?"],
-  ["Your team is offline. Replies get delayed,", "quotes are pending, and potential bookings slip away."],
-  ["With DoubleTick, travel enquiries coming from Instagram,", "ads, websites, and other sources land directly on WhatsApp."],
-  ["DoubleTick Agentic AI responds 24/7,", "captures destinations, travel dates and budgets,"],
-  ["checks connected pricing and availability,", "and shares personalised quotes."],
-  ["Ready to book? Send a secure deposit link."],
-  ["Still deciding? Automated WhatsApp follow-ups", "bring back the original quote."],
-  ["High-value enquiries reach your consultant", "with the full conversation and trip details."],
-  ["Turn more enquiries into booking opportunities."],
-  ["Book your free pilot today."],
+// Subtitle cues from forced alignment of the VO (word timings), in video time.
+const SUBS = [
+  [0.12, 3.92, "It’s 1 AM. A traveller wants to book a holiday."],
+  [3.92, 5.16, "Who’s responding?"],
+  [5.18, 8.05, "Your team is offline. Replies get delayed,"],
+  [8.05, 11.53, "quotes are pending, and potential bookings slip away."],
+  [11.55, 16.61, "With DoubleTick, travel enquiries coming from Instagram,"],
+  [16.61, 19.9, "ads, websites, and other sources land directly on WhatsApp."],
+  [19.92, 23.2, "DoubleTick Agentic AI responds 24/7,"],
+  [23.2, 26.15, "captures destinations, travel dates and budgets,"],
+  [26.17, 28.34, "checks connected pricing and availability,"],
+  [28.34, 30.46, "and shares personalised quotes."],
+  [30.48, 33.25, "Ready to book? Send a secure deposit link."],
+  [33.27, 35.8, "Still deciding? Automated WhatsApp follow-ups"],
+  [35.8, 37.68, "bring back the original quote."],
+  [37.7, 39.83, "High-value enquiries reach your consultant"],
+  [39.83, 42.56, "with the full conversation and trip details."],
+  [42.58, 45.19, "Turn more enquiries into booking opportunities."],
+  [45.21, 47.63, "Book your free pilot today."],
 ];
-const SUBS = [];
-SUBL.forEach((chunks, i) => {
-  const [st, d] = VO[i]; const tot = chunks.reduce((a, c) => a + c.length, 0); let acc = st;
-  chunks.forEach((c, j) => { const dd = d * c.length / tot; SUBS.push([acc - (j === 0 ? 0.05 : 0), acc + dd + (j === chunks.length - 1 ? 0.25 : 0), c]); acc += dd; });
-});
 window.T_END = 48.8;
 
 window.render = function (T) {
@@ -521,7 +524,7 @@ window.render = function (T) {
 
   // subtitles
   const sub = SUBS.find(sv => T >= sv[0] && T < sv[1]); const se = $("#subs");
-  if (sub) { if (se.dataset.k !== sub[2]) { se.textContent = sub[2]; se.dataset.k = sub[2]; } se.style.opacity = Math.min(p(t, sub[0], 0.12), 1 - p(t, sub[1] - 0.1, 0.1)); } else se.style.opacity = 0;
+  if (sub) { if (se.dataset.k !== sub[2]) { se.textContent = sub[2]; se.dataset.k = sub[2]; } se.style.opacity = Math.min(p(T, sub[0], 0.12), 1 - p(T, sub[1] - 0.1, 0.1)); } else se.style.opacity = 0;
 };
 render(0);
 </script>
