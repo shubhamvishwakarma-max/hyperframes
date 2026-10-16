@@ -8,14 +8,14 @@
   @font-face { font-family: "Geist"; src: url(fonts/geist-latin.woff2) format("woff2"); font-weight: 100 900; }
   @font-face { font-family: "Geist"; src: url(fonts/geist-latin-ext.woff2) format("woff2"); font-weight: 100 900; unicode-range: U+0100-02BA, U+20A0-20C4; }
   @font-face { font-family: "Hedvig"; src: url(fonts/hedvig-latin.woff2) format("woff2"); font-weight: 400; }
-  :root { --bg: #F4F3EC; --ink: #131316; --ink-2: #5A5A63; --mute: #8C8B84; --line: #E4E2D9; --card: #FFFFFF; --green: #007A5A; --green-2: #29B47A; --tint: #E3F1EA; --rose: #B5524F; --rose-bg: #F7E6E3; --amber: #A86A0C; --amber-bg: #FFF1DA; }
+  :root { --bg: #F4F3EC; --ink: #131316; --ink-2: #5A5A63; --mute: #8C8B84; --line: #E4E2D9; --card: #FFFFFF; --green: #007A5A; --green-2: #29B47A; --tint: #E3F1EA; --rose: #D32F2F; --rose-bg: #FBE9E9; --amber: #A86A0C; --amber-bg: #FFF1DA; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
   body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
   #stage { position: relative; width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
   .abs { position: absolute; will-change: transform, opacity; }
   .grid { position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(19,19,22,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(19,19,22,0.05) 1px, transparent 1px); background-size: 60px 60px; background-position: -1px -1px; -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 55%, #000 30%, transparent 85%); }
-  #rose { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(190,110,100,0.17), rgba(190,110,100,0.07) 70%, rgba(190,110,100,0.03)); }
+  #rose { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(211,47,47,0.10), rgba(211,47,47,0.045) 70%, rgba(211,47,47,0.02)); }
   #logo { left: 60px; top: 42px; height: 34px; }
 
   /* headlines */
@@ -67,7 +67,7 @@
   #mgr .mav { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.14); display: grid; place-items: center; }
   #mgr b { font-size: 17px; } #mgr small { display: block; font-size: 12px; opacity: 0.65; }
   #lines { left: 0; top: 0; width: 1080px; height: 1080px; pointer-events: none; z-index: 3; }
-  .issue { z-index: 7; font-size: 17px; font-weight: 600; color: var(--rose); background: #fff; border: 1.5px solid rgba(181,82,79,0.35); padding: 8px 14px; border-radius: 999px; white-space: nowrap; box-shadow: 0 10px 22px -12px rgba(19,19,22,0.35); }
+  .issue { z-index: 7; font-size: 17px; font-weight: 600; color: var(--rose); background: #fff; border: 1.5px solid rgba(211,47,47,0.35); padding: 8px 14px; border-radius: 999px; white-space: nowrap; box-shadow: 0 10px 22px -12px rgba(19,19,22,0.35); }
   #sweep { left: 0; top: 0; height: 4px; width: 1080px; border-radius: 4px; background: linear-gradient(90deg, rgba(0,122,90,0), #29B47A 30%, #007A5A 70%, #29B47A); box-shadow: 0 0 18px 2px rgba(41,180,122,0.5); transform-origin: left center; z-index: 8; }
 
   /* DoubleTick dashboard (simplified) */
@@ -142,7 +142,7 @@
   .frow .ref { display: flex; align-items: center; gap: 9px; border: 1px solid #E9EDEF; border-radius: 10px; padding: 8px 11px; font-size: 13px; color: #3B4A54; background: #FAFAF8; }
   .frow .ref b { color: #111B21; }
   .frow .flag { position: absolute; right: 22px; top: 50%; margin-top: -22px; height: 44px; display: flex; align-items: center; gap: 9px; padding: 0 15px; border-radius: 12px; font-size: 15px; font-weight: 600; color: var(--amber); background: var(--amber-bg); border: 1px solid rgba(168,106,12,0.25); }
-  .frow .flag.r { color: var(--rose); background: var(--rose-bg); border-color: rgba(181,82,79,0.28); }
+  .frow .flag.r { color: var(--rose); background: var(--rose-bg); border-color: rgba(211,47,47,0.28); }
   .frow .flag .ai { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; color: #fff; background: var(--green); padding: 2px 6px; border-radius: 5px; }
   .ul { position: relative; display: inline-block; }
   .ul::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; border-radius: 2px; background: var(--amber); transform: scaleX(var(--u, 0)); transform-origin: left; }
@@ -217,7 +217,7 @@
   .crow .pv span:last-child { flex: none; font-size: 10px; color: #8696A0; }
   .crow .tg2 { margin-top: 7px; display: flex; gap: 5px; }
   .tg2 span { font-size: 10.5px; padding: 3px 7px; border-radius: 4px; background: #E3F1EA; color: #1E7A57; }
-  .tg2 span.amb { background: #FFF1DA; color: #A86A0C; } .tg2 span.ros { background: #F7E6E3; color: #B5524F; } .tg2 span.gry { background: #F0F2F5; color: #54656F; }
+  .tg2 span.amb { background: #FFF1DA; color: #A86A0C; } .tg2 span.ros { background: #FBE9E9; color: #D32F2F; } .tg2 span.gry { background: #F0F2F5; color: #54656F; }
   .newb { position: absolute; right: 12px; bottom: 12px; background: var(--green); color: #fff; font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 7px; }
   .waba { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 5px 9px; border: 1px solid #E3E3DE; border-radius: 7px; }
   .thr { flex: 1; position: relative; background: #EFEAE2; padding: 12px 14px; display: flex; flex-direction: column; gap: 9px; overflow: hidden; }
@@ -250,6 +250,27 @@
   .fu .l1 { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
   .fu .l2 { display: flex; align-items: center; gap: 6px; margin-top: 5px; font-size: 10.5px; color: #667781; }
   .focus { position: absolute; border: 2px solid rgba(0,122,90,0.6); border-radius: 12px; box-shadow: 0 0 0 4px rgba(0,122,90,0.12); pointer-events: none; z-index: 5; }
+
+  /* CX Overview (reference UI, simplified) */
+  #cx { left: 24px; top: 330px; width: 1032px; height: 508px; border-radius: 16px; background: #fff; border: 1px solid #E3E3DE; box-shadow: 0 30px 60px -30px rgba(19,19,22,0.35); overflow: hidden; z-index: 4; color: #111B21; }
+  #cx .top { height: 64px; display: flex; align-items: center; gap: 10px; padding: 0 18px; }
+  #cx .top h3 { font-size: 21px; font-weight: 600; letter-spacing: -0.01em; }
+  #cx .ai2 { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 600; color: var(--green); background: var(--tint); padding: 4px 9px; border-radius: 999px; margin-left: 4px; }
+  #cx .flt { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 13px; color: #54656F; }
+  #cx .dd { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 11px; border: 1px solid #DADAD5; border-radius: 4px; font-size: 13px; color: #111B21; }
+  #cx table { position: absolute; left: 12px; right: 12px; top: 64px; border-collapse: collapse; table-layout: fixed; width: calc(100% - 24px); }
+  #cx th { height: 44px; text-align: left; padding: 0 14px; font-family: ui-monospace, "DejaVu Sans Mono", monospace; font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em; color: #5A5A63; border: 1px solid #E6E6E1; }
+  #cx td { height: 96px; padding: 0 14px; border: 1px solid #E6E6E1; font-size: 15px; vertical-align: middle; }
+  #cx .itag { display: inline-block; font-family: ui-monospace, "DejaVu Sans Mono", monospace; font-size: 12.5px; padding: 6px 10px; border-radius: 4px; white-space: nowrap; }
+  .it-amb { color: #B7791F; background: #FFF4DE; } .it-red { color: #B3261E; background: #FBE9E9; } .it-pur { color: #7B3FC4; background: #F3EAFE; } .it-ind { color: #4A4A9C; background: #ECECF8; } .it-tea { color: #1E7A6B; background: #E5F4F0; }
+  #cx .inc { font-weight: 500; line-height: 1.3; }
+  #cx .cu { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #3B4A54; }
+  #cx .cu .av2 { width: 28px; height: 28px; font-size: 11px; }
+  #cx .res { display: grid; place-items: center; height: 40px; background: var(--green); color: #fff; font-size: 13.5px; font-weight: 500; }
+  #cx .pen { display: flex; align-items: center; justify-content: space-between; height: 40px; padding: 0 10px; border: 1.5px solid #DADAD5; color: #D32F2F; font-size: 13.5px; font-weight: 500; }
+  #cx .msgb { height: 50px; border: 1px solid #DADAD5; border-radius: 4px; display: flex; align-items: center; padding: 0 10px; font-size: 12.5px; color: #3B4A54; line-height: 1.3; }
+  #cx .msgb .hlm { background: #FFF1DA; box-shadow: 0 -2px 0 #FFF1DA, 0 2px 0 #FFF1DA; border-bottom: 2px solid #D32F2F; }
+  #cx tr.flag td:first-child { box-shadow: inset 4px 0 0 #D32F2F; }
 </style>
 </head>
 <body>
@@ -388,21 +409,13 @@
     <div class="prow"><span class="k">Payment</span><span class="v" id="mv2"></span><span class="lk" id="lk2"></span></div>
   </div>
 
-  <!-- AI flags -->
-  <div id="f0" class="abs frow" style="top:356px"><span class="edge"></span>
-    <div class="fh"><div class="av a1">A</div>Aisha · Bali Holiday</div>
-    <div class="fb"><div class="ref"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Stored quote · <b>AED 6,450</b></div><div class="bub out"><span class="who">Agent</span>Your package total is <span class="ul" id="u0">AED 5,950</span>.</div></div>
-    <div class="flag" id="fl0"><span class="ai">AI</span>Price mismatch detected</div>
-  </div>
-  <div id="f1" class="abs frow" style="top:516px"><span class="edge" style="background:var(--rose)"></span>
-    <div class="fh"><div class="av a2">K</div>Khalid · Baku Trip</div>
-    <div class="fb"><div class="bub in">Can you confirm the airport pickup?</div><span class="noreply"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>No reply · <span id="nr">3h</span></span></div>
-    <div class="flag r" id="fl1"><span class="ai">AI</span>Reply overdue</div>
-  </div>
-  <div id="f2" class="abs frow" style="top:676px"><span class="edge"></span>
-    <div class="fh"><div class="av a3">M</div>Mariam · Maldives Booking</div>
-    <div class="fb"><div class="ref">Stored policy · <b>50% refund after 12 Nov</b></div><div class="bub out"><span class="who">Agent</span><span class="ul" id="u2">You'll receive a full refund.</span></div></div>
-    <div class="flag" id="fl2"><span class="ai">AI</span>Policy mismatch</div>
+  <!-- AI flags: CX Overview (reference UI, simplified) -->
+  <div id="cx" class="abs">
+    <div class="top"><h3>CX Overview</h3><span class="ai2">✦ AI flagged</span><div class="flt"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linejoin="round"><path d="M3 4h18l-7 9v6l-4 2v-8z"/></svg>Filters<span class="dd">All Agents <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111B21" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span><span class="dd">All Issues <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111B21" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span><span class="dd">Status <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111B21" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div></div>
+    <table><colgroup><col style="width:182px"><col style="width:300px"><col style="width:200px"><col style="width:134px"><col></colgroup>
+      <tr><th>ISSUE</th><th>INCIDENT</th><th>CUSTOMER</th><th>STATUS</th><th>MESSAGE</th></tr>
+      <tr id="cxr0" class="flag"><td><span class="itag it-amb" id="cxt0">Price Mismatch</span></td><td class="inc">Quoted AED 5,950, stored quote is AED 6,450</td><td><div class="cu"><div class="av2 a1">A</div>Aisha Rahman</div></td><td><div class="pen">Pending <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D32F2F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div></td><td><div class="msgb"><span>Your package total is <span class="hlm">AED 5,950</span>.</span></div></td></tr><tr id="cxr1" class="flag"><td><span class="itag it-red" id="cxt1">Missed Reply</span></td><td class="inc">Airport pickup question unanswered for 3h</td><td><div class="cu"><div class="av2 a2">K</div>Khalid Al Mansoori</div></td><td><div class="pen">Pending <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D32F2F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div></td><td><div class="msgb"><span>Can you confirm the airport pickup?</span></div></td></tr><tr id="cxr2" class="flag"><td><span class="itag it-pur" id="cxt2">Policy Violation</span></td><td class="inc">Full refund promised, policy allows 50% after 12 Nov</td><td><div class="cu"><div class="av2 a3">M</div>Mariam Saeed</div></td><td><div class="pen">Pending <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D32F2F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div></td><td><div class="msgb"><span>You'll receive a <span class="hlm">full refund</span>.</span></div></td></tr><tr id="cxr3" class=""><td><span class="itag it-tea" id="cxt3">Customer Concern</span></td><td class="inc">Asked about visa processing time</td><td><div class="cu"><div class="av2 a4">Y</div>Yousef Ali</div></td><td><div class="res">Resolved</div></td><td><div class="msgb"><span>Thanks, that helps!</span></div></td></tr>
+    </table>
   </div>
 
   <!-- journey -->
@@ -457,7 +470,7 @@ const TC = [
 const tcEl = $("#tcards"), teth = $("#tethers");
 TC.forEach((c, k) => {
   tcEl.insertAdjacentHTML("beforeend", `<div class="abs tcard" id="tc${k}" style="left:${c.x}px;top:${c.y}px">${c.h}</div>`);
-  teth.insertAdjacentHTML("beforeend", `<path id="te${k}" fill="none" stroke="#B5524F" stroke-width="2" stroke-dasharray="5 6" stroke-linecap="round"/>`);
+  teth.insertAdjacentHTML("beforeend", `<path id="te${k}" fill="none" stroke="#D32F2F" stroke-width="2" stroke-dasharray="5 6" stroke-linecap="round"/>`);
 });
 
 // ---------- S2: personal WhatsApp chats ----------
@@ -478,7 +491,7 @@ WC.forEach((c, k) => {
     <div class="wh"><div class="av ${c.av}">${c.i}</div><div><div class="nm">${c.n}</div><div class="sm">Customer</div></div></div>
     <div class="wb">${c.b}</div>
     <div class="wf"><span class="pill ${c.st[0]}" id="sl${k}"><span class="dot"></span>${c.st[1]}</span></div></div>`);
-  lsvg.insertAdjacentHTML("beforeend", `<path id="l${k}" fill="none" stroke="#9A9890" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="6 7"/><circle id="le${k}" r="4" fill="#B5524F"/>`);
+  lsvg.insertAdjacentHTML("beforeend", `<path id="l${k}" fill="none" stroke="#9A9890" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="6 7"/><circle id="le${k}" r="4" fill="#D32F2F"/>`);
 });
 
 // ---------- masking ----------
@@ -643,18 +656,18 @@ window.render = function (t) {
     set($("#lk" + i), { o: p(t, T7 + 1.3 + i * 0.45, 0.25) });
   }
 
-  // ---- AI flags: price, missed reply, policy ----
-  const FT = [31.2, 32.8, 33.85], FF = [32.15, 33.35, 34.5];
+  // ---- AI flags in CX Overview: price, missed reply, policy ----
+  const FT = [31.6, 32.85, 33.9], FF = [32.15, 33.35, 34.45];
+  const cxa = p(t, T8 + 0.15, 0.5, eSp), cxo = p(t, T9 - 0.1, 0.4, eIO);
+  set($("#cx"), { o: cxa * (1 - cxo), y: (1 - cxa) * 24 - cxo * 16, s: lerp(0.97, 1, cxa) });
+  set($("#cxr3"), { o: p(t, T8 + 0.4, 0.3) });
   for (let i = 0; i < 3; i++) {
-    const ra = p(t, FT[i], 0.45, eSp), fo = p(t, T9 - 0.1, 0.4, eIO);
-    set($("#f" + i), { o: ra * (1 - fo), y: (1 - ra) * 24 - fo * 16 });
-    const fa = p(t, FF[i], 0.4, eSp);
-    set($("#fl" + i), { o: fa, x: (1 - fa) * 16, s: lerp(0.92, 1, fa) });
-    $("#f" + i).querySelector(".edge").style.opacity = fa;
+    const ra = p(t, FT[i], 0.4, eSp);
+    set($("#cxr" + i), { o: ra, x: (1 - ra) * -20 });
+    const fa = p(t, FF[i], 0.35, eSp);
+    set($("#cxt" + i), { o: 0.25 + 0.75 * fa, s: lerp(0.85, 1, fa) });
+    $("#cxr" + i).classList.toggle("flag", fa > 0.5);
   }
-  $("#u0").style.setProperty("--u", p(t, FF[0] - 0.15, 0.35));
-  $("#u2").style.setProperty("--u", p(t, FF[2] - 0.15, 0.45));
-  $("#nr").textContent = t < FF[1] - 0.1 ? "2h" : "3h";
 
   // ---- governed journey: nodes snap onto one green line ----
   const jOut = p(t, T10 - 0.2, 0.35, eIO);

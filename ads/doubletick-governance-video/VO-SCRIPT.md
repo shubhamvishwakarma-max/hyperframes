@@ -15,6 +15,6 @@ times in the mix step.
 | 0:24.0 | track follow-ups, | Follow-up · Today, 4:00 PM · Pending · visible to manager |
 | 0:25.05 | and reassign enquiries without losing context. | Owner chip Omar → Sara |
 | 0:28.0 | DoubleTick also masks sensitive guest details, | Guest details masking |
-| 0:31.05 | and uses AI to flag incorrect prices, missed replies, and policy violations before they escalate. | Price mismatch / Reply overdue / Policy mismatch |
+| 0:31.05 | and uses AI to flag incorrect prices, missed replies, and policy violations before they escalate. | CX Overview table (reference UI): Price Mismatch / Missed Reply / Policy Violation |
 | 0:37.0 | Keep customer relationships, commitments, and service quality under your control. | Journey on one green line + 4 checks |
 | 0:41.4 | Book your free DoubleTick pilot today. | CTA, held to 0:45 |
