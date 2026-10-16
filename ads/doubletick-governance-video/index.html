@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1080, height=1080" />
+<title>DoubleTick Governance Video</title>
+<style>
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin.woff2) format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin-ext.woff2) format("woff2"); font-weight: 100 900; unicode-range: U+0100-02BA, U+20A0-20C4; }
+  @font-face { font-family: "Hedvig"; src: url(fonts/hedvig-latin.woff2) format("woff2"); font-weight: 400; }
+  :root { --bg: #F4F3EC; --ink: #131316; --ink-2: #5A5A63; --mute: #8C8B84; --line: #E4E2D9; --card: #FFFFFF; --green: #007A5A; --green-2: #29B47A; --tint: #E3F1EA; --rose: #B5524F; --rose-bg: #F7E6E3; --amber: #A86A0C; --amber-bg: #FFF1DA; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  #stage { position: relative; width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
+  .abs { position: absolute; will-change: transform, opacity; }
+  .grid { position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(19,19,22,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(19,19,22,0.05) 1px, transparent 1px); background-size: 60px 60px; background-position: -1px -1px; -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 55%, #000 30%, transparent 85%); }
+  #rose { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(190,110,100,0.17), rgba(190,110,100,0.07) 70%, rgba(190,110,100,0.03)); }
+  #logo { left: 60px; top: 42px; height: 34px; }
+
+  /* headlines */
+  .hl { left: 60px; width: 960px; top: 104px; }
+  .ln { overflow: hidden; padding-bottom: 6px; }
+  .ln > span { display: inline-block; will-change: transform, opacity; }
+  .serif { font-family: "Hedvig", Georgia, serif; font-weight: 400; letter-spacing: -0.03em; line-height: 1.02; }
+  .small { font-size: 24px; color: var(--ink-2); font-weight: 500; letter-spacing: 0.005em; margin-top: 12px; }
+  .rose { color: var(--rose); } .green { color: var(--green); } .muted { color: var(--ink-2); }
+
+  /* shared bits */
+  .av { position: relative; flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 14px; }
+  .a1 { background: #E3E7FB; color: #4F5BD5; } .a2 { background: #FBE3EE; color: #C2407A; } .a3 { background: #E0F2E9; color: #1E8A5A; } .a4 { background: #FFF0D9; color: #B7791F; } .a5 { background: #E6E4DC; color: #5A5A63; } .a6 { background: #DDEFF7; color: #1F7A9C; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; padding: 4px 9px; border-radius: 999px; white-space: nowrap; }
+  .pill.amb { color: var(--amber); background: var(--amber-bg); } .pill.grn { color: var(--green); background: var(--tint); } .pill.ros { color: var(--rose); background: var(--rose-bg); } .pill.gry { color: #54656F; background: #F0F2F5; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
+
+  /* S1 — agent + tied cards */
+  #tethers { left: 0; top: 0; width: 1080px; height: 1080px; pointer-events: none; }
+  #agent { left: 370px; top: 420px; width: 340px; height: 104px; border-radius: 20px; background: #fff; border: 1px solid var(--line); box-shadow: 0 20px 40px -22px rgba(19,19,22,0.4); display: flex; align-items: center; gap: 16px; padding: 0 22px; z-index: 5; }
+  #agent .big { width: 58px; height: 58px; border-radius: 50%; background: #E6E4DC; display: grid; place-items: center; flex: none; }
+  #agent .k { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--mute); }
+  #agent .n { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  #agent .left { margin-left: auto; }
+  .tcard { width: 300px; height: 100px; border-radius: 16px; background: #fff; border: 1px solid var(--line); box-shadow: 0 14px 30px -20px rgba(19,19,22,0.4); display: flex; gap: 12px; padding: 16px; z-index: 4; }
+  .tcard .b { min-width: 0; flex: 1; }
+  .tcard .t { display: flex; justify-content: space-between; align-items: center; font-size: 15.5px; font-weight: 600; }
+  .tcard .t small { font-size: 11px; color: #8696A0; font-weight: 400; }
+  .tcard .m { margin-top: 4px; font-size: 13.5px; color: #667781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tcard .ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex: none; }
+  .wa { position: absolute; right: -1px; bottom: -1px; width: 12px; height: 12px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
+
+  /* S2 — scattered WhatsApp conversations */
+  .wcard { width: 290px; height: 292px; border-radius: 20px; background: #EFEAE2; border: 1px solid #E2DED4; overflow: hidden; box-shadow: 0 22px 44px -24px rgba(19,19,22,0.38); display: flex; flex-direction: column; z-index: 4; }
+  .wcard .wh { height: 54px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 12px; background: #fff; border-bottom: 1px solid #E9EDEF; }
+  .wcard .wh .nm { font-size: 14.5px; font-weight: 600; color: #111B21; }
+  .wcard .wh .sm { font-size: 11px; color: #667781; }
+  .wcard .wb { flex: 1; position: relative; padding: 10px 10px; display: flex; flex-direction: column; gap: 7px; }
+  .wcard .wb::before, .thread::before { content: ""; position: absolute; inset: 0; opacity: 0.35; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' fill='none' stroke='%23D6CFC4' stroke-width='1.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='14' r='5'/%3E%3Cpath d='M42 9l7 7m0-7l-7 7'/%3E%3Cpath d='M18 46c4-5 9-5 12 0'/%3E%3Crect x='47' y='42' width='10' height='10' rx='3'/%3E%3C/svg%3E"); }
+  .wcard .wb > * { position: relative; }
+  .bub { max-width: 88%; padding: 6px 9px 6px; border-radius: 9px; font-size: 13px; line-height: 1.35; color: #111B21; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .bub.in { align-self: flex-start; background: #fff; border-top-left-radius: 2px; }
+  .bub.out { align-self: flex-end; background: #D9FDD3; border-top-right-radius: 2px; }
+  .bub .who { display: block; font-size: 10.5px; font-weight: 600; color: var(--green); margin-bottom: 1px; }
+  .bub .tm { float: right; margin: 4px 0 -2px 8px; font-size: 9.5px; color: #8696A0; }
+  .doc { display: flex; align-items: center; gap: 7px; background: rgba(0,0,0,0.04); border-radius: 6px; padding: 5px 7px; margin-bottom: 4px; font-size: 12px; font-weight: 600; }
+  .wcard .wf { height: 46px; flex: none; display: flex; align-items: center; padding: 0 12px; background: #fff; border-top: 1px solid #E9EDEF; }
+  #mgr { left: 430px; top: 326px; width: 220px; height: 62px; border-radius: 16px; background: var(--ink); color: #F4F3EC; display: flex; align-items: center; gap: 12px; padding: 0 16px; box-shadow: 0 14px 30px -16px rgba(19,19,22,0.5); z-index: 6; }
+  #mgr .mav { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.14); display: grid; place-items: center; }
+  #mgr b { font-size: 17px; } #mgr small { display: block; font-size: 12px; opacity: 0.65; }
+  #lines { left: 0; top: 0; width: 1080px; height: 1080px; pointer-events: none; z-index: 3; }
+  .issue { z-index: 7; font-size: 17px; font-weight: 600; color: var(--rose); background: #fff; border: 1.5px solid rgba(181,82,79,0.35); padding: 8px 14px; border-radius: 999px; white-space: nowrap; box-shadow: 0 10px 22px -12px rgba(19,19,22,0.35); }
+  #sweep { left: 0; top: 0; height: 4px; width: 1080px; border-radius: 4px; background: linear-gradient(90deg, rgba(0,122,90,0), #29B47A 30%, #007A5A 70%, #29B47A); box-shadow: 0 0 18px 2px rgba(41,180,122,0.5); transform-origin: left center; z-index: 8; }
+
+  /* DoubleTick dashboard (simplified) */
+  #dash { left: 60px; top: 330px; width: 960px; height: 384px; border-radius: 20px; background: #fff; border: 1px solid var(--line); box-shadow: 0 30px 60px -30px rgba(19,19,22,0.35); overflow: hidden; color: #111B21; z-index: 2; }
+  .rail { position: absolute; left: 0; top: 0; bottom: 0; width: 60px; background: #FBFBFA; border-right: 1px solid #E9EDEF; display: flex; flex-direction: column; align-items: center; gap: 16px; padding-top: 14px; }
+  .rail .lg { width: 34px; height: 34px; border-radius: 10px; background: var(--green); display: grid; place-items: center; }
+  .rail .ri { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; }
+  .rail .ri.on { background: var(--tint); }
+  .main { position: absolute; left: 60px; top: 0; right: 0; bottom: 0; }
+  .topbar { height: 56px; display: flex; align-items: center; gap: 8px; padding: 0 18px; border-bottom: 1px solid #E9EDEF; }
+  .topbar .ttl { font-size: 17px; font-weight: 600; margin-right: 10px; }
+  .tab { font-size: 13px; font-weight: 500; color: #3B4A54; padding: 6px 11px; border-radius: 7px; display: flex; gap: 6px; align-items: center; white-space: nowrap; }
+  .tab.on { background: var(--tint); color: var(--green); font-weight: 600; }
+  .tab b { font-size: 11px; font-weight: 700; background: #F0F2F5; color: #54656F; padding: 0 5px; border-radius: 4px; }
+  .tab.on b { background: var(--green); color: #fff; }
+  .srch { margin-left: auto; width: 170px; height: 32px; border-radius: 8px; border: 1px solid #E9EDEF; display: flex; align-items: center; gap: 7px; padding: 0 10px; font-size: 12.5px; color: #8696A0; }
+  .cols { height: 38px; display: grid; grid-template-columns: 1.55fr 1.05fr 0.95fr 0.8fr; align-items: center; padding: 0 22px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; color: #8696A0; border-bottom: 1px solid #F0F2F5; }
+  .row { position: absolute; left: 0; right: 0; height: 76px; display: grid; grid-template-columns: 1.55fr 1.05fr 0.95fr 0.8fr; align-items: center; padding: 0 22px; border-bottom: 1px solid #F0F2F5; }
+  .row.sel { background: #EEF6F2; }
+  .row .cu { display: flex; align-items: center; gap: 12px; }
+  .row .cu b { font-size: 15.5px; font-weight: 600; } .row .cu small { display: block; font-size: 12.5px; color: #667781; margin-top: 1px; }
+  .own { display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 600; }
+  .own .av { width: 26px; height: 26px; font-size: 11px; }
+  .row .ls { font-size: 13px; color: #667781; }
+  #rowsNote { left: 0; right: 0; top: 0; text-align: center; font-size: 13px; color: #8696A0; }
+
+  /* detail view (inside dash .main) */
+  #detail { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: #fff; }
+  .dh { height: 72px; display: flex; align-items: center; gap: 12px; padding: 0 22px; border-bottom: 1px solid #E9EDEF; }
+  .dh b { font-size: 17px; font-weight: 600; } .dh small { display: block; font-size: 12.5px; color: #667781; }
+  .dh .pill { margin-left: 8px; }
+  .dh .wab { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: #54656F; }
+  .lab { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; color: #8696A0; }
+  #hist { position: absolute; left: 22px; top: 92px; width: 420px; }
+  .step { position: relative; height: 70px; padding-left: 34px; }
+  .step::before { content: ""; position: absolute; left: 7px; top: 22px; width: 2px; height: 70px; background: #E3E7E5; }
+  .step:last-child::before { display: none; }
+  .step i { position: absolute; left: 0; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 2.5px solid var(--green); }
+  .step b { display: block; font-size: 15.5px; font-weight: 600; }
+  .step small { display: block; margin-top: 2px; font-size: 12.5px; color: #667781; }
+  #side { position: absolute; left: 470px; top: 92px; width: 400px; }
+  .box { border: 1px solid #E9EDEF; border-radius: 14px; background: #fff; padding: 14px 16px; }
+  #ownBox { height: 128px; position: relative; overflow: hidden; }
+  .oline { position: absolute; left: 16px; right: 16px; display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; }
+  .oline .av { width: 30px; height: 30px; font-size: 12px; }
+  .oline .tag { margin-left: auto; }
+  .card2 { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+  .card2 .ic { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; flex: none; }
+  .card2 b { display: block; font-size: 15px; font-weight: 600; } .card2 small { display: block; font-size: 12.5px; color: #667781; margin-top: 1px; }
+  .card2 .pin { margin-left: auto; color: var(--green); }
+  #vis { margin-top: 12px; display: flex; }
+  #pins { position: absolute; left: 0; top: 0; width: 904px; height: 570px; pointer-events: none; }
+
+  /* S6 — masking */
+  #prof { left: 250px; top: 372px; width: 580px; border-radius: 20px; background: #fff; border: 1px solid var(--line); box-shadow: 0 30px 60px -28px rgba(19,19,22,0.45); overflow: hidden; z-index: 6; }
+  #prof .ph { height: 66px; display: flex; align-items: center; gap: 12px; padding: 0 22px; border-bottom: 1px solid #E9EDEF; }
+  #prof .ph b { font-size: 17px; font-weight: 600; }
+  #prof .ph .pill { margin-left: auto; }
+  .prow { height: 72px; display: flex; align-items: center; padding: 0 22px; border-bottom: 1px solid #F0F2F5; }
+  .prow:last-child { border-bottom: 0; }
+  .prow .k { width: 170px; font-size: 14px; color: #667781; font-weight: 500; }
+  .prow .v { font-size: 22px; font-weight: 500; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; color: #111B21; }
+  .prow .lk { margin-left: auto; }
+
+  /* S7 — AI flags */
+  .frow { left: 90px; width: 900px; height: 142px; border-radius: 18px; background: #fff; border: 1px solid var(--line); box-shadow: 0 18px 36px -24px rgba(19,19,22,0.35); overflow: hidden; z-index: 4; }
+  .frow .edge { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--amber); }
+  .frow .fh { position: absolute; left: 24px; top: 16px; display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; color: #54656F; }
+  .frow .fh .av { width: 24px; height: 24px; font-size: 10.5px; }
+  .frow .fb { position: absolute; left: 24px; top: 52px; display: flex; align-items: center; gap: 12px; }
+  .frow .bub { font-size: 15.5px; max-width: 360px; padding: 9px 12px; }
+  .frow .ref { display: flex; align-items: center; gap: 9px; border: 1px solid #E9EDEF; border-radius: 10px; padding: 8px 11px; font-size: 13px; color: #3B4A54; background: #FAFAF8; }
+  .frow .ref b { color: #111B21; }
+  .frow .flag { position: absolute; right: 22px; top: 50%; margin-top: -22px; height: 44px; display: flex; align-items: center; gap: 9px; padding: 0 15px; border-radius: 12px; font-size: 15px; font-weight: 600; color: var(--amber); background: var(--amber-bg); border: 1px solid rgba(168,106,12,0.25); }
+  .frow .flag.r { color: var(--rose); background: var(--rose-bg); border-color: rgba(181,82,79,0.28); }
+  .frow .flag .ai { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; color: #fff; background: var(--green); padding: 2px 6px; border-radius: 5px; }
+  .ul { position: relative; display: inline-block; }
+  .ul::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; border-radius: 2px; background: var(--amber); transform: scaleX(var(--u, 0)); transform-origin: left; }
+  .noreply { display: flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; color: #8696A0; }
+
+  /* S8 — journey */
+  #ctrl { left: 270px; top: 430px; width: 540px; height: 72px; border-radius: 999px; background: #fff; border: 1px solid var(--line); box-shadow: 0 20px 40px -24px rgba(19,19,22,0.4); display: flex; align-items: center; justify-content: center; gap: 14px; z-index: 4; }
+  #ctrl img { height: 30px; }
+  #ctrl span { font-size: 15px; font-weight: 600; color: var(--ink-2); padding-left: 14px; border-left: 1px solid var(--line); }
+  #jsvg { left: 0; top: 0; width: 1080px; height: 1080px; pointer-events: none; z-index: 3; }
+  .node { width: 146px; height: 58px; border-radius: 14px; background: #fff; border: 1.5px solid var(--line); display: grid; place-items: center; font-size: 17px; font-weight: 600; z-index: 4; box-shadow: 0 12px 26px -18px rgba(19,19,22,0.35); }
+  .chk { z-index: 4; display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 600; padding: 10px 16px; border-radius: 999px; background: #fff; border: 1px solid var(--line); white-space: nowrap; }
+  .vt { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--green); flex: none; }
+
+  /* CTA */
+  #ctaLogo { left: 0; width: 1080px; top: 236px; display: flex; justify-content: center; }
+  #ctaLogo img { height: 54px; }
+  #ctaH { left: 50px; width: 980px; top: 350px; text-align: center; font-size: 72px; }
+  #cta { left: 0; width: 1080px; top: 580px; display: flex; justify-content: center; }
+  #cta .btn { display: inline-flex; align-items: center; gap: 14px; height: 88px; padding: 0 42px; border-radius: 999px; background: var(--green); color: #fff; font-size: 30px; font-weight: 600; letter-spacing: -0.015em; box-shadow: 0 22px 40px -18px rgba(0,122,90,0.75), inset 0 1px 0 rgba(255,255,255,0.18); }
+
+  #subs { left: 90px; width: 900px; top: 950px; text-align: center; font-size: 27px; font-weight: 500; line-height: 1.32; color: var(--ink); text-shadow: 0 0 12px rgba(244,243,236,0.95), 0 0 2px rgba(244,243,236,1); z-index: 20; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="grid"></div>
+  <div id="rose"></div>
+  <img id="logo" class="abs" src="doubletick-logo.webp" alt="DoubleTick" />
+
+  <!-- headlines -->
+  <div id="h1" class="abs hl" style="top:84px">
+    <div class="ln serif muted" style="font-size:56px"><span>Your agent left.</span></div>
+    <div class="ln serif" style="font-size:64px"><span>Did your customer conversations</span></div>
+    <div class="ln serif rose" style="font-size:96px"><span>leave too?</span></div>
+  </div>
+  <div id="h2" class="abs hl">
+    <div class="ln serif" style="font-size:84px"><span>Scattered chats.</span></div>
+    <div class="ln serif rose" style="font-size:84px"><span>Limited visibility.</span></div>
+  </div>
+  <div id="h3" class="abs hl">
+    <div class="ln serif" style="font-size:80px"><span>Every conversation.</span></div>
+    <div class="ln serif green" style="font-size:80px"><span>One dashboard.</span></div>
+  </div>
+  <div id="h3s" class="abs small" style="left:60px;top:740px;width:960px;text-align:center">History stays with your business.</div>
+  <div id="h4" class="abs hl">
+    <div class="ln serif" style="font-size:80px"><span>The agent can change.</span></div>
+    <div class="ln serif green" style="font-size:80px"><span>The context stays.</span></div>
+  </div>
+  <div id="h5" class="abs hl">
+    <div class="ln serif" style="font-size:80px"><span>Know exactly</span></div>
+    <div class="ln serif green" style="font-size:80px"><span>what was promised.</span></div>
+  </div>
+  <div id="h6" class="abs hl">
+    <div class="ln serif" style="font-size:76px"><span>Sensitive guest details</span></div>
+    <div class="ln serif green" style="font-size:76px"><span>stay protected.</span></div>
+    <div class="ln small"><span>Role-based visibility</span></div>
+  </div>
+  <div id="h7" class="abs hl">
+    <div class="ln serif" style="font-size:80px"><span>Catch issues</span></div>
+    <div class="ln serif green" style="font-size:80px"><span>before customers do.</span></div>
+  </div>
+  <div id="h8" class="abs hl">
+    <div class="ln serif" style="font-size:70px"><span>Keep the customer relationship</span></div>
+    <div class="ln serif green" style="font-size:70px"><span>with the business.</span></div>
+  </div>
+
+  <!-- S1 -->
+  <svg id="tethers" class="abs" viewBox="0 0 1080 1080"></svg>
+  <div id="agent" class="abs">
+    <div class="big"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#8C8B84" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 14 0v1"/></svg></div>
+    <div><div class="k">TRAVEL AGENT</div><div class="n">Rahul</div></div>
+    <span class="pill ros left" id="leftChip"><span class="dot"></span>Left the team</span>
+  </div>
+  <div id="tcards"></div>
+
+  <!-- S2 -->
+  <svg id="lines" class="abs" viewBox="0 0 1080 1080"></svg>
+  <div id="mgr" class="abs"><div class="mav"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4F3EC" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><div><b>Manager</b><small>Needs visibility</small></div></div>
+  <div id="wcards"></div>
+  <div id="sweep" class="abs"></div>
+
+  <!-- dashboard -->
+  <div id="dash" class="abs">
+    <div class="rail">
+      <div class="lg"><svg width="20" height="14" viewBox="0 0 26 16" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5l4.5 4.5L15 3M11 12l1 1L23 3"/></svg></div>
+      <div class="ri on"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
+      <div class="ri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></svg></div>
+      <div class="ri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+      <div class="ri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></div>
+    </div>
+    <div class="main">
+      <div id="list">
+        <div class="topbar"><span class="ttl">All Conversations</span><span class="tab on">All <b>28</b></span><span class="tab">Unassigned <b>0</b></span><span class="tab">Follow-up today <b>3</b></span><span class="srch"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Search</span></div>
+        <div class="cols"><span>CUSTOMER</span><span>STATUS</span><span>OWNER</span><span>LAST INTERACTION</span></div>
+        <div id="rows"></div>
+      </div>
+      <div id="detail">
+        <div class="dh"><div class="av a1">A</div><div><b>Ananya Sharma</b><small>Bali Trip · 2 travellers</small></div><span class="pill amb"><span class="dot"></span>Follow-up Today</span><span class="wab"><img src="assets/whatsapp-logo.png" alt="" style="width:18px;height:18px" />ABC Travels · Business</span></div>
+        <div id="hist">
+          <div class="lab" style="margin-bottom:16px">CONVERSATION HISTORY</div>
+          <div class="step" id="st0"><i></i><b>Enquiry received</b><small>10 Nov · via WhatsApp</small></div>
+          <div class="step" id="st1"><i></i><b>Quote shared</b><small>10 Nov · Bali Package</small></div>
+          <div class="step" id="st2"><i></i><b>Customer requested hotel change</b><small>11 Nov · Ubud → Seminyak</small></div>
+          <div class="step" id="st3"><i></i><b>Follow-up scheduled</b><small>Today · 6:00 PM</small></div>
+        </div>
+        <div id="side">
+          <div class="box" id="ownBox">
+            <div class="lab">OWNER</div>
+            <div class="oline" id="oRahul" style="top:48px"><div class="av a5">R</div><span id="oRahulTxt">Rahul</span><span class="pill ros tag" id="oRahulTag">Left the team</span></div>
+            <div class="oline" id="oPrev" style="top:44px;font-size:13.5px;color:#8696A0;font-weight:500"><div class="av a5" style="width:24px;height:24px;font-size:10px">R</div>Previous Agent · Rahul</div>
+            <div class="oline" id="oNeha" style="top:78px"><div class="av a6">N</div>Assigned to Neha<span class="vt"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="pill gry tag" id="route">Bali desk</span></div>
+          </div>
+          <div class="box card2" id="qCard"><div class="ic" style="background:var(--tint)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div><div><small>Quote</small><b>Bali Package · ₹1.42L</b></div><svg class="pin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 11.1l-9.2 9.2a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 0 1-2.8-2.8l8.5-8.5"/></svg></div>
+          <div class="box card2" id="pCard"><div class="ic" style="background:#EEF0F7"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4F5BD5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg></div><div><small>Cancellation Policy</small><b>Free cancellation until 12 Nov</b></div><svg class="pin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 11.1l-9.2 9.2a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 0 1-2.8-2.8l8.5-8.5"/></svg></div>
+          <div id="vis"><span class="pill grn" style="font-size:14px;padding:7px 13px"><span class="vt" style="width:17px;height:17px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Visible to the next agent</span></div>
+        </div>
+        <svg id="pins" viewBox="0 0 904 570"><path id="pinQ" d="M300 212 C 400 212, 410 232, 470 232" fill="none" stroke="#29B47A" stroke-width="2" stroke-dasharray="4 5"/><path id="pinP" d="M300 212 C 400 212, 410 318, 470 318" fill="none" stroke="#29B47A" stroke-width="2" stroke-dasharray="4 5"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- S6 -->
+  <div id="prof" class="abs">
+    <div class="ph"><div class="av a1">A</div><b>Guest profile</b><span class="pill gry" id="roleB"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.9 17.9A10 10 0 0 1 12 20c-7 0-10-8-10-8a18 18 0 0 1 5.1-5.9M9.9 4.2A9 9 0 0 1 12 4c7 0 10 8 10 8a18 18 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2M2 2l20 20"/></svg>Viewing as Agent</span></div>
+    <div class="prow"><span class="k">Guest Name</span><span class="v">Ananya Sharma</span></div>
+    <div class="prow"><span class="k">Phone</span><span class="v" id="mv0"></span><span class="lk" id="lk0"></span></div>
+    <div class="prow"><span class="k">Passport</span><span class="v" id="mv1"></span><span class="lk" id="lk1"></span></div>
+    <div class="prow"><span class="k">Payment Detail</span><span class="v" id="mv2"></span><span class="lk" id="lk2"></span></div>
+  </div>
+
+  <!-- S7 -->
+  <div id="f0" class="abs frow" style="top:356px"><span class="edge"></span>
+    <div class="fh"><div class="av a2">R</div>Rohan · Dubai Holiday</div>
+    <div class="fb"><div class="bub out"><span class="who">Agent</span>Your package price is <span class="ul" id="u0">₹1.15L</span>.</div><div class="ref"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Attached quote · <b>₹1.25L</b></div></div>
+    <div class="flag" id="fl0"><span class="ai">AI</span>Price mismatch detected</div>
+  </div>
+  <div id="f1" class="abs frow" style="top:516px"><span class="edge" style="background:var(--rose)"></span>
+    <div class="fh"><div class="av a3">M</div>Meera · Maldives Booking</div>
+    <div class="fb"><div class="bub in">Can you confirm the airport transfer?</div><span class="noreply"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8696A0" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>No reply · <span id="nr">3h</span></span></div>
+    <div class="flag r" id="fl1"><span class="ai">AI</span>Reply overdue</div>
+  </div>
+  <div id="f2" class="abs frow" style="top:676px"><span class="edge"></span>
+    <div class="fh"><div class="av a4">K</div>Kabir · Kerala Getaway</div>
+    <div class="fb"><div class="bub out"><span class="who">Agent</span><span class="ul" id="u2">Free cancellation up to 2 days before travel.</span></div><div class="ref">Stored policy · <b>Until 12 Nov</b></div></div>
+    <div class="flag" id="fl2"><span class="ai">AI</span>Policy mismatch</div>
+  </div>
+
+  <!-- S8 -->
+  <svg id="jsvg" class="abs" viewBox="0 0 1080 1080"><path id="jline" d="M113 650 H 967" fill="none" stroke="#007A5A" stroke-width="4" stroke-linecap="round"/><g id="jcon"></g></svg>
+  <div id="ctrl" class="abs"><img src="doubletick-logo.webp" alt="DoubleTick" /><span>Business-owned view</span></div>
+  <div id="nodes"></div>
+  <div id="chks"></div>
+
+  <!-- CTA -->
+  <div id="ctaLogo" class="abs"><img src="doubletick-logo.webp" alt="DoubleTick" /></div>
+  <div id="ctaH" class="abs serif">Keep every customer journey under your control.</div>
+  <div id="cta" class="abs"><div class="btn">Book Your Free DoubleTick Pilot Today <svg width="28" height="28" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+
+  <div id="subs" class="abs"></div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, t) => a + (b - a) * t;
+const eOut = t => 1 - Math.pow(1 - t, 3);
+const eIn = t => t * t * t;
+const eIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const eSp = t => { const c = 0.9; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
+const p = (t, a, d, e = eOut) => e(clamp((t - a) / d));
+function set(el, { x = 0, y = 0, s = 1, r = 0, o = 1, blur = 0 } = {}) {
+  el.style.transform = `translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;
+  el.style.opacity = o;
+  el.style.filter = blur > 0.05 ? `blur(${blur}px)` : "none";
+  el.style.visibility = o <= 0.001 ? "hidden" : "visible";
+}
+function headline(id, t, tin, tout, first = false) {
+  const el = $(id); const lines = el.querySelectorAll(".ln > span"); let vis = false;
+  lines.forEach((ln, i) => {
+    const a = first && i === 0 ? 1 : p(t, tin + i * 0.1, 0.45);
+    const b = p(t, tout + i * 0.05, 0.3, eIO);
+    const o = Math.min(a, 1 - b); if (o > 0) vis = true;
+    ln.style.transform = `translateY(${(1 - a) * 70 - b * 40}px)`; ln.style.opacity = o;
+  });
+  el.style.visibility = vis ? "visible" : "hidden";
+}
+const TICK = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const BLUE = '<svg width="14" height="10" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg>';
+
+// ---------- S1: cards tied to Rahul ----------
+const TC = [
+  { x: 45, y: 600, h: `<div class="av a1">A<span class="wa"></span></div><div class="b"><div class="t">Ananya<small>10:42</small></div><div class="m">Can you hold the Bali villa?</div></div>` },
+  { x: 390, y: 600, h: `<div class="av a2">R<span class="wa"></span></div><div class="b"><div class="t">Rohan<small>09:15</small></div><div class="m">Waiting for the Dubai quote</div></div>` },
+  { x: 735, y: 600, h: `<div class="av a3">M<span class="wa"></span></div><div class="b"><div class="t">Meera<small>Mon</small></div><div class="m">What if I need to cancel?</div></div>` },
+  { x: 215, y: 750, h: `<div class="ic" style="background:var(--amber-bg)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A86A0C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16l20-6-3-3-6 2-6-5-2 1 4 6-4 1-2-2-2 1z"/></svg></div><div class="b"><div class="t">Pending booking<small></small></div><div class="m">Maldives · 2 travellers</div></div>` },
+  { x: 560, y: 750, h: `<div class="ic" style="background:var(--rose-bg)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B5524F" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M5 3L2 6M19 3l3 3"/></svg></div><div class="b"><div class="t">Follow-up reminder<small></small></div><div class="m">Today · 6:00 PM</div></div>` },
+];
+const tcEl = $("#tcards"), teth = $("#tethers");
+TC.forEach((c, k) => {
+  tcEl.insertAdjacentHTML("beforeend", `<div class="abs tcard" id="tc${k}" style="left:${c.x}px;top:${c.y}px">${c.h}</div>`);
+  teth.insertAdjacentHTML("beforeend", `<path id="te${k}" fill="none" stroke="#B5524F" stroke-width="2" stroke-dasharray="5 6" stroke-linecap="round"/>`);
+});
+
+// ---------- S2: scattered conversations ----------
+const WX = [45, 395, 745], WY = 470, WOFF = [34, 0, 44], WROT = [-4, 2.5, -2.5];
+const WC = [
+  { av: "a1", i: "A", n: "Ananya", tag: "Customer 01", st: ["amb", "Follow-up pending"], issue: "Follow-up?",
+    b: `<div class="bub in">Can you call me tomorrow about Bali?<span class="tm">7:12 PM</span></div><div class="bub out"><span class="who">Rahul</span>Sure, I'll follow up 👍<span class="tm">7:14 PM ${BLUE}</span></div>` },
+  { av: "a2", i: "R", n: "Rohan", tag: "Customer 02", st: ["grn", "Quote shared"], issue: "Which quote was shared?",
+    b: `<div class="bub out"><span class="who">Rahul</span><div class="doc">📄 Dubai_Quote_v2.pdf</div>Here's the updated price<span class="tm">11:02 AM ${BLUE}</span></div><div class="bub in">Okay, will check 🙏<span class="tm">11:20 AM</span></div>` },
+  { av: "a3", i: "M", n: "Meera", tag: "Customer 03", st: ["ros", "Cancellation discussed"], issue: "What was promised?",
+    b: `<div class="bub in">Can I cancel if plans change?<span class="tm">Mon</span></div><div class="bub out"><span class="who">Rahul</span>Yes, no problem at all 😊<span class="tm">Mon ${BLUE}</span></div>` },
+];
+const wcEl = $("#wcards"), lsvg = $("#lines");
+WC.forEach((c, k) => {
+  wcEl.insertAdjacentHTML("beforeend", `<div class="abs wcard" id="wc${k}" style="left:${WX[k]}px;top:${WY + WOFF[k]}px">
+    <div class="wh"><div class="av ${c.av}">${c.i}</div><div><div class="nm">${c.n}</div><div class="sm">${c.tag}</div></div></div>
+    <div class="wb">${c.b}</div>
+    <div class="wf"><span class="pill ${c.st[0]}"><span class="dot"></span>${c.st[1]}</span></div></div>
+    <div class="abs issue" id="is${k}" style="left:${WX[k] + 145}px;top:${WY + WOFF[k] + 304}px">${c.issue}</div>`);
+  lsvg.insertAdjacentHTML("beforeend", `<path id="l${k}" fill="none" stroke="#B5524F" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6 8"/><g id="x${k}"><circle r="13" fill="#F7E6E3" stroke="#B5524F" stroke-width="1.5"/><path d="M-5 -5L5 5M5 -5L-5 5" stroke="#B5524F" stroke-width="2.4" stroke-linecap="round"/></g>`);
+});
+
+// ---------- dashboard rows ----------
+const ROWS = [
+  { av: "a1", i: "A", n: "Ananya", trip: "Bali Trip", st: ["amb", "Follow-up Today"], own: ["a5", "R", "Rahul"], ls: "Today, 10:42 AM" },
+  { av: "a2", i: "R", n: "Rohan", trip: "Dubai Holiday", st: ["grn", "Quote Shared"], own: ["a5", "R", "Rahul"], ls: "Yesterday" },
+  { av: "a3", i: "M", n: "Meera", trip: "Maldives Booking", st: ["ros", "Cancellation Query"], own: ["a4", "P", "Priya"], ls: "Mon, 4:10 PM" },
+];
+const ROW_TOP = 94;
+ROWS.forEach((r, k) => $("#rows").insertAdjacentHTML("beforeend", `<div class="row" id="r${k}" style="top:${ROW_TOP + k * 76}px">
+  <div class="cu"><div class="av ${r.av}">${r.i}</div><div><b>${r.n}</b><small>${r.trip}</small></div></div>
+  <div><span class="pill ${r.st[0]}"><span class="dot"></span>${r.st[1]}</span></div>
+  <div><span class="own" id="ow${k}"><span class="av ${r.own[0]}">${r.own[1]}</span>${r.own[2]}</span></div>
+  <div class="ls">${r.ls}</div></div>`));
+
+// ---------- masking ----------
+const MASK = [["+91 982015 4832", "+91 •••••• 4832"], ["P84321545", "P••••••45"], ["4590 6721", "•••• 6721"]];
+const LOCK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007A5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+function maskStr(i, m) {
+  const [a, b] = MASK[i]; const diff = [...a].map((c, j) => c !== b[j] ? j : -1).filter(j => j >= 0);
+  const n = Math.floor(m * diff.length + 1e-6); const set_ = new Set(diff.slice(0, n));
+  return [...a].map((c, j) => set_.has(j) ? b[j] : c).join("");
+}
+
+// ---------- journey ----------
+const JN = ["Enquiry", "Agent", "Quote", "Follow-up", "Booking", "Support"];
+const JX = JN.map((_, i) => 113 + i * 170.8);
+JN.forEach((n, i) => {
+  $("#nodes").insertAdjacentHTML("beforeend", `<div class="abs node" id="n${i}" style="left:${JX[i] - 73}px;top:621px">${n}</div>`);
+  $("#jcon").insertAdjacentHTML("beforeend", `<path id="jc${i}" d="M540 502 C 540 560, ${JX[i]} 560, ${JX[i]} 621" fill="none" stroke="#29B47A" stroke-width="1.6" stroke-dasharray="3 5"/>`);
+});
+const CK = ["Conversation History", "Ownership", "Policies", "Visibility"];
+const CKX = [96, 410, 612, 778];
+CK.forEach((c, i) => $("#chks").insertAdjacentHTML("beforeend", `<div class="abs chk" id="k${i}" style="left:${CKX[i]}px;top:760px"><span class="vt">${TICK}</span>${c}</div>`));
+const jlen = $("#jline").getTotalLength(); $("#jline").style.strokeDasharray = jlen;
+
+// ---------- VO + subtitles ----------
+const VO = [[0.15, 4.47], [5.0, 6.16], [11.9, 3.94], [16.05, 4.27], [20.4, 2.47], [23.4, 2.71], [26.4, 5.56], [32.3, 4.34], [37.0, 1.92]];
+const SUBL = [
+  ["Your travel agent just left.", "Did your customer chats and pending bookings leave with them?"],
+  ["Scattered WhatsApp conversations make it difficult", "to track follow-ups, customer commitments,", "and what agents actually promised."],
+  ["With DoubleTick, centralise your team's", "WhatsApp conversations in one dashboard."],
+  ["Keep customer history accessible,", "route enquiries to the right agent or property,"],
+  ["and track every quote and cancellation policy."],
+  ["DoubleTick also masks sensitive guest details,"],
+  ["and uses AI to flag incorrect prices, missed replies,", "and policy violations before they escalate."],
+  ["Keep customer relationships, conversations,", "and service quality under your control."],
+  ["Book your free DoubleTick pilot today."],
+];
+const SUBS = [];
+SUBL.forEach((ch, i) => {
+  const [st, d] = VO[i]; const tot = ch.reduce((a, c) => a + c.length, 0); let acc = st;
+  ch.forEach((c, j) => { const dd = d * c.length / tot; SUBS.push([acc - (j === 0 ? 0.05 : 0), acc + dd + (j === ch.length - 1 ? 0.25 : 0), c]); acc += dd; });
+});
+window.T_END = 40.9;
+
+// dashboard row centres (for the snap)
+const ROWC = k => ({ x: 60 + 60 + 450, y: 330 + ROW_TOP + 38 + k * 76 });
+
+window.render = function (t) {
+  // background + logo
+  $("#rose").style.opacity = 1 - p(t, 10.7, 0.8, eIO);
+  set($("#logo"), { o: p(t, 11.7, 0.45) * (1 - p(t, 36.6, 0.3)), y: (1 - p(t, 11.7, 0.45)) * -8 });
+
+  headline("#h1", t, 0, 4.55, true);
+  headline("#h2", t, 5.0, 10.45);
+  headline("#h3", t, 11.85, 15.95);
+  headline("#h4", t, 16.05, 20.3);
+  headline("#h5", t, 20.45, 23.2);
+  headline("#h6", t, 23.35, 26.25);
+  headline("#h7", t, 26.4, 32.1);
+  headline("#h8", t, 32.3, 36.6);
+  const h3s = p(t, 13.3, 0.4);
+  set($("#h3s"), { o: h3s * (1 - p(t, 15.9, 0.25)), y: (1 - h3s) * 10 });
+
+  // ---- S1: Rahul exits, his cards follow, freeze ----
+  const out1 = p(t, 4.5, 0.4, eIO);
+  const ag = p(t, 1.75, 1.45, eIn);
+  set($("#agent"), { x: 820 * ag, r: 3 * ag, o: (t < 0.05 ? 1 : p(t, 0, 0.3)) * (1 - p(t, 2.75, 0.4)) });
+  set($("#leftChip"), { o: p(t, 1.05, 0.3), s: lerp(0.85, 1, p(t, 1.05, 0.35, eSp)) });
+  const FOL = [210, 250, 300, 170, 240], FROT = [4, 3, 6, 3.5, 5];
+  const agX = 540 + 820 * ag, agY = 524;
+  TC.forEach((c, k) => {
+    const ein = k === 0 || t < 0.05 ? 1 : p(t, 0.12 + k * 0.08, 0.4, eSp);
+    const f = p(t, 1.95 + k * 0.09, 1.5, eOut);          // follow then freeze
+    const x = FOL[k] * f + 60 * out1, r = FROT[k] * f;
+    const o = (t < 0.05 ? 1 : clamp(ein * 1.3)) * (1 - out1);
+    set($("#tc" + k), { x, y: (1 - ein) * 18, r, o, blur: out1 * 3 });
+    const cx = c.x + 150 + x, cy = c.y + (1 - ein) * 18;
+    const te = $("#te" + k);
+    te.setAttribute("d", `M${Math.min(agX, 1200)} ${agY} C ${agX} ${agY + 40}, ${cx} ${cy - 50}, ${cx} ${cy}`);
+    te.style.opacity = o * (1 - p(t, 3.1, 0.4) * 0.55);
+  });
+
+  // ---- S2: scattered conversations ----
+  const sweep = p(t, 10.45, 0.7, eIO);
+  for (let k = 0; k < 3; k++) {
+    const ein = p(t, 5.1 + k * 0.12, 0.55, eSp);
+    const al = p(t, 10.85 + k * 0.05, 0.5, eSp);      // aligned by the green line
+    let x = lerp(k === 0 ? -200 : k === 2 ? 200 : 0, 0, ein), y = (1 - ein) * 120 + WOFF[k] * 0 + (0 - WOFF[k]) * al, r = WROT[k] * (1 - al);
+    const fly = p(t, 11.55 + k * 0.1, 0.55, eIO);
+    const rc = ROWC(k), cx0 = WX[k] + 145, cy0 = WY + 146;
+    x += (rc.x - cx0) * fly; y += (rc.y - cy0) * fly;
+    const s = lerp(1, 0.22, fly);
+    const o = clamp(ein * 1.4) * (1 - p(t, 11.95 + k * 0.1, 0.18));
+    set($("#wc" + k), { x, y, s, r, o, blur: fly > 0 && fly < 1 ? 1.2 * Math.sin(fly * Math.PI) : 0 });
+    const ia = p(t, [7.4, 9.6, 8.5][k], 0.35, eSp);
+    set($("#is" + k), { x: -$("#is" + k).offsetWidth / 2 + x, y: y + (1 - ia) * 10, s: lerp(0.85, 1, ia), r: r * 0.5, o: ia * (1 - p(t, 10.4, 0.25)) });
+  }
+  const ma = p(t, 5.55, 0.45, eSp), mo = ma * (1 - p(t, 10.4, 0.3));
+  set($("#mgr"), { o: mo, y: (1 - ma) * -16, s: lerp(0.95, 1, ma) });
+  for (let k = 0; k < 3; k++) {
+    const sx = 540, sy = 388, cx = WX[k] + 145, cy = WY + WOFF[k] + 2;
+    const draw = p(t, 5.9 + k * 0.12, 0.6), brk = p(t, 6.6 + k * 0.3, 0.35);
+    const ok = k === 1 ? 0 : 1;   // middle line connects, outer two break
+    const reach = lerp(0, 1, draw) * (ok ? lerp(1, 0.55, brk) : 1);
+    $("#l" + k).setAttribute("d", `M${sx} ${sy} L${lerp(sx, cx, reach)} ${lerp(sy, cy, reach)}`);
+    $("#l" + k).style.opacity = (draw > 0 ? 1 : 0) * (1 - p(t, 10.35, 0.3));
+    $("#l" + k).setAttribute("stroke", ok ? "#B5524F" : "#9A9890");
+    const xg = $("#x" + k);
+    xg.setAttribute("transform", `translate(${lerp(sx, cx, 0.62)} ${lerp(sy, cy, 0.62)}) scale(${lerp(0.6, 1, brk)})`);
+    xg.style.opacity = ok * brk * (1 - p(t, 10.35, 0.3));
+  }
+  $("#sweep").style.top = (WY + 150) + "px";
+  set($("#sweep"), { o: (t > 10.45 ? 1 : 0) * (1 - p(t, 11.25, 0.35)) });
+  $("#sweep").style.transform = `scaleX(${sweep})`;
+
+  // ---- dashboard ----
+  const da = p(t, 11.6, 0.5, eSp), dOut = p(t, 26.1, 0.4, eIO), dim = p(t, 23.25, 0.45, eIO) * (1 - p(t, 26.1, 0.01));
+  $("#dash").style.height = lerp(384, 570, p(t, 16.2, 0.6, eIO)) + "px";
+  set($("#dash"), { o: da * (1 - dOut) * lerp(1, 0.35, dim), s: lerp(0.96, 1, da) * lerp(1, 0.97, dim), y: (1 - da) * 24, blur: dim * 3 });
+  for (let k = 0; k < 3; k++) { const ra = p(t, 11.95 + k * 0.1, 0.35, eSp); set($("#r" + k), { o: ra * (k ? 1 - p(t, 16.15, 0.3) : 1), x: (1 - ra) * -16 }); }
+  $("#r0").classList.toggle("sel", t > 16.05);
+  // detail view slides over the list
+  const dv = p(t, 16.45, 0.55, eIO);
+  set($("#detail"), { o: dv, x: (1 - dv) * 60 });
+  set($("#list"), { o: 1 - p(t, 16.6, 0.4) });
+  for (let k = 0; k < 4; k++) { const sa = p(t, 16.85 + k * 0.28, 0.35, eSp); set($("#st" + k), { o: sa, x: (1 - sa) * -14 }); }
+  // owner change Rahul -> Neha (history stays put)
+  const oa = p(t, 17.0, 0.35);
+  set($("#ownBox"), { o: oa, y: (1 - oa) * 10 });
+  const sw = p(t, 18.55, 0.45, eIO);
+  set($("#oRahul"), { o: 1 - sw, y: -10 * sw });
+  set($("#oPrev"), { o: p(t, 18.75, 0.35), y: (1 - p(t, 18.75, 0.35)) * 8 });
+  const ne = p(t, 18.85, 0.45, eSp);
+  set($("#oNeha"), { o: ne, x: (1 - ne) * 30 });
+  set($("#route"), { o: p(t, 19.4, 0.3), s: lerp(0.85, 1, p(t, 19.4, 0.35, eSp)) });
+  // quote + policy pinned to the same conversation
+  const qa = p(t, 20.75, 0.45, eSp), pa = p(t, 21.45, 0.45, eSp), va = p(t, 22.2, 0.4, eSp);
+  set($("#qCard"), { o: qa, y: (1 - qa) * 18 });
+  set($("#pCard"), { o: pa, y: (1 - pa) * 18 });
+  set($("#vis"), { o: va, s: lerp(0.9, 1, va) });
+  const pq = $("#pinQ"), pp = $("#pinP");
+  [pq, pp].forEach((el, i) => { const L = 200, d = p(t, [20.95, 21.65][i], 0.5); el.style.strokeDasharray = `4 5`; el.style.opacity = d; });
+  set($("#st1"), { o: p(t, 17.13, 0.35, eSp), x: (1 - p(t, 17.13, 0.35, eSp)) * -14 });
+  $("#st1").querySelector("i").style.background = t > 20.9 ? "#007A5A" : "#fff";
+
+  // ---- S6: masking ----
+  const pf = p(t, 23.45, 0.5, eSp), pOut = p(t, 26.15, 0.35, eIO);
+  set($("#prof"), { o: pf * (1 - pOut), y: (1 - pf) * 28 + pOut * -20, s: lerp(0.96, 1, pf) });
+  set($("#roleB"), { o: p(t, 23.9, 0.3) });
+  for (let i = 0; i < 3; i++) {
+    const m = p(t, 24.15 + i * 0.45, 0.55, x => x);
+    const s_ = maskStr(i, m), el = $("#mv" + i);
+    if (el.textContent !== s_) el.textContent = s_;
+    $("#lk" + i).innerHTML = m >= 1 ? LOCK : "";
+    set($("#lk" + i), { o: p(t, 24.15 + i * 0.45 + 0.55, 0.25) });
+  }
+
+  // ---- S7: AI flags, one after another ----
+  const FT = [26.85, 28.35, 29.6], FF = [27.65, 29.0, 30.3];
+  for (let i = 0; i < 3; i++) {
+    const ra = p(t, FT[i], 0.45, eSp), fo = p(t, 31.95, 0.4, eIO);
+    set($("#f" + i), { o: ra * (1 - fo), y: (1 - ra) * 24 - fo * 16 });
+    const fa = p(t, FF[i], 0.4, eSp);
+    set($("#fl" + i), { o: fa, x: (1 - fa) * 16, s: lerp(0.92, 1, fa) });
+    $("#f" + i).querySelector(".edge").style.opacity = fa;
+  }
+  $("#u0").style.setProperty("--u", p(t, 27.5, 0.35));
+  $("#u2").style.setProperty("--u", p(t, 30.15, 0.45));
+  $("#nr").textContent = t < 28.9 ? "2h" : "3h";
+
+  // ---- S8: governed journey ----
+  const jOut = p(t, 36.55, 0.35, eIO);
+  for (let i = 0; i < 6; i++) { const na = p(t, 32.6 + i * 0.1, 0.4, eSp); set($("#n" + i), { o: na * (1 - jOut), y: (1 - na) * 16 }); }
+  $("#jline").style.strokeDashoffset = jlen * (1 - p(t, 33.1, 1.1, eIO));
+  $("#jline").style.opacity = 1 - jOut;
+  const ca = p(t, 33.6, 0.45, eSp);
+  set($("#ctrl"), { o: ca * (1 - jOut), y: (1 - ca) * -14 });
+  for (let i = 0; i < 6; i++) { const c = $("#jc" + i); c.style.opacity = p(t, 34.0 + i * 0.06, 0.35) * (1 - jOut); }
+  for (let i = 0; i < 6; i++) $("#n" + i).style.borderColor = t > 33.1 + 1.1 * (i / 5) ? "rgba(0,122,90,0.45)" : "";
+  for (let i = 0; i < 4; i++) { const ka = p(t, 34.6 + i * 0.22, 0.4, eSp); set($("#k" + i), { o: ka * (1 - jOut), y: (1 - ka) * 14 }); }
+
+  // ---- CTA ----
+  const la = p(t, 36.85, 0.45), ha = p(t, 37.0, 0.5), cb = p(t, 37.55, 0.6, eSp);
+  set($("#ctaLogo"), { o: la, y: (1 - la) * 12 });
+  set($("#ctaH"), { o: ha, y: (1 - ha) * 28 });
+  const pulse = Math.sin(clamp((t - 38.9) / 0.5) * Math.PI) * 0.03;
+  set($("#cta"), { o: clamp((t - 37.55) / 0.35), s: lerp(0.96, 1, cb) + pulse });
+
+  // subtitles
+  const sub = SUBS.find(sv => t >= sv[0] && t < sv[1]); const se = $("#subs");
+  if (sub) {
+    if (se.dataset.k !== String(sub[0])) { se.textContent = sub[2]; se.dataset.k = String(sub[0]); }
+    se.style.opacity = Math.min(p(t, sub[0], 0.12), 1 - p(t, sub[1] - 0.1, 0.1));
+  } else se.style.opacity = 0;
+};
+render(0);
+</script>
+</body>
+</html>
