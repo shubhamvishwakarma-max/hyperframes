@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1080, height=1080" />
+<title>DoubleTick Pipeline Ad (queue)</title>
+<style>
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin.woff2) format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin-ext.woff2) format("woff2"); font-weight: 100 900; unicode-range: U+0100-02BA, U+20A0-20C4; }
+  :root { --bg: #F4F3EC; --ink: #131316; --ink-2: #5A5A63; --green: #007A5A; --green-tint: rgba(0,122,90,0.10); --line: rgba(19,19,22,0.07); --red: #D32F2F; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .ad { position: relative; width: 1080px; height: 1080px; background: var(--bg); overflow: hidden; }
+  .abs { position: absolute; }
+  .grid { position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(to right, var(--line) 1px, transparent 1px), linear-gradient(to bottom, var(--line) 1px, transparent 1px); background-size: 60px 60px; background-position: -1px -1px; -webkit-mask-image: radial-gradient(ellipse 90% 85% at 60% 65%, #000 40%, rgba(0,0,0,0.3) 100%); }
+  .cell { position: absolute; width: 60px; height: 60px; background: var(--green-tint); }
+  .cell.soft { background: rgba(0,122,90,0.05); }
+  .dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--green); transform: translate(-4px,-4px); box-shadow: 0 0 0 6px rgba(0,122,90,0.14); }
+  .logo { position: absolute; top: 70px; left: 64px; height: 38px; }
+  .headline { position: absolute; top: 158px; left: 64px; width: 952px; font-weight: 700; font-size: 54px; line-height: 1.08; white-space: nowrap; letter-spacing: -0.045em; }
+  .headline .red { color: var(--red); }
+  .sub { position: absolute; top: 310px; left: 64px; width: 930px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* Sales pipeline board, fading from just above the CTA */
+  #pb { z-index: 1; left: 64px; top: 452px; width: 952px; height: 660px; border-radius: 14px; background: #fff; border: 1px solid #DCDBD4; overflow: hidden; color: #111B21; }
+  #pb::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(244,243,236,0) 0%, rgba(244,243,236,0) 50%, rgba(244,243,236,0.35) 58%, rgba(244,243,236,0.5) 72%, rgba(244,243,236,0.62) 100%); }
+  #pb .top { height: 62px; display: flex; align-items: center; gap: 12px; padding: 0 18px; border-bottom: 1px solid #EEEEEA; }
+  #pb .top h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.015em; }
+  #pb .stat { margin-left: auto; display: flex; gap: 8px; }
+  #pb .stat span { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; padding: 6px 11px; border-radius: 999px; background: #F3F3F0; color: #3B4A54; }
+  #pb .stat span.r { background: #FBE9E9; color: #D32F2F; }
+  .cols { position: absolute; left: 12px; right: 12px; top: 74px; bottom: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .col { background: #F7F7F4; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+  .col.hot { background: #FDF3F2; box-shadow: inset 0 0 0 1.5px rgba(211,47,47,0.35); }
+  .ch { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: #3B4A54; padding: 2px 2px 4px; }
+  .ch .dt { width: 8px; height: 8px; border-radius: 50%; }
+  .ch b { margin-left: auto; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; background: #E9E9E4; color: #54656F; }
+  .col.hot .ch { color: #D32F2F; } .col.hot .ch b { background: #D32F2F; color: #fff; }
+  .newin { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--green); background: #E3F1EA; border: 1px dashed rgba(0,122,90,0.45); border-radius: 8px; padding: 6px; }
+  .lc { background: #fff; border: 1px solid #E8E8E3; border-radius: 9px; padding: 10px 11px; }
+  .lc .t { display: flex; align-items: center; gap: 8px; }
+  .lc .av { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 600; flex: none; position: relative; }
+  .lc .av::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 9px; height: 9px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
+  .lc .n { font-size: 13.5px; font-weight: 600; } .lc .n small { display: block; font-size: 11.5px; color: #667781; font-weight: 400; margin-top: 1px; }
+  .lc .m { margin-top: 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .chip { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 600; padding: 2px 7px; border-radius: 4px; background: #F0F2F5; color: #54656F; white-space: nowrap; }
+  .chip.r { background: #FBE9E9; color: #D32F2F; } .chip.g { background: #E3F1EA; color: var(--green); } .chip.b { background: #DDEFF7; color: #1F7A9C; }
+  .lc.od { border: 1.5px solid rgba(211,47,47,0.5); box-shadow: 0 6px 16px -10px rgba(211,47,47,0.45); }
+  .lc .act { margin-top: 8px; display: flex; align-items: center; justify-content: space-between; padding-top: 8px; border-top: 1px solid #F1F1EE; font-size: 11px; color: #667781; }
+  .lc .act span.btn2 { font-size: 11px; font-weight: 600; color: #fff; background: var(--green); padding: 4px 9px; border-radius: 6px; }
+  .a1 { background: #E3E7FB; color: #4F5BD5; } .a2 { background: #FBE3EE; color: #C2407A; } .a3 { background: #E0F2E9; color: #1E8A5A; } .a4 { background: #FFF0D9; color: #B7791F; } .a5 { background: #F1E6FB; color: #8A2BC4; }
+  .footer { position: absolute; left: 64px; bottom: 180px; z-index: 10; }
+  .cta { display: inline-flex; align-items: center; gap: 14px; padding: 0 32px; height: 62px; border-radius: 999px; background: var(--green); color: #fff; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; box-shadow: 0 18px 30px -16px rgba(0,122,90,0.7); }
+
+  .q { position: absolute; left: 18px; right: 18px; top: 78px; display: flex; flex-direction: column; gap: 12px; }
+  .qh { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: #D32F2F; }
+  .qh b { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #D32F2F; color: #fff; }
+  .qh span { margin-left: auto; font-size: 12.5px; font-weight: 500; color: #8C8B84; }
+  .qr { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 12px; border: 1px solid #E8E8E3; background: #fff; }
+  .qr .av { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 15px; flex: none; position: relative; }
+  .qr .av::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 12px; height: 12px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
+  .qr .tx { flex: 1; min-width: 0; } .qr .tx b { display: block; font-size: 16px; font-weight: 600; } .qr .tx small { display: block; margin-top: 2px; font-size: 13.5px; color: #667781; }
+  .qr .tm { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; padding: 7px 12px; border-radius: 999px; white-space: nowrap; }
+  .qr .btn2 { font-size: 13px; font-weight: 600; color: #fff; background: var(--green); padding: 9px 14px; border-radius: 8px; white-space: nowrap; }
+  .qr.amb .tm { color: #B7791F; background: #FFF4DE; }
+  .qr.org .tm { color: #D9631E; background: #FDEBDD; }
+  .qr.red { border: 1.5px solid rgba(211,47,47,0.5); background: #FFFBFA; box-shadow: 0 10px 24px -16px rgba(211,47,47,0.5); }
+  .qr.red .tm { color: #fff; background: #D32F2F; }
+  .qr .flag { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #D32F2F; margin-bottom: 3px; }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="grid"></div>
+  <div class="cell" style="left:960px;top:60px"></div>
+  <div class="cell soft" style="left:900px;top:120px"></div>
+  <div class="dot" style="left:900px;top:120px"></div>
+
+  <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+
+  <h1 class="headline">Travel enquiries keep coming.<br/><span class="red">Follow-ups keep getting missed.</span></h1>
+  <p class="sub">With DoubleTick, track <b>pending conversations</b>, monitor <b>agent response times</b> and <b>reassign unattended leads</b> before they go cold.</p>
+
+  <!-- DoubleTick inbox: Sales, Operations and Support on one thread -->
+  <div id="pb" class="abs">
+    <div class="top"><h3>Sales Pipeline</h3><div class="stat"><span>Sorted by waiting time</span></div></div>
+    <div class="q">
+      <div class="qh">● Awaiting agent reply <b>9</b><span>Oldest first</span></div>
+      <div class="qr red"><span class="av a1">L</span><div class="tx"><div class="flag">FLAGGED BY DOUBLETICK</div><b>Layla Ahmed</b><small>“Can you share the final price?” · Agent: Omar (away)</small></div><span class="tm"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 2h 14m</span><span class="btn2">Reassign to Sara</span></div>
+      <div class="qr org"><span class="av a2">K</span><div class="tx"><b>Khalid Al Mansoori</b><small>“Any update on the Baku quote?” · Agent: Faisal</small></div><span class="tm"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 48m</span><span class="btn2">Reassign</span></div>
+      <div class="qr amb"><span class="av a4">Y</span><div class="tx"><b>Yousef Ali</b><small>“Are Georgia dates in Jan open?” · Unassigned</small></div><span class="tm"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 12m</span><span class="btn2">Assign</span></div>
+      <div class="qr amb"><span class="av a3">F</span><div class="tx"><b>Fatima Hassan</b><small>“Do we need a visa for Bali?” · Agent: Sara</small></div><span class="tm"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 6m</span></div>
+      <div class="qr amb"><span class="av a5">N</span><div class="tx"><b>Noura Saleh</b><small>“Price for 3 to Tbilisi?” · Agent: Omar</small></div><span class="tm"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 3m</span></div>
+    </div>
+  </div>
+
+  <div class="footer"><div class="cta">Book Your Free Pilot <svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+</div>
+</body>
+</html>
