@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1080, height=1080" />
+<title>DoubleTick Overdue Follow-ups Ad (CX)</title>
+<style>
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin.woff2) format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin-ext.woff2) format("woff2"); font-weight: 100 900; unicode-range: U+0100-02BA, U+20A0-20C4; }
+  :root { --bg: #F4F3EC; --ink: #131316; --ink-2: #5A5A63; --green: #007A5A; --green-tint: rgba(0,122,90,0.10); --line: rgba(19,19,22,0.07); --red: #D32F2F; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .ad { position: relative; width: 1080px; height: 1080px; background: var(--bg); overflow: hidden; }
+  .abs { position: absolute; }
+  .grid { position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(to right, var(--line) 1px, transparent 1px), linear-gradient(to bottom, var(--line) 1px, transparent 1px); background-size: 60px 60px; background-position: -1px -1px; -webkit-mask-image: radial-gradient(ellipse 90% 85% at 60% 65%, #000 40%, rgba(0,0,0,0.3) 100%); }
+  .cell { position: absolute; width: 60px; height: 60px; background: var(--green-tint); }
+  .cell.soft { background: rgba(0,122,90,0.05); }
+  .dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--green); transform: translate(-4px,-4px); box-shadow: 0 0 0 6px rgba(0,122,90,0.14); }
+  .logo { position: absolute; top: 70px; left: 64px; height: 38px; }
+  .headline { position: absolute; top: 158px; left: 64px; width: 952px; font-weight: 700; font-size: 54px; line-height: 1.08; white-space: nowrap; letter-spacing: -0.045em; }
+  .headline .red { color: var(--red); }
+  .sub { position: absolute; top: 310px; left: 64px; width: 930px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* v2: green panel + CX Overview table */
+  .panel { position: absolute; left: 0; right: 0; top: 440px; bottom: 0; background: linear-gradient(180deg, #E6F0EA 0%, #DCEBE2 100%); }
+  .panel::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(0,122,90,0.16) 1.2px, transparent 1.3px); background-size: 22px 22px; -webkit-mask-image: linear-gradient(180deg, #000, rgba(0,0,0,0.25)); }
+  .panel::after { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: rgba(0,122,90,0.25); }
+  #cx { z-index: 1; left: 64px; top: 478px; width: 952px; height: 640px; border-radius: 16px; background: #fff; border: 1px solid rgba(0,122,90,0.22); overflow: hidden; color: #111B21; }
+  #cx::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(225,238,230,0) 0%, rgba(225,238,230,0) 48%, rgba(225,238,230,0.55) 56%, rgba(225,238,230,0.85) 70%, rgba(225,238,230,0.95) 100%); }
+  #cx .top { height: 62px; display: flex; align-items: center; gap: 10px; padding: 0 18px; }
+  #cx .top h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+  #cx .ai2 { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 600; color: var(--green); background: #E3F1EA; padding: 4px 9px; border-radius: 999px; }
+  #cx .flt { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #54656F; }
+  #cx .dd { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 10px; border: 1px solid #DADAD5; border-radius: 4px; font-size: 12.5px; color: #111B21; }
+  #cx table { position: absolute; left: 12px; top: 62px; width: calc(100% - 24px); border-collapse: collapse; table-layout: fixed; }
+  #cx th { height: 42px; text-align: left; padding: 0 12px; font-family: ui-monospace, "DejaVu Sans Mono", monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: #5A5A63; border: 1px solid #E6E6E1; }
+  #cx td { height: 84px; padding: 0 12px; border: 1px solid #E6E6E1; font-size: 14.5px; vertical-align: middle; }
+  .itag { display: inline-block; font-family: ui-monospace, "DejaVu Sans Mono", monospace; font-size: 12px; padding: 5px 9px; border-radius: 4px; white-space: nowrap; }
+  .it-red { color: #B3261E; background: #FBE9E9; } .it-amb { color: #B7791F; background: #FFF4DE; } .it-pur { color: #7B3FC4; background: #F3EAFE; } .it-tea { color: #1E7A6B; background: #E5F4F0; }
+  .inc { font-weight: 500; line-height: 1.3; }
+  .cu { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #3B4A54; white-space: nowrap; }
+  .cu .av { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 600; flex: none; }
+  .a1 { background: #E3E7FB; color: #4F5BD5; } .a2 { background: #FBE3EE; color: #C2407A; } .a3 { background: #E0F2E9; color: #1E8A5A; } .a4 { background: #FFF0D9; color: #B7791F; }
+  .res { display: grid; place-items: center; height: 38px; background: var(--green); color: #fff; font-size: 13px; font-weight: 500; }
+  .pen { display: flex; align-items: center; justify-content: space-between; height: 38px; padding: 0 10px; border: 1.5px solid #DADAD5; color: #D32F2F; font-size: 13px; font-weight: 500; }
+  .asg { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #3B4A54; white-space: nowrap; }
+  .wt { font-size: 13.5px; font-weight: 600; } .wt.r { color: #D32F2F; } .wt.a { color: #B7791F; } .wt.g { color: #8696A0; font-weight: 500; }
+  .footer { position: absolute; left: 64px; bottom: 180px; z-index: 10; }
+  .cta { display: inline-flex; align-items: center; gap: 14px; padding: 0 32px; height: 62px; border-radius: 999px; background: var(--green); color: #fff; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; box-shadow: 0 18px 30px -16px rgba(0,122,90,0.7); }
+  tr.flag td:first-child { box-shadow: inset 4px 0 0 #D32F2F; }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="grid" style="-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 38%,transparent 42%)"></div>
+  <div class="panel"></div>
+  <div class="cell" style="left:960px;top:60px"></div>
+  <div class="cell soft" style="left:900px;top:120px"></div>
+  <div class="dot" style="left:900px;top:120px"></div>
+
+  <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+
+  <h1 class="headline">Your travel ads bring the leads.<br/><span class="red">Missed follow-ups cost you bookings.</span></h1>
+  <p class="sub">With DoubleTick, spot <b>overdue WhatsApp enquiries</b>, track <b>agent follow-ups</b> and <b>reassign unattended chats</b> before potential travellers move on.</p>
+
+  <!-- DoubleTick inbox: Sales, Operations and Support on one thread -->
+  <div id="cx" class="abs">
+    <div class="top"><h3>CX Overview</h3><span class="ai2">⏱ Follow-up tracking</span><div class="flt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linejoin="round"><path d="M3 4h18l-7 9v6l-4 2v-8z"/></svg>Filters<span class="dd">All Agents <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111B21" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span><span class="dd">All Issues <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111B21" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span><span class="dd">Status <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111B21" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span><span class="dd">Date <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111B21" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div></div>
+    <table><colgroup><col style="width:172px"><col style="width:270px"><col style="width:196px"><col style="width:170px"><col></colgroup>
+      <tr><th>ISSUE</th><th>ENQUIRY</th><th>TRAVELLER</th><th>STATUS</th><th>WAITING</th></tr>
+      <tr class="flag"><td><span class="itag it-red">Overdue Reply</span></td><td class="inc">Asked for the final Maldives price</td><td><div class="cu"><span class="av a1">L</span>Layla Ahmed</div></td><td><div class="pen">Pending <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D32F2F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div></td><td><span class="wt r"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="vertical-align:-2px;margin-right:4px"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>2h 14m</span></td></tr><tr class="flag"><td><span class="itag it-amb">Missed Follow-up</span></td><td class="inc">Quote sent, no follow-up for 2 days</td><td><div class="cu"><span class="av a2">K</span>Khalid Al Mansoori</div></td><td><div class="pen">Pending <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D32F2F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div></td><td><span class="wt a"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="vertical-align:-2px;margin-right:4px"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>2 days</span></td></tr><tr class="flag"><td><span class="itag it-pur">Unattended Chat</span></td><td class="inc">Baku ad lead, agent away</td><td><div class="cu"><span class="av a4">Y</span>Yousef Ali</div></td><td><div class="asg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B4A54" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Reassigned · Sara</div></td><td><span class="wt r"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="vertical-align:-2px;margin-right:4px"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>48m</span></td></tr><tr class=""><td><span class="itag it-tea">Followed Up</span></td><td class="inc">Georgia quote followed up on time</td><td><div class="cu"><span class="av a3">M</span>Mariam Saeed</div></td><td><div class="res">Resolved</div></td><td><span class="wt g">—</span></td></tr><tr class=""><td><span class="itag it-red">Overdue Reply</span></td><td class="inc">Visa question answered by Sara</td><td><div class="cu"><span class="av a2">F</span>Fatima Hassan</div></td><td><div class="res">Resolved</div></td><td><span class="wt g">—</span></td></tr>
+    </table>
+  </div>
+
+  <div class="footer"><div class="cta">Book Your Free Pilot <svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+</div>
+</body>
+</html>
