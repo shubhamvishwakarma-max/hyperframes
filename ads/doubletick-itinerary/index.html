@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1080, height=1080" />
+<title>DoubleTick Itinerary Ad</title>
+<style>
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin.woff2) format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin-ext.woff2) format("woff2"); font-weight: 100 900; unicode-range: U+0100-02BA, U+20A0-20C4; }
+  :root { --bg: #F4F3EC; --ink: #131316; --ink-2: #5A5A63; --green: #007A5A; --green-tint: rgba(0,122,90,0.10); --line: rgba(19,19,22,0.07); --red: #D32F2F; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .ad { position: relative; width: 1080px; height: 1080px; background: var(--bg); overflow: hidden; }
+  .abs { position: absolute; }
+
+  /* grid */
+  .grid { position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(to right, var(--line) 1px, transparent 1px), linear-gradient(to bottom, var(--line) 1px, transparent 1px); background-size: 60px 60px; background-position: -1px -1px; -webkit-mask-image: radial-gradient(ellipse 90% 85% at 60% 65%, #000 40%, rgba(0,0,0,0.3) 100%); }
+  .cell { position: absolute; width: 60px; height: 60px; background: var(--green-tint); }
+  .cell.soft { background: rgba(0,122,90,0.05); }
+  .dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--green); transform: translate(-4px,-4px); box-shadow: 0 0 0 6px rgba(0,122,90,0.14); }
+
+  .logo { position: absolute; top: 70px; left: 64px; height: 38px; }
+  .headline { position: absolute; top: 158px; left: 64px; width: 960px; font-weight: 700; font-size: 70px; line-height: 1.05; letter-spacing: -0.045em; }
+  .headline .red { color: var(--red); }
+  .sub { position: absolute; top: 322px; left: 64px; width: 930px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* departure board */
+  .board { left: 64px; top: 466px; width: 540px; border-radius: 18px; background: #17181C; color: #F4F3EC; padding: 16px 18px 14px; box-shadow: 0 26px 50px -26px rgba(19,19,22,0.55); }
+  .board .bh { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; letter-spacing: 0.14em; color: #FFC94A; }
+  .board .bh small { margin-left: auto; font-size: 12px; letter-spacing: 0.08em; color: #8C8B84; font-weight: 600; }
+  .board table { width: 100%; border-collapse: collapse; margin-top: 10px; font-family: ui-monospace, "DejaVu Sans Mono", monospace; }
+  .board th { text-align: left; font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em; color: #8C8B84; padding: 0 0 6px; }
+  .board td { font-size: 15px; padding: 7px 0; border-top: 1px solid rgba(255,255,255,0.07); color: #F1E7C8; letter-spacing: 0.04em; }
+  .board tr.hi td { color: #FFC94A; }
+  .board .st { font-size: 12px; font-weight: 700; padding: 3px 7px; border-radius: 4px; background: rgba(41,180,122,0.18); color: #5EE0A0; letter-spacing: 0.06em; }
+  .board .st.am { background: rgba(255,201,74,0.16); color: #FFC94A; }
+
+  /* luggage */
+  .bag { left: 520px; top: 626px; }
+
+  /* DoubleTick inbox card */
+  .dt { left: 64px; top: 672px; width: 470px; border-radius: 16px; background: #fff; border: 1px solid #E4E2D9; box-shadow: 0 22px 44px -24px rgba(19,19,22,0.35); overflow: hidden; }
+  .dt .dh { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid #EEEDE8; }
+  .dt .av { position: relative; width: 34px; height: 34px; border-radius: 50%; background: #E3E7FB; color: #4F5BD5; display: grid; place-items: center; font-weight: 600; font-size: 14px; flex: none; }
+  .dt .av::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 11px; height: 11px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
+  .dt .nm { font-size: 15px; font-weight: 600; } .dt .nm small { display: block; font-size: 12px; color: #667781; font-weight: 400; margin-top: 1px; }
+  .dt .tag { margin-left: auto; font-size: 11.5px; font-weight: 600; color: #A86A0C; background: #FFF1DA; padding: 4px 9px; border-radius: 999px; white-space: nowrap; }
+  .dt .rows { padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 8px; }
+  .dt .r { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #3B4A54; }
+  .dt .r b { color: #111B21; font-weight: 600; }
+  .ok { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--green); flex: none; }
+  .dt .ag { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; padding: 3px 9px 3px 3px; border-radius: 999px; background: #E3F1EA; color: var(--green); }
+  .dt .ag .sv { width: 20px; height: 20px; border-radius: 50%; background: #DDEFF7; color: #1F7A9C; display: grid; place-items: center; font-size: 10.5px; font-weight: 700; }
+
+  /* phone (customer's WhatsApp) */
+  .phone { left: 648px; top: 452px; width: 368px; height: 486px; border-radius: 36px; background: #fff; border: 8px solid #131316; box-shadow: 0 34px 60px -28px rgba(19,19,22,0.55); overflow: hidden; display: flex; flex-direction: column; }
+  .wh { height: 64px; flex: none; display: flex; align-items: center; gap: 9px; padding: 0 12px; border-bottom: 1px solid #E9EDEF; }
+  .wh .lg { width: 38px; height: 38px; border-radius: 50%; background: #131316; display: grid; place-items: center; flex: none; }
+  .wh .nm { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .wh .ba { font-size: 11.5px; color: #3B4A54; margin-top: 1px; }
+  .wh .ic { margin-left: auto; }
+  .wb { flex: 1; position: relative; background: #EFEAE2; padding: 12px 12px; display: flex; flex-direction: column; gap: 9px; }
+  .wb::before { content: ""; position: absolute; inset: 0; opacity: 0.35; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' fill='none' stroke='%23D6CFC4' stroke-width='1.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='14' r='5'/%3E%3Cpath d='M42 9l7 7m0-7l-7 7'/%3E%3Cpath d='M18 46c4-5 9-5 12 0'/%3E%3Crect x='47' y='42' width='10' height='10' rx='3'/%3E%3C/svg%3E"); }
+  .wb > * { position: relative; }
+  .day { align-self: center; font-size: 11px; color: #54656F; background: #fff; padding: 3px 10px; border-radius: 6px; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .b { max-width: 86%; padding: 7px 10px 7px; border-radius: 10px; font-size: 14px; line-height: 1.35; color: #111B21; box-shadow: 0 1px 0.5px rgba(11,20,26,0.13); }
+  .b.out { align-self: flex-end; background: #D9FDD3; border-top-right-radius: 2px; }
+  .b.in { align-self: flex-start; background: #fff; border-top-left-radius: 2px; }
+  .b .tm { float: right; margin: 5px 0 -3px 9px; font-size: 10px; color: #8696A0; display: inline-flex; gap: 3px; align-items: center; }
+  .b .who { display: block; font-size: 11px; font-weight: 600; color: var(--green); margin-bottom: 2px; }
+  .doc { display: flex; align-items: center; gap: 9px; background: #F5F6F6; border-radius: 8px; padding: 8px 9px; margin-bottom: 6px; }
+  .doc .pdf { width: 30px; height: 34px; border-radius: 4px; background: #E5484D; color: #fff; font-size: 9px; font-weight: 800; display: grid; place-items: center; flex: none; }
+  .doc b { display: block; font-size: 13px; font-weight: 600; } .doc small { font-size: 11px; color: #667781; }
+  .sys { align-self: center; display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: var(--green); background: #fff; border: 1px solid rgba(0,122,90,0.3); padding: 4px 10px; border-radius: 999px; }
+  .wc { height: 50px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 12px; background: #F7F5F0; border-top: 1px solid #E6E2DA; }
+  .wc .fd { flex: 1; height: 32px; border-radius: 999px; background: #fff; border: 1px solid #E6E2DA; }
+
+  .footer { position: absolute; left: 64px; bottom: 180px; }
+  .cta { display: inline-flex; align-items: center; gap: 14px; padding: 0 32px; height: 62px; border-radius: 999px; background: var(--green); color: #fff; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; box-shadow: 0 18px 30px -16px rgba(0,122,90,0.7); }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="grid"></div>
+  <div class="cell" style="left:960px;top:60px"></div>
+  <div class="cell soft" style="left:900px;top:120px"></div>
+  <div class="cell" style="left:0px;top:420px"></div>
+  <div class="cell soft" style="left:420px;top:960px"></div>
+  <div class="cell" style="left:1020px;top:960px"></div>
+  <div class="dot" style="left:900px;top:120px"></div>
+
+  <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+
+  <h1 class="headline">Customer flight tomorrow.<br/><span class="red">Itinerary still missing?</span></h1>
+  <p class="sub">With DoubleTick, share <b>itineraries and travel updates</b> on WhatsApp, manage <b style="white-space:nowrap">last-minute requests</b>, and route every customer query to the <b>right support agent</b>.</p>
+
+  <!-- departure board -->
+  <div class="abs board">
+    <div class="bh"><svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC94A"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>DEPARTURES<small>DXB · TERMINAL 3</small></div>
+    <table>
+      <tr><th style="width:18%">TIME</th><th style="width:30%">DESTINATION</th><th style="width:20%">FLIGHT</th><th style="width:12%">GATE</th><th>STATUS</th></tr>
+      <tr class="hi"><td>09:40</td><td>BALI</td><td>EK 368</td><td>B12</td><td><span class="st">ON TIME</span></td></tr>
+      <tr><td>10:15</td><td>LONDON</td><td>EK 001</td><td>A3</td><td><span class="st">ON TIME</span></td></tr>
+      <tr><td>10:55</td><td>MALDIVES</td><td>EK 652</td><td>B7</td><td><span class="st am">BOARDING</span></td></tr>
+    </table>
+  </div>
+
+  <!-- luggage -->
+  <svg class="abs bag" width="110" height="150" viewBox="0 0 110 150" fill="none">
+    <path d="M38 22V10a6 6 0 0 1 6-6h22a6 6 0 0 1 6 6v12" stroke="#5A5A63" stroke-width="6" stroke-linecap="round"/>
+    <rect x="10" y="22" width="90" height="112" rx="16" fill="#007A5A"/>
+    <rect x="10" y="22" width="90" height="112" rx="16" fill="url(#bg)"/>
+    <path d="M36 34v88M74 34v88" stroke="rgba(255,255,255,0.28)" stroke-width="5" stroke-linecap="round"/>
+    <rect x="58" y="44" width="30" height="20" rx="4" fill="#F4F3EC"/><path d="M63 51h20M63 57h13" stroke="#007A5A" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="30" cy="140" r="7" fill="#131316"/><circle cx="80" cy="140" r="7" fill="#131316"/>
+    <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient></defs>
+  </svg>
+
+  <!-- DoubleTick inbox: itinerary shared, support assigned -->
+  <div class="abs dt">
+    <div class="dh"><div class="av">A</div><div class="nm">Aisha Rahman<small>EK 368 · DXB → Bali · Tomorrow 09:40</small></div><span class="tag">Last-minute request</span></div>
+    <div class="rows">
+      <div class="r"><span class="ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b>Itinerary shared</b> on WhatsApp</div>
+      <div class="r"><span class="ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b>Support assigned</b><span class="ag"><span class="sv">S</span>Sara · Travel Support</span></div>
+    </div>
+  </div>
+
+  <!-- customer's phone -->
+  <div class="abs phone">
+    <div class="wh">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111B21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      <span class="lg"><svg width="18" height="12" viewBox="0 0 26 16" fill="none" stroke="#29B47A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5l4.5 4.5L15 3M11 12l1 1L23 3"/></svg></span>
+      <div><div class="nm">ABC Holidays <svg width="15" height="15" viewBox="0 0 24 24"><path d="M12 1.5l2.6 2 3.2-.3 1 3.1 2.8 1.6-.9 3.1.9 3.1-2.8 1.6-1 3.1-3.2-.3-2.6 2-2.6-2-3.2.3-1-3.1L2.4 14l.9-3.1-.9-3.1 2.8-1.6 1-3.1 3.2.3z" fill="#1D9BF0"/><path d="M8 12.2l2.6 2.6L16 9.4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ba">Business Account</div></div>
+      <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="#111B21"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span>
+    </div>
+    <div class="wb">
+      <span class="day">Today</span>
+      <div class="b out">My flight is tomorrow ✈️ Can you resend my itinerary?<span class="tm">9:58 pm <svg width="14" height="10" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg></span></div>
+      <span class="sys">Sara · Travel Support joined</span>
+      <div class="b in"><span class="who">Sara · ABC Holidays</span><div class="doc"><span class="pdf">PDF</span><div><b>Bali_Itinerary.pdf</b><small>4 pages · 1.2 MB</small></div></div>Here you go, Aisha! Hotel pickup at 6:30 AM 🚐<span class="tm">9:59 pm</span></div>
+      <div class="b out">Perfect, thank you! 🙏<span class="tm">10:00 pm <svg width="14" height="10" viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7.5M6.5 8.5l.8.6L14 1.5"/></svg></span></div>
+    </div>
+    <div class="wc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B4A54" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><div class="fd"></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B4A54" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
+  </div>
+
+  <div class="footer"><div class="cta">Book a Free Demo <svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+</div>
+</body>
+</html>
