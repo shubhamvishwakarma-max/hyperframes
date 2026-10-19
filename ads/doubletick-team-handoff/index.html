@@ -24,8 +24,8 @@
   .sub b { color: var(--ink); font-weight: 600; }
 
   /* DoubleTick inbox (reference UI, simplified) fading into the background */
-  #ui { z-index: 1; left: 64px; top: 452px; width: 952px; height: 660px; border-radius: 16px; background: #fff; border: 1px solid #E3E3DE; box-shadow: 0 30px 60px -30px rgba(19,19,22,0.3); overflow: hidden; color: #111B21; font-size: 12px; }
-  #ui::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 5; background: linear-gradient(to bottom, rgba(244,243,236,0) 0%, rgba(244,243,236,0) 47%, rgba(244,243,236,0.72) 56%, rgba(244,243,236,0.86) 70%, rgba(244,243,236,0.92) 100%); }
+  #ui { z-index: 1; left: 64px; top: 452px; width: 952px; height: 660px; border-radius: 16px; background: #fff; border: 1px solid #E3E3DE; overflow: hidden; color: #111B21; font-size: 12px; }
+  #ui::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 5; background: linear-gradient(to bottom, rgba(244,243,236,0) 0%, rgba(244,243,236,0.00) 44.0%, rgba(244,243,236,0.20) 49.6%, rgba(244,243,236,0.37) 55.2%, rgba(244,243,236,0.52) 60.8%, rgba(244,243,236,0.64) 66.4%, rgba(244,243,236,0.74) 72.0%, rgba(244,243,236,0.82) 77.6%, rgba(244,243,236,0.88) 83.2%, rgba(244,243,236,0.92) 88.8%, rgba(244,243,236,0.94) 94.4%, rgba(244,243,236,0.95) 100.0%); }
   .comp { height: 46px; flex: none; display: flex; align-items: center; gap: 10px; margin: 8px 10px; padding: 0 12px; border: 1px solid #E3E3DE; border-radius: 10px; font-size: 12px; color: #8696A0; background: #fff; }
   .stabs { height: 38px; display: flex; align-items: center; gap: 2px; padding: 0 10px; border-bottom: 1px solid #ECECEC; white-space: nowrap; overflow: hidden; }
   .stabs span { padding: 5px 9px; border-radius: 6px; font-size: 12px; font-weight: 500; color: #3B4A54; display: inline-flex; align-items: center; gap: 5px; }
