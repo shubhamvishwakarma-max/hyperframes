@@ -21,33 +21,33 @@
           position: absolute;
           inset: 0;
           width: 1080px;
-          height: 1920px;
+          height: 1350px;
           object-fit: cover;
         }
-        /* Opaque from y 1240 down: hides the source's burned "all inside" / WhatsApp pill */
+        /* Opaque from y 850 down: burned WhatsApp pill Y 875-1120 / "all inside" Y 1000-1180 (x1.05 push-in -> 880-1205) */
         #f17-shade {
           position: absolute;
           inset: 0;
           background: linear-gradient(
             to bottom,
             rgba(11, 15, 20, 0) 0px,
-            rgba(11, 15, 20, 0) 900px,
-            rgba(11, 15, 20, 0.85) 1140px,
-            rgba(11, 15, 20, 1) 1240px,
-            rgba(11, 15, 20, 1) 1920px
+            rgba(11, 15, 20, 0) 560px,
+            rgba(11, 15, 20, 0.85) 770px,
+            rgba(11, 15, 20, 1) 850px,
+            rgba(11, 15, 20, 1) 1350px
           );
         }
         #f17-cap {
           position: absolute;
           left: 0;
-          top: 1270px;
+          top: 930px;
           width: 1080px;
           height: 140px;
           display: flex;
           justify-content: center;
           align-items: center;
           gap: 24px;
-          font-size: 104px;
+          font-size: 100px;
           font-weight: 500;
           letter-spacing: -0.04em;
           color: #ffffff;
@@ -58,10 +58,10 @@
         }
         #f17-pill {
           position: absolute;
-          left: 130px;
-          top: 1250px;
-          width: 820px;
-          height: 180px;
+          left: 160px;
+          top: 920px;
+          width: 760px;
+          height: 160px;
           border-radius: 40px;
           background: #1fa855;
           box-shadow: 0 0 0 6px rgba(37, 211, 102, 0.25), 0 30px 80px rgba(31, 168, 85, 0.45);
@@ -70,19 +70,19 @@
           justify-content: center;
           gap: 26px;
           color: #ffffff;
-          font-size: 116px;
+          font-size: 104px;
           font-weight: 600;
           letter-spacing: -0.04em;
         }
         #f17-pill svg {
           display: block;
-          width: 120px;
-          height: 120px;
+          width: 108px;
+          height: 108px;
           fill: #ffffff;
         }
       </style>
 
-      <div id="root" data-composition-id="f17" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="f17" data-width="1080" data-height="1350">
         <div id="f17-vidwrap">
           <video data-hf-media-start-basis="local" id="f17-vid" src="assets/footage/manend.mp4" data-start="0" data-duration="2" data-media-start="0.2" data-track-index="0" muted playsinline></video>
         </div>

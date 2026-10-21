@@ -22,20 +22,20 @@
           position: absolute;
           inset: 0;
           width: 1080px;
-          height: 1920px;
+          height: 1350px;
           object-fit: cover;
         }
-        /* Opaque from y 1240 down: hides the burned "only where a response / is truly required" */
+        /* Opaque from y 890 down: hides the burned "only where a response / is truly required" (4:5 box ~Y 915-1075, ~922-1100 at 1.05 push) */
         #f14-shade {
           position: absolute;
           inset: 0;
           background: linear-gradient(
             to bottom,
             rgba(11, 15, 20, 0) 0px,
-            rgba(11, 15, 20, 0) 880px,
-            rgba(11, 15, 20, 0.85) 1140px,
-            rgba(11, 15, 20, 1) 1240px,
-            rgba(11, 15, 20, 1) 1920px
+            rgba(11, 15, 20, 0) 560px,
+            rgba(11, 15, 20, 0.85) 800px,
+            rgba(11, 15, 20, 1) 880px,
+            rgba(11, 15, 20, 1) 1350px
           );
         }
         .f14-cap {
@@ -48,7 +48,7 @@
           justify-content: center;
           align-items: center;
           gap: 20px;
-          font-size: 78px;
+          font-size: 70px;
           font-weight: 500;
           line-height: 1.12;
           letter-spacing: -0.025em;
@@ -70,13 +70,13 @@
           inset: 0;
         }
         #f14-pre {
-          top: 560px;
+          top: 320px;
           color: #ffffff;
         }
         #f14-kw {
           position: absolute;
           left: 0;
-          top: 690px;
+          top: 460px;
           width: 1080px;
           height: 180px;
           display: flex;
@@ -101,7 +101,7 @@
         #f14-alerts {
           position: absolute;
           left: 250px;
-          top: 920px;
+          top: 700px;
           width: 580px;
           height: 180px;
           border-radius: 999px;
@@ -144,9 +144,9 @@
         #f14-card {
           position: absolute;
           left: 60px;
-          top: 330px;
+          top: 200px;
           width: 960px;
-          height: 852px;
+          height: 680px;
           border-radius: 36px;
           background: #ffffff;
           border: 3px solid #ece6dd;
@@ -162,7 +162,7 @@
         #f14-timer {
           position: absolute;
           left: 38px;
-          top: 44px;
+          top: 36px;
           width: 66px;
           height: 66px;
           color: #c8161d;
@@ -175,7 +175,7 @@
         #f14-title {
           position: absolute;
           left: 128px;
-          top: 34px;
+          top: 26px;
           width: 620px;
           height: 56px;
           font-size: 44px;
@@ -186,7 +186,7 @@
         #f14-sub {
           position: absolute;
           left: 128px;
-          top: 94px;
+          top: 84px;
           width: 640px;
           height: 34px;
           font-size: 24px;
@@ -197,7 +197,7 @@
         #f14-toggle {
           position: absolute;
           left: 800px;
-          top: 50px;
+          top: 40px;
           width: 120px;
           height: 64px;
           border-radius: 999px;
@@ -216,7 +216,7 @@
         #f14-ripple {
           position: absolute;
           left: 828px;
-          top: 50px;
+          top: 40px;
           width: 120px;
           height: 120px;
           margin-left: -32px;
@@ -229,7 +229,7 @@
         #f14-rule {
           position: absolute;
           left: 0;
-          top: 160px;
+          top: 136px;
           width: 954px;
           height: 2px;
           background: #ece6dd;
@@ -238,12 +238,12 @@
           position: absolute;
           left: 0;
           width: 954px;
-          height: 170px;
+          height: 130px;
         }
         .f14-av {
           position: absolute;
           left: 38px;
-          top: 30px;
+          top: 24px;
           width: 76px;
           height: 76px;
           border-radius: 50%;
@@ -256,7 +256,7 @@
         .f14-name {
           position: absolute;
           left: 140px;
-          top: 24px;
+          top: 14px;
           width: 560px;
           height: 46px;
           font-size: 36px;
@@ -267,7 +267,7 @@
         .f14-msg {
           position: absolute;
           left: 140px;
-          top: 70px;
+          top: 56px;
           width: 620px;
           height: 40px;
           font-size: 30px;
@@ -278,13 +278,13 @@
         .f14-tag {
           position: absolute;
           left: 140px;
-          top: 118px;
-          height: 38px;
+          top: 94px;
+          height: 30px;
           padding: 0 18px;
           border-radius: 999px;
           background: #fde2e4;
           color: #a8121a;
-          font-size: 24px;
+          font-size: 22px;
           font-weight: 500;
           display: flex;
           align-items: center;
@@ -297,7 +297,7 @@
         .f14-time {
           position: absolute;
           right: 40px;
-          top: 30px;
+          top: 20px;
           width: 160px;
           height: 34px;
           text-align: right;
@@ -308,7 +308,7 @@
         #f14-cursor {
           position: absolute;
           left: 860px;
-          top: 82px;
+          top: 72px;
           width: 64px;
           height: 90px;
         }
@@ -320,15 +320,15 @@
         }
         #f14-capb1,
         #f14-capb2 {
-          top: 1250px;
+          top: 950px;
         }
         #f14-capc1,
         #f14-capc2 {
-          top: 1300px;
+          top: 950px;
         }
       </style>
 
-      <div id="root" data-composition-id="f14" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="f14" data-width="1080" data-height="1350">
         <!-- Beat C (under everything) -->
         <div id="f14-vidwrap">
           <video data-hf-media-start-basis="local" id="f14-vid" src="assets/footage/woman.mp4" data-start="5.94" data-duration="2.36" data-media-start="0" data-track-index="0" muted playsinline></video>
@@ -363,28 +363,28 @@
               <div id="f14-toggle"><div id="f14-knob"></div></div>
               <div id="f14-rule"></div>
 
-              <div class="f14-row" id="f14-r1" style="top: 166px">
+              <div class="f14-row" id="f14-r1" style="top: 140px">
                 <div class="f14-av" style="background: #ede3f7; color: #6b4c96">D</div>
                 <div class="f14-name">Daniel Carter</div>
                 <div class="f14-msg">When can you call me?</div>
                 <div class="f14-tag">Response delayed by<b>6:24 min</b></div>
                 <div class="f14-time">03:50 pm</div>
               </div>
-              <div class="f14-row" id="f14-r2" style="top: 336px">
+              <div class="f14-row" id="f14-r2" style="top: 270px">
                 <div class="f14-av" style="background: #eef3d6; color: #5a661c">M</div>
                 <div class="f14-name">Michael Johnson</div>
                 <div class="f14-msg">Okay, Cool!</div>
                 <div class="f14-tag">Response delayed by<b>8:41 min</b></div>
                 <div class="f14-time">03:10 pm</div>
               </div>
-              <div class="f14-row" id="f14-r3" style="top: 506px">
+              <div class="f14-row" id="f14-r3" style="top: 400px">
                 <div class="f14-av" style="background: #ddf3e3; color: #2a6e3e">L</div>
                 <div class="f14-name">Lucas Thompson</div>
                 <div class="f14-msg">Sure thanks</div>
                 <div class="f14-tag">Response delayed by<b>7:34 min</b></div>
                 <div class="f14-time">04:20 pm</div>
               </div>
-              <div class="f14-row" id="f14-r4" style="top: 676px">
+              <div class="f14-row" id="f14-r4" style="top: 530px">
                 <div class="f14-av" style="background: #fbe1e6; color: #9a2e4a">I</div>
                 <div class="f14-name">Isabella Moore</div>
                 <div class="f14-msg">Let me know when can…</div>
@@ -474,7 +474,7 @@
 
           // ---------- Beat B (2.4 – 5.94): AI SLA filtering card ----------
           tl.fromTo("#f14-card", { opacity: 0.25, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 2.4);
-          tl.fromTo("#f14-cursor", { x: 60, y: 520, opacity: 0 }, { x: 60, y: 520, opacity: 1, duration: 0.2 }, 2.6);
+          tl.fromTo("#f14-cursor", { x: 60, y: 470, opacity: 0 }, { x: 60, y: 470, opacity: 1, duration: 0.2 }, 2.6);
           tl.to("#f14-cursor", { x: 0, y: 0, duration: 1.0, ease: "power2.inOut" }, 2.9);
           tl.to("#f14-cursor", { scale: 0.85, duration: 0.08, ease: "power1.in", transformOrigin: "5% 5%" }, 4.0);
           tl.to("#f14-cursor", { scale: 1, duration: 0.18, ease: "back.out(2)" }, 4.08);
@@ -485,8 +485,9 @@
           // list collapses to the two rows that truly need a reply
           tl.to("#f14-r2", { x: -140, opacity: 0, duration: 0.35, ease: "power2.in" }, 4.3);
           tl.to("#f14-r3", { x: 140, opacity: 0, duration: 0.35, ease: "power2.in" }, 4.36);
-          tl.to("#f14-r4", { y: -340, duration: 0.5, ease: "power3.inOut" }, 4.55);
-          tl.to("#f14-cursor", { x: 30, y: 40, duration: 0.8, ease: "sine.inOut" }, 4.9);
+          tl.to("#f14-r4", { y: -260, duration: 0.5, ease: "power3.inOut" }, 4.55);
+          tl.fromTo("#f14-card", { height: 680 }, { height: 420, y: 130, duration: 0.5, ease: "power3.inOut", immediateRender: false }, 4.55);
+          tl.to("#f14-cursor", { x: -260, y: 40, duration: 0.8, ease: "sine.inOut" }, 4.9);
           // captions
           word("#f14-b-ai", 2.51, "#1C1C1E");
           word("#f14-b-filt", 2.99, "#1C1C1E");

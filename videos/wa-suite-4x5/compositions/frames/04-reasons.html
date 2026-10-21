@@ -98,14 +98,36 @@
         #f04-stack {
           position: absolute;
           left: 60px;
-          top: 360px;
+          top: 214px;
           width: 960px;
-          height: 800px;
+          height: 660px;
+        }
+        #f04-stack .f04-row {
+          height: 120px;
+        }
+        #f04-stack .f04-alert {
+          top: 32px;
+        }
+        #f04-stack .f04-card {
+          height: 120px;
+          gap: 22px;
+        }
+        #f04-stack .f04-av {
+          flex: 0 0 68px;
+          width: 68px;
+          height: 68px;
+          font-size: 24px;
+        }
+        #f04-stack .f04-name {
+          font-size: 26px;
+        }
+        #f04-stack .f04-msg {
+          font-size: 32px;
         }
         #f04-ignored {
           position: absolute;
           left: 0;
-          top: 560px;
+          top: 400px;
           width: 1080px;
           height: 280px;
           display: flex;
@@ -121,16 +143,16 @@
         .f04-cap {
           position: absolute;
           left: 80px;
-          top: 1240px;
+          top: 920px;
           width: 920px;
-          height: 220px;
+          height: 180px;
           display: flex;
           flex-wrap: wrap;
           align-content: center;
           justify-content: center;
           column-gap: 22px;
           row-gap: 0;
-          font-size: 78px;
+          font-size: 70px;
           font-weight: 500;
           line-height: 1.12;
           letter-spacing: -0.025em;
@@ -147,7 +169,7 @@
         #f04-chat {
           position: absolute;
           left: 60px;
-          top: 420px;
+          top: 230px;
           width: 960px;
           height: 640px;
           border-radius: 40px;
@@ -236,7 +258,7 @@
         #f04-sla {
           position: absolute;
           left: 150px;
-          top: 610px;
+          top: 470px;
           width: 780px;
           height: 180px;
           opacity: 0;
@@ -264,7 +286,7 @@
         #f04-scard {
           position: absolute;
           left: 80px;
-          top: 650px;
+          top: 510px;
           width: 920px;
           height: 270px;
           background: #ffffff;
@@ -332,7 +354,7 @@
           position: absolute;
           inset: 0;
           width: 1080px;
-          height: 1920px;
+          height: 1350px;
           object-fit: cover;
           filter: grayscale(1) blur(26px) brightness(0.55);
         }
@@ -342,18 +364,18 @@
           background: linear-gradient(
             to bottom,
             rgba(0, 0, 0, 0.35) 0px,
-            rgba(0, 0, 0, 0.1) 600px,
-            rgba(0, 0, 0, 0.7) 1180px,
-            rgba(0, 0, 0, 0.88) 1300px,
-            rgba(0, 0, 0, 0.92) 1920px
+            rgba(0, 0, 0, 0.1) 480px,
+            rgba(0, 0, 0, 0.7) 860px,
+            rgba(0, 0, 0, 0.88) 940px,
+            rgba(0, 0, 0, 0.92) 1350px
           );
         }
         #f04-panel {
           position: absolute;
           left: 60px;
-          top: 330px;
+          top: 206px;
           width: 960px;
-          height: 860px;
+          height: 690px;
           border-radius: 44px;
           background: rgba(255, 255, 255, 0.1);
           border: 2px solid rgba(255, 255, 255, 0.22);
@@ -363,8 +385,8 @@
         #f04-dmask {
           position: absolute;
           inset: 0;
-          -webkit-mask-image: linear-gradient(to bottom, transparent 0px, #000 70px, #000 790px, transparent 860px);
-          mask-image: linear-gradient(to bottom, transparent 0px, #000 70px, #000 790px, transparent 860px);
+          -webkit-mask-image: linear-gradient(to bottom, transparent 0px, #000 70px, #000 620px, transparent 690px);
+          mask-image: linear-gradient(to bottom, transparent 0px, #000 70px, #000 620px, transparent 690px);
         }
         #f04-dcol {
           position: absolute;
@@ -381,7 +403,7 @@
         }
       </style>
 
-      <div id="root" data-composition-id="f04" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="f04" data-width="1080" data-height="1350">
         <div id="f04-bg"></div>
         <div id="f04-grid"></div>
 
@@ -393,28 +415,28 @@
               <div class="f04-txt"><div class="f04-name">Customer 2</div><div class="f04-msg">When can you call me?</div></div>
             </div>
           </div>
-          <div class="f04-row f04-arow" id="f04-a2" style="top: 164px; left: 40px">
+          <div class="f04-row f04-arow" id="f04-a2" style="top: 134px; left: 40px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C4</div>
               <div class="f04-txt"><div class="f04-name">Customer 4</div><div class="f04-msg">Let me know when can we meet</div></div>
             </div>
           </div>
-          <div class="f04-row f04-arow" id="f04-a3" style="top: 328px; left: -20px">
+          <div class="f04-row f04-arow" id="f04-a3" style="top: 268px; left: -20px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C6</div>
               <div class="f04-txt"><div class="f04-name">Customer 6</div><div class="f04-msg">Please share the payment link</div></div>
             </div>
           </div>
-          <div class="f04-row f04-arow" id="f04-a4" style="top: 492px; left: 30px">
+          <div class="f04-row f04-arow" id="f04-a4" style="top: 402px; left: 30px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C8</div>
               <div class="f04-txt"><div class="f04-name">Customer 8</div><div class="f04-msg">Still waiting on my refund</div></div>
             </div>
           </div>
-          <div class="f04-row f04-arow" id="f04-a5" style="top: 656px; left: 10px">
+          <div class="f04-row f04-arow" id="f04-a5" style="top: 536px; left: 10px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C9</div>
@@ -453,7 +475,7 @@
 
         <div id="f04-d">
           <div id="f04-vidwrap">
-            <img id="f04-still" src="assets/gen/f04-office-last.jpg" alt="" />
+            <img id="f04-still" src="assets/gen/f04-office-last-45.jpg" alt="" />
             <video data-hf-media-start-basis="local" id="f04-vid" src="assets/footage/office.mp4" data-start="6.04" data-duration="3.7" data-media-start="0" data-track-index="0" muted playsinline></video>
           </div>
           <div id="f04-dshade"></div>
@@ -579,8 +601,8 @@
           tl.fromTo("#f04-d", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 6.04);
           tl.fromTo("#f04-vidwrap", { scale: 1.15 }, { scale: 1.22, duration: 3.96, ease: "none" }, 6.04);
           tl.fromTo("#f04-panel", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 6.04);
-          tl.fromTo("#f04-dcol", { y: 620 }, { y: -300, duration: 3.1, ease: "power2.inOut" }, 6.1);
-          tl.to("#f04-dcol", { y: -330, duration: 0.8, ease: "none" }, 9.2);
+          tl.fromTo("#f04-dcol", { y: 480 }, { y: -470, duration: 3.1, ease: "power2.inOut" }, 6.1);
+          tl.to("#f04-dcol", { y: -500, duration: 0.8, ease: "none" }, 9.2);
           word("#f04-c1-0", 6.46, "#FFFFFF");
           word("#f04-c1-1", 6.61, "#FFFFFF");
           out("#f04-c1", 7.06);

@@ -33,7 +33,7 @@
           left: 0;
           top: 0;
           width: 1080px;
-          height: 1920px;
+          height: 1350px;
         }
         .f05-word {
           position: absolute;
@@ -47,25 +47,25 @@
         }
         #f05-volume {
           left: 80px;
-          top: 370px;
+          top: 230px;
           color: #8F8A84;
         }
         #f05-grows {
           left: 230px;
-          top: 550px;
+          top: 410px;
           color: #8F8A84;
           font-weight: 600;
         }
         #f05-control {
           left: 200px;
-          top: 370px;
+          top: 230px;
           width: 720px;
           text-align: right;
           color: #8F8A84;
         }
         #f05-drops {
           left: 240px;
-          top: 550px;
+          top: 410px;
           width: 720px;
           text-align: right;
           color: #8F8A84;
@@ -91,23 +91,23 @@
         }
       </style>
 
-      <div id="root" data-composition-id="f05" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="f05" data-width="1080" data-height="1350">
         <!-- Beat 1: volume grows -->
         <div id="f05-g" class="f05-scene">
-          <svg id="f05-gsvg" class="f05-chart" viewBox="0 0 1080 1920" aria-hidden="true">
+          <svg id="f05-gsvg" class="f05-chart" viewBox="0 0 1080 1350" aria-hidden="true">
             <defs>
-              <pattern id="f05-gbars" width="54" height="1920" patternUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="2" height="1920" fill="rgba(34,240,138,0.16)" />
+              <pattern id="f05-gbars" width="54" height="1350" patternUnits="userSpaceOnUse">
+                <rect x="0" y="0" width="2" height="1350" fill="rgba(34,240,138,0.16)" />
               </pattern>
-              <linearGradient id="f05-gfill" x1="0" y1="600" x2="0" y2="1920" gradientUnits="userSpaceOnUse">
+              <linearGradient id="f05-gfill" x1="0" y1="490" x2="0" y2="1350" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stop-color="rgba(34,240,138,0.30)" />
                 <stop offset="1" stop-color="rgba(34,240,138,0.04)" />
               </linearGradient>
             </defs>
-            <path id="f05-garea" d="M -20 1420 C 320 1420 430 1240 600 1000 C 770 760 880 620 1100 600 L 1100 1920 L -20 1920 Z" fill="url(#f05-gfill)" />
-            <path id="f05-gbar" d="M -20 1420 C 320 1420 430 1240 600 1000 C 770 760 880 620 1100 600 L 1100 1920 L -20 1920 Z" fill="url(#f05-gbars)" />
-            <path d="M -20 1420 C 320 1420 430 1240 600 1000 C 770 760 880 620 1100 600" fill="none" stroke="rgba(34,240,138,0.22)" stroke-width="10" />
-            <path id="f05-gline" d="M -20 1420 C 320 1420 430 1240 600 1000 C 770 760 880 620 1100 600" fill="none" stroke="#22F08A" stroke-width="16" stroke-linecap="round" />
+            <path id="f05-garea" d="M -20 1180 C 320 1180 430 1030 600 830 C 770 630 880 510 1100 490 L 1100 1350 L -20 1350 Z" fill="url(#f05-gfill)" />
+            <path id="f05-gbar" d="M -20 1180 C 320 1180 430 1030 600 830 C 770 630 880 510 1100 490 L 1100 1350 L -20 1350 Z" fill="url(#f05-gbars)" />
+            <path d="M -20 1180 C 320 1180 430 1030 600 830 C 770 630 880 510 1100 490" fill="none" stroke="rgba(34,240,138,0.22)" stroke-width="10" />
+            <path id="f05-gline" d="M -20 1180 C 320 1180 430 1030 600 830 C 770 630 880 510 1100 490" fill="none" stroke="#22F08A" stroke-width="16" stroke-linecap="round" />
           </svg>
           <div id="f05-gdot" class="f05-dot"></div>
           <div id="f05-volume" class="f05-word">volume</div>
@@ -116,20 +116,20 @@
 
         <!-- Beat 2: control drops -->
         <div id="f05-r" class="f05-scene">
-          <svg id="f05-rsvg" class="f05-chart" viewBox="0 0 1080 1920" aria-hidden="true">
+          <svg id="f05-rsvg" class="f05-chart" viewBox="0 0 1080 1350" aria-hidden="true">
             <defs>
-              <pattern id="f05-rbars" width="54" height="1920" patternUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="2" height="1920" fill="rgba(242,35,43,0.16)" />
+              <pattern id="f05-rbars" width="54" height="1350" patternUnits="userSpaceOnUse">
+                <rect x="0" y="0" width="2" height="1350" fill="rgba(242,35,43,0.16)" />
               </pattern>
-              <linearGradient id="f05-rfill" x1="0" y1="760" x2="0" y2="1920" gradientUnits="userSpaceOnUse">
+              <linearGradient id="f05-rfill" x1="0" y1="640" x2="0" y2="1350" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stop-color="rgba(242,35,43,0.30)" />
                 <stop offset="1" stop-color="rgba(242,35,43,0.05)" />
               </linearGradient>
             </defs>
-            <path d="M -20 760 C 260 760 400 900 560 1100 C 720 1300 860 1420 1100 1450 L 1100 1920 L -20 1920 Z" fill="url(#f05-rfill)" />
-            <path d="M -20 760 C 260 760 400 900 560 1100 C 720 1300 860 1420 1100 1450 L 1100 1920 L -20 1920 Z" fill="url(#f05-rbars)" />
-            <path d="M -20 760 C 260 760 400 900 560 1100 C 720 1300 860 1420 1100 1450" fill="none" stroke="rgba(242,35,43,0.22)" stroke-width="10" />
-            <path id="f05-rline" d="M -20 760 C 260 760 400 900 560 1100 C 720 1300 860 1420 1100 1450" fill="none" stroke="#F2232B" stroke-width="16" stroke-linecap="round" />
+            <path d="M -20 640 C 260 640 400 760 560 920 C 720 1080 860 1170 1100 1190 L 1100 1350 L -20 1350 Z" fill="url(#f05-rfill)" />
+            <path d="M -20 640 C 260 640 400 760 560 920 C 720 1080 860 1170 1100 1190 L 1100 1350 L -20 1350 Z" fill="url(#f05-rbars)" />
+            <path d="M -20 640 C 260 640 400 760 560 920 C 720 1080 860 1170 1100 1190" fill="none" stroke="rgba(242,35,43,0.22)" stroke-width="10" />
+            <path id="f05-rline" d="M -20 640 C 260 640 400 760 560 920 C 720 1080 860 1170 1100 1190" fill="none" stroke="#F2232B" stroke-width="16" stroke-linecap="round" />
           </svg>
           <div id="f05-rdot" class="f05-dot"></div>
           <div id="f05-control" class="f05-word">control</div>
@@ -184,8 +184,8 @@
 
           // ---------- Beat 1 (0 – 1.30): volume grows ----------
           const gSegs = [
-            [-20, 1420, 320, 1420, 430, 1240, 600, 1000],
-            [600, 1000, 770, 760, 880, 620, 1100, 600],
+            [-20, 1180, 320, 1180, 430, 1030, 600, 830],
+            [600, 830, 770, 630, 880, 510, 1100, 490],
           ];
           tl.fromTo(["#f05-garea", "#f05-gbar"], { opacity: 0.35 }, { opacity: 1, duration: 1.2, ease: "power1.out" }, 0);
           tl.fromTo("#f05-g", { scale: 1 }, { scale: 1.04, duration: 1.3, ease: "none" }, 0);
@@ -195,8 +195,8 @@
 
           // ---------- Beat 2 (1.30 – 3.0): control drops ----------
           const rSegs = [
-            [-20, 760, 260, 760, 400, 900, 560, 1100],
-            [560, 1100, 720, 1300, 860, 1420, 1100, 1450],
+            [-20, 640, 260, 640, 400, 760, 560, 920],
+            [560, 920, 720, 1080, 860, 1170, 1100, 1190],
           ];
           tl.set("#f05-g", { opacity: 0 }, 1.31);
           tl.fromTo("#f05-r", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 1.3);

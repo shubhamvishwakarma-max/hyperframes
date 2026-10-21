@@ -33,7 +33,7 @@
         .f10-gv {
           top: 0;
           width: 2px;
-          height: 1920px;
+          height: 1350px;
         }
         .f10-scene {
           position: absolute;
@@ -47,14 +47,14 @@
         .f10-cap {
           position: absolute;
           left: 80px;
-          top: 1250px;
+          top: 940px;
           width: 920px;
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
           align-content: center;
           column-gap: 22px;
-          font-size: 78px;
+          font-size: 70px;
           line-height: 1.12;
           font-weight: 500;
           letter-spacing: -0.025em;
@@ -94,9 +94,9 @@
         #f10-pills {
           position: absolute;
           left: 60px;
-          top: 360px;
+          top: 200px;
           width: 960px;
-          height: 120px;
+          height: 112px;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -104,7 +104,7 @@
         }
         .f10-pill {
           display: block;
-          font-size: 70px;
+          font-size: 64px;
           font-weight: 500;
           letter-spacing: -0.03em;
           color: #ffffff;
@@ -124,7 +124,7 @@
         #f10-tblA {
           position: absolute;
           left: 60px;
-          top: 520px;
+          top: 340px;
           width: 960px;
         }
         .f10-ah,
@@ -134,14 +134,14 @@
           border-bottom: 2px solid #ece6dd;
         }
         .f10-ah {
-          height: 72px;
+          height: 60px;
           background: #faf8f4;
           font-size: 24px;
           font-weight: 500;
           color: #5f5a54;
         }
         .f10-ar {
-          height: 86px;
+          height: 78px;
         }
         .f10-ar:last-child {
           border-bottom: 0;
@@ -195,24 +195,24 @@
           position: absolute;
           inset: 0;
           width: 1080px;
-          height: 1920px;
+          height: 1350px;
           object-fit: cover;
         }
-        /* Opaque from y 1240 down: hides the burned "before they escalate" caption (Y1280–1510) */
+        /* Opaque from y 900 down: hides the burned "before they escalate" caption (Y 925–1065, ≤1090 at 1.06 push-in) */
         #f10-shade {
           position: absolute;
           inset: 0;
           background: linear-gradient(
             to bottom,
             rgba(11, 15, 20, 0) 0px,
-            rgba(11, 15, 20, 0) 880px,
-            rgba(11, 15, 20, 0.85) 1140px,
-            rgba(11, 15, 20, 1) 1240px,
-            rgba(11, 15, 20, 1) 1920px
+            rgba(11, 15, 20, 0) 560px,
+            rgba(11, 15, 20, 0.85) 800px,
+            rgba(11, 15, 20, 1) 900px,
+            rgba(11, 15, 20, 1) 1350px
           );
         }
         #f10-capB {
-          top: 1290px;
+          top: 950px;
         }
         #f10-capB .f10-w {
           color: #8a8f96;
@@ -221,9 +221,9 @@
         #f10-holdC {
           position: absolute;
           left: 60px;
-          top: 330px;
+          top: 200px;
           width: 960px;
-          height: 880px;
+          height: 700px;
           display: flex;
           align-items: center;
         }
@@ -238,14 +238,14 @@
           overflow: hidden;
         }
         .f10-bh {
-          height: 80px;
+          height: 64px;
           background: #faf8f4;
           font-size: 26px;
           font-weight: 500;
           color: #5f5a54;
         }
         .f10-br {
-          height: 104px;
+          height: 84px;
         }
         .f10-b1 {
           width: 290px;
@@ -259,8 +259,8 @@
           width: 670px;
           padding: 0 26px;
           box-sizing: border-box;
-          font-size: 31px;
-          line-height: 1.2;
+          font-size: 29px;
+          line-height: 1.15;
           font-weight: 500;
         }
         .f10-flag .f10-b2 {
@@ -295,12 +295,12 @@
           left: 0;
           top: 0;
           width: 1080px;
-          height: 1920px;
+          height: 1350px;
         }
         #f10-inst {
           position: absolute;
           left: 0;
-          top: 780px;
+          top: 460px;
           width: 1080px;
           height: 240px;
           display: flex;
@@ -314,10 +314,10 @@
         }
       </style>
 
-      <div id="root" data-composition-id="f10" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="f10" data-width="1080" data-height="1350">
         <div id="f10-bg"></div>
-        <div class="f10-gl f10-gh" style="top: 330px"></div>
-        <div class="f10-gl f10-gh" style="top: 1220px"></div>
+        <div class="f10-gl f10-gh" style="top: 190px"></div>
+        <div class="f10-gl f10-gh" style="top: 910px"></div>
         <div class="f10-gl f10-gv" style="left: 180px"></div>
         <div class="f10-gl f10-gv" style="left: 900px"></div>
 
@@ -342,11 +342,6 @@
               <div class="f10-a1"><span class="f10-tag f10-agt">Agent misconduct</span></div>
               <div class="f10-a2">Customer frustrated with no response</div>
               <div class="f10-a3"><span class="f10-ini">E</span><span class="f10-nm">Emma Wilson</span></div>
-            </div>
-            <div class="f10-ar">
-              <div class="f10-a1"><span class="f10-tag f10-irr">Irritated customer</span></div>
-              <div class="f10-a2">Customer demanding immediate refund</div>
-              <div class="f10-a3"><span class="f10-ini">D</span><span class="f10-nm">Daniel Carter</span></div>
             </div>
             <div class="f10-ar">
               <div class="f10-a1"><span class="f10-tag f10-irr">Irritated customer</span></div>
@@ -441,8 +436,8 @@
 
         <div id="f10-sD" class="f10-scene">
           <div id="f10-green"></div>
-          <svg id="f10-bolt" viewBox="0 0 1080 1920" aria-hidden="true">
-            <polygon points="700,300 150,1080 500,1080 360,1660 940,820 590,820" fill="#0f4a30" stroke="#0f4a30" stroke-width="90" stroke-linejoin="round" />
+          <svg id="f10-bolt" viewBox="0 0 1080 1350" aria-hidden="true">
+            <polygon points="700,208 150,692 500,692 360,1051 940,530 590,530" fill="#0f4a30" stroke="#0f4a30" stroke-width="90" stroke-linejoin="round" />
           </svg>
           <div id="f10-inst">instantly</div>
         </div>
