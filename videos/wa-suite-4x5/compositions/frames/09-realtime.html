@@ -1,0 +1,515 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: Inter, sans-serif;
+          color: #1c1c1e;
+          background: #f7f3ec;
+        }
+        #f09-bg {
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(circle at 100% 100%, rgba(247, 207, 212, 0.75), transparent 55%),
+            radial-gradient(circle at 0% 0%, rgba(247, 207, 212, 0.45), transparent 45%), #f7f3ec;
+        }
+        .f09-gl {
+          position: absolute;
+          background: rgba(60, 40, 20, 0.07);
+        }
+        .f09-gh {
+          left: 0;
+          width: 1080px;
+          height: 2px;
+        }
+        .f09-gv {
+          top: 0;
+          width: 2px;
+          height: 1920px;
+        }
+        .f09-scene {
+          position: absolute;
+          inset: 0;
+        }
+        #f09-sB,
+        #f09-sC,
+        #f09-sD {
+          opacity: 0;
+        }
+        /* ---------- A: incidents table ---------- */
+        #f09-table {
+          position: absolute;
+          left: 60px;
+          top: 400px;
+          width: 960px;
+          background: #ffffff;
+          border: 2px solid #ece6dd;
+          border-radius: 26px;
+          box-shadow: 0 18px 50px rgba(30, 20, 10, 0.08);
+          overflow: hidden;
+        }
+        .f09-th,
+        .f09-tr {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid #ece6dd;
+        }
+        .f09-th {
+          height: 84px;
+          background: #faf8f4;
+          font-size: 26px;
+          font-weight: 500;
+          color: #5f5a54;
+        }
+        .f09-tr {
+          height: 132px;
+        }
+        .f09-tr:last-child {
+          border-bottom: 0;
+        }
+        .f09-c1 {
+          position: relative;
+          width: 190px;
+          padding-left: 44px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        .f09-c2 {
+          width: 310px;
+          padding-left: 18px;
+          border-left: 2px solid #ece6dd;
+          height: 100%;
+          display: flex;
+          align-items: center;
+        }
+        .f09-c3 {
+          width: 460px;
+          padding: 0 26px;
+          border-left: 2px solid #ece6dd;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          font-size: 30px;
+          font-weight: 500;
+          line-height: 1.25;
+          color: #1c1c1e;
+        }
+        .f09-th .f09-c2,
+        .f09-th .f09-c3 {
+          font-size: 26px;
+          color: #5f5a54;
+        }
+        .f09-d {
+          display: block;
+          font-size: 28px;
+          font-weight: 500;
+          color: #1c1c1e;
+        }
+        .f09-t {
+          display: block;
+          font-size: 23px;
+          color: #6b665f;
+        }
+        .f09-dot {
+          position: absolute;
+          left: 18px;
+          top: 50%;
+          width: 14px;
+          height: 14px;
+          margin-top: -7px;
+          border-radius: 50%;
+          background: #c8161d;
+        }
+        .f09-tag {
+          display: block;
+          font-size: 24px;
+          font-weight: 500;
+          padding: 8px 16px;
+          border-radius: 10px;
+          white-space: nowrap;
+        }
+        .f09-irr {
+          background: #fff1d6;
+          color: #8a5200;
+        }
+        .f09-agt {
+          background: #ecebfa;
+          color: #43479a;
+        }
+        .f09-cap {
+          position: absolute;
+          left: 80px;
+          top: 1250px;
+          width: 920px;
+          height: 120px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 22px;
+          font-size: 78px;
+          font-weight: 500;
+          letter-spacing: -0.025em;
+          white-space: nowrap;
+        }
+        .f09-w {
+          display: block;
+          color: #8F8A84;
+        }
+        /* ---------- B: AI chip ---------- */
+        #f09-ai {
+          position: absolute;
+          left: 250px;
+          top: 640px;
+          width: 580px;
+          height: 270px;
+          border-radius: 64px;
+          background: #ffffff;
+          border: 12px solid #d9d2c7;
+          box-shadow: 0 30px 70px rgba(30, 20, 10, 0.12);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 34px;
+          font-size: 170px;
+          font-weight: 600;
+          letter-spacing: -0.04em;
+          color: #1c1c1e;
+        }
+        #f09-ai svg {
+          display: block;
+          width: 140px;
+          height: 140px;
+          color: #1c1c1e;
+          fill: #1c1c1e;
+        }
+        /* ---------- C: contact list ---------- */
+        #f09-phone {
+          position: absolute;
+          left: 160px;
+          top: 360px;
+          width: 760px;
+          height: 820px;
+          border-radius: 54px;
+          border: 6px solid #3fcb7e;
+          padding: 18px;
+          background: rgba(255, 255, 255, 0.5);
+          box-shadow: 0 30px 80px rgba(31, 168, 85, 0.18);
+        }
+        #f09-panel {
+          position: relative;
+          width: 712px;
+          height: 772px;
+          border-radius: 38px;
+          background: #e6e2dc;
+          overflow: hidden;
+        }
+        #f09-list {
+          position: absolute;
+          left: 20px;
+          top: 20px;
+          width: 672px;
+          height: 1120px;
+        }
+        .f09-ct {
+          position: absolute;
+          left: 0;
+          width: 672px;
+          height: 140px;
+          border-radius: 24px;
+          background: #ffffff;
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          padding: 0 24px;
+          box-sizing: border-box;
+        }
+        .f09-ct img {
+          display: block;
+          width: 84px;
+          height: 84px;
+          border-radius: 50%;
+          object-fit: cover;
+          flex: none;
+        }
+        .f09-ini {
+          width: 84px;
+          height: 84px;
+          border-radius: 50%;
+          flex: none;
+          background: #ede3f7;
+          color: #6f4c9c;
+          font-size: 30px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .f09-ctx {
+          width: 420px;
+          overflow: hidden;
+        }
+        .f09-cn {
+          font-size: 31px;
+          font-weight: 600;
+          color: #1c1c1e;
+          white-space: nowrap;
+        }
+        .f09-cm {
+          font-size: 28px;
+          color: #3a3a3c;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .f09-wab {
+          margin-left: auto;
+          width: 58px;
+          height: 58px;
+          border-radius: 50%;
+          background: #25d366;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex: none;
+        }
+        .f09-wab svg {
+          display: block;
+          width: 34px;
+          height: 34px;
+          fill: #ffffff;
+        }
+        #f09-bar {
+          position: absolute;
+          left: 100px;
+          top: 734px;
+          width: 880px;
+          height: 124px;
+          border-radius: 6px;
+          background: rgba(34, 240, 138, 0.32);
+          box-shadow: 0 0 40px rgba(34, 240, 138, 0.35);
+        }
+        /* ---------- D: real time ---------- */
+        #f09-green {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at 50% 45%, #145236 0%, #0d3a26 45%, #072217 100%);
+        }
+        .f09-ring {
+          position: absolute;
+          left: 540px;
+          top: 860px;
+          border-radius: 50%;
+          border: 4px solid rgba(34, 240, 138, 0.13);
+          box-shadow: 0 0 60px rgba(34, 240, 138, 0.08), inset 0 0 60px rgba(34, 240, 138, 0.06);
+        }
+        #f09-rt {
+          position: absolute;
+          left: 0;
+          top: 750px;
+          width: 1080px;
+          height: 230px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 46px;
+          font-size: 200px;
+          font-weight: 600;
+          letter-spacing: -0.045em;
+        }
+        .f09-rw {
+          display: block;
+          color: #2c7a52;
+          text-shadow: 0 0 60px rgba(34, 240, 138, 0.35);
+        }
+      </style>
+
+      <div id="root" data-composition-id="f09" data-width="1080" data-height="1920">
+        <div id="f09-bg"></div>
+        <div class="f09-gl f09-gh" style="top: 360px"></div>
+        <div class="f09-gl f09-gh" style="top: 1200px"></div>
+        <div class="f09-gl f09-gv" style="left: 180px"></div>
+        <div class="f09-gl f09-gv" style="left: 900px"></div>
+
+        <div id="f09-sA" class="f09-scene">
+          <div id="f09-table">
+            <div class="f09-th">
+              <div class="f09-c1">Date</div>
+              <div class="f09-c2">Issue</div>
+              <div class="f09-c3">Incident</div>
+            </div>
+          <div class="f09-tr" id="f09-tr0">
+            <div class="f09-c1"><span class="f09-dot"></span><span class="f09-d">Today</span><span class="f09-t">6:32 pm</span></div>
+            <div class="f09-c2"><span class="f09-tag f09-irr">Irritated customer</span></div>
+            <div class="f09-c3">Customer is asking for a full refund</div>
+          </div>
+          <div class="f09-tr" id="f09-tr1">
+            <div class="f09-c1"><span class="f09-d">Today</span><span class="f09-t">5:34 pm</span></div>
+            <div class="f09-c2"><span class="f09-tag f09-agt">Agent misconduct</span></div>
+            <div class="f09-c3">Customer frustrated with no response</div>
+          </div>
+          <div class="f09-tr" id="f09-tr2">
+            <div class="f09-c1"><span class="f09-d">Today</span><span class="f09-t">3:04 am</span></div>
+            <div class="f09-c2"><span class="f09-tag f09-irr">Irritated customer</span></div>
+            <div class="f09-c3">Customer demanding immediate refund</div>
+          </div>
+          <div class="f09-tr" id="f09-tr3">
+            <div class="f09-c1"><span class="f09-d">Today</span><span class="f09-t">2:44 pm</span></div>
+            <div class="f09-c2"><span class="f09-tag f09-irr">Irritated customer</span></div>
+            <div class="f09-c3">Customer claiming they were overcharged</div>
+          </div>
+          <div class="f09-tr" id="f09-tr4">
+            <div class="f09-c1"><span class="f09-d">Today</span><span class="f09-t">1:14 pm</span></div>
+            <div class="f09-c2"><span class="f09-tag f09-agt">Agent misconduct</span></div>
+            <div class="f09-c3">Customer complaining about rude support</div>
+          </div>
+          </div>
+          <div id="f09-capA" class="f09-cap">
+            <span class="f09-w" id="f09-a">A</span>
+            <span class="f09-w" id="f09-realtime">real-time</span>
+            <span class="f09-w" id="f09-dashboard">dashboard</span>
+          </div>
+        </div>
+
+        <div id="f09-sB" class="f09-scene">
+          <div id="f09-ai">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /><path d="M20 2v4" /><path d="M22 4h-4" /><circle cx="4" cy="20" r="2" /></svg>
+            <span>AI</span>
+          </div>
+        </div>
+
+        <div id="f09-sC" class="f09-scene">
+          <div id="f09-phone">
+            <div id="f09-panel">
+              <div id="f09-list">
+            <div class="f09-ct" style="top: 0px">
+              <img src="assets/img/avatar-a.png" alt="" />
+              <div class="f09-ctx"><div class="f09-cn">Michael Johnson</div><div class="f09-cm">When can you call me?</div></div>
+              <div class="f09-wab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg></div>
+            </div>
+            <div class="f09-ct" style="top: 160px">
+              <img src="assets/img/avatar-b.png" alt="" />
+              <div class="f09-ctx"><div class="f09-cn">Emma Wilson</div><div class="f09-cm">Let me know when can we meet.</div></div>
+              <div class="f09-wab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg></div>
+            </div>
+            <div class="f09-ct" style="top: 320px">
+              <img src="assets/img/avatar-c.png" alt="" />
+              <div class="f09-ctx"><div class="f09-cn">Daniel Carter</div><div class="f09-cm">Please share the payment link</div></div>
+              <div class="f09-wab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg></div>
+            </div>
+            <div class="f09-ct" style="top: 480px">
+              <img src="assets/img/avatar-d.png" alt="" />
+              <div class="f09-ctx"><div class="f09-cn">Olivia Brown</div><div class="f09-cm">Wrong item received.</div></div>
+              <div class="f09-wab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg></div>
+            </div>
+            <div class="f09-ct" style="top: 640px">
+              <div class="f09-ini">ET</div>
+              <div class="f09-ctx"><div class="f09-cn">Ethan Taylor</div><div class="f09-cm">App not working.</div></div>
+              <div class="f09-wab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg></div>
+            </div>
+            <div class="f09-ct" style="top: 800px">
+              <div class="f09-ini">IM</div>
+              <div class="f09-ctx"><div class="f09-cn">Isabella Moore</div><div class="f09-cm">Delivery delayed</div></div>
+              <div class="f09-wab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg></div>
+            </div>
+            <div class="f09-ct" style="top: 960px">
+              <div class="f09-ini">LT</div>
+              <div class="f09-ctx"><div class="f09-cn">Lucas Thompson</div><div class="f09-cm">Tracking not updating.</div></div>
+              <div class="f09-wab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg></div>
+            </div>
+              </div>
+            </div>
+          </div>
+          <div id="f09-bar"></div>
+          <div id="f09-capC1" class="f09-cap">
+            <span class="f09-w" id="f09-monitors">monitors</span>
+            <span class="f09-w" id="f09-every">every</span>
+            <span class="f09-w" id="f09-active">active</span>
+          </div>
+          <div id="f09-capC2" class="f09-cap">
+            <span class="f09-w" id="f09-whatsapp">WhatsApp</span>
+            <span class="f09-w" id="f09-conversation">conversation</span>
+          </div>
+        </div>
+
+        <div id="f09-sD" class="f09-scene">
+          <div id="f09-green"></div>
+          <div class="f09-ring" style="width: 320px; height: 320px; margin: -160px 0 0 -160px"></div>
+          <div class="f09-ring" style="width: 560px; height: 560px; margin: -280px 0 0 -280px"></div>
+          <div class="f09-ring" style="width: 800px; height: 800px; margin: -400px 0 0 -400px"></div>
+          <div class="f09-ring" style="width: 1040px; height: 1040px; margin: -520px 0 0 -520px"></div>
+          <div class="f09-ring" style="width: 1300px; height: 1300px; margin: -650px 0 0 -650px"></div>
+          <div id="f09-rt">
+            <span class="f09-rw" id="f09-real">real</span>
+            <span class="f09-rw" id="f09-time">time</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const word = (sel, t, col) => {
+            tl.fromTo(sel, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, t);
+            tl.to(sel, { color: col || "#1C1C1E", duration: 0.35, ease: "power1.out" }, t + 0.12);
+          };
+          const show = (sel, t) => tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: 0.01 }, t);
+          const hide = (sel, t) => tl.to(sel, { opacity: 0, duration: 0.01 }, t);
+
+          // A — incidents table zoom (0 – 1.4)
+          tl.fromTo("#f09-table", { scale: 0.78, opacity: 0.6, transformOrigin: "30% 0%" }, { scale: 1, opacity: 1, duration: 0.75, ease: "power3.out" }, 0);
+          tl.to("#f09-table", { scale: 1.04, duration: 0.65, ease: "none" }, 0.75);
+          tl.fromTo(".f09-tr", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", stagger: 0.06 }, 0.05);
+          word("#f09-a", 0.08);
+          word("#f09-realtime", 0.2);
+          word("#f09-dashboard", 0.83);
+          hide("#f09-sA", 1.4);
+
+          // B — AI chip (1.4 – 2.3)
+          show("#f09-sB", 1.4);
+          tl.fromTo("#f09-ai", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.8)" }, 1.42);
+          tl.fromTo("#f09-ai svg", { rotation: -30, scale: 0.6 }, { rotation: 0, scale: 1, duration: 0.5, ease: "back.out(2)" }, 1.6);
+          tl.to("#f09-ai", { scale: 1.05, duration: 0.43, ease: "sine.inOut" }, 1.87);
+          hide("#f09-sB", 2.3);
+
+          // C — contact list scan (2.3 – 4.9)
+          show("#f09-sC", 2.3);
+          tl.fromTo("#f09-phone", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 2.3);
+          tl.fromTo(".f09-ct", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out", stagger: 0.05 }, 2.34);
+          tl.fromTo("#f09-bar", { opacity: 0, scaleX: 0.6 }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power2.out" }, 2.42);
+          [2.95, 3.45, 3.95, 4.45].forEach((t, i) => {
+            const k = i + 1;
+            tl.to("#f09-bar", { y: 70 * k, duration: 0.32, ease: "power2.inOut" }, t);
+            tl.to("#f09-list", { y: -90 * k, duration: 0.32, ease: "power2.inOut" }, t);
+          });
+          tl.fromTo("#f09-phone", { scale: 1 }, { scale: 1.03, duration: 2.1, ease: "none" }, 2.75);
+          word("#f09-monitors", 2.42);
+          word("#f09-every", 2.93);
+          word("#f09-active", 3.38);
+          tl.to("#f09-capC1", { opacity: 0, y: -24, duration: 0.15, ease: "power1.in" }, 3.66);
+          word("#f09-whatsapp", 3.8);
+          word("#f09-conversation", 4.22);
+          hide("#f09-sC", 4.9);
+
+          // D — real time on deep green (4.9 – 6.5)
+          show("#f09-sD", 4.9);
+          tl.fromTo(".f09-ring", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: "power3.out", stagger: 0.07 }, 4.9);
+          tl.to(".f09-ring", { scale: 1.08, duration: 0.6, ease: "sine.inOut" }, 5.9);
+          word("#f09-real", 5.12, "#22F08A");
+          word("#f09-time", 5.42, "#22F08A");
+          tl.fromTo("#f09-rt", { scale: 1 }, { scale: 1.05, duration: 1.5, ease: "none" }, 5.0);
+
+          window.__timelines["f09"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

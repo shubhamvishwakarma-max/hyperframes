@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "preferences": {
+    "aspect": {
+      "value": "1080x1920",
+      "confirmed_in": [
+        "wa-suite-vertical"
+      ],
+      "updated_at": "2026-10-21T06:07:23.934Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "wa-suite-vertical"
+      ],
+      "updated_at": "2026-10-21T06:07:24.005Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "wa-suite-vertical"
+      ],
+      "updated_at": "2026-10-21T06:07:24.064Z"
+    }
+  },
+  "sightings": {}
+}
