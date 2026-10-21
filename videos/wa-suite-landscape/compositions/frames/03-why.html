@@ -21,15 +21,15 @@
         #f03-vid {
           position: absolute;
           inset: 0;
-          width: 1080px;
-          height: 1920px;
+          width: 1920px;
+          height: 1080px;
           object-fit: cover;
         }
         /* cream flood that grows out of the disc */
         #f03-fill {
           position: absolute;
-          left: 40px;
-          top: 545px;
+          left: 460px;
+          top: 303px;
           width: 1000px;
           height: 1000px;
           border-radius: 50%;
@@ -57,8 +57,8 @@
         }
         #f03-disc {
           position: absolute;
-          left: 40px;
-          top: 545px;
+          left: 460px;
+          top: 303px;
           width: 1000px;
           height: 1000px;
           border-radius: 50%;
@@ -89,26 +89,26 @@
         }
       </style>
 
-      <div id="root" data-composition-id="f03" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="f03" data-width="1920" data-height="1080">
         <div id="f03-vidwrap">
           <video data-hf-media-start-basis="local" id="f03-vid" src="assets/footage/laptop.mp4" data-start="0" data-duration="0.66" data-media-start="2.79" data-track-index="0" muted playsinline></video>
         </div>
         <div id="f03-fill"></div>
         <div id="f03-glow"></div>
 
-        <div class="f03-q" id="f03-q1" style="left: 20px; top: 330px; width: 170px; height: 230px">
+        <div class="f03-q" id="f03-q1" style="left: 150px; top: 170px; width: 170px; height: 230px">
           <svg viewBox="5 3 14 19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8.2 8.4a3.9 3.9 0 1 1 5.4 3.6c-1.1.5-1.6 1.3-1.6 2.4v1" /><circle cx="12" cy="19.4" r="0.6" fill="currentColor" /></svg>
         </div>
-        <div class="f03-q" id="f03-q2" style="left: 900px; top: 420px; width: 130px; height: 176px">
+        <div class="f03-q" id="f03-q2" style="left: 1560px; top: 190px; width: 130px; height: 176px">
           <svg viewBox="5 3 14 19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8.2 8.4a3.9 3.9 0 1 1 5.4 3.6c-1.1.5-1.6 1.3-1.6 2.4v1" /><circle cx="12" cy="19.4" r="0.6" fill="currentColor" /></svg>
         </div>
-        <div class="f03-q" id="f03-q3" style="left: 0px; top: 1500px; width: 190px; height: 257px">
+        <div class="f03-q" id="f03-q3" style="left: 300px; top: 690px; width: 190px; height: 257px">
           <svg viewBox="5 3 14 19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8.2 8.4a3.9 3.9 0 1 1 5.4 3.6c-1.1.5-1.6 1.3-1.6 2.4v1" /><circle cx="12" cy="19.4" r="0.6" fill="currentColor" /></svg>
         </div>
-        <div class="f03-q" id="f03-q4" style="left: 830px; top: 1580px; width: 220px; height: 298px">
+        <div class="f03-q" id="f03-q4" style="left: 1500px; top: 640px; width: 220px; height: 298px">
           <svg viewBox="5 3 14 19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8.2 8.4a3.9 3.9 0 1 1 5.4 3.6c-1.1.5-1.6 1.3-1.6 2.4v1" /><circle cx="12" cy="19.4" r="0.6" fill="currentColor" /></svg>
         </div>
-        <div class="f03-q" id="f03-q5" style="left: 940px; top: 1040px; width: 110px; height: 149px">
+        <div class="f03-q" id="f03-q5" style="left: 1750px; top: 470px; width: 110px; height: 149px">
           <svg viewBox="5 3 14 19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8.2 8.4a3.9 3.9 0 1 1 5.4 3.6c-1.1.5-1.6 1.3-1.6 2.4v1" /><circle cx="12" cy="19.4" r="0.6" fill="currentColor" /></svg>
         </div>
 
@@ -126,11 +126,13 @@
           // Laptop shot keeps pushing in underneath (continues f02)
           tl.fromTo("#f03-vidwrap", { scale: 1.04 }, { scale: 1.06, duration: 0.66, ease: "none" }, 0);
           // Cream flood grows out of the disc and fills the frame (always ahead of the burned disc)
-          tl.fromTo("#f03-fill", { scale: 1 }, { scale: 2.5, duration: 0.36, ease: "power1.in" }, 0);
+          tl.fromTo("#f03-fill", { scale: 1 }, { scale: 2.7, duration: 0.36, ease: "power1.in" }, 0);
           tl.fromTo("#f03-glow", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.34);
           // Disc halo tints pink once on cream; whole disc breathes
           tl.fromTo("#f03-disc", { backgroundColor: "rgba(255,255,255,0.6)" }, { backgroundColor: "rgba(247,207,212,0.45)", duration: 0.3, ease: "power1.out" }, 0.3);
-          tl.fromTo("#f03-disc", { scale: 1 }, { scale: 1.04, duration: 1.2, ease: "sine.inOut" }, 0.3);
+          // Once the flood covers the frame, the disc lifts into the hero band and settles to landscape size
+          tl.fromTo("#f03-disc", { y: 0, scale: 1 }, { y: -243, scale: 0.8, duration: 0.45, ease: "power3.inOut" }, 0.38);
+          tl.to("#f03-disc", { scale: 0.83, duration: 0.67, ease: "sine.inOut" }, 0.83);
           // "Why ?" settles to full red on the VO hit (why @ local 0.07)
           tl.fromTo("#f03-why", { opacity: 0.55, y: 10 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 0.0);
           tl.fromTo("#f03-qm", { opacity: 0, scale: 0.4, rotation: -25 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2.2)" }, 0.1);
