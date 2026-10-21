@@ -350,7 +350,7 @@
         height: 54px;
         border-radius: 50%;
         margin: 0 12px 0 10px;
-        background: radial-gradient(circle at 35% 30%, #b8701e 0%, #7d4710 75%);
+        background: radial-gradient(circle at 35% 30%, #9a5c16 0%, #5e3509 75%);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -447,6 +447,32 @@
         border-top-left-radius: 3px;
         transform-origin: 0 100%;
       }
+      .cl {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 2px 30px 0 0;
+      }
+      .cl-ic {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(31, 111, 74, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      .cl b {
+        display: block;
+        font-size: 17.5px;
+        font-weight: 500;
+      }
+      .cl span {
+        display: block;
+        font-size: 13.5px;
+        color: #56656e;
+      }
       .b strong {
         display: block;
         font-weight: 500;
@@ -489,24 +515,149 @@
         padding: 0 14px;
       }
 
+      /* ---------- AI chat summary (DoubleTick app style) ---------- */
+      .ais-head {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px 12px;
+        border-bottom: 1px solid #e3e3e3;
+      }
+      .ais-head svg {
+        display: block;
+        flex: none;
+      }
+      .ais-head b {
+        display: block;
+        font-size: 17px;
+        font-weight: 600;
+        color: #1f1f1f;
+      }
+      .ais-head span {
+        display: block;
+        font-size: 12.5px;
+        color: #57534c;
+      }
+      .ais-head em {
+        font-style: normal;
+        color: #236c48;
+      }
+      .ais-body {
+        position: relative;
+        padding: 12px 16px 0 36px;
+      }
+      .ais-line {
+        position: absolute;
+        left: 19px;
+        top: 26px;
+        bottom: 0;
+        width: 2px;
+        background: #e0dcef;
+        display: block;
+      }
+      .ais-tagrow {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .ais-dot {
+        position: absolute;
+        left: -23px;
+        top: 50%;
+        width: 12px;
+        height: 12px;
+        margin-top: -6px;
+        border-radius: 50%;
+        background: #3d9a6d;
+        display: block;
+      }
+      .ais-tag {
+        display: block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background: #e6f3ec;
+        color: #1f6542;
+        font-size: 13.5px;
+        white-space: nowrap;
+      }
+      .ais-cnt {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        font-size: 13px;
+        color: #45413b;
+      }
+      .ais-cnt svg {
+        display: block;
+        margin-left: 5px;
+      }
+      .ais-item {
+        padding: 10px 6px 0 0;
+        border-radius: 6px;
+      }
+      .ais-item .t {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #1f1f1f;
+      }
+      .ais-item .t span {
+        display: block;
+      }
+      .ais-item .t span.hi {
+        color: var(--green-deep);
+      }
+      .ais-item .t svg {
+        display: block;
+        flex: none;
+      }
+      .ais-item p {
+        margin-top: 3px;
+        font-size: 12.5px;
+        line-height: 1.42;
+        color: #625e57;
+      }
+      .ais-calls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 12px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        background: #f0efed;
+        font-size: 12.5px;
+        color: #45413b;
+        opacity: 0;
+      }
+      #lead .ais-item {
+        opacity: 0;
+      }
+      .ws-item {
+        opacity: 0;
+      }
+      .ws-sum .ais-head {
+        padding: 12px 16px 10px;
+      }
+
       /* ---------- WhatsApp voice call (dark) ---------- */
       #call {
         position: absolute;
-        left: 650px;
-        top: 320px;
-        width: 360px;
-        height: 620px;
-        border-radius: 32px;
-        border: 4px solid #e9e9e9;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
         background-color: #0b141a;
         background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22240%22%20height%3D%22240%22%20viewBox%3D%220%200%20240%20240%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23243039%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M28%2018l4%209%2010%201-7%207%202%2010-9-5-9%205%202-10-7-7%2010-1z%22/%3E%3Cpath%20d%3D%22M92%2030c0-6%209-8%2011-2%202-6%2011-4%2011%202%200%207-11%2012-11%2012s-11-5-11-12z%22/%3E%3Ccircle%20cx%3D%22168%22%20cy%3D%2226%22%20r%3D%2211%22/%3E%3Ccircle%20cx%3D%22164%22%20cy%3D%2223%22%20r%3D%221.5%22/%3E%3Ccircle%20cx%3D%22172%22%20cy%3D%2223%22%20r%3D%221.5%22/%3E%3Cpath%20d%3D%22M163%2030c3%203%207%203%2010%200%22/%3E%3Cpath%20d%3D%22M208%2020h18v26h-18z%22/%3E%3Cpath%20d%3D%22M212%2026h10M212%2032h10M212%2038h6%22/%3E%3Cpath%20d%3D%22M20%2078c8-10%2022-10%2028%200%208-2%2014%204%2012%2012H14c-4-6%200-12%206-12z%22/%3E%3Cpath%20d%3D%22M88%2070v24M80%2076l8-6%208%206%22/%3E%3Cpath%20d%3D%22M80%2098h16%22/%3E%3Cpath%20d%3D%22M140%2072h26l-4%2022h-18z%22/%3E%3Cpath%20d%3D%22M146%2072c0-8%2014-8%2014%200%22/%3E%3Cpath%20d%3D%22M198%2070l6%2016%2016%202-12%2010%204%2016-14-9-14%209%204-16-12-10%2016-2z%22/%3E%3Cpath%20d%3D%22M30%20140c0-10%2016-10%2016%200v14H30z%22/%3E%3Cpath%20d%3D%22M26%20154h24M38%20158v6%22/%3E%3Cpath%20d%3D%22M84%20130l20%2020M104%20130l-20%2020%22/%3E%3Ccircle%20cx%3D%2294%22%20cy%3D%22140%22%20r%3D%2216%22/%3E%3Cpath%20d%3D%22M140%20128c10%200%2018%208%2018%2018M140%20136c6%200%2010%204%2010%2010M140%20144a2%202%200%201%200%200.1%200%22/%3E%3Cpath%20d%3D%22M196%20132h30v20h-30zM204%20152l-4%208M218%20152l4%208%22/%3E%3Cpath%20d%3D%22M18%20200q10-14%2020%200t20%200%22/%3E%3Cpath%20d%3D%22M70%20196h22l6%208-6%208H70z%22/%3E%3Ccircle%20cx%3D%22140%22%20cy%3D%22204%22%20r%3D%2214%22/%3E%3Cpath%20d%3D%22M134%20204h12M140%20198v12%22/%3E%3Cpath%20d%3D%22M196%20192c6-8%2020-8%2026%200l-13%2020z%22/%3E%3Ccircle%20cx%3D%22209%22%20cy%3D%22196%22%20r%3D%223%22/%3E%3C/g%3E%3C/svg%3E");
         background-size: 200px 200px;
-        box-shadow: 0 34px 70px -30px rgba(11, 20, 26, 0.6);
         overflow: hidden;
         font-family: "Roboto", sans-serif;
         color: #fff;
         opacity: 0;
-        z-index: 4;
+        z-index: 3;
       }
       .call-top {
         display: flex;
@@ -584,10 +735,14 @@
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        background: #ffffff;
+        background: radial-gradient(circle at 35% 30%, #b8701e 0%, #7d4710 75%);
         display: flex;
         align-items: center;
         justify-content: center;
+        font-family: "Geist", sans-serif;
+        font-size: 38px;
+        font-weight: 700;
+        color: #fff;
       }
       .call-face img {
         width: 92px;
@@ -611,6 +766,10 @@
         font-weight: 500;
         letter-spacing: 0.04em;
         color: #a9b3b9;
+      }
+      .mk-dark {
+        background-image: linear-gradient(rgba(95, 211, 156, 0.4), rgba(95, 211, 156, 0.4));
+        color: #fff;
       }
       #tx2 em {
         color: #5fd39c;
@@ -880,7 +1039,7 @@
         transform-origin: 0 50%;
       }
       .lead-b {
-        padding: 16px 18px 18px 18px;
+        padding: 0;
         background: #ffffff;
       }
       .sum-top b {
@@ -980,17 +1139,17 @@
       }
       #p-final {
         position: absolute;
-        left: 24px;
-        bottom: 22px;
+        left: 36px;
+        bottom: 16px;
         display: flex;
         align-items: center;
         gap: 10px;
-        height: 50px;
-        padding: 0 22px;
+        height: 44px;
+        padding: 0 20px;
         border-radius: 999px;
         background: var(--green-deep);
         color: #fff;
-        font-size: 22px;
+        font-size: 19px;
         font-weight: 700;
         opacity: 0;
       }
@@ -1152,6 +1311,7 @@
         white-space: nowrap;
       }
       .ws-sum {
+        overflow: hidden;
         margin: 18px 22px 0;
         padding: 16px 20px 6px;
         border-radius: 18px;
@@ -1533,16 +1693,15 @@
                   <span class="mark" id="mk-lead">manage leads and follow-ups.</span>
                   <div class="meta">10.01 PM</div>
                 </div>
-                <div class="b in" id="m-a2">
-                  Got it. How large is your sales team?
-                  <div class="meta">10.01 PM</div>
-                </div>
-                <div class="b out" id="m-c3">
-                  <span class="mark" id="mk-team">Around 25 people.</span>
+                <div class="b out" id="m-call">
+                  <div class="cl">
+                    <span class="cl-ic"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#1f6f4a" stroke-width="2" stroke-linejoin="round" /></svg></span>
+                    <div><b>Voice call</b><span>1 min · Answered by AI Agent</span></div>
+                  </div>
                   <div class="meta">10.01 PM</div>
                 </div>
                 <div class="b in" id="m-a3">
-                  Do you also need multiple agents to manage conversations from one business number?
+                  Thanks for calling, Ravi! Do managers also need visibility into the conversations?
                   <div class="meta">10.02 PM</div>
                 </div>
                 <div class="b out" id="m-c4">
@@ -1575,6 +1734,32 @@
               <svg class="wa-ico" width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 9h10M10 13h10M13 9c4 0 5 2 5 4s-2 4-5 4h-2l7 6" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" /></svg>
               <svg class="wa-ico" width="30" height="28" viewBox="0 0 30 28"><path d="M3 8h5l2.5-4h9L22 8h5v16H3z" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><circle cx="15" cy="15" r="5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
               <svg class="wa-ico" width="22" height="30" viewBox="0 0 22 30"><rect x="6" y="2" width="10" height="17" rx="5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M2 14a9 9 0 0 0 18 0M11 23v5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </div>
+          <!-- WhatsApp voice call handled by the AI agent -->
+            <div id="call">
+              <div class="call-top">
+                <div class="call-btn"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M14 10l7-7M14 10V5M14 10h5M10 14l-7 7M10 14v5M10 14H5" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="call-who">
+                  <b>Voice call</b>
+                  <span><svg width="11" height="12" viewBox="0 0 12 14"><rect x="1.5" y="6" width="9" height="7" rx="1.5" fill="none" stroke="#a9b3b9" stroke-width="1.5" /><path d="M3.5 6V4a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="#a9b3b9" stroke-width="1.5" /></svg>End-to-end encrypted</span>
+                </div>
+                <div class="call-btn"><svg width="22" height="20" viewBox="0 0 26 22"><circle cx="9" cy="6" r="4.5" fill="#fff" /><path d="M1 21c0-5 3.6-8 8-8s8 3 8 8z" fill="#fff" /><path d="M21 4v8M17 8h8" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" /></svg></div>
+              </div>
+              <div class="call-name">ABC Ent <svg class="verified" viewBox="0 0 20 20"><polygon points="10.00,0.00 11.70,1.47 13.83,0.76 14.83,2.77 17.07,2.93 17.23,5.17 19.24,6.17 18.53,8.30 20.00,10.00 18.53,11.70 19.24,13.83 17.23,14.83 17.07,17.07 14.83,17.23 13.83,19.24 11.70,18.53 10.00,20.00 8.30,18.53 6.17,19.24 5.17,17.23 2.93,17.07 2.77,14.83 0.76,13.83 1.47,11.70 0.00,10.00 1.47,8.30 0.76,6.17 2.77,5.17 2.93,2.93 5.17,2.77 6.17,0.76 8.30,1.47" fill="#1a8cff"/><path d="M6 10.2l2.7 2.6 5.3-5.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="call-role">AI Agent</div>
+              <div class="call-av">
+                <i class="wv" style="transform: rotate(0.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(6.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(12.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(19.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(25.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(32.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(38.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(45.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(51.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(57.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(64.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(70.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(77.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(83.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(90.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(96.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(102.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(109.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(115.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(122.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(128.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(135.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(141.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(147.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(154.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(160.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(167.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(173.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(180.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(186.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(192.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(199.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(205.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(212.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(218.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(225.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(231.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(237.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(244.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(250.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(257.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(263.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(270.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(276.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(282.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(289.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(295.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(302.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(308.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(315.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(321.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(327.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(334.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(340.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(347.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(353.6deg) translateY(-92px)"></i>
+                <div class="call-face">ABC</div>
+              </div>
+              <div class="call-tx" id="tx1"><em>Ravi</em> We’re a <span class="mark mk-dark" id="mk-team">sales team of around 25 people</span>.</div>
+              <div class="call-tx" id="tx2"><em>AI Agent</em> Great. Your whole team can work from one WhatsApp business number.</div>
+              <div class="call-bar">
+                <div class="cb"><svg width="20" height="6" viewBox="0 0 20 6"><circle cx="3" cy="3" r="2.6" fill="#fff" /><circle cx="10" cy="3" r="2.6" fill="#fff" /><circle cx="17" cy="3" r="2.6" fill="#fff" /></svg></div>
+                <div class="cb"><svg width="22" height="16" viewBox="0 0 22 16"><rect x="1" y="2" width="14" height="12" rx="2.5" fill="#8696a0" /><path d="M15 6l6-3.5v11L15 10z" fill="#8696a0" /></svg></div>
+                <div class="cb"><svg width="20" height="18" viewBox="0 0 22 20"><path d="M2 7h4l5-4.5v15L6 13H2z" fill="#fff" /><path d="M15 6a5 5 0 0 1 0 8M17.5 3a9 9 0 0 1 0 14" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="cb"><svg width="18" height="20" viewBox="0 0 20 22"><rect x="6" y="1.5" width="8" height="12" rx="4" fill="#fff" /><path d="M2.5 10a7.5 7.5 0 0 0 15 0M10 17.5v3M2 2l16 18" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="cb end"><svg width="24" height="10" viewBox="0 0 26 10"><path d="M1.5 6.5C7 1 19 1 24.5 6.5L22 9l-4-1.5V5C15 4 11 4 8 5v2.5L4 9z" fill="#fff" /></svg></div>
+              </div>
             </div>
             <div id="chat-ring"></div>
           </div>
@@ -1621,65 +1806,33 @@
               <div class="temp"><div id="temp-fill"></div></div>
             </div>
             <div class="lead-b">
-              <div class="sum-top">
-                <b>AI chat summary</b>
-                <span>Conversation with <em>Ravi</em></span>
+              <div class="ais-head">
+                <svg width="20" height="18" viewBox="0 0 24 22"><path d="M21 11H4M10 4l-7 7 7 7" fill="none" stroke="#23211e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                <div><b>AI chat summary</b><span>Conversation with <em>Ravi</em></span></div>
               </div>
-              <div class="sum-line"></div>
-              <div class="sum-tagrow">
-                <i class="sum-node"></i>
-                <span class="sum-tag">Today (10.00 – 10.03 PM)</span>
-                <span class="sum-cnt">
-                  <svg width="15" height="15" viewBox="0 0 24 24"><path d="M4 18l1.5-4A8 8 0 1 1 9 18.6z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>6
-                  <svg width="15" height="15" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>1
-                </span>
-              </div>
-              <div class="q-row" id="q-need">
-                <div class="q-t"><b>Ravi needs WhatsApp for sales</b><span>Lead management + manager visibility</span></div>
-                <div class="q-check"><svg width="12" height="10" viewBox="0 0 14 12"><path d="M1.5 6.5l3.5 3.5 7.5-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-              </div>
-              <div class="q-row" id="q-team">
-                <div class="q-t"><b>Team of 25 people</b><span>Multiple agents on one business number</span></div>
-                <div class="q-check"><svg width="12" height="10" viewBox="0 0 14 12"><path d="M1.5 6.5l3.5 3.5 7.5-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-              </div>
-              <div class="q-row" id="q-time">
-                <div class="q-t"><b>Wants to start this month</b><span>Asked about plans on chat and call</span></div>
-                <div class="q-check"><svg width="12" height="10" viewBox="0 0 14 12"><path d="M1.5 6.5l3.5 3.5 7.5-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+              <div class="ais-body">
+                <i class="ais-line"></i>
+                <div class="ais-tagrow">
+                  <i class="ais-dot"></i>
+                  <span class="ais-tag">Today (10.00 – 10.06 PM)</span>
+                  <span class="ais-cnt"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M4 18l1.5-4A8 8 0 1 1 9 18.6z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>5 <svg width="15" height="15" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>1</span>
+                </div>
+                <div class="ais-item " id="q-need">
+                  <div class="t"><span>Ravi needs WhatsApp for sales</span><svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                  <p>Wants lead management and follow-ups for the sales team, with manager visibility.</p>
+                </div>
+                <div class="ais-item " id="q-team">
+                  <div class="t"><span>Team of around 25 people</span><svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                  <p>Shared on a voice call; needs multiple agents on one business number.</p>
+                </div>
+                <div class="ais-item " id="q-time">
+                  <div class="t"><span>Plans to start this month</span><svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                  <p>Asked about plans and is ready to discuss the right setup.</p>
+                </div>
+                <div class="ais-calls" id="ais-calls"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>1 voice call included in summary</div>
               </div>
               <div id="p-final">High Intent ✓</div>
             </div>
-          </div>
-
-          <!-- WhatsApp voice call handled by the AI agent -->
-          <div id="call">
-            <div class="call-top">
-              <div class="call-btn"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M14 10l7-7M14 10V5M14 10h5M10 14l-7 7M10 14v5M10 14H5" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-              <div class="call-who">
-                <b>Customer</b>
-                <span><svg width="11" height="12" viewBox="0 0 12 14"><rect x="1.5" y="6" width="9" height="7" rx="1.5" fill="none" stroke="#a9b3b9" stroke-width="1.5" /><path d="M3.5 6V4a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="#a9b3b9" stroke-width="1.5" /></svg>End-to-end encrypted</span>
-              </div>
-              <div class="call-btn"><svg width="22" height="20" viewBox="0 0 26 22"><circle cx="9" cy="6" r="4.5" fill="#fff" /><path d="M1 21c0-5 3.6-8 8-8s8 3 8 8z" fill="#fff" /><path d="M21 4v8M17 8h8" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" /></svg></div>
-            </div>
-            <div class="call-name">DoubleTick AI <svg class="verified" viewBox="0 0 20 20"><polygon points="10.00,0.00 11.70,1.47 13.83,0.76 14.83,2.77 17.07,2.93 17.23,5.17 19.24,6.17 18.53,8.30 20.00,10.00 18.53,11.70 19.24,13.83 17.23,14.83 17.07,17.07 14.83,17.23 13.83,19.24 11.70,18.53 10.00,20.00 8.30,18.53 6.17,19.24 5.17,17.23 2.93,17.07 2.77,14.83 0.76,13.83 1.47,11.70 0.00,10.00 1.47,8.30 0.76,6.17 2.77,5.17 2.93,2.93 5.17,2.77 6.17,0.76 8.30,1.47" fill="#1a8cff"/><path d="M6 10.2l2.7 2.6 5.3-5.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="call-role">AI Agent</div>
-            <div class="call-av">
-              <i class="wv" style="transform: rotate(0.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(6.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(12.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(19.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(25.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(32.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(38.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(45.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(51.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(57.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(64.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(70.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(77.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(83.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(90.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(96.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(102.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(109.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(115.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(122.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(128.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(135.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(141.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(147.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(154.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(160.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(167.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(173.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(180.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(186.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(192.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(199.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(205.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(212.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(218.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(225.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(231.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(237.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(244.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(250.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(257.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(263.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(270.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(276.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(282.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(289.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(295.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(302.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(308.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(315.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(321.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(327.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(334.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(340.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(347.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(353.6deg) translateY(-92px)"></i>
-              <div class="call-face"><img src="assets/logo/doubletick-mark.png" alt="" /></div>
-            </div>
-            <div class="call-tx" id="tx1"><em>Customer</em> Does it work for a sales team of 25?</div>
-            <div class="call-tx" id="tx2"><em>AI Agent</em> Yes. One number, multiple agents, and full manager visibility.</div>
-            <div class="call-bar">
-              <div class="cb"><svg width="20" height="6" viewBox="0 0 20 6"><circle cx="3" cy="3" r="2.6" fill="#fff" /><circle cx="10" cy="3" r="2.6" fill="#fff" /><circle cx="17" cy="3" r="2.6" fill="#fff" /></svg></div>
-              <div class="cb"><svg width="22" height="16" viewBox="0 0 22 16"><rect x="1" y="2" width="14" height="12" rx="2.5" fill="#8696a0" /><path d="M15 6l6-3.5v11L15 10z" fill="#8696a0" /></svg></div>
-              <div class="cb"><svg width="20" height="18" viewBox="0 0 22 20"><path d="M2 7h4l5-4.5v15L6 13H2z" fill="#fff" /><path d="M15 6a5 5 0 0 1 0 8M17.5 3a9 9 0 0 1 0 14" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-              <div class="cb"><svg width="18" height="20" viewBox="0 0 20 22"><rect x="6" y="1.5" width="8" height="12" rx="4" fill="#fff" /><path d="M2.5 10a7.5 7.5 0 0 0 15 0M10 17.5v3M2 2l16 18" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-              <div class="cb end"><svg width="24" height="10" viewBox="0 0 26 10"><path d="M1.5 6.5C7 1 19 1 24.5 6.5L22 9l-4-1.5V5C15 4 11 4 8 5v2.5L4 9z" fill="#fff" /></svg></div>
-            </div>
-          </div>
-          <div id="call-pill">
-            <div class="cp-face"><img src="assets/logo/doubletick-mark.png" alt="" /></div>
-            <div class="cp-t"><b>Voice call · DoubleTick AI</b><span>AI Agent · live with customer</span></div>
-            <div class="cp-wave"><i></i><i></i><i></i><i></i><i></i></div>
           </div>
 
           <!-- Requirement chips -->
@@ -1704,16 +1857,29 @@
               <span class="tag">High Intent</span>
             </div>
             <div class="ws-sum">
-              <div class="ws-sum-h">AI Summary <span>FROM THE CHAT</span></div>
-              <div class="sum-row" id="sr1">
-                <span>Interested in</span><b>WhatsApp sales solution</b>
+              <div class="ais-head ws-head">
+                <div><b>AI chat summary</b><span>Conversation with <em>Ravi</em></span></div>
               </div>
-              <div class="sum-row" id="sr2"><span>Team size</span><b>25</b></div>
-              <div class="sum-row" id="sr3">
-                <span>Needs</span><b>Lead management + manager visibility</b>
+              <div class="ais-body">
+                <i class="ais-line"></i>
+                <div class="ais-tagrow">
+                  <i class="ais-dot"></i>
+                  <span class="ais-tag">Today (10.00 – 10.06 PM)</span>
+                  <span class="ais-cnt"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M4 18l1.5-4A8 8 0 1 1 9 18.6z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>5 <svg width="15" height="15" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>1</span>
+                </div>
+                <div class="ais-item ws-item" id="sr1">
+                  <div class="t"><span>Interested in a WhatsApp sales solution</span><svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                  <p>Team size 25 · Needs lead management + manager visibility</p>
+                </div>
+                <div class="ais-item ws-item" id="sr2">
+                  <div class="t"><span>Timeline: this month</span><svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                  <p>Asked about plans on WhatsApp chat and a voice call</p>
+                </div>
+                <div class="ais-item ws-item" id="sr3">
+                  <div class="t"><span class="hi">Intent: High</span><svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                  <p>Ready for a sales conversation — no repeat questions needed</p>
+                </div>
               </div>
-              <div class="sum-row" id="sr4"><span>Timeline</span><b>This month</b></div>
-              <div class="sum-row" id="sr5"><span>Intent</span><b class="hi">High</b></div>
             </div>
             <div class="ws-assign">
               <span>Assigned to</span>
@@ -1948,24 +2114,23 @@
       <audio id="sfx-type1" src="assets/sfx/typing.mp3" data-start="12.7" data-duration="0.7" data-track-index="12" data-volume="0.25"></audio>
       <audio id="sfx-pop2" src="assets/sfx/pop.mp3" data-start="13.4" data-duration="0.72" data-track-index="12" data-volume="0.4"></audio>
       <audio id="sfx-pop3" src="assets/sfx/pop.mp3" data-start="14.5" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-type2" src="assets/sfx/typing.mp3" data-start="15.0" data-duration="0.65" data-track-index="13" data-volume="0.22"></audio>
-      <audio id="sfx-pop4" src="assets/sfx/pop.mp3" data-start="15.7" data-duration="0.72" data-track-index="13" data-volume="0.35"></audio>
-      <audio id="sfx-pop5" src="assets/sfx/pop.mp3" data-start="16.8" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-chip1" src="assets/sfx/click.mp3" data-start="20.2" data-duration="0.36" data-track-index="14" data-volume="0.45"></audio>
-      <audio id="sfx-chip2" src="assets/sfx/click.mp3" data-start="20.55" data-duration="0.36" data-track-index="12" data-volume="0.45"></audio>
-      <audio id="sfx-pop6" src="assets/sfx/pop.mp3" data-start="18.6" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-pop7" src="assets/sfx/pop.mp3" data-start="19.6" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-chip3" src="assets/sfx/click.mp3" data-start="20.9" data-duration="0.36" data-track-index="13" data-volume="0.45"></audio>
-      <audio id="sfx-pop8" src="assets/sfx/pop.mp3" data-start="21.8" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-pop9" src="assets/sfx/pop.mp3" data-start="22.5" data-duration="0.72" data-track-index="13" data-volume="0.35"></audio>
-      <audio id="sfx-chip4" src="assets/sfx/click.mp3" data-start="22.9" data-duration="0.36" data-track-index="12" data-volume="0.45"></audio>
-      <audio id="sfx-snap" src="assets/sfx/whoosh-short.mp3" data-start="23.3" data-duration="0.57" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-q1" src="assets/sfx/key-press.mp3" data-start="23.6" data-duration="0.43" data-track-index="13" data-volume="0.4"></audio>
-      <audio id="sfx-q2" src="assets/sfx/key-press.mp3" data-start="23.8" data-duration="0.43" data-track-index="14" data-volume="0.4"></audio>
-      <audio id="sfx-q3" src="assets/sfx/key-press.mp3" data-start="24.0" data-duration="0.43" data-track-index="12" data-volume="0.4"></audio>
-      <audio id="sfx-intent" src="assets/sfx/ping.mp3" data-start="24.3" data-duration="1.32" data-track-index="13" data-volume="0.45"></audio>
-      <audio id="sfx-call" src="assets/sfx/notification.mp3" data-start="15.3" data-duration="1.4" data-track-index="12" data-volume="0.25"></audio>
-      <audio id="sfx-min" src="assets/sfx/whoosh-short.mp3" data-start="19.9" data-duration="0.57" data-track-index="13" data-volume="0.3"></audio>
+      <audio id="sfx-type2" src="assets/sfx/typing.mp3" data-start="20.3" data-duration="0.65" data-track-index="14" data-volume="0.22"></audio>
+      <audio id="sfx-pop4" src="assets/sfx/pop.mp3" data-start="19.7" data-duration="0.72" data-track-index="13" data-volume="0.35"></audio>
+      <audio id="sfx-pop5" src="assets/sfx/pop.mp3" data-start="20.7" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-chip1" src="assets/sfx/click.mp3" data-start="18.95" data-duration="0.36" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-chip2" src="assets/sfx/click.mp3" data-start="20.15" data-duration="0.36" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-pop6" src="assets/sfx/pop.mp3" data-start="21.3" data-duration="0.72" data-track-index="13" data-volume="0.35"></audio>
+      <audio id="sfx-pop7" src="assets/sfx/pop.mp3" data-start="22.2" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-chip3" src="assets/sfx/click.mp3" data-start="21.7" data-duration="0.36" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-pop8" src="assets/sfx/pop.mp3" data-start="22.75" data-duration="0.72" data-track-index="13" data-volume="0.35"></audio>
+      <audio id="sfx-chip4" src="assets/sfx/click.mp3" data-start="23.05" data-duration="0.36" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-snap" src="assets/sfx/whoosh-short.mp3" data-start="23.5" data-duration="0.57" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-q1" src="assets/sfx/key-press.mp3" data-start="23.85" data-duration="0.43" data-track-index="13" data-volume="0.4"></audio>
+      <audio id="sfx-q2" src="assets/sfx/key-press.mp3" data-start="24.0" data-duration="0.43" data-track-index="14" data-volume="0.4"></audio>
+      <audio id="sfx-q3" src="assets/sfx/key-press.mp3" data-start="24.15" data-duration="0.43" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-intent" src="assets/sfx/ping.mp3" data-start="24.45" data-duration="1.32" data-track-index="13" data-volume="0.45"></audio>
+      <audio id="sfx-call" src="assets/sfx/notification.mp3" data-start="15.2" data-duration="1.4" data-track-index="13" data-volume="0.25"></audio>
+      <audio id="sfx-min" src="assets/sfx/whoosh-short.mp3" data-start="19.35" data-duration="0.57" data-track-index="12" data-volume="0.3"></audio>
       <audio id="sfx-ws" src="assets/sfx/whoosh.mp3" data-start="25.85" data-duration="0.57" data-track-index="12" data-volume="0.45"></audio>
       <audio id="sfx-assign" src="assets/sfx/click.mp3" data-start="28.75" data-duration="0.36" data-track-index="12" data-volume="0.55"></audio>
       <audio id="sfx-handoff" src="assets/sfx/chime.mp3" data-start="28.8" data-duration="2.5" data-track-index="13" data-volume="0.25"></audio>
@@ -2184,7 +2349,7 @@
             scrollKeys.push([t, target]);
             document.querySelectorAll("#msgs .b").forEach((b) => {
               if (b.dataset.gone) return;
-              if (b.offsetTop + b.offsetHeight <= target + 4) {
+              if (b.offsetTop + b.offsetHeight * 0.45 <= target) {
                 b.dataset.gone = "1";
                 tl.to(b, { opacity: 0, duration: 0.2 }, t + 0.1);
               }
@@ -2213,9 +2378,9 @@
             CHAT_Y = chatEl.offsetTop + chatEl.clientTop + view.offsetTop;
           function extract(markId, chipId, t) {
             const mark = document.getElementById(markId);
-            const bubble = mark.closest(".b");
-            const ox = CHAT_X + bubble.offsetLeft + mark.offsetLeft;
-            const oy = CHAT_Y + bubble.offsetTop + mark.offsetTop - scrollAt(t) - 8;
+            const bubble = mark.closest(".b") || mark.closest(".call-tx");
+            let [ox, oy] = absPos(mark);
+            if (mark.closest("#msgs")) oy = Math.max(oy - scrollAt(t), CHAT_Y) - 8;
             const chip = document.getElementById(chipId);
             const fx = chip.offsetLeft,
               fy = chip.offsetTop;
@@ -2326,20 +2491,14 @@
           camTo(13.2, 300, 580, 1.06, 0.9, "power3.inOut");
           inn("#replied", 13.6, { y: 10, s: 0.8, e: "back.out(2)" });
           userMsg("m-c2", 14.5);
-          camTo(14.4, 540, 620, 1.0, 0.8, "power3.inOut");
-          // "...or voice calls": the AI agent picks up a WhatsApp call
-          tl.to(["#clock", "#replied"], { opacity: 0, y: -14, duration: 0.3, ease: "power2.in" }, 15.0);
-          tl.fromTo(
-            "#call",
-            { opacity: 0, y: 70, rotationY: -26, transformPerspective: 1500, transformOrigin: "100% 50%" },
-            { opacity: 1, y: 0, rotationY: 0, duration: 0.8, ease: "power4.out", ...IR },
-            15.25,
-          );
+          // "...or voice calls": Ravi calls, and the AI agent answers in the same WhatsApp
+          tl.set("#call", { yPercent: 100 }, 0);
+          tl.fromTo("#call", { yPercent: 100, opacity: 1 }, { yPercent: 0, opacity: 1, duration: 0.6, ease: "power4.out", ...IR }, 15.2);
           tl.fromTo(".call-face", { scale: 0.7 }, { scale: 1, duration: 0.6, ease: "back.out(2)", ...IR }, 15.45);
-          // live voice: deterministic waveform around the agent avatar
+          camTo(15.2, 340, 640, 1.07, 0.9, "power3.inOut");
           document.querySelectorAll("#call .wv").forEach((w, k) => {
             const d = 0.16 + ((k * 7) % 5) * 0.03;
-            const reps = Math.floor(4.4 / d);
+            const reps = Math.floor(3.6 / d);
             tl.fromTo(
               w,
               { scaleY: 0.35 + ((k * 3) % 4) * 0.12 },
@@ -2347,50 +2506,50 @@
               15.6 + (k % 6) * 0.03,
             );
           });
-          aiMsg("m-c2", "m-a2", 15.2, 15.8);
-          userMsg("m-c3", 16.8);
-          tl.fromTo("#tx1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", ...IR }, 16.6);
-          tl.fromTo("#tx2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", ...IR }, 18.3);
-          camTo(16.4, 830, 620, 1.05, 1.6, "sine.inOut");
-          aiMsg("m-c3", "m-a3", 18.1, 18.6);
-          camTo(18.6, 540, 620, 1.0, 0.8, "power3.inOut");
-          userMsg("m-c4", 19.6);
+          tl.fromTo("#tx1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", ...IR }, 16.5);
+          tl.fromTo("#tx2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", ...IR }, 17.9);
+          extract("mk-team", "chip-team", 18.95);
+          // the chat sits fully behind the call screen while it is up
+          tl.to(["#chat-view", "#chat-head", "#chat-input"], { opacity: 0, duration: 0.05 }, 15.8);
+          tl.to(["#chat-view", "#chat-head", "#chat-input"], { opacity: 1, duration: 0.05 }, 19.3);
+          tl.set("#call", { opacity: 0 }, 19.9);
+          // call ends — it is logged in the same conversation
+          tl.to("#call", { yPercent: 100, duration: 0.5, ease: "power3.in" }, 19.35);
+          camTo(19.4, 540, 620, 1.0, 0.7, "power3.inOut");
+          userMsg("m-call", 19.7);
+          tl.to("#replied", { opacity: 0, scale: 0.8, duration: 0.25 }, 19.8);
 
           // ================= S4 — UNDERSTANDS THE NEED (20 – 21.4) =========
           wordsOut("#h4", 19.8);
           wordsIn("#h5 .hl-big", 20.0);
           wordsIn("#h5 .hl-sub", 20.3, 0.04);
-          // the call keeps running, docked as a live pill
-          tl.to("#call", { scale: 0.2, y: -250, opacity: 0, duration: 0.45, ease: "power3.in", transformOrigin: "50% 0%" }, 19.85);
-          tl.fromTo("#call-pill", { opacity: 0, scaleY: 0.4, y: -10 }, { opacity: 1, scaleY: 1, y: 0, duration: 0.4, ease: "back.out(2)", ...IR }, 20.15);
-          document.querySelectorAll("#call-pill .cp-wave i").forEach((w, k) => {
-            const d = 0.18 + k * 0.035;
-            tl.fromTo(w, { scaleY: 0.3 }, { scaleY: 1, duration: d, ease: "sine.inOut", yoyo: true, repeat: Math.floor(5.4 / d), ...IR }, 20.2 + k * 0.04);
-          });
-          tl.to("#call-pill", { opacity: 0, y: -10, duration: 0.3 }, 25.7);
-          extract("mk-lead", "chip-lead", 20.2);
-          extract("mk-team", "chip-team", 20.55);
-          extract("mk-mgr", "chip-mgr", 20.9);
+          extract("mk-lead", "chip-lead", 20.15);
+          aiMsg("m-call", "m-a3", 20.3, 20.7);
+          userMsg("m-c4", 21.3);
+          extract("mk-mgr", "chip-mgr", 21.7);
 
           // ================= S5 — QUALIFIED, BUYING INTENT (21.4 – 25.8) ===
-          wordsOut("#h5", 21.15);
-          wordsIn("#h6 .hl-big", 21.35);
-          wordsIn("#h6 .hl-sub", 24.3, 0.04);
-          aiMsg("m-c4", "m-a4", 21.35, 21.8);
-          userMsg("m-c5", 22.5);
-          extract("mk-time", "chip-time", 22.9);
+          wordsOut("#h5", 21.2);
+          wordsIn("#h6 .hl-big", 21.4);
+          wordsIn("#h6 .hl-sub", 24.4, 0.04);
+          aiMsg("m-c4", "m-a4", 21.85, 22.2);
+          userMsg("m-c5", 22.75);
+          extract("mk-time", "chip-time", 23.05);
           // the same lead card returns, now as the AI chat summary
-          tl.set("#lead", { height: 400, top: 458 }, 23.2);
-          tl.set(".lead-a", { opacity: 0 }, 23.2);
-          tl.set(".lead-b", { opacity: 1 }, 23.2);
-          tl.set("#lead", { backgroundColor: "#ffffff" }, 23.2);
+          tl.set("#lead", { height: 440, top: 438 }, 23.4);
+          tl.set(".lead-a", { opacity: 0 }, 23.4);
+          tl.set(".lead-b", { opacity: 1 }, 23.4);
+          tl.set("#lead", { backgroundColor: "#ffffff" }, 23.4);
           tl.fromTo(
             "#lead",
             { opacity: 0, scale: 0.9, y: 0, filter: "blur(6px)" },
             { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power3.out", ...IR },
-            23.25,
+            23.45,
           );
-          const rowY = (id) => 458 + document.getElementById(id).offsetTop + 4;
+          const itemY = (id) => {
+            const [, y] = absPos(document.getElementById(id));
+            return 438 + y - absPos($("#lead"))[1];
+          };
           [
             ["#chip-lead", "q-need"],
             ["#chip-mgr", "q-need"],
@@ -2398,23 +2557,25 @@
             ["#chip-time", "q-time"],
           ].forEach(([chip, row], i) => {
             const c = $(chip);
-            const dy = rowY(row) - c.offsetTop;
+            const dy = itemY(row) - c.offsetTop;
             // magnetic pull: accelerate in, collapse on contact
-            tl.to(chip, { y: dy, x: 16, scale: 0.6, rotation: (i % 2 ? 4 : -4), duration: 0.42, ease: "power4.in" }, 23.3 + i * 0.06);
-            tl.to(chip, { opacity: 0, duration: 0.08 }, 23.68 + i * 0.06);
+            tl.to(chip, { y: dy, x: 16, scale: 0.6, rotation: i % 2 ? 4 : -4, duration: 0.42, ease: "power4.in" }, 23.5 + i * 0.06);
+            tl.to(chip, { opacity: 0, duration: 0.08 }, 23.88 + i * 0.06);
           });
-          tl.fromTo("#lead", { scale: 1 }, { scale: 1.03, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", ...IR }, 23.65);
+          tl.fromTo("#lead", { scale: 1 }, { scale: 1.03, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", ...IR }, 23.9);
           ["#q-need", "#q-team", "#q-time"].forEach((r, i) => {
-            const t = 23.6 + i * 0.2;
-            tl.fromTo(r + " .q-check", { opacity: 0, scale: 0.2, rotation: -90 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2.6)", ...IR }, t);
-            tl.fromTo(r, { backgroundColor: "rgba(39,179,120,0.18)" }, { backgroundColor: "rgba(39,179,120,0)", duration: 0.6, ...IR }, t);
+            const t = 23.85 + i * 0.16;
+            tl.fromTo(r, { opacity: 0, x: 14 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out", ...IR }, t);
+            tl.fromTo(r, { backgroundColor: "rgba(39,179,120,0.16)" }, { backgroundColor: "rgba(39,179,120,0)", duration: 0.7, ...IR }, t);
           });
-          tl.fromTo("#p-final", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.6)", ...IR }, 24.3);
-          ring(830, 658, 24.3, 300, { to: 1.7, d: 0.9 });
-          ring(830, 658, 24.43, 300, { to: 2.3, d: 1.0 });
-          burst(830, 658, 24.3, 18, { dist: 210 });
-          camTo(24.25, 830, 658, 1.08, 0.35, "power4.out");
-          tl.to("#lead", { boxShadow: "0 0 0 10px rgba(39,179,120,0.18), 0 30px 60px -26px rgba(19,128,74,0.65)", duration: 0.4 }, 24.3);
+          tl.fromTo("#ais-calls", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out", ...IR }, 24.25);
+          tl.fromTo("#p-final", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.6)", ...IR }, 24.45);
+          ring(830, 658, 24.45, 300, { to: 1.7, d: 0.9 });
+          ring(830, 658, 24.58, 300, { to: 2.3, d: 1.0 });
+          burst(830, 658, 24.45, 18, { dist: 210 });
+          camTo(24.4, 830, 658, 1.07, 0.35, "power4.out");
+          tl.to("#lead", { boxShadow: "0 0 0 10px rgba(39,179,120,0.18), 0 30px 60px -26px rgba(19,128,74,0.65)", duration: 0.4 }, 24.45);
+          tl.to("#clock", { opacity: 0, y: -10, duration: 0.3 }, 25.7);
 
           // ================= S6 — AI → HUMAN HANDOFF (25.8 – 30.2) =========
           wordsOut("#h6", 25.6);
@@ -2433,12 +2594,11 @@
           // context transfer — the qualification card travels into the AI summary
           tl.to("#lead", { x: -180, y: 30, scale: 0.86, rotation: -2, duration: 0.6, ease: "power3.inOut" }, 26.25);
           tl.to("#lead", { opacity: 0, scale: 0.8, filter: "blur(8px)", duration: 0.35 }, 26.8);
-          ["#sr1", "#sr2", "#sr3", "#sr4", "#sr5"].forEach((r, i) => {
+          ["#sr1", "#sr2", "#sr3"].forEach((r, i) => {
             const t = 26.85 + i * 0.14;
             tl.fromTo(r, { opacity: 0, x: -60, filter: "blur(4px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.45, ease: "power4.out", ...IR }, t);
-            tl.fromTo(r + " b", { color: "#0f7040" }, { color: "#23211e", duration: 0.7, ...IR }, t + 0.25);
+            tl.fromTo(r, { backgroundColor: "rgba(39,179,120,0.16)" }, { backgroundColor: "rgba(39,179,120,0)", duration: 0.7, ...IR }, t + 0.2);
           });
-          tl.set("#sr5 b", { color: "#0f7040" }, 28.5);
           drawPath("ln3", 26.4, 0.4);
           // assignment AI Agent -> Rahul
           camTo(28.5, 760, 778, 1.06, 0.4, "power3.out");
