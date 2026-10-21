@@ -105,9 +105,9 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(70% 60% at 92% 4%, rgba(222, 112, 92, 0.26) 0%, rgba(222, 112, 92, 0) 70%),
-          radial-gradient(60% 55% at 0% 100%, rgba(232, 140, 118, 0.22) 0%, rgba(232, 140, 118, 0) 70%),
-          linear-gradient(170deg, #fdf6f2 0%, #f9e9e3 55%, #f6e1da 100%);
+          radial-gradient(80% 70% at 95% 0%, rgba(222, 112, 92, 0.13) 0%, rgba(222, 112, 92, 0) 70%),
+          radial-gradient(70% 60% at 0% 100%, rgba(232, 140, 118, 0.1) 0%, rgba(232, 140, 118, 0) 70%),
+          linear-gradient(170deg, #fdf8f5 0%, #faeee9 55%, #f7e7e1 100%);
       }
 
       /* ---------- headlines ---------- */
@@ -186,7 +186,7 @@
         white-space: nowrap;
       }
       #st-off {
-        top: 490px;
+        top: 452px;
         background: #ece7e2;
         color: #45413b;
       }
@@ -252,7 +252,7 @@
         top: -300px;
         width: 900px;
         height: 900px;
-        background: radial-gradient(circle, rgba(214, 104, 84, 0.18) 0%, rgba(214, 104, 84, 0) 65%);
+        background: radial-gradient(circle, rgba(214, 104, 84, 0.07) 0%, rgba(214, 104, 84, 0) 65%);
         opacity: 1;
       }
       #blob-g {
@@ -868,7 +868,7 @@
         transform-origin: 0 0;
       }
       .clock-label {
-        display: block;
+        display: none;
         font-size: 18px;
         font-weight: 600;
         letter-spacing: 0.12em;
@@ -878,7 +878,7 @@
       .clock-stack {
         position: absolute;
         left: 0;
-        top: 30px;
+        top: 0px;
         width: 360px;
         height: 124px;
         overflow: hidden;
@@ -908,7 +908,7 @@
       #noreply {
         position: absolute;
         left: 650px;
-        top: 548px;
+        top: 452px;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -1184,14 +1184,23 @@
         text-overflow: ellipsis;
       }
       #enq1 {
-        left: 664px;
-        top: 776px;
+        position: absolute;
+        left: 650px;
+        top: 782px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--coral);
+        font-size: 18px;
+        font-weight: 600;
+        opacity: 0;
         z-index: 3;
       }
-      #enq2 {
-        left: 680px;
-        top: 862px;
-        z-index: 2;
+      #enq1 .dot {
+        background: var(--coral);
       }
 
       /* chips */
@@ -1782,14 +1791,7 @@
           <div id="replied" class="h"><i class="dot"></i>AI replied in 3 seconds</div>
 
           <!-- Waiting enquiries -->
-          <div class="enq" id="enq1">
-            <b><i class="dot"></i>Priya · Unread · 11:32 PM</b>
-            <span>“Do you offer a free trial for teams?”</span>
-          </div>
-          <div class="enq" id="enq2">
-            <b><i class="dot"></i>Rohan · Unread · 12:15 AM</b>
-            <span>“What does pricing look like for 10 users?”</span>
-          </div>
+          <div id="enq1"><i class="dot"></i>2 more enquiries waiting</div>
 
           <!-- Lead card (cools in S2, re-heats in S5, transfers in S6) -->
           <div id="lead" class="h">
@@ -2107,7 +2109,6 @@
       <audio id="sfx-tick4" src="assets/sfx/click-soft.mp3" data-start="7.6" data-duration="0.36" data-track-index="12" data-volume="0.5"></audio>
       <audio id="sfx-cold" src="assets/sfx/impact-bass-1.mp3" data-start="8.1" data-duration="2.1" data-track-index="12" data-volume="0.22"></audio>
       <audio id="sfx-enq1" src="assets/sfx/pop.mp3" data-start="8.6" data-duration="0.72" data-track-index="13" data-volume="0.3"></audio>
-      <audio id="sfx-enq2" src="assets/sfx/pop.mp3" data-start="9.1" data-duration="0.72" data-track-index="14" data-volume="0.3"></audio>
       <audio id="sfx-sweep" src="assets/sfx/whoosh.mp3" data-start="10.25" data-duration="0.57" data-track-index="12" data-volume="0.55"></audio>
       <audio id="sfx-catch" src="assets/sfx/sparkle.mp3" data-start="10.75" data-duration="1.8" data-track-index="13" data-volume="0.35"></audio>
       <audio id="sfx-rewind" src="assets/sfx/whoosh-short.mp3" data-start="11.1" data-duration="0.57" data-track-index="12" data-volume="0.4"></audio>
@@ -2407,10 +2408,10 @@
           tl.set("#ct0", { opacity: 1 }, 0);
           tl.set("#m-c1", { opacity: 1 }, 0);
           flip("#ct0", "#ct1", 2.2);
-          inn("#noreply", 2.5, { y: 10, s: 0.8, e: "back.out(2)" });
+          tl.to("#st-off", { opacity: 0, y: -10, duration: 0.2 }, 2.45);
+          inn("#noreply", 2.55, { y: 10, s: 0.9, e: "back.out(2)" });
           flip("#ct1", "#ct2", 3.4);
-          tl.fromTo("#st-off .dot", { scale: 1 }, { scale: 1.6, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut", ...IR }, 2.6);
-          tl.to("#st-off", { opacity: 0, y: -10, duration: 0.3 }, 5.4);
+          tl.fromTo("#noreply .dot", { scale: 1 }, { scale: 1.6, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut", ...IR }, 2.8);
           // slow creeping push — tension
           camTo(2.0, 470, 618, 1.04, 8.2, "sine.inOut");
           tl.fromTo("#blob-n", { x: 0, y: 0 }, { x: -120, y: 60, duration: 8.5, ease: "none", ...IR }, 2.0);
@@ -2440,15 +2441,14 @@
           tl.to("#frost", { opacity: 1, duration: 1.2 }, 7.9);
           // shiver as it goes cold
           tl.fromTo("#lead", { x: 0 }, { x: 4, duration: 0.05, repeat: 9, yoyo: true, ease: "none", ...IR }, 8.15);
-          tl.fromTo("#enq1", { opacity: 0, y: 40, rotation: -4 }, { opacity: 1, y: 0, rotation: 0, duration: 0.55, ease: "back.out(1.6)", ...IR }, 8.6);
-          tl.fromTo("#enq2", { opacity: 0, y: 40, rotation: 4 }, { opacity: 0.85, y: 0, rotation: 0, duration: 0.55, ease: "back.out(1.6)", ...IR }, 9.1);
+          tl.fromTo("#enq1", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", ...IR }, 8.6);
           // the lead starts slipping away
           tl.to("#lead", { y: 40, opacity: 0.5, rotation: 3, duration: 0.8, ease: "power2.in" }, 9.5);
           tl.to("#chat", { opacity: 0.8, filter: "blur(0px) saturate(0.6)", duration: 0.6 }, 9.4);
 
           // ============ TRANSITION — DOUBLETICK CATCHES IT (10.3 – 13) =====
           wordsOut("#h2", 10.15);
-          tl.to(["#enq1", "#enq2"], { opacity: 0, y: 30, scale: 0.9, duration: 0.35, ease: "power2.in" }, 10.2);
+          tl.to("#enq1", { opacity: 0, y: 16, duration: 0.3, ease: "power2.in" }, 10.2);
           drawPath("ln1", 10.25, 0.5, "hd1");
           tl.to("#lead", { y: 0, rotation: 0, opacity: 1, duration: 0.45, ease: "back.out(2.6)" }, 10.75);
           tl.fromTo("#ln-dot", { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.25, ...IR }, 10.72);
