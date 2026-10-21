@@ -28,9 +28,9 @@
         #f11-win {
           position: absolute;
           left: 820px;
-          top: 150px;
+          top: 245px;
           width: 980px;
-          height: 810px;
+          height: 773px;
           box-sizing: border-box;
           border-radius: 36px;
           border: 8px solid #ddd5c6;
@@ -80,7 +80,7 @@
           left: 0;
           top: 108px;
           width: 964px;
-          height: 686px;
+          height: 649px;
           overflow: hidden;
         }
         #f11-msgs-in {
@@ -88,7 +88,7 @@
           left: 0;
           top: 0;
           width: 964px;
-          height: 686px;
+          height: 649px;
         }
         #f11-day {
           position: absolute;
@@ -140,7 +140,7 @@
         #f11-composer {
           position: absolute;
           left: 850px;
-          top: 792px;
+          top: 850px;
           width: 800px;
           height: 148px;
           box-sizing: border-box;
@@ -201,7 +201,7 @@
         #f11-send {
           position: absolute;
           left: 1666px;
-          top: 811px;
+          top: 869px;
           width: 110px;
           height: 110px;
           border-radius: 50%;
@@ -220,7 +220,7 @@
         #f11-panel {
           position: absolute;
           left: 850px;
-          top: 452px;
+          top: 510px;
           width: 920px;
           height: 316px;
           border-radius: 24px;
@@ -411,26 +411,26 @@
             </svg>
           </div>
 
-          <!-- click 1: magic wand (1598,866) -->
-          <div class="f11-ring" id="f11-ring1" style="left: 1558px; top: 826px"></div>
-          <svg class="f11-star" id="f11-s1a" viewBox="0 0 24 24" style="left: 1536px; top: 790px; width: 40px; height: 40px" aria-hidden="true">
+          <!-- click 1: magic wand (1598,924) -->
+          <div class="f11-ring" id="f11-ring1" style="left: 1558px; top: 884px"></div>
+          <svg class="f11-star" id="f11-s1a" viewBox="0 0 24 24" style="left: 1536px; top: 848px; width: 40px; height: 40px" aria-hidden="true">
             <path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" />
           </svg>
-          <svg class="f11-star" id="f11-s1b" viewBox="0 0 24 24" style="left: 1514px; top: 842px; width: 28px; height: 28px" aria-hidden="true">
+          <svg class="f11-star" id="f11-s1b" viewBox="0 0 24 24" style="left: 1514px; top: 900px; width: 28px; height: 28px" aria-hidden="true">
             <path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" />
           </svg>
-          <svg class="f11-star" id="f11-s1c" viewBox="0 0 24 24" style="left: 1578px; top: 768px; width: 22px; height: 22px" aria-hidden="true">
+          <svg class="f11-star" id="f11-s1c" viewBox="0 0 24 24" style="left: 1578px; top: 826px; width: 22px; height: 22px" aria-hidden="true">
             <path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" />
           </svg>
-          <!-- click 2: Use answer (1631,506) -->
-          <div class="f11-ring" id="f11-ring2" style="left: 1591px; top: 466px"></div>
-          <svg class="f11-star" id="f11-s2a" viewBox="0 0 24 24" style="left: 1570px; top: 430px; width: 40px; height: 40px" aria-hidden="true">
+          <!-- click 2: Use answer (1631,564) -->
+          <div class="f11-ring" id="f11-ring2" style="left: 1591px; top: 524px"></div>
+          <svg class="f11-star" id="f11-s2a" viewBox="0 0 24 24" style="left: 1570px; top: 488px; width: 40px; height: 40px" aria-hidden="true">
             <path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" />
           </svg>
-          <svg class="f11-star" id="f11-s2b" viewBox="0 0 24 24" style="left: 1548px; top: 484px; width: 28px; height: 28px" aria-hidden="true">
+          <svg class="f11-star" id="f11-s2b" viewBox="0 0 24 24" style="left: 1548px; top: 542px; width: 28px; height: 28px" aria-hidden="true">
             <path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" />
           </svg>
-          <svg class="f11-star" id="f11-s2c" viewBox="0 0 24 24" style="left: 1614px; top: 410px; width: 22px; height: 22px" aria-hidden="true">
+          <svg class="f11-star" id="f11-s2c" viewBox="0 0 24 24" style="left: 1614px; top: 468px; width: 22px; height: 22px" aria-hidden="true">
             <path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" />
           </svg>
 
@@ -515,9 +515,9 @@
           tl.fromTo("#f11-stage", { scale: 1 }, { scale: 1.025, duration: 5.1, ease: "none", transformOrigin: "68% 52%" }, 0);
 
           // Cursor: in from the right → magic wand → click
-          tl.fromTo("#f11-cursor", { x: 1850 - HX, y: 700 - HY, opacity: 0 }, { x: 1780 - HX, y: 690 - HY, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.45);
-          move(1720, 760, 0.8, 0.35);
-          move(1598, 866, 1.15, 0.4);
+          tl.fromTo("#f11-cursor", { x: 1850 - HX, y: 758 - HY, opacity: 0 }, { x: 1780 - HX, y: 748 - HY, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.45);
+          move(1720, 818, 0.8, 0.35);
+          move(1598, 924, 1.15, 0.4);
           click(1, 1.6);
           tl.fromTo("#f11-wand", { color: "#6B665F" }, { color: "#1FA855", duration: 0.2 }, 1.6);
 
@@ -538,14 +538,14 @@
           tl.fromTo(chars, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 1.25 / chars.length, ease: "none" }, 2.05);
 
           // Cursor → Use answer → click; text lands in the composer
-          move(1631, 506, 3.4, 0.5);
+          move(1631, 564, 3.4, 0.5);
           click(2, 3.98);
           tl.fromTo("#f11-use", { backgroundColor: "#D3F5E1" }, { backgroundColor: "#A9E8C4", duration: 0.12, yoyo: true, repeat: 1 }, 3.98);
           tl.to("#f11-ph", { opacity: 0, duration: 0.12, ease: "power1.in" }, 4.06);
           tl.fromTo("#f11-hl", { opacity: 0, scaleX: 0, transformOrigin: "0% 50%" }, { opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.out" }, 4.08);
           tl.fromTo("#f11-ctext", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 4.3);
           tl.to("#f11-hl", { opacity: 0, duration: 0.4, ease: "power1.in" }, 4.55);
-          move(1700, 690, 4.3, 0.7);
+          move(1700, 748, 4.3, 0.7);
 
           // Captions — left headline
           word("#f11-w-ai", 0.05);

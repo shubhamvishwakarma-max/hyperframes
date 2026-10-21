@@ -28,9 +28,9 @@
         #f13-card {
           position: absolute;
           left: 820px;
-          top: 150px;
+          top: 245px;
           width: 980px;
-          height: 800px;
+          height: 776px;
           box-sizing: border-box;
           border-radius: 36px;
           border: 3px solid #e2dccf;
@@ -124,7 +124,7 @@
           left: 0;
           top: 412px;
           width: 974px;
-          height: 382px;
+          height: 358px;
           overflow: hidden;
         }
         #f13-list {
@@ -293,7 +293,7 @@
         #f13-ring {
           position: absolute;
           left: 1669px;
-          top: 306px;
+          top: 401px;
           width: 80px;
           height: 80px;
           border-radius: 50%;
@@ -470,14 +470,14 @@
           const HX = 41;
           const HY = 10;
           const TX = 1709;
-          const TY = 346;
+          const TY = 441;
 
           // Card arrives + slow push-in
           tl.fromTo("#f13-card", { opacity: 0.3, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0);
           tl.fromTo("#f13-stage", { scale: 1 }, { scale: 1.025, duration: 4.0, ease: "none", transformOrigin: "68% 52%" }, 0);
 
           // Cursor glides to the AI filtering toggle, hovers, clicks
-          tl.fromTo("#f13-cursor", { x: 1820 - HX, y: 640 - HY, opacity: 0 }, { x: 1760 - HX, y: 560 - HY, opacity: 1, duration: 0.2, ease: "power2.out" }, 0.05);
+          tl.fromTo("#f13-cursor", { x: 1820 - HX, y: 735 - HY, opacity: 0 }, { x: 1760 - HX, y: 655 - HY, opacity: 1, duration: 0.2, ease: "power2.out" }, 0.05);
           tl.to("#f13-cursor", { x: TX + 6 - HX, y: TY + 6 - HY, duration: 0.4, ease: "power2.inOut" }, 0.25);
           tl.to("#f13-cursor", { x: TX - HX, y: TY - HY, duration: 0.5, ease: "sine.inOut" }, 0.7);
           tl.fromTo("#f13-hand", { scale: 1 }, { scale: 0.85, duration: 0.08, ease: "power1.out", transformOrigin: "33% 10%" }, 1.2);
@@ -509,7 +509,7 @@
 
           // List collapses to the truly pending chats
           tl.fromTo("#f13-list", { y: 0 }, { y: -646, duration: 1.5, ease: "power2.inOut" }, 1.45);
-          tl.to("#f13-cursor", { x: 1215 - HX, y: 522 - HY, duration: 0.6, ease: "power2.inOut" }, 2.3);
+          tl.to("#f13-cursor", { x: 1215 - HX, y: 617 - HY, duration: 0.6, ease: "power2.inOut" }, 2.3);
 
           // Captions
           word("#f13-w-ai", 0.03);
