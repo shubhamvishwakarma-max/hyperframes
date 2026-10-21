@@ -45,30 +45,18 @@
           white-space: nowrap;
         }
         #f07-brand {
-          gap: 34px;
+          gap: 26px;
         }
+        /* Mark and wordmark cut from the supplied DoubleTick logo (assets/img/doubletick-logo.png) */
         #f07-ticks {
           display: block;
-          width: 200px;
-          height: 130px;
-        }
-        #f07-ticks path {
-          fill: none;
-          stroke: #22f08a;
-          stroke-width: 17;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-          stroke-dasharray: 1;
-          stroke-dashoffset: 1;
+          width: 204px;
+          height: 116px;
         }
         #f07-word {
           display: block;
-          font-family: Montserrat, sans-serif;
-          font-weight: 700;
-          font-size: 118px;
-          letter-spacing: -0.01em;
-          color: #ffffff;
-          white-space: nowrap;
+          width: 640px;
+          height: 116px;
         }
         #f07-pill {
           display: flex;
@@ -144,11 +132,8 @@
         </div>
 
         <div id="f07-brand" class="f07-row">
-          <svg id="f07-ticks" viewBox="0 0 200 130" aria-hidden="true">
-            <path pathLength="1" d="M14 70 L44 100 L114 24" />
-            <path pathLength="1" d="M80 88 L92 100 L184 24" />
-          </svg>
-          <span id="f07-word">DoubleTick</span>
+          <img id="f07-ticks" src="assets/img/dt-mark.png" alt="" />
+          <img id="f07-word" src="assets/img/dt-wordmark-white.png" alt="DoubleTick" />
         </div>
 
         <div id="f07-pillrow" class="f07-row">
@@ -183,7 +168,7 @@
           // DoubleTick ticks + wordmark slide in
           tl.to("#f07-brand", { opacity: 1, duration: 0.01 }, 0.78);
           tl.fromTo("#f07-brand", { x: 620 }, { x: 0, duration: 0.42, ease: "power3.out" }, 0.78);
-          tl.to("#f07-ticks path", { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", stagger: 0.1 }, 0.82);
+          tl.fromTo("#f07-ticks", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.35, ease: "power2.out" }, 0.82);
           tl.fromTo("#f07-word", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.86);
           tl.fromTo("#f07-word", { scale: 1 }, { scale: 1.03, duration: 0.5, ease: "sine.inOut" }, 1.0);
           tl.to("#f07-brand", { opacity: 0, scale: 0.92, duration: 0.14, ease: "power1.in" }, 1.38);
