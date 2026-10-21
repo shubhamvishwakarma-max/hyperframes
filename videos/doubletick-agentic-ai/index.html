@@ -489,6 +489,216 @@
         padding: 0 14px;
       }
 
+      /* ---------- WhatsApp voice call (dark) ---------- */
+      #call {
+        position: absolute;
+        left: 650px;
+        top: 320px;
+        width: 360px;
+        height: 620px;
+        border-radius: 32px;
+        border: 4px solid #e9e9e9;
+        background-color: #0b141a;
+        background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22240%22%20height%3D%22240%22%20viewBox%3D%220%200%20240%20240%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23243039%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M28%2018l4%209%2010%201-7%207%202%2010-9-5-9%205%202-10-7-7%2010-1z%22/%3E%3Cpath%20d%3D%22M92%2030c0-6%209-8%2011-2%202-6%2011-4%2011%202%200%207-11%2012-11%2012s-11-5-11-12z%22/%3E%3Ccircle%20cx%3D%22168%22%20cy%3D%2226%22%20r%3D%2211%22/%3E%3Ccircle%20cx%3D%22164%22%20cy%3D%2223%22%20r%3D%221.5%22/%3E%3Ccircle%20cx%3D%22172%22%20cy%3D%2223%22%20r%3D%221.5%22/%3E%3Cpath%20d%3D%22M163%2030c3%203%207%203%2010%200%22/%3E%3Cpath%20d%3D%22M208%2020h18v26h-18z%22/%3E%3Cpath%20d%3D%22M212%2026h10M212%2032h10M212%2038h6%22/%3E%3Cpath%20d%3D%22M20%2078c8-10%2022-10%2028%200%208-2%2014%204%2012%2012H14c-4-6%200-12%206-12z%22/%3E%3Cpath%20d%3D%22M88%2070v24M80%2076l8-6%208%206%22/%3E%3Cpath%20d%3D%22M80%2098h16%22/%3E%3Cpath%20d%3D%22M140%2072h26l-4%2022h-18z%22/%3E%3Cpath%20d%3D%22M146%2072c0-8%2014-8%2014%200%22/%3E%3Cpath%20d%3D%22M198%2070l6%2016%2016%202-12%2010%204%2016-14-9-14%209%204-16-12-10%2016-2z%22/%3E%3Cpath%20d%3D%22M30%20140c0-10%2016-10%2016%200v14H30z%22/%3E%3Cpath%20d%3D%22M26%20154h24M38%20158v6%22/%3E%3Cpath%20d%3D%22M84%20130l20%2020M104%20130l-20%2020%22/%3E%3Ccircle%20cx%3D%2294%22%20cy%3D%22140%22%20r%3D%2216%22/%3E%3Cpath%20d%3D%22M140%20128c10%200%2018%208%2018%2018M140%20136c6%200%2010%204%2010%2010M140%20144a2%202%200%201%200%200.1%200%22/%3E%3Cpath%20d%3D%22M196%20132h30v20h-30zM204%20152l-4%208M218%20152l4%208%22/%3E%3Cpath%20d%3D%22M18%20200q10-14%2020%200t20%200%22/%3E%3Cpath%20d%3D%22M70%20196h22l6%208-6%208H70z%22/%3E%3Ccircle%20cx%3D%22140%22%20cy%3D%22204%22%20r%3D%2214%22/%3E%3Cpath%20d%3D%22M134%20204h12M140%20198v12%22/%3E%3Cpath%20d%3D%22M196%20192c6-8%2020-8%2026%200l-13%2020z%22/%3E%3Ccircle%20cx%3D%22209%22%20cy%3D%22196%22%20r%3D%223%22/%3E%3C/g%3E%3C/svg%3E");
+        background-size: 200px 200px;
+        box-shadow: 0 34px 70px -30px rgba(11, 20, 26, 0.6);
+        overflow: hidden;
+        font-family: "Roboto", sans-serif;
+        color: #fff;
+        opacity: 0;
+        z-index: 4;
+      }
+      .call-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 16px 14px 0;
+      }
+      .call-btn {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: #1f2a30;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      .call-who {
+        text-align: center;
+        padding-top: 2px;
+      }
+      .call-who b {
+        display: block;
+        font-size: 17px;
+        font-weight: 400;
+      }
+      .call-who span {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 3px;
+        font-size: 13px;
+        color: #a9b3b9;
+      }
+      .call-name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        margin-top: 38px;
+        font-size: 27px;
+        font-weight: 500;
+      }
+      .call-name .verified {
+        width: 24px;
+        height: 24px;
+      }
+      .call-role {
+        text-align: center;
+        margin-top: 2px;
+        font-size: 21px;
+        color: #a9b3b9;
+      }
+      .call-av {
+        position: relative;
+        width: 210px;
+        height: 210px;
+        margin: 22px auto 0;
+      }
+      .wv {
+        position: absolute;
+        left: 103px;
+        top: 98px;
+        width: 4px;
+        height: 14px;
+        border-radius: 2px;
+        background: #ffffff;
+        display: block;
+        transform-origin: 2px 7px;
+      }
+      .call-face {
+        position: absolute;
+        left: 30px;
+        top: 30px;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .call-face img {
+        width: 92px;
+        height: auto;
+        display: block;
+      }
+      .call-tx {
+        margin: 10px 18px 0;
+        padding: 8px 12px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 14px;
+        line-height: 1.35;
+        color: #e9edef;
+        opacity: 0;
+      }
+      .call-tx em {
+        display: block;
+        font-style: normal;
+        font-size: 11.5px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        color: #a9b3b9;
+      }
+      #tx2 em {
+        color: #5fd39c;
+      }
+      .call-bar {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        height: 74px;
+        border-radius: 20px;
+        background: #121b21;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+      .cb {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        background: #2a3439;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cb.end {
+        background: #e5133a;
+      }
+      #call-pill {
+        position: absolute;
+        left: 650px;
+        top: 336px;
+        width: 360px;
+        height: 72px;
+        border-radius: 20px;
+        background: #0b141a;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px 0 12px;
+        box-shadow: 0 18px 36px -20px rgba(11, 20, 26, 0.7);
+        font-family: "Roboto", sans-serif;
+        color: #fff;
+        opacity: 0;
+        z-index: 4;
+      }
+      .cp-face {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      .cp-face img {
+        width: 30px;
+        height: auto;
+        display: block;
+      }
+      .cp-t {
+        flex: 1;
+      }
+      .cp-t b {
+        display: block;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .cp-t span {
+        display: block;
+        font-size: 13px;
+        color: #a9b3b9;
+      }
+      .cp-wave {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        height: 24px;
+      }
+      .cp-wave i {
+        display: block;
+        width: 4px;
+        height: 22px;
+        border-radius: 2px;
+        background: #5fd39c;
+      }
+
       /* ---------- right column ---------- */
       #clock {
         position: absolute;
@@ -669,24 +879,98 @@
         background: var(--green);
         transform-origin: 0 50%;
       }
-      .q-row {
+      .lead-b {
+        padding: 16px 18px 18px 18px;
+        background: #ffffff;
+      }
+      .sum-top b {
+        display: block;
+        font-size: 19px;
+        font-weight: 600;
+      }
+      .sum-top span {
+        display: block;
+        font-size: 13.5px;
+        color: #45413b;
+      }
+      .sum-top em {
+        font-style: normal;
+        color: var(--green-deep);
+      }
+      .sum-line {
+        position: absolute;
+        left: 22px;
+        top: 98px;
+        bottom: 84px;
+        width: 2px;
+        background: #e4e0f0;
+      }
+      .sum-tagrow {
+        position: relative;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        height: 50px;
-        border-bottom: 1px solid rgba(35, 33, 30, 0.08);
-        font-size: 20px;
-        font-weight: 500;
+        gap: 10px;
+        margin: 14px 0 4px;
+        padding-left: 16px;
       }
-      .q-row:first-of-type {
-        margin-top: 12px;
-      }
-      .q-row span {
+      .sum-node {
+        position: absolute;
+        left: -1px;
+        top: 50%;
+        width: 12px;
+        height: 12px;
+        margin-top: -6px;
+        border-radius: 50%;
+        background: var(--green-deep);
         display: block;
       }
+      .sum-tag {
+        display: block;
+        padding: 5px 10px;
+        border-radius: 6px;
+        background: var(--green-soft);
+        color: var(--green-deep);
+        font-size: 14px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .sum-cnt {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: auto;
+        font-size: 14px;
+        color: #45413b;
+      }
+      .sum-cnt svg {
+        display: block;
+        margin-left: 4px;
+      }
+      .q-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 9px 0 9px 16px;
+      }
+      .q-t b {
+        display: block;
+        font-size: 16.5px;
+        font-weight: 600;
+        line-height: 1.25;
+      }
+      .q-t span {
+        display: block;
+        margin-top: 2px;
+        font-size: 13.5px;
+        color: #57534c;
+        line-height: 1.3;
+      }
       .q-check {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
+        flex: none;
+        margin-top: 2px;
         border-radius: 50%;
         background: var(--green);
         display: flex;
@@ -1337,55 +1621,65 @@
               <div class="temp"><div id="temp-fill"></div></div>
             </div>
             <div class="lead-b">
-              <span class="lead-k">Lead Qualification</span>
-              <span class="lead-name">Ravi</span>
+              <div class="sum-top">
+                <b>AI chat summary</b>
+                <span>Conversation with <em>Ravi</em></span>
+              </div>
+              <div class="sum-line"></div>
+              <div class="sum-tagrow">
+                <i class="sum-node"></i>
+                <span class="sum-tag">Today (10.00 – 10.03 PM)</span>
+                <span class="sum-cnt">
+                  <svg width="15" height="15" viewBox="0 0 24 24"><path d="M4 18l1.5-4A8 8 0 1 1 9 18.6z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>6
+                  <svg width="15" height="15" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>1
+                </span>
+              </div>
               <div class="q-row" id="q-need">
-                <span>Need</span>
-                <div class="q-check">
-                  <svg width="14" height="12" viewBox="0 0 14 12">
-                    <path
-                      d="M1.5 6.5l3.5 3.5 7.5-8"
-                      fill="none"
-                      stroke="#fff"
-                      stroke-width="2.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div>
+                <div class="q-t"><b>Ravi needs WhatsApp for sales</b><span>Lead management + manager visibility</span></div>
+                <div class="q-check"><svg width="12" height="10" viewBox="0 0 14 12"><path d="M1.5 6.5l3.5 3.5 7.5-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
               </div>
               <div class="q-row" id="q-team">
-                <span>Team Size</span>
-                <div class="q-check">
-                  <svg width="14" height="12" viewBox="0 0 14 12">
-                    <path
-                      d="M1.5 6.5l3.5 3.5 7.5-8"
-                      fill="none"
-                      stroke="#fff"
-                      stroke-width="2.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div>
+                <div class="q-t"><b>Team of 25 people</b><span>Multiple agents on one business number</span></div>
+                <div class="q-check"><svg width="12" height="10" viewBox="0 0 14 12"><path d="M1.5 6.5l3.5 3.5 7.5-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
               </div>
               <div class="q-row" id="q-time">
-                <span>Timeline</span>
-                <div class="q-check">
-                  <svg width="14" height="12" viewBox="0 0 14 12">
-                    <path
-                      d="M1.5 6.5l3.5 3.5 7.5-8"
-                      fill="none"
-                      stroke="#fff"
-                      stroke-width="2.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div>
+                <div class="q-t"><b>Wants to start this month</b><span>Asked about plans on chat and call</span></div>
+                <div class="q-check"><svg width="12" height="10" viewBox="0 0 14 12"><path d="M1.5 6.5l3.5 3.5 7.5-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
               </div>
               <div id="p-final">High Intent ✓</div>
             </div>
+          </div>
+
+          <!-- WhatsApp voice call handled by the AI agent -->
+          <div id="call">
+            <div class="call-top">
+              <div class="call-btn"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M14 10l7-7M14 10V5M14 10h5M10 14l-7 7M10 14v5M10 14H5" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+              <div class="call-who">
+                <b>Customer</b>
+                <span><svg width="11" height="12" viewBox="0 0 12 14"><rect x="1.5" y="6" width="9" height="7" rx="1.5" fill="none" stroke="#a9b3b9" stroke-width="1.5" /><path d="M3.5 6V4a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="#a9b3b9" stroke-width="1.5" /></svg>End-to-end encrypted</span>
+              </div>
+              <div class="call-btn"><svg width="22" height="20" viewBox="0 0 26 22"><circle cx="9" cy="6" r="4.5" fill="#fff" /><path d="M1 21c0-5 3.6-8 8-8s8 3 8 8z" fill="#fff" /><path d="M21 4v8M17 8h8" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" /></svg></div>
+            </div>
+            <div class="call-name">DoubleTick AI <svg class="verified" viewBox="0 0 20 20"><polygon points="10.00,0.00 11.70,1.47 13.83,0.76 14.83,2.77 17.07,2.93 17.23,5.17 19.24,6.17 18.53,8.30 20.00,10.00 18.53,11.70 19.24,13.83 17.23,14.83 17.07,17.07 14.83,17.23 13.83,19.24 11.70,18.53 10.00,20.00 8.30,18.53 6.17,19.24 5.17,17.23 2.93,17.07 2.77,14.83 0.76,13.83 1.47,11.70 0.00,10.00 1.47,8.30 0.76,6.17 2.77,5.17 2.93,2.93 5.17,2.77 6.17,0.76 8.30,1.47" fill="#1a8cff"/><path d="M6 10.2l2.7 2.6 5.3-5.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="call-role">AI Agent</div>
+            <div class="call-av">
+              <i class="wv" style="transform: rotate(0.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(6.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(12.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(19.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(25.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(32.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(38.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(45.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(51.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(57.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(64.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(70.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(77.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(83.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(90.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(96.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(102.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(109.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(115.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(122.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(128.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(135.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(141.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(147.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(154.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(160.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(167.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(173.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(180.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(186.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(192.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(199.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(205.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(212.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(218.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(225.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(231.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(237.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(244.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(250.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(257.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(263.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(270.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(276.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(282.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(289.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(295.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(302.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(308.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(315.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(321.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(327.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(334.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(340.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(347.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(353.6deg) translateY(-92px)"></i>
+              <div class="call-face"><img src="assets/logo/doubletick-mark.png" alt="" /></div>
+            </div>
+            <div class="call-tx" id="tx1"><em>Customer</em> Does it work for a sales team of 25?</div>
+            <div class="call-tx" id="tx2"><em>AI Agent</em> Yes. One number, multiple agents, and full manager visibility.</div>
+            <div class="call-bar">
+              <div class="cb"><svg width="20" height="6" viewBox="0 0 20 6"><circle cx="3" cy="3" r="2.6" fill="#fff" /><circle cx="10" cy="3" r="2.6" fill="#fff" /><circle cx="17" cy="3" r="2.6" fill="#fff" /></svg></div>
+              <div class="cb"><svg width="22" height="16" viewBox="0 0 22 16"><rect x="1" y="2" width="14" height="12" rx="2.5" fill="#8696a0" /><path d="M15 6l6-3.5v11L15 10z" fill="#8696a0" /></svg></div>
+              <div class="cb"><svg width="20" height="18" viewBox="0 0 22 20"><path d="M2 7h4l5-4.5v15L6 13H2z" fill="#fff" /><path d="M15 6a5 5 0 0 1 0 8M17.5 3a9 9 0 0 1 0 14" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+              <div class="cb"><svg width="18" height="20" viewBox="0 0 20 22"><rect x="6" y="1.5" width="8" height="12" rx="4" fill="#fff" /><path d="M2.5 10a7.5 7.5 0 0 0 15 0M10 17.5v3M2 2l16 18" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+              <div class="cb end"><svg width="24" height="10" viewBox="0 0 26 10"><path d="M1.5 6.5C7 1 19 1 24.5 6.5L22 9l-4-1.5V5C15 4 11 4 8 5v2.5L4 9z" fill="#fff" /></svg></div>
+            </div>
+          </div>
+          <div id="call-pill">
+            <div class="cp-face"><img src="assets/logo/doubletick-mark.png" alt="" /></div>
+            <div class="cp-t"><b>Voice call · DoubleTick AI</b><span>AI Agent · live with customer</span></div>
+            <div class="cp-wave"><i></i><i></i><i></i><i></i><i></i></div>
           </div>
 
           <!-- Requirement chips -->
@@ -1563,8 +1857,8 @@
           <span class="hl-big serif">DoubleTick <span class="accent-green">Agentic AI</span></span>
         </div>
         <div class="hl-group" id="h4">
-          <span class="hl-big serif">Instant answers.</span>
-          <span class="hl-big serif accent-green">Even after hours.</span>
+          <span class="hl-big serif">Every chat. Every call.</span>
+          <span class="hl-big serif accent-green">Answered instantly.</span>
         </div>
         <div class="hl-group" id="h5">
           <span class="hl-big serif">AI understands the need.</span>
@@ -1600,23 +1894,26 @@
       <div class="cap clip" id="cap4" data-start="8.35" data-duration="2.1" data-track-index="5">
         <span>And more enquiries are still waiting.</span>
       </div>
-      <div class="cap clip" id="cap5" data-start="13.2" data-duration="3.1" data-track-index="5">
-        <span>The moment a customer starts a WhatsApp conversation,</span>
+      <div class="cap clip" id="cap5" data-start="12.94" data-duration="2.26" data-track-index="5">
+        <span>Whether customers reach out through WhatsApp chat</span>
       </div>
-      <div class="cap clip" id="cap6" data-start="16.3" data-duration="2.3" data-track-index="5">
-        <span>AI answers product questions,</span>
+      <div class="cap clip" id="cap6" data-start="15.3" data-duration="1.1" data-track-index="5">
+        <span>or voice calls,</span>
       </div>
-      <div class="cap clip" id="cap7" data-start="18.6" data-duration="1.45" data-track-index="5">
+      <div class="cap clip" id="cap7" data-start="16.45" data-duration="1.75" data-track-index="5">
+        <span>AI responds instantly,</span>
+      </div>
+      <div class="cap clip" id="cap8" data-start="18.25" data-duration="1.75" data-track-index="5">
+        <span>answers product questions,</span>
+      </div>
+      <div class="cap clip" id="cap9" data-start="20.05" data-duration="1.25" data-track-index="5">
         <span>understands their needs,</span>
       </div>
-      <div class="cap clip" id="cap8" data-start="20.05" data-duration="1.85" data-track-index="5">
-        <span>asks qualifying questions,</span>
+      <div class="cap clip" id="cap10" data-start="21.35" data-duration="2.75" data-track-index="5">
+        <span>qualifies leads, and identifies buying intent,</span>
       </div>
-      <div class="cap clip" id="cap9" data-start="21.9" data-duration="2.05" data-track-index="5">
-        <span>and identifies buying intent,</span>
-      </div>
-      <div class="cap clip" id="cap10" data-start="23.95" data-duration="1.75" data-track-index="5">
-        <span>without human intervention.</span>
+      <div class="cap clip" id="cap10b" data-start="24.25" data-duration="1.45" data-track-index="5">
+        <span>all without human intervention.</span>
       </div>
       <div class="cap clip" id="cap11" data-start="25.8" data-duration="1.1" data-track-index="5">
         <span>When the lead is ready,</span>
@@ -1631,14 +1928,13 @@
       <!-- ============ AUDIO ============ -->
       <audio id="vo1" src="assets/vo/vo1.wav" data-start="0.3" data-duration="5.184" data-track-index="10" data-volume="1"></audio>
       <audio id="vo2" src="assets/vo/vo2.wav" data-start="5.6" data-duration="4.736" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo3" src="assets/vo/vo3.wav" data-start="10.6" data-duration="2.41" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo4" src="assets/vo/vo4.wav" data-start="13.2" data-duration="12.16" data-track-index="10" data-volume="1"></audio>
+            <audio id="vo-ai" src="assets/vo/vo-ai.wav" data-start="10.4" data-duration="15.312" data-track-index="10" data-volume="1"></audio>
       <audio id="vo5" src="assets/vo/vo5.wav" data-start="25.8" data-duration="6.826" data-track-index="10" data-volume="1"></audio>
       <audio id="vo6" src="assets/vo/vo6.wav" data-start="33.3" data-duration="2.624" data-track-index="10" data-volume="1"></audio>
       <audio id="vo7" src="assets/vo/vo7.wav" data-start="37.4" data-duration="1.536" data-track-index="10" data-volume="1"></audio>
       <audio id="bgm" src="assets/music/bed.wav" data-start="0" data-duration="41" data-track-index="11" data-volume="0.2"></audio>
 
-      <audio id="sfx-pop1" src="assets/sfx/pop.mp3" data-start="2.5" data-duration="0.72" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-pop1" src="assets/sfx/pop.mp3" data-start="2.5" data-duration="0.72" data-track-index="13" data-volume="0.45"></audio>
       <audio id="sfx-tick1" src="assets/sfx/click-soft.mp3" data-start="2.2" data-duration="0.36" data-track-index="12" data-volume="0.5"></audio>
       <audio id="sfx-tick2" src="assets/sfx/click-soft.mp3" data-start="3.4" data-duration="0.36" data-track-index="12" data-volume="0.5"></audio>
       <audio id="sfx-tick3" src="assets/sfx/click-soft.mp3" data-start="6.2" data-duration="0.36" data-track-index="12" data-volume="0.5"></audio>
@@ -1653,21 +1949,23 @@
       <audio id="sfx-pop2" src="assets/sfx/pop.mp3" data-start="13.4" data-duration="0.72" data-track-index="12" data-volume="0.4"></audio>
       <audio id="sfx-pop3" src="assets/sfx/pop.mp3" data-start="14.5" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
       <audio id="sfx-type2" src="assets/sfx/typing.mp3" data-start="15.0" data-duration="0.65" data-track-index="13" data-volume="0.22"></audio>
-      <audio id="sfx-pop4" src="assets/sfx/pop.mp3" data-start="15.7" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-pop4" src="assets/sfx/pop.mp3" data-start="15.7" data-duration="0.72" data-track-index="13" data-volume="0.35"></audio>
       <audio id="sfx-pop5" src="assets/sfx/pop.mp3" data-start="16.8" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-chip1" src="assets/sfx/click.mp3" data-start="18.6" data-duration="0.36" data-track-index="12" data-volume="0.45"></audio>
-      <audio id="sfx-chip2" src="assets/sfx/click.mp3" data-start="19.1" data-duration="0.36" data-track-index="12" data-volume="0.45"></audio>
-      <audio id="sfx-pop6" src="assets/sfx/pop.mp3" data-start="19.9" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-pop7" src="assets/sfx/pop.mp3" data-start="20.9" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-chip3" src="assets/sfx/click.mp3" data-start="21.3" data-duration="0.36" data-track-index="13" data-volume="0.45"></audio>
-      <audio id="sfx-pop8" src="assets/sfx/pop.mp3" data-start="22.35" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-pop9" src="assets/sfx/pop.mp3" data-start="23.1" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-chip4" src="assets/sfx/click.mp3" data-start="23.5" data-duration="0.36" data-track-index="13" data-volume="0.45"></audio>
-      <audio id="sfx-snap" src="assets/sfx/whoosh-short.mp3" data-start="23.95" data-duration="0.57" data-track-index="12" data-volume="0.35"></audio>
-      <audio id="sfx-q1" src="assets/sfx/key-press.mp3" data-start="24.3" data-duration="0.43" data-track-index="13" data-volume="0.4"></audio>
-      <audio id="sfx-q2" src="assets/sfx/key-press.mp3" data-start="24.5" data-duration="0.43" data-track-index="14" data-volume="0.4"></audio>
-      <audio id="sfx-q3" src="assets/sfx/key-press.mp3" data-start="24.7" data-duration="0.43" data-track-index="12" data-volume="0.4"></audio>
-      <audio id="sfx-intent" src="assets/sfx/ping.mp3" data-start="24.95" data-duration="1.32" data-track-index="13" data-volume="0.45"></audio>
+      <audio id="sfx-chip1" src="assets/sfx/click.mp3" data-start="20.2" data-duration="0.36" data-track-index="14" data-volume="0.45"></audio>
+      <audio id="sfx-chip2" src="assets/sfx/click.mp3" data-start="20.55" data-duration="0.36" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-pop6" src="assets/sfx/pop.mp3" data-start="18.6" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-pop7" src="assets/sfx/pop.mp3" data-start="19.6" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-chip3" src="assets/sfx/click.mp3" data-start="20.9" data-duration="0.36" data-track-index="13" data-volume="0.45"></audio>
+      <audio id="sfx-pop8" src="assets/sfx/pop.mp3" data-start="21.8" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-pop9" src="assets/sfx/pop.mp3" data-start="22.5" data-duration="0.72" data-track-index="13" data-volume="0.35"></audio>
+      <audio id="sfx-chip4" src="assets/sfx/click.mp3" data-start="22.9" data-duration="0.36" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-snap" src="assets/sfx/whoosh-short.mp3" data-start="23.3" data-duration="0.57" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx-q1" src="assets/sfx/key-press.mp3" data-start="23.6" data-duration="0.43" data-track-index="13" data-volume="0.4"></audio>
+      <audio id="sfx-q2" src="assets/sfx/key-press.mp3" data-start="23.8" data-duration="0.43" data-track-index="14" data-volume="0.4"></audio>
+      <audio id="sfx-q3" src="assets/sfx/key-press.mp3" data-start="24.0" data-duration="0.43" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sfx-intent" src="assets/sfx/ping.mp3" data-start="24.3" data-duration="1.32" data-track-index="13" data-volume="0.45"></audio>
+      <audio id="sfx-call" src="assets/sfx/notification.mp3" data-start="15.3" data-duration="1.4" data-track-index="12" data-volume="0.25"></audio>
+      <audio id="sfx-min" src="assets/sfx/whoosh-short.mp3" data-start="19.9" data-duration="0.57" data-track-index="13" data-volume="0.3"></audio>
       <audio id="sfx-ws" src="assets/sfx/whoosh.mp3" data-start="25.85" data-duration="0.57" data-track-index="12" data-volume="0.45"></audio>
       <audio id="sfx-assign" src="assets/sfx/click.mp3" data-start="28.75" data-duration="0.36" data-track-index="12" data-volume="0.55"></audio>
       <audio id="sfx-handoff" src="assets/sfx/chime.mp3" data-start="28.8" data-duration="2.5" data-track-index="13" data-volume="0.25"></audio>
@@ -2020,49 +2318,79 @@
           tl.to("#lead", { opacity: 0, scale: 0.85, y: 20, filter: "blur(6px)", duration: 0.45, ease: "power2.in" }, 12.0);
           tl.to(["#ln1", "#ln2", "#ln1g", "#ln2g", "#ln-dot"], { opacity: 0, duration: 0.5 }, 12.2);
 
-          // ================= S3 — AI RESPONDS INSTANTLY (13 – 18.5) ========
+          // ================= S3 — EVERY CHAT, EVERY CALL (13 – 20) =========
           wordsOut("#h3", 12.8);
           wordsIn("#h4 .hl-big", 13.0, 0.07);
           aiMsg("m-c1", "m-a1", 12.7, 13.4);
           tl.set("#chat", { transformOrigin: "0% 0%" }, 12.9);
-          camTo(13.2, 300, 580, 1.08, 0.9, "power3.inOut");
+          camTo(13.2, 300, 580, 1.06, 0.9, "power3.inOut");
           inn("#replied", 13.6, { y: 10, s: 0.8, e: "back.out(2)" });
           userMsg("m-c2", 14.5);
-          aiMsg("m-c2", "m-a2", 15.0, 15.7);
+          camTo(14.4, 540, 620, 1.0, 0.8, "power3.inOut");
+          // "...or voice calls": the AI agent picks up a WhatsApp call
+          tl.to(["#clock", "#replied"], { opacity: 0, y: -14, duration: 0.3, ease: "power2.in" }, 15.0);
+          tl.fromTo(
+            "#call",
+            { opacity: 0, y: 70, rotationY: -26, transformPerspective: 1500, transformOrigin: "100% 50%" },
+            { opacity: 1, y: 0, rotationY: 0, duration: 0.8, ease: "power4.out", ...IR },
+            15.25,
+          );
+          tl.fromTo(".call-face", { scale: 0.7 }, { scale: 1, duration: 0.6, ease: "back.out(2)", ...IR }, 15.45);
+          // live voice: deterministic waveform around the agent avatar
+          document.querySelectorAll("#call .wv").forEach((w, k) => {
+            const d = 0.16 + ((k * 7) % 5) * 0.03;
+            const reps = Math.floor(4.4 / d);
+            tl.fromTo(
+              w,
+              { scaleY: 0.35 + ((k * 3) % 4) * 0.12 },
+              { scaleY: 1.3 + ((k * 5) % 6) * 0.22, duration: d, ease: "sine.inOut", yoyo: true, repeat: reps, ...IR },
+              15.6 + (k % 6) * 0.03,
+            );
+          });
+          aiMsg("m-c2", "m-a2", 15.2, 15.8);
           userMsg("m-c3", 16.8);
-          camTo(14.2, 300, 580, 1.1, 4.0, "sine.inOut");
+          tl.fromTo("#tx1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", ...IR }, 16.6);
+          tl.fromTo("#tx2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", ...IR }, 18.3);
+          camTo(16.4, 830, 620, 1.05, 1.6, "sine.inOut");
+          aiMsg("m-c3", "m-a3", 18.1, 18.6);
+          camTo(18.6, 540, 620, 1.0, 0.8, "power3.inOut");
+          userMsg("m-c4", 19.6);
 
-          // ================= S4 — UNDERSTANDS THE NEED (18.5 – 22) =========
-          wordsOut("#h4", 18.3);
-          wordsIn("#h5 .hl-big", 18.5);
-          wordsIn("#h5 .hl-sub", 18.9, 0.04);
-          tl.to("#replied", { opacity: 0, scale: 0.8, duration: 0.25 }, 18.3);
-          camTo(18.3, 760, 580, 1.05, 0.9, "power3.inOut");
-          extract("mk-lead", "chip-lead", 18.6);
-          extract("mk-team", "chip-team", 19.1);
-          aiMsg("m-c3", "m-a3", 19.35, 19.9);
-          userMsg("m-c4", 20.9);
-          extract("mk-mgr", "chip-mgr", 21.3);
+          // ================= S4 — UNDERSTANDS THE NEED (20 – 21.4) =========
+          wordsOut("#h4", 19.8);
+          wordsIn("#h5 .hl-big", 20.0);
+          wordsIn("#h5 .hl-sub", 20.3, 0.04);
+          // the call keeps running, docked as a live pill
+          tl.to("#call", { scale: 0.2, y: -250, opacity: 0, duration: 0.45, ease: "power3.in", transformOrigin: "50% 0%" }, 19.85);
+          tl.fromTo("#call-pill", { opacity: 0, scaleY: 0.4, y: -10 }, { opacity: 1, scaleY: 1, y: 0, duration: 0.4, ease: "back.out(2)", ...IR }, 20.15);
+          document.querySelectorAll("#call-pill .cp-wave i").forEach((w, k) => {
+            const d = 0.18 + k * 0.035;
+            tl.fromTo(w, { scaleY: 0.3 }, { scaleY: 1, duration: d, ease: "sine.inOut", yoyo: true, repeat: Math.floor(5.4 / d), ...IR }, 20.2 + k * 0.04);
+          });
+          tl.to("#call-pill", { opacity: 0, y: -10, duration: 0.3 }, 25.7);
+          extract("mk-lead", "chip-lead", 20.2);
+          extract("mk-team", "chip-team", 20.55);
+          extract("mk-mgr", "chip-mgr", 20.9);
 
-          // ================= S5 — BUYING INTENT (22 – 25.8) ================
-          wordsOut("#h5", 21.8);
-          wordsIn("#h6 .hl-big", 22.0);
-          wordsIn("#h6 .hl-sub", 24.0, 0.04);
-          aiMsg("m-c4", "m-a4", 21.85, 22.35);
-          userMsg("m-c5", 23.1);
-          extract("mk-time", "chip-time", 23.5);
-          camTo(23.4, 830, 658, 1.0, 0.5, "power3.inOut");
-          // the same lead card returns, now as the qualification card
-          tl.set("#lead", { height: 360, top: 478 }, 23.8);
-          tl.set(".lead-a", { opacity: 0 }, 23.8);
-          tl.set(".lead-b", { opacity: 1 }, 23.8);
+          // ================= S5 — QUALIFIED, BUYING INTENT (21.4 – 25.8) ===
+          wordsOut("#h5", 21.15);
+          wordsIn("#h6 .hl-big", 21.35);
+          wordsIn("#h6 .hl-sub", 24.3, 0.04);
+          aiMsg("m-c4", "m-a4", 21.35, 21.8);
+          userMsg("m-c5", 22.5);
+          extract("mk-time", "chip-time", 22.9);
+          // the same lead card returns, now as the AI chat summary
+          tl.set("#lead", { height: 400, top: 458 }, 23.2);
+          tl.set(".lead-a", { opacity: 0 }, 23.2);
+          tl.set(".lead-b", { opacity: 1 }, 23.2);
+          tl.set("#lead", { backgroundColor: "#ffffff" }, 23.2);
           tl.fromTo(
             "#lead",
             { opacity: 0, scale: 0.9, y: 0, filter: "blur(6px)" },
             { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power3.out", ...IR },
-            23.85,
+            23.25,
           );
-          const rowY = (id) => 478 + document.getElementById(id).offsetTop + 4;
+          const rowY = (id) => 458 + document.getElementById(id).offsetTop + 4;
           [
             ["#chip-lead", "q-need"],
             ["#chip-mgr", "q-need"],
@@ -2072,27 +2400,27 @@
             const c = $(chip);
             const dy = rowY(row) - c.offsetTop;
             // magnetic pull: accelerate in, collapse on contact
-            tl.to(chip, { y: dy, x: 16, scale: 0.6, rotation: (i % 2 ? 4 : -4), duration: 0.42, ease: "power4.in" }, 23.95 + i * 0.06);
-            tl.to(chip, { opacity: 0, duration: 0.08 }, 24.33 + i * 0.06);
+            tl.to(chip, { y: dy, x: 16, scale: 0.6, rotation: (i % 2 ? 4 : -4), duration: 0.42, ease: "power4.in" }, 23.3 + i * 0.06);
+            tl.to(chip, { opacity: 0, duration: 0.08 }, 23.68 + i * 0.06);
           });
-          tl.fromTo("#lead", { scale: 1 }, { scale: 1.03, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", ...IR }, 24.3);
+          tl.fromTo("#lead", { scale: 1 }, { scale: 1.03, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", ...IR }, 23.65);
           ["#q-need", "#q-team", "#q-time"].forEach((r, i) => {
-            const t = 24.3 + i * 0.2;
+            const t = 23.6 + i * 0.2;
             tl.fromTo(r + " .q-check", { opacity: 0, scale: 0.2, rotation: -90 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2.6)", ...IR }, t);
-            tl.fromTo(r, { backgroundColor: "rgba(39,179,120,0.22)" }, { backgroundColor: "rgba(39,179,120,0)", duration: 0.6, ...IR }, t);
+            tl.fromTo(r, { backgroundColor: "rgba(39,179,120,0.18)" }, { backgroundColor: "rgba(39,179,120,0)", duration: 0.6, ...IR }, t);
           });
-          tl.fromTo("#p-final", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.6)", ...IR }, 24.95);
-          ring(830, 658, 24.95, 300, { to: 1.7, d: 0.9 });
-          ring(830, 658, 25.08, 300, { to: 2.3, d: 1.0 });
-          burst(830, 658, 24.95, 18, { dist: 210 });
-          camTo(24.9, 830, 658, 1.09, 0.35, "power4.out");
-          tl.to("#lead", { boxShadow: "0 0 0 10px rgba(39,179,120,0.18), 0 30px 60px -26px rgba(19,128,74,0.65)", duration: 0.4 }, 24.95);
+          tl.fromTo("#p-final", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.6)", ...IR }, 24.3);
+          ring(830, 658, 24.3, 300, { to: 1.7, d: 0.9 });
+          ring(830, 658, 24.43, 300, { to: 2.3, d: 1.0 });
+          burst(830, 658, 24.3, 18, { dist: 210 });
+          camTo(24.25, 830, 658, 1.08, 0.35, "power4.out");
+          tl.to("#lead", { boxShadow: "0 0 0 10px rgba(39,179,120,0.18), 0 30px 60px -26px rgba(19,128,74,0.65)", duration: 0.4 }, 24.3);
 
           // ================= S6 — AI → HUMAN HANDOFF (25.8 – 30.2) =========
           wordsOut("#h6", 25.6);
           wordsIn("#h7 .hl-big", 25.85);
           wordsIn("#h7 .hl-sub", 26.4, 0.04);
-          tl.to("#clock", { opacity: 0, y: -10, duration: 0.3 }, 25.7);
+          
           camTo(25.6, 540, 640, 1.0, 0.7, "power3.inOut");
           tl.to("#chat", { scale: 0.66, x: -10, y: 70, duration: 0.7, ease: "power4.inOut" }, 25.8);
           tl.to("#chat", { filter: "blur(2.5px) saturate(1)", opacity: 0.75, duration: 0.6 }, 26.4);
