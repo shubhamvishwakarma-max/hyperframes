@@ -29,10 +29,10 @@
         }
         #f11-win {
           position: absolute;
-          left: 60px;
-          top: 340px;
-          width: 960px;
-          height: 820px;
+          left: 360px;
+          top: 150px;
+          width: 1200px;
+          height: 640px;
           box-sizing: border-box;
           border-radius: 34px;
           border: 8px solid #ddd5c6;
@@ -45,7 +45,7 @@
           position: absolute;
           left: 32px;
           top: 34px;
-          max-width: 820px;
+          max-width: 1100px;
           box-sizing: border-box;
           padding: 24px 28px 16px;
           background: #ffffff;
@@ -66,12 +66,12 @@
         }
         #f11-composer {
           position: absolute;
-          left: 90px;
-          top: 1010px;
-          width: 770px;
-          height: 110px;
+          left: 390px;
+          top: 642px;
+          width: 1010px;
+          height: 118px;
           box-sizing: border-box;
-          border-radius: 999px;
+          border-radius: 59px;
           background: #ffffff;
           display: flex;
           align-items: center;
@@ -92,15 +92,15 @@
         #f11-field {
           position: relative;
           flex: 1 1 auto;
-          height: 60px;
+          height: 76px;
         }
         #f11-hl {
           position: absolute;
-          left: -8px;
-          top: 6px;
-          width: 470px;
-          height: 48px;
-          border-radius: 24px;
+          left: -10px;
+          top: -2px;
+          width: 758px;
+          height: 80px;
+          border-radius: 28px;
           background: rgba(34, 240, 138, 0.55);
           filter: blur(6px);
         }
@@ -108,17 +108,16 @@
           position: absolute;
           left: 0;
           top: 0;
-          width: 470px;
-          height: 60px;
-          line-height: 60px;
-          font-size: 29px;
+          width: 738px;
+          height: 76px;
+          line-height: 38px;
+          font-size: 28px;
           color: #1c1c1e;
-          white-space: nowrap;
         }
         #f11-send {
           position: absolute;
-          left: 880px;
-          top: 1010px;
+          left: 1416px;
+          top: 646px;
           width: 110px;
           height: 110px;
           border-radius: 50%;
@@ -136,10 +135,10 @@
         }
         #f11-panel {
           position: absolute;
-          left: 90px;
-          top: 700px;
-          width: 900px;
-          height: 290px;
+          left: 390px;
+          top: 366px;
+          width: 1140px;
+          height: 256px;
           border-radius: 22px;
           background: #ffffff;
           box-shadow: 0 16px 40px rgba(60, 40, 20, 0.14);
@@ -230,16 +229,16 @@
         }
         .f11-cap {
           position: absolute;
-          left: 80px;
-          top: 1230px;
-          width: 920px;
-          height: 230px;
+          left: 180px;
+          top: 810px;
+          width: 1560px;
+          height: 150px;
           display: flex;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
           justify-content: center;
           align-content: center;
           column-gap: 22px;
-          font-size: 78px;
+          font-size: 68px;
           line-height: 1.12;
           font-weight: 500;
           letter-spacing: -0.025em;
@@ -253,7 +252,7 @@
         }
       </style>
 
-      <div id="root" data-composition-id="f11" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="f11" data-width="1920" data-height="1080">
         <div id="f11-bg"></div>
         <div id="f11-stage">
           <div id="f11-win">
@@ -287,7 +286,7 @@
             </svg>
             <div id="f11-field">
               <div id="f11-hl"></div>
-              <div id="f11-ctext">Sorry for the delay. Let me check…</div>
+              <div id="f11-ctext">Sorry for the delay. Let me check your order status and update you shortly.</div>
             </div>
             <svg id="f11-wand" class="f11-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" />
@@ -310,16 +309,16 @@
             </svg>
           </div>
 
-          <!-- click 1: magic wand (734,1065) -->
-          <div class="f11-ring" id="f11-ring1" style="left: 694px; top: 1025px"></div>
-          <svg class="f11-star" id="f11-s1a" viewBox="0 0 24 24" style="left: 672px; top: 990px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f11-star" id="f11-s1b" viewBox="0 0 24 24" style="left: 650px; top: 1040px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f11-star" id="f11-s1c" viewBox="0 0 24 24" style="left: 712px; top: 968px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <!-- click 2: Use answer (851,754) -->
-          <div class="f11-ring" id="f11-ring2" style="left: 811px; top: 714px"></div>
-          <svg class="f11-star" id="f11-s2a" viewBox="0 0 24 24" style="left: 790px; top: 680px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f11-star" id="f11-s2b" viewBox="0 0 24 24" style="left: 768px; top: 734px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f11-star" id="f11-s2c" viewBox="0 0 24 24" style="left: 834px; top: 660px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <!-- click 1: magic wand (1276,701) -->
+          <div class="f11-ring" id="f11-ring1" style="left: 1236px; top: 661px"></div>
+          <svg class="f11-star" id="f11-s1a" viewBox="0 0 24 24" style="left: 1214px; top: 626px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f11-star" id="f11-s1b" viewBox="0 0 24 24" style="left: 1192px; top: 676px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f11-star" id="f11-s1c" viewBox="0 0 24 24" style="left: 1254px; top: 604px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <!-- click 2: Use answer (1391,422) -->
+          <div class="f11-ring" id="f11-ring2" style="left: 1351px; top: 382px"></div>
+          <svg class="f11-star" id="f11-s2a" viewBox="0 0 24 24" style="left: 1330px; top: 348px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f11-star" id="f11-s2b" viewBox="0 0 24 24" style="left: 1308px; top: 402px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f11-star" id="f11-s2c" viewBox="0 0 24 24" style="left: 1374px; top: 328px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
 
           <div class="f11-cursor" id="f11-cursor">
             <svg id="f11-hand" viewBox="0 0 24 24" aria-hidden="true">
@@ -384,9 +383,9 @@
           tl.fromTo("#f11-stage", { scale: 1 }, { scale: 1.025, duration: 5.1, ease: "none", transformOrigin: "50% 45%" }, 0);
 
           // Cursor: in from the right → magic wand → click
-          tl.fromTo("#f11-cursor", { x: 1000 - HX, y: 1240 - HY, opacity: 0 }, { x: 960 - HX, y: 1180 - HY, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.45);
-          move(940, 1080, 0.8, 0.35);
-          move(734, 1065, 1.15, 0.4);
+          tl.fromTo("#f11-cursor", { x: 1720 - HX, y: 760 - HY, opacity: 0 }, { x: 1650 - HX, y: 720 - HY, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.45);
+          move(1580, 700, 0.8, 0.35);
+          move(1276, 701, 1.15, 0.4);
           click(1, 1.6);
           tl.fromTo("#f11-wand", { color: "#6B665F" }, { color: "#1FA855", duration: 0.2 }, 1.6);
 
@@ -405,13 +404,13 @@
           tl.fromTo(chars, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 1.25 / chars.length, ease: "none" }, 2.05);
 
           // Cursor → Use answer → click; text lands in the composer
-          move(851, 754, 3.4, 0.5);
+          move(1391, 422, 3.4, 0.5);
           click(2, 3.98);
           tl.fromTo("#f11-use", { backgroundColor: "#D3F5E1" }, { backgroundColor: "#A9E8C4", duration: 0.12, yoyo: true, repeat: 1 }, 3.98);
           tl.fromTo("#f11-hl", { opacity: 0, scaleX: 0, transformOrigin: "0% 50%" }, { opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.out" }, 4.08);
           tl.fromTo("#f11-ctext", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 4.3);
           tl.to("#f11-hl", { opacity: 0, duration: 0.4, ease: "power1.in" }, 4.55);
-          move(900, 860, 4.3, 0.7);
+          move(1460, 540, 4.3, 0.7);
 
           // Captions
           word("#f11-w-ai", 0.05);

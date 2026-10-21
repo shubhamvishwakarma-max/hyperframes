@@ -24,10 +24,10 @@
         }
         #f12-win {
           position: absolute;
-          left: 60px;
-          top: 340px;
-          width: 960px;
-          height: 820px;
+          left: 360px;
+          top: 150px;
+          width: 1200px;
+          height: 640px;
           box-sizing: border-box;
           border-radius: 34px;
           border: 8px solid #ddd5c6;
@@ -40,7 +40,7 @@
           position: absolute;
           left: 32px;
           top: 34px;
-          width: 640px;
+          max-width: 1100px;
           box-sizing: border-box;
           padding: 24px 28px 16px;
           background: #ffffff;
@@ -61,12 +61,12 @@
         }
         #f12-composer {
           position: absolute;
-          left: 90px;
-          top: 1010px;
-          width: 770px;
-          height: 110px;
+          left: 390px;
+          top: 642px;
+          width: 1010px;
+          height: 118px;
           box-sizing: border-box;
-          border-radius: 999px;
+          border-radius: 59px;
           background: #ffffff;
           display: flex;
           align-items: center;
@@ -87,23 +87,23 @@
         #f12-field {
           position: relative;
           flex: 1 1 auto;
-          height: 60px;
+          height: 76px;
         }
         #f12-hl {
           position: absolute;
-          left: -8px;
-          top: 6px;
-          width: 470px;
-          height: 48px;
-          border-radius: 24px;
+          left: -10px;
+          top: -2px;
+          width: 758px;
+          height: 80px;
+          border-radius: 28px;
           background: rgba(34, 240, 138, 0.55);
           filter: blur(6px);
         }
         #f12-hl0 {
           position: absolute;
           left: -8px;
-          top: 6px;
-          width: 360px;
+          top: 14px;
+          width: 345px;
           height: 48px;
           border-radius: 24px;
           background: rgba(34, 240, 138, 0.5);
@@ -114,9 +114,9 @@
           left: 0;
           top: 0;
           width: 400px;
-          height: 60px;
-          line-height: 60px;
-          font-size: 29px;
+          height: 76px;
+          line-height: 76px;
+          font-size: 28px;
           color: #1c1c1e;
           white-space: nowrap;
         }
@@ -124,17 +124,16 @@
           position: absolute;
           left: 0;
           top: 0;
-          width: 470px;
-          height: 60px;
-          line-height: 60px;
-          font-size: 29px;
+          width: 738px;
+          height: 76px;
+          line-height: 38px;
+          font-size: 28px;
           color: #1c1c1e;
-          white-space: nowrap;
         }
         #f12-send {
           position: absolute;
-          left: 880px;
-          top: 1010px;
+          left: 1416px;
+          top: 646px;
           width: 110px;
           height: 110px;
           border-radius: 50%;
@@ -152,10 +151,10 @@
         }
         #f12-panel {
           position: absolute;
-          left: 90px;
-          top: 700px;
-          width: 900px;
-          height: 290px;
+          left: 390px;
+          top: 366px;
+          width: 1140px;
+          height: 256px;
           border-radius: 22px;
           background: #ffffff;
           box-shadow: 0 16px 40px rgba(60, 40, 20, 0.14);
@@ -246,16 +245,16 @@
         }
         .f12-cap {
           position: absolute;
-          left: 80px;
-          top: 1230px;
-          width: 920px;
-          height: 230px;
+          left: 180px;
+          top: 810px;
+          width: 1560px;
+          height: 150px;
           display: flex;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
           justify-content: center;
           align-content: center;
           column-gap: 22px;
-          font-size: 78px;
+          font-size: 68px;
           line-height: 1.12;
           font-weight: 500;
           letter-spacing: -0.025em;
@@ -272,7 +271,7 @@
         }
       </style>
 
-      <div id="root" data-composition-id="f12" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="f12" data-width="1920" data-height="1080">
         <div id="f12-bg"></div>
         <div id="f12-stage">
           <div id="f12-win">
@@ -312,7 +311,7 @@
               <div id="f12-hl"></div>
               <div id="f12-hl0"></div>
               <div id="f12-draft">Sry abt that. Lmme check</div>
-              <div id="f12-ctext">Sorry about that. Let me check…</div>
+              <div id="f12-ctext">Sorry about that. Let me check the duplicate charge and assist you with the refund.</div>
             </div>
             <svg id="f12-wand" class="f12-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" />
@@ -335,16 +334,16 @@
             </svg>
           </div>
 
-          <!-- click 1: magic wand (734,1065) -->
-          <div class="f12-ring" id="f12-ring1" style="left: 694px; top: 1025px"></div>
-          <svg class="f12-star" id="f12-s1a" viewBox="0 0 24 24" style="left: 672px; top: 990px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f12-star" id="f12-s1b" viewBox="0 0 24 24" style="left: 650px; top: 1040px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f12-star" id="f12-s1c" viewBox="0 0 24 24" style="left: 712px; top: 968px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <!-- click 2: Use answer (851,754) -->
-          <div class="f12-ring" id="f12-ring2" style="left: 811px; top: 714px"></div>
-          <svg class="f12-star" id="f12-s2a" viewBox="0 0 24 24" style="left: 790px; top: 680px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f12-star" id="f12-s2b" viewBox="0 0 24 24" style="left: 768px; top: 734px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f12-star" id="f12-s2c" viewBox="0 0 24 24" style="left: 834px; top: 660px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <!-- click 1: magic wand (1276,701) -->
+          <div class="f12-ring" id="f12-ring1" style="left: 1236px; top: 661px"></div>
+          <svg class="f12-star" id="f12-s1a" viewBox="0 0 24 24" style="left: 1214px; top: 626px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f12-star" id="f12-s1b" viewBox="0 0 24 24" style="left: 1192px; top: 676px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f12-star" id="f12-s1c" viewBox="0 0 24 24" style="left: 1254px; top: 604px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <!-- click 2: Use answer (1391,422) -->
+          <div class="f12-ring" id="f12-ring2" style="left: 1351px; top: 382px"></div>
+          <svg class="f12-star" id="f12-s2a" viewBox="0 0 24 24" style="left: 1330px; top: 348px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f12-star" id="f12-s2b" viewBox="0 0 24 24" style="left: 1308px; top: 402px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f12-star" id="f12-s2c" viewBox="0 0 24 24" style="left: 1374px; top: 328px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
 
           <div class="f12-cursor" id="f12-cursor">
             <svg id="f12-hand" viewBox="0 0 24 24" aria-hidden="true">
@@ -419,10 +418,10 @@
           tl.fromTo(draft.slice(12), { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.03, ease: "none" }, 0.78);
 
           // Cursor in near send, sweeps the draft highlight, then hits the magic wand
-          tl.fromTo("#f12-cursor", { x: 1010 - HX, y: 1220 - HY, opacity: 0 }, { x: 960 - HX, y: 1100 - HY, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.6);
-          move(560, 1068, 1.0, 0.35);
+          tl.fromTo("#f12-cursor", { x: 1720 - HX, y: 760 - HY, opacity: 0 }, { x: 1620 - HX, y: 710 - HY, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.6);
+          move(860, 704, 1.0, 0.35);
           tl.fromTo("#f12-hl0", { opacity: 0, scaleX: 0, transformOrigin: "0% 50%" }, { opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.out" }, 1.08);
-          move(734, 1065, 1.3, 0.3);
+          move(1276, 701, 1.3, 0.3);
           click(1, 1.62);
           tl.fromTo("#f12-wand", { color: "#6B665F" }, { color: "#1FA855", duration: 0.2 }, 1.62);
 
@@ -433,7 +432,7 @@
           tl.fromTo(chars, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 1.2 / chars.length, ease: "none" }, 2.05);
 
           // Use answer → composer text replaced
-          move(851, 754, 3.35, 0.5);
+          move(1391, 422, 3.35, 0.5);
           click(2, 3.92);
           tl.fromTo("#f12-use", { backgroundColor: "#D3F5E1" }, { backgroundColor: "#A9E8C4", duration: 0.12, yoyo: true, repeat: 1 }, 3.92);
           tl.to("#f12-draft", { opacity: 0, duration: 0.15, ease: "power1.in" }, 4.0);
@@ -441,7 +440,7 @@
           tl.fromTo("#f12-hl", { opacity: 0, scaleX: 0, transformOrigin: "0% 50%" }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power2.out" }, 4.02);
           tl.fromTo("#f12-ctext", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 4.15);
           tl.to("#f12-hl", { opacity: 0, duration: 0.4, ease: "power1.in" }, 4.45);
-          move(900, 860, 4.25, 0.6);
+          move(1460, 540, 4.25, 0.6);
 
           // Captions
           word("#f12-w-ai", 0.08);

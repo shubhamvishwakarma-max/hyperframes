@@ -29,10 +29,10 @@
         }
         #f13-card {
           position: absolute;
-          left: 60px;
-          top: 340px;
-          width: 700px;
-          height: 830px;
+          left: 250px;
+          top: 150px;
+          width: 800px;
+          height: 640px;
           box-sizing: border-box;
           border-radius: 34px;
           border: 3px solid #e2dccf;
@@ -44,7 +44,7 @@
           position: absolute;
           left: 0;
           top: 0;
-          width: 694px;
+          width: 794px;
           height: 108px;
           box-sizing: border-box;
           padding: 0 32px;
@@ -72,7 +72,7 @@
           position: absolute;
           left: 0;
           top: 110px;
-          width: 694px;
+          width: 794px;
           height: 170px;
           box-sizing: border-box;
           border-bottom: 2px solid #ece6dd;
@@ -96,14 +96,14 @@
           position: absolute;
           left: 96px;
           top: 74px;
-          width: 440px;
+          width: 540px;
           font-size: 25px;
           line-height: 1.3;
           color: #5f5a54;
         }
         #f13-toggle {
           position: absolute;
-          left: 580px;
+          left: 680px;
           top: 36px;
           width: 88px;
           height: 48px;
@@ -124,19 +124,19 @@
           position: absolute;
           left: 0;
           top: 282px;
-          width: 694px;
-          height: 545px;
+          width: 794px;
+          height: 352px;
           overflow: hidden;
         }
         #f13-list {
           position: absolute;
           left: 0;
           top: 0;
-          width: 694px;
+          width: 794px;
         }
         .f13-row {
           position: relative;
-          width: 694px;
+          width: 794px;
           height: 140px;
           box-sizing: border-box;
           border-bottom: 2px solid #f1ece4;
@@ -168,7 +168,7 @@
           position: absolute;
           left: 128px;
           top: 74px;
-          width: 420px;
+          width: 520px;
           display: flex;
           align-items: center;
           gap: 8px;
@@ -224,9 +224,9 @@
         }
         #f13-dd {
           position: absolute;
-          left: 520px;
-          top: 650px;
-          width: 500px;
+          left: 1110px;
+          top: 290px;
+          width: 560px;
           height: 330px;
           border-radius: 22px;
           background: #ffffff;
@@ -238,7 +238,7 @@
           position: absolute;
           left: 0;
           top: 0;
-          width: 496px;
+          width: 556px;
           height: 86px;
           box-sizing: border-box;
           padding: 0 28px;
@@ -261,7 +261,7 @@
         .f13-opt {
           position: absolute;
           left: 0;
-          width: 496px;
+          width: 556px;
           height: 78px;
           box-sizing: border-box;
           padding: 0 28px 0 52px;
@@ -316,8 +316,8 @@
         }
         #f13-ring {
           position: absolute;
-          left: 647px;
-          top: 470px;
+          left: 937px;
+          top: 280px;
           width: 80px;
           height: 80px;
           border-radius: 50%;
@@ -327,16 +327,16 @@
         }
         .f13-cap {
           position: absolute;
-          left: 80px;
-          top: 1230px;
-          width: 920px;
-          height: 230px;
+          left: 180px;
+          top: 810px;
+          width: 1560px;
+          height: 150px;
           display: flex;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
           justify-content: center;
           align-content: center;
           column-gap: 22px;
-          font-size: 78px;
+          font-size: 68px;
           line-height: 1.12;
           font-weight: 500;
           letter-spacing: -0.025em;
@@ -347,7 +347,7 @@
         }
       </style>
 
-      <div id="root" data-composition-id="f13" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="f13" data-width="1920" data-height="1080">
         <div id="f13-bg"></div>
         <div id="f13-stage">
           <div id="f13-card">
@@ -429,7 +429,7 @@
             </div>
           </div>
 
-          <div id="f13-dd" data-layout-allow-overlap>
+          <div id="f13-dd">
             <div id="f13-dd-h">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
@@ -486,15 +486,15 @@
           };
           const HX = 41;
           const HY = 10;
-          const TX = 687;
-          const TY = 510;
+          const TX = 977;
+          const TY = 320;
 
           // Card arrives + slow push-in
           tl.fromTo("#f13-card", { opacity: 0.3, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0);
           tl.fromTo("#f13-stage", { scale: 1 }, { scale: 1.03, duration: 4.0, ease: "none", transformOrigin: "50% 45%" }, 0);
 
           // Cursor glides to the AI filtering toggle, hovers, clicks
-          tl.fromTo("#f13-cursor", { x: 960 - HX, y: 520 - HY, opacity: 0 }, { x: 900 - HX, y: 600 - HY, opacity: 1, duration: 0.2, ease: "power2.out" }, 0.05);
+          tl.fromTo("#f13-cursor", { x: 1250 - HX, y: 560 - HY, opacity: 0 }, { x: 1170 - HX, y: 480 - HY, opacity: 1, duration: 0.2, ease: "power2.out" }, 0.05);
           tl.to("#f13-cursor", { x: TX + 6 - HX, y: TY + 6 - HY, duration: 0.4, ease: "power2.inOut" }, 0.25);
           tl.to("#f13-cursor", { x: TX - HX, y: TY - HY, duration: 0.5, ease: "sine.inOut" }, 0.7);
           tl.fromTo("#f13-hand", { scale: 1 }, { scale: 0.85, duration: 0.08, ease: "power1.out", transformOrigin: "33% 10%" }, 1.2);
@@ -504,7 +504,7 @@
           tl.fromTo("#f13-knob", { x: 0 }, { x: 40, duration: 0.22, ease: "power2.out" }, 1.24);
 
           // Dropdown opens; awaiting count drops as AI filters
-          tl.fromTo("#f13-dd", { opacity: 0, y: -16, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.6)", transformOrigin: "60% 0%" }, 1.32);
+          tl.fromTo("#f13-dd", { opacity: 0, x: -24, scale: 0.94 }, { opacity: 1, x: 0, scale: 1, duration: 0.3, ease: "back.out(1.6)", transformOrigin: "0% 20%" }, 1.32);
           const steps = [1.32, 1.67, 2.0, 2.33, 2.67, 3.0];
           steps.forEach((t, i) => {
             tl.set("#f13-n" + i, { opacity: 1 }, t);

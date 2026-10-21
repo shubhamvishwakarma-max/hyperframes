@@ -31,7 +31,7 @@
         /* ---------- shared customer card ---------- */
         .f04-row {
           position: absolute;
-          width: 900px;
+          width: 840px;
           height: 140px;
         }
         .f04-alert {
@@ -51,7 +51,7 @@
           position: absolute;
           left: 80px;
           top: 0;
-          width: 800px;
+          width: 760px;
           height: 140px;
           background: #ffffff;
           border: 2px solid #ece6dd;
@@ -97,21 +97,21 @@
         /* ---------- beat A ---------- */
         #f04-stack {
           position: absolute;
-          left: 60px;
-          top: 360px;
-          width: 960px;
-          height: 800px;
+          left: 110px;
+          top: 210px;
+          width: 1700px;
+          height: 520px;
         }
         #f04-ignored {
           position: absolute;
           left: 0;
-          top: 560px;
-          width: 1080px;
-          height: 280px;
+          top: 300px;
+          width: 1920px;
+          height: 340px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 240px;
+          font-size: 300px;
           font-weight: 600;
           letter-spacing: -0.045em;
           color: #1c1c1e;
@@ -120,18 +120,20 @@
         /* ---------- captions ---------- */
         .f04-cap {
           position: absolute;
-          left: 80px;
-          top: 1240px;
-          width: 920px;
-          height: 220px;
+          left: 180px;
+          top: 810px;
+          width: 1560px;
+          height: 150px;
           display: flex;
           flex-wrap: wrap;
           align-content: center;
           justify-content: center;
           column-gap: 22px;
           row-gap: 0;
-          font-size: 78px;
+          font-size: 68px;
           font-weight: 500;
+          flex-wrap: nowrap;
+          white-space: nowrap;
           line-height: 1.12;
           letter-spacing: -0.025em;
         }
@@ -146,10 +148,10 @@
         /* ---------- beat B: chat window ---------- */
         #f04-chat {
           position: absolute;
-          left: 60px;
-          top: 420px;
-          width: 960px;
-          height: 640px;
+          left: 360px;
+          top: 170px;
+          width: 1200px;
+          height: 600px;
           border-radius: 40px;
           background: #efeae2;
           border: 8px solid #ddd6cb;
@@ -175,18 +177,18 @@
           color: #6f685f;
         }
         #f04-b1 {
-          top: 40px;
-          width: 680px;
+          top: 44px;
+          width: 700px;
         }
         #f04-b2 {
-          top: 190px;
+          top: 194px;
           width: 500px;
         }
         #f04-comp {
           position: absolute;
           left: 28px;
           bottom: 28px;
-          width: 760px;
+          width: 1000px;
           height: 112px;
           border-radius: 999px;
           background: #ffffff;
@@ -235,8 +237,8 @@
         /* ---------- beat C: SLA ---------- */
         #f04-sla {
           position: absolute;
-          left: 150px;
-          top: 610px;
+          left: 570px;
+          top: 330px;
           width: 780px;
           height: 180px;
           opacity: 0;
@@ -263,9 +265,9 @@
         }
         #f04-scard {
           position: absolute;
-          left: 80px;
-          top: 650px;
-          width: 920px;
+          left: 410px;
+          top: 320px;
+          width: 1100px;
           height: 270px;
           background: #ffffff;
           border: 2px solid #ece6dd;
@@ -331,8 +333,8 @@
         #f04-still {
           position: absolute;
           inset: 0;
-          width: 1080px;
-          height: 1920px;
+          width: 1920px;
+          height: 1080px;
           object-fit: cover;
           filter: grayscale(1) blur(26px) brightness(0.55);
         }
@@ -342,18 +344,18 @@
           background: linear-gradient(
             to bottom,
             rgba(0, 0, 0, 0.35) 0px,
-            rgba(0, 0, 0, 0.1) 600px,
-            rgba(0, 0, 0, 0.7) 1180px,
-            rgba(0, 0, 0, 0.88) 1300px,
-            rgba(0, 0, 0, 0.92) 1920px
+            rgba(0, 0, 0, 0.15) 400px,
+            rgba(0, 0, 0, 0.7) 790px,
+            rgba(0, 0, 0, 0.88) 880px,
+            rgba(0, 0, 0, 0.92) 1080px
           );
         }
         #f04-panel {
           position: absolute;
-          left: 60px;
-          top: 330px;
-          width: 960px;
-          height: 860px;
+          left: 120px;
+          top: 150px;
+          width: 1680px;
+          height: 650px;
           border-radius: 44px;
           background: rgba(255, 255, 255, 0.1);
           border: 2px solid rgba(255, 255, 255, 0.22);
@@ -363,25 +365,28 @@
         #f04-dmask {
           position: absolute;
           inset: 0;
-          -webkit-mask-image: linear-gradient(to bottom, transparent 0px, #000 70px, #000 790px, transparent 860px);
-          mask-image: linear-gradient(to bottom, transparent 0px, #000 70px, #000 790px, transparent 860px);
+          -webkit-mask-image: linear-gradient(to bottom, transparent 0px, #000 36px, #000 614px, transparent 650px);
+          mask-image: linear-gradient(to bottom, transparent 0px, #000 36px, #000 614px, transparent 650px);
         }
         #f04-dcol {
           position: absolute;
-          left: 26px;
+          left: 45px;
           top: 0;
-          width: 900px;
-          height: 1130px;
+          width: 1590px;
+          height: 632px;
+        }
+        .f04-drow {
+          width: 770px;
         }
         .f04-drow .f04-alert {
           color: rgba(255, 255, 255, 0.85);
         }
         .f04-drow .f04-card {
-          width: 810px;
+          width: 690px;
         }
       </style>
 
-      <div id="root" data-composition-id="f04" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="f04" data-width="1920" data-height="1080">
         <div id="f04-bg"></div>
         <div id="f04-grid"></div>
 
@@ -393,28 +398,28 @@
               <div class="f04-txt"><div class="f04-name">Customer 2</div><div class="f04-msg">When can you call me?</div></div>
             </div>
           </div>
-          <div class="f04-row f04-arow" id="f04-a2" style="top: 164px; left: 40px">
+          <div class="f04-row f04-arow" id="f04-a2" style="top: 90px; left: 850px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C4</div>
               <div class="f04-txt"><div class="f04-name">Customer 4</div><div class="f04-msg">Let me know when can we meet</div></div>
             </div>
           </div>
-          <div class="f04-row f04-arow" id="f04-a3" style="top: 328px; left: -20px">
+          <div class="f04-row f04-arow" id="f04-a3" style="top: 190px; left: 30px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C6</div>
               <div class="f04-txt"><div class="f04-name">Customer 6</div><div class="f04-msg">Please share the payment link</div></div>
             </div>
           </div>
-          <div class="f04-row f04-arow" id="f04-a4" style="top: 492px; left: 30px">
+          <div class="f04-row f04-arow" id="f04-a4" style="top: 280px; left: 870px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C8</div>
               <div class="f04-txt"><div class="f04-name">Customer 8</div><div class="f04-msg">Still waiting on my refund</div></div>
             </div>
           </div>
-          <div class="f04-row f04-arow" id="f04-a5" style="top: 656px; left: 10px">
+          <div class="f04-row f04-arow" id="f04-a5" style="top: 380px; left: 10px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C9</div>
@@ -453,7 +458,7 @@
 
         <div id="f04-d">
           <div id="f04-vidwrap">
-            <img id="f04-still" src="assets/gen/f04-office-last.jpg" alt="" />
+            <img id="f04-still" src="assets/gen/f04-office-last-land.jpg" alt="" />
             <video data-hf-media-start-basis="local" id="f04-vid" src="assets/footage/office.mp4" data-start="6.04" data-duration="3.7" data-media-start="0" data-track-index="0" muted playsinline></video>
           </div>
           <div id="f04-dshade"></div>
@@ -467,42 +472,42 @@
               <div class="f04-txt"><div class="f04-name">Customer 1</div><div class="f04-msg">When can you call me?</div></div>
             </div>
           </div>
-          <div class="f04-row f04-drow" id="f04-d2" style="top: 164px; left: 0px">
+          <div class="f04-row f04-drow" id="f04-d2" style="top: 82px; left: 820px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C2</div>
               <div class="f04-txt"><div class="f04-name">Customer 2</div><div class="f04-msg">Let me know when can we meet</div></div>
             </div>
           </div>
-          <div class="f04-row f04-drow" id="f04-d3" style="top: 328px; left: 0px">
+          <div class="f04-row f04-drow" id="f04-d3" style="top: 164px; left: 0px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C3</div>
               <div class="f04-txt"><div class="f04-name">Customer 3</div><div class="f04-msg">Please share the payment link</div></div>
             </div>
           </div>
-          <div class="f04-row f04-drow" id="f04-d4" style="top: 492px; left: 0px">
+          <div class="f04-row f04-drow" id="f04-d4" style="top: 246px; left: 820px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C4</div>
               <div class="f04-txt"><div class="f04-name">Customer 4</div><div class="f04-msg">Wrong item received.</div></div>
             </div>
           </div>
-          <div class="f04-row f04-drow" id="f04-d5" style="top: 656px; left: 0px">
+          <div class="f04-row f04-drow" id="f04-d5" style="top: 328px; left: 0px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C5</div>
               <div class="f04-txt"><div class="f04-name">Customer 5</div><div class="f04-msg">App not working.</div></div>
             </div>
           </div>
-          <div class="f04-row f04-drow" id="f04-d6" style="top: 820px; left: 0px">
+          <div class="f04-row f04-drow" id="f04-d6" style="top: 410px; left: 820px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C6</div>
               <div class="f04-txt"><div class="f04-name">Customer 6</div><div class="f04-msg">Delivery delayed.</div></div>
             </div>
           </div>
-          <div class="f04-row f04-drow" id="f04-d7" style="top: 984px; left: 0px">
+          <div class="f04-row f04-drow" id="f04-d7" style="top: 492px; left: 0px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C7</div>
@@ -563,11 +568,11 @@
           tl.fromTo("#f04-slain", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.6)" }, 3.58);
           tl.to("#f04-slain", { keyframes: { x: [0, -16, 12, -8, 5, 0], skewX: [0, -8, 6, -3, 0, 0] }, duration: 0.32, ease: "none" }, 3.9);
           tl.to("#f04-chat", { opacity: 0, duration: 0.25, ease: "power1.in" }, 4.3);
-          tl.fromTo("#f04-sla", { x: 0, y: 0, scale: 1 }, { x: 250, y: -50, scale: 0.42, duration: 0.45, ease: "power3.inOut" }, 4.4);
+          tl.fromTo("#f04-sla", { x: 0, y: 0, scale: 1 }, { x: 380, y: -130, scale: 0.42, duration: 0.45, ease: "power3.inOut" }, 4.4);
           tl.fromTo("#f04-scard", { opacity: 0, y: 40, scale: 1 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.5);
           tl.fromTo("#f04-spill", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 4.85);
           tl.to("#f04-scard", { y: -14, duration: 1.0, ease: "sine.inOut" }, 5.0);
-          tl.to("#f04-sla", { y: -64, duration: 1.0, ease: "sine.inOut" }, 5.0);
+          tl.to("#f04-sla", { y: -144, duration: 1.0, ease: "sine.inOut" }, 5.0);
           word("#f04-cc-0", 3.61);
           word("#f04-cc-1", 3.97);
           word("#f04-cc-2", 4.55);
@@ -579,8 +584,8 @@
           tl.fromTo("#f04-d", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 6.04);
           tl.fromTo("#f04-vidwrap", { scale: 1.15 }, { scale: 1.22, duration: 3.96, ease: "none" }, 6.04);
           tl.fromTo("#f04-panel", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 6.04);
-          tl.fromTo("#f04-dcol", { y: 620 }, { y: -300, duration: 3.1, ease: "power2.inOut" }, 6.1);
-          tl.to("#f04-dcol", { y: -330, duration: 0.8, ease: "none" }, 9.2);
+          tl.fromTo("#f04-dcol", { y: 440 }, { y: 16, duration: 3.1, ease: "power2.inOut" }, 6.1);
+          tl.to("#f04-dcol", { y: 6, duration: 0.8, ease: "none" }, 9.2);
           word("#f04-c1-0", 6.46, "#FFFFFF");
           word("#f04-c1-1", 6.61, "#FFFFFF");
           out("#f04-c1", 7.06);
