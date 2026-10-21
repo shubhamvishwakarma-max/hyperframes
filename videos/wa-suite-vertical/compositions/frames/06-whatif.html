@@ -37,7 +37,7 @@
         }
         .f06-w {
           display: block;
-          color: #b9b3aa;
+          color: #8F8A84;
           white-space: nowrap;
         }
         #f06-wa {
@@ -100,7 +100,7 @@
         }
         .f06-l {
           display: block;
-          color: #b9b3aa;
+          color: #1c1c1e;
         }
       </style>
 
@@ -129,14 +129,14 @@
         </div>
 
         <div id="f06-btnrow">
-          <div id="f06-btn">
+          <div id="f06-btn" data-layout-allow-overflow>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M11.2 3.2 3.6 12.6h6.1l-1.6 8.2 7.4-9.6H9.6z" />
               <path d="M15.6 6.5h5.2" />
               <path d="M17.4 12.5h3.4" />
               <path d="M15.2 18.5h5.6" />
             </svg>
-            <div id="f06-smarter">
+            <div id="f06-smarter" data-layout-allow-overflow>
               <span class="f06-l">s</span><span class="f06-l">m</span><span class="f06-l">a</span><span class="f06-l">r</span><span class="f06-l">t</span><span class="f06-l">e</span><span class="f06-l">r</span>
             </div>
           </div>
@@ -175,7 +175,6 @@
           tl.fromTo("#f06-btn", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.8)" }, 1.84);
           tl.to("#f06-btn", { width: 840, duration: 0.45, ease: "power3.inOut" }, 2.02);
           tl.fromTo("#f06-smarter .f06-l", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out", stagger: 0.04 }, 2.1);
-          tl.to("#f06-smarter .f06-l", { color: "#1C1C1E", duration: 0.3, ease: "power1.out", stagger: 0.04 }, 2.22);
           tl.to("#f06-btn", { boxShadow: "0 0 0 34px rgba(226, 214, 200, 0.75)", duration: 0.35, ease: "power2.out" }, 2.45);
           tl.fromTo("#f06-btnrow", { scale: 1 }, { scale: 1.04, duration: 0.8, ease: "sine.inOut" }, 2.3);
 

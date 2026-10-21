@@ -192,7 +192,7 @@
         }
         .f08-w {
           display: block;
-          color: #b9b3aa;
+          color: #8F8A84;
           white-space: nowrap;
         }
         #f08-cap2,
@@ -332,7 +332,7 @@
 
         <div id="f08-smile">
           <div id="f08-vidwrap">
-            <video id="f08-vid" src="assets/footage/smile.mp4" data-start="2.1" data-hf-media-start-basis="local" data-duration="1.5" data-media-start="0" data-track-index="0" muted playsinline></video>
+            <video data-hf-media-start-basis="local" id="f08-vid" src="assets/footage/smile.mp4" data-start="2.1" data-duration="1.5" data-media-start="0" data-track-index="0" muted playsinline></video>
           </div>
           <div id="f08-topshade"></div>
           <div id="f08-band"></div>
@@ -378,6 +378,7 @@
 
           // Cut to smile footage with the dark frosted band
           tl.to("#f08-smile", { opacity: 1, duration: 0.01 }, 2.1);
+          tl.set(["#f08-card", "#f08-cap1", "#f08-cap2"], { opacity: 0 }, 2.1);
           tl.fromTo("#f08-vidwrap", { scale: 1 }, { scale: 1.05, duration: 1.5, ease: "none" }, 2.1);
           tl.fromTo("#f08-band", { scaleY: 1 }, { scaleY: 1.03, duration: 1.5, ease: "sine.inOut" }, 2.1);
           word("#f08-customer", 2.16, "#FFFFFF");

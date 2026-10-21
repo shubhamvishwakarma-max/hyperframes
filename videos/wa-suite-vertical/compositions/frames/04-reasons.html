@@ -137,7 +137,7 @@
         }
         .f04-w {
           display: block;
-          color: #b9b3aa;
+          color: #8F8A84;
           opacity: 0;
         }
         .f04-w.f04-wd {
@@ -424,7 +424,7 @@
         </div>
         <div id="f04-ignored">ignored</div>
 
-        <div id="f04-chat">
+        <div id="f04-chat" data-layout-allow-overlap>
           <div class="f04-bub" id="f04-b1">No one has replied to my order status!<span>10:25 AM</span></div>
           <div class="f04-bub" id="f04-b2">Why is it taking so long?<span>10:28 AM</span></div>
           <div id="f04-comp">
@@ -442,7 +442,7 @@
           <div id="f04-smsg">Thank you for resolving this</div>
           <div id="f04-spill">Response delayed by <b>1:30 min</b></div>
         </div>
-        <div id="f04-sla">
+        <div id="f04-sla" data-layout-allow-overlap>
           <div id="f04-slain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="10" x2="14" y1="2" y2="2" /><line x1="12" x2="15" y1="14" y2="11" /><circle cx="12" cy="14" r="8" /></svg><span>SLA TRIGGER</span></div>
         </div>
 
@@ -454,7 +454,7 @@
         <div id="f04-d">
           <div id="f04-vidwrap">
             <img id="f04-still" src="assets/gen/f04-office-last.jpg" alt="" />
-            <video id="f04-vid" src="assets/footage/office.mp4" data-start="6.04" data-duration="3.7" data-media-start="0" data-track-index="0" muted playsinline></video>
+            <video data-hf-media-start-basis="local" id="f04-vid" src="assets/footage/office.mp4" data-start="6.04" data-duration="3.7" data-media-start="0" data-track-index="0" muted playsinline></video>
           </div>
           <div id="f04-dshade"></div>
           <div id="f04-panel">
@@ -538,7 +538,7 @@
           word("#f04-ca-3", 1.15);
           tl.to("#f04-stack", { opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power1.in" }, 1.15);
           out("#f04-ca", 1.3);
-          tl.fromTo("#f04-ignored", { opacity: 0, scaleX: 1.22, color: "#B9B3AA", scale: 1 }, { opacity: 1, scaleX: 1, duration: 0.55, ease: "power3.out" }, 1.3);
+          tl.fromTo("#f04-ignored", { opacity: 0, scaleX: 1.22, color: "#8F8A84", scale: 1 }, { opacity: 1, scaleX: 1, duration: 0.55, ease: "power3.out" }, 1.3);
           tl.to("#f04-ignored", { color: "#1C1C1E", duration: 0.4, ease: "power1.out" }, 1.45);
           tl.to("#f04-ignored", { scale: 1.06, duration: 0.35, ease: "none" }, 1.85);
           tl.to("#f04-ignored", { opacity: 0, duration: 0.2, ease: "power1.in" }, 2.0);
@@ -575,6 +575,7 @@
           word("#f04-cd-0", 4.96);
 
           // ---------- Beat D (6.04 – 10): office + scrolling queue ----------
+          tl.set(["#f04-scard", "#f04-sla", "#f04-cd", "#f04-chat", "#f04-stack", "#f04-ignored"], { opacity: 0 }, 6.04);
           tl.fromTo("#f04-d", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 6.04);
           tl.fromTo("#f04-vidwrap", { scale: 1.15 }, { scale: 1.22, duration: 3.96, ease: "none" }, 6.04);
           tl.fromTo("#f04-panel", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 6.04);
@@ -586,7 +587,7 @@
           word("#f04-c2-0", 7.18, "#FFFFFF");
           word("#f04-c2-1", 7.42, "#FFFFFF");
           word("#f04-c2-2", 7.57, "#FFFFFF");
-          out("#f04-c2", 7.8);
+          out("#f04-c2", 7.72);
           word("#f04-c3-0", 7.9, "#FFFFFF");
           out("#f04-c3", 8.55);
           word("#f04-c4-0", 8.68, "#FFFFFF");

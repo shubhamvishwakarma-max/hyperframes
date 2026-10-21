@@ -127,7 +127,7 @@
         }
         .f07-c {
           display: block;
-          color: #b9b3aa;
+          color: #8F8A84;
         }
         .f07-sp {
           display: block;
@@ -199,6 +199,7 @@
 
           // Hard cut to cream — "CX Overview" tracks in tight
           tl.to(["#f07-cream", "#f07-cx"], { opacity: 1, duration: 0.01 }, 2.6);
+          tl.set(["#f07-pillrow", "#f07-introrow", "#f07-brand"], { opacity: 0 }, 2.6);
           const letters = gsap.utils.toArray("#f07-cx .f07-c");
           letters.forEach((el, i) => {
             const off = (i - 4.5) * 30;
