@@ -30,9 +30,7 @@ the lead with full context to a human salesperson who closes. Premium SaaS launc
 
 ## Notes
 
-- doubletick.io could not be captured (network proxy blocked it). No official screenshots or logo were available,
-  so the WhatsApp UI, DoubleTick inbox and logo mark are rebuilt in HTML. **Swap in the official DoubleTick logo
-  (`#dt-logo-mark` in index.html) and verify the brand green (`--green`) before publishing.**
+- Official DoubleTick logo (assets/logo/) supplied by the user; WhatsApp UI rebuilt to match the user’s WhatsApp Business reference screenshot (business "ABC Ent", customer "Ravi").
 - Voice: ElevenLabs had insufficient credits and HeyGen was signed out, so narration is local Kokoro TTS (`af_heart`).
   Music bed is synthesized deterministically by `scripts/make_music.py` (120 BPM, tension → lift at 10.6s → resolve).
   SFX from the bundled media-use library.

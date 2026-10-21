@@ -27,6 +27,16 @@
         font-weight: 700;
       }
       @font-face {
+        font-family: "Roboto";
+        src: url("assets/fonts/roboto-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Roboto";
+        src: url("assets/fonts/roboto-latin-500-normal.woff2") format("woff2");
+        font-weight: 500;
+      }
+      @font-face {
         font-family: "Hedvig Letters Serif";
         src: url("assets/fonts/hedvig-letters-serif-latin-400-normal.woff2") format("woff2");
         font-weight: 400;
@@ -42,7 +52,7 @@
         --grey: #6f6b64;
         --line: #e4ddd0;
         /* DoubleTick green — verify against the official brand sheet */
-        --green: #1da75a;
+        --green: #27b378;
         --green-deep: #0f7040;
         --green-soft: #e3f3e8;
         --coral: #8f3a2f;
@@ -86,7 +96,7 @@
       #bg-day {
         position: absolute;
         inset: 0;
-        clip-path: circle(0px at 830px 600px);
+        clip-path: circle(0px at 830px 658px);
         background:
           radial-gradient(120% 80% at 70% 10%, #fbf6ec 0%, rgba(251, 246, 236, 0) 60%),
           linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
@@ -95,15 +105,16 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(90% 70% at 80% 0%, rgba(58, 56, 70, 0.22) 0%, rgba(58, 56, 70, 0) 70%),
-          linear-gradient(180deg, var(--night-2) 0%, var(--night) 55%, #d3c9b8 100%);
+          radial-gradient(70% 60% at 92% 4%, rgba(222, 112, 92, 0.26) 0%, rgba(222, 112, 92, 0) 70%),
+          radial-gradient(60% 55% at 0% 100%, rgba(232, 140, 118, 0.22) 0%, rgba(232, 140, 118, 0) 70%),
+          linear-gradient(170deg, #fdf6f2 0%, #f9e9e3 55%, #f6e1da 100%);
       }
 
       /* ---------- headlines ---------- */
       .hl-group {
         position: absolute;
         left: 70px;
-        top: 58px;
+        top: 128px;
         width: 940px;
       }
       .serif {
@@ -126,6 +137,70 @@
       }
       .hl-line {
         display: block;
+      }
+      #h1 .hl-big {
+        font-size: 90px;
+        line-height: 1.0;
+      }
+      #h1b {
+        display: inline-block;
+        background: linear-gradient(transparent 64%, rgba(168, 71, 58, 0.16) 64%, rgba(168, 71, 58, 0.16) 94%, transparent 94%);
+      }
+      #corner-logo {
+        position: absolute;
+        left: 70px;
+        top: 62px;
+        height: 36px;
+        width: auto;
+        display: block;
+      }
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 17px;
+        color: #fff;
+        flex: none;
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        display: block;
+        flex: none;
+      }
+      .chip-s {
+        position: absolute;
+        left: 650px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-size: 19px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      #st-off {
+        top: 490px;
+        background: #ece7e2;
+        color: #45413b;
+      }
+      #st-off .dot {
+        background: #8e8a83;
+      }
+      #st-ai {
+        top: 410px;
+        background: var(--green-soft);
+        color: var(--green-deep);
+        opacity: 0;
+      }
+      #st-ai .dot {
+        background: var(--green);
       }
       #cta-url {
         opacity: 0;
@@ -177,7 +252,7 @@
         top: -300px;
         width: 900px;
         height: 900px;
-        background: radial-gradient(circle, rgba(70, 64, 92, 0.22) 0%, rgba(70, 64, 92, 0) 65%);
+        background: radial-gradient(circle, rgba(214, 104, 84, 0.18) 0%, rgba(214, 104, 84, 0) 65%);
         opacity: 1;
       }
       #blob-g {
@@ -185,7 +260,7 @@
         top: 160px;
         width: 1000px;
         height: 1000px;
-        background: radial-gradient(circle, rgba(29, 167, 90, 0.16) 0%, rgba(29, 167, 90, 0) 62%);
+        background: radial-gradient(circle, rgba(39, 179, 120, 0.16) 0%, rgba(39, 179, 120, 0) 62%);
       }
       #blob-w {
         left: -360px;
@@ -208,7 +283,7 @@
         height: 24px;
         border-radius: 50%;
         background: var(--green);
-        box-shadow: 0 0 0 8px rgba(29, 167, 90, 0.18), 0 0 24px 6px rgba(29, 167, 90, 0.45);
+        box-shadow: 0 0 0 8px rgba(39, 179, 120, 0.18), 0 0 24px 6px rgba(39, 179, 120, 0.45);
         opacity: 0;
       }
       .glow {
@@ -228,27 +303,27 @@
         transform-origin: 0 0;
       }
 
-      /* ---------- WhatsApp chat ---------- */
+      /* ---------- WhatsApp chat (Android WhatsApp Business, light) ---------- */
       #chat {
         position: absolute;
         left: 70px;
-        top: 262px;
+        top: 320px;
         width: 540px;
-        height: 670px;
-        border-radius: 30px;
-        background: var(--wa-wall);
-        box-shadow:
-          0 30px 60px -28px rgba(35, 33, 30, 0.35),
-          0 2px 0 rgba(255, 255, 255, 0.6) inset;
+        height: 620px;
+        border-radius: 34px;
+        background: #e5ddd4;
+        border: 4px solid #e9e9e9;
+        box-shadow: 0 34px 70px -34px rgba(35, 33, 30, 0.45);
         overflow: hidden;
         transform-origin: 0 0;
-        border: 2px solid rgba(255, 255, 255, 0.7);
+        font-family: "Roboto", sans-serif;
+        color: #111b21;
       }
       #chat-ring {
         position: absolute;
-        inset: -2px;
-        border-radius: 30px;
-        border: 3px solid var(--green);
+        inset: -4px;
+        border-radius: 34px;
+        border: 4px solid var(--green);
         opacity: 0;
         pointer-events: none;
       }
@@ -257,28 +332,34 @@
         left: 0;
         top: 0;
         right: 0;
-        height: 88px;
-        background: var(--surface);
+        height: 98px;
+        background: #ffffff;
         display: flex;
         align-items: center;
-        gap: 14px;
-        padding: 0 22px;
-        border-bottom: 1px solid var(--line);
+        padding: 0 16px 0 14px;
+        border-bottom: 1px solid #d9d9d9;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        z-index: 2;
       }
-      .avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 17px;
-        color: #fff;
+      .wa-ico {
+        display: block;
         flex: none;
       }
       #biz-avatar {
-        background: #2f3a33;
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        margin: 0 12px 0 10px;
+        background: radial-gradient(circle at 35% 30%, #b8701e 0%, #7d4710 75%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-family: "Geist", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 0.02em;
+        flex: none;
       }
       .head-text {
         position: relative;
@@ -288,182 +369,131 @@
       .biz-name {
         display: flex;
         align-items: center;
-        gap: 7px;
-        font-size: 21px;
-        font-weight: 600;
-        height: 26px;
+        gap: 6px;
+        font-size: 22px;
+        font-weight: 500;
+        height: 28px;
+        color: #111;
       }
       .verified {
-        width: 20px;
-        height: 20px;
+        width: 21px;
+        height: 21px;
         display: block;
       }
-      .status {
+      .wa-sub {
         position: absolute;
         left: 0;
-        top: 28px;
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        font-size: 16px;
-        font-weight: 500;
+        top: 30px;
+        font-size: 15.5px;
+        color: #1f1f1f;
         white-space: nowrap;
       }
-      .dot {
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        display: block;
-        flex: none;
+      #sub-typing {
+        opacity: 0;
       }
-      #st-off {
-        color: var(--grey);
-      }
-      #st-off .dot {
-        background: #b9b3a8;
-      }
-      #st-ai,
-      #st-rahul {
-        color: var(--green-deep);
-      }
-      #st-ai .dot,
-      #st-rahul .dot {
-        background: var(--green);
+      .head-actions {
+        display: flex;
+        align-items: center;
+        gap: 18px;
       }
       #chat-view {
         position: absolute;
         left: 0;
         right: 0;
-        top: 88px;
-        bottom: 76px;
+        top: 98px;
+        bottom: 84px;
         overflow: hidden;
+        background-color: #e5ddd4;
+        background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22240%22%20height%3D%22240%22%20viewBox%3D%220%200%20240%20240%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23d6ccbf%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M28%2018l4%209%2010%201-7%207%202%2010-9-5-9%205%202-10-7-7%2010-1z%22/%3E%3Cpath%20d%3D%22M92%2030c0-6%209-8%2011-2%202-6%2011-4%2011%202%200%207-11%2012-11%2012s-11-5-11-12z%22/%3E%3Ccircle%20cx%3D%22168%22%20cy%3D%2226%22%20r%3D%2211%22/%3E%3Ccircle%20cx%3D%22164%22%20cy%3D%2223%22%20r%3D%221.5%22/%3E%3Ccircle%20cx%3D%22172%22%20cy%3D%2223%22%20r%3D%221.5%22/%3E%3Cpath%20d%3D%22M163%2030c3%203%207%203%2010%200%22/%3E%3Cpath%20d%3D%22M208%2020h18v26h-18z%22/%3E%3Cpath%20d%3D%22M212%2026h10M212%2032h10M212%2038h6%22/%3E%3Cpath%20d%3D%22M20%2078c8-10%2022-10%2028%200%208-2%2014%204%2012%2012H14c-4-6%200-12%206-12z%22/%3E%3Cpath%20d%3D%22M88%2070v24M80%2076l8-6%208%206%22/%3E%3Cpath%20d%3D%22M80%2098h16%22/%3E%3Cpath%20d%3D%22M140%2072h26l-4%2022h-18z%22/%3E%3Cpath%20d%3D%22M146%2072c0-8%2014-8%2014%200%22/%3E%3Cpath%20d%3D%22M198%2070l6%2016%2016%202-12%2010%204%2016-14-9-14%209%204-16-12-10%2016-2z%22/%3E%3Cpath%20d%3D%22M30%20140c0-10%2016-10%2016%200v14H30z%22/%3E%3Cpath%20d%3D%22M26%20154h24M38%20158v6%22/%3E%3Cpath%20d%3D%22M84%20130l20%2020M104%20130l-20%2020%22/%3E%3Ccircle%20cx%3D%2294%22%20cy%3D%22140%22%20r%3D%2216%22/%3E%3Cpath%20d%3D%22M140%20128c10%200%2018%208%2018%2018M140%20136c6%200%2010%204%2010%2010M140%20144a2%202%200%201%200%200.1%200%22/%3E%3Cpath%20d%3D%22M196%20132h30v20h-30zM204%20152l-4%208M218%20152l4%208%22/%3E%3Cpath%20d%3D%22M18%20200q10-14%2020%200t20%200%22/%3E%3Cpath%20d%3D%22M70%20196h22l6%208-6%208H70z%22/%3E%3Ccircle%20cx%3D%22140%22%20cy%3D%22204%22%20r%3D%2214%22/%3E%3Cpath%20d%3D%22M134%20204h12M140%20198v12%22/%3E%3Cpath%20d%3D%22M196%20192c6-8%2020-8%2026%200l-13%2020z%22/%3E%3Ccircle%20cx%3D%22209%22%20cy%3D%22196%22%20r%3D%223%22/%3E%3C/g%3E%3C/svg%3E");
+        background-size: 240px 240px;
       }
       #msgs {
         position: relative;
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        padding: 18px 18px 18px;
+        gap: 10px;
+        padding: 14px 14px 16px;
+      }
+      .day-chip {
+        align-self: center;
+        padding: 5px 13px;
+        border-radius: 7px;
+        background: #ffffff;
+        color: #54656f;
+        font-size: 14px;
+        box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+        margin-bottom: 2px;
       }
       .b {
         position: relative;
-        max-width: 400px;
-        padding: 11px 15px 9px;
-        font-size: 20px;
-        line-height: 1.32;
-        border-radius: 18px;
-        box-shadow: 0 1px 1px rgba(35, 33, 30, 0.1);
+        max-width: 392px;
+        padding: 8px 11px 6px;
+        font-size: 18.5px;
+        line-height: 1.36;
+        color: #111b21;
+        border-radius: 10px;
+        box-shadow: 0 1px 0.6px rgba(0, 0, 0, 0.14);
         opacity: 0;
       }
       .b.out {
         align-self: flex-end;
-        background: var(--wa-out);
-        border-bottom-right-radius: 5px;
+        background: #e8ffda;
+        border-top-right-radius: 3px;
         transform-origin: 100% 100%;
       }
       .b.in {
         align-self: flex-start;
-        background: #fff;
-        border-bottom-left-radius: 5px;
+        background: #ffffff;
+        border-top-left-radius: 3px;
         transform-origin: 0 100%;
       }
-      .who {
+      .b strong {
         display: block;
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 2px;
-        color: var(--green-deep);
-      }
-      .who.human {
-        color: #b26a1c;
+        font-weight: 500;
       }
       .meta {
         display: flex;
         justify-content: flex-end;
-        align-items: center;
-        gap: 4px;
         margin-top: 2px;
-        font-size: 13px;
-        color: #5f6b62;
-      }
-      .ticks {
-        position: relative;
-        width: 18px;
-        height: 12px;
-        display: block;
-      }
-      .ticks svg {
-        position: absolute;
-        inset: 0;
-        display: block;
+        font-size: 12.5px;
+        color: #56656e;
       }
       .mark {
-        background-image: linear-gradient(rgba(29, 167, 90, 0.28), rgba(29, 167, 90, 0.28));
+        background-image: linear-gradient(rgba(39, 179, 120, 0.3), rgba(39, 179, 120, 0.3));
         background-repeat: no-repeat;
         background-size: 0% 100%;
         border-radius: 4px;
         padding: 0 2px;
-      }
-      #typing {
-        position: absolute;
-        left: 18px;
-        bottom: 12px;
-        width: 78px;
-        height: 44px;
-        border-radius: 18px;
-        border-bottom-left-radius: 5px;
-        background: #fff;
-        box-shadow: 0 1px 1px rgba(35, 33, 30, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        opacity: 0;
-      }
-      #typing i {
-        display: block;
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background: #a7a39b;
       }
       #chat-input {
         position: absolute;
         left: 0;
         right: 0;
         bottom: 0;
-        height: 76px;
+        height: 84px;
+        background: #f6f6f6;
         display: flex;
         align-items: center;
         gap: 12px;
-        padding: 0 16px;
+        padding: 0 16px 0 14px;
       }
       .input-field {
         flex: 1;
-        height: 48px;
-        border-radius: 24px;
+        height: 50px;
+        border-radius: 25px;
         background: #fff;
+        border: 1.5px solid #e2e2e2;
         display: flex;
         align-items: center;
-        padding: 0 20px;
-        color: #6f6b64;
-        font-size: 18px;
-      }
-      .mic {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: var(--green);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        justify-content: flex-end;
+        padding: 0 14px;
       }
 
       /* ---------- right column ---------- */
       #clock {
         position: absolute;
         left: 650px;
-        top: 262px;
+        top: 320px;
         width: 360px;
         height: 160px;
         transform-origin: 0 0;
@@ -509,7 +539,7 @@
       #noreply {
         position: absolute;
         left: 650px;
-        top: 432px;
+        top: 548px;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -526,7 +556,7 @@
       #replied {
         position: absolute;
         left: 650px;
-        top: 352px;
+        top: 410px;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -545,12 +575,12 @@
       #lead {
         position: absolute;
         left: 650px;
-        top: 500px;
+        top: 558px;
         width: 360px;
         height: 200px;
         border-radius: 22px;
         background: var(--green-soft);
-        border: 2px solid rgba(29, 167, 90, 0.45);
+        border: 2px solid rgba(39, 179, 120, 0.45);
         box-shadow: 0 24px 50px -26px rgba(35, 33, 30, 0.4);
         overflow: hidden;
         z-index: 5;
@@ -712,12 +742,12 @@
       }
       #enq1 {
         left: 664px;
-        top: 718px;
+        top: 776px;
         z-index: 3;
       }
       #enq2 {
         left: 680px;
-        top: 810px;
+        top: 862px;
         z-index: 2;
       }
 
@@ -732,7 +762,7 @@
         padding: 0 20px 0 14px;
         border-radius: 16px;
         background: var(--surface);
-        border: 1.5px solid rgba(29, 167, 90, 0.5);
+        border: 1.5px solid rgba(39, 179, 120, 0.5);
         box-shadow: 0 14px 28px -18px rgba(35, 33, 30, 0.45);
         font-size: 21px;
         font-weight: 600;
@@ -752,25 +782,25 @@
         border-radius: 6px;
       }
       #chip-lead {
-        top: 412px;
+        top: 470px;
       }
       #chip-team {
-        top: 480px;
+        top: 538px;
       }
       #chip-mgr {
-        top: 548px;
+        top: 606px;
       }
       #chip-time {
-        top: 616px;
+        top: 674px;
       }
 
       /* ---------- workspace ---------- */
       #ws {
         position: absolute;
         left: 446px;
-        top: 262px;
+        top: 320px;
         width: 574px;
-        height: 670px;
+        height: 620px;
         border-radius: 26px;
         background: var(--surface);
         box-shadow: 0 34px 70px -30px rgba(35, 33, 30, 0.45);
@@ -797,8 +827,8 @@
         margin-left: auto;
       }
       .mini-mark {
-        width: 30px;
-        height: 30px;
+        height: 22px;
+        width: auto;
         display: block;
       }
       .ws-row {
@@ -926,7 +956,7 @@
       #as-rahul {
         background: var(--green-soft);
         color: var(--green-deep);
-        border: 1.5px solid rgba(29, 167, 90, 0.5);
+        border: 1.5px solid rgba(39, 179, 120, 0.5);
         opacity: 0;
       }
       .as .avatar {
@@ -949,7 +979,7 @@
       #assigned {
         position: absolute;
         left: 650px;
-        top: 300px;
+        top: 358px;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -958,7 +988,7 @@
         border-radius: 999px;
         background: var(--green-soft);
         color: var(--green-deep);
-        border: 1.5px solid rgba(29, 167, 90, 0.5);
+        border: 1.5px solid rgba(39, 179, 120, 0.5);
         font-size: 19px;
         font-weight: 600;
         opacity: 0;
@@ -972,7 +1002,7 @@
         overflow: hidden;
         position: absolute;
         left: 650px;
-        top: 392px;
+        top: 450px;
         width: 360px;
         padding: 20px 22px;
         border-radius: 20px;
@@ -1011,7 +1041,7 @@
       #journey {
         position: absolute;
         left: 300px;
-        top: 300px;
+        top: 320px;
         width: 560px;
         height: 620px;
       }
@@ -1082,10 +1112,11 @@
         display: flex;
         justify-content: center;
       }
-      .logo-in {
-        display: flex;
-        align-items: center;
-        gap: 16px;
+      #cta-logo {
+        height: 60px;
+        width: auto;
+        display: block;
+        clip-path: inset(0 100% 0 0);
       }
       #dt-logo-mark {
         width: 70px;
@@ -1190,124 +1221,82 @@
           <!-- WhatsApp conversation (the hero, persists S1 → S7) -->
           <div id="chat">
             <div id="chat-head">
-              <div id="biz-avatar" class="avatar">ABC</div>
+              <svg class="wa-ico" width="26" height="26" viewBox="0 0 24 24"><path d="M20 12H5M11 5l-7 7 7 7" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" /></svg>
+              <div id="biz-avatar">ABC</div>
               <div class="head-text">
-                <div class="biz-name">
-                  ABC Business
-                  <svg class="verified" viewBox="0 0 20 20">
-                    <circle cx="10" cy="10" r="10" fill="#1da75a" />
-                    <path
-                      d="M5.6 10.3l2.9 2.8 5.9-6"
-                      fill="none"
-                      stroke="#fff"
-                      stroke-width="2.2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div>
-                <div id="st-off" class="status"><i class="dot"></i>Team Offline</div>
-                <div id="st-ai" class="status h">
-                  <i class="dot"></i>DoubleTick Agentic AI · online
-                </div>
-                <div id="st-rahul" class="status h"><i class="dot"></i>Rahul · Sales has joined</div>
+                <div class="biz-name">ABC Ent <svg class="verified" viewBox="0 0 20 20"><polygon points="10.00,0.00 11.70,1.47 13.83,0.76 14.83,2.77 17.07,2.93 17.23,5.17 19.24,6.17 18.53,8.30 20.00,10.00 18.53,11.70 19.24,13.83 17.23,14.83 17.07,17.07 14.83,17.23 13.83,19.24 11.70,18.53 10.00,20.00 8.30,18.53 6.17,19.24 5.17,17.23 2.93,17.07 2.77,14.83 0.76,13.83 1.47,11.70 0.00,10.00 1.47,8.30 0.76,6.17 2.77,5.17 2.93,2.93 5.17,2.77 6.17,0.76 8.30,1.47" fill="#1a8cff"/><path d="M6 10.2l2.7 2.6 5.3-5.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="wa-sub" id="sub-biz">Business Account</div>
+                <div class="wa-sub" id="sub-typing">typing…</div>
+              </div>
+              <div class="head-actions">
+                <svg class="wa-ico" width="44" height="26" viewBox="0 0 44 26"><path d="M6.5 3.5l4 .5 2 5-2.5 2a13 13 0 0 0 7 7l2-2.5 5 2 .5 4c0 1.5-1.5 3-3 3C11 24.5 1.5 15 1.5 6.5c0-1.5 1.5-3 3-3z" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M34 11l4.5 5 4.5-5z" fill="#1b1b1b" /></svg>
+                <svg class="wa-ico" width="8" height="26" viewBox="0 0 8 26"><circle cx="4" cy="5" r="2.6" fill="#1b1b1b" /><circle cx="4" cy="13" r="2.6" fill="#1b1b1b" /><circle cx="4" cy="21" r="2.6" fill="#1b1b1b" /></svg>
               </div>
             </div>
             <div id="chat-view">
               <div id="msgs">
+                <div class="day-chip">Today</div>
                 <div class="b out" id="m-c1">
                   Hi, I’m interested in your product. Can you help me choose the right plan?
-                  <div class="meta">
-                    10:00 PM
-                    <span class="ticks">
-                      <svg id="tk-grey" viewBox="0 0 18 12">
-                        <path
-                          d="M1 6.5l3 3L10 2.5M7 9.5l1 0.5L15 2.5"
-                          fill="none"
-                          stroke="#8f9a92"
-                          stroke-width="1.7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                      <svg id="tk-blue" class="h" viewBox="0 0 18 12">
-                        <path
-                          d="M1 6.5l3 3L10 2.5M7 9.5l1 0.5L15 2.5"
-                          fill="none"
-                          stroke="#53bdeb"
-                          stroke-width="1.7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </span>
-                  </div>
+                  <div class="meta">10.00 PM</div>
                 </div>
                 <div class="b in" id="m-a1">
-                  <span class="who">DoubleTick AI</span>Absolutely! I can help you with that. What
-                  are you mainly looking to achieve?
-                  <div class="meta">10:00 PM</div>
+                  Hey Ravi! Absolutely, I can help you with that. What are you mainly looking to achieve?
+                  <div class="meta">10.00 PM</div>
                 </div>
                 <div class="b out" id="m-c2">
                   We need WhatsApp for our sales team to
                   <span class="mark" id="mk-lead">manage leads and follow-ups.</span>
-                  <div class="meta">10:01 PM</div>
+                  <div class="meta">10.01 PM</div>
                 </div>
                 <div class="b in" id="m-a2">
-                  <span class="who">DoubleTick AI</span>Got it. How large is your sales team?
-                  <div class="meta">10:01 PM</div>
+                  Got it. How large is your sales team?
+                  <div class="meta">10.01 PM</div>
                 </div>
                 <div class="b out" id="m-c3">
                   <span class="mark" id="mk-team">Around 25 people.</span>
-                  <div class="meta">10:01 PM</div>
+                  <div class="meta">10.01 PM</div>
                 </div>
                 <div class="b in" id="m-a3">
-                  <span class="who">DoubleTick AI</span>Do you also need multiple agents to manage
-                  conversations from one business number?
-                  <div class="meta">10:02 PM</div>
+                  Do you also need multiple agents to manage conversations from one business number?
+                  <div class="meta">10.02 PM</div>
                 </div>
                 <div class="b out" id="m-c4">
                   Yes, and <span class="mark" id="mk-mgr">managers need visibility</span> too.
-                  <div class="meta">10:02 PM</div>
+                  <div class="meta">10.02 PM</div>
                 </div>
                 <div class="b in" id="m-a4">
-                  <span class="who">DoubleTick AI</span>Are you looking to implement this soon?
-                  <div class="meta">10:02 PM</div>
+                  Are you looking to implement this soon?
+                  <div class="meta">10.02 PM</div>
                 </div>
                 <div class="b out" id="m-c5">
                   Yes. We’d like to <span class="mark" id="mk-time">start this month.</span>
-                  <div class="meta">10:03 PM</div>
+                  <div class="meta">10.03 PM</div>
                 </div>
                 <div class="b in" id="m-r1">
-                  <span class="who human">Rahul · Sales</span>Hi Ananya, I have your requirements.
-                  I can walk you through the best setup for your team.
-                  <div class="meta">10:06 PM</div>
+                  <strong>Rahul · ABC Ent Sales</strong>Hi Ravi, I have your requirements. I can walk you through the best setup for your team.
+                  <div class="meta">10.06 PM</div>
                 </div>
                 <div class="b out" id="m-c6">
                   Great, let’s discuss.
-                  <div class="meta">10:06 PM</div>
+                  <div class="meta">10.06 PM</div>
                 </div>
               </div>
-              <div id="typing"><i></i><i></i><i></i></div>
             </div>
             <div id="chat-input">
-              <div class="input-field">Message</div>
-              <div class="mic">
-                <svg width="20" height="22" viewBox="0 0 20 22">
-                  <rect x="6" y="1" width="8" height="13" rx="4" fill="#fff" />
-                  <path
-                    d="M2.5 10.5a7.5 7.5 0 0 0 15 0M10 18v3"
-                    fill="none"
-                    stroke="#fff"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                  />
-                </svg>
+              <svg class="wa-ico" width="26" height="26" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              <div class="input-field">
+                <svg class="wa-ico" width="22" height="24" viewBox="0 0 22 24"><path d="M4 2h9l6 6v11a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3z" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
               </div>
+              <svg class="wa-ico" width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 9h10M10 13h10M13 9c4 0 5 2 5 4s-2 4-5 4h-2l7 6" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" /></svg>
+              <svg class="wa-ico" width="30" height="28" viewBox="0 0 30 28"><path d="M3 8h5l2.5-4h9L22 8h5v16H3z" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><circle cx="15" cy="15" r="5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              <svg class="wa-ico" width="22" height="30" viewBox="0 0 22 30"><rect x="6" y="2" width="10" height="17" rx="5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M2 14a9 9 0 0 0 18 0M11 23v5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
             </div>
             <div id="chat-ring"></div>
           </div>
 
+          <div class="chip-s" id="st-off"><i class="dot"></i>Team offline</div>
+          <div class="chip-s" id="st-ai"><i class="dot"></i>AI agent active</div>
           <!-- Clock -->
           <div id="clock">
             <span class="clock-label">Local time</span>
@@ -1349,7 +1338,7 @@
             </div>
             <div class="lead-b">
               <span class="lead-k">Lead Qualification</span>
-              <span class="lead-name">Ananya</span>
+              <span class="lead-name">Ravi</span>
               <div class="q-row" id="q-need">
                 <span>Need</span>
                 <div class="q-check">
@@ -1408,24 +1397,14 @@
           <!-- DoubleTick sales workspace -->
           <div id="ws">
             <div class="ws-top">
-              <svg class="mini-mark" viewBox="0 0 70 70">
-                <rect width="70" height="70" rx="18" fill="#1da75a" />
-                <path
-                  d="M14 37l9 9 17-20M32 45l3 2 18-21"
-                  fill="none"
-                  stroke="#fff"
-                  stroke-width="6"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <img class="mini-mark" src="assets/logo/doubletick-mark.png" alt="" />
               DoubleTick Inbox
               <em>Sales workspace</em>
             </div>
             <div class="ws-row">
-              <div id="ananya-av" class="avatar">A</div>
+              <div id="ananya-av" class="avatar">R</div>
               <div class="ws-row-text">
-                <b>Ananya</b>
+                <b>Ravi</b>
                 <span>WhatsApp · +91 98••• ••210</span>
               </div>
               <span class="tag">High Intent</span>
@@ -1446,21 +1425,11 @@
               <span>Assigned to</span>
               <div class="as-stack">
                 <div class="as" id="as-ai">
-                  <svg class="mini-mark" viewBox="0 0 70 70">
-                    <rect width="70" height="70" rx="35" fill="#8e8a83" />
-                    <path
-                      d="M14 37l9 9 17-20M32 45l3 2 18-21"
-                      fill="none"
-                      stroke="#fff"
-                      stroke-width="6"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
+                  <img class="mini-mark" src="assets/logo/doubletick-mark.png" alt="" />
                   AI Agent
                 </div>
                 <div class="as" id="as-rahul">
-                  <div id="rahul-av" class="avatar">R</div>
+                  <div id="rahul-av" class="avatar">RS</div>
                   Rahul · Sales ✓
                 </div>
               </div>
@@ -1470,7 +1439,7 @@
 
           <!-- S7 right column -->
           <div id="assigned">
-            <div id="rahul-av2" class="avatar">R</div>
+            <div id="rahul-av2" class="avatar">RS</div>
             Assigned to Rahul · Sales
           </div>
           <div id="demo">
@@ -1481,39 +1450,43 @@
 
           <!-- Green connecting lines -->
           <svg id="lines" viewBox="0 0 1080 1080">
-            <path id="ln1g" class="glow" d="M -40 990 C 220 990, 380 900, 520 760 S 600 600, 650 600" fill="none" stroke="#1da75a" stroke-width="16" stroke-linecap="round" stroke-opacity="0.45" />
-            <path id="ln2g" class="glow" d="M 650 600 C 600 520, 640 360, 560 300" fill="none" stroke="#1da75a" stroke-width="16" stroke-linecap="round" stroke-opacity="0.45" />
+            <path id="ln1g" class="glow" d="M -40 1010 C 220 1010, 380 940, 520 810 S 600 658, 650 658" fill="none" stroke="#27b378" stroke-width="16" stroke-linecap="round" stroke-opacity="0.45" />
+            <path id="ln2g" class="glow" d="M 650 658 C 600 580, 640 420, 560 368" fill="none" stroke="#27b378" stroke-width="16" stroke-linecap="round" stroke-opacity="0.45" />
             <path
               id="ln1"
-              d="M -40 990 C 220 990, 380 900, 520 760 S 600 600, 650 600"
+              d="M -40 1010 C 220 1010, 380 940, 520 810 S 600 658, 650 658"
               fill="none"
-              stroke="#1da75a"
+              stroke="#27b378"
               stroke-width="6"
               stroke-linecap="round"
             />
             <path
               id="ln2"
-              d="M 650 600 C 600 520, 640 360, 560 300"
+              d="M 650 658 C 600 580, 640 420, 560 368"
               fill="none"
-              stroke="#1da75a"
+              stroke="#27b378"
               stroke-width="6"
               stroke-linecap="round"
             />
             <path
               id="ln3"
-              d="M 420 420 C 432 420, 436 388, 446 388"
+              d="M 418 470 C 432 470, 436 422, 446 422"
               fill="none"
-              stroke="#1da75a"
+              stroke="#27b378"
               stroke-width="5"
               stroke-linecap="round"
             />
-            <circle id="ln-dot" cx="650" cy="600" r="11" fill="#1da75a" opacity="0" />
-            <circle id="hd1g" class="glow" cx="0" cy="0" r="18" fill="#1da75a" opacity="0" />
-            <circle id="hd1" cx="0" cy="0" r="8" fill="#ffffff" stroke="#1da75a" stroke-width="4" opacity="0" />
-            <circle id="hd2g" class="glow" cx="0" cy="0" r="18" fill="#1da75a" opacity="0" />
-            <circle id="hd2" cx="0" cy="0" r="8" fill="#ffffff" stroke="#1da75a" stroke-width="4" opacity="0" />
+            <circle id="ln-dot" cx="650" cy="658" r="11" fill="#27b378" opacity="0" />
+            <circle id="hd1g" class="glow" cx="0" cy="0" r="18" fill="#27b378" opacity="0" />
+            <circle id="hd1" cx="0" cy="0" r="8" fill="#ffffff" stroke="#27b378" stroke-width="4" opacity="0" />
+            <circle id="hd2g" class="glow" cx="0" cy="0" r="18" fill="#27b378" opacity="0" />
+            <circle id="hd2" cx="0" cy="0" r="8" fill="#ffffff" stroke="#27b378" stroke-width="4" opacity="0" />
           </svg>
         </div>
+      </div>
+
+      <div id="brand" class="clip" data-start="0" data-duration="36.4" data-track-index="6">
+        <img id="corner-logo" src="assets/logo/doubletick-logo.png" alt="DoubleTick" />
       </div>
 
       <!-- ============ JOURNEY (S8) ============ -->
@@ -1563,22 +1536,7 @@
       <!-- ============ CTA (S9) ============ -->
       <div id="cta" class="clip" data-start="36.4" data-duration="4.6" data-track-index="3">
         <div id="logo">
-          <div class="logo-in">
-            <!-- Stand-in mark: replace with the official DoubleTick logo -->
-            <svg id="dt-logo-mark" viewBox="0 0 70 70">
-              <rect id="logo-rect" width="70" height="70" rx="18" fill="#1da75a" />
-              <path
-                id="logo-tick"
-                d="M14 37l9 9 17-20M32 45l3 2 18-21"
-                fill="none"
-                stroke="#fff"
-                stroke-width="6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <span class="logo-word">DoubleTick</span>
-          </div>
+          <img id="cta-logo" src="assets/logo/doubletick-logo.png" alt="DoubleTick" />
         </div>
         <div id="cta-head" class="serif">
           <span class="hl-line">Your next high-intent lead</span>
@@ -1630,7 +1588,7 @@
       </div>
 
       <!-- ============ SUBTITLES ============ -->
-      <div class="cap clip" id="cap1" data-start="0.3" data-duration="3.1" data-track-index="5">
+      <div class="cap clip" id="cap1" data-start="0" data-duration="3.4" data-track-index="5">
         <span>Your customer asks about your product at 10 PM.</span>
       </div>
       <div class="cap clip" id="cap2" data-start="3.4" data-duration="2.2" data-track-index="5">
@@ -1680,7 +1638,7 @@
       <audio id="vo7" src="assets/vo/vo7.wav" data-start="37.4" data-duration="1.536" data-track-index="10" data-volume="1"></audio>
       <audio id="bgm" src="assets/music/bed.wav" data-start="0" data-duration="41" data-track-index="11" data-volume="0.2"></audio>
 
-      <audio id="sfx-pop1" src="assets/sfx/pop.mp3" data-start="1.1" data-duration="0.72" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-pop1" src="assets/sfx/pop.mp3" data-start="2.5" data-duration="0.72" data-track-index="12" data-volume="0.45"></audio>
       <audio id="sfx-tick1" src="assets/sfx/click-soft.mp3" data-start="2.2" data-duration="0.36" data-track-index="12" data-volume="0.5"></audio>
       <audio id="sfx-tick2" src="assets/sfx/click-soft.mp3" data-start="3.4" data-duration="0.36" data-track-index="12" data-volume="0.5"></audio>
       <audio id="sfx-tick3" src="assets/sfx/click-soft.mp3" data-start="6.2" data-duration="0.36" data-track-index="12" data-volume="0.5"></audio>
@@ -1823,7 +1781,7 @@
             width: w + "px",
             height: h + "px",
             borderRadius: o.h ? "999px" : "50%",
-            borderColor: o.color || "#1da75a",
+            borderColor: o.color || "#27b378",
           });
           (o.parent || cam()).appendChild(r);
           tl.fromTo(
@@ -1844,7 +1802,7 @@
               top: cy - sz / 2 + "px",
               width: sz + "px",
               height: sz + "px",
-              background: i % 4 === 0 ? "#f2c46d" : i % 3 === 0 ? "#0f7040" : "#1da75a",
+              background: i % 4 === 0 ? "#f2c46d" : i % 3 === 0 ? "#0f7040" : "#27b378",
             });
             (o.parent || cam()).appendChild(p);
             const a = (i / n) * Math.PI * 2 + (i % 2) * 0.2;
@@ -1858,6 +1816,11 @@
           const s = parseFloat(el.dataset.start);
           const d = parseFloat(el.dataset.duration);
           const span = el.querySelector("span");
+          if (s === 0) {
+            tl.set(span, { opacity: 1 }, 0);
+            tl.to(span, { opacity: 0, y: -6, duration: 0.15, ease: "power1.in" }, d - 0.15);
+            return;
+          }
           tl.fromTo(
             span,
             { opacity: 0, y: 10, filter: "blur(6px)" },
@@ -1894,12 +1857,24 @@
         }
 
         function build() {
-          document.querySelectorAll(".hl-big, .hl-sub, #cta-head .hl-line, .logo-word").forEach(splitWords);
-          tl.set(".hl-group .wi, #cta-head .wi, .logo-word .wi", { yPercent: 115 }, 0);
-          tl.set(".hl-group", { opacity: 0 }, 0);
+          document.querySelectorAll(".hl-big, .hl-sub, #cta-head .hl-line").forEach(splitWords);
+          tl.set(".hl-group:not(#h1) .wi, #cta-head .wi", { yPercent: 115 }, 0);
+          tl.set(".hl-group:not(#h1)", { opacity: 0 }, 0);
 
           // ---- chat scroll model -------------------------------------------
-          const VH = 670 - 88 - 76;
+          const chatEl = $("#chat"),
+            view = $("#chat-view");
+          const VH = view.clientHeight;
+          const absPos = (el) => {
+            let x = 0,
+              y = 0;
+            while (el && el.id !== "cam") {
+              x += el.offsetLeft;
+              y += el.offsetTop;
+              el = el.offsetParent;
+            }
+            return [x, y];
+          };
           const msgs = $("#msgs");
           const bottomOf = (id) => {
             const e = document.getElementById(id);
@@ -1924,15 +1899,10 @@
             return v;
           };
           function aiMsg(prevId, id, tType, tMsg) {
-            scrollTo(tType - 0.05, bottomOf(prevId) + 12 + 44 + 18 - VH);
-            tl.fromTo("#typing", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)", ...IR }, tType);
-            tl.fromTo(
-              "#typing i",
-              { y: 0 },
-              { y: -6, duration: 0.16, yoyo: true, repeat: 3, stagger: 0.08, ease: "sine.inOut", ...IR },
-              tType + 0.05,
-            );
-            tl.to("#typing", { opacity: 0, scale: 0.8, duration: 0.12 }, tMsg - 0.08);
+            tl.to("#sub-biz", { opacity: 0, duration: 0.12 }, tType);
+            tl.to("#sub-typing", { opacity: 1, duration: 0.12 }, tType);
+            tl.to("#sub-typing", { opacity: 0, duration: 0.12 }, tMsg - 0.05);
+            tl.to("#sub-biz", { opacity: 1, duration: 0.12 }, tMsg - 0.05);
             userMsg(id, tMsg);
           }
           function userMsg(id, t) {
@@ -1941,12 +1911,12 @@
           }
 
           // chip extraction: arcs out of the highlighted phrase and snaps into the column
-          const CHAT_X = 70,
-            CHAT_Y = 262 + 88;
+          const CHAT_X = chatEl.offsetLeft + chatEl.clientLeft + view.offsetLeft,
+            CHAT_Y = chatEl.offsetTop + chatEl.clientTop + view.offsetTop;
           function extract(markId, chipId, t) {
             const mark = document.getElementById(markId);
             const bubble = mark.closest(".b");
-            const ox = CHAT_X + 18 + bubble.offsetLeft + mark.offsetLeft;
+            const ox = CHAT_X + bubble.offsetLeft + mark.offsetLeft;
             const oy = CHAT_Y + bubble.offsetTop + mark.offsetTop - scrollAt(t) - 8;
             const chip = document.getElementById(chipId);
             const fx = chip.offsetLeft,
@@ -1970,34 +1940,21 @@
           tl.set("#cam", { x: 0, y: 0, scale: 1, filter: "blur(0px)" }, 0);
           tl.set("#chat", { filter: "blur(0px) saturate(1)" }, 0);
           tl.set(["#lead", "#as-ai", "#journey"], { filter: "blur(0px)" }, 0);
-          // scroll-stopper: a huge 10:00 PM alone, then it docks into the column
+          // a static, fully composed opening frame for the first two seconds
           tl.set("#ct0", { opacity: 1 }, 0);
-          tl.fromTo(
-            "#clock",
-            { x: -290, y: 210, scale: 1.75, opacity: 0, filter: "blur(14px)" },
-            { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "power2.out" },
-            0,
-          );
-          tl.to("#clock", { x: 0, y: 0, scale: 1, duration: 0.7, ease: "power4.inOut" }, 0.5);
-          tl.fromTo(
-            "#chat",
-            { x: -120, opacity: 0, rotationY: 28, transformPerspective: 1400, transformOrigin: "0% 50%" },
-            { x: 0, opacity: 1, rotationY: 0, duration: 0.8, ease: "power4.out" },
-            0.9,
-          );
-          pop("#m-c1", 1.1);
-          wordsIn("#h1a", 1.2);
-          wordsIn("#h1b", 1.75);
+          tl.set("#m-c1", { opacity: 1 }, 0);
           flip("#ct0", "#ct1", 2.2);
           inn("#noreply", 2.5, { y: 10, s: 0.8, e: "back.out(2)" });
           flip("#ct1", "#ct2", 3.4);
           tl.fromTo("#st-off .dot", { scale: 1 }, { scale: 1.6, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut", ...IR }, 2.6);
+          tl.to("#st-off", { opacity: 0, y: -10, duration: 0.3 }, 5.4);
           // slow creeping push — tension
-          camTo(1.4, 470, 560, 1.045, 8.8, "sine.inOut");
-          tl.fromTo("#blob-n", { x: 0, y: 0 }, { x: -120, y: 60, duration: 10.5, ease: "none", ...IR }, 0);
+          camTo(2.0, 470, 618, 1.04, 8.2, "sine.inOut");
+          tl.fromTo("#blob-n", { x: 0, y: 0 }, { x: -120, y: 60, duration: 8.5, ease: "none", ...IR }, 2.0);
 
           // ================= S2 — LEAD GOES COLD (5.5 – 10.3) ==============
           wordsOut("#h1", 5.35);
+          tl.to("#h1", { opacity: 0, duration: 0.3 }, 5.5);
           wordsIn("#h2 .hl-big", 5.65);
           wordsIn("#h2 .hl-sub", 6.1, 0.03);
           tl.to("#noreply", { opacity: 0, scale: 0.8, duration: 0.25 }, 5.4);
@@ -2032,19 +1989,19 @@
           drawPath("ln1", 10.25, 0.5, "hd1");
           tl.to("#lead", { y: 0, rotation: 0, opacity: 1, duration: 0.45, ease: "back.out(2.6)" }, 10.75);
           tl.fromTo("#ln-dot", { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.25, ...IR }, 10.72);
-          ring(830, 600, 10.75, 260, { to: 1.8, d: 1.0 });
-          ring(830, 600, 10.9, 260, { to: 2.4, d: 1.1 });
+          ring(830, 658, 10.75, 260, { to: 1.8, d: 1.0 });
+          ring(830, 658, 10.9, 260, { to: 2.4, d: 1.1 });
           tl.to("#frost", { opacity: 0, duration: 0.4 }, 10.8);
-          tl.to("#lead", { backgroundColor: "#e3f3e8", borderColor: "rgba(29,167,90,0.6)", duration: 0.5 }, 10.8);
-          tl.to("#temp-fill", { scaleX: 1, backgroundColor: "#1da75a", duration: 0.7, ease: "power3.out" }, 10.8);
+          tl.to("#lead", { backgroundColor: "#e3f3e8", borderColor: "rgba(39,179,120,0.6)", duration: 0.5 }, 10.8);
+          tl.to("#temp-fill", { scaleX: 1, backgroundColor: "#27b378", duration: 0.7, ease: "power3.out" }, 10.8);
           tl.to("#p-cold", { opacity: 0, duration: 0.2 }, 10.85);
           tl.fromTo("#p-high", { opacity: 0, y: 10, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2.4)", ...IR }, 10.95);
           // night → day: a circular wipe radiating from the caught lead
-          tl.to("#bg-day", { clipPath: "circle(1500px at 830px 600px)", duration: 1.2, ease: "power2.inOut" }, 10.75);
+          tl.to("#bg-day", { clipPath: "circle(1500px at 830px 658px)", duration: 1.2, ease: "power2.inOut" }, 10.75);
           tl.fromTo(["#blob-g", "#blob-w"], { opacity: 0 }, { opacity: 1, duration: 1.2, ...IR }, 11.0);
           tl.fromTo("#blob-g", { x: 0, y: 0 }, { x: -260, y: -120, duration: 22, ease: "sine.inOut", ...IR }, 11.0);
           tl.fromTo("#blob-w", { x: 0, y: 0 }, { x: 140, y: 80, duration: 22, ease: "sine.inOut", ...IR }, 11.0);
-          camTo(10.3, 540, 600, 1, 0.8, "power3.out");
+          camTo(10.3, 540, 640, 1, 0.8, "power3.out");
           tl.to("#chat", { opacity: 1, filter: "blur(0px) saturate(1)", duration: 0.4 }, 10.8);
           wordsIn("#h3 .hl-sub", 10.65);
           wordsIn("#h3 .hl-big", 10.8, 0.09);
@@ -2052,8 +2009,8 @@
           tl.fromTo("#chat-ring", { opacity: 0 }, { opacity: 1, duration: 0.2, ...IR }, 11.4);
           tl.fromTo("#chat", { scale: 1 }, { scale: 1.025, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "50% 50%", ...IR }, 11.4);
           tl.to("#chat-ring", { opacity: 0, duration: 0.8 }, 12.6);
-          tl.to("#st-off", { opacity: 0, y: -8, duration: 0.2 }, 11.45);
-          inn("#st-ai", 11.55, { y: 8, d: 0.3 });
+          inn("#st-ai", 12.4, { y: 10, s: 0.8, e: "back.out(2)" });
+          tl.to("#st-ai", { opacity: 0, scale: 0.9, duration: 0.2 }, 13.4);
           // clock rewinds to the moment of the enquiry
           flip("#ct4", "#ct3", 11.1, 0.16);
           flip("#ct3", "#ct2", 11.26, 0.16);
@@ -2066,23 +2023,21 @@
           // ================= S3 — AI RESPONDS INSTANTLY (13 – 18.5) ========
           wordsOut("#h3", 12.8);
           wordsIn("#h4 .hl-big", 13.0, 0.07);
-          tl.to("#tk-grey", { opacity: 0, duration: 0.15 }, 12.7);
-          tl.to("#tk-blue", { opacity: 1, duration: 0.15 }, 12.7);
           aiMsg("m-c1", "m-a1", 12.7, 13.4);
           tl.set("#chat", { transformOrigin: "0% 0%" }, 12.9);
-          camTo(13.2, 300, 520, 1.08, 0.9, "power3.inOut");
+          camTo(13.2, 300, 580, 1.08, 0.9, "power3.inOut");
           inn("#replied", 13.6, { y: 10, s: 0.8, e: "back.out(2)" });
           userMsg("m-c2", 14.5);
           aiMsg("m-c2", "m-a2", 15.0, 15.7);
           userMsg("m-c3", 16.8);
-          camTo(14.2, 300, 520, 1.1, 4.0, "sine.inOut");
+          camTo(14.2, 300, 580, 1.1, 4.0, "sine.inOut");
 
           // ================= S4 — UNDERSTANDS THE NEED (18.5 – 22) =========
           wordsOut("#h4", 18.3);
           wordsIn("#h5 .hl-big", 18.5);
           wordsIn("#h5 .hl-sub", 18.9, 0.04);
           tl.to("#replied", { opacity: 0, scale: 0.8, duration: 0.25 }, 18.3);
-          camTo(18.3, 760, 520, 1.05, 0.9, "power3.inOut");
+          camTo(18.3, 760, 580, 1.05, 0.9, "power3.inOut");
           extract("mk-lead", "chip-lead", 18.6);
           extract("mk-team", "chip-team", 19.1);
           aiMsg("m-c3", "m-a3", 19.35, 19.9);
@@ -2096,9 +2051,9 @@
           aiMsg("m-c4", "m-a4", 21.85, 22.35);
           userMsg("m-c5", 23.1);
           extract("mk-time", "chip-time", 23.5);
-          camTo(23.4, 830, 600, 1.0, 0.5, "power3.inOut");
+          camTo(23.4, 830, 658, 1.0, 0.5, "power3.inOut");
           // the same lead card returns, now as the qualification card
-          tl.set("#lead", { height: 360, top: 420 }, 23.8);
+          tl.set("#lead", { height: 360, top: 478 }, 23.8);
           tl.set(".lead-a", { opacity: 0 }, 23.8);
           tl.set(".lead-b", { opacity: 1 }, 23.8);
           tl.fromTo(
@@ -2107,7 +2062,7 @@
             { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power3.out", ...IR },
             23.85,
           );
-          const rowY = (id) => 420 + document.getElementById(id).offsetTop + 4;
+          const rowY = (id) => 478 + document.getElementById(id).offsetTop + 4;
           [
             ["#chip-lead", "q-need"],
             ["#chip-mgr", "q-need"],
@@ -2124,21 +2079,21 @@
           ["#q-need", "#q-team", "#q-time"].forEach((r, i) => {
             const t = 24.3 + i * 0.2;
             tl.fromTo(r + " .q-check", { opacity: 0, scale: 0.2, rotation: -90 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2.6)", ...IR }, t);
-            tl.fromTo(r, { backgroundColor: "rgba(29,167,90,0.22)" }, { backgroundColor: "rgba(29,167,90,0)", duration: 0.6, ...IR }, t);
+            tl.fromTo(r, { backgroundColor: "rgba(39,179,120,0.22)" }, { backgroundColor: "rgba(39,179,120,0)", duration: 0.6, ...IR }, t);
           });
           tl.fromTo("#p-final", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.6)", ...IR }, 24.95);
-          ring(830, 600, 24.95, 300, { to: 1.7, d: 0.9 });
-          ring(830, 600, 25.08, 300, { to: 2.3, d: 1.0 });
-          burst(830, 600, 24.95, 18, { dist: 210 });
-          camTo(24.9, 830, 600, 1.09, 0.35, "power4.out");
-          tl.to("#lead", { boxShadow: "0 0 0 10px rgba(29,167,90,0.18), 0 30px 60px -26px rgba(19,128,74,0.65)", duration: 0.4 }, 24.95);
+          ring(830, 658, 24.95, 300, { to: 1.7, d: 0.9 });
+          ring(830, 658, 25.08, 300, { to: 2.3, d: 1.0 });
+          burst(830, 658, 24.95, 18, { dist: 210 });
+          camTo(24.9, 830, 658, 1.09, 0.35, "power4.out");
+          tl.to("#lead", { boxShadow: "0 0 0 10px rgba(39,179,120,0.18), 0 30px 60px -26px rgba(19,128,74,0.65)", duration: 0.4 }, 24.95);
 
           // ================= S6 — AI → HUMAN HANDOFF (25.8 – 30.2) =========
           wordsOut("#h6", 25.6);
           wordsIn("#h7 .hl-big", 25.85);
           wordsIn("#h7 .hl-sub", 26.4, 0.04);
           tl.to("#clock", { opacity: 0, y: -10, duration: 0.3 }, 25.7);
-          camTo(25.6, 540, 600, 1.0, 0.7, "power3.inOut");
+          camTo(25.6, 540, 640, 1.0, 0.7, "power3.inOut");
           tl.to("#chat", { scale: 0.66, x: -10, y: 70, duration: 0.7, ease: "power4.inOut" }, 25.8);
           tl.to("#chat", { filter: "blur(2.5px) saturate(1)", opacity: 0.75, duration: 0.6 }, 26.4);
           tl.fromTo(
@@ -2158,12 +2113,13 @@
           tl.set("#sr5 b", { color: "#0f7040" }, 28.5);
           drawPath("ln3", 26.4, 0.4);
           // assignment AI Agent -> Rahul
-          camTo(28.5, 760, 720, 1.06, 0.4, "power3.out");
+          camTo(28.5, 760, 778, 1.06, 0.4, "power3.out");
           tl.to("#as-ai", { opacity: 0, x: -30, filter: "blur(4px)", duration: 0.25, ease: "power2.in" }, 28.6);
           tl.fromTo("#as-rahul", { opacity: 0, x: 40, scale: 0.85 }, { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(2.2)", ...IR }, 28.72);
-          ring(690, 770, 28.8, 90, { to: 2.2, d: 0.8 });
+          const [rx, ry] = absPos($("#as-rahul"));
+          ring(rx + 27, ry + 27, 28.8, 90, { to: 2.2, d: 0.8 });
           inn("#ws-note", 29.0, { y: 8 });
-          camTo(29.6, 540, 600, 1.0, 0.5, "power3.inOut");
+          camTo(29.6, 540, 640, 1.0, 0.5, "power3.inOut");
 
           // ================= S7 — SALES FOCUSES ON CLOSING (30.2 – 33) =====
           wordsOut("#h7", 30.0);
@@ -2172,8 +2128,6 @@
           tl.to("#ln3", { opacity: 0, duration: 0.3 }, 30.0);
           tl.to("#chat", { scale: 1, x: 0, y: 0, duration: 0.7, ease: "back.out(1.2)" }, 30.1);
           tl.to("#chat", { filter: "blur(0px) saturate(1)", opacity: 1, duration: 0.35, ease: "power2.out" }, 30.1);
-          tl.to("#st-ai", { opacity: 0, duration: 0.2 }, 30.3);
-          inn("#st-rahul", 30.4, { y: 8, d: 0.3 });
           inn("#assigned", 30.45, { y: 14, s: 0.85, e: "back.out(2)" });
           aiMsg("m-c5", "m-r1", 30.3, 30.75);
           userMsg("m-c6", 31.8);
@@ -2184,7 +2138,7 @@
             32.3,
           );
           tl.fromTo("#demo-shine", { xPercent: -150 }, { xPercent: 350, duration: 0.7, ease: "power2.inOut", ...IR }, 32.6);
-          camTo(32.2, 830, 460, 1.05, 0.6, "power3.out");
+          camTo(32.2, 830, 518, 1.05, 0.6, "power3.out");
 
           // ================= S8 — CONNECTED JOURNEY (33 – 36.6) ============
           wordsOut("#h8", 32.85);
@@ -2199,20 +2153,15 @@
             const t = 33.4 + i * 0.4;
             tl.fromTo(n, { opacity: 0, x: -30, filter: "blur(5px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.45, ease: "power4.out", ...IR }, t);
             tl.fromTo(n + " .j-dot", { scale: 0.3 }, { scale: 1, duration: 0.45, ease: "back.out(3)", ...IR }, t);
-            ring(325, 325 + i * 104, t + 0.05, 50, { to: 2.0, d: 0.6, parent: $("#journey-clip") });
+            ring(325, 345 + i * 104, t + 0.05, 50, { to: 2.0, d: 0.6, parent: $("#journey-clip") });
           });
           tl.fromTo("#j6", { scale: 1 }, { scale: 1.08, duration: 0.2, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "0% 50%", ...IR }, 35.55);
-          burst(325, 845, 35.55, 12, { dist: 80, parent: $("#journey-clip") });
+          burst(325, 865, 35.55, 12, { dist: 80, parent: $("#journey-clip") });
           wordsOut("#h9", 36.25);
           tl.to("#journey", { opacity: 0, y: -30, filter: "blur(6px)", duration: 0.35, ease: "power2.in" }, 36.3);
 
           // ================= S9 — CTA (36.6 – 41) ===========================
-          const tick = document.getElementById("logo-tick");
-          const tlen = tick.getTotalLength();
-          tl.set(tick, { strokeDasharray: tlen, strokeDashoffset: tlen }, 0);
-          tl.fromTo("#logo-rect", { scale: 0, rotation: -30, transformOrigin: "50% 50%" }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2.2)", ...IR }, 36.6);
-          tl.to(tick, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 36.85);
-          wordsIn(".logo-word", 36.75);
+          tl.fromTo("#cta-logo", { clipPath: "inset(0% 100% 0% 0%)", scale: 0.94 }, { clipPath: "inset(0% 0% 0% 0%)", scale: 1, duration: 0.7, ease: "power3.out", ...IR }, 36.6);
           wordsIn("#cta-head", 36.95, 0.06);
           tl.fromTo("#cta-btn", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", ...IR }, 37.6);
           tl.fromTo("#cta-shine", { xPercent: -150 }, { xPercent: 400, duration: 0.8, ease: "power2.inOut", ...IR }, 37.9);
