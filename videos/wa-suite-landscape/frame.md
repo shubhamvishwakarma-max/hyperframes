@@ -2,15 +2,24 @@
 
 Brand truth for every frame. Source: the square "wa suite final sq.mp4" — match its look, re-laid-out for 1920×1080.
 
-## Canvas & safe zones (16:9 landscape)
+## Canvas & layout system (16:9 landscape — v2, designed for widescreen)
 
-- Canvas **1920 × 1080**, 24 fps source (render at 30).
-- **Logo band, y 0–130: reserved.** The host draws the white DoubleTick pill (x 810–1110, y 40–112) above every frame. Never put content there.
-- **Hero band, y 150–790, x 120–1800:** the main visual (type, UI card, chart, disc). Use the width — put lists/cards side by side or in two columns instead of tall stacks; a UI window can sit centred ~1100–1300px wide.
-- **Caption band, y 810–960:** the spoken line, centred, one line, max width 1560.
-- Keep y 990–1080 free of essential text (player controls / YouTube progress bar).
-- Side gutters 100px.
-- Optional split layout for footage beats: footage full-bleed, caption over a bottom gradient.
+Canvas **1920 × 1080**. The host draws the logo pill top-centre (x 801–1119, y 27–124): keep y 0–140 free.
+Every frame uses ONE of these archetypes — never the portrait "small visual + small caption underneath" stack.
+
+**A · Split (UI scenes).**
+- Left column x 120–760: the spoken line as a **headline** — Inter 600, **88px**, line-height 1.06,
+  letter-spacing −0.03em, left-aligned, 2–4 lines, vertically centred on y≈560. Words appear one by one on the VO
+  (ghost #8F8A84 → ink / white), the previous phrase clears before the next.
+- Right column x 820–1800 (980 wide), y 150–960: the product UI **big** — window/card 900–980 wide; UI body text
+  ≥ 30px, names 32–34px, meta ≥ 22px. Never leave the right column half empty.
+**B · Hero type (statement words).** Giant centred type 220–320px (or full-width composition) on y≈560:
+  "ignored", "real time", "instantly", "NO …", "CX Overview", "what if WhatsApp", "smarter", CTA.
+**C · Footage.** Full-bleed clip; caption as a **left-aligned lower-third** at x 120, y 860–1010, Inter 600 84px white,
+  on a bottom gradient. Covers for burned text go in the bottom strip (see brief).
+**D · Feature card.** One large glass card (≈1200×640) centred, or card right + headline left (A).
+
+Spacing: 120px side gutters. Bottom 60px no essential text.
 
 ## Colour tokens
 
@@ -44,7 +53,7 @@ Dark green recipe: `radial-gradient(circle at 50% 45%, #145236 0%, #0D3A26 45%, 
 
 - **Inter** (bundled — write `font-family: Inter, sans-serif;`, no @font-face needed). Weights 400/500/600/700.
 - Logo wordmark only: **Montserrat 700**.
-- Caption (spoken line): Inter 500, **68px**, line-height 1.12, letter-spacing −0.025em, centred. Ink on light, white on dark/footage.
+- Caption: see archetypes A / C (88px split headline, 84px lower-third), line-height 1.12, letter-spacing −0.025em, centred. Ink on light, white on dark/footage.
 - Headline words ("ignored", "real time", "instantly", "NO", "CX Overview"): Inter 600–700, **170–240px**, letter-spacing −0.045em.
 - Pills: Inter 500, 64–84px text, `border-radius: 999px`, padding 0.28em 0.7em.
 - UI text inside cards: Inter 500/400, 26–34px (names 28px 600, body 26px, meta 20px).
