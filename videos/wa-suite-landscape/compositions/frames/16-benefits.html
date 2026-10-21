@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: Inter, sans-serif;
+          background: #0d3a26;
+        }
+        #f16-green {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at 50% 45%, #145236 0%, #0d3a26 45%, #072217 100%);
+        }
+        #f16-glow {
+          position: absolute;
+          left: 90px;
+          top: 360px;
+          width: 900px;
+          height: 900px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(34, 240, 138, 0.16) 0%, rgba(34, 240, 138, 0) 65%);
+        }
+        #f16-cream {
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(circle at 100% 100%, rgba(247, 207, 212, 0.75), transparent 55%),
+            radial-gradient(circle at 0% 0%, rgba(247, 207, 212, 0.45), transparent 45%), #f7f3ec;
+        }
+        #f16-grid {
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(to right, rgba(60, 40, 20, 0.07) 2px, transparent 2px),
+            linear-gradient(to bottom, rgba(60, 40, 20, 0.07) 2px, transparent 2px);
+          background-size: 180px 180px;
+        }
+        #f16-means {
+          position: absolute;
+          left: 0;
+          top: 660px;
+          width: 1080px;
+          height: 240px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 40px;
+          font-size: 168px;
+          font-weight: 600;
+          letter-spacing: -0.045em;
+          color: #1c1c1e;
+        }
+        .f16-w {
+          display: block;
+          color: #8F8A84;
+        }
+        .f16-card {
+          position: absolute;
+          left: 170px;
+          top: 330px;
+          width: 740px;
+          height: 860px;
+          border-radius: 48px;
+          background: linear-gradient(160deg, #d3f5e1 0%, #a9e8c4 100%);
+          border: 3px solid rgba(255, 255, 255, 0.55);
+          box-shadow: 0 40px 100px rgba(0, 0, 0, 0.35), 0 0 80px rgba(34, 240, 138, 0.12);
+          opacity: 0;
+        }
+        .f16-tile {
+          position: absolute;
+          left: 64px;
+          top: 64px;
+          width: 176px;
+          height: 176px;
+          border-radius: 36px;
+          background: rgba(255, 255, 255, 0.78);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .f16-tile svg {
+          display: block;
+          width: 104px;
+          height: 104px;
+        }
+        .f16-title {
+          position: absolute;
+          left: 64px;
+          bottom: 72px;
+          width: 612px;
+          display: flex;
+          flex-direction: column;
+          font-size: 84px;
+          line-height: 1.06;
+          font-weight: 600;
+          letter-spacing: -0.035em;
+          color: #0e3b27;
+        }
+        #f16-title2,
+        #f16-title3 {
+          font-size: 78px;
+        }
+        .f16-tl {
+          display: block;
+          white-space: nowrap;
+        }
+        .f16-ch {
+          opacity: 0;
+        }
+      </style>
+
+      <div id="root" data-composition-id="f16" data-width="1080" data-height="1920">
+        <div id="f16-green"></div>
+        <div id="f16-glow"></div>
+        <div class="f16-card" id="f16-card1">
+          <div class="f16-tile" id="f16-tile1"><svg viewBox="0 0 24 24" fill="none" stroke="#1FA855" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="#1FA855" d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z" /></svg></div>
+          <div class="f16-title" id="f16-title1"><span class="f16-tl" id="f16-c1l0"><span class="f16-ch">F</span><span class="f16-ch">a</span><span class="f16-ch">s</span><span class="f16-ch">t</span><span class="f16-ch">e</span><span class="f16-ch">r</span></span><span class="f16-tl" id="f16-c1l1"><span class="f16-ch">R</span><span class="f16-ch">e</span><span class="f16-ch">s</span><span class="f16-ch">p</span><span class="f16-ch">o</span><span class="f16-ch">n</span><span class="f16-ch">s</span><span class="f16-ch">e</span><span class="f16-ch">s</span></span></div>
+        </div>
+        <div class="f16-card" id="f16-card2">
+          <div class="f16-tile" id="f16-tile2"><svg viewBox="0 0 24 24" fill="none" stroke="#1FA855" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="#1FA855" d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" /><path d="M9 18h6" /><path d="M10 22h4" /></svg></div>
+          <div class="f16-title" id="f16-title2"><span class="f16-tl" id="f16-c2l0"><span class="f16-ch">S</span><span class="f16-ch">m</span><span class="f16-ch">a</span><span class="f16-ch">r</span><span class="f16-ch">t</span><span class="f16-ch">e</span><span class="f16-ch">r</span></span><span class="f16-tl" id="f16-c2l1"><span class="f16-ch">P</span><span class="f16-ch">r</span><span class="f16-ch">i</span><span class="f16-ch">o</span><span class="f16-ch">r</span><span class="f16-ch">i</span><span class="f16-ch">t</span><span class="f16-ch">i</span><span class="f16-ch">z</span><span class="f16-ch">a</span><span class="f16-ch">t</span><span class="f16-ch">i</span><span class="f16-ch">o</span><span class="f16-ch">n</span></span></div>
+        </div>
+        <div class="f16-card" id="f16-card3">
+          <div class="f16-tile" id="f16-tile3"><svg viewBox="0 0 24 24" fill="none" stroke="#1FA855" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="#1FA855" d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" /><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1" /></svg></div>
+          <div class="f16-title" id="f16-title3"><span class="f16-tl" id="f16-c3l0"><span class="f16-ch">B</span><span class="f16-ch">e</span><span class="f16-ch">t</span><span class="f16-ch">t</span><span class="f16-ch">e</span><span class="f16-ch">r</span></span><span class="f16-tl" id="f16-c3l1"><span class="f16-ch">C</span><span class="f16-ch">u</span><span class="f16-ch">s</span><span class="f16-ch">t</span><span class="f16-ch">o</span><span class="f16-ch">m</span><span class="f16-ch">e</span><span class="f16-ch">r</span></span><span class="f16-tl" id="f16-c3l2"><span class="f16-ch">C</span><span class="f16-ch">o</span><span class="f16-ch">n</span><span class="f16-ch">v</span><span class="f16-ch">e</span><span class="f16-ch">r</span><span class="f16-ch">s</span><span class="f16-ch">a</span><span class="f16-ch">t</span><span class="f16-ch">i</span><span class="f16-ch">o</span><span class="f16-ch">n</span><span class="f16-ch">s</span></span></div>
+        </div>
+        <div class="f16-card" id="f16-card4">
+          <div class="f16-tile" id="f16-tile4"><svg viewBox="0 0 24 24" fill="none" stroke="#1FA855" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="#1FA855" d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /><circle cx="12" cy="12" r="3" fill="#FFFFFF" /></svg></div>
+          <div class="f16-title" id="f16-title4"><span class="f16-tl" id="f16-c4l0"><span class="f16-ch">C</span><span class="f16-ch">l</span><span class="f16-ch">e</span><span class="f16-ch">a</span><span class="f16-ch">r</span></span><span class="f16-tl" id="f16-c4l1"><span class="f16-ch">V</span><span class="f16-ch">i</span><span class="f16-ch">s</span><span class="f16-ch">i</span><span class="f16-ch">b</span><span class="f16-ch">i</span><span class="f16-ch">l</span><span class="f16-ch">i</span><span class="f16-ch">t</span><span class="f16-ch">y</span></span></div>
+        </div>
+        <div id="f16-cream">
+          <div id="f16-grid"></div>
+          <div id="f16-means">
+            <span class="f16-w" id="f16-that">that</span>
+            <span class="f16-w" id="f16-meansw">means</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const word = (sel, t) => {
+            tl.fromTo(sel, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, t);
+            tl.to(sel, { color: "#1C1C1E", duration: 0.35, ease: "power1.out" }, t + 0.12);
+          };
+
+          // (a) cream "that means"
+          tl.fromTo("#f16-means", { scale: 1 }, { scale: 1.05, duration: 1, ease: "none" }, 0);
+          word("#f16-that", 0.06);
+          word("#f16-meansw", 0.33);
+          tl.to("#f16-cream", { opacity: 0, duration: 0.05, ease: "none" }, 0.9);
+
+          // (b) green: glow breathes the whole beat
+          tl.fromTo("#f16-glow", { scale: 0.9, opacity: 0.7 }, { scale: 1.1, opacity: 1, duration: 7.2, ease: "sine.inOut" }, 0.9);
+
+          // card lands on each benefit word (local = global - 73.2)
+          const lands = [1.05, 2.67, 4.68, 6.6];
+          const END = 8.1;
+          lands.forEach((L, i) => {
+            const n = i + 1;
+            const card = "#f16-card" + n;
+            const enter = 0.3;
+            tl.fromTo(card, { x: 980, opacity: 0, filter: "blur(36px)", scale: 0.96 }, { x: 0, opacity: 1, filter: "blur(0px)", scale: 1, duration: enter, ease: "power3.out" }, L - enter + 0.04);
+            tl.fromTo("#f16-tile" + n, { scale: 0.6 }, { scale: 1, duration: 0.45, ease: "back.out(1.8)" }, L - 0.08);
+            const chars = document.querySelectorAll(card + " .f16-ch");
+            const typeDur = 0.55;
+            tl.fromTo(chars, { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power1.out", stagger: typeDur / chars.length }, L + 0.02);
+            const next = lands[i + 1];
+            if (next !== undefined) {
+              const exitAt = next - 0.5;
+              tl.fromTo(card, { x: 0 }, { x: -36, duration: exitAt - L - 0.06, ease: "none", immediateRender: false }, L + 0.06);
+              tl.to(card, { x: -1050, filter: "blur(36px)", opacity: 0, duration: 0.26, ease: "power3.in" }, exitAt);
+            } else {
+              tl.fromTo(card, { scale: 1 }, { scale: 1.035, duration: END - L - 0.06, ease: "sine.out", immediateRender: false }, L + 0.06);
+            }
+          });
+
+          window.__timelines["f16"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

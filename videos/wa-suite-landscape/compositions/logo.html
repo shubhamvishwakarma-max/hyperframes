@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+        #logo-pill {
+          position: absolute;
+          top: 40px;
+          left: 810px;
+          width: 300px;
+          height: 72px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 14px;
+          background: #ffffff;
+          border-radius: 999px;
+          box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1), 0 0 0 1.5px rgba(0, 0, 0, 0.05);
+        }
+        #logo-pill svg {
+          display: block;
+          width: 56px;
+          height: 34px;
+          fill: none;
+          stroke: #2bb386;
+          stroke-width: 4.6;
+          stroke-linecap: square;
+          stroke-linejoin: miter;
+        }
+        #logo-pill span {
+          display: block;
+          font-family: Montserrat, sans-serif;
+          font-weight: 700;
+          font-size: 32px;
+          letter-spacing: -0.01em;
+          color: #111111;
+        }
+      </style>
+      <div id="root" data-composition-id="logo" data-width="1920" data-height="1080">
+        <div id="logo-pill">
+          <svg viewBox="3 6 44 26" aria-hidden="true">
+            <path d="M5 21 L13 29" />
+            <path d="M17 21 L25 29 L45 9" />
+            <path d="M29 17 L37 9" />
+          </svg>
+          <span>DoubleTick</span>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.set("#logo-pill", { opacity: 1 }, 0);
+          window.__timelines["logo"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

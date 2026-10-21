@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: Inter, sans-serif;
+          color: #1c1c1e;
+          background: #f7f3ec;
+        }
+        #f18-bg {
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(circle at 100% 100%, rgba(247, 207, 212, 0.8), transparent 55%),
+            radial-gradient(circle at 0% 0%, rgba(247, 207, 212, 0.5), transparent 45%), #f7f3ec;
+        }
+        #f18-grid {
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(to right, rgba(60, 40, 20, 0.07) 2px, transparent 2px),
+            linear-gradient(to bottom, rgba(60, 40, 20, 0.07) 2px, transparent 2px);
+          background-size: 180px 180px;
+        }
+        #f18-text {
+          position: absolute;
+          left: 80px;
+          top: 520px;
+          width: 920px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+        }
+        .f18-line {
+          display: flex;
+          justify-content: center;
+          gap: 26px;
+          height: 124px;
+          align-items: center;
+          font-size: 100px;
+          font-weight: 500;
+          letter-spacing: -0.035em;
+          white-space: nowrap;
+        }
+        .f18-w {
+          display: block;
+          color: #8F8A84;
+        }
+        #f18-wa {
+          font-weight: 700;
+        }
+        #f18-btnwrap {
+          position: absolute;
+          left: 150px;
+          top: 1000px;
+          width: 780px;
+          height: 170px;
+        }
+        #f18-ring {
+          position: absolute;
+          inset: 0;
+          border-radius: 22px;
+          border: 4px solid rgba(34, 240, 138, 0.7);
+          opacity: 0;
+        }
+        #f18-btn {
+          position: absolute;
+          inset: 0;
+          border-radius: 22px;
+          background: #1fa855;
+          box-shadow: 0 0 0 6px rgba(34, 240, 138, 0.22), 0 26px 70px rgba(31, 168, 85, 0.4);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+          color: #ffffff;
+          font-size: 72px;
+          font-weight: 600;
+          letter-spacing: -0.03em;
+          white-space: nowrap;
+          opacity: 0;
+        }
+        .f18-bw {
+          display: block;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="root" data-composition-id="f18" data-width="1080" data-height="1920">
+        <div id="f18-bg"></div>
+        <div id="f18-grid"></div>
+        <div id="f18-text">
+          <div class="f18-line">
+            <span class="f18-w" id="f18-ready">Ready</span>
+            <span class="f18-w" id="f18-to">to</span>
+            <span class="f18-w" id="f18-simplify">simplify</span>
+          </div>
+          <div class="f18-line">
+            <span class="f18-w" id="f18-your">your</span>
+            <span class="f18-w" id="f18-wa">WhatsApp</span>
+          </div>
+          <div class="f18-line">
+            <span class="f18-w" id="f18-ops">operations?</span>
+          </div>
+        </div>
+        <div id="f18-btnwrap">
+          <div id="f18-ring"></div>
+          <div id="f18-btn">
+            <span class="f18-bw" id="f18-b1">Book</span>
+            <span class="f18-bw" id="f18-b2">a</span>
+            <span class="f18-bw" id="f18-b3">Demo</span>
+            <span class="f18-bw" id="f18-b4">Today !</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const word = (sel, t, color) => {
+            tl.fromTo(sel, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, t);
+            tl.to(sel, { color: color || "#1C1C1E", duration: 0.35, ease: "power1.out" }, t + 0.12);
+          };
+          // local = global - 83.3
+          tl.fromTo("#f18-text", { scale: 1 }, { scale: 1.04, duration: 5.5, ease: "none" }, 0);
+          word("#f18-ready", 0.13);
+          word("#f18-to", 0.4);
+          word("#f18-simplify", 0.49);
+          word("#f18-your", 1.03);
+          word("#f18-wa", 1.18, "#1FA855");
+          word("#f18-ops", 1.57);
+
+          // Button pops on "book" (85.80)
+          tl.fromTo("#f18-btn", { opacity: 0, scale: 0.6, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.8)" }, 2.42);
+          const bw = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.24, ease: "power2.out" }, t);
+          bw("#f18-b1", 2.5);
+          bw("#f18-b2", 2.77);
+          bw("#f18-b3", 3.19);
+          bw("#f18-b4", 3.55);
+
+          // Soft pulse until the last 0.5s
+          [3.9, 4.45].forEach((t) => {
+            tl.fromTo("#f18-btnwrap", { scale: 1 }, { scale: 1.04, duration: 0.26, ease: "sine.out", immediateRender: false }, t);
+            tl.to("#f18-btnwrap", { scale: 1, duration: 0.26, ease: "sine.in" }, t + 0.26);
+            tl.fromTo("#f18-ring", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 1.18, duration: 0.5, ease: "power2.out", immediateRender: false }, t);
+          });
+          window.__timelines["f18"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
