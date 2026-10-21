@@ -77,10 +77,25 @@
           font-size: 23px;
           color: #5f5a54;
         }
+        #f11-msgs {
+          position: absolute;
+          left: 0;
+          top: 108px;
+          width: 964px;
+          height: 686px;
+          overflow: hidden;
+        }
+        #f11-msgs-in {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 964px;
+          height: 686px;
+        }
         #f11-day {
           position: absolute;
           left: 412px;
-          top: 132px;
+          top: 24px;
           width: 140px;
           height: 46px;
           border-radius: 12px;
@@ -94,7 +109,7 @@
         #f11-bubble0 {
           position: absolute;
           left: 32px;
-          top: 204px;
+          top: 96px;
           box-sizing: border-box;
           padding: 24px 30px 16px;
           background: #ffffff;
@@ -104,7 +119,7 @@
         #f11-bubble {
           position: absolute;
           left: 32px;
-          top: 350px;
+          top: 242px;
           max-width: 880px;
           box-sizing: border-box;
           padding: 24px 30px 16px;
@@ -334,14 +349,18 @@
                 <div class="f11-hmeta">online</div>
               </div>
             </div>
-            <div id="f11-day">Today</div>
-            <div id="f11-bubble0">
-              <div class="f11-msg">No one has replied to my order status!</div>
-              <div class="f11-time">10:23 AM</div>
-            </div>
-            <div id="f11-bubble">
-              <div class="f11-msg">Ordered 3 days ago, still no update.</div>
-              <div class="f11-time">10:24 AM</div>
+            <div id="f11-msgs">
+              <div id="f11-msgs-in">
+                <div id="f11-day">Today</div>
+                <div id="f11-bubble0">
+                  <div class="f11-msg">No one has replied to my order status!</div>
+                  <div class="f11-time">10:23 AM</div>
+                </div>
+                <div id="f11-bubble">
+                  <div class="f11-msg">Ordered 3 days ago, still no update.</div>
+                  <div class="f11-time">10:24 AM</div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -472,6 +491,7 @@
           tl.fromTo("#f11-wand", { color: "#6B665F" }, { color: "#1FA855", duration: 0.2 }, 1.6);
 
           // Generate Reply panel slides up and types the answer
+          tl.to("#f11-msgs-in", { y: -90, duration: 0.4, ease: "power3.out" }, 1.72);
           tl.fromTo("#f11-panel", { opacity: 0, y: 60, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 1.72);
           const typeEl = document.querySelector("#f11-type");
           const txt = typeEl.textContent;

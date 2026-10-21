@@ -72,10 +72,25 @@
           font-size: 23px;
           color: #5f5a54;
         }
+        #f12-msgs {
+          position: absolute;
+          left: 0;
+          top: 108px;
+          width: 964px;
+          height: 686px;
+          overflow: hidden;
+        }
+        #f12-msgs-in {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 964px;
+          height: 686px;
+        }
         #f12-day {
           position: absolute;
           left: 412px;
-          top: 132px;
+          top: 24px;
           width: 140px;
           height: 46px;
           border-radius: 12px;
@@ -89,7 +104,7 @@
         #f12-bubble0 {
           position: absolute;
           left: 32px;
-          top: 204px;
+          top: 96px;
           max-width: 760px;
           box-sizing: border-box;
           padding: 24px 30px 16px;
@@ -100,7 +115,7 @@
         #f12-bubble {
           position: absolute;
           left: 32px;
-          top: 392px;
+          top: 284px;
           max-width: 880px;
           box-sizing: border-box;
           padding: 24px 30px 16px;
@@ -346,14 +361,18 @@
                 <div class="f12-hmeta">online</div>
               </div>
             </div>
-            <div id="f12-day">Today</div>
-            <div id="f12-bubble0">
-              <div class="f12-msg">I was charged twice for the same order. Please fix this !</div>
-              <div class="f12-time">10:23 AM</div>
-            </div>
-            <div id="f12-bubble">
-              <div class="f12-msg">Two debits on my card statement.</div>
-              <div class="f12-time">10:24 AM</div>
+            <div id="f12-msgs">
+              <div id="f12-msgs-in">
+                <div id="f12-day">Today</div>
+                <div id="f12-bubble0">
+                  <div class="f12-msg">I was charged twice for the same order. Please fix this !</div>
+                  <div class="f12-time">10:23 AM</div>
+                </div>
+                <div id="f12-bubble">
+                  <div class="f12-msg">Two debits on my card statement.</div>
+                  <div class="f12-time">10:24 AM</div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -501,6 +520,7 @@
           tl.fromTo("#f12-wand", { color: "#6B665F" }, { color: "#1FA855", duration: 0.2 }, 1.62);
 
           // Writing improved panel
+          tl.to("#f12-msgs-in", { y: -90, duration: 0.4, ease: "power3.out" }, 1.74);
           tl.fromTo("#f12-panel", { opacity: 0, y: 60, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 1.74);
           tl.fromTo(".f12-rot", { rotation: 0 }, { rotation: 360, duration: 0.8, ease: "power2.inOut" }, 1.9);
           const chars = splitChars("#f12-type");
