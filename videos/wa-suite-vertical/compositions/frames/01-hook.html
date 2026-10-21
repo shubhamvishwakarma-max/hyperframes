@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: Inter, sans-serif;
+          color: #1c1c1e;
+        }
+        #f01-bg {
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(circle at 100% 100%, rgba(247, 207, 212, 0.8), transparent 55%),
+            radial-gradient(circle at 0% 0%, rgba(247, 207, 212, 0.45), transparent 45%), #f7f3ec;
+        }
+        #f01-grid {
+          position: absolute;
+          inset: 0;
+        }
+        #f01-grid .gl {
+          position: absolute;
+          background: rgba(60, 40, 20, 0.12);
+        }
+        #f01-grid .h {
+          left: 0;
+          width: 1080px;
+          height: 2px;
+        }
+        #f01-grid .v {
+          top: 0;
+          width: 2px;
+          height: 1920px;
+        }
+        .f01-line {
+          position: absolute;
+          left: 0;
+          top: 690px;
+          width: 1080px;
+          height: 170px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 28px;
+          font-size: 124px;
+          font-weight: 500;
+          letter-spacing: -0.045em;
+        }
+        .f01-w {
+          display: block;
+          color: #b9b3aa;
+        }
+        #f01-avatars {
+          display: flex;
+          width: 330px;
+          height: 150px;
+        }
+        #f01-avatars img {
+          display: block;
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          border: 6px solid #f7f3ec;
+          object-fit: cover;
+          margin-left: -60px;
+        }
+        #f01-avatars img:first-child {
+          margin-left: 0;
+        }
+        #f01-wa {
+          display: block;
+          width: 136px;
+          height: 136px;
+          border-radius: 50%;
+          background: #25d366;
+          padding: 24px;
+        }
+        #f01-wa svg {
+          display: block;
+          width: 88px;
+          height: 88px;
+          fill: #ffffff;
+        }
+        #f01-allday {
+          position: absolute;
+          left: 240px;
+          top: 700px;
+          width: 600px;
+          height: 160px;
+          border-radius: 999px;
+          background: #3a3a3c;
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 104px;
+          font-weight: 500;
+          letter-spacing: -0.04em;
+          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+        }
+      </style>
+
+      <div id="root" data-composition-id="f01" data-width="1080" data-height="1920">
+        <div id="f01-bg"></div>
+        <div id="f01-grid">
+          <div class="gl h" style="top: 690px"></div>
+          <div class="gl h" style="top: 870px"></div>
+          <div class="gl v" style="left: 240px"></div>
+          <div class="gl v" style="left: 840px"></div>
+        </div>
+
+        <div id="f01-l1" class="f01-line">
+          <span class="f01-w" id="f01-your">Your</span>
+          <div id="f01-avatars">
+            <img src="assets/img/avatar-c.png" alt="" />
+            <img src="assets/img/avatar-b.png" alt="" />
+            <img src="assets/img/avatar-d.png" alt="" />
+          </div>
+          <span class="f01-w" id="f01-team">Team</span>
+        </div>
+
+        <div id="f01-l2" class="f01-line">
+          <span class="f01-w" id="f01-is">is on</span>
+          <div id="f01-wa">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+              />
+            </svg>
+          </div>
+          <span class="f01-w" id="f01-whatsapp">WhatsApp</span>
+        </div>
+
+        <div id="f01-allday">All day</div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const word = (sel, t) => {
+            tl.fromTo(sel, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, t);
+            tl.to(sel, { color: "#1C1C1E", duration: 0.35, ease: "power1.out" }, t + 0.12);
+          };
+
+          // Grid lines draw in across the whole beat
+          tl.fromTo("#f01-grid .h", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.9, ease: "power3.out", stagger: 0.1 }, 0);
+          tl.fromTo("#f01-grid .v", { scaleY: 0, transformOrigin: "50% 0%" }, { scaleY: 1, duration: 0.9, ease: "power3.out", stagger: 0.1 }, 0.1);
+
+          // Line 1 — "Your [avatars] Team"
+          word("#f01-your", 0.04);
+          tl.fromTo("#f01-avatars img", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.8)", stagger: 0.06 }, 0.12);
+          word("#f01-team", 0.21);
+          tl.to("#f01-l1", { opacity: 0, y: -30, duration: 0.15, ease: "power1.in" }, 0.5);
+
+          // Line 2 — "is on [WA] WhatsApp"
+          tl.fromTo("#f01-l2", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 0.55);
+          word("#f01-is", 0.57);
+          tl.fromTo("#f01-wa", { scale: 0.3, opacity: 0, rotation: -40 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.45, ease: "back.out(2)" }, 0.8);
+          word("#f01-whatsapp", 0.96);
+          tl.to("#f01-l2", { opacity: 0, y: -30, duration: 0.15, ease: "power1.in" }, 1.38);
+
+          // "All day" pill drops into the grid cell
+          tl.fromTo("#f01-allday", { opacity: 0, scale: 0.6, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.8)" }, 1.48);
+          tl.to("#f01-allday", { scale: 1.04, duration: 0.6, ease: "sine.inOut" }, 1.95);
+
+          window.__timelines["f01"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
