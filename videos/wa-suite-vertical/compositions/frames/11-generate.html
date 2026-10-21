@@ -45,7 +45,7 @@
           position: absolute;
           left: 32px;
           top: 34px;
-          width: 640px;
+          max-width: 820px;
           box-sizing: border-box;
           padding: 24px 28px 16px;
           background: #ffffff;
@@ -204,13 +204,13 @@
           position: absolute;
           left: 0;
           top: 0;
-          width: 96px;
-          height: 96px;
+          width: 124px;
+          height: 124px;
         }
         .f11-cursor svg {
           display: block;
-          width: 96px;
-          height: 96px;
+          width: 124px;
+          height: 124px;
           filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.25));
         }
         .f11-ring {
@@ -287,7 +287,7 @@
             </svg>
             <div id="f11-field">
               <div id="f11-hl"></div>
-              <div id="f11-ctext">Sorry for the delay. Let me check your…</div>
+              <div id="f11-ctext">Sorry for the delay. Let me check…</div>
             </div>
             <svg id="f11-wand" class="f11-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" />
@@ -361,15 +361,15 @@
             tl.fromTo(sel, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, t);
             tl.to(sel, { color: "#1C1C1E", duration: 0.35, ease: "power1.out" }, t + 0.12);
           };
-          const HX = 32;
-          const HY = 8;
+          const HX = 41;
+          const HY = 10;
           const move = (x, y, t, d) => {
             tl.to("#f11-cursor", { x: x - HX, y: y - HY, duration: d, ease: "power2.inOut" }, t);
           };
           const click = (n, t) => {
             tl.fromTo("#f11-hand", { scale: 1 }, { scale: 0.85, duration: 0.08, ease: "power1.out", transformOrigin: "33% 10%" }, t);
             tl.to("#f11-hand", { scale: 1, duration: 0.18, ease: "back.out(2)" }, t + 0.08);
-            tl.fromTo("#f11-ring" + n, { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 1.6, duration: 0.45, ease: "power2.out" }, t);
+            tl.fromTo("#f11-ring" + n, { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 1.6, duration: 0.45, ease: "power2.out", immediateRender: false }, t);
             ["a", "b", "c"].forEach((k, i) => {
               const s = "#f11-s" + n + k;
               tl.fromTo(s, { opacity: 0, scale: 0.2, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.25, ease: "back.out(2)" }, t + 0.03 + i * 0.04);

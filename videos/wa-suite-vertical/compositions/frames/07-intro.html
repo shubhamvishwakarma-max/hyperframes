@@ -97,6 +97,12 @@
           white-space: nowrap;
           line-height: 1;
         }
+        #f07-brand,
+        #f07-pillrow,
+        #f07-cream,
+        #f07-cx {
+          opacity: 0;
+        }
         #f07-cream {
           position: absolute;
           inset: 0;
@@ -166,7 +172,6 @@
       <script>
         (function () {
           const tl = gsap.timeline({ paused: true });
-          tl.set(["#f07-brand", "#f07-pillrow", "#f07-cream", "#f07-cx"], { opacity: 0 }, 0);
           tl.fromTo("#f07-glow", { scale: 0.9 }, { scale: 1.1, duration: 2.6, ease: "sine.inOut" }, 0);
 
           // "Introducing"

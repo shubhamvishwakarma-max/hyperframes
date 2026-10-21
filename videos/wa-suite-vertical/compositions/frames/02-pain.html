@@ -1,0 +1,431 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: Inter, sans-serif;
+          background: #f7f3ec;
+          color: #1c1c1e;
+        }
+        .f02-vwrap {
+          position: absolute;
+          inset: 0;
+        }
+        .f02-vid {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          object-fit: cover;
+        }
+
+        /* ---------- Beat 1: phone ---------- */
+        #f02-b1 {
+          position: absolute;
+          inset: 0;
+        }
+        #f02-pill {
+          position: absolute;
+          left: 6px;
+          top: 620px;
+          width: 1068px;
+          height: 270px;
+          border-radius: 999px;
+          background: #3a3a3c;
+          box-shadow: 0 24px 60px rgba(90, 6, 9, 0.25);
+        }
+        #f02-allday {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 110px;
+          font-weight: 500;
+          letter-spacing: -0.04em;
+          color: #b9b3aa;
+        }
+        #f02-pilltxt {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 30px;
+          font-size: 112px;
+          font-weight: 500;
+          letter-spacing: -0.04em;
+          color: #ffffff;
+        }
+        .f02-pw {
+          display: block;
+          opacity: 0;
+        }
+        #f02-spark {
+          position: absolute;
+          left: 930px;
+          top: 470px;
+          width: 150px;
+          height: 170px;
+        }
+        .f02-sp {
+          position: absolute;
+          border-radius: 999px;
+          background: #5a0609;
+        }
+        .f02-bub {
+          position: absolute;
+          background: #ffffff;
+          box-shadow: 0 18px 50px rgba(30, 20, 10, 0.16);
+          color: #1c1c1e;
+          font-size: 44px;
+          font-weight: 500;
+          line-height: 1.22;
+          letter-spacing: -0.015em;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          opacity: 0;
+        }
+        .f02-bub .f02-time {
+          display: block;
+          margin-top: 10px;
+          font-size: 26px;
+          font-weight: 500;
+          color: #5f5a53;
+        }
+        #f02-bub1 {
+          left: 0;
+          top: 325px;
+          width: 560px;
+          height: 240px;
+          border-radius: 0 40px 40px 0;
+          padding: 0 50px 0 56px;
+        }
+        #f02-bub2 {
+          left: 0;
+          top: 925px;
+          width: 560px;
+          height: 200px;
+          border-radius: 0 40px 40px 0;
+          padding: 0 50px 0 56px;
+        }
+        #f02-bub3 {
+          left: 400px;
+          top: 1490px;
+          width: 680px;
+          height: 290px;
+          border-radius: 40px 0 0 40px;
+          padding: 0 56px 0 56px;
+        }
+
+        /* ---------- Beat 2: chats get missed ---------- */
+        #f02-b2 {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: radial-gradient(circle at 40% 62%, #4a070b 0%, #1c0405 42%, #0b0b0c 75%);
+        }
+        #f02-qmark {
+          position: absolute;
+          left: 90px;
+          top: 300px;
+          width: 900px;
+          height: 1300px;
+          color: #8a0f14;
+          opacity: 0.55;
+        }
+        #f02-qmark svg {
+          display: block;
+          width: 900px;
+          height: 1300px;
+        }
+        #f02-missed-line {
+          position: absolute;
+          left: 0;
+          top: 820px;
+          width: 1080px;
+          height: 170px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 30px;
+          font-size: 126px;
+          font-weight: 500;
+          letter-spacing: -0.035em;
+          color: #ffffff;
+        }
+        .f02-mw {
+          display: block;
+          color: #b9b3aa;
+          opacity: 0;
+        }
+        #f02-missed {
+          display: flex;
+          color: #ff4a4a;
+        }
+        #f02-missed span {
+          display: block;
+          opacity: 0;
+        }
+
+        /* ---------- Beat 3: laptop ---------- */
+        #f02-wash {
+          position: absolute;
+          inset: 0;
+          background: rgba(150, 12, 22, 0.32);
+          opacity: 0;
+        }
+        #f02-shade {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: linear-gradient(
+            to bottom,
+            rgba(20, 4, 6, 0) 0px,
+            rgba(20, 4, 6, 0) 1120px,
+            rgba(20, 4, 6, 0.72) 1260px,
+            rgba(20, 4, 6, 0.82) 1920px
+          );
+        }
+        #f02-band {
+          position: absolute;
+          left: 0;
+          top: 820px;
+          width: 1080px;
+          height: 400px;
+          background: #c8161d;
+          box-shadow: 0 30px 80px rgba(90, 6, 9, 0.45);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 34px;
+          color: #ffffff;
+          opacity: 0;
+        }
+        #f02-eye {
+          display: block;
+          width: 150px;
+          height: 150px;
+        }
+        #f02-eye svg {
+          display: block;
+          width: 150px;
+          height: 150px;
+        }
+        .f02-nw {
+          display: block;
+          font-size: 132px;
+          font-weight: 600;
+          letter-spacing: -0.045em;
+          opacity: 0;
+        }
+        .f02-cap {
+          position: absolute;
+          left: 80px;
+          top: 1270px;
+          width: 920px;
+          height: 120px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 22px;
+          font-size: 78px;
+          font-weight: 500;
+          letter-spacing: -0.025em;
+          line-height: 1.12;
+        }
+        .f02-cw {
+          display: block;
+          color: #b9b3aa;
+          opacity: 0;
+        }
+        #f02-disc {
+          position: absolute;
+          left: 40px;
+          top: 545px;
+          width: 1000px;
+          height: 1000px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.6);
+          opacity: 0;
+        }
+        #f02-core {
+          position: absolute;
+          left: 100px;
+          top: 100px;
+          width: 800px;
+          height: 800px;
+          border-radius: 50%;
+          background: #fad6d9;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #f02-why {
+          display: block;
+          font-size: 200px;
+          font-weight: 500;
+          letter-spacing: -0.04em;
+          color: #c8161d;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="root" data-composition-id="f02" data-width="1080" data-height="1920">
+        <!-- Beat 1: phone (0 – 1.62) -->
+        <div id="f02-phonewrap" class="f02-vwrap">
+          <video id="f02-phone" class="f02-vid" src="assets/footage/phone.mp4" data-start="0" data-duration="1.62" data-media-start="0.1" data-track-index="0" muted playsinline></video>
+        </div>
+        <div id="f02-b1">
+          <div id="f02-bub1" class="f02-bub">
+            <span>Still waiting for a response ?</span>
+            <span class="f02-time">10:42</span>
+          </div>
+          <div id="f02-bub2" class="f02-bub">
+            <span>This is getting frustrating…</span>
+            <span class="f02-time">10:51</span>
+          </div>
+          <div id="f02-bub3" class="f02-bub">
+            <span>Hello? I've been waiting for a response</span>
+            <span class="f02-time">10:58</span>
+          </div>
+          <div id="f02-pill">
+            <div id="f02-allday">All day</div>
+            <div id="f02-pilltxt">
+              <span class="f02-pw" id="f02-replies">replies</span>
+              <span class="f02-pw" id="f02-delayed">delayed</span>
+            </div>
+          </div>
+          <div id="f02-spark">
+            <div class="f02-sp" id="f02-sp1" style="left: 70px; top: 0px; width: 30px; height: 110px; rotate: 14deg"></div>
+            <div class="f02-sp" id="f02-sp2" style="left: 40px; top: 128px; width: 30px; height: 30px"></div>
+            <div class="f02-sp" id="f02-sp3" style="left: 104px; top: 90px; width: 28px; height: 70px; rotate: 58deg"></div>
+          </div>
+        </div>
+
+        <!-- Beat 2: chats get missed (1.62 – 2.75) -->
+        <div id="f02-b2">
+          <div id="f02-qmark">
+            <svg viewBox="5 3 14 19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8.2 8.4a3.9 3.9 0 1 1 5.4 3.6c-1.1.5-1.6 1.3-1.6 2.4v1" />
+              <circle cx="12" cy="19.4" r="0.6" fill="currentColor" />
+            </svg>
+          </div>
+          <div id="f02-missed-line">
+            <span class="f02-mw" id="f02-chats">chats</span>
+            <span class="f02-mw" id="f02-get">get</span>
+            <span id="f02-missed"><span>m</span><span>i</span><span>s</span><span>s</span><span>e</span><span>d</span></span>
+          </div>
+        </div>
+
+        <!-- Beat 3: laptop (2.75 – 5.5) -->
+        <div id="f02-lapwrap" class="f02-vwrap">
+          <video id="f02-laptop" class="f02-vid" src="assets/footage/laptop.mp4" data-start="2.75" data-duration="2.75" data-media-start="0.04" data-track-index="0" muted playsinline></video>
+        </div>
+        <div id="f02-wash"></div>
+        <div id="f02-shade"></div>
+        <div id="f02-capA" class="f02-cap">
+          <span class="f02-cw" id="f02-and">and</span>
+          <span class="f02-cw" id="f02-you">you</span>
+          <span class="f02-cw" id="f02-have">have</span>
+        </div>
+        <div id="f02-capB" class="f02-cap">
+          <span class="f02-cw" id="f02-on">on</span>
+          <span class="f02-cw" id="f02-whats">what's</span>
+          <span class="f02-cw" id="f02-happening">happening</span>
+        </div>
+        <div id="f02-band">
+          <div id="f02-eye">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </div>
+          <span class="f02-nw" id="f02-no">No</span>
+          <span class="f02-nw" id="f02-vis">Visibility</span>
+        </div>
+        <div id="f02-disc">
+          <div id="f02-core"><span id="f02-why">Why</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const word = (sel, t, col) => {
+            tl.fromTo(sel, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, t);
+            tl.to(sel, { color: col, duration: 0.35, ease: "power1.out" }, t + 0.12);
+          };
+
+          // ===== Beat 1: phone (local 0 – 1.62) =====
+          // Pill rises from the "All day" slot into the "replies delayed" slot, turning red (tracks the burned pill)
+          tl.fromTo("#f02-pill", { y: 220, backgroundColor: "#3A3A3C" }, { y: 0, backgroundColor: "#C8161D", duration: 0.5, ease: "power2.out" }, 0);
+          tl.fromTo("#f02-allday", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in" }, 0.05);
+          tl.fromTo("#f02-pill", { scale: 1 }, { scale: 1.03, duration: 1.0, ease: "sine.inOut" }, 0.6);
+          tl.fromTo("#f02-replies", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.5);
+          tl.fromTo("#f02-delayed", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 1.05);
+          tl.fromTo("#f02-spark", { opacity: 0, scale: 0.4, transformOrigin: "0% 100%" }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.2)" }, 0.2);
+          tl.fromTo("#f02-spark", { rotation: 0 }, { rotation: 8, duration: 0.18, ease: "sine.inOut", yoyo: true, repeat: 5 }, 0.6);
+          // Bubbles pop in just ahead of the burned ones (opacity is instant, scale settles)
+          const bub = (sel, t, origin) => {
+            tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "none" }, t);
+            tl.fromTo(sel, { scale: 0.86, transformOrigin: origin }, { scale: 1, duration: 0.35, ease: "back.out(1.8)" }, t);
+          };
+          bub("#f02-bub1", 0.4, "0% 50%");
+          bub("#f02-bub3", 0.6, "100% 50%");
+          bub("#f02-bub2", 0.72, "0% 50%");
+          tl.fromTo("#f02-bub1", { y: 0 }, { y: -8, duration: 0.8, ease: "sine.inOut" }, 0.8);
+          tl.fromTo("#f02-bub2", { y: 0 }, { y: -6, duration: 0.8, ease: "sine.inOut" }, 0.8);
+          tl.fromTo("#f02-bub3", { y: 0 }, { y: -8, duration: 0.8, ease: "sine.inOut" }, 0.8);
+          tl.set("#f02-b1", { opacity: 0 }, 1.62);
+
+          // ===== Beat 2: chats get missed (1.62 – 2.75) =====
+          tl.set("#f02-b2", { opacity: 1 }, 1.62);
+          tl.fromTo("#f02-qmark", { scale: 1.12, y: 40, opacity: 0 }, { scale: 1, y: -30, opacity: 0.55, duration: 1.13, ease: "power2.out" }, 1.62);
+          tl.fromTo("#f02-chats", { x: -90 }, { x: 0, duration: 0.7, ease: "power3.out" }, 1.62);
+          tl.fromTo("#f02-missed", { x: 90 }, { x: 0, duration: 0.7, ease: "power3.out" }, 2.1);
+          word("#f02-chats", 1.64, "#FFFFFF");
+          word("#f02-get", 2.04, "#FFFFFF");
+          tl.fromTo("#f02-missed span", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.18, ease: "power2.out", stagger: 0.05 }, 2.22);
+          tl.fromTo("#f02-missed-line", { scale: 1 }, { scale: 1.04, duration: 0.6, ease: "sine.inOut" }, 2.15);
+          tl.set("#f02-b2", { opacity: 0 }, 2.75);
+
+          // ===== Beat 3: laptop (2.75 – 5.5) =====
+          tl.fromTo("#f02-lapwrap", { scale: 1 }, { scale: 1.04, duration: 2.75, ease: "none" }, 2.75);
+          tl.fromTo("#f02-shade", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 2.75);
+          tl.fromTo("#f02-wash", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 2.95);
+          word("#f02-and", 2.76, "#FFFFFF");
+          word("#f02-you", 2.88, "#FFFFFF");
+          word("#f02-have", 3.0, "#FFFFFF");
+          tl.to("#f02-capA", { opacity: 0, y: -24, duration: 0.15, ease: "power1.in" }, 3.95);
+          // Full-width red band — opaque before the burned pill shows (local ≈ 3.0)
+          tl.fromTo("#f02-band", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "none" }, 2.94);
+          tl.fromTo("#f02-band", { scaleY: 0.82 }, { scaleY: 1, duration: 0.4, ease: "back.out(1.6)" }, 2.94);
+          tl.fromTo("#f02-eye", { scale: 0.3, opacity: 0, rotation: -30 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.45, ease: "back.out(2)" }, 3.04);
+          tl.fromTo("#f02-no", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 3.18);
+          tl.fromTo("#f02-vis", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 3.45);
+          tl.fromTo("#f02-eye svg", { scaleY: 1 }, { scaleY: 0.1, duration: 0.09, ease: "power1.in", yoyo: true, repeat: 1 }, 4.4);
+          word("#f02-on", 4.11, "#FFFFFF");
+          word("#f02-whats", 4.23, "#FFFFFF");
+          word("#f02-happening", 4.44, "#FFFFFF");
+          // "Why?" disc bursts in over the band (covers the burned disc from local ≈ 5.41)
+          tl.fromTo("#f02-disc", { opacity: 0 }, { opacity: 1, duration: 0.03, ease: "none" }, 5.36);
+          tl.fromTo("#f02-disc", { scale: 0.62 }, { scale: 1, duration: 0.14, ease: "power2.out" }, 5.36);
+          tl.to(["#f02-capB", "#f02-shade"], { opacity: 0, duration: 0.08, ease: "power1.in" }, 5.38);
+          tl.to(["#f02-band", "#f02-wash"], { opacity: 0, duration: 0.04, ease: "none" }, 5.4);
+          tl.fromTo("#f02-why", { opacity: 0, y: 30 }, { opacity: 0.55, y: 10, duration: 0.06, ease: "none" }, 5.44);
+
+          window.__timelines["f02"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,464 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: Inter, sans-serif;
+          color: #1c1c1e;
+        }
+        #f12-bg {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at 50% 45%, #145236 0%, #0d3a26 45%, #072217 100%);
+        }
+        #f12-stage {
+          position: absolute;
+          inset: 0;
+        }
+        #f12-win {
+          position: absolute;
+          left: 60px;
+          top: 340px;
+          width: 960px;
+          height: 820px;
+          box-sizing: border-box;
+          border-radius: 34px;
+          border: 8px solid #ddd5c6;
+          background-color: #efeae2;
+          background-image: radial-gradient(rgba(140, 120, 90, 0.11) 2px, transparent 2.6px);
+          background-size: 46px 46px;
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+        }
+        #f12-bubble {
+          position: absolute;
+          left: 32px;
+          top: 34px;
+          width: 640px;
+          box-sizing: border-box;
+          padding: 24px 28px 16px;
+          background: #ffffff;
+          border-radius: 18px;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+        .f12-msg {
+          font-size: 34px;
+          line-height: 1.3;
+          font-weight: 400;
+          color: #1c1c1e;
+        }
+        .f12-time {
+          margin-top: 6px;
+          text-align: right;
+          font-size: 22px;
+          color: #6b665f;
+        }
+        #f12-composer {
+          position: absolute;
+          left: 90px;
+          top: 1010px;
+          width: 770px;
+          height: 110px;
+          box-sizing: border-box;
+          border-radius: 999px;
+          background: #ffffff;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          padding: 0 34px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        .f12-ico {
+          display: block;
+          width: 44px;
+          height: 44px;
+          flex: 0 0 44px;
+          color: #6b665f;
+        }
+        #f12-wand {
+          color: #6b665f;
+        }
+        #f12-field {
+          position: relative;
+          flex: 1 1 auto;
+          height: 60px;
+        }
+        #f12-hl {
+          position: absolute;
+          left: -8px;
+          top: 6px;
+          width: 470px;
+          height: 48px;
+          border-radius: 24px;
+          background: rgba(34, 240, 138, 0.55);
+          filter: blur(6px);
+        }
+        #f12-hl0 {
+          position: absolute;
+          left: -8px;
+          top: 6px;
+          width: 360px;
+          height: 48px;
+          border-radius: 24px;
+          background: rgba(34, 240, 138, 0.5);
+          filter: blur(6px);
+        }
+        #f12-draft {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 400px;
+          height: 60px;
+          line-height: 60px;
+          font-size: 29px;
+          color: #1c1c1e;
+          white-space: nowrap;
+        }
+        #f12-ctext {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 470px;
+          height: 60px;
+          line-height: 60px;
+          font-size: 29px;
+          color: #1c1c1e;
+          white-space: nowrap;
+        }
+        #f12-send {
+          position: absolute;
+          left: 880px;
+          top: 1010px;
+          width: 110px;
+          height: 110px;
+          border-radius: 50%;
+          background: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #6b665f;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        #f12-send svg {
+          display: block;
+          width: 46px;
+          height: 46px;
+        }
+        #f12-panel {
+          position: absolute;
+          left: 90px;
+          top: 700px;
+          width: 900px;
+          height: 290px;
+          border-radius: 22px;
+          background: #ffffff;
+          box-shadow: 0 16px 40px rgba(60, 40, 20, 0.14);
+        }
+        #f12-ptitle {
+          position: absolute;
+          left: 28px;
+          top: 22px;
+          height: 64px;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          font-size: 30px;
+          font-weight: 600;
+          color: #1c1c1e;
+        }
+        #f12-ptitle svg {
+          display: block;
+          width: 40px;
+          height: 40px;
+          color: #9c7bc4;
+        }
+        #f12-discard {
+          position: absolute;
+          right: 274px;
+          top: 22px;
+          height: 64px;
+          line-height: 64px;
+          font-size: 29px;
+          color: #5f5f5f;
+        }
+        #f12-use {
+          position: absolute;
+          right: 24px;
+          top: 22px;
+          width: 230px;
+          height: 64px;
+          border-radius: 12px;
+          background: #d3f5e1;
+          color: #11683b;
+          font-size: 29px;
+          font-weight: 600;
+          line-height: 64px;
+          text-align: center;
+        }
+        #f12-pbody {
+          position: absolute;
+          left: 24px;
+          right: 24px;
+          top: 106px;
+          bottom: 24px;
+          box-sizing: border-box;
+          padding: 20px 24px;
+          border-radius: 14px;
+          background: #f3f2ef;
+          font-size: 32px;
+          line-height: 1.35;
+          font-style: italic;
+          color: #3a3a3c;
+        }
+        .f12-cursor {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 124px;
+          height: 124px;
+        }
+        .f12-cursor svg {
+          display: block;
+          width: 124px;
+          height: 124px;
+          filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.25));
+        }
+        .f12-ring {
+          position: absolute;
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          border: 5px solid #22f08a;
+          box-sizing: border-box;
+          opacity: 0;
+        }
+        .f12-star {
+          position: absolute;
+          display: block;
+          fill: #1fd47e;
+          opacity: 0;
+        }
+        .f12-cap {
+          position: absolute;
+          left: 80px;
+          top: 1230px;
+          width: 920px;
+          height: 230px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-content: center;
+          column-gap: 22px;
+          font-size: 78px;
+          line-height: 1.12;
+          font-weight: 500;
+          letter-spacing: -0.025em;
+        }
+        .f12-w {
+          display: block;
+          color: #5f7d6c;
+        }
+        .f12-cap {
+          color: #ffffff;
+        }
+        .f12-grp {
+          display: flex;
+        }
+      </style>
+
+      <div id="root" data-composition-id="f12" data-width="1080" data-height="1920">
+        <div id="f12-bg"></div>
+        <div id="f12-stage">
+          <div id="f12-win">
+            <div id="f12-bubble">
+              <div class="f12-msg">I was charged twice for the same order. Please fix this !</div>
+              <div class="f12-time">10:23 AM</div>
+            </div>
+          </div>
+
+          <div id="f12-panel">
+            <div id="f12-ptitle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
+                <path d="M20 2v4" />
+                <path d="M22 4h-4" />
+                <circle cx="4" cy="20" r="2" />
+              </svg>
+              <span>Writing improved</span>
+              <svg class="f12-rot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
+                <path d="M21 3v5h-5" />
+              </svg>
+            </div>
+            <div id="f12-discard">Discard</div>
+            <div id="f12-use">Use answer</div>
+            <div id="f12-pbody"><span id="f12-type">Sorry about that. Let me check the duplicate charge and assist you with the refund.</span></div>
+          </div>
+
+          <div id="f12-composer">
+            <svg class="f12-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 10V9" />
+              <path d="M16.472 15a6 6 0 01-8.943 0" />
+              <path d="M9 10V9" />
+              <circle cx="12" cy="12" r="10" />
+            </svg>
+            <div id="f12-field">
+              <div id="f12-hl"></div>
+              <div id="f12-hl0"></div>
+              <div id="f12-draft">Sry abt that. Lmme check</div>
+              <div id="f12-ctext">Sorry about that. Let me check…</div>
+            </div>
+            <svg id="f12-wand" class="f12-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" />
+              <path d="m14 7 3 3" />
+              <path d="M5 6v4" />
+              <path d="M19 14v4" />
+              <path d="M10 2v2" />
+              <path d="M7 8H3" />
+              <path d="M21 16h-4" />
+              <path d="M11 3H9" />
+            </svg>
+            <svg class="f12-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551" />
+            </svg>
+          </div>
+          <div id="f12-send">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+              <path d="m21.854 2.147-10.94 10.939" />
+            </svg>
+          </div>
+
+          <!-- click 1: magic wand (734,1065) -->
+          <div class="f12-ring" id="f12-ring1" style="left: 694px; top: 1025px"></div>
+          <svg class="f12-star" id="f12-s1a" viewBox="0 0 24 24" style="left: 672px; top: 990px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f12-star" id="f12-s1b" viewBox="0 0 24 24" style="left: 650px; top: 1040px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f12-star" id="f12-s1c" viewBox="0 0 24 24" style="left: 712px; top: 968px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <!-- click 2: Use answer (851,754) -->
+          <div class="f12-ring" id="f12-ring2" style="left: 811px; top: 714px"></div>
+          <svg class="f12-star" id="f12-s2a" viewBox="0 0 24 24" style="left: 790px; top: 680px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f12-star" id="f12-s2b" viewBox="0 0 24 24" style="left: 768px; top: 734px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f12-star" id="f12-s2c" viewBox="0 0 24 24" style="left: 834px; top: 660px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+
+          <div class="f12-cursor" id="f12-cursor">
+            <svg id="f12-hand" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 4a2 2 0 0 1 4 0v5a2 2 0 0 1 4 0v1a2 2 0 0 1 4 0v1a2 2 0 0 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L6 14z" fill="#FFFFFF" stroke="#1C1C1E" stroke-width="1.3" stroke-linejoin="round" />
+              <path d="M10 9.5v3M14 10.5v2.5M18 11.5v2" fill="none" stroke="#1C1C1E" stroke-width="1.1" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="f12-cap" id="f12-c1">
+          <span class="f12-w" id="f12-w-ai">AI</span>
+          <span class="f12-w" id="f12-w-writing">Writing</span>
+          <span class="f12-w" id="f12-w-assist">Assistance</span>
+        </div>
+        <div class="f12-cap" id="f12-c2">
+          <span class="f12-w" id="f12-w-which">which</span>
+          <span class="f12-w" id="f12-w-improves">improves</span>
+          <span class="f12-w" id="f12-w-tone">tone</span>
+          <span class="f12-w" id="f12-w-and">and</span>
+        </div>
+        <div class="f12-cap" id="f12-c3">
+          <span class="f12-w" id="f12-w-grammar">grammar</span>
+          <span class="f12-w" id="f12-w-instantly">instantly</span>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const word = (sel, t) => {
+            tl.fromTo(sel, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, t);
+            tl.to(sel, { color: "#FFFFFF", duration: 0.35, ease: "power1.out" }, t + 0.12);
+          };
+          const HX = 41;
+          const HY = 10;
+          const move = (x, y, t, d) => {
+            tl.to("#f12-cursor", { x: x - HX, y: y - HY, duration: d, ease: "power2.inOut" }, t);
+          };
+          const click = (n, t) => {
+            tl.fromTo("#f12-hand", { scale: 1 }, { scale: 0.85, duration: 0.08, ease: "power1.out", transformOrigin: "33% 10%" }, t);
+            tl.to("#f12-hand", { scale: 1, duration: 0.18, ease: "back.out(2)" }, t + 0.08);
+            tl.fromTo("#f12-ring" + n, { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 1.6, duration: 0.45, ease: "power2.out", immediateRender: false }, t);
+            ["a", "b", "c"].forEach((k, i) => {
+              const s = "#f12-s" + n + k;
+              tl.fromTo(s, { opacity: 0, scale: 0.2, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.25, ease: "back.out(2)" }, t + 0.03 + i * 0.04);
+              tl.to(s, { opacity: 0, scale: 0.6, duration: 0.3, ease: "power1.in" }, t + 0.45 + i * 0.04);
+            });
+          };
+
+          // Window arrives, then a slow push-in across the whole beat
+          tl.fromTo("#f12-win", { opacity: 0.3, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0);
+          tl.fromTo("#f12-composer, #f12-send", { opacity: 0.3, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0);
+          tl.fromTo("#f12-bubble", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.1);
+          tl.fromTo("#f12-stage", { scale: 1 }, { scale: 1.025, duration: 5.0, ease: "none", transformOrigin: "50% 45%" }, 0);
+
+          // Draft typed into the composer
+          const splitChars = (sel) => {
+            const el = document.querySelector(sel);
+            const txt = el.textContent;
+            el.textContent = "";
+            const out = [];
+            for (let i = 0; i < txt.length; i++) {
+              const sp = document.createElement("span");
+              sp.textContent = txt[i];
+              el.appendChild(sp);
+              out.push(sp);
+            }
+            return out;
+          };
+          const draft = splitChars("#f12-draft");
+          tl.fromTo(draft.slice(0, 12), { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.035, ease: "none" }, 0.3);
+          tl.fromTo(draft.slice(12), { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.03, ease: "none" }, 0.78);
+
+          // Cursor in near send, sweeps the draft highlight, then hits the magic wand
+          tl.fromTo("#f12-cursor", { x: 1010 - HX, y: 1220 - HY, opacity: 0 }, { x: 960 - HX, y: 1100 - HY, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.6);
+          move(560, 1068, 1.0, 0.35);
+          tl.fromTo("#f12-hl0", { opacity: 0, scaleX: 0, transformOrigin: "0% 50%" }, { opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.out" }, 1.08);
+          move(734, 1065, 1.3, 0.3);
+          click(1, 1.62);
+          tl.fromTo("#f12-wand", { color: "#6B665F" }, { color: "#1FA855", duration: 0.2 }, 1.62);
+
+          // Writing improved panel
+          tl.fromTo("#f12-panel", { opacity: 0, y: 60, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 1.74);
+          tl.fromTo(".f12-rot", { rotation: 0 }, { rotation: 360, duration: 0.8, ease: "power2.inOut" }, 1.9);
+          const chars = splitChars("#f12-type");
+          tl.fromTo(chars, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 1.2 / chars.length, ease: "none" }, 2.05);
+
+          // Use answer → composer text replaced
+          move(851, 754, 3.35, 0.5);
+          click(2, 3.92);
+          tl.fromTo("#f12-use", { backgroundColor: "#D3F5E1" }, { backgroundColor: "#A9E8C4", duration: 0.12, yoyo: true, repeat: 1 }, 3.92);
+          tl.to("#f12-draft", { opacity: 0, duration: 0.15, ease: "power1.in" }, 4.0);
+          tl.to("#f12-hl0", { opacity: 0, duration: 0.2, ease: "power1.in" }, 4.0);
+          tl.fromTo("#f12-hl", { opacity: 0, scaleX: 0, transformOrigin: "0% 50%" }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power2.out" }, 4.02);
+          tl.fromTo("#f12-ctext", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 4.15);
+          tl.to("#f12-hl", { opacity: 0, duration: 0.4, ease: "power1.in" }, 4.45);
+          move(900, 860, 4.25, 0.6);
+
+          // Captions
+          word("#f12-w-ai", 0.08);
+          word("#f12-w-writing", 0.53);
+          word("#f12-w-assist", 0.92);
+          tl.to("#f12-c1", { opacity: 0, y: -20, duration: 0.15, ease: "power1.in" }, 1.52);
+          word("#f12-w-which", 1.7);
+          word("#f12-w-improves", 1.88);
+          word("#f12-w-tone", 2.39);
+          word("#f12-w-and", 2.75);
+          tl.to("#f12-c2", { opacity: 0, y: -20, duration: 0.15, ease: "power1.in" }, 2.85);
+          word("#f12-w-grammar", 2.94);
+          word("#f12-w-instantly", 3.44);
+
+          window.__timelines["f12"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

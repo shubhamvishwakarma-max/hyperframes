@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: Inter, sans-serif;
+          background: radial-gradient(circle at 50% 45%, #145236 0%, #0d3a26 45%, #072217 100%);
+        }
+        #f15-ring {
+          position: absolute;
+          left: -580px;
+          top: 160px;
+          width: 1240px;
+          height: 1240px;
+          border-radius: 50%;
+          background: radial-gradient(circle at 50% 50%, rgba(34, 240, 138, 0.42) 0%, rgba(34, 240, 138, 0.26) 60%, rgba(34, 240, 138, 0.12) 100%);
+        }
+        #f15-disc {
+          position: absolute;
+          left: -400px;
+          top: 340px;
+          width: 880px;
+          height: 880px;
+          border-radius: 50%;
+          background: #22f08a;
+          box-shadow: 0 0 120px rgba(34, 240, 138, 0.35);
+        }
+        #f15-no {
+          position: absolute;
+          left: 20px;
+          top: 620px;
+          width: 440px;
+          height: 320px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 280px;
+          font-weight: 700;
+          letter-spacing: -0.05em;
+          color: #0d3a26;
+        }
+        .f15-pw {
+          position: absolute;
+          height: 150px;
+        }
+        .f15-pill {
+          position: absolute;
+          right: 0;
+          top: 0;
+          height: 150px;
+          padding: 0 56px;
+          border-radius: 999px;
+          display: flex;
+          align-items: center;
+          font-size: 88px;
+          font-weight: 500;
+          letter-spacing: -0.035em;
+          white-space: nowrap;
+          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+        }
+        #f15-w1 {
+          left: 540px;
+          top: 420px;
+          width: 460px;
+        }
+        #f15-w2 {
+          left: 300px;
+          top: 820px;
+          width: 700px;
+        }
+        #f15-w3 {
+          left: 160px;
+          top: 1260px;
+          width: 840px;
+        }
+        #f15-p1 {
+          background: #a8d94a;
+          color: #0d3a26;
+        }
+        #f15-p2 {
+          background: #d9531e;
+          color: #ffffff;
+        }
+        #f15-p3 {
+          background: #d8a31a;
+          color: #0d3a26;
+        }
+      </style>
+
+      <div id="root" data-composition-id="f15" data-width="1080" data-height="1920">
+        <div id="f15-ring"></div>
+        <div id="f15-disc"></div>
+        <div id="f15-no">NO</div>
+        <div class="f15-pw" id="f15-w1"><div class="f15-pill" id="f15-p1">chaos</div></div>
+        <div class="f15-pw" id="f15-w2"><div class="f15-pill" id="f15-p2">over-alerts</div></div>
+        <div class="f15-pw" id="f15-w3"><div class="f15-pill" id="f15-p3">missed replies</div></div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+
+          // Anchor: disc + soft outer ring + NO
+          tl.fromTo("#f15-ring", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "power3.out" }, 0);
+          tl.fromTo("#f15-disc", { scale: 0.6 }, { scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 0);
+          tl.fromTo("#f15-no", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 0.06);
+          tl.to("#f15-ring", { scale: 1.05, duration: 3.2, ease: "sine.inOut" }, 0.6);
+          // NO re-punches on each spoken "no"
+          [1.14, 2.49].forEach((t) => {
+            tl.to("#f15-no", { scale: 1.08, duration: 0.12, ease: "power2.out" }, t);
+            tl.to("#f15-no", { scale: 1, duration: 0.3, ease: "power2.inOut" }, t + 0.12);
+          });
+
+          // Pills pop on the VO, then float gently
+          const pill = (p, w, t, i) => {
+            tl.fromTo(p, { opacity: 0, scale: 0.6, transformOrigin: "100% 50%" }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, t);
+            tl.fromTo(w, { y: 0 }, { y: i % 2 ? 12 : -12, duration: 1.2, ease: "sine.inOut", repeat: 3, yoyo: true }, t + 0.45);
+          };
+          pill("#f15-p1", "#f15-w1", 0.39, 0);
+          pill("#f15-p2", "#f15-w2", 1.47, 1);
+          pill("#f15-p3", "#f15-w3", 2.82, 2);
+
+          window.__timelines["f15"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

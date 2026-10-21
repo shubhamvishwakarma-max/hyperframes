@@ -1,0 +1,391 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: Inter, sans-serif;
+          color: #1c1c1e;
+        }
+        #f08-bg {
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(circle at 100% 100%, rgba(247, 207, 212, 0.7), transparent 55%),
+            radial-gradient(circle at 0% 0%, rgba(247, 207, 212, 0.4), transparent 45%),
+            repeating-linear-gradient(to right, rgba(60, 40, 20, 0.07) 0 2px, transparent 2px 180px),
+            repeating-linear-gradient(to bottom, rgba(60, 40, 20, 0.07) 0 2px, transparent 2px 180px), #f7f3ec;
+        }
+        #f08-card {
+          position: absolute;
+          left: 50px;
+          top: 330px;
+          width: 980px;
+          padding: 38px 40px 30px;
+          border-radius: 30px;
+          background: #ffffff;
+          border: 2px solid #ece6dd;
+          box-shadow: 0 30px 80px rgba(30, 20, 10, 0.1);
+          transform-origin: 50% 0%;
+        }
+        #f08-title {
+          font-size: 46px;
+          font-weight: 700;
+          letter-spacing: -0.02em;
+          line-height: 1.1;
+        }
+        #f08-sub {
+          margin-top: 10px;
+          font-size: 24px;
+          line-height: 1.35;
+          color: #66666b;
+        }
+        #f08-stats {
+          display: flex;
+          gap: 24px;
+          margin-top: 26px;
+        }
+        .f08-stat {
+          flex: 1 1 0;
+          height: 136px;
+          padding: 20px 26px;
+          border: 2px solid #ece6dd;
+          border-radius: 20px;
+        }
+        .f08-sl {
+          font-size: 24px;
+          color: #66666b;
+          line-height: 1.2;
+        }
+        .f08-sv {
+          margin-top: 6px;
+          font-size: 62px;
+          font-weight: 600;
+          letter-spacing: -0.03em;
+          line-height: 1.1;
+        }
+        #f08-filter {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          width: 196px;
+          height: 52px;
+          margin-top: 22px;
+          padding-left: 20px;
+          border: 2px solid #ece6dd;
+          border-radius: 12px;
+          font-size: 24px;
+          font-weight: 500;
+        }
+        #f08-filter svg {
+          display: block;
+          width: 24px;
+          height: 24px;
+          transform: rotate(180deg);
+        }
+        #f08-table {
+          margin-top: 20px;
+          border: 2px solid #ece6dd;
+          border-radius: 18px;
+          overflow: hidden;
+        }
+        .f08-tr {
+          display: flex;
+          align-items: center;
+          height: 84px;
+          border-top: 2px solid #ece6dd;
+          font-size: 24px;
+        }
+        .f08-th {
+          height: 52px;
+          border-top: 0;
+          background: #f7f4ef;
+          color: #5c5c61;
+          font-weight: 600;
+          font-size: 22px;
+        }
+        .f08-c1 {
+          width: 130px;
+          padding-left: 20px;
+          display: flex;
+          flex-direction: column;
+          line-height: 1.2;
+        }
+        .f08-c2 {
+          width: 250px;
+        }
+        .f08-c3 {
+          width: 330px;
+          padding-right: 16px;
+          line-height: 1.25;
+        }
+        .f08-c4 {
+          width: 186px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .f08-day {
+          font-size: 22px;
+          font-weight: 600;
+        }
+        .f08-time {
+          font-size: 20px;
+          color: #66666b;
+        }
+        .f08-tag {
+          display: inline-block;
+          padding: 7px 14px;
+          border-radius: 10px;
+          font-size: 21px;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+        .amber {
+          background: #fcf0d2;
+          color: #855800;
+        }
+        .purple {
+          background: #ebe7fb;
+          color: #4f3fae;
+        }
+        .red {
+          background: #fde2e3;
+          color: #a8111a;
+        }
+        .f08-av {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: #ede3f7;
+          color: #6b4a96;
+          font-size: 20px;
+          font-weight: 600;
+          flex: 0 0 auto;
+        }
+        .f08-name {
+          font-size: 22px;
+          white-space: nowrap;
+        }
+        .f08-cap {
+          position: absolute;
+          left: 80px;
+          top: 1270px;
+          width: 920px;
+          height: 110px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 22px;
+          font-size: 78px;
+          font-weight: 500;
+          letter-spacing: -0.025em;
+        }
+        .f08-w {
+          display: block;
+          color: #b9b3aa;
+          white-space: nowrap;
+        }
+        #f08-cap2,
+        #f08-smile {
+          opacity: 0;
+        }
+        #f08-smile {
+          position: absolute;
+          inset: 0;
+          background: #1a1f24;
+        }
+        #f08-vidwrap {
+          position: absolute;
+          inset: 0;
+        }
+        #f08-topshade {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 360px;
+          background: linear-gradient(to bottom, rgba(12, 16, 20, 0.6), rgba(12, 16, 20, 0));
+        }
+        #f08-vid {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          object-fit: cover;
+        }
+        /* Opaque over the burned glass pill (Y 880–1190) */
+        #f08-band {
+          position: absolute;
+          left: 0;
+          top: 866px;
+          width: 1080px;
+          height: 338px;
+          background: linear-gradient(180deg, rgba(44, 52, 60, 0.97), rgba(20, 24, 29, 0.99) 60%, rgba(16, 19, 23, 1));
+          border-top: 2px solid rgba(255, 255, 255, 0.22);
+          border-bottom: 2px solid rgba(255, 255, 255, 0.12);
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+          backdrop-filter: blur(20px);
+          transform-origin: 50% 50%;
+        }
+        #f08-bandtxt {
+          position: absolute;
+          left: 60px;
+          top: 966px;
+          width: 960px;
+          height: 140px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 26px;
+          font-size: 96px;
+          font-weight: 500;
+          letter-spacing: -0.035em;
+          color: #ffffff;
+        }
+        .f08-bw {
+          display: block;
+          color: #8e959c;
+          white-space: nowrap;
+        }
+      </style>
+
+      <div id="root" data-composition-id="f08" data-width="1080" data-height="1920">
+        <div id="f08-bg"></div>
+
+        <div id="f08-card">
+          <div id="f08-title">CX Overview</div>
+          <div id="f08-sub">Powered by DoubleTick Surveillance AI · detects anomalies, compliance gaps and sentiment patterns</div>
+          <div id="f08-stats">
+            <div class="f08-stat">
+              <div class="f08-sl">New incidents this week</div>
+              <div class="f08-sv" id="f08-n1">133</div>
+            </div>
+            <div class="f08-stat">
+              <div class="f08-sl">Pending incidents</div>
+              <div class="f08-sv" id="f08-n2">21</div>
+            </div>
+          </div>
+          <div id="f08-filter">
+            <span>All issues</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6" /></svg>
+          </div>
+          <div id="f08-table">
+            <div class="f08-tr f08-th">
+              <div class="f08-c1">Date</div>
+              <div class="f08-c2">Issue</div>
+              <div class="f08-c3">Incident</div>
+              <div class="f08-c4">Customer</div>
+            </div>
+
+            <div class="f08-tr">
+              <div class="f08-c1"><span class="f08-day">Today</span><span class="f08-time">6:32 pm</span></div>
+              <div class="f08-c2"><span class="f08-tag amber">Irritated customer</span></div>
+              <div class="f08-c3">Customer is asking for a full refund</div>
+              <div class="f08-c4"><span class="f08-av">M</span><span class="f08-name">Michael J.</span></div>
+            </div>
+            <div class="f08-tr">
+              <div class="f08-c1"><span class="f08-day">Today</span><span class="f08-time">5:34 pm</span></div>
+              <div class="f08-c2"><span class="f08-tag purple">Agent misconduct</span></div>
+              <div class="f08-c3">Customer frustrated with no response</div>
+              <div class="f08-c4"><span class="f08-av">E</span><span class="f08-name">Emma W.</span></div>
+            </div>
+            <div class="f08-tr">
+              <div class="f08-c1"><span class="f08-day">Today</span><span class="f08-time">3:04 am</span></div>
+              <div class="f08-c2"><span class="f08-tag amber">Irritated customer</span></div>
+              <div class="f08-c3">Customer demanding immediate refund</div>
+              <div class="f08-c4"><span class="f08-av">D</span><span class="f08-name">Daniel C.</span></div>
+            </div>
+            <div class="f08-tr">
+              <div class="f08-c1"><span class="f08-day">Today</span><span class="f08-time">2:16 am</span></div>
+              <div class="f08-c2"><span class="f08-tag red">SLA Breached</span></div>
+              <div class="f08-c3">Customer threatening to take others away</div>
+              <div class="f08-c4"><span class="f08-av">S</span><span class="f08-name">Sophia M.</span></div>
+            </div>
+            <div class="f08-tr">
+              <div class="f08-c1"><span class="f08-day">Yesterday</span><span class="f08-time">9:48 pm</span></div>
+              <div class="f08-c2"><span class="f08-tag purple">Agent misconduct</span></div>
+              <div class="f08-c3">Customer complaining about rude support</div>
+              <div class="f08-c4"><span class="f08-av">J</span><span class="f08-name">James A.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="f08-cap1" class="f08-cap">
+          <span class="f08-w" id="f08-your">your</span>
+          <span class="f08-w" id="f08-aip">AI-powered</span>
+        </div>
+        <div id="f08-cap2" class="f08-cap">
+          <span class="f08-w" id="f08-control">control</span>
+          <span class="f08-w" id="f08-tower">tower</span>
+          <span class="f08-w" id="f08-for">for</span>
+        </div>
+
+        <div id="f08-smile">
+          <div id="f08-vidwrap">
+            <video id="f08-vid" src="assets/footage/smile.mp4" data-start="2.1" data-hf-media-start-basis="local" data-duration="1.5" data-media-start="0" data-track-index="0" muted playsinline></video>
+          </div>
+          <div id="f08-topshade"></div>
+          <div id="f08-band"></div>
+          <div id="f08-bandtxt">
+            <span class="f08-bw" id="f08-customer">customer</span>
+            <span class="f08-bw" id="f08-experience">experience</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const word = (sel, t, c) => {
+            tl.fromTo(sel, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, t);
+            tl.to(sel, { color: c || "#1C1C1E", duration: 0.35, ease: "power1.out" }, t + 0.12);
+          };
+
+          // Dashboard card rises, then slowly pulls back
+          tl.fromTo("#f08-card", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1.05, duration: 0.45, ease: "power3.out" }, 0);
+          tl.to("#f08-card", { scale: 0.99, duration: 1.65, ease: "sine.inOut" }, 0.45);
+          tl.fromTo(".f08-stat", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", stagger: 0.08 }, 0.12);
+          tl.fromTo("#f08-table .f08-tr", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out", stagger: 0.07 }, 0.25);
+          tl.fromTo(".f08-tag", { scale: 0.6 }, { scale: 1, duration: 0.4, ease: "back.out(1.8)", stagger: 0.07 }, 0.32);
+
+          // Count-ups
+          const counter = { a: 133, b: 21 };
+          const n1 = document.querySelector("#f08-n1");
+          const n2 = document.querySelector("#f08-n2");
+          tl.fromTo(counter, { a: 133, b: 21 }, {
+            a: 187, b: 46, duration: 1.7, ease: "power2.out",
+            onUpdate: () => { n1.textContent = String(Math.round(counter.a)); n2.textContent = String(Math.round(counter.b)); },
+          }, 0.25);
+
+          // Captions
+          word("#f08-your", 0.14);
+          word("#f08-aip", 0.47);
+          tl.to("#f08-cap1", { opacity: 0, duration: 0.15, ease: "power1.in" }, 1.18);
+          tl.to("#f08-cap2", { opacity: 1, duration: 0.01 }, 1.3);
+          word("#f08-control", 1.31);
+          word("#f08-tower", 1.7);
+          word("#f08-for", 1.94);
+
+          // Cut to smile footage with the dark frosted band
+          tl.to("#f08-smile", { opacity: 1, duration: 0.01 }, 2.1);
+          tl.fromTo("#f08-vidwrap", { scale: 1 }, { scale: 1.05, duration: 1.5, ease: "none" }, 2.1);
+          tl.fromTo("#f08-band", { scaleY: 1 }, { scaleY: 1.03, duration: 1.5, ease: "sine.inOut" }, 2.1);
+          word("#f08-customer", 2.16, "#FFFFFF");
+          word("#f08-experience", 2.66, "#FFFFFF");
+
+          window.__timelines["f08"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
