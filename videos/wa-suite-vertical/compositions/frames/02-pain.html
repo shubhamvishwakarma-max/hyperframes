@@ -34,9 +34,9 @@
         #f02-pill {
           position: absolute;
           left: 6px;
-          top: 580px;
+          top: 632px;
           width: 1068px;
-          height: 330px;
+          height: 192px;
           border-radius: 999px;
           background: #3a3a3c;
           box-shadow: 0 24px 60px rgba(90, 6, 9, 0.25);
@@ -47,7 +47,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 110px;
+          font-size: 96px;
           font-weight: 500;
           letter-spacing: -0.04em;
           color: #8F8A84;
@@ -58,8 +58,8 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 30px;
-          font-size: 112px;
+          gap: 26px;
+          font-size: 100px;
           font-weight: 500;
           letter-spacing: -0.04em;
           color: #ffffff;
@@ -85,45 +85,69 @@
           background: #ffffff;
           box-shadow: 0 18px 50px rgba(30, 20, 10, 0.16);
           color: #1c1c1e;
-          font-size: 44px;
-          font-weight: 500;
-          line-height: 1.22;
-          letter-spacing: -0.015em;
           display: flex;
           flex-direction: column;
           justify-content: center;
+          gap: 10px;
           opacity: 0;
         }
-        .f02-bub .f02-time {
+        .f02-head {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-size: 24px;
+          font-weight: 600;
+          color: #3a3a3c;
+        }
+        .f02-av {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: #ede3f7;
+          color: #7a55a8;
+          font-size: 20px;
+          font-weight: 600;
+        }
+        .f02-time {
           display: block;
-          margin-top: 10px;
-          font-size: 26px;
+          margin-left: auto;
+          font-size: 22px;
           font-weight: 500;
           color: #5f5a53;
         }
+        .f02-msg {
+          display: block;
+          white-space: nowrap;
+          font-size: 31px;
+          font-weight: 500;
+          letter-spacing: -0.015em;
+        }
         #f02-bub1 {
           left: 0;
-          top: 325px;
-          width: 560px;
-          height: 240px;
-          border-radius: 0 40px 40px 0;
-          padding: 0 50px 0 56px;
+          top: 346px;
+          width: 572px;
+          height: 208px;
+          border-radius: 0 34px 34px 0;
+          padding: 0 40px 0 44px;
         }
         #f02-bub2 {
           left: 0;
-          top: 925px;
-          width: 560px;
-          height: 200px;
-          border-radius: 0 40px 40px 0;
-          padding: 0 50px 0 56px;
+          top: 960px;
+          width: 392px;
+          height: 148px;
+          border-radius: 0 30px 30px 0;
+          padding: 0 34px 0 40px;
         }
         #f02-bub3 {
-          left: 400px;
-          top: 1490px;
-          width: 680px;
-          height: 290px;
-          border-radius: 40px 0 0 40px;
-          padding: 0 56px 0 56px;
+          left: 418px;
+          top: 1514px;
+          width: 662px;
+          height: 236px;
+          border-radius: 34px 0 0 34px;
+          padding: 0 40px 0 44px;
         }
 
         /* ---------- Beat 2: chats get missed ---------- */
@@ -286,16 +310,16 @@
         </div>
         <div id="f02-b1">
           <div id="f02-bub1" class="f02-bub">
-            <span>Still waiting for a response ?</span>
-            <span class="f02-time">10:42</span>
+            <div class="f02-head"><span class="f02-av">C</span><span>Customer</span><span class="f02-time">10:42</span></div>
+            <span class="f02-msg">Still waiting for a response ?</span>
           </div>
           <div id="f02-bub2" class="f02-bub">
-            <span>This is getting frustrating…</span>
-            <span class="f02-time">10:51</span>
+            <div class="f02-head"><span class="f02-av">C</span><span>Customer</span><span class="f02-time">10:51</span></div>
+            <span class="f02-msg">This is frustrating…</span>
           </div>
           <div id="f02-bub3" class="f02-bub">
-            <span>Hello? I've been waiting for a response</span>
-            <span class="f02-time">10:58</span>
+            <div class="f02-head"><span class="f02-av">C</span><span>Customer</span><span class="f02-time">10:58</span></div>
+            <span class="f02-msg">Hello? I've been waiting for a response</span>
           </div>
           <div id="f02-pill">
             <div id="f02-allday">All day</div>
@@ -369,9 +393,25 @@
           // Pill rises from the "All day" slot into the "replies delayed" slot, turning red (tracks the burned pill)
           tl.fromTo("#f02-pill", { backgroundColor: "#3A3A3C" }, { backgroundColor: "#C8161D", duration: 0.5, ease: "power1.out" }, 0);
           // y keyframes follow the burned pill's centre so it stays covered while it rises
-          tl.fromTo("#f02-pill", { y: 224 }, { keyframes: [{ y: 185, duration: 0.05 }, { y: 155, duration: 0.05 }, { y: 101, duration: 0.1 }, { y: 44, duration: 0.1 }, { y: 20, duration: 0.1 }, { y: 0, duration: 0.1 }], ease: "none" }, 0);
+          tl.fromTo(
+            "#f02-pill",
+            { y: 252, scaleY: 1.48 },
+            {
+              keyframes: [
+                { y: 229, scaleY: 1.6, duration: 0.067 },
+                { y: 212, scaleY: 1.72, duration: 0.033 },
+                { y: 148, scaleY: 1.41, duration: 0.05 },
+                { y: 102, scaleY: 1.35, duration: 0.083 },
+                { y: 65, scaleY: 1.29, duration: 0.084 },
+                { y: 42, scaleY: 1.25, duration: 0.083 },
+                { y: 16, scaleY: 1.21, duration: 0.125 },
+                { y: 0, scaleY: 1, duration: 0.375 },
+              ],
+              ease: "none",
+            },
+            0
+          );
           tl.fromTo("#f02-allday", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in" }, 0.05);
-          tl.fromTo("#f02-pill", { scale: 1 }, { scale: 1.03, duration: 1.0, ease: "sine.inOut" }, 0.6);
           tl.fromTo("#f02-replies", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.5);
           tl.fromTo("#f02-delayed", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 1.05);
           tl.fromTo("#f02-spark", { opacity: 0, scale: 0.4, transformOrigin: "0% 100%" }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.2)" }, 0.2);
