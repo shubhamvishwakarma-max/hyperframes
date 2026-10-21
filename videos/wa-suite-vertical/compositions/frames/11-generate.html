@@ -1,0 +1,439 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: Inter, sans-serif;
+          color: #1c1c1e;
+        }
+        #f11-bg {
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(circle at 100% 100%, rgba(247, 207, 212, 0.75), transparent 55%),
+            radial-gradient(circle at 0% 0%, rgba(247, 207, 212, 0.45), transparent 45%),
+            repeating-linear-gradient(to right, rgba(60, 40, 20, 0.07) 0px, rgba(60, 40, 20, 0.07) 2px, transparent 2px, transparent 180px),
+            repeating-linear-gradient(to bottom, rgba(60, 40, 20, 0.07) 0px, rgba(60, 40, 20, 0.07) 2px, transparent 2px, transparent 180px),
+            #f7f3ec;
+        }
+        #f11-stage {
+          position: absolute;
+          inset: 0;
+        }
+        #f11-win {
+          position: absolute;
+          left: 60px;
+          top: 340px;
+          width: 960px;
+          height: 820px;
+          box-sizing: border-box;
+          border-radius: 34px;
+          border: 8px solid #ddd5c6;
+          background-color: #efeae2;
+          background-image: radial-gradient(rgba(140, 120, 90, 0.11) 2px, transparent 2.6px);
+          background-size: 46px 46px;
+          box-shadow: 0 30px 80px rgba(60, 40, 20, 0.12);
+        }
+        #f11-bubble {
+          position: absolute;
+          left: 32px;
+          top: 34px;
+          width: 640px;
+          box-sizing: border-box;
+          padding: 24px 28px 16px;
+          background: #ffffff;
+          border-radius: 18px;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+        .f11-msg {
+          font-size: 34px;
+          line-height: 1.3;
+          font-weight: 400;
+          color: #1c1c1e;
+        }
+        .f11-time {
+          margin-top: 6px;
+          text-align: right;
+          font-size: 22px;
+          color: #6b665f;
+        }
+        #f11-composer {
+          position: absolute;
+          left: 90px;
+          top: 1010px;
+          width: 770px;
+          height: 110px;
+          box-sizing: border-box;
+          border-radius: 999px;
+          background: #ffffff;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          padding: 0 34px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        .f11-ico {
+          display: block;
+          width: 44px;
+          height: 44px;
+          flex: 0 0 44px;
+          color: #6b665f;
+        }
+        #f11-wand {
+          color: #6b665f;
+        }
+        #f11-field {
+          position: relative;
+          flex: 1 1 auto;
+          height: 60px;
+        }
+        #f11-hl {
+          position: absolute;
+          left: -8px;
+          top: 6px;
+          width: 470px;
+          height: 48px;
+          border-radius: 24px;
+          background: rgba(34, 240, 138, 0.55);
+          filter: blur(6px);
+        }
+        #f11-ctext {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 470px;
+          height: 60px;
+          line-height: 60px;
+          font-size: 29px;
+          color: #1c1c1e;
+          white-space: nowrap;
+        }
+        #f11-send {
+          position: absolute;
+          left: 880px;
+          top: 1010px;
+          width: 110px;
+          height: 110px;
+          border-radius: 50%;
+          background: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #6b665f;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        #f11-send svg {
+          display: block;
+          width: 46px;
+          height: 46px;
+        }
+        #f11-panel {
+          position: absolute;
+          left: 90px;
+          top: 700px;
+          width: 900px;
+          height: 290px;
+          border-radius: 22px;
+          background: #ffffff;
+          box-shadow: 0 16px 40px rgba(60, 40, 20, 0.14);
+        }
+        #f11-ptitle {
+          position: absolute;
+          left: 28px;
+          top: 22px;
+          height: 64px;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          font-size: 30px;
+          font-weight: 600;
+          color: #1c1c1e;
+        }
+        #f11-ptitle svg {
+          display: block;
+          width: 40px;
+          height: 40px;
+          color: #9c7bc4;
+        }
+        #f11-discard {
+          position: absolute;
+          right: 274px;
+          top: 22px;
+          height: 64px;
+          line-height: 64px;
+          font-size: 29px;
+          color: #5f5f5f;
+        }
+        #f11-use {
+          position: absolute;
+          right: 24px;
+          top: 22px;
+          width: 230px;
+          height: 64px;
+          border-radius: 12px;
+          background: #d3f5e1;
+          color: #11683b;
+          font-size: 29px;
+          font-weight: 600;
+          line-height: 64px;
+          text-align: center;
+        }
+        #f11-pbody {
+          position: absolute;
+          left: 24px;
+          right: 24px;
+          top: 106px;
+          bottom: 24px;
+          box-sizing: border-box;
+          padding: 20px 24px;
+          border-radius: 14px;
+          background: #f3f2ef;
+          font-size: 32px;
+          line-height: 1.35;
+          font-style: italic;
+          color: #3a3a3c;
+        }
+        .f11-cursor {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 96px;
+          height: 96px;
+        }
+        .f11-cursor svg {
+          display: block;
+          width: 96px;
+          height: 96px;
+          filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.25));
+        }
+        .f11-ring {
+          position: absolute;
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          border: 5px solid #22f08a;
+          box-sizing: border-box;
+          opacity: 0;
+        }
+        .f11-star {
+          position: absolute;
+          display: block;
+          fill: #1fd47e;
+          opacity: 0;
+        }
+        .f11-cap {
+          position: absolute;
+          left: 80px;
+          top: 1230px;
+          width: 920px;
+          height: 230px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-content: center;
+          column-gap: 22px;
+          font-size: 78px;
+          line-height: 1.12;
+          font-weight: 500;
+          letter-spacing: -0.025em;
+        }
+        .f11-w {
+          display: block;
+          color: #b9b3aa;
+        }
+        .f11-grp {
+          display: flex;
+        }
+      </style>
+
+      <div id="root" data-composition-id="f11" data-width="1080" data-height="1920">
+        <div id="f11-bg"></div>
+        <div id="f11-stage">
+          <div id="f11-win">
+            <div id="f11-bubble">
+              <div class="f11-msg">No one has replied to my order status!</div>
+              <div class="f11-time">10:23 AM</div>
+            </div>
+          </div>
+
+          <div id="f11-panel">
+            <div id="f11-ptitle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
+                <path d="M20 2v4" />
+                <path d="M22 4h-4" />
+                <circle cx="4" cy="20" r="2" />
+              </svg>
+              <span>Generate Reply</span>
+            </div>
+            <div id="f11-discard">Discard</div>
+            <div id="f11-use">Use answer</div>
+            <div id="f11-pbody"><span id="f11-type">Sorry for the delay. Let me check your order status and update you shortly.</span></div>
+          </div>
+
+          <div id="f11-composer">
+            <svg class="f11-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 10V9" />
+              <path d="M16.472 15a6 6 0 01-8.943 0" />
+              <path d="M9 10V9" />
+              <circle cx="12" cy="12" r="10" />
+            </svg>
+            <div id="f11-field">
+              <div id="f11-hl"></div>
+              <div id="f11-ctext">Sorry for the delay. Let me check your…</div>
+            </div>
+            <svg id="f11-wand" class="f11-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" />
+              <path d="m14 7 3 3" />
+              <path d="M5 6v4" />
+              <path d="M19 14v4" />
+              <path d="M10 2v2" />
+              <path d="M7 8H3" />
+              <path d="M21 16h-4" />
+              <path d="M11 3H9" />
+            </svg>
+            <svg class="f11-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551" />
+            </svg>
+          </div>
+          <div id="f11-send">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+              <path d="m21.854 2.147-10.94 10.939" />
+            </svg>
+          </div>
+
+          <!-- click 1: magic wand (734,1065) -->
+          <div class="f11-ring" id="f11-ring1" style="left: 694px; top: 1025px"></div>
+          <svg class="f11-star" id="f11-s1a" viewBox="0 0 24 24" style="left: 672px; top: 990px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f11-star" id="f11-s1b" viewBox="0 0 24 24" style="left: 650px; top: 1040px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f11-star" id="f11-s1c" viewBox="0 0 24 24" style="left: 712px; top: 968px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <!-- click 2: Use answer (851,754) -->
+          <div class="f11-ring" id="f11-ring2" style="left: 811px; top: 714px"></div>
+          <svg class="f11-star" id="f11-s2a" viewBox="0 0 24 24" style="left: 790px; top: 680px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f11-star" id="f11-s2b" viewBox="0 0 24 24" style="left: 768px; top: 734px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f11-star" id="f11-s2c" viewBox="0 0 24 24" style="left: 834px; top: 660px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+
+          <div class="f11-cursor" id="f11-cursor">
+            <svg id="f11-hand" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 4a2 2 0 0 1 4 0v5a2 2 0 0 1 4 0v1a2 2 0 0 1 4 0v1a2 2 0 0 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L6 14z" fill="#FFFFFF" stroke="#1C1C1E" stroke-width="1.3" stroke-linejoin="round" />
+              <path d="M10 9.5v3M14 10.5v2.5M18 11.5v2" fill="none" stroke="#1C1C1E" stroke-width="1.1" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="f11-cap" id="f11-c1">
+          <span class="f11-w" id="f11-w-ai">AI</span>
+          <span class="f11-w" id="f11-w-that">that</span>
+          <span class="f11-w" id="f11-w-generate">generate</span>
+          <span class="f11-w" id="f11-w-replies">replies</span>
+        </div>
+        <div class="f11-cap" id="f11-c2">
+          <span class="f11-w" id="f11-w-that2">that</span>
+          <span class="f11-w" id="f11-w-reads">reads</span>
+          <span class="f11-w" id="f11-w-messages">messages</span>
+        </div>
+        <div class="f11-cap" id="f11-c3">
+          <span class="f11-w" id="f11-w-and">and</span>
+          <span class="f11-w" id="f11-w-suggests">suggests</span>
+        </div>
+        <div class="f11-cap" id="f11-c4">
+          <span class="f11-grp">
+            <span class="f11-w" id="f11-w-ready">ready-</span>
+            <span class="f11-w" id="f11-w-to">to-</span>
+            <span class="f11-w" id="f11-w-send">send</span>
+          </span>
+          <span class="f11-w" id="f11-w-replies2">replies</span>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const word = (sel, t) => {
+            tl.fromTo(sel, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, t);
+            tl.to(sel, { color: "#1C1C1E", duration: 0.35, ease: "power1.out" }, t + 0.12);
+          };
+          const HX = 32;
+          const HY = 8;
+          const move = (x, y, t, d) => {
+            tl.to("#f11-cursor", { x: x - HX, y: y - HY, duration: d, ease: "power2.inOut" }, t);
+          };
+          const click = (n, t) => {
+            tl.fromTo("#f11-hand", { scale: 1 }, { scale: 0.85, duration: 0.08, ease: "power1.out", transformOrigin: "33% 10%" }, t);
+            tl.to("#f11-hand", { scale: 1, duration: 0.18, ease: "back.out(2)" }, t + 0.08);
+            tl.fromTo("#f11-ring" + n, { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 1.6, duration: 0.45, ease: "power2.out" }, t);
+            ["a", "b", "c"].forEach((k, i) => {
+              const s = "#f11-s" + n + k;
+              tl.fromTo(s, { opacity: 0, scale: 0.2, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.25, ease: "back.out(2)" }, t + 0.03 + i * 0.04);
+              tl.to(s, { opacity: 0, scale: 0.6, duration: 0.3, ease: "power1.in" }, t + 0.45 + i * 0.04);
+            });
+          };
+
+          // Window arrives, then a slow push-in across the whole beat
+          tl.fromTo("#f11-win", { opacity: 0.3, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0);
+          tl.fromTo("#f11-composer, #f11-send", { opacity: 0.3, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0);
+          tl.fromTo("#f11-bubble", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.1);
+          tl.fromTo("#f11-stage", { scale: 1 }, { scale: 1.025, duration: 5.1, ease: "none", transformOrigin: "50% 45%" }, 0);
+
+          // Cursor: in from the right → magic wand → click
+          tl.fromTo("#f11-cursor", { x: 1000 - HX, y: 1240 - HY, opacity: 0 }, { x: 960 - HX, y: 1180 - HY, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.45);
+          move(940, 1080, 0.8, 0.35);
+          move(734, 1065, 1.15, 0.4);
+          click(1, 1.6);
+          tl.fromTo("#f11-wand", { color: "#6B665F" }, { color: "#1FA855", duration: 0.2 }, 1.6);
+
+          // Generate Reply panel slides up and types the answer
+          tl.fromTo("#f11-panel", { opacity: 0, y: 60, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 1.72);
+          const typeEl = document.querySelector("#f11-type");
+          const txt = typeEl.textContent;
+          typeEl.textContent = "";
+          const chars = [];
+          for (let i = 0; i < txt.length; i++) {
+            const s = document.createElement("span");
+            s.textContent = txt[i];
+            typeEl.appendChild(s);
+            chars.push(s);
+          }
+          tl.fromTo(chars, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 1.25 / chars.length, ease: "none" }, 2.05);
+
+          // Cursor → Use answer → click; text lands in the composer
+          move(851, 754, 3.4, 0.5);
+          click(2, 3.98);
+          tl.fromTo("#f11-use", { backgroundColor: "#D3F5E1" }, { backgroundColor: "#A9E8C4", duration: 0.12, yoyo: true, repeat: 1 }, 3.98);
+          tl.fromTo("#f11-hl", { opacity: 0, scaleX: 0, transformOrigin: "0% 50%" }, { opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.out" }, 4.08);
+          tl.fromTo("#f11-ctext", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 4.3);
+          tl.to("#f11-hl", { opacity: 0, duration: 0.4, ease: "power1.in" }, 4.55);
+          move(900, 860, 4.3, 0.7);
+
+          // Captions
+          word("#f11-w-ai", 0.05);
+          word("#f11-w-that", 0.5);
+          word("#f11-w-generate", 0.95);
+          word("#f11-w-replies", 1.46);
+          tl.to("#f11-c1", { opacity: 0, y: -20, duration: 0.15, ease: "power1.in" }, 1.78);
+          word("#f11-w-that2", 1.94);
+          word("#f11-w-reads", 2.12);
+          word("#f11-w-messages", 2.42);
+          tl.to("#f11-c2", { opacity: 0, y: -20, duration: 0.15, ease: "power1.in" }, 2.88);
+          word("#f11-w-and", 3.05);
+          word("#f11-w-suggests", 3.17);
+          tl.to("#f11-c3", { opacity: 0, y: -20, duration: 0.15, ease: "power1.in" }, 3.48);
+          word("#f11-w-ready", 3.65);
+          word("#f11-w-to", 3.92);
+          word("#f11-w-send", 4.01);
+          word("#f11-w-replies2", 4.28);
+
+          window.__timelines["f11"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
