@@ -426,7 +426,7 @@
               <div class="f10-tbar">
                 Incidents
                 <span class="f10-chip" id="f10-chipAll">All</span>
-                <span class="f10-chip" id="f10-chipNeed">Needs attention<span id="f10-chipOn" data-layout-allow-overflow>Needs attention</span></span>
+                <span class="f10-chip" id="f10-chipNeed"><span id="f10-chipOff">Needs attention</span><span id="f10-chipOn" data-layout-allow-overflow>Needs attention</span></span>
               </div>
               <div class="f10-bh">
                 <div class="f10-b1">Issue</div>
@@ -513,6 +513,7 @@
           tl.fromTo("#f10-tblC", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 4.0);
           tl.fromTo(".f10-br", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.04 }, 4.05);
           tl.fromTo("#f10-chipOn", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 4.62);
+          tl.to("#f10-chipOff", { opacity: 0, duration: 0.12, ease: "none" }, 4.62);
           tl.to(".f10-drop", { height: 0, opacity: 0, borderBottomWidth: 0, duration: 0.5, ease: "power3.inOut", stagger: 0.05 }, 4.75);
           tl.to(".f10-flag .f10-sm", { opacity: 0, duration: 0.2 }, 5.35);
           tl.fromTo(".f10-flag .f10-lg", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out", transformOrigin: "0% 50%" }, 5.4);
