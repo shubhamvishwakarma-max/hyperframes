@@ -24,26 +24,35 @@
           position: absolute;
           inset: 0;
         }
+        /* Grid matches phone.mp4's first frame exactly (f02 hard-cuts into it) */
         #f01-grid .gl {
           position: absolute;
-          background: rgba(60, 40, 20, 0.12);
+          background: #55504b;
         }
         #f01-grid .h {
           left: 0;
           width: 1080px;
-          height: 2px;
+          height: 4px;
         }
         #f01-grid .v {
           top: 0;
-          width: 2px;
-          height: 1920px;
+          width: 4px;
+          height: 1350px;
+          background: linear-gradient(
+            to bottom,
+            rgba(85, 80, 75, 0.3) 0px,
+            rgba(85, 80, 75, 0.95) 110px,
+            #55504b 160px,
+            #55504b 1250px,
+            rgba(85, 80, 75, 0.55) 1350px
+          );
         }
         .f01-line {
           position: absolute;
           left: 0;
-          top: 690px;
+          top: 592px;
           width: 1080px;
-          height: 170px;
+          height: 176px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -89,30 +98,32 @@
         }
         #f01-allday {
           position: absolute;
-          left: 240px;
-          top: 700px;
-          width: 600px;
-          height: 160px;
+          left: 195px;
+          top: 592px;
+          width: 714px;
+          height: 176px;
           border-radius: 999px;
-          background: #3a3a3c;
+          background: #353535;
           color: #ffffff;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 104px;
+          font-size: 113px;
           font-weight: 500;
-          letter-spacing: -0.04em;
-          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+          letter-spacing: -0.056em;
+          word-spacing: -0.12em;
+          padding-right: 24px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
       </style>
 
-      <div id="root" data-composition-id="f01" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="f01" data-width="1080" data-height="1350">
         <div id="f01-bg"></div>
         <div id="f01-grid">
-          <div class="gl h" style="top: 690px"></div>
-          <div class="gl h" style="top: 870px"></div>
-          <div class="gl v" style="left: 240px"></div>
-          <div class="gl v" style="left: 840px"></div>
+          <div class="gl h" style="top: 590px"></div>
+          <div class="gl h" style="top: 767px"></div>
+          <div class="gl v" style="left: 178px"></div>
+          <div class="gl v" style="left: 898px"></div>
         </div>
 
         <div id="f01-l1" class="f01-line">
@@ -167,7 +178,8 @@
 
           // "All day" pill drops into the grid cell
           tl.fromTo("#f01-allday", { opacity: 0, scale: 0.6, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.8)" }, 1.48);
-          tl.to("#f01-allday", { scale: 1.04, duration: 0.6, ease: "sine.inOut" }, 1.95);
+          // Settles back to scale 1 so the last frame matches phone.mp4's first frame (seamless cut)
+          tl.to("#f01-allday", { scale: 1.03, duration: 0.25, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.95);
 
           window.__timelines["f01"] = tl;
         })();
