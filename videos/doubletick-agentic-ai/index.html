@@ -86,6 +86,7 @@
       #bg-day {
         position: absolute;
         inset: 0;
+        clip-path: circle(0px at 830px 600px);
         background:
           radial-gradient(120% 80% at 70% 10%, #fbf6ec 0%, rgba(251, 246, 236, 0) 60%),
           linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
@@ -126,11 +127,92 @@
       .hl-line {
         display: block;
       }
-      .hl-group > span,
-      #cta-head .hl-line,
-      #logo,
       #cta-url {
         opacity: 0;
+      }
+      .w {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: top;
+        padding: 0 0.04em 0.16em;
+        margin: 0 -0.04em -0.16em;
+      }
+      .wi {
+        display: inline-block;
+        transform-origin: 0% 100%;
+        will-change: transform;
+      }
+      .ring {
+        position: absolute;
+        border-radius: 50%;
+        border: 3px solid var(--green);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 8;
+      }
+      .pt {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        opacity: 0;
+        z-index: 8;
+      }
+      .shine {
+        position: absolute;
+        top: -20%;
+        bottom: -20%;
+        left: 0;
+        width: 40%;
+        background: linear-gradient(100deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.45) 50%, rgba(255, 255, 255, 0) 100%);
+        pointer-events: none;
+      }
+      .blob {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0;
+      }
+      #blob-n {
+        left: 520px;
+        top: -300px;
+        width: 900px;
+        height: 900px;
+        background: radial-gradient(circle, rgba(70, 64, 92, 0.22) 0%, rgba(70, 64, 92, 0) 65%);
+        opacity: 1;
+      }
+      #blob-g {
+        left: 480px;
+        top: 160px;
+        width: 1000px;
+        height: 1000px;
+        background: radial-gradient(circle, rgba(29, 167, 90, 0.16) 0%, rgba(29, 167, 90, 0) 62%);
+      }
+      #blob-w {
+        left: -360px;
+        top: -260px;
+        width: 900px;
+        height: 900px;
+        background: radial-gradient(circle, rgba(255, 252, 244, 0.9) 0%, rgba(255, 252, 244, 0) 65%);
+      }
+      .frost {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(140deg, rgba(255, 255, 255, 0.55) 0%, rgba(214, 222, 228, 0.25) 45%, rgba(255, 255, 255, 0) 70%);
+        opacity: 0;
+      }
+      #j-head {
+        position: absolute;
+        left: 13px;
+        top: 14px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 8px rgba(29, 167, 90, 0.18), 0 0 24px 6px rgba(29, 167, 90, 0.45);
+        opacity: 0;
+      }
+      .glow {
+        filter: blur(7px);
       }
       .accent-coral {
         color: var(--coral);
@@ -143,7 +225,7 @@
       #cam {
         position: absolute;
         inset: 0;
-        transform-origin: 340px 600px;
+        transform-origin: 0 0;
       }
 
       /* ---------- WhatsApp chat ---------- */
@@ -392,14 +474,15 @@
         font-weight: 600;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--ink-2);
+        color: var(--ink);
       }
       .clock-stack {
         position: absolute;
         left: 0;
         top: 30px;
         width: 360px;
-        height: 120px;
+        height: 124px;
+        overflow: hidden;
       }
       .ct {
         position: absolute;
@@ -554,6 +637,7 @@
         width: 100%;
         border-radius: 3px;
         background: var(--green);
+        transform-origin: 0 50%;
       }
       .q-row {
         display: flex;
@@ -885,6 +969,7 @@
         font-size: 15px;
       }
       #demo {
+        overflow: hidden;
         position: absolute;
         left: 650px;
         top: 392px;
@@ -1031,6 +1116,8 @@
         justify-content: center;
       }
       #cta-btn {
+        position: relative;
+        overflow: hidden;
         display: flex;
         align-items: center;
         gap: 14px;
@@ -1090,8 +1177,11 @@
     >
       <!-- ============ BACKGROUND ============ -->
       <div id="bg" class="clip" data-start="0" data-duration="41" data-track-index="0">
-        <div id="bg-day"></div>
         <div id="bg-night"></div>
+        <div class="blob" id="blob-n"></div>
+        <div id="bg-day"></div>
+        <div class="blob" id="blob-w"></div>
+        <div class="blob" id="blob-g"></div>
       </div>
 
       <!-- ============ PRODUCT STAGE (S1–S7) ============ -->
@@ -1245,6 +1335,7 @@
 
           <!-- Lead card (cools in S2, re-heats in S5, transfers in S6) -->
           <div id="lead" class="h">
+            <div class="frost" id="frost"></div>
             <div class="lead-a">
               <span class="lead-k">Lead</span>
               <span class="lead-name">New WhatsApp enquiry</span>
@@ -1383,12 +1474,15 @@
             Assigned to Rahul · Sales
           </div>
           <div id="demo">
+            <i class="shine" id="demo-shine"></i>
             <span>Next action</span>
             <b>Demo · Ready to Schedule</b>
           </div>
 
           <!-- Green connecting lines -->
           <svg id="lines" viewBox="0 0 1080 1080">
+            <path id="ln1g" class="glow" d="M -40 990 C 220 990, 380 900, 520 760 S 600 600, 650 600" fill="none" stroke="#1da75a" stroke-width="16" stroke-linecap="round" stroke-opacity="0.45" />
+            <path id="ln2g" class="glow" d="M 650 600 C 600 520, 640 360, 560 300" fill="none" stroke="#1da75a" stroke-width="16" stroke-linecap="round" stroke-opacity="0.45" />
             <path
               id="ln1"
               d="M -40 990 C 220 990, 380 900, 520 760 S 600 600, 650 600"
@@ -1414,6 +1508,10 @@
               stroke-linecap="round"
             />
             <circle id="ln-dot" cx="650" cy="600" r="11" fill="#1da75a" opacity="0" />
+            <circle id="hd1g" class="glow" cx="0" cy="0" r="18" fill="#1da75a" opacity="0" />
+            <circle id="hd1" cx="0" cy="0" r="8" fill="#ffffff" stroke="#1da75a" stroke-width="4" opacity="0" />
+            <circle id="hd2g" class="glow" cx="0" cy="0" r="18" fill="#1da75a" opacity="0" />
+            <circle id="hd2" cx="0" cy="0" r="8" fill="#ffffff" stroke="#1da75a" stroke-width="4" opacity="0" />
           </svg>
         </div>
       </div>
@@ -1423,6 +1521,7 @@
         <div id="journey">
           <div id="j-track"></div>
           <div id="j-fill"></div>
+          <div id="j-head"></div>
           <div class="j-node" id="j1" style="top: 0px">
             <div class="j-dot">1</div>
             <b>WhatsApp Enquiry</b>
@@ -1467,8 +1566,9 @@
           <div class="logo-in">
             <!-- Stand-in mark: replace with the official DoubleTick logo -->
             <svg id="dt-logo-mark" viewBox="0 0 70 70">
-              <rect width="70" height="70" rx="18" fill="#1da75a" />
+              <rect id="logo-rect" width="70" height="70" rx="18" fill="#1da75a" />
               <path
+                id="logo-tick"
                 d="M14 37l9 9 17-20M32 45l3 2 18-21"
                 fill="none"
                 stroke="#fff"
@@ -1485,7 +1585,7 @@
           <span class="hl-line">could arrive <span class="accent-green">tonight.</span></span>
         </div>
         <div id="cta-btn-wrap">
-          <div id="cta-btn">Book Your Free Pilot Today →</div>
+          <div id="cta-btn"><i class="shine" id="cta-shine"></i>Book Your Free Pilot Today <span id="cta-arrow" style="display: inline-block">→</span></div>
         </div>
         <div id="cta-url">doubletick.io</div>
       </div>
@@ -1580,7 +1680,7 @@
       <audio id="vo7" src="assets/vo/vo7.wav" data-start="37.4" data-duration="1.536" data-track-index="10" data-volume="1"></audio>
       <audio id="bgm" src="assets/music/bed.wav" data-start="0" data-duration="41" data-track-index="11" data-volume="0.2"></audio>
 
-      <audio id="sfx-pop1" src="assets/sfx/pop.mp3" data-start="0.35" data-duration="0.72" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-pop1" src="assets/sfx/pop.mp3" data-start="1.1" data-duration="0.72" data-track-index="12" data-volume="0.45"></audio>
       <audio id="sfx-tick1" src="assets/sfx/click-soft.mp3" data-start="2.2" data-duration="0.36" data-track-index="12" data-volume="0.5"></audio>
       <audio id="sfx-tick2" src="assets/sfx/click-soft.mp3" data-start="3.4" data-duration="0.36" data-track-index="12" data-volume="0.5"></audio>
       <audio id="sfx-tick3" src="assets/sfx/click-soft.mp3" data-start="6.2" data-duration="0.36" data-track-index="12" data-volume="0.5"></audio>
@@ -1627,6 +1727,7 @@
         const IR = { immediateRender: false };
         const tl = gsap.timeline({ paused: true });
         const $ = (s) => document.querySelector(s);
+        const cam = () => $("#cam");
 
         // ---- helpers -------------------------------------------------------
         function inn(sel, t, o = {}) {
@@ -1648,41 +1749,155 @@
         function out(sel, t, o = {}) {
           tl.to(sel, { opacity: 0, y: o.y ?? -12, duration: o.d ?? 0.3, ease: "power2.in" }, t);
         }
-        function pop(sel, t) {
+        // split text into masked words (kept as real text nodes for readability)
+        function splitWords(el) {
+          const walk = (node) => {
+            [...node.childNodes].forEach((n) => {
+              if (n.nodeType === 3) {
+                const frag = document.createDocumentFragment();
+                n.textContent.split(/(\s+)/).forEach((p) => {
+                  if (!p) return;
+                  if (/^\s+$/.test(p)) {
+                    frag.appendChild(document.createTextNode(" "));
+                    return;
+                  }
+                  const w = document.createElement("span");
+                  w.className = "w";
+                  const wi = document.createElement("span");
+                  wi.className = "wi";
+                  wi.textContent = p;
+                  w.appendChild(wi);
+                  frag.appendChild(w);
+                });
+                n.replaceWith(frag);
+              } else if (n.nodeType === 1) walk(n);
+            });
+          };
+          walk(el);
+        }
+        function wordsIn(sel, t, st = 0.06) {
+          const g = document.querySelector(sel).closest(".hl-group");
+          if (g) tl.set(g, { opacity: 1 }, t);
           tl.fromTo(
-            sel,
-            { opacity: 0, scale: 0.86, y: 18 },
-            { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.6)", ...IR },
+            sel + " .wi",
+            { yPercent: 115, rotation: 7 },
+            { yPercent: 0, rotation: 0, duration: 0.8, ease: "power4.out", stagger: st, ...IR },
             t,
           );
         }
-        function flip(a, b, t, d = 0.22) {
-          if (a) tl.to(a, { opacity: 0, y: -26, duration: d * 0.8, ease: "power2.in" }, t);
+        function wordsOut(sel, t) {
+          tl.to(sel + " .wi", { yPercent: -115, rotation: -3, duration: 0.38, ease: "power3.in", stagger: 0.018 }, t);
+          tl.set(sel, { opacity: 0 }, t + 0.7);
+        }
+        function pop(sel, t) {
+          tl.fromTo(
+            sel,
+            { opacity: 0, scale: 0.6, y: 34, filter: "blur(6px)" },
+            { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "back.out(1.7)", ...IR },
+            t,
+          );
+        }
+        function flip(a, b, t, d = 0.3) {
+          if (a)
+            tl.to(a, { yPercent: -100, opacity: 0, filter: "blur(8px)", duration: d * 0.8, ease: "power3.in" }, t);
           tl.fromTo(
             b,
-            { opacity: 0, y: 26 },
-            { opacity: 1, y: 0, duration: d, ease: "power3.out", ...IR },
-            t + d * 0.3,
+            { yPercent: 100, opacity: 0, filter: "blur(8px)" },
+            { yPercent: 0, opacity: 1, filter: "blur(0px)", duration: d, ease: "power3.out", ...IR },
+            t + d * 0.25,
           );
+        }
+        // virtual camera: zoom about a focal point that stays put on screen
+        function camTo(t, cx, cy, s, d, ease = "power3.inOut") {
+          tl.to("#cam", { x: (1 - s) * cx, y: (1 - s) * cy, scale: s, duration: d, ease }, t);
+        }
+        // ripple ring at a stage point
+        function ring(cx, cy, t, size = 160, o = {}) {
+          const r = document.createElement("div");
+          r.className = "ring";
+          const w = o.w ?? size,
+            h = o.h ?? size;
+          Object.assign(r.style, {
+            left: cx - w / 2 + "px",
+            top: cy - h / 2 + "px",
+            width: w + "px",
+            height: h + "px",
+            borderRadius: o.h ? "999px" : "50%",
+            borderColor: o.color || "#1da75a",
+          });
+          (o.parent || cam()).appendChild(r);
+          tl.fromTo(
+            r,
+            { scale: 0.25, opacity: 0.9 },
+            { scale: o.to ?? 1.6, opacity: 0, duration: o.d ?? 0.85, ease: "power2.out", ...IR },
+            t,
+          );
+        }
+        // deterministic particle burst
+        function burst(cx, cy, t, n = 16, o = {}) {
+          for (let i = 0; i < n; i++) {
+            const p = document.createElement("div");
+            p.className = "pt";
+            const sz = 7 + (i % 3) * 4;
+            Object.assign(p.style, {
+              left: cx - sz / 2 + "px",
+              top: cy - sz / 2 + "px",
+              width: sz + "px",
+              height: sz + "px",
+              background: i % 4 === 0 ? "#f2c46d" : i % 3 === 0 ? "#0f7040" : "#1da75a",
+            });
+            (o.parent || cam()).appendChild(p);
+            const a = (i / n) * Math.PI * 2 + (i % 2) * 0.2;
+            const dist = (o.dist ?? 150) + ((i * 37) % 70);
+            tl.fromTo(p, { x: 0, y: 0, opacity: 1, scale: 1 }, { x: Math.cos(a) * dist, y: Math.sin(a) * dist, scale: 0.3, duration: 0.9, ease: "power3.out", ...IR }, t);
+            tl.to(p, { opacity: 0, duration: 0.35, ease: "power1.in" }, t + 0.5);
+          }
         }
         function caption(id) {
           const el = document.querySelector("#" + id);
           const s = parseFloat(el.dataset.start);
           const d = parseFloat(el.dataset.duration);
           const span = el.querySelector("span");
-          tl.fromTo(span, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.2, ease: "power2.out", ...IR }, s);
-          tl.to(span, { opacity: 0, duration: 0.15, ease: "power1.in" }, s + d - 0.15);
+          tl.fromTo(
+            span,
+            { opacity: 0, y: 10, filter: "blur(6px)" },
+            { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.28, ease: "power3.out", ...IR },
+            s,
+          );
+          tl.to(span, { opacity: 0, y: -6, duration: 0.15, ease: "power1.in" }, s + d - 0.15);
         }
-        function drawPath(id, t, d) {
+        // draw a path with a soft glow copy and a travelling comet head
+        function drawPath(id, t, d, head) {
           const p = document.getElementById(id);
+          const g = document.getElementById(id + "g");
           const len = p.getTotalLength();
-          tl.set(p, { strokeDasharray: len, strokeDashoffset: len, opacity: 0 }, 0);
-          tl.set(p, { opacity: 1 }, t);
-          tl.to(p, { strokeDashoffset: 0, duration: d, ease: "power2.inOut" }, t);
-          return p;
+          const parts = g ? [p, g] : [p];
+          tl.set(parts, { strokeDasharray: len, strokeDashoffset: len, opacity: 0 }, 0);
+          tl.set(parts, { opacity: 1 }, t);
+          tl.to(parts, { strokeDashoffset: 0, duration: d, ease: "power2.inOut" }, t);
+          if (head) {
+            const h = document.getElementById(head);
+            const hg = document.getElementById(head + "g");
+            const proxy = { p: 0 };
+            const place = () => {
+              const pt = p.getPointAtLength(proxy.p * len);
+              h.setAttribute("cx", pt.x);
+              h.setAttribute("cy", pt.y);
+              hg.setAttribute("cx", pt.x);
+              hg.setAttribute("cy", pt.y);
+            };
+            place();
+            tl.set([h, hg], { opacity: 1 }, t);
+            tl.fromTo(proxy, { p: 0 }, { p: 1, duration: d, ease: "power2.inOut", onUpdate: place, ...IR }, t);
+            tl.to([h, hg], { opacity: 0, duration: 0.25 }, t + d + 0.05);
+          }
         }
 
         function build() {
+          document.querySelectorAll(".hl-big, .hl-sub, #cta-head .hl-line, .logo-word").forEach(splitWords);
+          tl.set(".hl-group .wi, #cta-head .wi, .logo-word .wi", { yPercent: 115 }, 0);
+          tl.set(".hl-group", { opacity: 0 }, 0);
+
           // ---- chat scroll model -------------------------------------------
           const VH = 670 - 88 - 76;
           const msgs = $("#msgs");
@@ -1694,7 +1909,6 @@
           function scrollTo(t, target) {
             target = Math.max(0, target);
             scrollKeys.push([t, target]);
-            // messages that have scrolled fully out of view are retired
             document.querySelectorAll("#msgs .b").forEach((b) => {
               if (b.dataset.gone) return;
               if (b.offsetTop + b.offsetHeight <= target + 4) {
@@ -1702,23 +1916,23 @@
                 tl.to(b, { opacity: 0, duration: 0.2 }, t + 0.1);
               }
             });
-            tl.to(msgs, { y: -target, duration: 0.38, ease: "power2.out" }, t);
+            tl.to(msgs, { y: -target, duration: 0.5, ease: "power3.out" }, t);
           }
           const scrollAt = (t) => {
             let v = 0;
-            for (const [kt, kv] of scrollKeys) if (kt + 0.38 <= t) v = kv;
+            for (const [kt, kv] of scrollKeys) if (kt + 0.5 <= t) v = kv;
             return v;
           };
           function aiMsg(prevId, id, tType, tMsg) {
             scrollTo(tType - 0.05, bottomOf(prevId) + 12 + 44 + 18 - VH);
-            tl.fromTo("#typing", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.2, ...IR }, tType);
+            tl.fromTo("#typing", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)", ...IR }, tType);
             tl.fromTo(
               "#typing i",
               { y: 0 },
-              { y: -5, duration: 0.18, yoyo: true, repeat: 3, stagger: 0.09, ease: "sine.inOut", ...IR },
+              { y: -6, duration: 0.16, yoyo: true, repeat: 3, stagger: 0.08, ease: "sine.inOut", ...IR },
               tType + 0.05,
             );
-            tl.to("#typing", { opacity: 0, duration: 0.12 }, tMsg - 0.08);
+            tl.to("#typing", { opacity: 0, scale: 0.8, duration: 0.12 }, tMsg - 0.08);
             userMsg(id, tMsg);
           }
           function userMsg(id, t) {
@@ -1726,7 +1940,7 @@
             pop("#" + id, t);
           }
 
-          // chip extraction from a highlighted phrase
+          // chip extraction: arcs out of the highlighted phrase and snaps into the column
           const CHAT_X = 70,
             CHAT_Y = 262 + 88;
           function extract(markId, chipId, t) {
@@ -1737,107 +1951,138 @@
             const chip = document.getElementById(chipId);
             const fx = chip.offsetLeft,
               fy = chip.offsetTop;
-            tl.to(mark, { backgroundSize: "100% 100%", duration: 0.3, ease: "power2.out" }, t - 0.3);
-            tl.fromTo(chip, { opacity: 0 }, { opacity: 1, duration: 0.12, ...IR }, t);
+            tl.to(mark, { backgroundSize: "100% 100%", duration: 0.35, ease: "power2.out" }, t - 0.35);
+            tl.fromTo(bubble, { scale: 1 }, { scale: 1.04, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", ...IR }, t - 0.1);
+            tl.fromTo(chip, { opacity: 0 }, { opacity: 1, duration: 0.1, ...IR }, t);
+            // different eases on x / y bend the flight into an arc
+            tl.fromTo(chip, { x: ox - fx }, { x: 0, duration: 0.7, ease: "power2.out", ...IR }, t);
+            tl.fromTo(chip, { y: oy - fy }, { y: 0, duration: 0.7, ease: "back.out(1.3)", ...IR }, t);
             tl.fromTo(
               chip,
-              { x: ox - fx, y: oy - fy, scale: 0.82 },
-              { x: 0, y: 0, scale: 1, duration: 0.62, ease: "back.out(1.5)", ...IR },
+              { scale: 0.7, rotation: -8 },
+              { scale: 1, rotation: 0, duration: 0.7, ease: "back.out(2)", ...IR },
               t,
             );
+            ring(fx + 28, fy + 28, t + 0.55, 70, { to: 1.5, d: 0.6 });
           }
 
           // ================= S1 — 10 PM HOOK (0 – 5.5) =====================
-          tl.fromTo("#cam", { scale: 1.0 }, { scale: 1.035, duration: 10.2, ease: "none" }, 0);
-          tl.fromTo("#chat", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0);
+          tl.set("#cam", { x: 0, y: 0, scale: 1, filter: "blur(0px)" }, 0);
+          tl.set("#chat", { filter: "blur(0px) saturate(1)" }, 0);
+          tl.set(["#lead", "#as-ai", "#journey"], { filter: "blur(0px)" }, 0);
+          // scroll-stopper: a huge 10:00 PM alone, then it docks into the column
+          tl.set("#ct0", { opacity: 1 }, 0);
           tl.fromTo(
             "#clock",
-            { opacity: 0, scale: 1.18 },
-            { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" },
+            { x: -290, y: 210, scale: 1.75, opacity: 0, filter: "blur(14px)" },
+            { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "power2.out" },
             0,
           );
-          tl.set("#ct0", { opacity: 1 }, 0);
-          pop("#m-c1", 0.35);
-          inn("#h1a", 0.55, { y: 24 });
-          inn("#h1b", 1.25, { y: 24 });
+          tl.to("#clock", { x: 0, y: 0, scale: 1, duration: 0.7, ease: "power4.inOut" }, 0.5);
+          tl.fromTo(
+            "#chat",
+            { x: -120, opacity: 0, rotationY: 28, transformPerspective: 1400, transformOrigin: "0% 50%" },
+            { x: 0, opacity: 1, rotationY: 0, duration: 0.8, ease: "power4.out" },
+            0.9,
+          );
+          pop("#m-c1", 1.1);
+          wordsIn("#h1a", 1.2);
+          wordsIn("#h1b", 1.75);
           flip("#ct0", "#ct1", 2.2);
-          inn("#noreply", 2.5, { y: 10 });
+          inn("#noreply", 2.5, { y: 10, s: 0.8, e: "back.out(2)" });
           flip("#ct1", "#ct2", 3.4);
-          // offline status pulse
-          tl.fromTo("#st-off .dot", { scale: 1 }, { scale: 1.5, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut", ...IR }, 2.6);
+          tl.fromTo("#st-off .dot", { scale: 1 }, { scale: 1.6, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut", ...IR }, 2.6);
+          // slow creeping push — tension
+          camTo(1.4, 470, 560, 1.045, 8.8, "sine.inOut");
+          tl.fromTo("#blob-n", { x: 0, y: 0 }, { x: -120, y: 60, duration: 10.5, ease: "none", ...IR }, 0);
 
           // ================= S2 — LEAD GOES COLD (5.5 – 10.3) ==============
-          out("#h1", 5.45);
-          inn("#h2 .hl-big", 5.65, { y: 24 });
-          inn("#h2 .hl-sub", 6.1, { y: 10 });
-          out("#noreply", 5.4, { y: -6 });
-          tl.fromTo("#lead", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", ...IR }, 5.7);
+          wordsOut("#h1", 5.35);
+          wordsIn("#h2 .hl-big", 5.65);
+          wordsIn("#h2 .hl-sub", 6.1, 0.03);
+          tl.to("#noreply", { opacity: 0, scale: 0.8, duration: 0.25 }, 5.4);
+          tl.fromTo(
+            "#lead",
+            { opacity: 0, y: 60, rotationX: -35, transformPerspective: 1200, transformOrigin: "50% 100%" },
+            { opacity: 1, y: 0, rotationX: 0, duration: 0.7, ease: "power4.out", ...IR },
+            5.7,
+          );
           flip("#ct2", "#ct3", 6.2);
-          // High intent -> Waiting
-          tl.to("#p-high", { opacity: 0, duration: 0.25 }, 6.9);
-          tl.to("#p-wait", { opacity: 1, duration: 0.25 }, 7.0);
+          tl.to("#p-high", { opacity: 0, y: -10, duration: 0.25 }, 6.9);
+          tl.fromTo("#p-wait", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ...IR }, 7.0);
           tl.to("#lead", { backgroundColor: "#eceae5", borderColor: "rgba(142,138,131,0.45)", duration: 1.0 }, 6.8);
-          tl.to("#temp-fill", { width: "52%", backgroundColor: "#a9a49b", duration: 1.0, ease: "power1.inOut" }, 6.8);
+          tl.to("#temp-fill", { scaleX: 0.52, backgroundColor: "#a9a49b", duration: 1.0, ease: "power2.inOut" }, 6.8);
           flip("#ct3", "#ct4", 7.6);
-          // Waiting -> Going cold
-          tl.to("#p-wait", { opacity: 0, duration: 0.25 }, 8.0);
-          tl.to("#p-cold", { opacity: 1, duration: 0.25 }, 8.1);
+          tl.to("#p-wait", { opacity: 0, y: -10, duration: 0.25 }, 8.0);
+          tl.fromTo("#p-cold", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ...IR }, 8.1);
           tl.to("#lead", { backgroundColor: "#f3e2dc", borderColor: "rgba(168,71,58,0.4)", duration: 1.0 }, 7.9);
-          tl.to("#temp-fill", { width: "14%", backgroundColor: "#b5574a", duration: 1.0, ease: "power1.inOut" }, 7.9);
-          // more enquiries waiting
-          tl.fromTo("#enq1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", ...IR }, 8.6);
-          tl.fromTo("#enq2", { opacity: 0, y: 24 }, { opacity: 0.85, y: 0, duration: 0.45, ease: "power3.out", ...IR }, 9.1);
+          tl.to("#temp-fill", { scaleX: 0.14, backgroundColor: "#b5574a", duration: 1.0, ease: "power2.inOut" }, 7.9);
+          tl.to("#frost", { opacity: 1, duration: 1.2 }, 7.9);
+          // shiver as it goes cold
+          tl.fromTo("#lead", { x: 0 }, { x: 4, duration: 0.05, repeat: 9, yoyo: true, ease: "none", ...IR }, 8.15);
+          tl.fromTo("#enq1", { opacity: 0, y: 40, rotation: -4 }, { opacity: 1, y: 0, rotation: 0, duration: 0.55, ease: "back.out(1.6)", ...IR }, 8.6);
+          tl.fromTo("#enq2", { opacity: 0, y: 40, rotation: 4 }, { opacity: 0.85, y: 0, rotation: 0, duration: 0.55, ease: "back.out(1.6)", ...IR }, 9.1);
           // the lead starts slipping away
-          tl.to("#lead", { y: 26, opacity: 0.55, duration: 0.7, ease: "power2.in" }, 9.6);
-          tl.to("#chat", { opacity: 0.82, duration: 0.6 }, 9.4);
+          tl.to("#lead", { y: 40, opacity: 0.5, rotation: 3, duration: 0.8, ease: "power2.in" }, 9.5);
+          tl.to("#chat", { opacity: 0.8, filter: "blur(0px) saturate(0.6)", duration: 0.6 }, 9.4);
 
           // ============ TRANSITION — DOUBLETICK CATCHES IT (10.3 – 13) =====
-          out("#h2", 10.2);
-          out(["#enq1", "#enq2"], 10.2, { y: 20, d: 0.35 });
-          drawPath("ln1", 10.25, 0.5);
-          tl.to("#lead", { y: 0, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 10.75);
+          wordsOut("#h2", 10.15);
+          tl.to(["#enq1", "#enq2"], { opacity: 0, y: 30, scale: 0.9, duration: 0.35, ease: "power2.in" }, 10.2);
+          drawPath("ln1", 10.25, 0.5, "hd1");
+          tl.to("#lead", { y: 0, rotation: 0, opacity: 1, duration: 0.45, ease: "back.out(2.6)" }, 10.75);
           tl.fromTo("#ln-dot", { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.25, ...IR }, 10.72);
+          ring(830, 600, 10.75, 260, { to: 1.8, d: 1.0 });
+          ring(830, 600, 10.9, 260, { to: 2.4, d: 1.1 });
+          tl.to("#frost", { opacity: 0, duration: 0.4 }, 10.8);
           tl.to("#lead", { backgroundColor: "#e3f3e8", borderColor: "rgba(29,167,90,0.6)", duration: 0.5 }, 10.8);
-          tl.to("#temp-fill", { width: "100%", backgroundColor: "#1da75a", duration: 0.6, ease: "power2.out" }, 10.8);
+          tl.to("#temp-fill", { scaleX: 1, backgroundColor: "#1da75a", duration: 0.7, ease: "power3.out" }, 10.8);
           tl.to("#p-cold", { opacity: 0, duration: 0.2 }, 10.85);
-          tl.to("#p-high", { opacity: 1, duration: 0.25 }, 10.95);
-          tl.to("#bg-night", { opacity: 0, duration: 0.9, ease: "power2.inOut" }, 10.6);
-          tl.to("#cam", { scale: 1, duration: 0.6, ease: "power3.out" }, 10.4);
-          tl.to("#chat", { opacity: 1, duration: 0.3 }, 10.8);
-          inn("#h3 .hl-sub", 10.65, { y: 12 });
-          inn("#h3 .hl-big", 10.8, { y: 24 });
-          // line continues into the conversation
-          drawPath("ln2", 11.0, 0.45);
-          tl.to("#chat-ring", { opacity: 1, duration: 0.25 }, 11.4);
+          tl.fromTo("#p-high", { opacity: 0, y: 10, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2.4)", ...IR }, 10.95);
+          // night → day: a circular wipe radiating from the caught lead
+          tl.to("#bg-day", { clipPath: "circle(1500px at 830px 600px)", duration: 1.2, ease: "power2.inOut" }, 10.75);
+          tl.fromTo(["#blob-g", "#blob-w"], { opacity: 0 }, { opacity: 1, duration: 1.2, ...IR }, 11.0);
+          tl.fromTo("#blob-g", { x: 0, y: 0 }, { x: -260, y: -120, duration: 22, ease: "sine.inOut", ...IR }, 11.0);
+          tl.fromTo("#blob-w", { x: 0, y: 0 }, { x: 140, y: 80, duration: 22, ease: "sine.inOut", ...IR }, 11.0);
+          camTo(10.3, 540, 600, 1, 0.8, "power3.out");
+          tl.to("#chat", { opacity: 1, filter: "blur(0px) saturate(1)", duration: 0.4 }, 10.8);
+          wordsIn("#h3 .hl-sub", 10.65);
+          wordsIn("#h3 .hl-big", 10.8, 0.09);
+          drawPath("ln2", 11.0, 0.45, "hd2");
+          tl.fromTo("#chat-ring", { opacity: 0 }, { opacity: 1, duration: 0.2, ...IR }, 11.4);
+          tl.fromTo("#chat", { scale: 1 }, { scale: 1.025, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "50% 50%", ...IR }, 11.4);
           tl.to("#chat-ring", { opacity: 0, duration: 0.8 }, 12.6);
-          tl.to("#st-off", { opacity: 0, duration: 0.2 }, 11.45);
+          tl.to("#st-off", { opacity: 0, y: -8, duration: 0.2 }, 11.45);
           inn("#st-ai", 11.55, { y: 8, d: 0.3 });
           // clock rewinds to the moment of the enquiry
-          flip("#ct4", "#ct3", 11.1, 0.14);
-          flip("#ct3", "#ct2", 11.26, 0.14);
-          flip("#ct2", "#ct1", 11.42, 0.14);
-          flip("#ct1", "#ct5", 11.58, 0.2);
-          tl.to("#clock", { scale: 0.62, duration: 0.5, ease: "power3.inOut" }, 12.0);
-          // the lead card steps aside (it returns in S5)
-          tl.to("#lead", { opacity: 0, scale: 0.92, duration: 0.4, ease: "power2.in" }, 12.0);
-          tl.to(["#ln1", "#ln2", "#ln-dot"], { opacity: 0, duration: 0.5 }, 12.2);
+          flip("#ct4", "#ct3", 11.1, 0.16);
+          flip("#ct3", "#ct2", 11.26, 0.16);
+          flip("#ct2", "#ct1", 11.42, 0.16);
+          flip("#ct1", "#ct5", 11.58, 0.28);
+          tl.to("#clock", { scale: 0.62, duration: 0.6, ease: "power4.inOut" }, 12.0);
+          tl.to("#lead", { opacity: 0, scale: 0.85, y: 20, filter: "blur(6px)", duration: 0.45, ease: "power2.in" }, 12.0);
+          tl.to(["#ln1", "#ln2", "#ln1g", "#ln2g", "#ln-dot"], { opacity: 0, duration: 0.5 }, 12.2);
 
           // ================= S3 — AI RESPONDS INSTANTLY (13 – 18.5) ========
-          out("#h3", 12.85);
-          inn("#h4 .hl-big", 13.0, { y: 24, st: 0.35 });
+          wordsOut("#h3", 12.8);
+          wordsIn("#h4 .hl-big", 13.0, 0.07);
           tl.to("#tk-grey", { opacity: 0, duration: 0.15 }, 12.7);
           tl.to("#tk-blue", { opacity: 1, duration: 0.15 }, 12.7);
           aiMsg("m-c1", "m-a1", 12.7, 13.4);
-          inn("#replied", 13.6, { y: 10 });
+          tl.set("#chat", { transformOrigin: "0% 0%" }, 12.9);
+          camTo(13.2, 300, 520, 1.08, 0.9, "power3.inOut");
+          inn("#replied", 13.6, { y: 10, s: 0.8, e: "back.out(2)" });
           userMsg("m-c2", 14.5);
           aiMsg("m-c2", "m-a2", 15.0, 15.7);
           userMsg("m-c3", 16.8);
+          camTo(14.2, 300, 520, 1.1, 4.0, "sine.inOut");
 
           // ================= S4 — UNDERSTANDS THE NEED (18.5 – 22) =========
-          out("#h4", 18.35);
-          inn("#h5 .hl-big", 18.5, { y: 24 });
-          inn("#h5 .hl-sub", 18.9, { y: 10 });
-          out("#replied", 18.3, { y: -6 });
+          wordsOut("#h4", 18.3);
+          wordsIn("#h5 .hl-big", 18.5);
+          wordsIn("#h5 .hl-sub", 18.9, 0.04);
+          tl.to("#replied", { opacity: 0, scale: 0.8, duration: 0.25 }, 18.3);
+          camTo(18.3, 760, 520, 1.05, 0.9, "power3.inOut");
           extract("mk-lead", "chip-lead", 18.6);
           extract("mk-team", "chip-team", 19.1);
           aiMsg("m-c3", "m-a3", 19.35, 19.9);
@@ -1845,19 +2090,23 @@
           extract("mk-mgr", "chip-mgr", 21.3);
 
           // ================= S5 — BUYING INTENT (22 – 25.8) ================
-          out("#h5", 21.85);
-          inn("#h6 .hl-big", 22.0, { y: 24 });
-          inn("#h6 .hl-sub", 24.0, { y: 10 });
+          wordsOut("#h5", 21.8);
+          wordsIn("#h6 .hl-big", 22.0);
+          wordsIn("#h6 .hl-sub", 24.0, 0.04);
           aiMsg("m-c4", "m-a4", 21.85, 22.35);
           userMsg("m-c5", 23.1);
           extract("mk-time", "chip-time", 23.5);
+          camTo(23.4, 830, 600, 1.0, 0.5, "power3.inOut");
           // the same lead card returns, now as the qualification card
-          tl.set("#lead", { height: 360 }, 23.8);
+          tl.set("#lead", { height: 360, top: 420 }, 23.8);
           tl.set(".lead-a", { opacity: 0 }, 23.8);
           tl.set(".lead-b", { opacity: 1 }, 23.8);
-          tl.set("#lead", { y: 0, top: 420 }, 23.8);
-          tl.fromTo("#lead", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out", ...IR }, 23.85);
-          const lead = $("#lead");
+          tl.fromTo(
+            "#lead",
+            { opacity: 0, scale: 0.9, y: 0, filter: "blur(6px)" },
+            { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power3.out", ...IR },
+            23.85,
+          );
           const rowY = (id) => 420 + document.getElementById(id).offsetTop + 4;
           [
             ["#chip-lead", "q-need"],
@@ -1867,74 +2116,109 @@
           ].forEach(([chip, row], i) => {
             const c = $(chip);
             const dy = rowY(row) - c.offsetTop;
-            tl.to(chip, { y: dy, x: 16, scale: 0.72, duration: 0.42, ease: "power3.in" }, 23.95 + i * 0.06);
-            tl.to(chip, { opacity: 0, duration: 0.1 }, 24.32 + i * 0.06);
+            // magnetic pull: accelerate in, collapse on contact
+            tl.to(chip, { y: dy, x: 16, scale: 0.6, rotation: (i % 2 ? 4 : -4), duration: 0.42, ease: "power4.in" }, 23.95 + i * 0.06);
+            tl.to(chip, { opacity: 0, duration: 0.08 }, 24.33 + i * 0.06);
           });
+          tl.fromTo("#lead", { scale: 1 }, { scale: 1.03, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", ...IR }, 24.3);
           ["#q-need", "#q-team", "#q-time"].forEach((r, i) => {
             const t = 24.3 + i * 0.2;
-            tl.fromTo(r + " .q-check", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)", ...IR }, t);
-            tl.fromTo(r, { backgroundColor: "rgba(29,167,90,0.18)" }, { backgroundColor: "rgba(29,167,90,0)", duration: 0.5, ...IR }, t);
+            tl.fromTo(r + " .q-check", { opacity: 0, scale: 0.2, rotation: -90 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2.6)", ...IR }, t);
+            tl.fromTo(r, { backgroundColor: "rgba(29,167,90,0.22)" }, { backgroundColor: "rgba(29,167,90,0)", duration: 0.6, ...IR }, t);
           });
-          tl.fromTo("#p-final", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.2)", ...IR }, 24.95);
-          tl.fromTo("#lead", { scale: 1 }, { scale: 1.04, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out", ...IR }, 24.95);
-          tl.to("#lead", { boxShadow: "0 0 0 8px rgba(29,167,90,0.18), 0 24px 50px -26px rgba(19,128,74,0.6)", duration: 0.4 }, 24.95);
+          tl.fromTo("#p-final", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.6)", ...IR }, 24.95);
+          ring(830, 600, 24.95, 300, { to: 1.7, d: 0.9 });
+          ring(830, 600, 25.08, 300, { to: 2.3, d: 1.0 });
+          burst(830, 600, 24.95, 18, { dist: 210 });
+          camTo(24.9, 830, 600, 1.09, 0.35, "power4.out");
+          tl.to("#lead", { boxShadow: "0 0 0 10px rgba(29,167,90,0.18), 0 30px 60px -26px rgba(19,128,74,0.65)", duration: 0.4 }, 24.95);
 
           // ================= S6 — AI → HUMAN HANDOFF (25.8 – 30.2) =========
-          out("#h6", 25.7);
-          inn("#h7 .hl-big", 25.85, { y: 24 });
-          inn("#h7 .hl-sub", 26.4, { y: 10 });
-          out("#clock", 25.7, { y: -10 });
-          tl.to("#chat", { scale: 0.66, x: -10, y: 70, duration: 0.6, ease: "power3.inOut" }, 25.8);
-          tl.fromTo("#ws", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out", ...IR }, 25.95);
+          wordsOut("#h6", 25.6);
+          wordsIn("#h7 .hl-big", 25.85);
+          wordsIn("#h7 .hl-sub", 26.4, 0.04);
+          tl.to("#clock", { opacity: 0, y: -10, duration: 0.3 }, 25.7);
+          camTo(25.6, 540, 600, 1.0, 0.7, "power3.inOut");
+          tl.to("#chat", { scale: 0.66, x: -10, y: 70, duration: 0.7, ease: "power4.inOut" }, 25.8);
+          tl.to("#chat", { filter: "blur(2.5px) saturate(1)", opacity: 0.75, duration: 0.6 }, 26.4);
+          tl.fromTo(
+            "#ws",
+            { opacity: 0, x: 160, rotationY: -32, transformPerspective: 1600, transformOrigin: "100% 50%" },
+            { opacity: 1, x: 0, rotationY: 0, duration: 0.85, ease: "power4.out", ...IR },
+            25.95,
+          );
           // context transfer — the qualification card travels into the AI summary
-          tl.to("#lead", { x: -180, y: 30, scale: 0.86, duration: 0.6, ease: "power3.inOut" }, 26.25);
-          tl.to("#lead", { opacity: 0, duration: 0.3 }, 26.8);
+          tl.to("#lead", { x: -180, y: 30, scale: 0.86, rotation: -2, duration: 0.6, ease: "power3.inOut" }, 26.25);
+          tl.to("#lead", { opacity: 0, scale: 0.8, filter: "blur(8px)", duration: 0.35 }, 26.8);
           ["#sr1", "#sr2", "#sr3", "#sr4", "#sr5"].forEach((r, i) => {
-            const t = 26.85 + i * 0.16;
-            tl.fromTo(r, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.38, ease: "power3.out", ...IR }, t);
-            tl.fromTo(r + " b", { color: "#0f7040" }, { color: "#23211e", duration: 0.6, ...IR }, t + 0.2);
+            const t = 26.85 + i * 0.14;
+            tl.fromTo(r, { opacity: 0, x: -60, filter: "blur(4px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.45, ease: "power4.out", ...IR }, t);
+            tl.fromTo(r + " b", { color: "#0f7040" }, { color: "#23211e", duration: 0.7, ...IR }, t + 0.25);
           });
           tl.set("#sr5 b", { color: "#0f7040" }, 28.5);
           drawPath("ln3", 26.4, 0.4);
           // assignment AI Agent -> Rahul
-          tl.to("#as-ai", { opacity: 0, x: -20, duration: 0.25, ease: "power2.in" }, 28.6);
-          tl.fromTo("#as-rahul", { opacity: 0, x: 24, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.4, ease: "back.out(2)", ...IR }, 28.72);
+          camTo(28.5, 760, 720, 1.06, 0.4, "power3.out");
+          tl.to("#as-ai", { opacity: 0, x: -30, filter: "blur(4px)", duration: 0.25, ease: "power2.in" }, 28.6);
+          tl.fromTo("#as-rahul", { opacity: 0, x: 40, scale: 0.85 }, { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(2.2)", ...IR }, 28.72);
+          ring(690, 770, 28.8, 90, { to: 2.2, d: 0.8 });
           inn("#ws-note", 29.0, { y: 8 });
+          camTo(29.6, 540, 600, 1.0, 0.5, "power3.inOut");
 
           // ================= S7 — SALES FOCUSES ON CLOSING (30.2 – 33) =====
-          out("#h7", 30.05);
-          inn("#h8 .hl-big", 30.2, { y: 24 });
-          tl.to("#ws", { opacity: 0, x: 80, duration: 0.45, ease: "power2.in" }, 30.0);
+          wordsOut("#h7", 30.0);
+          wordsIn("#h8 .hl-big", 30.2);
+          tl.to("#ws", { opacity: 0, x: 140, rotationY: 28, duration: 0.5, ease: "power3.in" }, 30.0);
           tl.to("#ln3", { opacity: 0, duration: 0.3 }, 30.0);
-          tl.to("#chat", { scale: 1, x: 0, y: 0, duration: 0.55, ease: "power3.inOut" }, 30.1);
+          tl.to("#chat", { scale: 1, x: 0, y: 0, duration: 0.7, ease: "back.out(1.2)" }, 30.1);
+          tl.to("#chat", { filter: "blur(0px) saturate(1)", opacity: 1, duration: 0.35, ease: "power2.out" }, 30.1);
           tl.to("#st-ai", { opacity: 0, duration: 0.2 }, 30.3);
           inn("#st-rahul", 30.4, { y: 8, d: 0.3 });
-          inn("#assigned", 30.45, { y: 14 });
+          inn("#assigned", 30.45, { y: 14, s: 0.85, e: "back.out(2)" });
           aiMsg("m-c5", "m-r1", 30.3, 30.75);
           userMsg("m-c6", 31.8);
-          tl.fromTo("#demo", { opacity: 0, y: 30, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.6)", ...IR }, 32.3);
+          tl.fromTo(
+            "#demo",
+            { opacity: 0, y: 40, rotationX: -60, transformPerspective: 1000, transformOrigin: "50% 0%" },
+            { opacity: 1, y: 0, rotationX: 0, duration: 0.6, ease: "power4.out", ...IR },
+            32.3,
+          );
+          tl.fromTo("#demo-shine", { xPercent: -150 }, { xPercent: 350, duration: 0.7, ease: "power2.inOut", ...IR }, 32.6);
+          camTo(32.2, 830, 460, 1.05, 0.6, "power3.out");
 
           // ================= S8 — CONNECTED JOURNEY (33 – 36.6) ============
-          out("#h8", 32.85);
-          tl.to("#cam", { scale: 0.9, opacity: 0, duration: 0.5, ease: "power2.in" }, 33.0);
-          inn("#h9 .hl-big", 33.3, { y: 24, st: 0.3 });
+          wordsOut("#h8", 32.85);
+          tl.to("#cam", { scale: 0.82, x: 97, y: 108, opacity: 0, filter: "blur(10px)", duration: 0.55, ease: "power3.in" }, 33.0);
+          wordsIn("#h9 .hl-big", 33.3, 0.07);
           tl.set("#j-fill", { scaleY: 0 }, 0);
           tl.fromTo("#journey", { opacity: 0 }, { opacity: 1, duration: 0.3, ...IR }, 33.3);
           tl.fromTo("#j-fill", { scaleY: 0 }, { scaleY: 1, duration: 2.0, ease: "power1.inOut", ...IR }, 33.45);
+          tl.fromTo("#j-head", { y: 0, opacity: 0 }, { y: 520, opacity: 1, duration: 2.0, ease: "power1.inOut", ...IR }, 33.45);
+          tl.to("#j-head", { opacity: 0, duration: 0.2 }, 35.5);
           ["#j1", "#j2", "#j3", "#j4", "#j5", "#j6"].forEach((n, i) => {
             const t = 33.4 + i * 0.4;
-            tl.fromTo(n, { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out", ...IR }, t);
-            tl.fromTo(n + " .j-dot", { scale: 0.6 }, { scale: 1, duration: 0.35, ease: "back.out(2.5)", ...IR }, t);
+            tl.fromTo(n, { opacity: 0, x: -30, filter: "blur(5px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.45, ease: "power4.out", ...IR }, t);
+            tl.fromTo(n + " .j-dot", { scale: 0.3 }, { scale: 1, duration: 0.45, ease: "back.out(3)", ...IR }, t);
+            ring(325, 325 + i * 104, t + 0.05, 50, { to: 2.0, d: 0.6, parent: $("#journey-clip") });
           });
-          tl.fromTo("#j6", { scale: 1 }, { scale: 1.06, duration: 0.2, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "0% 50%", ...IR }, 35.55);
-          out("#h9", 36.3, { d: 0.3 });
-          tl.to("#journey", { opacity: 0, y: -20, duration: 0.35, ease: "power2.in" }, 36.3);
+          tl.fromTo("#j6", { scale: 1 }, { scale: 1.08, duration: 0.2, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "0% 50%", ...IR }, 35.55);
+          burst(325, 845, 35.55, 12, { dist: 80, parent: $("#journey-clip") });
+          wordsOut("#h9", 36.25);
+          tl.to("#journey", { opacity: 0, y: -30, filter: "blur(6px)", duration: 0.35, ease: "power2.in" }, 36.3);
 
           // ================= S9 — CTA (36.6 – 41) ===========================
-          inn("#logo", 36.6, { y: 14 });
-          inn("#cta-head .hl-line", 36.8, { y: 26, st: 0.25 });
+          const tick = document.getElementById("logo-tick");
+          const tlen = tick.getTotalLength();
+          tl.set(tick, { strokeDasharray: tlen, strokeDashoffset: tlen }, 0);
+          tl.fromTo("#logo-rect", { scale: 0, rotation: -30, transformOrigin: "50% 50%" }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2.2)", ...IR }, 36.6);
+          tl.to(tick, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 36.85);
+          wordsIn(".logo-word", 36.75);
+          wordsIn("#cta-head", 36.95, 0.06);
           tl.fromTo("#cta-btn", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", ...IR }, 37.6);
+          tl.fromTo("#cta-shine", { xPercent: -150 }, { xPercent: 400, duration: 0.8, ease: "power2.inOut", ...IR }, 37.9);
           tl.fromTo("#cta-btn", { scale: 1 }, { scale: 1.035, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut", ...IR }, 38.6);
+          tl.fromTo("#cta-arrow", { x: 0 }, { x: 8, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut", ...IR }, 38.6);
+          ring(540, 754, 38.6, 0, { w: 640, h: 104, to: 1.18, d: 1.0, parent: $("#cta") });
           inn("#cta-url", 37.9, { y: 8 });
 
           // ---- captions -------------------------------------------------------
