@@ -44,34 +44,36 @@
         #f10-sD {
           opacity: 0;
         }
-        .f10-cap {
+        /* ---------- split headline (archetype A) ---------- */
+        .f10-hl {
           position: absolute;
-          left: 180px;
-          top: 822px;
-          width: 1560px;
-          height: 120px;
+          left: 120px;
+          top: 150px;
+          width: 640px;
+          height: 810px;
           display: flex;
-          flex-wrap: nowrap;
-          white-space: nowrap;
-          justify-content: center;
-          align-content: center;
           align-items: center;
-          column-gap: 20px;
-          font-size: 68px;
-          line-height: 1.12;
-          font-weight: 500;
-          letter-spacing: -0.025em;
+        }
+        .f10-hlin {
+          display: flex;
+          flex-wrap: wrap;
+          align-content: center;
+          column-gap: 0.24em;
+          font-size: 88px;
+          line-height: 1.06;
+          font-weight: 600;
+          letter-spacing: -0.03em;
         }
         .f10-w {
           display: block;
-          color: #8F8A84;
+          color: #8f8a84;
         }
         .f10-tag {
           display: inline-block;
           font-size: 25px;
-          font-weight: 500;
-          padding: 7px 16px;
-          border-radius: 9px;
+          font-weight: 600;
+          padding: 9px 16px;
+          border-radius: 10px;
           white-space: nowrap;
         }
         .f10-irr {
@@ -89,31 +91,31 @@
         .f10-card {
           background: #ffffff;
           border: 2px solid #ece6dd;
-          border-radius: 26px;
-          box-shadow: 0 18px 50px rgba(30, 20, 10, 0.08);
+          border-radius: 28px;
+          box-shadow: 0 24px 60px rgba(30, 20, 10, 0.1);
           overflow: hidden;
         }
         /* ---------- A: pills + table ---------- */
         #f10-pills {
           position: absolute;
-          left: 120px;
+          left: 820px;
           top: 160px;
-          width: 1680px;
-          height: 130px;
+          width: 980px;
+          height: 120px;
           display: flex;
-          justify-content: center;
+          justify-content: space-between;
           align-items: center;
-          gap: 28px;
         }
         .f10-pill {
           display: block;
-          font-size: 80px;
-          font-weight: 500;
+          font-size: 64px;
+          font-weight: 600;
           letter-spacing: -0.03em;
           color: #ffffff;
-          padding: 0.18em 0.6em 0.24em;
+          padding: 0.16em 0.5em 0.22em;
           border-radius: 999px;
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+          white-space: nowrap;
         }
         #f10-risk {
           background: #c8161d;
@@ -126,9 +128,9 @@
         }
         #f10-tblA {
           position: absolute;
-          left: 260px;
-          top: 316px;
-          width: 1400px;
+          left: 820px;
+          top: 304px;
+          width: 980px;
         }
         .f10-ah,
         .f10-ar {
@@ -139,12 +141,13 @@
         .f10-ah {
           height: 64px;
           background: #faf8f4;
-          font-size: 25px;
+          font-size: 24px;
           font-weight: 500;
           color: #5f5a54;
         }
         .f10-ar {
-          height: 78px;
+          height: 112px;
+          background-color: rgba(255, 255, 255, 0);
         }
         .f10-ar:last-child {
           border-bottom: 0;
@@ -155,39 +158,12 @@
           box-sizing: border-box;
         }
         .f10-a2 {
-          width: 790px;
-          padding: 0 24px;
+          width: 676px;
+          padding: 0 30px;
           box-sizing: border-box;
-          font-size: 29px;
-          line-height: 1.2;
+          font-size: 30px;
+          line-height: 1.22;
           font-weight: 500;
-        }
-        .f10-a3 {
-          width: 306px;
-          padding-left: 20px;
-          box-sizing: border-box;
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        }
-        .f10-ini {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 46px;
-          height: 46px;
-          border-radius: 50%;
-          background: #ede3f7;
-          color: #6f4c9c;
-          font-size: 22px;
-          font-weight: 600;
-          flex: none;
-        }
-        .f10-nm {
-          display: block;
-          font-size: 26px;
-          color: #3a3a3c;
-          white-space: nowrap;
         }
         /* ---------- B: footage ---------- */
         #f10-vidwrap {
@@ -201,20 +177,34 @@
           height: 1080px;
           object-fit: cover;
         }
-        /* Clean footage: soft bottom gradient so the white caption reads */
+        /* bottom gradient, opaque from y 1000 so the burned caption top never shows */
         #f10-shade {
           position: absolute;
           inset: 0;
           background: linear-gradient(
             to bottom,
             rgba(0, 0, 0, 0) 0px,
-            rgba(0, 0, 0, 0) 560px,
-            rgba(0, 0, 0, 0.45) 760px,
-            rgba(0, 0, 0, 0.72) 1080px
+            rgba(0, 0, 0, 0) 500px,
+            rgba(0, 0, 0, 0.5) 780px,
+            rgba(0, 0, 0, 0.86) 940px,
+            #000000 1000px
           );
         }
         #f10-capB {
-          top: 822px;
+          position: absolute;
+          left: 120px;
+          top: 868px;
+          width: 1680px;
+          height: 116px;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          column-gap: 0.24em;
+          font-size: 84px;
+          font-weight: 600;
+          line-height: 1.12;
+          letter-spacing: -0.025em;
+          white-space: nowrap;
           text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
         }
         #f10-capB .f10-w {
@@ -223,15 +213,54 @@
         /* ---------- C: filtered table ---------- */
         #f10-holdC {
           position: absolute;
-          left: 260px;
+          left: 820px;
           top: 150px;
-          width: 1400px;
-          height: 650px;
+          width: 980px;
+          height: 810px;
           display: flex;
           align-items: center;
         }
         #f10-tblC {
-          width: 1400px;
+          width: 980px;
+        }
+        .f10-tbar {
+          height: 78px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 0 30px;
+          border-bottom: 2px solid #ece6dd;
+          font-size: 30px;
+          font-weight: 600;
+        }
+        .f10-chip {
+          display: block;
+          font-size: 24px;
+          font-weight: 600;
+          padding: 8px 18px;
+          border-radius: 999px;
+          border: 2px solid #ece6dd;
+          color: #5f5a54;
+          white-space: nowrap;
+        }
+        #f10-chipAll {
+          margin-left: auto;
+        }
+        #f10-chipNeed {
+          position: relative;
+        }
+        #f10-chipOn {
+          position: absolute;
+          inset: -2px;
+          border-radius: 999px;
+          background: #c8161d;
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          font-weight: 600;
+          opacity: 0;
         }
         .f10-bh,
         .f10-br {
@@ -241,29 +270,29 @@
           overflow: hidden;
         }
         .f10-bh {
-          height: 68px;
+          height: 60px;
           background: #faf8f4;
-          font-size: 26px;
+          font-size: 24px;
           font-weight: 500;
           color: #5f5a54;
         }
         .f10-br {
-          height: 78px;
+          height: 86px;
+        }
+        .f10-br:last-child {
+          border-bottom: 0;
         }
         .f10-b1 {
-          width: 340px;
-          padding-left: 32px;
+          width: 300px;
+          padding-left: 30px;
           box-sizing: border-box;
-        }
-        .f10-b1 .f10-tag {
-          font-size: 25px;
         }
         .f10-b2 {
-          width: 1060px;
-          padding: 0 32px;
+          width: 676px;
+          padding: 0 30px;
           box-sizing: border-box;
-          font-size: 32px;
-          line-height: 1.2;
+          font-size: 30px;
+          line-height: 1.18;
           font-weight: 500;
         }
         .f10-flag .f10-b2 {
@@ -273,25 +302,28 @@
         .f10-sm,
         .f10-lg {
           position: absolute;
-          left: 32px;
+          left: 30px;
           top: 0;
           bottom: 0;
-          width: 996px;
+          width: 616px;
           display: flex;
           align-items: center;
         }
         .f10-lg {
-          font-size: 48px;
+          font-size: 46px;
+          font-weight: 600;
+          line-height: 1.12;
+          letter-spacing: -0.02em;
           opacity: 0;
         }
         .f10-flag {
-          background: rgba(200, 22, 29, 0);
+          background-color: rgba(200, 22, 29, 0);
         }
         /* ---------- D: instantly ---------- */
         #f10-green {
           position: absolute;
           inset: 0;
-          background: radial-gradient(circle at 50% 45%, #145236 0%, #0d3a26 45%, #072217 100%);
+          background: radial-gradient(circle at 50% 52%, #145236 0%, #0d3a26 45%, #072217 100%);
         }
         #f10-bolt {
           position: absolute;
@@ -303,13 +335,13 @@
         #f10-inst {
           position: absolute;
           left: 0;
-          top: 400px;
+          top: 380px;
           width: 1920px;
-          height: 280px;
+          height: 360px;
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 240px;
+          font-size: 320px;
           font-weight: 600;
           letter-spacing: -0.045em;
           color: #22f08a;
@@ -320,11 +352,19 @@
       <div id="root" data-composition-id="f10" data-width="1920" data-height="1080">
         <div id="f10-bg"></div>
         <div class="f10-gl f10-gh" style="top: 150px"></div>
-        <div class="f10-gl f10-gh" style="top: 800px"></div>
-        <div class="f10-gl f10-gv" style="left: 180px"></div>
-        <div class="f10-gl f10-gv" style="left: 1740px"></div>
+        <div class="f10-gl f10-gh" style="top: 960px"></div>
+        <div class="f10-gl f10-gv" style="left: 790px"></div>
 
         <div id="f10-sA" class="f10-scene">
+          <div class="f10-hl">
+            <div id="f10-capA" class="f10-hlin">
+              <span class="f10-w" id="f10-detects">detects</span>
+              <span class="f10-w" id="f10-risks">risks,</span>
+              <span class="f10-w" id="f10-delw">delays</span>
+              <span class="f10-w" id="f10-and">and</span>
+              <span class="f10-w" id="f10-frw">frustration</span>
+            </div>
+          </div>
           <div id="f10-pills">
             <span class="f10-pill" id="f10-risk">risk</span>
             <span class="f10-pill" id="f10-delays">delays</span>
@@ -334,40 +374,27 @@
             <div class="f10-ah">
               <div class="f10-a1">Issue</div>
               <div class="f10-a2">Incident</div>
-              <div class="f10-a3">Customer</div>
             </div>
-            <div class="f10-ar">
+            <div class="f10-ar f10-hf">
               <div class="f10-a1"><span class="f10-tag f10-irr">Irritated customer</span></div>
               <div class="f10-a2">Customer is asking for a full refund</div>
-              <div class="f10-a3"><span class="f10-ini">M</span><span class="f10-nm">Michael Johnson</span></div>
             </div>
-            <div class="f10-ar">
+            <div class="f10-ar f10-hd">
               <div class="f10-a1"><span class="f10-tag f10-agt">Agent misconduct</span></div>
               <div class="f10-a2">Customer frustrated with no response</div>
-              <div class="f10-a3"><span class="f10-ini">E</span><span class="f10-nm">Emma Wilson</span></div>
             </div>
-            <div class="f10-ar">
+            <div class="f10-ar f10-hf">
               <div class="f10-a1"><span class="f10-tag f10-irr">Irritated customer</span></div>
               <div class="f10-a2">Customer demanding immediate refund</div>
-              <div class="f10-a3"><span class="f10-ini">D</span><span class="f10-nm">Daniel Carter</span></div>
             </div>
-            <div class="f10-ar">
+            <div class="f10-ar f10-hr">
               <div class="f10-a1"><span class="f10-tag f10-sla">SLA Breached</span></div>
               <div class="f10-a2">Customer threatened to take other customers away</div>
-              <div class="f10-a3"><span class="f10-ini">O</span><span class="f10-nm">Olivia Brown</span></div>
             </div>
-            <div class="f10-ar">
+            <div class="f10-ar f10-hr">
               <div class="f10-a1"><span class="f10-tag f10-sla">SLA Breached</span></div>
               <div class="f10-a2">Customer threatening to escalate the issue</div>
-              <div class="f10-a3"><span class="f10-ini">E</span><span class="f10-nm">Ethan Taylor</span></div>
             </div>
-          </div>
-          <div id="f10-capA" class="f10-cap">
-            <span class="f10-w" id="f10-detects">detects</span>
-            <span class="f10-w" id="f10-risks">risks,</span>
-            <span class="f10-w" id="f10-delw">delays</span>
-            <span class="f10-w" id="f10-and">and</span>
-            <span class="f10-w" id="f10-frw">frustration</span>
           </div>
         </div>
 
@@ -376,7 +403,7 @@
             <video data-hf-media-start-basis="local" id="f10-vid" src="assets/footage/women.mp4" data-start="2.4" data-duration="1.6" data-media-start="0" data-track-index="0" muted playsinline></video>
           </div>
           <div id="f10-shade"></div>
-          <div id="f10-capB" class="f10-cap">
+          <div id="f10-capB">
             <span class="f10-w" id="f10-before">before</span>
             <span class="f10-w" id="f10-they">they</span>
             <span class="f10-w" id="f10-escalate">escalate</span>
@@ -384,8 +411,23 @@
         </div>
 
         <div id="f10-sC" class="f10-scene">
+          <div class="f10-hl">
+            <div id="f10-capC" class="f10-hlin">
+              <span class="f10-w" id="f10-shows">Shows</span>
+              <span class="f10-w" id="f10-you">you</span>
+              <span class="f10-w" id="f10-exactly">exactly</span>
+              <span class="f10-w" id="f10-what">what</span>
+              <span class="f10-w" id="f10-needs">needs</span>
+              <span class="f10-w" id="f10-attention">attention</span>
+            </div>
+          </div>
           <div id="f10-holdC">
             <div id="f10-tblC" class="f10-card">
+              <div class="f10-tbar">
+                Incidents
+                <span class="f10-chip" id="f10-chipAll">All</span>
+                <span class="f10-chip" id="f10-chipNeed">Needs attention<span id="f10-chipOn">Needs attention</span></span>
+              </div>
               <div class="f10-bh">
                 <div class="f10-b1">Issue</div>
                 <div class="f10-b2">Incident</div>
@@ -402,13 +444,13 @@
                 <div class="f10-b1"><span class="f10-tag f10-irr">Irritated customer</span></div>
                 <div class="f10-b2">Customer claiming they were overcharged</div>
               </div>
-              <div class="f10-br f10-drop">
-                <div class="f10-b1"><span class="f10-tag f10-agt">Agent misconduct</span></div>
-                <div class="f10-b2">Customer complaining about rude support</div>
-              </div>
               <div class="f10-br f10-flag">
                 <div class="f10-b1"><span class="f10-tag f10-sla">SLA Breached</span></div>
                 <div class="f10-b2"><span class="f10-sm">Customer threatened to take other customers away</span><span class="f10-lg">Customer threatened to take other customers away</span></div>
+              </div>
+              <div class="f10-br f10-drop">
+                <div class="f10-b1"><span class="f10-tag f10-agt">Agent misconduct</span></div>
+                <div class="f10-b2">Customer complaining about rude support</div>
               </div>
               <div class="f10-br f10-flag">
                 <div class="f10-b1"><span class="f10-tag f10-sla">SLA Breached</span></div>
@@ -420,22 +462,12 @@
               </div>
             </div>
           </div>
-          <div id="f10-capC1" class="f10-cap">
-            <span class="f10-w" id="f10-shows">Shows</span>
-            <span class="f10-w" id="f10-you">you</span>
-            <span class="f10-w" id="f10-exactly">exactly</span>
-          </div>
-          <div id="f10-capC2" class="f10-cap">
-            <span class="f10-w" id="f10-what">what</span>
-            <span class="f10-w" id="f10-needs">needs</span>
-            <span class="f10-w" id="f10-attention">attention</span>
-          </div>
         </div>
 
         <div id="f10-sD" class="f10-scene">
           <div id="f10-green"></div>
           <svg id="f10-bolt" viewBox="0 0 1920 1080" aria-hidden="true">
-            <polygon points="1062,120 699,606 930,606 838,960 1221,434 990,434" fill="#0f4a30" stroke="#0f4a30" stroke-width="60" stroke-linejoin="round" />
+            <polygon points="1072,110 694,616 934,616 838,1000 1236,452 996,452" fill="#0f4a30" stroke="#0f4a30" stroke-width="60" stroke-linejoin="round" />
           </svg>
           <div id="f10-inst">instantly</div>
         </div>
@@ -451,13 +483,16 @@
           const show = (sel, t) => tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: 0.01 }, t);
           const hide = (sel, t) => tl.to(sel, { opacity: 0, duration: 0.01 }, t);
 
-          // A — risk / delays / frustration pills over the incidents table (0 – 2.4)
+          // A — headline left; risk / delays / frustration pills over the incidents table right (0 – 2.4)
           tl.fromTo("#f10-tblA", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0);
           tl.fromTo(".f10-ar", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.05 }, 0.08);
-          tl.fromTo("#f10-tblA", { scale: 1 }, { scale: 1.03, duration: 1.9, ease: "none", transformOrigin: "50% 0%" }, 0.5);
+          tl.fromTo("#f10-tblA", { scale: 1 }, { scale: 1.02, duration: 1.9, ease: "none", transformOrigin: "50% 0%" }, 0.5);
           tl.fromTo("#f10-risk", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.8)" }, 0.45);
+          tl.to(".f10-hr", { backgroundColor: "rgba(200,22,29,0.08)", duration: 0.3, ease: "power1.out" }, 0.5);
           tl.fromTo("#f10-delays", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.8)" }, 1.0);
+          tl.to(".f10-hd", { backgroundColor: "rgba(196,72,22,0.08)", duration: 0.3, ease: "power1.out" }, 1.05);
           tl.fromTo("#f10-frus", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.8)" }, 1.66);
+          tl.to(".f10-hf", { backgroundColor: "rgba(216,163,26,0.12)", duration: 0.3, ease: "power1.out" }, 1.71);
           word("#f10-detects", 0.06);
           word("#f10-risks", 0.51);
           word("#f10-delw", 1.05);
@@ -465,36 +500,36 @@
           word("#f10-frw", 1.71);
           hide("#f10-sA", 2.4);
 
-          // B — women footage, "before they escalate" (2.4 – 4.0)
+          // B — women footage, lower-third "before they escalate" (2.4 – 4.0)
           show("#f10-sB", 2.4);
-          tl.fromTo("#f10-vidwrap", { scale: 1 }, { scale: 1.06, duration: 1.6, ease: "none" }, 2.4);
+          tl.fromTo("#f10-vidwrap", { scale: 1 }, { scale: 1.05, duration: 1.6, ease: "none" }, 2.4);
           word("#f10-before", 2.4, "#FFFFFF");
           word("#f10-they", 2.91, "#FFFFFF");
           word("#f10-escalate", 3.06, "#FFFFFF");
           hide("#f10-sB", 4.0);
 
-          // C — table filters down to the flagged rows (4.0 – 6.3)
+          // C — headline left; table filters down to the flagged rows right (4.0 – 6.3)
           show("#f10-sC", 4.0);
           tl.fromTo("#f10-tblC", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 4.0);
           tl.fromTo(".f10-br", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.04 }, 4.05);
+          tl.fromTo("#f10-chipOn", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 4.62);
           tl.to(".f10-drop", { height: 0, opacity: 0, borderBottomWidth: 0, duration: 0.5, ease: "power3.inOut", stagger: 0.05 }, 4.75);
           tl.to(".f10-flag .f10-sm", { opacity: 0, duration: 0.2 }, 5.35);
           tl.fromTo(".f10-flag .f10-lg", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out", transformOrigin: "0% 50%" }, 5.4);
-          tl.to(".f10-flag", { height: 150, backgroundColor: "rgba(200,22,29,0.06)", duration: 0.45, ease: "power3.out" }, 5.35);
+          tl.to(".f10-flag", { height: 200, backgroundColor: "rgba(200,22,29,0.06)", duration: 0.45, ease: "power3.out" }, 5.35);
           tl.fromTo(".f10-flag .f10-tag", { scale: 1 }, { scale: 1.12, duration: 0.3, ease: "back.out(2)", yoyo: true, repeat: 1, transformOrigin: "0% 50%" }, 5.45);
-          tl.to("#f10-tblC", { scale: 1.04, duration: 0.9, ease: "sine.inOut" }, 5.4);
+          tl.fromTo("#f10-tblC", { scale: 1 }, { scale: 1.03, duration: 0.9, ease: "sine.inOut" }, 5.4);
           word("#f10-shows", 4.02);
           word("#f10-you", 4.38);
           word("#f10-exactly", 4.56);
-          tl.to("#f10-capC1", { opacity: 0, y: -24, duration: 0.15, ease: "power1.in" }, 5.07);
           word("#f10-what", 5.22);
           word("#f10-needs", 5.43);
           word("#f10-attention", 5.67);
           hide("#f10-sC", 6.3);
 
-          // D — instantly on a lightning bolt (6.3 – 7.3)
+          // D — giant "instantly" on a lightning bolt (6.3 – 7.3)
           show("#f10-sD", 6.3);
-          tl.fromTo("#f10-bolt", { scale: 0.85, rotation: -6, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, rotation: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 6.3);
+          tl.fromTo("#f10-bolt", { scale: 0.85, rotation: -6, opacity: 0, transformOrigin: "50% 52%" }, { scale: 1, rotation: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 6.3);
           tl.to("#f10-bolt", { scale: 1.04, duration: 0.6, ease: "none" }, 6.7);
           tl.fromTo("#f10-inst", { scale: 1.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power4.out" }, 6.36);
           tl.to("#f10-inst", { scale: 1.04, duration: 0.64, ease: "none" }, 6.66);

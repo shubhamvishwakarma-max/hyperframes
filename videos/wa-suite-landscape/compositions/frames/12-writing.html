@@ -24,31 +24,92 @@
         }
         #f12-win {
           position: absolute;
-          left: 360px;
+          left: 820px;
           top: 150px;
-          width: 1200px;
-          height: 640px;
+          width: 980px;
+          height: 810px;
           box-sizing: border-box;
-          border-radius: 34px;
+          border-radius: 36px;
           border: 8px solid #ddd5c6;
+          overflow: hidden;
           background-color: #efeae2;
           background-image: radial-gradient(rgba(140, 120, 90, 0.11) 2px, transparent 2.6px);
           background-size: 46px 46px;
-          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+        #f12-head {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 964px;
+          height: 108px;
+          box-sizing: border-box;
+          padding: 0 32px;
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          background: #f7f4ee;
+          border-bottom: 2px solid #e4ddd0;
+        }
+        .f12-hav {
+          width: 66px;
+          height: 66px;
+          border-radius: 50%;
+          background: #ede3f7;
+          color: #7c4fb0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 30px;
+          font-weight: 600;
+        }
+        .f12-hname {
+          font-size: 33px;
+          font-weight: 600;
+          line-height: 1.15;
+        }
+        .f12-hmeta {
+          font-size: 23px;
+          color: #5f5a54;
+        }
+        #f12-day {
+          position: absolute;
+          left: 412px;
+          top: 132px;
+          width: 140px;
+          height: 46px;
+          border-radius: 12px;
+          background: #ffffff;
+          font-size: 23px;
+          line-height: 46px;
+          text-align: center;
+          color: #5f5a54;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+        #f12-bubble0 {
+          position: absolute;
+          left: 32px;
+          top: 204px;
+          max-width: 760px;
+          box-sizing: border-box;
+          padding: 24px 30px 16px;
+          background: #ffffff;
+          border-radius: 6px 22px 22px 22px;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
         }
         #f12-bubble {
           position: absolute;
           left: 32px;
-          top: 34px;
-          max-width: 1100px;
+          top: 392px;
+          max-width: 880px;
           box-sizing: border-box;
-          padding: 24px 28px 16px;
+          padding: 24px 30px 16px;
           background: #ffffff;
-          border-radius: 18px;
+          border-radius: 6px 22px 22px 22px;
           box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
         }
         .f12-msg {
-          font-size: 34px;
+          font-size: 36px;
           line-height: 1.3;
           font-weight: 400;
           color: #1c1c1e;
@@ -56,23 +117,23 @@
         .f12-time {
           margin-top: 6px;
           text-align: right;
-          font-size: 22px;
+          font-size: 23px;
           color: #6b665f;
         }
         #f12-composer {
           position: absolute;
-          left: 390px;
-          top: 642px;
-          width: 1010px;
-          height: 118px;
+          left: 850px;
+          top: 792px;
+          width: 800px;
+          height: 148px;
           box-sizing: border-box;
-          border-radius: 59px;
+          border-radius: 42px;
           background: #ffffff;
           display: flex;
           align-items: center;
-          gap: 24px;
-          padding: 0 34px;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+          gap: 20px;
+          padding: 0 30px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
         .f12-ico {
           display: block;
@@ -87,25 +148,15 @@
         #f12-field {
           position: relative;
           flex: 1 1 auto;
-          height: 76px;
-        }
-        #f12-hl {
-          position: absolute;
-          left: -10px;
-          top: -2px;
-          width: 758px;
-          height: 80px;
-          border-radius: 28px;
-          background: rgba(34, 240, 138, 0.55);
-          filter: blur(6px);
+          height: 124px;
         }
         #f12-hl0 {
           position: absolute;
-          left: -8px;
-          top: 14px;
-          width: 345px;
-          height: 48px;
-          border-radius: 24px;
+          left: -10px;
+          top: 34px;
+          width: 382px;
+          height: 56px;
+          border-radius: 28px;
           background: rgba(34, 240, 138, 0.5);
           filter: blur(6px);
         }
@@ -113,51 +164,62 @@
           position: absolute;
           left: 0;
           top: 0;
-          width: 400px;
-          height: 76px;
-          line-height: 76px;
-          font-size: 28px;
+          height: 124px;
+          line-height: 124px;
+          font-size: 30px;
           color: #1c1c1e;
           white-space: nowrap;
+        }
+        #f12-hl {
+          position: absolute;
+          left: -12px;
+          top: 0;
+          width: 636px;
+          height: 124px;
+          border-radius: 30px;
+          background: rgba(34, 240, 138, 0.5);
+          filter: blur(6px);
         }
         #f12-ctext {
           position: absolute;
           left: 0;
           top: 0;
-          width: 738px;
-          height: 76px;
-          line-height: 38px;
-          font-size: 28px;
+          width: 612px;
+          height: 124px;
+          display: flex;
+          align-items: center;
+          line-height: 40px;
+          font-size: 30px;
           color: #1c1c1e;
         }
         #f12-send {
           position: absolute;
-          left: 1416px;
-          top: 646px;
+          left: 1666px;
+          top: 811px;
           width: 110px;
           height: 110px;
           border-radius: 50%;
-          background: #ffffff;
+          background: #1fa855;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #6b665f;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+          color: #ffffff;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         #f12-send svg {
           display: block;
-          width: 46px;
-          height: 46px;
+          width: 48px;
+          height: 48px;
         }
         #f12-panel {
           position: absolute;
-          left: 390px;
-          top: 366px;
-          width: 1140px;
-          height: 256px;
-          border-radius: 22px;
+          left: 850px;
+          top: 452px;
+          width: 920px;
+          height: 316px;
+          border-radius: 24px;
           background: #ffffff;
-          box-shadow: 0 16px 40px rgba(60, 40, 20, 0.14);
+          box-shadow: 0 18px 44px rgba(60, 40, 20, 0.16);
         }
         #f12-ptitle {
           position: absolute;
@@ -167,23 +229,29 @@
           display: flex;
           align-items: center;
           gap: 14px;
-          font-size: 30px;
+          font-size: 32px;
           font-weight: 600;
           color: #1c1c1e;
         }
-        #f12-ptitle svg {
+        #f12-ptitle svg.f12-spark {
           display: block;
-          width: 40px;
-          height: 40px;
+          width: 42px;
+          height: 42px;
           color: #9c7bc4;
+        }
+        #f12-ptitle svg.f12-rot {
+          display: block;
+          width: 36px;
+          height: 36px;
+          color: #1fa855;
         }
         #f12-discard {
           position: absolute;
-          right: 274px;
+          right: 276px;
           top: 22px;
           height: 64px;
           line-height: 64px;
-          font-size: 29px;
+          font-size: 30px;
           color: #5f5f5f;
         }
         #f12-use {
@@ -192,10 +260,10 @@
           top: 22px;
           width: 230px;
           height: 64px;
-          border-radius: 12px;
+          border-radius: 14px;
           background: #d3f5e1;
           color: #11683b;
-          font-size: 29px;
+          font-size: 30px;
           font-weight: 600;
           line-height: 64px;
           text-align: center;
@@ -207,11 +275,11 @@
           top: 106px;
           bottom: 24px;
           box-sizing: border-box;
-          padding: 20px 24px;
-          border-radius: 14px;
+          padding: 22px 26px;
+          border-radius: 16px;
           background: #f3f2ef;
-          font-size: 32px;
-          line-height: 1.35;
+          font-size: 34px;
+          line-height: 1.4;
           font-style: italic;
           color: #3a3a3c;
         }
@@ -245,45 +313,53 @@
         }
         .f12-cap {
           position: absolute;
-          left: 180px;
-          top: 810px;
-          width: 1560px;
-          height: 150px;
+          left: 120px;
+          top: 220px;
+          width: 640px;
+          height: 680px;
           display: flex;
-          flex-wrap: nowrap;
-          justify-content: center;
+          flex-wrap: wrap;
           align-content: center;
-          column-gap: 22px;
-          font-size: 68px;
-          line-height: 1.12;
-          font-weight: 500;
-          letter-spacing: -0.025em;
+          column-gap: 24px;
+          font-size: 88px;
+          line-height: 1.06;
+          font-weight: 600;
+          letter-spacing: -0.03em;
+        }
+        .f12-cap {
+          color: #ffffff;
         }
         .f12-w {
           display: block;
           color: #5f7d6c;
         }
-        .f12-cap {
-          color: #ffffff;
-        }
-        .f12-grp {
-          display: flex;
-        }
-      </style>
+              </style>
 
       <div id="root" data-composition-id="f12" data-width="1920" data-height="1080">
         <div id="f12-bg"></div>
         <div id="f12-stage">
           <div id="f12-win">
-            <div id="f12-bubble">
+            <div id="f12-head">
+              <div class="f12-hav">C</div>
+              <div>
+                <div class="f12-hname">Customer</div>
+                <div class="f12-hmeta">online</div>
+              </div>
+            </div>
+            <div id="f12-day">Today</div>
+            <div id="f12-bubble0">
               <div class="f12-msg">I was charged twice for the same order. Please fix this !</div>
               <div class="f12-time">10:23 AM</div>
+            </div>
+            <div id="f12-bubble">
+              <div class="f12-msg">Two debits on my card statement.</div>
+              <div class="f12-time">10:24 AM</div>
             </div>
           </div>
 
           <div id="f12-panel">
             <div id="f12-ptitle">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg class="f12-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
                 <path d="M20 2v4" />
                 <path d="M22 4h-4" />
@@ -323,9 +399,6 @@
               <path d="M21 16h-4" />
               <path d="M11 3H9" />
             </svg>
-            <svg class="f12-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551" />
-            </svg>
           </div>
           <div id="f12-send">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -334,16 +407,16 @@
             </svg>
           </div>
 
-          <!-- click 1: magic wand (1276,701) -->
-          <div class="f12-ring" id="f12-ring1" style="left: 1236px; top: 661px"></div>
-          <svg class="f12-star" id="f12-s1a" viewBox="0 0 24 24" style="left: 1214px; top: 626px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f12-star" id="f12-s1b" viewBox="0 0 24 24" style="left: 1192px; top: 676px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f12-star" id="f12-s1c" viewBox="0 0 24 24" style="left: 1254px; top: 604px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <!-- click 2: Use answer (1391,422) -->
-          <div class="f12-ring" id="f12-ring2" style="left: 1351px; top: 382px"></div>
-          <svg class="f12-star" id="f12-s2a" viewBox="0 0 24 24" style="left: 1330px; top: 348px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f12-star" id="f12-s2b" viewBox="0 0 24 24" style="left: 1308px; top: 402px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f12-star" id="f12-s2c" viewBox="0 0 24 24" style="left: 1374px; top: 328px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <!-- click 1: magic wand (1598,866) -->
+          <div class="f12-ring" id="f12-ring1" style="left: 1558px; top: 826px"></div>
+          <svg class="f12-star" id="f12-s1a" viewBox="0 0 24 24" style="left: 1536px; top: 790px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f12-star" id="f12-s1b" viewBox="0 0 24 24" style="left: 1514px; top: 842px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f12-star" id="f12-s1c" viewBox="0 0 24 24" style="left: 1578px; top: 768px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <!-- click 2: Use answer (1631,506) -->
+          <div class="f12-ring" id="f12-ring2" style="left: 1591px; top: 466px"></div>
+          <svg class="f12-star" id="f12-s2a" viewBox="0 0 24 24" style="left: 1570px; top: 430px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f12-star" id="f12-s2b" viewBox="0 0 24 24" style="left: 1548px; top: 484px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f12-star" id="f12-s2c" viewBox="0 0 24 24" style="left: 1614px; top: 410px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
 
           <div class="f12-cursor" id="f12-cursor">
             <svg id="f12-hand" viewBox="0 0 24 24" aria-hidden="true">
@@ -396,10 +469,10 @@
           // Window arrives, then a slow push-in across the whole beat
           tl.fromTo("#f12-win", { opacity: 0.3, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0);
           tl.fromTo("#f12-composer, #f12-send", { opacity: 0.3, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0);
-          tl.fromTo("#f12-bubble", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.1);
-          tl.fromTo("#f12-stage", { scale: 1 }, { scale: 1.025, duration: 5.0, ease: "none", transformOrigin: "50% 45%" }, 0);
+          tl.fromTo("#f12-bubble0", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#f12-bubble", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.25);
+          tl.fromTo("#f12-stage", { scale: 1 }, { scale: 1.025, duration: 5.0, ease: "none", transformOrigin: "68% 52%" }, 0);
 
-          // Draft typed into the composer
           const splitChars = (sel) => {
             const el = document.querySelector(sel);
             const txt = el.textContent;
@@ -413,15 +486,17 @@
             }
             return out;
           };
+
+          // Draft typed into the composer
           const draft = splitChars("#f12-draft");
           tl.fromTo(draft.slice(0, 12), { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.035, ease: "none" }, 0.3);
           tl.fromTo(draft.slice(12), { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.03, ease: "none" }, 0.78);
 
-          // Cursor in near send, sweeps the draft highlight, then hits the magic wand
-          tl.fromTo("#f12-cursor", { x: 1720 - HX, y: 760 - HY, opacity: 0 }, { x: 1620 - HX, y: 710 - HY, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.6);
-          move(860, 704, 1.0, 0.35);
+          // Cursor in from the right, sweeps the draft highlight, then hits the magic wand
+          tl.fromTo("#f12-cursor", { x: 1850 - HX, y: 700 - HY, opacity: 0 }, { x: 1760 - HX, y: 700 - HY, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.6);
+          move(1160, 870, 1.0, 0.35);
           tl.fromTo("#f12-hl0", { opacity: 0, scaleX: 0, transformOrigin: "0% 50%" }, { opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.out" }, 1.08);
-          move(1276, 701, 1.3, 0.3);
+          move(1598, 866, 1.3, 0.3);
           click(1, 1.62);
           tl.fromTo("#f12-wand", { color: "#6B665F" }, { color: "#1FA855", duration: 0.2 }, 1.62);
 
@@ -432,7 +507,7 @@
           tl.fromTo(chars, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 1.2 / chars.length, ease: "none" }, 2.05);
 
           // Use answer → composer text replaced
-          move(1391, 422, 3.35, 0.5);
+          move(1631, 506, 3.35, 0.5);
           click(2, 3.92);
           tl.fromTo("#f12-use", { backgroundColor: "#D3F5E1" }, { backgroundColor: "#A9E8C4", duration: 0.12, yoyo: true, repeat: 1 }, 3.92);
           tl.to("#f12-draft", { opacity: 0, duration: 0.15, ease: "power1.in" }, 4.0);
@@ -440,9 +515,9 @@
           tl.fromTo("#f12-hl", { opacity: 0, scaleX: 0, transformOrigin: "0% 50%" }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power2.out" }, 4.02);
           tl.fromTo("#f12-ctext", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 4.15);
           tl.to("#f12-hl", { opacity: 0, duration: 0.4, ease: "power1.in" }, 4.45);
-          move(1460, 540, 4.25, 0.6);
+          move(1700, 690, 4.25, 0.6);
 
-          // Captions
+          // Captions — left headline
           word("#f12-w-ai", 0.08);
           word("#f12-w-writing", 0.53);
           word("#f12-w-assist", 0.92);
