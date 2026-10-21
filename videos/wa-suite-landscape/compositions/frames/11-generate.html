@@ -29,31 +29,91 @@
         }
         #f11-win {
           position: absolute;
-          left: 360px;
+          left: 820px;
           top: 150px;
-          width: 1200px;
-          height: 640px;
+          width: 980px;
+          height: 810px;
           box-sizing: border-box;
-          border-radius: 34px;
+          border-radius: 36px;
           border: 8px solid #ddd5c6;
+          overflow: hidden;
           background-color: #efeae2;
           background-image: radial-gradient(rgba(140, 120, 90, 0.11) 2px, transparent 2.6px);
           background-size: 46px 46px;
-          box-shadow: 0 30px 80px rgba(60, 40, 20, 0.12);
+          box-shadow: 0 30px 80px rgba(60, 40, 20, 0.14);
+        }
+        #f11-head {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 964px;
+          height: 108px;
+          box-sizing: border-box;
+          padding: 0 32px;
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          background: #f7f4ee;
+          border-bottom: 2px solid #e4ddd0;
+        }
+        .f11-hav {
+          width: 66px;
+          height: 66px;
+          border-radius: 50%;
+          background: #ede3f7;
+          color: #7c4fb0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 30px;
+          font-weight: 600;
+        }
+        .f11-hname {
+          font-size: 33px;
+          font-weight: 600;
+          line-height: 1.15;
+        }
+        .f11-hmeta {
+          font-size: 23px;
+          color: #5f5a54;
+        }
+        #f11-day {
+          position: absolute;
+          left: 412px;
+          top: 132px;
+          width: 140px;
+          height: 46px;
+          border-radius: 12px;
+          background: #ffffff;
+          font-size: 23px;
+          line-height: 46px;
+          text-align: center;
+          color: #5f5a54;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+        #f11-bubble0 {
+          position: absolute;
+          left: 32px;
+          top: 204px;
+          box-sizing: border-box;
+          padding: 24px 30px 16px;
+          background: #ffffff;
+          border-radius: 6px 22px 22px 22px;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
         }
         #f11-bubble {
           position: absolute;
           left: 32px;
-          top: 34px;
-          max-width: 1100px;
+          top: 350px;
+          max-width: 880px;
           box-sizing: border-box;
-          padding: 24px 28px 16px;
+          padding: 24px 30px 16px;
           background: #ffffff;
-          border-radius: 18px;
+          border-radius: 6px 22px 22px 22px;
           box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
         }
         .f11-msg {
-          font-size: 34px;
+          font-size: 36px;
           line-height: 1.3;
           font-weight: 400;
           color: #1c1c1e;
@@ -61,23 +121,23 @@
         .f11-time {
           margin-top: 6px;
           text-align: right;
-          font-size: 22px;
+          font-size: 23px;
           color: #6b665f;
         }
         #f11-composer {
           position: absolute;
-          left: 390px;
-          top: 642px;
-          width: 1010px;
-          height: 118px;
+          left: 850px;
+          top: 792px;
+          width: 800px;
+          height: 148px;
           box-sizing: border-box;
-          border-radius: 59px;
+          border-radius: 42px;
           background: #ffffff;
           display: flex;
           align-items: center;
-          gap: 24px;
-          padding: 0 34px;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+          gap: 20px;
+          padding: 0 30px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
         .f11-ico {
           display: block;
@@ -92,56 +152,67 @@
         #f11-field {
           position: relative;
           flex: 1 1 auto;
-          height: 76px;
+          height: 124px;
+        }
+        #f11-ph {
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 124px;
+          line-height: 124px;
+          font-size: 30px;
+          color: #8a857e;
         }
         #f11-hl {
           position: absolute;
-          left: -10px;
-          top: -2px;
-          width: 758px;
-          height: 80px;
-          border-radius: 28px;
-          background: rgba(34, 240, 138, 0.55);
+          left: -12px;
+          top: 0;
+          width: 636px;
+          height: 124px;
+          border-radius: 30px;
+          background: rgba(34, 240, 138, 0.5);
           filter: blur(6px);
         }
         #f11-ctext {
           position: absolute;
           left: 0;
           top: 0;
-          width: 738px;
-          height: 76px;
-          line-height: 38px;
-          font-size: 28px;
+          width: 612px;
+          height: 124px;
+          display: flex;
+          align-items: center;
+          line-height: 40px;
+          font-size: 30px;
           color: #1c1c1e;
         }
         #f11-send {
           position: absolute;
-          left: 1416px;
-          top: 646px;
+          left: 1666px;
+          top: 811px;
           width: 110px;
           height: 110px;
           border-radius: 50%;
-          background: #ffffff;
+          background: #1fa855;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #6b665f;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+          color: #ffffff;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         #f11-send svg {
           display: block;
-          width: 46px;
-          height: 46px;
+          width: 48px;
+          height: 48px;
         }
         #f11-panel {
           position: absolute;
-          left: 390px;
-          top: 366px;
-          width: 1140px;
-          height: 256px;
-          border-radius: 22px;
+          left: 850px;
+          top: 452px;
+          width: 920px;
+          height: 316px;
+          border-radius: 24px;
           background: #ffffff;
-          box-shadow: 0 16px 40px rgba(60, 40, 20, 0.14);
+          box-shadow: 0 18px 44px rgba(60, 40, 20, 0.16);
         }
         #f11-ptitle {
           position: absolute;
@@ -151,23 +222,23 @@
           display: flex;
           align-items: center;
           gap: 14px;
-          font-size: 30px;
+          font-size: 32px;
           font-weight: 600;
           color: #1c1c1e;
         }
         #f11-ptitle svg {
           display: block;
-          width: 40px;
-          height: 40px;
+          width: 42px;
+          height: 42px;
           color: #9c7bc4;
         }
         #f11-discard {
           position: absolute;
-          right: 274px;
+          right: 276px;
           top: 22px;
           height: 64px;
           line-height: 64px;
-          font-size: 29px;
+          font-size: 30px;
           color: #5f5f5f;
         }
         #f11-use {
@@ -176,10 +247,10 @@
           top: 22px;
           width: 230px;
           height: 64px;
-          border-radius: 12px;
+          border-radius: 14px;
           background: #d3f5e1;
           color: #11683b;
-          font-size: 29px;
+          font-size: 30px;
           font-weight: 600;
           line-height: 64px;
           text-align: center;
@@ -191,11 +262,11 @@
           top: 106px;
           bottom: 24px;
           box-sizing: border-box;
-          padding: 20px 24px;
-          border-radius: 14px;
+          padding: 22px 26px;
+          border-radius: 16px;
           background: #f3f2ef;
-          font-size: 32px;
-          line-height: 1.35;
+          font-size: 34px;
+          line-height: 1.4;
           font-style: italic;
           color: #3a3a3c;
         }
@@ -229,26 +300,26 @@
         }
         .f11-cap {
           position: absolute;
-          left: 180px;
-          top: 810px;
-          width: 1560px;
-          height: 150px;
+          left: 120px;
+          top: 220px;
+          width: 640px;
+          height: 680px;
           display: flex;
-          flex-wrap: nowrap;
-          justify-content: center;
+          flex-wrap: wrap;
           align-content: center;
-          column-gap: 22px;
-          font-size: 68px;
-          line-height: 1.12;
-          font-weight: 500;
-          letter-spacing: -0.025em;
+          column-gap: 24px;
+          font-size: 88px;
+          line-height: 1.06;
+          font-weight: 600;
+          letter-spacing: -0.03em;
         }
         .f11-w {
           display: block;
-          color: #8F8A84;
+          color: #8f8a84;
         }
         .f11-grp {
           display: flex;
+          flex-wrap: nowrap;
         }
       </style>
 
@@ -256,6 +327,18 @@
         <div id="f11-bg"></div>
         <div id="f11-stage">
           <div id="f11-win">
+            <div id="f11-head">
+              <div class="f11-hav">C</div>
+              <div>
+                <div class="f11-hname">Customer</div>
+                <div class="f11-hmeta">online</div>
+              </div>
+            </div>
+            <div id="f11-day">Today</div>
+            <div id="f11-bubble0">
+              <div class="f11-msg">Ordered 3 days ago, still no update.</div>
+              <div class="f11-time">10:21 AM</div>
+            </div>
             <div id="f11-bubble">
               <div class="f11-msg">No one has replied to my order status!</div>
               <div class="f11-time">10:23 AM</div>
@@ -285,6 +368,7 @@
               <circle cx="12" cy="12" r="10" />
             </svg>
             <div id="f11-field">
+              <div id="f11-ph">Type a message</div>
               <div id="f11-hl"></div>
               <div id="f11-ctext">Sorry for the delay. Let me check your order status and update you shortly.</div>
             </div>
@@ -298,9 +382,6 @@
               <path d="M21 16h-4" />
               <path d="M11 3H9" />
             </svg>
-            <svg class="f11-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551" />
-            </svg>
           </div>
           <div id="f11-send">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -309,16 +390,16 @@
             </svg>
           </div>
 
-          <!-- click 1: magic wand (1276,701) -->
-          <div class="f11-ring" id="f11-ring1" style="left: 1236px; top: 661px"></div>
-          <svg class="f11-star" id="f11-s1a" viewBox="0 0 24 24" style="left: 1214px; top: 626px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f11-star" id="f11-s1b" viewBox="0 0 24 24" style="left: 1192px; top: 676px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f11-star" id="f11-s1c" viewBox="0 0 24 24" style="left: 1254px; top: 604px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <!-- click 2: Use answer (1391,422) -->
-          <div class="f11-ring" id="f11-ring2" style="left: 1351px; top: 382px"></div>
-          <svg class="f11-star" id="f11-s2a" viewBox="0 0 24 24" style="left: 1330px; top: 348px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f11-star" id="f11-s2b" viewBox="0 0 24 24" style="left: 1308px; top: 402px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
-          <svg class="f11-star" id="f11-s2c" viewBox="0 0 24 24" style="left: 1374px; top: 328px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <!-- click 1: magic wand (1598,866) -->
+          <div class="f11-ring" id="f11-ring1" style="left: 1558px; top: 826px"></div>
+          <svg class="f11-star" id="f11-s1a" viewBox="0 0 24 24" style="left: 1536px; top: 790px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f11-star" id="f11-s1b" viewBox="0 0 24 24" style="left: 1514px; top: 842px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f11-star" id="f11-s1c" viewBox="0 0 24 24" style="left: 1578px; top: 768px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <!-- click 2: Use answer (1631,506) -->
+          <div class="f11-ring" id="f11-ring2" style="left: 1591px; top: 466px"></div>
+          <svg class="f11-star" id="f11-s2a" viewBox="0 0 24 24" style="left: 1570px; top: 430px; width: 40px; height: 40px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f11-star" id="f11-s2b" viewBox="0 0 24 24" style="left: 1548px; top: 484px; width: 28px; height: 28px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+          <svg class="f11-star" id="f11-s2c" viewBox="0 0 24 24" style="left: 1614px; top: 410px; width: 22px; height: 22px" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
 
           <div class="f11-cursor" id="f11-cursor">
             <svg id="f11-hand" viewBox="0 0 24 24" aria-hidden="true">
@@ -379,13 +460,14 @@
           // Window arrives, then a slow push-in across the whole beat
           tl.fromTo("#f11-win", { opacity: 0.3, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0);
           tl.fromTo("#f11-composer, #f11-send", { opacity: 0.3, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0);
-          tl.fromTo("#f11-bubble", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.1);
-          tl.fromTo("#f11-stage", { scale: 1 }, { scale: 1.025, duration: 5.1, ease: "none", transformOrigin: "50% 45%" }, 0);
+          tl.fromTo("#f11-bubble0", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#f11-bubble", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.25);
+          tl.fromTo("#f11-stage", { scale: 1 }, { scale: 1.025, duration: 5.1, ease: "none", transformOrigin: "68% 52%" }, 0);
 
           // Cursor: in from the right → magic wand → click
-          tl.fromTo("#f11-cursor", { x: 1720 - HX, y: 760 - HY, opacity: 0 }, { x: 1650 - HX, y: 720 - HY, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.45);
-          move(1580, 700, 0.8, 0.35);
-          move(1276, 701, 1.15, 0.4);
+          tl.fromTo("#f11-cursor", { x: 1850 - HX, y: 700 - HY, opacity: 0 }, { x: 1780 - HX, y: 690 - HY, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.45);
+          move(1720, 760, 0.8, 0.35);
+          move(1598, 866, 1.15, 0.4);
           click(1, 1.6);
           tl.fromTo("#f11-wand", { color: "#6B665F" }, { color: "#1FA855", duration: 0.2 }, 1.6);
 
@@ -404,15 +486,16 @@
           tl.fromTo(chars, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 1.25 / chars.length, ease: "none" }, 2.05);
 
           // Cursor → Use answer → click; text lands in the composer
-          move(1391, 422, 3.4, 0.5);
+          move(1631, 506, 3.4, 0.5);
           click(2, 3.98);
           tl.fromTo("#f11-use", { backgroundColor: "#D3F5E1" }, { backgroundColor: "#A9E8C4", duration: 0.12, yoyo: true, repeat: 1 }, 3.98);
+          tl.to("#f11-ph", { opacity: 0, duration: 0.12, ease: "power1.in" }, 4.06);
           tl.fromTo("#f11-hl", { opacity: 0, scaleX: 0, transformOrigin: "0% 50%" }, { opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.out" }, 4.08);
           tl.fromTo("#f11-ctext", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 4.3);
           tl.to("#f11-hl", { opacity: 0, duration: 0.4, ease: "power1.in" }, 4.55);
-          move(1460, 540, 4.3, 0.7);
+          move(1700, 690, 4.3, 0.7);
 
-          // Captions
+          // Captions — left headline
           word("#f11-w-ai", 0.05);
           word("#f11-w-that", 0.5);
           word("#f11-w-generate", 0.95);

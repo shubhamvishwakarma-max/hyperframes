@@ -20,63 +20,51 @@
         }
         #f07-glow {
           position: absolute;
-          left: 460px;
-          top: 40px;
-          width: 1000px;
-          height: 860px;
+          left: 360px;
+          top: 120px;
+          width: 1200px;
+          height: 880px;
           background: radial-gradient(closest-side, rgba(34, 240, 138, 0.16), transparent);
         }
         .f07-row {
           position: absolute;
           left: 0;
-          top: 330px;
+          top: 400px;
           width: 1920px;
-          height: 280px;
+          height: 320px;
           display: flex;
           align-items: center;
           justify-content: center;
         }
         #f07-introducing {
           display: block;
-          font-size: 210px;
+          font-size: 250px;
           font-weight: 500;
           letter-spacing: -0.045em;
           color: #6f9d86;
           white-space: nowrap;
         }
         #f07-brand {
-          gap: 44px;
+          gap: 34px;
         }
+        /* Real logo cutouts: mark 282x160, wordmark 887x160 native; widths 282:887, gap 0.12 x mark */
         #f07-ticks {
           display: block;
-          width: 270px;
-          height: 176px;
-        }
-        #f07-ticks path {
-          fill: none;
-          stroke: #22f08a;
-          stroke-width: 17;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-          stroke-dasharray: 1;
-          stroke-dashoffset: 1;
+          width: 286px;
+          height: 162px;
         }
         #f07-word {
           display: block;
-          font-family: Montserrat, sans-serif;
-          font-weight: 700;
-          font-size: 160px;
-          letter-spacing: -0.01em;
-          color: #ffffff;
-          white-space: nowrap;
+          width: 900px;
+          height: 162px;
         }
         #f07-pill {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 34px;
-          width: 270px;
-          height: 270px;
+          gap: 40px;
+          width: 300px;
+          height: 300px;
           border-radius: 999px;
           background: #22f08a;
           box-shadow: 0 0 0 12px #13874f, 0 30px 90px rgba(34, 240, 138, 0.35);
@@ -86,12 +74,12 @@
         #f07-pill svg {
           display: block;
           flex: 0 0 auto;
-          width: 146px;
-          height: 146px;
+          width: 164px;
+          height: 164px;
         }
         .f07-pw {
           display: block;
-          font-size: 160px;
+          font-size: 186px;
           font-weight: 500;
           letter-spacing: -0.045em;
           white-space: nowrap;
@@ -114,13 +102,13 @@
         #f07-cx {
           position: absolute;
           left: 0;
-          top: 320px;
+          top: 390px;
           width: 1920px;
-          height: 300px;
+          height: 340px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 250px;
+          font-size: 255px;
           font-weight: 700;
           letter-spacing: -0.05em;
           white-space: nowrap;
@@ -131,7 +119,7 @@
         }
         .f07-sp {
           display: block;
-          width: 64px;
+          width: 74px;
         }
       </style>
 
@@ -144,11 +132,8 @@
         </div>
 
         <div id="f07-brand" class="f07-row">
-          <svg id="f07-ticks" viewBox="0 0 200 130" aria-hidden="true">
-            <path pathLength="1" d="M14 70 L44 100 L114 24" />
-            <path pathLength="1" d="M80 88 L92 100 L184 24" />
-          </svg>
-          <span id="f07-word">DoubleTick</span>
+          <img id="f07-ticks" src="assets/img/dt-mark.png" alt="" />
+          <img id="f07-word" src="assets/img/dt-wordmark-white.png" alt="DoubleTick" />
         </div>
 
         <div id="f07-pillrow" class="f07-row">
@@ -178,12 +163,12 @@
           tl.fromTo("#f07-introducing", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.08);
           tl.to("#f07-introducing", { color: "#FFFFFF", duration: 0.4, ease: "power1.out" }, 0.2);
           tl.fromTo("#f07-introrow", { scale: 1 }, { scale: 1.04, duration: 0.7, ease: "sine.inOut" }, 0.1);
-          tl.to("#f07-introducing", { x: -1150, opacity: 0, duration: 0.3, ease: "power3.in" }, 0.62);
+          tl.to("#f07-introducing", { x: -1300, opacity: 0, duration: 0.3, ease: "power3.in" }, 0.62);
 
           // DoubleTick ticks + wordmark slide in
           tl.to("#f07-brand", { opacity: 1, duration: 0.01 }, 0.78);
-          tl.fromTo("#f07-brand", { x: 900 }, { x: 0, duration: 0.42, ease: "power3.out" }, 0.78);
-          tl.to("#f07-ticks path", { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", stagger: 0.1 }, 0.82);
+          tl.fromTo("#f07-brand", { x: 1000 }, { x: 0, duration: 0.42, ease: "power3.out" }, 0.78);
+          tl.fromTo("#f07-ticks", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.35, ease: "power2.out" }, 0.82);
           tl.fromTo("#f07-word", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.86);
           tl.fromTo("#f07-word", { scale: 1 }, { scale: 1.03, duration: 0.5, ease: "sine.inOut" }, 1.0);
           tl.to("#f07-brand", { opacity: 0, scale: 0.92, duration: 0.14, ease: "power1.in" }, 1.38);
@@ -191,7 +176,7 @@
           // Mint AI pill grows out of the tick
           tl.to("#f07-pillrow", { opacity: 1, duration: 0.01 }, 1.4);
           tl.fromTo("#f07-pill", { scale: 0.4 }, { scale: 1, duration: 0.3, ease: "back.out(1.7)" }, 1.4);
-          tl.to("#f07-pill", { width: 980, duration: 0.42, ease: "power3.out" }, 1.52);
+          tl.to("#f07-pill", { width: 1120, duration: 0.42, ease: "power3.out" }, 1.52);
           tl.fromTo("#f07-pill svg", { opacity: 0, scale: 0.3, rotation: -60 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2)" }, 1.5);
           tl.fromTo("#f07-ai", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 1.58);
           tl.fromTo("#f07-suite", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 1.9);
@@ -202,7 +187,7 @@
           tl.set(["#f07-pillrow", "#f07-introrow", "#f07-brand"], { opacity: 0 }, 2.6);
           const letters = gsap.utils.toArray("#f07-cx .f07-c");
           letters.forEach((el, i) => {
-            const off = (i - 4.5) * 48;
+            const off = (i - 4.5) * 50;
             const t = i < 2 ? 2.66 + i * 0.06 : 2.98 + (i - 2) * 0.045;
             tl.fromTo(el, { opacity: 0, x: off }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, t);
             tl.to(el, { color: "#1C1C1E", duration: 0.35, ease: "power1.out" }, t + 0.15);

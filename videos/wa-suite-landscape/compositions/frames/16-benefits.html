@@ -20,10 +20,10 @@
         }
         #f16-glow {
           position: absolute;
-          left: 500px;
-          top: 40px;
-          width: 920px;
-          height: 920px;
+          left: 360px;
+          top: 0px;
+          width: 1200px;
+          height: 1080px;
           border-radius: 50%;
           background: radial-gradient(circle, rgba(34, 240, 138, 0.16) 0%, rgba(34, 240, 138, 0) 65%);
         }
@@ -45,14 +45,14 @@
         #f16-means {
           position: absolute;
           left: 0;
-          top: 340px;
+          top: 400px;
           width: 1920px;
-          height: 280px;
+          height: 340px;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 56px;
-          font-size: 220px;
+          gap: 72px;
+          font-size: 290px;
           font-weight: 600;
           letter-spacing: -0.045em;
           color: #1c1c1e;
@@ -63,11 +63,11 @@
         }
         .f16-card {
           position: absolute;
-          left: 510px;
-          top: 180px;
-          width: 900px;
-          height: 560px;
-          border-radius: 48px;
+          left: 340px;
+          top: 200px;
+          width: 1240px;
+          height: 680px;
+          border-radius: 56px;
           background: linear-gradient(160deg, #d3f5e1 0%, #a9e8c4 100%);
           border: 3px solid rgba(255, 255, 255, 0.55);
           box-shadow: 0 40px 100px rgba(0, 0, 0, 0.35), 0 0 80px rgba(34, 240, 138, 0.12);
@@ -75,11 +75,11 @@
         }
         .f16-tile {
           position: absolute;
-          left: 60px;
-          top: 56px;
-          width: 168px;
-          height: 168px;
-          border-radius: 36px;
+          left: 72px;
+          top: 68px;
+          width: 200px;
+          height: 200px;
+          border-radius: 44px;
           background: rgba(255, 255, 255, 0.78);
           display: flex;
           align-items: center;
@@ -87,17 +87,17 @@
         }
         .f16-tile svg {
           display: block;
-          width: 96px;
-          height: 96px;
+          width: 116px;
+          height: 116px;
         }
         .f16-title {
           position: absolute;
-          left: 64px;
-          bottom: 60px;
-          width: 772px;
+          left: 76px;
+          bottom: 70px;
+          width: 1090px;
           display: flex;
           flex-direction: column;
-          font-size: 96px;
+          font-size: 112px;
           line-height: 1.04;
           font-weight: 600;
           letter-spacing: -0.035em;
@@ -106,6 +106,42 @@
         .f16-tl {
           display: block;
           white-space: nowrap;
+        }
+        .f16-num {
+          position: absolute;
+          right: 76px;
+          top: 92px;
+          display: flex;
+          align-items: baseline;
+          gap: 10px;
+          font-size: 64px;
+          font-weight: 600;
+          letter-spacing: -0.03em;
+          color: #0e3b27;
+        }
+        .f16-num span {
+          display: block;
+        }
+        .f16-of {
+          font-size: 36px;
+          color: #2f6a4c;
+        }
+        #f16-dots {
+          position: absolute;
+          left: 860px;
+          top: 930px;
+          width: 200px;
+          height: 16px;
+          display: flex;
+          justify-content: space-between;
+          opacity: 0;
+        }
+        .f16-dot {
+          display: block;
+          width: 38px;
+          height: 10px;
+          border-radius: 999px;
+          background: rgba(211, 245, 225, 0.25);
         }
         .f16-ch {
           opacity: 0;
@@ -117,20 +153,25 @@
         <div id="f16-glow"></div>
         <div class="f16-card" id="f16-card1">
           <div class="f16-tile" id="f16-tile1"><svg viewBox="0 0 24 24" fill="none" stroke="#1FA855" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="#1FA855" d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z" /></svg></div>
+          <div class="f16-num"><span>01</span><span class="f16-of">/ 04</span></div>
           <div class="f16-title" id="f16-title1"><span class="f16-tl" id="f16-c1l0"><span class="f16-ch">F</span><span class="f16-ch">a</span><span class="f16-ch">s</span><span class="f16-ch">t</span><span class="f16-ch">e</span><span class="f16-ch">r</span></span><span class="f16-tl" id="f16-c1l1"><span class="f16-ch">R</span><span class="f16-ch">e</span><span class="f16-ch">s</span><span class="f16-ch">p</span><span class="f16-ch">o</span><span class="f16-ch">n</span><span class="f16-ch">s</span><span class="f16-ch">e</span><span class="f16-ch">s</span></span></div>
         </div>
         <div class="f16-card" id="f16-card2">
           <div class="f16-tile" id="f16-tile2"><svg viewBox="0 0 24 24" fill="none" stroke="#1FA855" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="#1FA855" d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" /><path d="M9 18h6" /><path d="M10 22h4" /></svg></div>
+          <div class="f16-num"><span>02</span><span class="f16-of">/ 04</span></div>
           <div class="f16-title" id="f16-title2"><span class="f16-tl" id="f16-c2l0"><span class="f16-ch">S</span><span class="f16-ch">m</span><span class="f16-ch">a</span><span class="f16-ch">r</span><span class="f16-ch">t</span><span class="f16-ch">e</span><span class="f16-ch">r</span></span><span class="f16-tl" id="f16-c2l1"><span class="f16-ch">P</span><span class="f16-ch">r</span><span class="f16-ch">i</span><span class="f16-ch">o</span><span class="f16-ch">r</span><span class="f16-ch">i</span><span class="f16-ch">t</span><span class="f16-ch">i</span><span class="f16-ch">z</span><span class="f16-ch">a</span><span class="f16-ch">t</span><span class="f16-ch">i</span><span class="f16-ch">o</span><span class="f16-ch">n</span></span></div>
         </div>
         <div class="f16-card" id="f16-card3">
           <div class="f16-tile" id="f16-tile3"><svg viewBox="0 0 24 24" fill="none" stroke="#1FA855" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="#1FA855" d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" /><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1" /></svg></div>
+          <div class="f16-num"><span>03</span><span class="f16-of">/ 04</span></div>
           <div class="f16-title" id="f16-title3"><span class="f16-tl" id="f16-c3l0"><span class="f16-ch">B</span><span class="f16-ch">e</span><span class="f16-ch">t</span><span class="f16-ch">t</span><span class="f16-ch">e</span><span class="f16-ch">r</span><span class="f16-ch">&#160;</span><span class="f16-ch">C</span><span class="f16-ch">u</span><span class="f16-ch">s</span><span class="f16-ch">t</span><span class="f16-ch">o</span><span class="f16-ch">m</span><span class="f16-ch">e</span><span class="f16-ch">r</span></span><span class="f16-tl" id="f16-c3l1"><span class="f16-ch">C</span><span class="f16-ch">o</span><span class="f16-ch">n</span><span class="f16-ch">v</span><span class="f16-ch">e</span><span class="f16-ch">r</span><span class="f16-ch">s</span><span class="f16-ch">a</span><span class="f16-ch">t</span><span class="f16-ch">i</span><span class="f16-ch">o</span><span class="f16-ch">n</span><span class="f16-ch">s</span></span></div>
         </div>
         <div class="f16-card" id="f16-card4">
           <div class="f16-tile" id="f16-tile4"><svg viewBox="0 0 24 24" fill="none" stroke="#1FA855" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="#1FA855" d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /><circle cx="12" cy="12" r="3" fill="#FFFFFF" /></svg></div>
+          <div class="f16-num"><span>04</span><span class="f16-of">/ 04</span></div>
           <div class="f16-title" id="f16-title4"><span class="f16-tl" id="f16-c4l0"><span class="f16-ch">C</span><span class="f16-ch">l</span><span class="f16-ch">e</span><span class="f16-ch">a</span><span class="f16-ch">r</span></span><span class="f16-tl" id="f16-c4l1"><span class="f16-ch">V</span><span class="f16-ch">i</span><span class="f16-ch">s</span><span class="f16-ch">i</span><span class="f16-ch">b</span><span class="f16-ch">i</span><span class="f16-ch">l</span><span class="f16-ch">i</span><span class="f16-ch">t</span><span class="f16-ch">y</span></span></div>
         </div>
+        <div id="f16-dots"><span class="f16-dot" id="f16-d1"></span><span class="f16-dot" id="f16-d2"></span><span class="f16-dot" id="f16-d3"></span><span class="f16-dot" id="f16-d4"></span></div>
         <div id="f16-cream">
           <div id="f16-grid"></div>
           <div id="f16-means">
@@ -160,11 +201,13 @@
           // card lands on each benefit word (local = global - 73.2)
           const lands = [1.05, 2.67, 4.68, 6.6];
           const END = 8.1;
+          tl.fromTo("#f16-dots", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.95);
           lands.forEach((L, i) => {
             const n = i + 1;
+            tl.to("#f16-d" + n, { backgroundColor: "#22F08A", duration: 0.25, ease: "power1.out" }, L - 0.1);
             const card = "#f16-card" + n;
             const enter = 0.3;
-            tl.fromTo(card, { x: 1400, opacity: 0, filter: "blur(36px)", scale: 0.96 }, { x: 0, opacity: 1, filter: "blur(0px)", scale: 1, duration: enter, ease: "power3.out" }, L - enter + 0.04);
+            tl.fromTo(card, { x: 1500, opacity: 0, filter: "blur(36px)", scale: 0.96 }, { x: 0, opacity: 1, filter: "blur(0px)", scale: 1, duration: enter, ease: "power3.out" }, L - enter + 0.04);
             tl.fromTo("#f16-tile" + n, { scale: 0.6 }, { scale: 1, duration: 0.45, ease: "back.out(1.8)" }, L - 0.08);
             const chars = document.querySelectorAll(card + " .f16-ch");
             const typeDur = 0.55;
@@ -173,7 +216,7 @@
             if (next !== undefined) {
               const exitAt = next - 0.5;
               tl.fromTo(card, { x: 0 }, { x: -48, duration: exitAt - L - 0.06, ease: "none", immediateRender: false }, L + 0.06);
-              tl.to(card, { x: -1500, filter: "blur(36px)", opacity: 0, duration: 0.26, ease: "power3.in" }, exitAt);
+              tl.to(card, { x: -1700, filter: "blur(36px)", opacity: 0, duration: 0.26, ease: "power3.in" }, exitAt);
             } else {
               tl.fromTo(card, { scale: 1 }, { scale: 1.035, duration: END - L - 0.06, ease: "sine.out", immediateRender: false }, L + 0.06);
             }

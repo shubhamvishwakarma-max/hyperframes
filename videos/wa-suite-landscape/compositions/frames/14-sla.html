@@ -25,26 +25,26 @@
           height: 1080px;
           object-fit: cover;
         }
-        /* Soft bottom gradient so the white caption reads (footage is clean) */
+        /* bottom gradient: opaque from y 1000 so the burned caption (y >= ~1010) never shows */
         #f14-shade {
           position: absolute;
           inset: 0;
-          background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 560px, rgba(0, 0, 0, 0.45) 780px, rgba(0, 0, 0, 0.72) 1080px);
+          background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 520px, rgba(0, 0, 0, 0.5) 780px, rgba(0, 0, 0, 0.86) 940px, #000000 1000px, #000000 1080px);
         }
-        .f14-cap {
+        .f14-lt {
           position: absolute;
-          left: 180px;
-          top: 830px;
-          width: 1560px;
+          left: 120px;
+          top: 870px;
+          width: 1680px;
           height: 110px;
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
           align-items: center;
-          gap: 18px;
-          font-size: 68px;
-          font-weight: 500;
-          line-height: 1.12;
-          letter-spacing: -0.025em;
+          gap: 22px;
+          font-size: 84px;
+          font-weight: 600;
+          line-height: 1.1;
+          letter-spacing: -0.03em;
           white-space: nowrap;
         }
         .f14-w {
@@ -52,7 +52,7 @@
           color: #8F8A84;
         }
 
-        /* ---------- Beat A: deep green ---------- */
+        /* ---------- Beat A: deep green hero type ---------- */
         #f14-a {
           position: absolute;
           inset: 0;
@@ -63,29 +63,31 @@
           inset: 0;
         }
         #f14-pre {
-          top: 300px;
-          color: #ffffff;
-        }
-        #f14-arow {
           position: absolute;
           left: 120px;
-          top: 440px;
-          width: 1680px;
-          height: 200px;
+          top: 250px;
+          width: 1200px;
+          height: 110px;
           display: flex;
-          justify-content: center;
           align-items: center;
-          gap: 44px;
+          gap: 26px;
+          font-size: 92px;
+          font-weight: 600;
+          letter-spacing: -0.03em;
+          white-space: nowrap;
         }
         #f14-kw {
-          position: relative;
-          height: 200px;
+          position: absolute;
+          left: 108px;
+          top: 360px;
+          width: 1704px;
+          height: 300px;
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
           align-items: center;
-          font-size: 144px;
-          font-weight: 600;
-          letter-spacing: -0.045em;
+          font-size: 214px;
+          font-weight: 700;
+          letter-spacing: -0.05em;
           white-space: nowrap;
         }
         #f14-kw1 {
@@ -100,32 +102,33 @@
           color: #eafbf1;
         }
         #f14-alerts {
-          position: relative;
-          flex: 0 0 auto;
-          width: 480px;
-          height: 156px;
+          position: absolute;
+          left: 1000px;
+          top: 712px;
+          width: 800px;
+          height: 240px;
           border-radius: 999px;
           background: #22f08a;
-          box-shadow: 0 0 0 8px rgba(34, 240, 138, 0.22), 0 30px 80px rgba(34, 240, 138, 0.35);
+          box-shadow: 0 0 0 12px rgba(34, 240, 138, 0.2), 0 40px 100px rgba(34, 240, 138, 0.35);
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 24px;
+          gap: 36px;
           color: #0d3a26;
-          font-size: 88px;
+          font-size: 150px;
           font-weight: 600;
           letter-spacing: -0.04em;
         }
         #f14-alerts svg {
           display: block;
-          width: 88px;
-          height: 88px;
+          width: 140px;
+          height: 140px;
         }
         #f14-alerts-t {
           display: block;
         }
 
-        /* ---------- Beat B: cream + SLA card ---------- */
+        /* ---------- Beat B: cream split — headline left, SLA card right ---------- */
         #f14-b {
           position: absolute;
           inset: 0;
@@ -141,63 +144,78 @@
             repeating-linear-gradient(to right, rgba(60, 40, 20, 0.07) 0px, rgba(60, 40, 20, 0.07) 2px, transparent 2px, transparent 180px),
             repeating-linear-gradient(to bottom, rgba(60, 40, 20, 0.07) 0px, rgba(60, 40, 20, 0.07) 2px, transparent 2px, transparent 180px);
         }
+        .f14-hl {
+          position: absolute;
+          left: 120px;
+          top: 380px;
+          width: 640px;
+          height: 360px;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: center;
+          column-gap: 24px;
+          font-size: 88px;
+          font-weight: 600;
+          line-height: 1.06;
+          letter-spacing: -0.03em;
+        }
         #f14-card {
           position: absolute;
-          left: 310px;
-          top: 150px;
-          width: 1300px;
-          height: 640px;
-          border-radius: 36px;
+          left: 820px;
+          top: 160px;
+          width: 980px;
+          height: 796px;
+          border-radius: 40px;
           background: #ffffff;
           border: 3px solid #ece6dd;
-          box-shadow: 0 18px 50px rgba(30, 20, 10, 0.1);
+          box-shadow: 0 24px 60px rgba(30, 20, 10, 0.12);
           box-sizing: border-box;
         }
         #f14-clip {
           position: absolute;
           inset: 0;
-          border-radius: 34px;
+          border-radius: 38px;
           overflow: hidden;
         }
         #f14-timer {
           position: absolute;
-          left: 40px;
-          top: 32px;
-          width: 66px;
-          height: 66px;
+          left: 38px;
+          top: 40px;
+          width: 72px;
+          height: 72px;
           color: #c8161d;
         }
         #f14-timer svg {
           display: block;
-          width: 66px;
-          height: 66px;
+          width: 72px;
+          height: 72px;
         }
         #f14-title {
           position: absolute;
-          left: 130px;
-          top: 20px;
-          width: 800px;
-          height: 56px;
-          font-size: 44px;
+          left: 132px;
+          top: 26px;
+          width: 660px;
+          height: 62px;
+          font-size: 50px;
           font-weight: 600;
           letter-spacing: -0.02em;
           color: #1c1c1e;
         }
         #f14-sub {
           position: absolute;
-          left: 130px;
-          top: 78px;
-          width: 800px;
-          height: 34px;
-          font-size: 24px;
+          left: 132px;
+          top: 92px;
+          width: 660px;
+          height: 32px;
+          font-size: 22px;
           font-weight: 400;
-          color: #66625c;
+          color: #5f5b55;
           white-space: nowrap;
         }
         #f14-toggle {
           position: absolute;
-          left: 1140px;
-          top: 34px;
+          left: 822px;
+          top: 44px;
           width: 120px;
           height: 64px;
           border-radius: 999px;
@@ -215,12 +233,10 @@
         }
         #f14-ripple {
           position: absolute;
-          left: 1168px;
-          top: 34px;
+          left: 822px;
+          top: 16px;
           width: 120px;
           height: 120px;
-          margin-left: -32px;
-          margin-top: -28px;
           border-radius: 50%;
           border: 6px solid #22f08a;
           box-sizing: border-box;
@@ -229,35 +245,35 @@
         #f14-rule {
           position: absolute;
           left: 0;
-          top: 130px;
-          width: 1294px;
+          top: 148px;
+          width: 974px;
           height: 2px;
           background: #ece6dd;
         }
         .f14-row {
           position: absolute;
           left: 0;
-          width: 1294px;
-          height: 124px;
+          width: 974px;
+          height: 160px;
         }
         .f14-av {
           position: absolute;
-          left: 40px;
-          top: 24px;
-          width: 76px;
-          height: 76px;
+          left: 38px;
+          top: 36px;
+          width: 88px;
+          height: 88px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 32px;
+          font-size: 36px;
           font-weight: 600;
         }
         .f14-name {
           position: absolute;
-          left: 144px;
-          top: 16px;
-          width: 620px;
+          left: 156px;
+          top: 14px;
+          width: 560px;
           height: 46px;
           font-size: 36px;
           font-weight: 600;
@@ -266,21 +282,21 @@
         }
         .f14-msg {
           position: absolute;
-          left: 144px;
-          top: 64px;
-          width: 620px;
-          height: 40px;
-          font-size: 30px;
+          left: 156px;
+          top: 60px;
+          width: 560px;
+          height: 42px;
+          font-size: 31px;
           font-weight: 400;
           color: #3a3a3c;
           white-space: nowrap;
         }
         .f14-tag {
           position: absolute;
-          right: 40px;
-          top: 62px;
+          left: 150px;
+          top: 108px;
           height: 40px;
-          padding: 0 18px;
+          padding: 0 16px;
           border-radius: 999px;
           background: #fde2e4;
           color: #a8121a;
@@ -292,23 +308,23 @@
         }
         .f14-tag b {
           font-weight: 700;
-          margin-left: 7px;
+          margin-left: 8px;
         }
         .f14-time {
           position: absolute;
           right: 40px;
           top: 20px;
-          width: 160px;
-          height: 34px;
+          width: 180px;
+          height: 36px;
           text-align: right;
-          font-size: 24px;
+          font-size: 26px;
           font-weight: 500;
-          color: #66625c;
+          color: #5f5b55;
         }
         #f14-cursor {
           position: absolute;
-          left: 1200px;
-          top: 66px;
+          left: 884px;
+          top: 74px;
           width: 64px;
           height: 90px;
         }
@@ -318,12 +334,6 @@
           height: 90px;
           filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.25));
         }
-        #f14-capb1,
-        #f14-capb2,
-        #f14-capc1,
-        #f14-capc2 {
-          top: 830px;
-        }
       </style>
 
       <div id="root" data-composition-id="f14" data-width="1920" data-height="1080">
@@ -332,13 +342,13 @@
           <video data-hf-media-start-basis="local" id="f14-vid" src="assets/footage/woman.mp4" data-start="5.94" data-duration="2.36" data-media-start="0" data-track-index="0" muted playsinline></video>
         </div>
         <div id="f14-shade"></div>
-        <div id="f14-capc1" class="f14-cap">
+        <div id="f14-capc1" class="f14-lt">
           <span class="f14-w" id="f14-c-only">only</span>
           <span class="f14-w" id="f14-c-where">where</span>
           <span class="f14-w" id="f14-c-a">a</span>
           <span class="f14-w" id="f14-c-resp">response</span>
         </div>
-        <div id="f14-capc2" class="f14-cap">
+        <div id="f14-capc2" class="f14-lt">
           <span class="f14-w" id="f14-c-is">is</span>
           <span class="f14-w" id="f14-c-truly">truly</span>
           <span class="f14-w" id="f14-c-req">required</span>
@@ -361,28 +371,28 @@
               <div id="f14-toggle"><div id="f14-knob"></div></div>
               <div id="f14-rule"></div>
 
-              <div class="f14-row" id="f14-r1" style="top: 134px">
+              <div class="f14-row" id="f14-r1" style="top: 150px">
                 <div class="f14-av" style="background: #ede3f7; color: #6b4c96">D</div>
                 <div class="f14-name">Daniel Carter</div>
                 <div class="f14-msg">When can you call me?</div>
                 <div class="f14-tag">Response delayed by<b>6:24 min</b></div>
                 <div class="f14-time">03:50 pm</div>
               </div>
-              <div class="f14-row" id="f14-r2" style="top: 258px">
+              <div class="f14-row" id="f14-r2" style="top: 310px">
                 <div class="f14-av" style="background: #eef3d6; color: #5a661c">M</div>
                 <div class="f14-name">Michael Johnson</div>
                 <div class="f14-msg">Okay, Cool!</div>
                 <div class="f14-tag">Response delayed by<b>8:41 min</b></div>
                 <div class="f14-time">03:10 pm</div>
               </div>
-              <div class="f14-row" id="f14-r3" style="top: 382px">
+              <div class="f14-row" id="f14-r3" style="top: 470px">
                 <div class="f14-av" style="background: #ddf3e3; color: #2a6e3e">L</div>
                 <div class="f14-name">Lucas Thompson</div>
                 <div class="f14-msg">Sure thanks</div>
                 <div class="f14-tag">Response delayed by<b>7:34 min</b></div>
                 <div class="f14-time">04:20 pm</div>
               </div>
-              <div class="f14-row" id="f14-r4" style="top: 506px">
+              <div class="f14-row" id="f14-r4" style="top: 630px">
                 <div class="f14-av" style="background: #fbe1e6; color: #9a2e4a">I</div>
                 <div class="f14-name">Isabella Moore</div>
                 <div class="f14-msg">Let me know when can…</div>
@@ -397,12 +407,12 @@
               </svg>
             </div>
           </div>
-          <div id="f14-capb1" class="f14-cap">
+          <div id="f14-capb1" class="f14-hl">
             <span class="f14-w" id="f14-b-ai">AI</span>
             <span class="f14-w" id="f14-b-filt">Filtered</span>
             <span class="f14-w" id="f14-b-sla">SLA</span>
           </div>
-          <div id="f14-capb2" class="f14-cap">
+          <div id="f14-capb2" class="f14-hl">
             <span class="f14-w" id="f14-b-app">applies</span>
             <span class="f14-w" id="f14-b-sla2">SLA</span>
           </div>
@@ -411,12 +421,11 @@
         <!-- Beat A (top) -->
         <div id="f14-a">
           <div id="f14-agroup">
-            <div id="f14-pre" class="f14-cap">
+            <div id="f14-pre">
               <span class="f14-w" id="f14-a-its">It's</span>
               <span class="f14-w" id="f14-a-not">not</span>
               <span class="f14-w" id="f14-a-just">just</span>
             </div>
-            <div id="f14-arow">
             <div id="f14-kw">
               <span id="f14-kw1">Keyword</span>
               <span id="f14-kw2">-Based</span>
@@ -428,7 +437,6 @@
                 <path d="M12 17h.01" />
               </svg>
               <span id="f14-alerts-t">Alerts</span>
-            </div>
             </div>
           </div>
         </div>
@@ -464,7 +472,7 @@
           });
           const mid = (letters.length - 1) / 2;
           tl.fromTo("#f14-kw", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 0.62);
-          tl.fromTo(letters, { x: (i) => (i - mid) * 20 }, { x: 0, duration: 0.95, ease: "power3.out" }, 0.62);
+          tl.fromTo(letters, { x: (i) => (i - mid) * 26 }, { x: 0, duration: 0.95, ease: "power3.out" }, 0.62);
           tl.fromTo("#f14-alerts", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 1.15);
           tl.fromTo("#f14-alerts-i", { opacity: 0, scale: 0.4, rotation: -20 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.35, ease: "back.out(2)" }, 1.3);
           tl.fromTo("#f14-alerts-t", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 1.46);
@@ -474,7 +482,7 @@
 
           // ---------- Beat B (2.4 – 5.94): AI SLA filtering card ----------
           tl.fromTo("#f14-card", { opacity: 0.25, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 2.4);
-          tl.fromTo("#f14-cursor", { x: 60, y: 520, opacity: 0 }, { x: 60, y: 520, opacity: 1, duration: 0.2 }, 2.6);
+          tl.fromTo("#f14-cursor", { x: -260, y: 560, opacity: 0 }, { x: -260, y: 560, opacity: 1, duration: 0.2 }, 2.6);
           tl.to("#f14-cursor", { x: 0, y: 0, duration: 1.0, ease: "power2.inOut" }, 2.9);
           tl.to("#f14-cursor", { scale: 0.85, duration: 0.08, ease: "power1.in", transformOrigin: "5% 5%" }, 4.0);
           tl.to("#f14-cursor", { scale: 1, duration: 0.18, ease: "back.out(2)" }, 4.08);
@@ -483,12 +491,12 @@
           tl.to("#f14-knob", { backgroundColor: "#C8161D", duration: 0.2, ease: "none" }, 4.08);
           tl.to("#f14-toggle", { backgroundColor: "#F7CFD4", duration: 0.2, ease: "none" }, 4.08);
           // list collapses to the two rows that truly need a reply
-          tl.to("#f14-r2", { x: -180, opacity: 0, duration: 0.35, ease: "power2.in" }, 4.3);
-          tl.to("#f14-r3", { x: 180, opacity: 0, duration: 0.35, ease: "power2.in" }, 4.36);
-          tl.to("#f14-r4", { y: -248, duration: 0.5, ease: "power3.inOut" }, 4.55);
+          tl.to("#f14-r2", { x: -200, opacity: 0, duration: 0.35, ease: "power2.in" }, 4.3);
+          tl.to("#f14-r3", { x: 200, opacity: 0, duration: 0.35, ease: "power2.in" }, 4.36);
+          tl.to("#f14-r4", { y: -320, duration: 0.5, ease: "power3.inOut" }, 4.55);
           // card tightens around the two remaining rows and re-centres in the hero band
-          tl.to("#f14-card", { height: 392, y: 124, duration: 0.5, ease: "power3.inOut" }, 4.6);
-          tl.to("#f14-cursor", { x: 70, y: -16, duration: 0.8, ease: "sine.inOut" }, 4.9);
+          tl.to("#f14-card", { height: 476, y: 160, duration: 0.5, ease: "power3.inOut" }, 4.6);
+          tl.to("#f14-cursor", { x: 40, y: -40, duration: 0.8, ease: "sine.inOut" }, 4.9);
           // captions
           word("#f14-b-ai", 2.51, "#1C1C1E");
           word("#f14-b-filt", 2.99, "#1C1C1E");

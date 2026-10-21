@@ -24,144 +24,137 @@
         }
         #f08-card {
           position: absolute;
-          left: 260px;
+          left: 820px;
           top: 150px;
-          width: 1400px;
-          padding: 30px 40px 26px;
-          border-radius: 30px;
+          width: 980px;
+          height: 810px;
+          padding: 34px 38px 30px;
+          border-radius: 34px;
           background: #ffffff;
           border: 2px solid #ece6dd;
-          box-shadow: 0 30px 80px rgba(30, 20, 10, 0.1);
-          transform-origin: 50% 0%;
+          box-shadow: 0 36px 90px rgba(30, 20, 10, 0.12);
+          transform-origin: 50% 50%;
         }
         #f08-head {
           display: flex;
           align-items: center;
-          gap: 30px;
-        }
-        #f08-hl {
-          flex: 1 1 0;
+          justify-content: space-between;
+          gap: 24px;
         }
         #f08-title {
-          font-size: 46px;
+          font-size: 54px;
           font-weight: 700;
-          letter-spacing: -0.02em;
+          letter-spacing: -0.025em;
           line-height: 1.1;
+          white-space: nowrap;
         }
         #f08-sub {
           margin-top: 10px;
-          font-size: 23px;
-          line-height: 1.35;
-          color: #66666b;
-        }
-        #f08-stats {
-          display: flex;
-          gap: 20px;
-          flex: 0 0 auto;
-        }
-        .f08-stat {
-          width: 270px;
-          height: 124px;
-          padding: 18px 24px;
-          border: 2px solid #ece6dd;
-          border-radius: 20px;
-        }
-        .f08-sl {
           font-size: 24px;
-          color: #66666b;
-          line-height: 1.2;
-        }
-        .f08-sv {
-          margin-top: 6px;
-          font-size: 56px;
-          font-weight: 600;
-          letter-spacing: -0.03em;
-          line-height: 1.1;
+          line-height: 1.35;
+          color: #5f5f64;
         }
         #f08-filter {
           display: flex;
           align-items: center;
-          gap: 10px;
-          width: 196px;
-          height: 46px;
-          margin-top: 18px;
-          padding-left: 20px;
+          gap: 12px;
+          height: 54px;
+          padding: 0 20px 0 22px;
           border: 2px solid #ece6dd;
-          border-radius: 12px;
-          font-size: 24px;
+          border-radius: 14px;
+          font-size: 26px;
           font-weight: 500;
+          white-space: nowrap;
         }
         #f08-filter svg {
           display: block;
-          width: 24px;
-          height: 24px;
+          width: 26px;
+          height: 26px;
           transform: rotate(180deg);
         }
-        #f08-table {
-          margin-top: 14px;
+        #f08-stats {
+          display: flex;
+          gap: 22px;
+          margin-top: 22px;
+        }
+        .f08-stat {
+          flex: 1 1 0;
+          height: 128px;
+          padding: 18px 26px;
           border: 2px solid #ece6dd;
-          border-radius: 18px;
-          overflow: hidden;
+          border-radius: 22px;
+          background: #fbf9f5;
+        }
+        .f08-sl {
+          font-size: 24px;
+          color: #5f5f64;
+          line-height: 1.2;
+        }
+        .f08-sv {
+          margin-top: 6px;
+          font-size: 62px;
+          font-weight: 600;
+          letter-spacing: -0.03em;
+          line-height: 1.05;
+        }
+        #f08-table {
+          margin-top: 20px;
         }
         .f08-tr {
           display: flex;
           align-items: center;
-          height: 66px;
+          gap: 22px;
+          height: 106px;
           border-top: 2px solid #ece6dd;
-          font-size: 24px;
         }
-        .f08-th {
-          height: 48px;
-          border-top: 0;
-          background: #f7f4ef;
-          color: #5c5c61;
-          font-weight: 600;
-          font-size: 22px;
-        }
-        .f08-c1 {
-          width: 250px;
-          padding-left: 26px;
-          white-space: nowrap;
-          display: flex;
-          flex-direction: row;
-          align-items: baseline;
-          gap: 12px;
-          line-height: 1.2;
-        }
-        .f08-c2 {
-          width: 300px;
-        }
-        .f08-c3 {
-          width: 530px;
-          padding-right: 20px;
-          line-height: 1.25;
-          white-space: nowrap;
-        }
-        .f08-c4 {
-          width: 230px;
+        .f08-av {
           display: flex;
           align-items: center;
-          gap: 10px;
-        }
-        .f08-day {
-          font-size: 22px;
+          justify-content: center;
+          width: 62px;
+          height: 62px;
+          border-radius: 50%;
+          background: #ede3f7;
+          color: #6b4a96;
+          font-size: 28px;
           font-weight: 600;
+          flex: 0 0 auto;
         }
-        .f08-time {
-          font-size: 20px;
-          color: #66666b;
+        .f08-tx {
+          flex: 1 1 0;
+          min-width: 0;
+        }
+        .f08-inc {
+          font-size: 30px;
+          font-weight: 500;
+          line-height: 1.2;
+          white-space: nowrap;
+        }
+        .f08-meta {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          margin-top: 8px;
+          font-size: 23px;
+          color: #5f5f64;
+          white-space: nowrap;
+        }
+        .f08-name {
+          font-weight: 600;
+          color: #1c1c1e;
         }
         .f08-tag {
           display: inline-block;
-          padding: 7px 14px;
-          border-radius: 10px;
-          font-size: 21px;
+          flex: 0 0 auto;
+          padding: 9px 18px;
+          border-radius: 12px;
+          font-size: 24px;
           font-weight: 600;
           white-space: nowrap;
         }
         .amber {
           background: #fcf0d2;
-          color: #855800;
+          color: #7a5100;
         }
         .purple {
           background: #ebe7fb;
@@ -171,47 +164,33 @@
           background: #fde2e3;
           color: #a8111a;
         }
-        .f08-av {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          background: #ede3f7;
-          color: #6b4a96;
-          font-size: 20px;
-          font-weight: 600;
-          flex: 0 0 auto;
-        }
-        .f08-name {
-          font-size: 22px;
-          white-space: nowrap;
-        }
-        .f08-cap {
+        #f08-head-l {
           position: absolute;
-          left: 180px;
-          top: 820px;
-          width: 1560px;
-          height: 110px;
+          left: 120px;
+          top: 300px;
+          width: 660px;
+          height: 520px;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 20px;
-          font-size: 68px;
-          font-weight: 500;
-          letter-spacing: -0.025em;
+          flex-wrap: wrap;
+          align-content: center;
+          column-gap: 0.24em;
+          font-size: 88px;
+          font-weight: 600;
+          line-height: 1.06;
+          letter-spacing: -0.03em;
         }
         .f08-w {
           display: block;
           color: #8F8A84;
           white-space: nowrap;
         }
-        #f08-cap2,
-        #f08-smile {
-          opacity: 0;
+        .f08-brk {
+          display: block;
+          flex-basis: 100%;
+          height: 0;
         }
         #f08-smile {
+          opacity: 0;
           position: absolute;
           inset: 0;
           background: #1a1f24;
@@ -220,14 +199,6 @@
           position: absolute;
           inset: 0;
         }
-        #f08-topshade {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 1920px;
-          height: 260px;
-          background: linear-gradient(to bottom, rgba(12, 16, 20, 0.6), rgba(12, 16, 20, 0));
-        }
         #f08-vid {
           position: absolute;
           inset: 0;
@@ -235,33 +206,37 @@
           height: 1080px;
           object-fit: cover;
         }
-        /* Opaque over the burned glass pill (x 236–1680, y 740–1000; ~y 750–1023 at the 1.05 push-in) */
+        /* Opaque from y 820 over the burned glass pill (≈ Y 870–1080 from ≈31.75 global) */
         #f08-band {
           position: absolute;
           left: 0;
-          top: 712px;
+          top: 740px;
           width: 1920px;
-          height: 330px;
-          background: linear-gradient(180deg, rgba(44, 52, 60, 0.97), rgba(20, 24, 29, 0.99) 60%, rgba(16, 19, 23, 1));
-          border-top: 2px solid rgba(255, 255, 255, 0.22);
-          border-bottom: 2px solid rgba(255, 255, 255, 0.12);
-          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
-          backdrop-filter: blur(20px);
-          transform-origin: 50% 50%;
+          height: 340px;
+          background: linear-gradient(180deg, rgba(14, 17, 21, 0) 0px, rgba(14, 17, 21, 0.85) 56px, #12161b 80px, #0e1115 100%);
+        }
+        #f08-bandline {
+          position: absolute;
+          left: 120px;
+          top: 852px;
+          width: 10px;
+          height: 132px;
+          border-radius: 6px;
+          background: #22f08a;
         }
         #f08-bandtxt {
           position: absolute;
-          left: 180px;
-          top: 806px;
-          width: 1560px;
-          height: 140px;
+          left: 160px;
+          top: 860px;
+          width: 1400px;
+          height: 120px;
           display: flex;
           align-items: center;
-          justify-content: center;
-          gap: 26px;
-          font-size: 96px;
-          font-weight: 500;
-          letter-spacing: -0.035em;
+          gap: 24px;
+          font-size: 84px;
+          font-weight: 600;
+          letter-spacing: -0.025em;
+          line-height: 1.12;
           color: #ffffff;
         }
         .f08-bw {
@@ -276,10 +251,13 @@
 
         <div id="f08-card">
           <div id="f08-head">
-          <div id="f08-hl">
-          <div id="f08-title">CX Overview</div>
-          <div id="f08-sub">Powered by DoubleTick Surveillance AI · detects anomalies, compliance gaps and sentiment patterns</div>
+            <div id="f08-title">CX Overview</div>
+            <div id="f08-filter">
+              <span>All issues</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6" /></svg>
+            </div>
           </div>
+          <div id="f08-sub">Powered by DoubleTick Surveillance AI · detects anomalies, compliance gaps and sentiment patterns</div>
           <div id="f08-stats">
             <div class="f08-stat">
               <div class="f08-sl">New incidents this week</div>
@@ -290,59 +268,50 @@
               <div class="f08-sv" id="f08-n2">21</div>
             </div>
           </div>
-          </div>
-          <div id="f08-filter">
-            <span>All issues</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6" /></svg>
-          </div>
           <div id="f08-table">
-            <div class="f08-tr f08-th">
-              <div class="f08-c1">Date</div>
-              <div class="f08-c2">Issue</div>
-              <div class="f08-c3">Incident</div>
-              <div class="f08-c4">Customer</div>
-            </div>
-
             <div class="f08-tr">
-              <div class="f08-c1"><span class="f08-day">Today</span><span class="f08-time">6:32 pm</span></div>
-              <div class="f08-c2"><span class="f08-tag amber">Irritated customer</span></div>
-              <div class="f08-c3">Customer is asking for a full refund</div>
-              <div class="f08-c4"><span class="f08-av">M</span><span class="f08-name">Michael J.</span></div>
+              <span class="f08-av">M</span>
+              <div class="f08-tx">
+                <div class="f08-inc">Customer is asking for a full refund</div>
+                <div class="f08-meta"><span class="f08-name">Michael J.</span><span>Today · 6:32 pm</span></div>
+              </div>
+              <span class="f08-tag amber">Irritated customer</span>
             </div>
             <div class="f08-tr">
-              <div class="f08-c1"><span class="f08-day">Today</span><span class="f08-time">5:34 pm</span></div>
-              <div class="f08-c2"><span class="f08-tag purple">Agent misconduct</span></div>
-              <div class="f08-c3">Customer frustrated with no response</div>
-              <div class="f08-c4"><span class="f08-av">E</span><span class="f08-name">Emma W.</span></div>
+              <span class="f08-av">E</span>
+              <div class="f08-tx">
+                <div class="f08-inc">Customer frustrated with no response</div>
+                <div class="f08-meta"><span class="f08-name">Emma W.</span><span>Today · 5:34 pm</span></div>
+              </div>
+              <span class="f08-tag purple">Agent misconduct</span>
             </div>
             <div class="f08-tr">
-              <div class="f08-c1"><span class="f08-day">Today</span><span class="f08-time">3:04 am</span></div>
-              <div class="f08-c2"><span class="f08-tag amber">Irritated customer</span></div>
-              <div class="f08-c3">Customer demanding immediate refund</div>
-              <div class="f08-c4"><span class="f08-av">D</span><span class="f08-name">Daniel C.</span></div>
+              <span class="f08-av">D</span>
+              <div class="f08-tx">
+                <div class="f08-inc">Customer demanding immediate refund</div>
+                <div class="f08-meta"><span class="f08-name">Daniel C.</span><span>Today · 3:04 am</span></div>
+              </div>
+              <span class="f08-tag amber">Irritated customer</span>
             </div>
             <div class="f08-tr">
-              <div class="f08-c1"><span class="f08-day">Today</span><span class="f08-time">2:16 am</span></div>
-              <div class="f08-c2"><span class="f08-tag red">SLA Breached</span></div>
-              <div class="f08-c3">Customer threatening to take others away</div>
-              <div class="f08-c4"><span class="f08-av">S</span><span class="f08-name">Sophia M.</span></div>
-            </div>
-            <div class="f08-tr">
-              <div class="f08-c1"><span class="f08-day">Yesterday</span><span class="f08-time">9:48 pm</span></div>
-              <div class="f08-c2"><span class="f08-tag purple">Agent misconduct</span></div>
-              <div class="f08-c3">Customer complaining about rude support</div>
-              <div class="f08-c4"><span class="f08-av">J</span><span class="f08-name">James A.</span></div>
+              <span class="f08-av">S</span>
+              <div class="f08-tx">
+                <div class="f08-inc">Customer threatening to take others away</div>
+                <div class="f08-meta"><span class="f08-name">Sophia M.</span><span>Today · 2:16 am</span></div>
+              </div>
+              <span class="f08-tag red">SLA Breached</span>
             </div>
           </div>
         </div>
 
-        <div id="f08-cap1" class="f08-cap">
+        <div id="f08-head-l">
           <span class="f08-w" id="f08-your">your</span>
+          <span class="f08-brk"></span>
           <span class="f08-w" id="f08-aip">AI-powered</span>
-        </div>
-        <div id="f08-cap2" class="f08-cap">
+          <span class="f08-brk"></span>
           <span class="f08-w" id="f08-control">control</span>
           <span class="f08-w" id="f08-tower">tower</span>
+          <span class="f08-brk"></span>
           <span class="f08-w" id="f08-for">for</span>
         </div>
 
@@ -350,8 +319,8 @@
           <div id="f08-vidwrap">
             <video data-hf-media-start-basis="local" id="f08-vid" src="assets/footage/smile.mp4" data-start="2.1" data-duration="1.5" data-media-start="0" data-track-index="0" muted playsinline></video>
           </div>
-          <div id="f08-topshade"></div>
           <div id="f08-band"></div>
+          <div id="f08-bandline"></div>
           <div id="f08-bandtxt">
             <span class="f08-bw" id="f08-customer">customer</span>
             <span class="f08-bw" id="f08-experience">experience</span>
@@ -368,8 +337,8 @@
           };
 
           // Dashboard card rises, then slowly pulls back
-          tl.fromTo("#f08-card", { opacity: 0, y: 60, scale: 1.05 }, { opacity: 1, y: 0, scale: 1.03, duration: 0.45, ease: "power3.out" }, 0);
-          tl.to("#f08-card", { scale: 0.98, duration: 1.65, ease: "sine.inOut" }, 0.45);
+          tl.fromTo("#f08-card", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0);
+          tl.fromTo("#f08-card", { scale: 1 }, { scale: 1.02, duration: 1.65, ease: "sine.inOut" }, 0.45);
           tl.fromTo(".f08-stat", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", stagger: 0.08 }, 0.12);
           tl.fromTo("#f08-table .f08-tr", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out", stagger: 0.07 }, 0.25);
           tl.fromTo(".f08-tag", { scale: 0.6 }, { scale: 1, duration: 0.4, ease: "back.out(1.8)", stagger: 0.07 }, 0.32);
@@ -386,17 +355,15 @@
           // Captions
           word("#f08-your", 0.14);
           word("#f08-aip", 0.47);
-          tl.to("#f08-cap1", { opacity: 0, duration: 0.15, ease: "power1.in" }, 1.18);
-          tl.to("#f08-cap2", { opacity: 1, duration: 0.01 }, 1.3);
           word("#f08-control", 1.31);
           word("#f08-tower", 1.7);
           word("#f08-for", 1.94);
 
           // Cut to smile footage with the dark frosted band
           tl.to("#f08-smile", { opacity: 1, duration: 0.01 }, 2.1);
-          tl.set(["#f08-card", "#f08-cap1", "#f08-cap2"], { opacity: 0 }, 2.1);
-          tl.fromTo("#f08-vidwrap", { scale: 1 }, { scale: 1.05, duration: 1.5, ease: "none" }, 2.1);
-          tl.fromTo("#f08-band", { scaleY: 1 }, { scaleY: 1.03, duration: 1.5, ease: "sine.inOut" }, 2.1);
+          tl.set(["#f08-card", "#f08-head-l"], { opacity: 0 }, 2.1);
+          tl.fromTo("#f08-vidwrap", { scale: 1 }, { scale: 1.04, duration: 1.5, ease: "none" }, 2.1);
+          tl.fromTo("#f08-bandline", { scaleY: 0 }, { scaleY: 1, duration: 0.35, ease: "power3.out" }, 2.12);
           word("#f08-customer", 2.16, "#FFFFFF");
           word("#f08-experience", 2.66, "#FFFFFF");
 

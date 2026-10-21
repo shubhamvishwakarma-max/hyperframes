@@ -28,48 +28,71 @@
             repeating-linear-gradient(to right, rgba(60, 40, 20, 0.07) 0 2px, transparent 2px 180px),
             repeating-linear-gradient(to bottom, rgba(60, 40, 20, 0.07) 0 2px, transparent 2px 180px);
         }
+        /* ---------- left headline (archetype A) ---------- */
+        .f04-hl {
+          position: absolute;
+          left: 120px;
+          top: 250px;
+          width: 640px;
+          height: 620px;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: center;
+          column-gap: 24px;
+          row-gap: 0;
+          font-size: 88px;
+          font-weight: 600;
+          line-height: 1.06;
+          letter-spacing: -0.03em;
+        }
+        .f04-w {
+          display: block;
+          color: #8f8a84;
+          opacity: 0;
+        }
         /* ---------- shared customer card ---------- */
         .f04-row {
           position: absolute;
-          width: 840px;
-          height: 140px;
+          left: 0;
+          width: 970px;
+          height: 136px;
         }
         .f04-alert {
           position: absolute;
           left: 0;
-          top: 42px;
-          width: 56px;
-          height: 56px;
+          top: 38px;
+          width: 60px;
+          height: 60px;
           color: #d9531e;
         }
         .f04-alert svg {
           display: block;
-          width: 56px;
-          height: 56px;
+          width: 60px;
+          height: 60px;
         }
         .f04-card {
           position: absolute;
           left: 80px;
           top: 0;
-          width: 760px;
-          height: 140px;
+          width: 890px;
+          height: 136px;
           background: #ffffff;
           border: 2px solid #ece6dd;
-          border-radius: 26px;
+          border-radius: 28px;
           box-shadow: 0 18px 50px rgba(30, 20, 10, 0.08);
           display: flex;
           align-items: center;
-          gap: 26px;
-          padding: 0 30px;
+          gap: 28px;
+          padding: 0 34px;
         }
         .f04-av {
-          flex: 0 0 76px;
-          width: 76px;
-          height: 76px;
+          flex: 0 0 84px;
+          width: 84px;
+          height: 84px;
           border-radius: 50%;
           background: #ede3f7;
           color: #7a55a8;
-          font-size: 26px;
+          font-size: 30px;
           font-weight: 600;
           display: flex;
           align-items: center;
@@ -80,13 +103,13 @@
           min-width: 0;
         }
         .f04-name {
-          font-size: 28px;
+          font-size: 32px;
           font-weight: 600;
           line-height: 1.2;
           color: #1c1c1e;
         }
         .f04-msg {
-          font-size: 34px;
+          font-size: 36px;
           font-weight: 400;
           line-height: 1.25;
           color: #3a3a3c;
@@ -97,106 +120,125 @@
         /* ---------- beat A ---------- */
         #f04-stack {
           position: absolute;
-          left: 110px;
-          top: 210px;
-          width: 1700px;
-          height: 520px;
+          left: 830px;
+          top: 160px;
+          width: 970px;
+          height: 760px;
+        }
+        #f04-ignpre {
+          position: absolute;
+          left: 0;
+          top: 250px;
+          width: 1920px;
+          height: 90px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 64px;
+          font-weight: 500;
+          letter-spacing: -0.025em;
+          color: #3a3a3c;
+          opacity: 0;
         }
         #f04-ignored {
           position: absolute;
           left: 0;
-          top: 300px;
+          top: 350px;
           width: 1920px;
-          height: 340px;
+          height: 400px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 300px;
+          font-size: 320px;
           font-weight: 600;
           letter-spacing: -0.045em;
           color: #1c1c1e;
           opacity: 0;
         }
-        /* ---------- captions ---------- */
-        .f04-cap {
-          position: absolute;
-          left: 180px;
-          top: 810px;
-          width: 1560px;
-          height: 150px;
-          display: flex;
-          flex-wrap: wrap;
-          align-content: center;
-          justify-content: center;
-          column-gap: 22px;
-          row-gap: 0;
-          font-size: 68px;
-          font-weight: 500;
-          flex-wrap: nowrap;
-          white-space: nowrap;
-          line-height: 1.12;
-          letter-spacing: -0.025em;
-        }
-        .f04-w {
-          display: block;
-          color: #8F8A84;
-          opacity: 0;
-        }
-        .f04-w.f04-wd {
-          color: #9a9a9a;
-        }
         /* ---------- beat B: chat window ---------- */
         #f04-chat {
           position: absolute;
-          left: 360px;
-          top: 170px;
-          width: 1200px;
-          height: 600px;
+          left: 820px;
+          top: 160px;
+          width: 980px;
+          height: 760px;
           border-radius: 40px;
           background: #efeae2;
           border: 8px solid #ddd6cb;
           box-shadow: 0 30px 80px rgba(30, 20, 10, 0.12);
+          overflow: hidden;
           opacity: 0;
+        }
+        #f04-chead {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 964px;
+          height: 120px;
+          background: #ffffff;
+          border-bottom: 2px solid #ece6dd;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          padding: 0 34px;
+        }
+        #f04-chead .f04-av {
+          flex: 0 0 72px;
+          width: 72px;
+          height: 72px;
+          font-size: 30px;
+        }
+        #f04-chname {
+          font-size: 34px;
+          font-weight: 600;
+          line-height: 1.15;
+        }
+        #f04-chsub {
+          font-size: 24px;
+          color: #6f685f;
+          line-height: 1.2;
         }
         .f04-bub {
           position: absolute;
           left: 34px;
           background: #ffffff;
-          border-radius: 20px;
-          padding: 22px 30px 40px 30px;
-          font-size: 34px;
+          border-radius: 22px;
+          padding: 24px 32px 48px 32px;
+          font-size: 36px;
           font-weight: 400;
+          line-height: 1.25;
           color: #1c1c1e;
           box-shadow: 0 4px 10px rgba(30, 20, 10, 0.05);
         }
         .f04-bub span {
           position: absolute;
-          right: 22px;
-          bottom: 10px;
-          font-size: 20px;
+          right: 24px;
+          bottom: 12px;
+          font-size: 22px;
           color: #6f685f;
         }
         #f04-b1 {
-          top: 44px;
-          width: 700px;
+          top: 160px;
+          width: 800px;
         }
         #f04-b2 {
-          top: 194px;
-          width: 500px;
+          top: 330px;
+          width: 560px;
         }
         #f04-comp {
           position: absolute;
           left: 28px;
           bottom: 28px;
-          width: 1000px;
-          height: 112px;
+          width: 760px;
+          height: 120px;
           border-radius: 999px;
           background: #ffffff;
           display: flex;
           align-items: center;
-          gap: 18px;
-          padding: 0 26px;
+          gap: 16px;
+          padding: 0 28px;
           color: #6f685f;
+          box-shadow: 0 0 0 4px rgba(200, 22, 29, 0);
         }
         #f04-comp svg {
           display: block;
@@ -207,7 +249,7 @@
         #f04-typed {
           flex: 1 1 auto;
           display: flex;
-          font-size: 32px;
+          font-size: 33px;
           font-weight: 500;
           color: #1c1c1e;
           white-space: nowrap;
@@ -220,8 +262,8 @@
           position: absolute;
           right: 28px;
           bottom: 28px;
-          width: 112px;
-          height: 112px;
+          width: 120px;
+          height: 120px;
           border-radius: 50%;
           background: #ffffff;
           color: #3a3a3c;
@@ -231,88 +273,89 @@
         }
         #f04-send svg {
           display: block;
-          width: 46px;
-          height: 46px;
+          width: 48px;
+          height: 48px;
         }
         /* ---------- beat C: SLA ---------- */
         #f04-sla {
           position: absolute;
-          left: 570px;
-          top: 330px;
-          width: 780px;
-          height: 180px;
+          left: 860px;
+          top: 400px;
+          width: 900px;
+          height: 210px;
           opacity: 0;
         }
         #f04-slain {
-          width: 780px;
-          height: 180px;
-          border-radius: 28px;
+          width: 900px;
+          height: 210px;
+          border-radius: 32px;
           background: #c8161d;
           color: #ffffff;
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 30px;
-          font-size: 92px;
+          font-size: 100px;
           font-weight: 700;
           letter-spacing: -0.035em;
           box-shadow: 0 30px 70px rgba(200, 22, 29, 0.35);
         }
         #f04-slain svg {
           display: block;
-          width: 112px;
-          height: 112px;
+          width: 120px;
+          height: 120px;
         }
         #f04-scard {
           position: absolute;
-          left: 410px;
-          top: 320px;
-          width: 1100px;
-          height: 270px;
+          left: 840px;
+          top: 470px;
+          width: 960px;
+          height: 320px;
           background: #ffffff;
           border: 2px solid #ece6dd;
-          border-radius: 30px;
+          border-radius: 32px;
           box-shadow: 0 24px 60px rgba(30, 20, 10, 0.1);
           opacity: 0;
         }
         #f04-scard .f04-av {
           position: absolute;
-          left: 40px;
-          top: 44px;
-          width: 92px;
-          height: 92px;
-          font-size: 34px;
+          left: 44px;
+          top: 48px;
+          width: 104px;
+          height: 104px;
+          font-size: 38px;
         }
         #f04-sname {
           position: absolute;
-          left: 162px;
-          top: 40px;
-          font-size: 36px;
+          left: 180px;
+          top: 46px;
+          font-size: 38px;
           font-weight: 600;
           color: #1c1c1e;
         }
         #f04-smsg {
           position: absolute;
-          left: 162px;
-          top: 90px;
-          font-size: 42px;
+          left: 180px;
+          top: 100px;
+          font-size: 44px;
           font-weight: 400;
           color: #3a3a3c;
+          white-space: nowrap;
         }
         #f04-spill {
           position: absolute;
-          left: 40px;
-          top: 176px;
-          height: 58px;
-          padding: 0 24px;
+          left: 44px;
+          top: 210px;
+          height: 66px;
+          padding: 0 28px;
           border-radius: 999px;
           background: #fbe0e2;
           color: #b0141a;
-          font-size: 28px;
+          font-size: 32px;
           font-weight: 500;
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 10px;
           white-space: nowrap;
         }
         #f04-spill b {
@@ -342,20 +385,18 @@
           position: absolute;
           inset: 0;
           background: linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0.35) 0px,
-            rgba(0, 0, 0, 0.15) 400px,
-            rgba(0, 0, 0, 0.7) 790px,
-            rgba(0, 0, 0, 0.88) 880px,
-            rgba(0, 0, 0, 0.92) 1080px
+            to right,
+            rgba(0, 0, 0, 0.72) 0px,
+            rgba(0, 0, 0, 0.5) 820px,
+            rgba(0, 0, 0, 0.25) 1920px
           );
         }
         #f04-panel {
           position: absolute;
-          left: 120px;
+          left: 820px;
           top: 150px;
-          width: 1680px;
-          height: 650px;
+          width: 980px;
+          height: 800px;
           border-radius: 44px;
           background: rgba(255, 255, 255, 0.1);
           border: 2px solid rgba(255, 255, 255, 0.22);
@@ -365,24 +406,24 @@
         #f04-dmask {
           position: absolute;
           inset: 0;
-          -webkit-mask-image: linear-gradient(to bottom, transparent 0px, #000 36px, #000 614px, transparent 650px);
-          mask-image: linear-gradient(to bottom, transparent 0px, #000 36px, #000 614px, transparent 650px);
+          -webkit-mask-image: linear-gradient(to bottom, transparent 0px, #000 50px, #000 746px, transparent 796px);
+          mask-image: linear-gradient(to bottom, transparent 0px, #000 50px, #000 746px, transparent 796px);
         }
         #f04-dcol {
           position: absolute;
-          left: 45px;
+          left: 24px;
           top: 0;
-          width: 1590px;
-          height: 632px;
+          width: 930px;
+          height: 1100px;
         }
         .f04-drow {
-          width: 770px;
+          width: 930px;
         }
         .f04-drow .f04-alert {
           color: rgba(255, 255, 255, 0.85);
         }
         .f04-drow .f04-card {
-          width: 690px;
+          width: 850px;
         }
       </style>
 
@@ -391,35 +432,35 @@
         <div id="f04-grid"></div>
 
         <div id="f04-stack">
-          <div class="f04-row f04-arow" id="f04-a1" style="top: 0px; left: 0px">
+          <div class="f04-row f04-arow" id="f04-a1" style="top: 0px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C2</div>
               <div class="f04-txt"><div class="f04-name">Customer 2</div><div class="f04-msg">When can you call me?</div></div>
             </div>
           </div>
-          <div class="f04-row f04-arow" id="f04-a2" style="top: 90px; left: 850px">
+          <div class="f04-row f04-arow" id="f04-a2" style="top: 156px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C4</div>
               <div class="f04-txt"><div class="f04-name">Customer 4</div><div class="f04-msg">Let me know when can we meet</div></div>
             </div>
           </div>
-          <div class="f04-row f04-arow" id="f04-a3" style="top: 190px; left: 30px">
+          <div class="f04-row f04-arow" id="f04-a3" style="top: 312px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C6</div>
               <div class="f04-txt"><div class="f04-name">Customer 6</div><div class="f04-msg">Please share the payment link</div></div>
             </div>
           </div>
-          <div class="f04-row f04-arow" id="f04-a4" style="top: 280px; left: 870px">
+          <div class="f04-row f04-arow" id="f04-a4" style="top: 468px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C8</div>
               <div class="f04-txt"><div class="f04-name">Customer 8</div><div class="f04-msg">Still waiting on my refund</div></div>
             </div>
           </div>
-          <div class="f04-row f04-arow" id="f04-a5" style="top: 380px; left: 10px">
+          <div class="f04-row f04-arow" id="f04-a5" style="top: 624px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C9</div>
@@ -427,15 +468,19 @@
             </div>
           </div>
         </div>
+        <div id="f04-ignpre">because some chats get</div>
         <div id="f04-ignored">ignored</div>
 
         <div id="f04-chat" data-layout-allow-overlap>
+          <div id="f04-chead">
+            <div class="f04-av">C</div>
+            <div><div id="f04-chname">Customer</div><div id="f04-chsub">online</div></div>
+          </div>
           <div class="f04-bub" id="f04-b1">No one has replied to my order status!<span>10:25 AM</span></div>
           <div class="f04-bub" id="f04-b2">Why is it taking so long?<span>10:28 AM</span></div>
           <div id="f04-comp">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 10V9" /><path d="M16.472 15a6 6 0 01-8.943 0" /><path d="M9 10V9" /><circle cx="12" cy="12" r="10" /></svg>
             <div id="f04-typed"><span class="f04-ch">U</span><span class="f04-ch">h</span><span class="f04-ch">.</span><span class="f04-ch">.</span><span class="f04-ch">.</span><span class="f04-ch">&nbsp;</span><span class="f04-ch">w</span><span class="f04-ch">e</span><span class="f04-ch">’</span><span class="f04-ch">l</span><span class="f04-ch">l</span><span class="f04-ch">&nbsp;</span><span class="f04-ch">t</span><span class="f04-ch">r</span><span class="f04-ch">y</span><span class="f04-ch">&nbsp;</span><span class="f04-ch">t</span><span class="f04-ch">o</span><span class="f04-ch">&nbsp;</span><span class="f04-ch">d</span><span class="f04-ch">o</span><span class="f04-ch">&nbsp;</span><span class="f04-ch">s</span><span class="f04-ch">o</span><span class="f04-ch">m</span><span class="f04-ch">e</span><span class="f04-ch">t</span><span class="f04-ch">h</span><span class="f04-ch">i</span><span class="f04-ch">n</span><span class="f04-ch">g</span></div>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" /><path d="m14 7 3 3" /><path d="M5 6v4" /><path d="M19 14v4" /><path d="M10 2v2" /><path d="M7 8H3" /><path d="M21 16h-4" /><path d="M11 3H9" /></svg>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551" /></svg>
           </div>
           <div id="f04-send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /><path d="m21.854 2.147-10.94 10.939" /></svg></div>
@@ -451,10 +496,10 @@
           <div id="f04-slain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="10" x2="14" y1="2" y2="2" /><line x1="12" x2="15" y1="14" y2="11" /><circle cx="12" cy="14" r="8" /></svg><span>SLA TRIGGER</span></div>
         </div>
 
-        <div class="f04-cap" id="f04-ca"><span class="f04-w" id="f04-ca-0">because</span><span class="f04-w" id="f04-ca-1">some</span><span class="f04-w" id="f04-ca-2">chats</span><span class="f04-w" id="f04-ca-3">get</span></div>
-        <div class="f04-cap" id="f04-cb"><span class="f04-w" id="f04-cb-0">some</span><span class="f04-w" id="f04-cb-1">replies</span><span class="f04-w" id="f04-cb-2">are</span><span class="f04-w" id="f04-cb-3">weak</span></div>
-        <div class="f04-cap" id="f04-cc"><span class="f04-w" id="f04-cc-0">some</span><span class="f04-w" id="f04-cc-1">SLAs</span><span class="f04-w" id="f04-cc-2">trigger</span></div>
-        <div class="f04-cap" id="f04-cd"><span class="f04-w" id="f04-cd-0">unnecessarily</span></div>
+        <div class="f04-hl" id="f04-ca"><span class="f04-w" id="f04-ca-0">because</span><span class="f04-w" id="f04-ca-1">some</span><span class="f04-w" id="f04-ca-2">chats</span><span class="f04-w" id="f04-ca-3">get</span></div>
+        <div class="f04-hl" id="f04-cb"><span class="f04-w" id="f04-cb-0">some</span><span class="f04-w" id="f04-cb-1">replies</span><span class="f04-w" id="f04-cb-2">are</span><span class="f04-w" id="f04-cb-3">weak</span></div>
+        <div class="f04-hl" id="f04-cc"><span class="f04-w" id="f04-cc-0">some</span><span class="f04-w" id="f04-cc-1">SLAs</span><span class="f04-w" id="f04-cc-2">trigger</span></div>
+        <div class="f04-hl" id="f04-cd"><span class="f04-w" id="f04-cd-0">unnecessarily</span></div>
 
         <div id="f04-d">
           <div id="f04-vidwrap">
@@ -465,49 +510,49 @@
           <div id="f04-panel">
             <div id="f04-dmask">
               <div id="f04-dcol">
-          <div class="f04-row f04-drow" id="f04-d1" style="top: 0px; left: 0px">
+          <div class="f04-row f04-drow" id="f04-d1" style="top: 0px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C1</div>
               <div class="f04-txt"><div class="f04-name">Customer 1</div><div class="f04-msg">When can you call me?</div></div>
             </div>
           </div>
-          <div class="f04-row f04-drow" id="f04-d2" style="top: 82px; left: 820px">
+          <div class="f04-row f04-drow" id="f04-d2" style="top: 160px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C2</div>
               <div class="f04-txt"><div class="f04-name">Customer 2</div><div class="f04-msg">Let me know when can we meet</div></div>
             </div>
           </div>
-          <div class="f04-row f04-drow" id="f04-d3" style="top: 164px; left: 0px">
+          <div class="f04-row f04-drow" id="f04-d3" style="top: 320px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C3</div>
               <div class="f04-txt"><div class="f04-name">Customer 3</div><div class="f04-msg">Please share the payment link</div></div>
             </div>
           </div>
-          <div class="f04-row f04-drow" id="f04-d4" style="top: 246px; left: 820px">
+          <div class="f04-row f04-drow" id="f04-d4" style="top: 480px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C4</div>
               <div class="f04-txt"><div class="f04-name">Customer 4</div><div class="f04-msg">Wrong item received.</div></div>
             </div>
           </div>
-          <div class="f04-row f04-drow" id="f04-d5" style="top: 328px; left: 0px">
+          <div class="f04-row f04-drow" id="f04-d5" style="top: 640px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C5</div>
               <div class="f04-txt"><div class="f04-name">Customer 5</div><div class="f04-msg">App not working.</div></div>
             </div>
           </div>
-          <div class="f04-row f04-drow" id="f04-d6" style="top: 410px; left: 820px">
+          <div class="f04-row f04-drow" id="f04-d6" style="top: 800px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C6</div>
               <div class="f04-txt"><div class="f04-name">Customer 6</div><div class="f04-msg">Delivery delayed.</div></div>
             </div>
           </div>
-          <div class="f04-row f04-drow" id="f04-d7" style="top: 492px; left: 0px">
+          <div class="f04-row f04-drow" id="f04-d7" style="top: 960px">
             <div class="f04-alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg></div>
             <div class="f04-card">
               <div class="f04-av">C7</div>
@@ -517,10 +562,8 @@
               </div>
             </div>
           </div>
-        <div class="f04-cap" id="f04-c1"><span class="f04-w f04-wd" id="f04-c1-0">and</span><span class="f04-w f04-wd" id="f04-c1-1">managers</span></div>
-        <div class="f04-cap" id="f04-c2"><span class="f04-w f04-wd" id="f04-c2-0">don’t</span><span class="f04-w f04-wd" id="f04-c2-1">know</span><span class="f04-w f04-wd" id="f04-c2-2">which</span></div>
-        <div class="f04-cap" id="f04-c3"><span class="f04-w f04-wd" id="f04-c3-0">conversations</span></div>
-        <div class="f04-cap" id="f04-c4"><span class="f04-w f04-wd" id="f04-c4-0">truly</span><span class="f04-w f04-wd" id="f04-c4-1">need</span><span class="f04-w f04-wd" id="f04-c4-2">attention</span></div>
+          <div class="f04-hl" id="f04-c1"><span class="f04-w f04-wd" id="f04-c1-0">and</span><span class="f04-w f04-wd" id="f04-c1-1">managers</span><span class="f04-w f04-wd" id="f04-c1-2">don’t</span><span class="f04-w f04-wd" id="f04-c1-3">know</span><span class="f04-w f04-wd" id="f04-c1-4">which</span></div>
+          <div class="f04-hl" id="f04-c2"><span class="f04-w f04-wd" id="f04-c2-0">conversations</span><span class="f04-w f04-wd" id="f04-c2-1">truly</span><span class="f04-w f04-wd" id="f04-c2-2">need</span><span class="f04-w f04-wd" id="f04-c2-3">attention</span></div>
         </div>
       </div>
 
@@ -533,20 +576,21 @@
           };
           const out = (sel, t) => tl.to(sel, { opacity: 0, y: -24, duration: 0.15, ease: "power1.in" }, t);
 
-          // ---------- Beat A (0 – 2.1): unanswered stack → "ignored" ----------
-          tl.fromTo("#f04-stack .f04-card", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.09 }, 0);
+          // ---------- Beat A (0 – 2.1): headline left, unanswered stack right → "ignored" ----------
+          tl.fromTo("#f04-stack .f04-card", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out", stagger: 0.09 }, 0);
           tl.fromTo("#f04-stack .f04-alert", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)", stagger: 0.09 }, 0.15);
-          tl.fromTo("#f04-stack", { y: 20, scale: 1 }, { y: -20, scale: 1.02, duration: 1.15, ease: "none" }, 0);
+          tl.fromTo("#f04-stack", { y: 16, scale: 1 }, { y: -16, scale: 1.02, duration: 1.15, ease: "none" }, 0);
           word("#f04-ca-0", 0.04);
           word("#f04-ca-1", 0.49);
           word("#f04-ca-2", 0.82);
           word("#f04-ca-3", 1.15);
           tl.to("#f04-stack", { opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power1.in" }, 1.15);
           out("#f04-ca", 1.3);
+          tl.fromTo("#f04-ignpre", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 1.3);
           tl.fromTo("#f04-ignored", { opacity: 0, scaleX: 1.22, color: "#8F8A84", scale: 1 }, { opacity: 1, scaleX: 1, duration: 0.55, ease: "power3.out" }, 1.3);
           tl.to("#f04-ignored", { color: "#1C1C1E", duration: 0.4, ease: "power1.out" }, 1.45);
           tl.to("#f04-ignored", { scale: 1.06, duration: 0.35, ease: "none" }, 1.85);
-          tl.to("#f04-ignored", { opacity: 0, duration: 0.2, ease: "power1.in" }, 2.0);
+          tl.to(["#f04-ignored", "#f04-ignpre"], { opacity: 0, duration: 0.2, ease: "power1.in" }, 2.0);
 
           // ---------- Beat B (2.1 – 3.6): weak reply ----------
           tl.fromTo("#f04-chat", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 2.05);
@@ -556,10 +600,11 @@
           gsap.utils.toArray("#f04-typed .f04-ch").forEach((el, i) => {
             tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.01 }, 2.5 + i * 0.032);
           });
+          tl.to("#f04-comp", { boxShadow: "0 0 0 4px rgba(200,22,29,0.55)", duration: 0.25, ease: "power1.out" }, 2.95);
           word("#f04-cb-0", 2.14);
           word("#f04-cb-1", 2.41);
           word("#f04-cb-2", 2.8);
-          word("#f04-cb-3", 2.89);
+          word("#f04-cb-3", 2.89, "#C8161D");
           out("#f04-cb", 3.52);
 
           // ---------- Beat C (3.6 – 6.04): SLA trigger ----------
@@ -568,36 +613,34 @@
           tl.fromTo("#f04-slain", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.6)" }, 3.58);
           tl.to("#f04-slain", { keyframes: { x: [0, -16, 12, -8, 5, 0], skewX: [0, -8, 6, -3, 0, 0] }, duration: 0.32, ease: "none" }, 3.9);
           tl.to("#f04-chat", { opacity: 0, duration: 0.25, ease: "power1.in" }, 4.3);
-          tl.fromTo("#f04-sla", { x: 0, y: 0, scale: 1 }, { x: 380, y: -130, scale: 0.42, duration: 0.45, ease: "power3.inOut" }, 4.4);
+          tl.fromTo("#f04-sla", { x: 0, y: 0, scale: 1 }, { x: 220, y: -125, scale: 0.5, duration: 0.45, ease: "power3.inOut" }, 4.4);
           tl.fromTo("#f04-scard", { opacity: 0, y: 40, scale: 1 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.5);
           tl.fromTo("#f04-spill", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 4.85);
           tl.to("#f04-scard", { y: -14, duration: 1.0, ease: "sine.inOut" }, 5.0);
-          tl.to("#f04-sla", { y: -144, duration: 1.0, ease: "sine.inOut" }, 5.0);
+          tl.to("#f04-sla", { y: -139, duration: 1.0, ease: "sine.inOut" }, 5.0);
           word("#f04-cc-0", 3.61);
           word("#f04-cc-1", 3.97);
-          word("#f04-cc-2", 4.55);
+          word("#f04-cc-2", 4.55, "#C8161D");
           out("#f04-cc", 4.82);
           word("#f04-cd-0", 4.96);
 
           // ---------- Beat D (6.04 – 10): office + scrolling queue ----------
-          tl.set(["#f04-scard", "#f04-sla", "#f04-cd", "#f04-chat", "#f04-stack", "#f04-ignored"], { opacity: 0 }, 6.04);
+          tl.set(["#f04-scard", "#f04-sla", "#f04-cd", "#f04-chat", "#f04-stack", "#f04-ignored", "#f04-ignpre"], { opacity: 0 }, 6.04);
           tl.fromTo("#f04-d", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 6.04);
           tl.fromTo("#f04-vidwrap", { scale: 1.15 }, { scale: 1.22, duration: 3.96, ease: "none" }, 6.04);
-          tl.fromTo("#f04-panel", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 6.04);
-          tl.fromTo("#f04-dcol", { y: 440 }, { y: 16, duration: 3.1, ease: "power2.inOut" }, 6.1);
-          tl.to("#f04-dcol", { y: 6, duration: 0.8, ease: "none" }, 9.2);
+          tl.fromTo("#f04-panel", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 6.04);
+          tl.fromTo("#f04-dcol", { y: 420 }, { y: -290, duration: 3.1, ease: "power2.inOut" }, 6.1);
+          tl.to("#f04-dcol", { y: -310, duration: 0.8, ease: "none" }, 9.2);
           word("#f04-c1-0", 6.46, "#FFFFFF");
           word("#f04-c1-1", 6.61, "#FFFFFF");
-          out("#f04-c1", 7.06);
-          word("#f04-c2-0", 7.18, "#FFFFFF");
-          word("#f04-c2-1", 7.42, "#FFFFFF");
-          word("#f04-c2-2", 7.57, "#FFFFFF");
-          out("#f04-c2", 7.72);
-          word("#f04-c3-0", 7.9, "#FFFFFF");
-          out("#f04-c3", 8.55);
-          word("#f04-c4-0", 8.68, "#FFFFFF");
-          word("#f04-c4-1", 9.1, "#FFFFFF");
-          word("#f04-c4-2", 9.31, "#FFFFFF");
+          word("#f04-c1-2", 7.18, "#FFFFFF");
+          word("#f04-c1-3", 7.42, "#FFFFFF");
+          word("#f04-c1-4", 7.57, "#FFFFFF");
+          out("#f04-c1", 7.74);
+          word("#f04-c2-0", 7.9, "#FFFFFF");
+          word("#f04-c2-1", 8.68, "#FFFFFF");
+          word("#f04-c2-2", 9.1, "#FFFFFF");
+          word("#f04-c2-3", 9.31, "#FFFFFF");
 
           window.__timelines["f04"] = tl;
         })();
