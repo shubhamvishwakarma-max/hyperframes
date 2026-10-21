@@ -263,6 +263,24 @@
           line-height: 1.2;
           font-weight: 500;
         }
+        .f10-flag .f10-b2 {
+          position: relative;
+          height: 100%;
+        }
+        .f10-sm,
+        .f10-lg {
+          position: absolute;
+          left: 26px;
+          top: 0;
+          bottom: 0;
+          width: 618px;
+          display: flex;
+          align-items: center;
+        }
+        .f10-lg {
+          font-size: 40px;
+          opacity: 0;
+        }
         .f10-flag {
           background: rgba(200, 22, 29, 0);
         }
@@ -397,11 +415,11 @@
               </div>
               <div class="f10-br f10-flag">
                 <div class="f10-b1"><span class="f10-tag f10-sla">SLA Breached</span></div>
-                <div class="f10-b2">Customer threatened to take other customers away</div>
+                <div class="f10-b2"><span class="f10-sm">Customer threatened to take other customers away</span><span class="f10-lg">Customer threatened to take other customers away</span></div>
               </div>
               <div class="f10-br f10-flag">
                 <div class="f10-b1"><span class="f10-tag f10-sla">SLA Breached</span></div>
-                <div class="f10-b2">Customer threatening to escalate the issue</div>
+                <div class="f10-b2"><span class="f10-sm">Customer threatening to escalate the issue</span><span class="f10-lg">Customer threatening to escalate the issue</span></div>
               </div>
               <div class="f10-br f10-drop">
                 <div class="f10-b1"><span class="f10-tag f10-agt">Agent misconduct</span></div>
@@ -467,7 +485,8 @@
           tl.fromTo("#f10-tblC", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 4.0);
           tl.fromTo(".f10-br", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.04 }, 4.05);
           tl.to(".f10-drop", { height: 0, opacity: 0, borderBottomWidth: 0, duration: 0.5, ease: "power3.inOut", stagger: 0.05 }, 4.75);
-          tl.to(".f10-flag .f10-b2", { fontSize: 40, duration: 0.45, ease: "power3.out" }, 5.35);
+          tl.to(".f10-flag .f10-sm", { opacity: 0, duration: 0.2 }, 5.35);
+          tl.fromTo(".f10-flag .f10-lg", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out", transformOrigin: "0% 50%" }, 5.4);
           tl.to(".f10-flag", { height: 200, backgroundColor: "rgba(200,22,29,0.06)", duration: 0.45, ease: "power3.out" }, 5.35);
           tl.fromTo(".f10-flag .f10-tag", { scale: 1 }, { scale: 1.12, duration: 0.3, ease: "back.out(2)", yoyo: true, repeat: 1, transformOrigin: "0% 50%" }, 5.45);
           tl.to("#f10-tblC", { scale: 1.04, duration: 0.9, ease: "sine.inOut" }, 5.4);

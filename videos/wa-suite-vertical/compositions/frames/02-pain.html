@@ -34,9 +34,9 @@
         #f02-pill {
           position: absolute;
           left: 6px;
-          top: 620px;
+          top: 580px;
           width: 1068px;
-          height: 270px;
+          height: 330px;
           border-radius: 999px;
           background: #3a3a3c;
           box-shadow: 0 24px 60px rgba(90, 6, 9, 0.25);
@@ -157,7 +157,7 @@
           align-items: center;
           justify-content: center;
           gap: 30px;
-          font-size: 126px;
+          font-size: 112px;
           font-weight: 500;
           letter-spacing: -0.035em;
           color: #ffffff;
@@ -367,7 +367,9 @@
 
           // ===== Beat 1: phone (local 0 – 1.62) =====
           // Pill rises from the "All day" slot into the "replies delayed" slot, turning red (tracks the burned pill)
-          tl.fromTo("#f02-pill", { y: 220, backgroundColor: "#3A3A3C" }, { y: 0, backgroundColor: "#C8161D", duration: 0.5, ease: "power2.out" }, 0);
+          tl.fromTo("#f02-pill", { backgroundColor: "#3A3A3C" }, { backgroundColor: "#C8161D", duration: 0.5, ease: "power1.out" }, 0);
+          // y keyframes follow the burned pill's centre so it stays covered while it rises
+          tl.fromTo("#f02-pill", { y: 224 }, { keyframes: [{ y: 185, duration: 0.05 }, { y: 155, duration: 0.05 }, { y: 101, duration: 0.1 }, { y: 44, duration: 0.1 }, { y: 20, duration: 0.1 }, { y: 0, duration: 0.1 }], ease: "none" }, 0);
           tl.fromTo("#f02-allday", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in" }, 0.05);
           tl.fromTo("#f02-pill", { scale: 1 }, { scale: 1.03, duration: 1.0, ease: "sine.inOut" }, 0.6);
           tl.fromTo("#f02-replies", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.5);
@@ -391,7 +393,7 @@
           tl.set("#f02-b2", { opacity: 1 }, 1.62);
           tl.fromTo("#f02-qmark", { scale: 1.12, y: 40, opacity: 0 }, { scale: 1, y: -30, opacity: 0.55, duration: 1.13, ease: "power2.out" }, 1.62);
           tl.fromTo("#f02-chats", { x: -90 }, { x: 0, duration: 0.7, ease: "power3.out" }, 1.62);
-          tl.fromTo("#f02-missed", { x: 90 }, { x: 0, duration: 0.7, ease: "power3.out" }, 2.1);
+          tl.fromTo("#f02-missed", { x: 50 }, { x: 0, duration: 0.7, ease: "power3.out" }, 2.1);
           word("#f02-chats", 1.64, "#FFFFFF");
           word("#f02-get", 2.04, "#FFFFFF");
           tl.fromTo("#f02-missed span", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.18, ease: "power2.out", stagger: 0.05 }, 2.22);
@@ -420,7 +422,8 @@
           tl.fromTo("#f02-disc", { opacity: 0 }, { opacity: 1, duration: 0.03, ease: "none" }, 5.36);
           tl.fromTo("#f02-disc", { scale: 0.62 }, { scale: 1, duration: 0.14, ease: "power2.out" }, 5.36);
           tl.to(["#f02-capB", "#f02-shade"], { opacity: 0, duration: 0.08, ease: "power1.in" }, 5.38);
-          tl.to(["#f02-band", "#f02-wash"], { opacity: 0, duration: 0.04, ease: "none" }, 5.4);
+          tl.to("#f02-wash", { opacity: 0, duration: 0.04, ease: "none" }, 5.4);
+          tl.to("#f02-band", { opacity: 0, duration: 0.02, ease: "none" }, 5.47);
           tl.fromTo("#f02-why", { opacity: 0, y: 30 }, { opacity: 0.55, y: 10, duration: 0.06, ease: "none" }, 5.44);
 
           window.__timelines["f02"] = tl;
