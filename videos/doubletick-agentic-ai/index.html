@@ -1648,6 +1648,326 @@
         color: var(--ink);
         opacity: 0;
       }
+
+      /* ======== single-visual layout: centred phone that runs off the bottom ======== */
+      .hl-group {
+        text-align: center;
+      }
+      #h1 .hl-big {
+        font-size: 80px;
+      }
+      #phone {
+        position: absolute;
+        left: 280px;
+        top: 318px;
+        width: 520px;
+        height: 900px;
+        border-radius: 46px;
+        border: 6px solid #e9e9e9;
+        background: #ffffff;
+        box-shadow: 0 40px 80px -40px rgba(35, 33, 30, 0.45);
+        overflow: hidden;
+        transform-origin: 50% 0%;
+      }
+      #phone-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 40px;
+        border: 4px solid var(--green);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 9;
+      }
+      #chat {
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      #chat-head {
+        top: 30px;
+      }
+      #chat-view {
+        top: 128px;
+      }
+      .sbar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 26px;
+        background: #ffffff;
+        color: #1b1b1b;
+        font-family: "Roboto", sans-serif;
+        font-size: 14.5px;
+        font-weight: 500;
+        z-index: 3;
+      }
+      .sbar.dark {
+        background: transparent;
+        color: #ffffff;
+      }
+      .sb-ic {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .sb-ic svg {
+        display: block;
+      }
+      .sb-time,
+      .sc-stack,
+      .lt-stack {
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: bottom;
+      }
+      .sb-time {
+        width: 52px;
+        height: 18px;
+      }
+      .sc-stack {
+        width: 72px;
+        height: 18px;
+      }
+      .lt-stack {
+        width: 120px;
+        height: 30px;
+      }
+      .st {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: block;
+        white-space: nowrap;
+        opacity: 0;
+      }
+      #sb0 {
+        opacity: 1;
+      }
+      #sys-chip {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 230px;
+        margin-left: -115px;
+        padding: 6px 12px;
+        border-radius: 8px;
+        background: #fdf4c5;
+        color: #5c4a12;
+        font-family: "Roboto", sans-serif;
+        font-size: 14px;
+        text-align: center;
+        box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+        opacity: 0;
+      }
+      #call .call-top {
+        padding-top: 38px;
+      }
+      #call .call-name {
+        margin-top: 8px;
+      }
+      #call .call-av {
+        transform: scale(0.76);
+        margin: -22px auto -40px;
+      }
+      #call .call-tx {
+        margin-top: 8px;
+      }
+      #call .call-bar {
+        top: 468px;
+        bottom: auto;
+      }
+      .wa-btn {
+        margin: 8px -11px -6px;
+        padding: 10px 0 9px;
+        border-top: 1px solid #e9edef;
+        text-align: center;
+        color: #0a8ad0;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .fade {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 870px;
+        height: 210px;
+        pointer-events: none;
+      }
+      #fade-n {
+        background: linear-gradient(180deg, rgba(247, 231, 225, 0) 0%, rgba(247, 231, 225, 0.9) 42%, #f7e7e1 62%);
+      }
+      #fade-d {
+        background: linear-gradient(180deg, rgba(239, 231, 216, 0) 0%, rgba(239, 231, 216, 0.9) 42%, #efe7d8 62%);
+        opacity: 0;
+      }
+
+      /* lead card, centred */
+      #lead {
+        left: 290px;
+        top: 372px;
+        width: 500px;
+        height: 330px;
+        border-radius: 28px;
+        opacity: 0;
+      }
+      .lead-a {
+        padding: 30px 34px;
+      }
+      .lead-name {
+        font-size: 32px;
+      }
+      .lead-sub {
+        font-size: 18px;
+      }
+      .pill-stack {
+        left: 34px;
+        top: 152px;
+      }
+      .lead-time {
+        position: absolute;
+        right: 34px;
+        top: 152px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--ink-2);
+      }
+      .lead-time .st {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+      .lead-time .st.green {
+        color: var(--green-deep);
+      }
+      #lt0 {
+        opacity: 1;
+      }
+      .temp {
+        left: 34px;
+        right: 34px;
+        bottom: 88px;
+      }
+      #enq1 {
+        left: 34px;
+        top: auto;
+        bottom: 24px;
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      /* AI chat summary screen (phone format) */
+      #scr-sum {
+        position: absolute;
+        inset: 0;
+        background: #ffffff;
+        font-family: "Geist", sans-serif;
+        opacity: 0;
+        z-index: 4;
+      }
+      #scr-sum .ais-head {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 30px;
+        padding: 16px 22px 14px;
+        gap: 18px;
+        background: #ffffff;
+        z-index: 2;
+      }
+      #scr-sum .ais-head b {
+        font-size: 20px;
+      }
+      #scr-sum .ais-head span {
+        font-size: 14px;
+      }
+      #sum-view {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 104px;
+        bottom: 0;
+        overflow: hidden;
+      }
+      #scr-sum .ais-body {
+        padding: 18px 22px 0 48px;
+      }
+      #scr-sum .ais-line {
+        left: 25px;
+        top: 32px;
+        bottom: 60px;
+      }
+      #scr-sum .ais-dot {
+        left: -29px;
+        width: 14px;
+        height: 14px;
+        margin-top: -7px;
+      }
+      #scr-sum .ais-tag {
+        font-size: 15px;
+      }
+      #scr-sum .ais-cnt {
+        font-size: 14.5px;
+      }
+      #scr-sum .ais-item {
+        padding-top: 14px;
+        opacity: 0;
+      }
+      #scr-sum .ais-item .t {
+        font-size: 18px;
+      }
+      #scr-sum .ais-item p {
+        font-size: 15px;
+        margin-top: 4px;
+      }
+      #scr-sum .ais-calls {
+        font-size: 14px;
+        margin-top: 16px;
+        padding: 10px 12px;
+      }
+      #p-final {
+        position: static;
+        display: inline-flex;
+        margin-top: 16px;
+        height: 46px;
+        font-size: 20px;
+      }
+      #assign {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid #ecebe8;
+        opacity: 0;
+      }
+      .as-l {
+        display: block;
+        font-size: 15px;
+        color: #57534c;
+        font-weight: 500;
+      }
+      #ws-note {
+        margin: 12px 0 0;
+        font-size: 14px;
+      }
+
+      /* journey centred */
+      #journey {
+        left: 345px;
+      }
     </style>
   </head>
   <body>
@@ -1671,280 +1991,191 @@
       <!-- ============ PRODUCT STAGE (S1–S7) ============ -->
       <div id="stage" class="clip" data-start="0" data-duration="34.4" data-track-index="1">
         <div id="cam">
-          <!-- WhatsApp conversation (the hero, persists S1 → S7) -->
-          <div id="chat">
-            <div id="chat-head">
-              <svg class="wa-ico" width="26" height="26" viewBox="0 0 24 24"><path d="M20 12H5M11 5l-7 7 7 7" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" /></svg>
-              <div id="biz-avatar">ABC</div>
-              <div class="head-text">
-                <div class="biz-name">ABC Ent <svg class="verified" viewBox="0 0 20 20"><polygon points="10.00,0.00 11.70,1.47 13.83,0.76 14.83,2.77 17.07,2.93 17.23,5.17 19.24,6.17 18.53,8.30 20.00,10.00 18.53,11.70 19.24,13.83 17.23,14.83 17.07,17.07 14.83,17.23 13.83,19.24 11.70,18.53 10.00,20.00 8.30,18.53 6.17,19.24 5.17,17.23 2.93,17.07 2.77,14.83 0.76,13.83 1.47,11.70 0.00,10.00 1.47,8.30 0.76,6.17 2.77,5.17 2.93,2.93 5.17,2.77 6.17,0.76 8.30,1.47" fill="#1a8cff"/><path d="M6 10.2l2.7 2.6 5.3-5.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <div class="wa-sub" id="sub-biz">Business Account</div>
-                <div class="wa-sub" id="sub-typing">typing…</div>
+          <div id="phone">
+            <div id="chat">
+              <div class="sbar">
+                <div class="sb-time"><span class="st" id="sb0">10:00</span><span class="st" id="sb1">10:18</span><span class="st" id="sb2">11:04</span></div>
+                <div class="sb-ic"><svg width="16" height="12" viewBox="0 0 16 12"><path d="M1 11h2V8H1zM5 11h2V6H5zM9 11h2V3H9zM13 11h2V1h-2z" fill="currentColor" /></svg><svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 11.5L.8 4.3a10.2 10.2 0 0 1 14.4 0z" fill="currentColor" /></svg><svg width="24" height="12" viewBox="0 0 24 12"><rect x="1" y="1" width="19" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4" /><rect x="3" y="3" width="13" height="6" rx="1" fill="currentColor" /><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor" /></svg></div>
               </div>
-              <div class="head-actions">
-                <svg class="wa-ico" width="44" height="26" viewBox="0 0 44 26"><path d="M6.5 3.5l4 .5 2 5-2.5 2a13 13 0 0 0 7 7l2-2.5 5 2 .5 4c0 1.5-1.5 3-3 3C11 24.5 1.5 15 1.5 6.5c0-1.5 1.5-3 3-3z" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M34 11l4.5 5 4.5-5z" fill="#1b1b1b" /></svg>
-                <svg class="wa-ico" width="8" height="26" viewBox="0 0 8 26"><circle cx="4" cy="5" r="2.6" fill="#1b1b1b" /><circle cx="4" cy="13" r="2.6" fill="#1b1b1b" /><circle cx="4" cy="21" r="2.6" fill="#1b1b1b" /></svg>
+              <div id="chat-head">
+                <svg class="wa-ico" width="26" height="26" viewBox="0 0 24 24"><path d="M20 12H5M11 5l-7 7 7 7" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" /></svg>
+                <div id="biz-avatar">ABC</div>
+                <div class="head-text">
+                  <div class="biz-name">ABC Ent <svg class="verified" viewBox="0 0 20 20"><polygon points="10.00,0.00 11.70,1.47 13.83,0.76 14.83,2.77 17.07,2.93 17.23,5.17 19.24,6.17 18.53,8.30 20.00,10.00 18.53,11.70 19.24,13.83 17.23,14.83 17.07,17.07 14.83,17.23 13.83,19.24 11.70,18.53 10.00,20.00 8.30,18.53 6.17,19.24 5.17,17.23 2.93,17.07 2.77,14.83 0.76,13.83 1.47,11.70 0.00,10.00 1.47,8.30 0.76,6.17 2.77,5.17 2.93,2.93 5.17,2.77 6.17,0.76 8.30,1.47" fill="#1a8cff"/><path d="M6 10.2l2.7 2.6 5.3-5.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div class="wa-sub" id="sub-biz">Business Account</div>
+                  <div class="wa-sub" id="sub-typing">typing…</div>
+                </div>
+                <div class="head-actions">
+                  <svg class="wa-ico" width="44" height="26" viewBox="0 0 44 26"><path d="M6.5 3.5l4 .5 2 5-2.5 2a13 13 0 0 0 7 7l2-2.5 5 2 .5 4c0 1.5-1.5 3-3 3C11 24.5 1.5 15 1.5 6.5c0-1.5 1.5-3 3-3z" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M34 11l4.5 5 4.5-5z" fill="#1b1b1b" /></svg>
+                  <svg class="wa-ico" width="8" height="26" viewBox="0 0 8 26"><circle cx="4" cy="5" r="2.6" fill="#1b1b1b" /><circle cx="4" cy="13" r="2.6" fill="#1b1b1b" /><circle cx="4" cy="21" r="2.6" fill="#1b1b1b" /></svg>
+                </div>
               </div>
-            </div>
-            <div id="chat-view">
-              <div id="msgs">
-                <div class="day-chip">Today</div>
-                <div class="b out" id="m-c1">
-                  Hi, I’m interested in your product. Can you help me choose the right plan?
-                  <div class="meta">10.00 PM</div>
-                </div>
-                <div class="b in" id="m-a1">
-                  Hey Ravi! Absolutely, I can help you with that. What are you mainly looking to achieve?
-                  <div class="meta">10.00 PM</div>
-                </div>
-                <div class="b out" id="m-c2">
-                  We need WhatsApp for our sales team to
-                  <span class="mark" id="mk-lead">manage leads and follow-ups.</span>
-                  <div class="meta">10.01 PM</div>
-                </div>
-                <div class="b out" id="m-call">
-                  <div class="cl">
-                    <span class="cl-ic"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#1f6f4a" stroke-width="2" stroke-linejoin="round" /></svg></span>
-                    <div><b>Voice call</b><span>1 min · Answered by AI Agent</span></div>
+              <div id="chat-view">
+                <div id="msgs">
+                  <div class="day-chip">Today</div>
+                  <div class="b out" id="m-c1">
+                    Hi, I’m interested in your product. Can you help me choose the right plan?
+                    <div class="meta">10.00 PM</div>
                   </div>
-                  <div class="meta">10.01 PM</div>
+                  <div class="b in" id="m-a1">
+                    Hey Ravi! Absolutely, I can help you with that. What are you mainly looking to achieve?
+                    <div class="meta">10.00 PM</div>
+                  </div>
+                  <div class="b out" id="m-c2">
+                    We need WhatsApp for our sales team to
+                    <span class="mark" id="mk-lead">manage leads and follow-ups.</span>
+                    <div class="meta">10.01 PM</div>
+                  </div>
+                  <div class="b out" id="m-call">
+                    <div class="cl">
+                      <span class="cl-ic"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#1f6f4a" stroke-width="2" stroke-linejoin="round" /></svg></span>
+                      <div><b>Voice call</b><span>1 min · Answered by AI Agent</span></div>
+                    </div>
+                    <div class="meta">10.01 PM</div>
+                  </div>
+                  <div class="b in" id="m-a3">
+                    Thanks for calling, Ravi! Do managers also need visibility into the conversations?
+                    <div class="meta">10.02 PM</div>
+                  </div>
+                  <div class="b out" id="m-c4">
+                    Yes, and <span class="mark" id="mk-mgr">managers need visibility</span> too.
+                    <div class="meta">10.02 PM</div>
+                  </div>
+                  <div class="b in" id="m-a4">
+                    Are you looking to implement this soon?
+                    <div class="meta">10.02 PM</div>
+                  </div>
+                  <div class="b out" id="m-c5">
+                    Yes. We’d like to <span class="mark" id="mk-time">start this month.</span>
+                    <div class="meta">10.03 PM</div>
+                  </div>
+                  <div class="b in" id="m-r1">
+                    <strong>Rahul · ABC Ent Sales</strong>Hi Ravi, I have your requirements. I can walk you through the best setup for your team.
+                    <div class="meta">10.06 PM</div>
+                    <div class="wa-btn" id="demo-btn">Schedule a demo</div>
+                  </div>
+                  <div class="b out" id="m-c6">
+                    Great, let’s discuss.
+                    <div class="meta">10.06 PM</div>
+                  </div>
                 </div>
-                <div class="b in" id="m-a3">
-                  Thanks for calling, Ravi! Do managers also need visibility into the conversations?
-                  <div class="meta">10.02 PM</div>
+                <div id="sys-chip">No reply yet · <span class="sc-stack"><span class="st" id="sc0">10:18 PM</span><span class="st" id="sc1">11:04 PM</span></span></div>
+              </div>
+              <div id="chat-input">
+                <svg class="wa-ico" width="26" height="26" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                <div class="input-field">
+                  <svg class="wa-ico" width="22" height="24" viewBox="0 0 22 24"><path d="M4 2h9l6 6v11a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3z" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
                 </div>
-                <div class="b out" id="m-c4">
-                  Yes, and <span class="mark" id="mk-mgr">managers need visibility</span> too.
-                  <div class="meta">10.02 PM</div>
+                <svg class="wa-ico" width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 9h10M10 13h10M13 9c4 0 5 2 5 4s-2 4-5 4h-2l7 6" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" /></svg>
+                <svg class="wa-ico" width="30" height="28" viewBox="0 0 30 28"><path d="M3 8h5l2.5-4h9L22 8h5v16H3z" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><circle cx="15" cy="15" r="5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                <svg class="wa-ico" width="22" height="30" viewBox="0 0 22 30"><rect x="6" y="2" width="10" height="17" rx="5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M2 14a9 9 0 0 0 18 0M11 23v5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </div>
+            <!-- WhatsApp voice call handled by the AI agent -->
+              <div id="call">
+                <div class="sbar dark"><div>10:01</div><div class="sb-ic"><svg width="16" height="12" viewBox="0 0 16 12"><path d="M1 11h2V8H1zM5 11h2V6H5zM9 11h2V3H9zM13 11h2V1h-2z" fill="currentColor" /></svg><svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 11.5L.8 4.3a10.2 10.2 0 0 1 14.4 0z" fill="currentColor" /></svg><svg width="24" height="12" viewBox="0 0 24 12"><rect x="1" y="1" width="19" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4" /><rect x="3" y="3" width="13" height="6" rx="1" fill="currentColor" /><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor" /></svg></div></div>
+                <div class="call-top">
+                  <div class="call-btn"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M14 10l7-7M14 10V5M14 10h5M10 14l-7 7M10 14v5M10 14H5" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                  <div class="call-who">
+                    <b>Voice call</b>
+                    <span><svg width="11" height="12" viewBox="0 0 12 14"><rect x="1.5" y="6" width="9" height="7" rx="1.5" fill="none" stroke="#a9b3b9" stroke-width="1.5" /><path d="M3.5 6V4a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="#a9b3b9" stroke-width="1.5" /></svg>End-to-end encrypted</span>
+                  </div>
+                  <div class="call-btn"><svg width="22" height="20" viewBox="0 0 26 22"><circle cx="9" cy="6" r="4.5" fill="#fff" /><path d="M1 21c0-5 3.6-8 8-8s8 3 8 8z" fill="#fff" /><path d="M21 4v8M17 8h8" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" /></svg></div>
                 </div>
-                <div class="b in" id="m-a4">
-                  Are you looking to implement this soon?
-                  <div class="meta">10.02 PM</div>
+                <div class="call-name">ABC Ent <svg class="verified" viewBox="0 0 20 20"><polygon points="10.00,0.00 11.70,1.47 13.83,0.76 14.83,2.77 17.07,2.93 17.23,5.17 19.24,6.17 18.53,8.30 20.00,10.00 18.53,11.70 19.24,13.83 17.23,14.83 17.07,17.07 14.83,17.23 13.83,19.24 11.70,18.53 10.00,20.00 8.30,18.53 6.17,19.24 5.17,17.23 2.93,17.07 2.77,14.83 0.76,13.83 1.47,11.70 0.00,10.00 1.47,8.30 0.76,6.17 2.77,5.17 2.93,2.93 5.17,2.77 6.17,0.76 8.30,1.47" fill="#1a8cff"/><path d="M6 10.2l2.7 2.6 5.3-5.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="call-role">AI Agent</div>
+                <div class="call-av">
+                  <i class="wv" style="transform: rotate(0.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(6.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(12.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(19.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(25.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(32.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(38.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(45.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(51.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(57.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(64.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(70.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(77.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(83.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(90.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(96.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(102.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(109.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(115.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(122.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(128.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(135.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(141.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(147.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(154.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(160.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(167.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(173.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(180.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(186.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(192.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(199.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(205.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(212.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(218.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(225.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(231.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(237.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(244.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(250.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(257.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(263.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(270.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(276.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(282.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(289.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(295.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(302.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(308.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(315.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(321.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(327.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(334.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(340.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(347.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(353.6deg) translateY(-92px)"></i>
+                  <div class="call-face">ABC</div>
                 </div>
-                <div class="b out" id="m-c5">
-                  Yes. We’d like to <span class="mark" id="mk-time">start this month.</span>
-                  <div class="meta">10.03 PM</div>
+                <div class="call-tx" id="tx1"><em>Ravi</em> We’re a <span class="mark mk-dark" id="mk-team">sales team of around 25 people</span>.</div>
+                <div class="call-tx" id="tx2"><em>AI Agent</em> Great. Your whole team can work from one WhatsApp business number.</div>
+                <div class="call-bar">
+                  <div class="cb"><svg width="20" height="6" viewBox="0 0 20 6"><circle cx="3" cy="3" r="2.6" fill="#fff" /><circle cx="10" cy="3" r="2.6" fill="#fff" /><circle cx="17" cy="3" r="2.6" fill="#fff" /></svg></div>
+                  <div class="cb"><svg width="22" height="16" viewBox="0 0 22 16"><rect x="1" y="2" width="14" height="12" rx="2.5" fill="#8696a0" /><path d="M15 6l6-3.5v11L15 10z" fill="#8696a0" /></svg></div>
+                  <div class="cb"><svg width="20" height="18" viewBox="0 0 22 20"><path d="M2 7h4l5-4.5v15L6 13H2z" fill="#fff" /><path d="M15 6a5 5 0 0 1 0 8M17.5 3a9 9 0 0 1 0 14" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                  <div class="cb"><svg width="18" height="20" viewBox="0 0 20 22"><rect x="6" y="1.5" width="8" height="12" rx="4" fill="#fff" /><path d="M2.5 10a7.5 7.5 0 0 0 15 0M10 17.5v3M2 2l16 18" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                  <div class="cb end"><svg width="24" height="10" viewBox="0 0 26 10"><path d="M1.5 6.5C7 1 19 1 24.5 6.5L22 9l-4-1.5V5C15 4 11 4 8 5v2.5L4 9z" fill="#fff" /></svg></div>
                 </div>
-                <div class="b in" id="m-r1">
-                  <strong>Rahul · ABC Ent Sales</strong>Hi Ravi, I have your requirements. I can walk you through the best setup for your team.
-                  <div class="meta">10.06 PM</div>
-                </div>
-                <div class="b out" id="m-c6">
-                  Great, let’s discuss.
-                  <div class="meta">10.06 PM</div>
+              </div>
+              <div id="chat-ring"></div>
+            </div>
+
+            <!-- DoubleTick app: AI chat summary -->
+            <div id="scr-sum">
+              <div class="sbar"><div>10:06</div><div class="sb-ic"><svg width="16" height="12" viewBox="0 0 16 12"><path d="M1 11h2V8H1zM5 11h2V6H5zM9 11h2V3H9zM13 11h2V1h-2z" fill="currentColor" /></svg><svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 11.5L.8 4.3a10.2 10.2 0 0 1 14.4 0z" fill="currentColor" /></svg><svg width="24" height="12" viewBox="0 0 24 12"><rect x="1" y="1" width="19" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4" /><rect x="3" y="3" width="13" height="6" rx="1" fill="currentColor" /><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor" /></svg></div></div>
+              <div class="ais-head">
+                <svg width="22" height="20" viewBox="0 0 24 22"><path d="M21 11H4M10 4l-7 7 7 7" fill="none" stroke="#23211e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                <div><b>AI chat summary</b><span>Conversation with <em>Ravi</em></span></div>
+              </div>
+              <div id="sum-view">
+                <div id="sum-scroll">
+                  <div class="ais-body">
+                    <i class="ais-line"></i>
+                    <div class="ais-tagrow">
+                      <i class="ais-dot"></i>
+                      <span class="ais-tag">Today (10.00 – 10.06 PM)</span>
+                      <span class="ais-cnt"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M4 18l1.5-4A8 8 0 1 1 9 18.6z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>5 <svg width="16" height="16" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>1</span>
+                    </div>
+                    <div class="ais-item" id="q-need">
+                      <div class="t"><span>Ravi needs WhatsApp for sales</span><svg width="13" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                      <p>Wants lead management and follow-ups for the sales team, with manager visibility.</p>
+                    </div>
+                    <div class="ais-item" id="q-team">
+                      <div class="t"><span>Team of around 25 people</span><svg width="13" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                      <p>Shared on a voice call; needs multiple agents on one business number.</p>
+                    </div>
+                    <div class="ais-item" id="q-time">
+                      <div class="t"><span>Plans to start this month</span><svg width="13" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                      <p>Asked about plans and is ready to discuss the right setup.</p>
+                    </div>
+                    <div class="ais-calls" id="ais-calls"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>1 voice call included in summary</div>
+                    <div id="p-final">High Intent ✓</div>
+                    <div id="assign">
+                      <span class="as-l">Assigned to</span>
+                      <div class="as-stack">
+                        <div class="as" id="as-ai"><img class="mini-mark" src="assets/logo/doubletick-mark.png" alt="" />AI Agent</div>
+                        <div class="as" id="as-rahul"><div id="rahul-av" class="avatar">RS</div>Rahul · Sales ✓</div>
+                      </div>
+                    </div>
+                    <div id="ws-note">Full context shared — no repeat questions</div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div id="chat-input">
-              <svg class="wa-ico" width="26" height="26" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
-              <div class="input-field">
-                <svg class="wa-ico" width="22" height="24" viewBox="0 0 22 24"><path d="M4 2h9l6 6v11a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3z" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
-              </div>
-              <svg class="wa-ico" width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 9h10M10 13h10M13 9c4 0 5 2 5 4s-2 4-5 4h-2l7 6" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" /></svg>
-              <svg class="wa-ico" width="30" height="28" viewBox="0 0 30 28"><path d="M3 8h5l2.5-4h9L22 8h5v16H3z" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><circle cx="15" cy="15" r="5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
-              <svg class="wa-ico" width="22" height="30" viewBox="0 0 22 30"><rect x="6" y="2" width="10" height="17" rx="5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M2 14a9 9 0 0 0 18 0M11 23v5" stroke="#1b1b1b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            </div>
-          <!-- WhatsApp voice call handled by the AI agent -->
-            <div id="call">
-              <div class="call-top">
-                <div class="call-btn"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M14 10l7-7M14 10V5M14 10h5M10 14l-7 7M10 14v5M10 14H5" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-                <div class="call-who">
-                  <b>Voice call</b>
-                  <span><svg width="11" height="12" viewBox="0 0 12 14"><rect x="1.5" y="6" width="9" height="7" rx="1.5" fill="none" stroke="#a9b3b9" stroke-width="1.5" /><path d="M3.5 6V4a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="#a9b3b9" stroke-width="1.5" /></svg>End-to-end encrypted</span>
-                </div>
-                <div class="call-btn"><svg width="22" height="20" viewBox="0 0 26 22"><circle cx="9" cy="6" r="4.5" fill="#fff" /><path d="M1 21c0-5 3.6-8 8-8s8 3 8 8z" fill="#fff" /><path d="M21 4v8M17 8h8" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" /></svg></div>
-              </div>
-              <div class="call-name">ABC Ent <svg class="verified" viewBox="0 0 20 20"><polygon points="10.00,0.00 11.70,1.47 13.83,0.76 14.83,2.77 17.07,2.93 17.23,5.17 19.24,6.17 18.53,8.30 20.00,10.00 18.53,11.70 19.24,13.83 17.23,14.83 17.07,17.07 14.83,17.23 13.83,19.24 11.70,18.53 10.00,20.00 8.30,18.53 6.17,19.24 5.17,17.23 2.93,17.07 2.77,14.83 0.76,13.83 1.47,11.70 0.00,10.00 1.47,8.30 0.76,6.17 2.77,5.17 2.93,2.93 5.17,2.77 6.17,0.76 8.30,1.47" fill="#1a8cff"/><path d="M6 10.2l2.7 2.6 5.3-5.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="call-role">AI Agent</div>
-              <div class="call-av">
-                <i class="wv" style="transform: rotate(0.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(6.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(12.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(19.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(25.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(32.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(38.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(45.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(51.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(57.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(64.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(70.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(77.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(83.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(90.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(96.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(102.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(109.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(115.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(122.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(128.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(135.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(141.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(147.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(154.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(160.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(167.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(173.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(180.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(186.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(192.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(199.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(205.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(212.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(218.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(225.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(231.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(237.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(244.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(250.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(257.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(263.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(270.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(276.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(282.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(289.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(295.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(302.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(308.6deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(315.0deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(321.4deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(327.9deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(334.3deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(340.7deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(347.1deg) translateY(-92px)"></i><i class="wv" style="transform: rotate(353.6deg) translateY(-92px)"></i>
-                <div class="call-face">ABC</div>
-              </div>
-              <div class="call-tx" id="tx1"><em>Ravi</em> We’re a <span class="mark mk-dark" id="mk-team">sales team of around 25 people</span>.</div>
-              <div class="call-tx" id="tx2"><em>AI Agent</em> Great. Your whole team can work from one WhatsApp business number.</div>
-              <div class="call-bar">
-                <div class="cb"><svg width="20" height="6" viewBox="0 0 20 6"><circle cx="3" cy="3" r="2.6" fill="#fff" /><circle cx="10" cy="3" r="2.6" fill="#fff" /><circle cx="17" cy="3" r="2.6" fill="#fff" /></svg></div>
-                <div class="cb"><svg width="22" height="16" viewBox="0 0 22 16"><rect x="1" y="2" width="14" height="12" rx="2.5" fill="#8696a0" /><path d="M15 6l6-3.5v11L15 10z" fill="#8696a0" /></svg></div>
-                <div class="cb"><svg width="20" height="18" viewBox="0 0 22 20"><path d="M2 7h4l5-4.5v15L6 13H2z" fill="#fff" /><path d="M15 6a5 5 0 0 1 0 8M17.5 3a9 9 0 0 1 0 14" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-                <div class="cb"><svg width="18" height="20" viewBox="0 0 20 22"><rect x="6" y="1.5" width="8" height="12" rx="4" fill="#fff" /><path d="M2.5 10a7.5 7.5 0 0 0 15 0M10 17.5v3M2 2l16 18" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-                <div class="cb end"><svg width="24" height="10" viewBox="0 0 26 10"><path d="M1.5 6.5C7 1 19 1 24.5 6.5L22 9l-4-1.5V5C15 4 11 4 8 5v2.5L4 9z" fill="#fff" /></svg></div>
-              </div>
-            </div>
-            <div id="chat-ring"></div>
+            <div id="phone-ring"></div>
           </div>
 
-          <div class="chip-s" id="st-off"><i class="dot"></i>Team offline</div>
-          <div class="chip-s" id="st-ai"><i class="dot"></i>AI agent active</div>
-          <!-- Clock -->
-          <div id="clock">
-            <span class="clock-label">Local time</span>
-            <div class="clock-stack">
-              <span class="ct" id="ct0">10:00<small>PM</small></span>
-              <span class="ct" id="ct1">10:18<small>PM</small></span>
-              <span class="ct" id="ct2">11:04<small>PM</small></span>
-              <span class="ct" id="ct3">12:40<small>AM</small></span>
-              <span class="ct" id="ct4">2:47<small>AM</small></span>
-              <span class="ct green" id="ct5">10:00<small>PM</small></span>
-            </div>
-          </div>
-          <div id="noreply" class="h"><i class="dot"></i>No reply yet</div>
-          <div id="replied" class="h"><i class="dot"></i>AI replied in 3 seconds</div>
-
-          <!-- Waiting enquiries -->
-          <div id="enq1"><i class="dot"></i>2 more enquiries waiting</div>
-
-          <!-- Lead card (cools in S2, re-heats in S5, transfers in S6) -->
-          <div id="lead" class="h">
+          <!-- Lead card (S2): cools overnight, then DoubleTick catches it -->
+          <div id="lead">
             <div class="frost" id="frost"></div>
             <div class="lead-a">
               <span class="lead-k">Lead</span>
               <span class="lead-name">New WhatsApp enquiry</span>
-              <span class="lead-sub">Asked about plans · 10:00 PM</span>
+              <span class="lead-sub">Ravi asked about plans · 10:00 PM</span>
               <div class="pill-stack">
                 <div class="pill p-high" id="p-high">High Intent</div>
                 <div class="pill p-wait" id="p-wait">Waiting</div>
                 <div class="pill p-cold" id="p-cold">Going Cold</div>
               </div>
+              <div class="lead-time">
+                <span>Now</span>
+                <div class="lt-stack"><span class="st" id="lt0">11:04 PM</span><span class="st" id="lt1">12:40 AM</span><span class="st" id="lt2">2:47 AM</span><span class="st green" id="lt3">10:00 PM</span></div>
+              </div>
               <div class="temp"><div id="temp-fill"></div></div>
-            </div>
-            <div class="lead-b">
-              <div class="ais-head">
-                <svg width="20" height="18" viewBox="0 0 24 22"><path d="M21 11H4M10 4l-7 7 7 7" fill="none" stroke="#23211e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                <div><b>AI chat summary</b><span>Conversation with <em>Ravi</em></span></div>
-              </div>
-              <div class="ais-body">
-                <i class="ais-line"></i>
-                <div class="ais-tagrow">
-                  <i class="ais-dot"></i>
-                  <span class="ais-tag">Today (10.00 – 10.06 PM)</span>
-                  <span class="ais-cnt"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M4 18l1.5-4A8 8 0 1 1 9 18.6z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>5 <svg width="15" height="15" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>1</span>
-                </div>
-                <div class="ais-item " id="q-need">
-                  <div class="t"><span>Ravi needs WhatsApp for sales</span><svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-                  <p>Wants lead management and follow-ups for the sales team, with manager visibility.</p>
-                </div>
-                <div class="ais-item " id="q-team">
-                  <div class="t"><span>Team of around 25 people</span><svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-                  <p>Shared on a voice call; needs multiple agents on one business number.</p>
-                </div>
-                <div class="ais-item " id="q-time">
-                  <div class="t"><span>Plans to start this month</span><svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-                  <p>Asked about plans and is ready to discuss the right setup.</p>
-                </div>
-                <div class="ais-calls" id="ais-calls"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>1 voice call included in summary</div>
-              </div>
-              <div id="p-final">High Intent ✓</div>
+              <div id="enq1"><i class="dot"></i>2 more enquiries waiting</div>
             </div>
           </div>
 
-          <!-- Requirement chips -->
-          <div class="chip" id="chip-lead"><span class="chip-k">Need</span>Lead management</div>
-          <div class="chip" id="chip-team"><span class="chip-k">Team</span>25-person sales team</div>
-          <div class="chip" id="chip-mgr"><span class="chip-k">Use case</span>Manager visibility</div>
-          <div class="chip" id="chip-time"><span class="chip-k">Timeline</span>This month</div>
-
-          <!-- DoubleTick sales workspace -->
-          <div id="ws">
-            <div class="ws-top">
-              <img class="mini-mark" src="assets/logo/doubletick-mark.png" alt="" />
-              DoubleTick Inbox
-              <em>Sales workspace</em>
-            </div>
-            <div class="ws-row">
-              <div id="ananya-av" class="avatar">R</div>
-              <div class="ws-row-text">
-                <b>Ravi</b>
-                <span>WhatsApp · +91 98••• ••210</span>
-              </div>
-              <span class="tag">High Intent</span>
-            </div>
-            <div class="ws-sum">
-              <div class="ais-head ws-head">
-                <div><b>AI chat summary</b><span>Conversation with <em>Ravi</em></span></div>
-              </div>
-              <div class="ais-body">
-                <i class="ais-line"></i>
-                <div class="ais-tagrow">
-                  <i class="ais-dot"></i>
-                  <span class="ais-tag">Today (10.00 – 10.06 PM)</span>
-                  <span class="ais-cnt"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M4 18l1.5-4A8 8 0 1 1 9 18.6z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>5 <svg width="15" height="15" viewBox="0 0 24 24"><path d="M6 3l3 .4 1.5 4-2 1.6a10 10 0 0 0 6.5 6.5l1.6-2 4 1.5.4 3c0 1.2-1.2 2.4-2.4 2.4C10 21 3 14 3 5.4 3 4.2 4.8 3 6 3z" fill="none" stroke="#45413b" stroke-width="2" stroke-linejoin="round" /></svg>1</span>
-                </div>
-                <div class="ais-item ws-item" id="sr1">
-                  <div class="t"><span>Interested in a WhatsApp sales solution</span><svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-                  <p>Team size 25 · Needs lead management + manager visibility</p>
-                </div>
-                <div class="ais-item ws-item" id="sr2">
-                  <div class="t"><span>Timeline: this month</span><svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-                  <p>Asked about plans on WhatsApp chat and a voice call</p>
-                </div>
-                <div class="ais-item ws-item" id="sr3">
-                  <div class="t"><span class="hi">Intent: High</span><svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1.5l5 5 5-5" fill="none" stroke="#45413b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-                  <p>Ready for a sales conversation — no repeat questions needed</p>
-                </div>
-              </div>
-            </div>
-            <div class="ws-assign">
-              <span>Assigned to</span>
-              <div class="as-stack">
-                <div class="as" id="as-ai">
-                  <img class="mini-mark" src="assets/logo/doubletick-mark.png" alt="" />
-                  AI Agent
-                </div>
-                <div class="as" id="as-rahul">
-                  <div id="rahul-av" class="avatar">RS</div>
-                  Rahul · Sales ✓
-                </div>
-              </div>
-            </div>
-            <div class="ws-note" id="ws-note">Full context shared — no repeat questions</div>
-          </div>
-
-          <!-- S7 right column -->
-          <div id="assigned">
-            <div id="rahul-av2" class="avatar">RS</div>
-            Assigned to Rahul · Sales
-          </div>
-          <div id="demo">
-            <i class="shine" id="demo-shine"></i>
-            <span>Next action</span>
-            <b>Demo · Ready to Schedule</b>
-          </div>
-
-          <!-- Green connecting lines -->
           <svg id="lines" viewBox="0 0 1080 1080">
-            <path id="ln1g" class="glow" d="M -40 1010 C 220 1010, 380 940, 520 810 S 600 658, 650 658" fill="none" stroke="#27b378" stroke-width="16" stroke-linecap="round" stroke-opacity="0.45" />
-            <path id="ln2g" class="glow" d="M 650 658 C 600 580, 640 420, 560 368" fill="none" stroke="#27b378" stroke-width="16" stroke-linecap="round" stroke-opacity="0.45" />
-            <path
-              id="ln1"
-              d="M -40 1010 C 220 1010, 380 940, 520 810 S 600 658, 650 658"
-              fill="none"
-              stroke="#27b378"
-              stroke-width="6"
-              stroke-linecap="round"
-            />
-            <path
-              id="ln2"
-              d="M 650 658 C 600 580, 640 420, 560 368"
-              fill="none"
-              stroke="#27b378"
-              stroke-width="6"
-              stroke-linecap="round"
-            />
-            <path
-              id="ln3"
-              d="M 418 470 C 432 470, 436 422, 446 422"
-              fill="none"
-              stroke="#27b378"
-              stroke-width="5"
-              stroke-linecap="round"
-            />
-            <circle id="ln-dot" cx="650" cy="658" r="11" fill="#27b378" opacity="0" />
+            <path id="ln1g" class="glow" d="M -40 1000 C 160 1000, 210 780, 250 650 S 270 537, 290 537" fill="none" stroke="#27b378" stroke-width="16" stroke-linecap="round" stroke-opacity="0.45" />
+            <path id="ln1" d="M -40 1000 C 160 1000, 210 780, 250 650 S 270 537, 290 537" fill="none" stroke="#27b378" stroke-width="6" stroke-linecap="round" />
+            <circle id="ln-dot" cx="290" cy="537" r="11" fill="#27b378" opacity="0" />
             <circle id="hd1g" class="glow" cx="0" cy="0" r="18" fill="#27b378" opacity="0" />
             <circle id="hd1" cx="0" cy="0" r="8" fill="#ffffff" stroke="#27b378" stroke-width="4" opacity="0" />
-            <circle id="hd2g" class="glow" cx="0" cy="0" r="18" fill="#27b378" opacity="0" />
-            <circle id="hd2" cx="0" cy="0" r="8" fill="#ffffff" stroke="#27b378" stroke-width="4" opacity="0" />
           </svg>
         </div>
+        <div class="fade" id="fade-n"></div>
+        <div class="fade" id="fade-d"></div>
       </div>
 
       <div id="brand" class="clip" data-start="0" data-duration="36.4" data-track-index="6">
@@ -2230,8 +2461,10 @@
           );
         }
         // virtual camera: zoom about a focal point that stays put on screen
+        const BASE = 1.1; // the stage is framed 10% larger; camTo scales relative to it
         function camTo(t, cx, cy, s, d, ease = "power3.inOut") {
-          tl.to("#cam", { x: (1 - s) * cx, y: (1 - s) * cy, scale: s, duration: d, ease }, t);
+          const S = s * BASE;
+          tl.to("#cam", { x: (1 - S) * cx, y: (1 - S) * cy, scale: S, duration: d, ease }, t);
         }
         // ripple ring at a stage point
         function ring(cx, cy, t, size = 160, o = {}) {
@@ -2328,7 +2561,8 @@
           // ---- chat scroll model -------------------------------------------
           const chatEl = $("#chat"),
             view = $("#chat-view");
-          const VH = view.clientHeight;
+          // usable chat height: what stays above the beige fade at the bottom of the frame
+          const VH = 372;
           const absPos = (el) => {
             let x = 0,
               y = 0;
@@ -2400,102 +2634,101 @@
             ring(fx + 28, fy + 28, t + 0.55, 70, { to: 1.5, d: 0.6 });
           }
 
+          function mark(id, t) {
+            tl.to("#" + id, { backgroundSize: "100% 100%", duration: 0.4, ease: "power2.out" }, t);
+            const b = document.getElementById(id).closest(".b, .call-tx");
+            tl.fromTo(b, { scale: 1 }, { scale: 1.035, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", ...IR }, t + 0.1);
+          }
+          const PX = 286,
+            PY = 324; // phone screen origin in stage space
+
           // ================= S1 — 10 PM HOOK (0 – 5.5) =====================
-          tl.set("#cam", { x: 0, y: 0, scale: 1, filter: "blur(0px)" }, 0);
-          tl.set("#chat", { filter: "blur(0px) saturate(1)" }, 0);
-          tl.set(["#lead", "#as-ai", "#journey"], { filter: "blur(0px)" }, 0);
           // a static, fully composed opening frame for the first two seconds
-          tl.set("#ct0", { opacity: 1 }, 0);
+          tl.set("#cam", { x: (1 - BASE) * 540, y: (1 - BASE) * 318, scale: BASE, filter: "blur(0px)" }, 0);
+          tl.set(["#as-ai", "#journey"], { filter: "blur(0px)" }, 0);
           tl.set("#m-c1", { opacity: 1 }, 0);
-          flip("#ct0", "#ct1", 2.2);
-          tl.to("#st-off", { opacity: 0, y: -10, duration: 0.2 }, 2.45);
-          inn("#noreply", 2.55, { y: 10, s: 0.9, e: "back.out(2)" });
-          flip("#ct1", "#ct2", 3.4);
-          tl.fromTo("#noreply .dot", { scale: 1 }, { scale: 1.6, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut", ...IR }, 2.8);
-          // slow creeping push — tension
-          camTo(2.0, 470, 618, 1.04, 8.2, "sine.inOut");
+          const c1 = $("#m-c1");
+          $("#sys-chip").style.top = c1.offsetTop + c1.offsetHeight + 14 + "px";
+          tl.fromTo("#sys-chip", { opacity: 0, y: 10, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2)", ...IR }, 2.2);
+          tl.set("#sc0", { opacity: 1 }, 2.2);
+          flip("#sb0", "#sb1", 2.2);
+          flip("#sb1", "#sb2", 3.4);
+          flip("#sc0", "#sc1", 3.4);
+          camTo(2.0, 540, 318, 1.03, 3.4, "sine.inOut");
           tl.fromTo("#blob-n", { x: 0, y: 0 }, { x: -120, y: 60, duration: 8.5, ease: "none", ...IR }, 2.0);
 
           // ================= S2 — LEAD GOES COLD (5.5 – 10.3) ==============
           wordsOut("#h1", 5.35);
           tl.to("#h1", { opacity: 0, duration: 0.3 }, 5.5);
+          camTo(5.4, 540, 318, 1, 0.6, "power3.inOut");
+          tl.to("#phone", { y: 520, opacity: 0, duration: 0.6, ease: "power3.in" }, 5.4);
           wordsIn("#h2 .hl-big", 5.65);
           wordsIn("#h2 .hl-sub", 6.1, 0.03);
-          tl.to("#noreply", { opacity: 0, scale: 0.8, duration: 0.25 }, 5.4);
           tl.fromTo(
             "#lead",
-            { opacity: 0, y: 60, rotationX: -35, transformPerspective: 1200, transformOrigin: "50% 100%" },
+            { opacity: 0, y: 60, rotationX: -30, transformPerspective: 1200, transformOrigin: "50% 100%" },
             { opacity: 1, y: 0, rotationX: 0, duration: 0.7, ease: "power4.out", ...IR },
-            5.7,
+            5.85,
           );
-          flip("#ct2", "#ct3", 6.2);
+          flip("#lt0", "#lt1", 6.4);
           tl.to("#p-high", { opacity: 0, y: -10, duration: 0.25 }, 6.9);
           tl.fromTo("#p-wait", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ...IR }, 7.0);
           tl.to("#lead", { backgroundColor: "#eceae5", borderColor: "rgba(142,138,131,0.45)", duration: 1.0 }, 6.8);
           tl.to("#temp-fill", { scaleX: 0.52, backgroundColor: "#a9a49b", duration: 1.0, ease: "power2.inOut" }, 6.8);
-          flip("#ct3", "#ct4", 7.6);
+          flip("#lt1", "#lt2", 7.6);
           tl.to("#p-wait", { opacity: 0, y: -10, duration: 0.25 }, 8.0);
           tl.fromTo("#p-cold", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ...IR }, 8.1);
           tl.to("#lead", { backgroundColor: "#f3e2dc", borderColor: "rgba(168,71,58,0.4)", duration: 1.0 }, 7.9);
           tl.to("#temp-fill", { scaleX: 0.14, backgroundColor: "#b5574a", duration: 1.0, ease: "power2.inOut" }, 7.9);
           tl.to("#frost", { opacity: 1, duration: 1.2 }, 7.9);
-          // shiver as it goes cold
           tl.fromTo("#lead", { x: 0 }, { x: 4, duration: 0.05, repeat: 9, yoyo: true, ease: "none", ...IR }, 8.15);
-          tl.fromTo("#enq1", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", ...IR }, 8.6);
-          // the lead starts slipping away
-          tl.to("#lead", { y: 40, opacity: 0.5, rotation: 3, duration: 0.8, ease: "power2.in" }, 9.5);
-          tl.to("#chat", { opacity: 0.8, filter: "blur(0px) saturate(0.6)", duration: 0.6 }, 9.4);
+          tl.fromTo("#enq1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", ...IR }, 8.6);
+          tl.to("#lead", { y: 40, opacity: 0.55, rotation: 2, duration: 0.8, ease: "power2.in" }, 9.5);
 
           // ============ TRANSITION — DOUBLETICK CATCHES IT (10.3 – 13) =====
           wordsOut("#h2", 10.15);
-          tl.to("#enq1", { opacity: 0, y: 16, duration: 0.3, ease: "power2.in" }, 10.2);
+          tl.to("#enq1", { opacity: 0, y: 10, duration: 0.3 }, 10.2);
           drawPath("ln1", 10.25, 0.5, "hd1");
           tl.to("#lead", { y: 0, rotation: 0, opacity: 1, duration: 0.45, ease: "back.out(2.6)" }, 10.75);
           tl.fromTo("#ln-dot", { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.25, ...IR }, 10.72);
-          ring(830, 658, 10.75, 260, { to: 1.8, d: 1.0 });
-          ring(830, 658, 10.9, 260, { to: 2.4, d: 1.1 });
+          ring(540, 537, 10.75, 300, { to: 1.8, d: 1.0 });
+          ring(540, 537, 10.9, 300, { to: 2.4, d: 1.1 });
           tl.to("#frost", { opacity: 0, duration: 0.4 }, 10.8);
           tl.to("#lead", { backgroundColor: "#e3f3e8", borderColor: "rgba(39,179,120,0.6)", duration: 0.5 }, 10.8);
           tl.to("#temp-fill", { scaleX: 1, backgroundColor: "#27b378", duration: 0.7, ease: "power3.out" }, 10.8);
           tl.to("#p-cold", { opacity: 0, duration: 0.2 }, 10.85);
           tl.fromTo("#p-high", { opacity: 0, y: 10, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2.4)", ...IR }, 10.95);
-          // night → day: a circular wipe radiating from the caught lead
-          tl.to("#bg-day", { clipPath: "circle(1500px at 830px 658px)", duration: 1.2, ease: "power2.inOut" }, 10.75);
+          flip("#lt2", "#lt1", 11.0, 0.16);
+          flip("#lt1", "#lt0", 11.16, 0.16);
+          flip("#lt0", "#lt3", 11.32, 0.26);
+          tl.to("#bg-day", { clipPath: "circle(1500px at 540px 537px)", duration: 1.2, ease: "power2.inOut" }, 10.75);
+          tl.to("#fade-d", { opacity: 1, duration: 1.0 }, 11.0);
           tl.fromTo(["#blob-g", "#blob-w"], { opacity: 0 }, { opacity: 1, duration: 1.2, ...IR }, 11.0);
           tl.fromTo("#blob-g", { x: 0, y: 0 }, { x: -260, y: -120, duration: 22, ease: "sine.inOut", ...IR }, 11.0);
           tl.fromTo("#blob-w", { x: 0, y: 0 }, { x: 140, y: 80, duration: 22, ease: "sine.inOut", ...IR }, 11.0);
-          camTo(10.3, 540, 640, 1, 0.8, "power3.out");
-          tl.to("#chat", { opacity: 1, filter: "blur(0px) saturate(1)", duration: 0.4 }, 10.8);
           wordsIn("#h3 .hl-sub", 10.65);
           wordsIn("#h3 .hl-big", 10.8, 0.09);
-          drawPath("ln2", 11.0, 0.45, "hd2");
-          tl.fromTo("#chat-ring", { opacity: 0 }, { opacity: 1, duration: 0.2, ...IR }, 11.4);
-          tl.fromTo("#chat", { scale: 1 }, { scale: 1.025, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "50% 50%", ...IR }, 11.4);
-          tl.to("#chat-ring", { opacity: 0, duration: 0.8 }, 12.6);
-          inn("#st-ai", 12.4, { y: 10, s: 0.8, e: "back.out(2)" });
-          tl.to("#st-ai", { opacity: 0, scale: 0.9, duration: 0.2 }, 13.4);
-          // clock rewinds to the moment of the enquiry
-          flip("#ct4", "#ct3", 11.1, 0.16);
-          flip("#ct3", "#ct2", 11.26, 0.16);
-          flip("#ct2", "#ct1", 11.42, 0.16);
-          flip("#ct1", "#ct5", 11.58, 0.28);
-          tl.to("#clock", { scale: 0.62, duration: 0.6, ease: "power4.inOut" }, 12.0);
-          tl.to("#lead", { opacity: 0, scale: 0.85, y: 20, filter: "blur(6px)", duration: 0.45, ease: "power2.in" }, 12.0);
-          tl.to(["#ln1", "#ln2", "#ln1g", "#ln2g", "#ln-dot"], { opacity: 0, duration: 0.5 }, 12.2);
+          tl.to(["#ln1", "#ln1g", "#ln-dot"], { opacity: 0, duration: 0.4 }, 11.4);
+          // the caught lead drops into the conversation as the phone returns
+          tl.to("#lead", { y: 120, scale: 0.4, opacity: 0, duration: 0.55, ease: "power3.in" }, 11.6);
+          tl.set(["#sb2", "#sb1"], { opacity: 0 }, 11.3);
+          tl.set("#sb0", { opacity: 1, yPercent: 0, filter: "blur(0px)" }, 11.3);
+          tl.set("#sys-chip", { opacity: 0 }, 11.3);
+          tl.to("#phone", { y: 0, opacity: 1, duration: 0.75, ease: "power4.out" }, 11.75);
+          tl.fromTo("#phone-ring", { opacity: 0 }, { opacity: 1, duration: 0.2, ...IR }, 12.2);
+          tl.to("#phone-ring", { opacity: 0, duration: 0.8 }, 12.6);
 
           // ================= S3 — EVERY CHAT, EVERY CALL (13 – 20) =========
           wordsOut("#h3", 12.8);
           wordsIn("#h4 .hl-big", 13.0, 0.07);
           aiMsg("m-c1", "m-a1", 12.7, 13.4);
-          tl.set("#chat", { transformOrigin: "0% 0%" }, 12.9);
-          camTo(13.2, 300, 580, 1.06, 0.9, "power3.inOut");
-          inn("#replied", 13.6, { y: 10, s: 0.8, e: "back.out(2)" });
           userMsg("m-c2", 14.5);
           // "...or voice calls": Ravi calls, and the AI agent answers in the same WhatsApp
           tl.set("#call", { yPercent: 100 }, 0);
           tl.fromTo("#call", { yPercent: 100, opacity: 1 }, { yPercent: 0, opacity: 1, duration: 0.6, ease: "power4.out", ...IR }, 15.2);
           tl.fromTo(".call-face", { scale: 0.7 }, { scale: 1, duration: 0.6, ease: "back.out(2)", ...IR }, 15.45);
-          camTo(15.2, 340, 640, 1.07, 0.9, "power3.inOut");
+          tl.to(["#chat-view", "#chat-head", "#chat-input", "#chat > .sbar"], { opacity: 0, duration: 0.05 }, 15.8);
+          tl.to(["#chat-view", "#chat-head", "#chat-input", "#chat > .sbar"], { opacity: 1, duration: 0.05 }, 19.3);
           document.querySelectorAll("#call .wv").forEach((w, k) => {
             const d = 0.16 + ((k * 7) % 5) * 0.03;
             const reps = Math.floor(3.6 / d);
@@ -2508,25 +2741,19 @@
           });
           tl.fromTo("#tx1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", ...IR }, 16.5);
           tl.fromTo("#tx2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", ...IR }, 17.9);
-          extract("mk-team", "chip-team", 18.95);
-          // the chat sits fully behind the call screen while it is up
-          tl.to(["#chat-view", "#chat-head", "#chat-input"], { opacity: 0, duration: 0.05 }, 15.8);
-          tl.to(["#chat-view", "#chat-head", "#chat-input"], { opacity: 1, duration: 0.05 }, 19.3);
-          tl.set("#call", { opacity: 0 }, 19.9);
-          // call ends — it is logged in the same conversation
+          mark("mk-team", 18.95);
           tl.to("#call", { yPercent: 100, duration: 0.5, ease: "power3.in" }, 19.35);
-          camTo(19.4, 540, 620, 1.0, 0.7, "power3.inOut");
+          tl.set("#call", { opacity: 0 }, 19.9);
           userMsg("m-call", 19.7);
-          tl.to("#replied", { opacity: 0, scale: 0.8, duration: 0.25 }, 19.8);
 
           // ================= S4 — UNDERSTANDS THE NEED (20 – 21.4) =========
           wordsOut("#h4", 19.8);
           wordsIn("#h5 .hl-big", 20.0);
           wordsIn("#h5 .hl-sub", 20.3, 0.04);
-          extract("mk-lead", "chip-lead", 20.15);
+          mark("mk-lead", 20.15);
           aiMsg("m-call", "m-a3", 20.3, 20.7);
           userMsg("m-c4", 21.3);
-          extract("mk-mgr", "chip-mgr", 21.7);
+          mark("mk-mgr", 21.7);
 
           // ================= S5 — QUALIFIED, BUYING INTENT (21.4 – 25.8) ===
           wordsOut("#h5", 21.2);
@@ -2534,103 +2761,55 @@
           wordsIn("#h6 .hl-sub", 24.4, 0.04);
           aiMsg("m-c4", "m-a4", 21.85, 22.2);
           userMsg("m-c5", 22.75);
-          extract("mk-time", "chip-time", 23.05);
-          // the same lead card returns, now as the AI chat summary
-          tl.set("#lead", { height: 440, top: 438 }, 23.4);
-          tl.set(".lead-a", { opacity: 0 }, 23.4);
-          tl.set(".lead-b", { opacity: 1 }, 23.4);
-          tl.set("#lead", { backgroundColor: "#ffffff" }, 23.4);
-          tl.fromTo(
-            "#lead",
-            { opacity: 0, scale: 0.9, y: 0, filter: "blur(6px)" },
-            { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power3.out", ...IR },
-            23.45,
-          );
-          const itemY = (id) => {
-            const [, y] = absPos(document.getElementById(id));
-            return 438 + y - absPos($("#lead"))[1];
-          };
-          [
-            ["#chip-lead", "q-need"],
-            ["#chip-mgr", "q-need"],
-            ["#chip-team", "q-team"],
-            ["#chip-time", "q-time"],
-          ].forEach(([chip, row], i) => {
-            const c = $(chip);
-            const dy = itemY(row) - c.offsetTop;
-            // magnetic pull: accelerate in, collapse on contact
-            tl.to(chip, { y: dy, x: 16, scale: 0.6, rotation: i % 2 ? 4 : -4, duration: 0.42, ease: "power4.in" }, 23.5 + i * 0.06);
-            tl.to(chip, { opacity: 0, duration: 0.08 }, 23.88 + i * 0.06);
-          });
-          tl.fromTo("#lead", { scale: 1 }, { scale: 1.03, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", ...IR }, 23.9);
+          mark("mk-time", 23.05);
+          // same phone: the DoubleTick app opens the AI chat summary
+          tl.to("#chat", { xPercent: -30, duration: 0.55, ease: "power3.inOut" }, 23.35);
+          tl.fromTo("#scr-sum", { xPercent: 100, opacity: 1 }, { xPercent: 0, opacity: 1, duration: 0.55, ease: "power3.inOut", ...IR }, 23.35);
+          tl.set("#scr-sum", { visibility: "hidden" }, 0);
+          tl.set("#scr-sum", { visibility: "visible" }, 23.35);
+          tl.set("#chat", { visibility: "hidden" }, 23.95);
+          tl.set("#chat", { visibility: "visible" }, 29.95);
+          tl.set("#scr-sum", { visibility: "hidden" }, 30.55);
           ["#q-need", "#q-team", "#q-time"].forEach((r, i) => {
-            const t = 23.85 + i * 0.16;
-            tl.fromTo(r, { opacity: 0, x: 14 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out", ...IR }, t);
+            const t = 23.8 + i * 0.16;
+            tl.fromTo(r, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", ...IR }, t);
             tl.fromTo(r, { backgroundColor: "rgba(39,179,120,0.16)" }, { backgroundColor: "rgba(39,179,120,0)", duration: 0.7, ...IR }, t);
           });
           tl.fromTo("#ais-calls", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out", ...IR }, 24.25);
-          tl.fromTo("#p-final", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.6)", ...IR }, 24.45);
-          ring(830, 658, 24.45, 300, { to: 1.7, d: 0.9 });
-          ring(830, 658, 24.58, 300, { to: 2.3, d: 1.0 });
-          burst(830, 658, 24.45, 18, { dist: 210 });
-          camTo(24.4, 830, 658, 1.07, 0.35, "power4.out");
-          tl.to("#lead", { boxShadow: "0 0 0 10px rgba(39,179,120,0.18), 0 30px 60px -26px rgba(19,128,74,0.65)", duration: 0.4 }, 24.45);
-          tl.to("#clock", { opacity: 0, y: -10, duration: 0.3 }, 25.7);
+          tl.fromTo("#p-final", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.6)", transformOrigin: "0% 50%", ...IR }, 24.45);
+          const [fx, fy] = absPos($("#p-final"));
+          const pf = $("#p-final");
+          ring(fx + pf.offsetWidth / 2, fy + 23, 24.45, 160, { to: 2.0, d: 0.9 });
+          burst(fx + pf.offsetWidth / 2, fy + 23, 24.45, 16, { dist: 150 });
+          camTo(24.4, 540, 318, 1.04, 0.4, "power4.out");
 
           // ================= S6 — AI → HUMAN HANDOFF (25.8 – 30.2) =========
           wordsOut("#h6", 25.6);
           wordsIn("#h7 .hl-big", 25.85);
           wordsIn("#h7 .hl-sub", 26.4, 0.04);
-          
-          camTo(25.6, 540, 640, 1.0, 0.7, "power3.inOut");
-          tl.to("#chat", { scale: 0.66, x: -10, y: 70, duration: 0.7, ease: "power4.inOut" }, 25.8);
-          tl.to("#chat", { filter: "blur(2.5px) saturate(1)", opacity: 0.75, duration: 0.6 }, 26.4);
-          tl.fromTo(
-            "#ws",
-            { opacity: 0, x: 160, rotationY: -32, transformPerspective: 1600, transformOrigin: "100% 50%" },
-            { opacity: 1, x: 0, rotationY: 0, duration: 0.85, ease: "power4.out", ...IR },
-            25.95,
-          );
-          // context transfer — the qualification card travels into the AI summary
-          tl.to("#lead", { x: -180, y: 30, scale: 0.86, rotation: -2, duration: 0.6, ease: "power3.inOut" }, 26.25);
-          tl.to("#lead", { opacity: 0, scale: 0.8, filter: "blur(8px)", duration: 0.35 }, 26.8);
-          ["#sr1", "#sr2", "#sr3"].forEach((r, i) => {
-            const t = 26.85 + i * 0.14;
-            tl.fromTo(r, { opacity: 0, x: -60, filter: "blur(4px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.45, ease: "power4.out", ...IR }, t);
-            tl.fromTo(r, { backgroundColor: "rgba(39,179,120,0.16)" }, { backgroundColor: "rgba(39,179,120,0)", duration: 0.7, ...IR }, t + 0.2);
-          });
-          drawPath("ln3", 26.4, 0.4);
-          // assignment AI Agent -> Rahul
-          camTo(28.5, 760, 778, 1.06, 0.4, "power3.out");
+          camTo(25.7, 540, 318, 1.0, 0.6, "power3.inOut");
+          tl.to("#sum-scroll", { y: -150, duration: 0.7, ease: "power3.inOut" }, 25.9);
+          tl.fromTo("#assign", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", ...IR }, 26.4);
           tl.to("#as-ai", { opacity: 0, x: -30, filter: "blur(4px)", duration: 0.25, ease: "power2.in" }, 28.6);
           tl.fromTo("#as-rahul", { opacity: 0, x: 40, scale: 0.85 }, { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(2.2)", ...IR }, 28.72);
           const [rx, ry] = absPos($("#as-rahul"));
-          ring(rx + 27, ry + 27, 28.8, 90, { to: 2.2, d: 0.8 });
+          ring(rx + 27, ry + 27 - 150, 28.8, 90, { to: 2.2, d: 0.8 });
           inn("#ws-note", 29.0, { y: 8 });
-          camTo(29.6, 540, 640, 1.0, 0.5, "power3.inOut");
 
           // ================= S7 — SALES FOCUSES ON CLOSING (30.2 – 33) =====
           wordsOut("#h7", 30.0);
           wordsIn("#h8 .hl-big", 30.2);
-          tl.to("#ws", { opacity: 0, x: 140, rotationY: 28, duration: 0.5, ease: "power3.in" }, 30.0);
-          tl.to("#ln3", { opacity: 0, duration: 0.3 }, 30.0);
-          tl.to("#chat", { scale: 1, x: 0, y: 0, duration: 0.7, ease: "back.out(1.2)" }, 30.1);
-          tl.to("#chat", { filter: "blur(0px) saturate(1)", opacity: 1, duration: 0.35, ease: "power2.out" }, 30.1);
-          inn("#assigned", 30.45, { y: 14, s: 0.85, e: "back.out(2)" });
+          tl.to("#scr-sum", { xPercent: 100, duration: 0.5, ease: "power3.inOut" }, 30.0);
+          tl.to("#chat", { xPercent: 0, duration: 0.5, ease: "power3.inOut" }, 30.0);
           aiMsg("m-c5", "m-r1", 30.3, 30.75);
+          tl.fromTo("#demo-btn", { backgroundColor: "rgba(10,138,208,0)" }, { backgroundColor: "rgba(10,138,208,0.14)", duration: 0.15, yoyo: true, repeat: 1, ...IR }, 31.45);
           userMsg("m-c6", 31.8);
-          tl.fromTo(
-            "#demo",
-            { opacity: 0, y: 40, rotationX: -60, transformPerspective: 1000, transformOrigin: "50% 0%" },
-            { opacity: 1, y: 0, rotationX: 0, duration: 0.6, ease: "power4.out", ...IR },
-            32.3,
-          );
-          tl.fromTo("#demo-shine", { xPercent: -150 }, { xPercent: 350, duration: 0.7, ease: "power2.inOut", ...IR }, 32.6);
-          camTo(32.2, 830, 518, 1.05, 0.6, "power3.out");
+          camTo(31.0, 540, 318, 1.03, 1.6, "sine.inOut");
 
           // ================= S8 — CONNECTED JOURNEY (33 – 36.6) ============
           wordsOut("#h8", 32.85);
           tl.to("#cam", { scale: 0.82, x: 97, y: 108, opacity: 0, filter: "blur(10px)", duration: 0.55, ease: "power3.in" }, 33.0);
+          tl.to(".fade", { opacity: 0, duration: 0.4 }, 33.2);
           wordsIn("#h9 .hl-big", 33.3, 0.07);
           tl.set("#j-fill", { scaleY: 0 }, 0);
           tl.fromTo("#journey", { opacity: 0 }, { opacity: 1, duration: 0.3, ...IR }, 33.3);
@@ -2641,10 +2820,10 @@
             const t = 33.4 + i * 0.4;
             tl.fromTo(n, { opacity: 0, x: -30, filter: "blur(5px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.45, ease: "power4.out", ...IR }, t);
             tl.fromTo(n + " .j-dot", { scale: 0.3 }, { scale: 1, duration: 0.45, ease: "back.out(3)", ...IR }, t);
-            ring(325, 345 + i * 104, t + 0.05, 50, { to: 2.0, d: 0.6, parent: $("#journey-clip") });
+            ring(370, 345 + i * 104, t + 0.05, 50, { to: 2.0, d: 0.6, parent: $("#journey-clip") });
           });
           tl.fromTo("#j6", { scale: 1 }, { scale: 1.08, duration: 0.2, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "0% 50%", ...IR }, 35.55);
-          burst(325, 865, 35.55, 12, { dist: 80, parent: $("#journey-clip") });
+          burst(370, 865, 35.55, 12, { dist: 80, parent: $("#journey-clip") });
           wordsOut("#h9", 36.25);
           tl.to("#journey", { opacity: 0, y: -30, filter: "blur(6px)", duration: 0.35, ease: "power2.in" }, 36.3);
 
