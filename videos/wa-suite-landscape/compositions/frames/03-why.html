@@ -57,19 +57,19 @@
         }
         #f03-halo {
           position: absolute;
-          left: 400px;
-          top: 474px;
-          width: 1120px;
-          height: 1120px;
+          left: 460px;
+          top: 100px;
+          width: 1000px;
+          height: 1000px;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.6);
         }
         #f03-core {
           position: absolute;
-          left: 585px;
-          top: 659px;
-          width: 750px;
-          height: 750px;
+          left: 520px;
+          top: 160px;
+          width: 880px;
+          height: 880px;
           border-radius: 50%;
           background: #fad6d9;
           display: flex;
@@ -79,7 +79,7 @@
         }
         .f03-t {
           display: block;
-          font-size: 200px;
+          font-size: 300px;
           font-weight: 600;
           letter-spacing: -0.045em;
           color: #c8161d;
@@ -102,7 +102,7 @@
         <div class="f03-q" id="f03-q2" style="left: 1560px; top: 190px; width: 130px; height: 176px">
           <svg viewBox="5 3 14 19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8.2 8.4a3.9 3.9 0 1 1 5.4 3.6c-1.1.5-1.6 1.3-1.6 2.4v1" /><circle cx="12" cy="19.4" r="0.6" fill="currentColor" /></svg>
         </div>
-        <div class="f03-q" id="f03-q3" style="left: 300px; top: 690px; width: 190px; height: 257px">
+        <div class="f03-q" id="f03-q3" style="left: 190px; top: 690px; width: 190px; height: 257px">
           <svg viewBox="5 3 14 19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8.2 8.4a3.9 3.9 0 1 1 5.4 3.6c-1.1.5-1.6 1.3-1.6 2.4v1" /><circle cx="12" cy="19.4" r="0.6" fill="currentColor" /></svg>
         </div>
         <div class="f03-q" id="f03-q4" style="left: 1500px; top: 640px; width: 220px; height: 298px">
@@ -131,20 +131,21 @@
           const discTrack = [
             [0.0, 375], [0.033, 404], [0.075, 428], [0.117, 449], [0.158, 471], [0.2, 492],
           ];
+          // Elements sit at their hero geometry (core 880 @ centre 960,600); the track offsets them
+          // down to the burned disc centre (960,1034) and scales them to its radius.
           discTrack.forEach(([t, r]) => {
             const h = Math.max(560, r + 100);
-            tl.set("#f03-core", { left: 960 - r, top: 1034 - r, width: 2 * r, height: 2 * r }, t);
-            tl.set("#f03-halo", { left: 960 - h, top: 1034 - h, width: 2 * h, height: 2 * h }, t);
+            tl.set("#f03-core", { x: 0, y: 434, scale: r / 440 }, t);
+            tl.set("#f03-halo", { x: 0, y: 434, scale: h / 500 }, t);
           });
           // Then the disc lifts into frame centre and "Why?" becomes the giant hero word
-          tl.to("#f03-halo", { left: 410, top: 50, width: 1100, height: 1100, backgroundColor: "rgba(247,207,212,0.45)", duration: 0.5, ease: "power3.inOut" }, 0.24);
-          tl.to("#f03-core", { left: 490, top: 130, width: 940, height: 940, duration: 0.5, ease: "power3.inOut" }, 0.24);
-          tl.to(".f03-t", { fontSize: 300, duration: 0.5, ease: "power3.inOut" }, 0.24);
-          tl.to("#f03-halo", { left: 395, top: 35, width: 1130, height: 1130, duration: 0.76, ease: "sine.inOut" }, 0.74);
+          tl.to("#f03-halo", { y: 0, scale: 1, backgroundColor: "rgba(247,207,212,0.45)", duration: 0.5, ease: "power3.inOut" }, 0.24);
+          tl.to("#f03-core", { y: 0, scale: 1, duration: 0.5, ease: "power3.inOut" }, 0.24);
+          tl.to("#f03-halo", { scale: 1.03, duration: 0.76, ease: "sine.inOut" }, 0.74);
           // "Why ?" settles to full red on the VO hit (why @ local 0.07)
           tl.fromTo("#f03-why", { opacity: 0.55, y: 10 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 0.0);
           tl.fromTo("#f03-qm", { opacity: 0, scale: 0.4, rotation: -25 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2.2)" }, 0.3);
-          tl.to("#f03-qm", { rotation: 10, duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0.62);
+          tl.to("#f03-qm", { rotation: 10, duration: 0.4, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0.72);
           // Soft red question marks drift at the edges
           const drift = [
             ["#f03-q1", 0.36, -18, -40, -12],

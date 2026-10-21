@@ -166,17 +166,17 @@
         }
         #f02-qmark {
           position: absolute;
-          left: 1290px;
-          top: 150px;
-          width: 560px;
-          height: 808px;
+          left: 655px;
+          top: 140px;
+          width: 610px;
+          height: 880px;
           color: #8a0f14;
-          opacity: 0.55;
+          opacity: 0.4;
         }
         #f02-qmark svg {
           display: block;
-          width: 560px;
-          height: 808px;
+          width: 610px;
+          height: 880px;
         }
         #f02-missed-line {
           position: absolute;
@@ -322,7 +322,7 @@
         }
         #f02-why {
           display: block;
-          font-size: 200px;
+          font-size: 234px;
           font-weight: 600;
           letter-spacing: -0.04em;
           color: #c8161d;
@@ -470,7 +470,7 @@
 
           // ===== Beat 2: chats get missed (1.62 – 2.75) =====
           tl.set("#f02-b2", { opacity: 1 }, 1.62);
-          tl.fromTo("#f02-qmark", { scale: 1.12, y: 40, opacity: 0 }, { scale: 1, y: -30, opacity: 0.55, duration: 1.13, ease: "power2.out" }, 1.62);
+          tl.fromTo("#f02-qmark", { scale: 1.12, y: 40, opacity: 0 }, { scale: 1, y: -30, opacity: 0.4, duration: 1.13, ease: "power2.out" }, 1.62);
           tl.fromTo("#f02-chats", { x: -90 }, { x: 0, duration: 0.7, ease: "power3.out" }, 1.62);
           tl.fromTo("#f02-missed", { scale: 0.86 }, { scale: 1, duration: 0.6, ease: "power3.out" }, 2.16);
           word("#f02-chats", 1.64, "#FFFFFF");
@@ -508,7 +508,7 @@
             tl.set("#f02-core", { left: 960 - r, top: 1034 - r, width: 2 * r, height: 2 * r, opacity: 1 }, t);
             tl.set("#f02-halo", { left: 960 - h, top: 1034 - h, width: 2 * h, height: 2 * h, opacity: 1 }, t);
           });
-          tl.to(["#f02-band", "#f02-shade", "#f02-wash"], { opacity: 0, duration: 0.01, ease: "none" }, 5.414);
+          tl.set(["#f02-band", "#f02-shade", "#f02-wash"], { opacity: 0 }, 5.42);
           tl.fromTo("#f02-why", { opacity: 0, y: 30 }, { opacity: 0.55, y: 10, duration: 0.06, ease: "none" }, 5.42);
 
           window.__timelines["f02"] = tl;
