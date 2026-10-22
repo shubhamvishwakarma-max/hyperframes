@@ -46,6 +46,7 @@ const IC = {
 };
 const icon = (n, size = 24, sw = 2) =>
   `<svg class="ic" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
+const waLogo = (s = 24) => `<img src="assets/brand/whatsapp.png" alt="WhatsApp" style="width:${s}px;height:${s}px;display:block;flex:none;">`;
 const verified = (s = 20) =>
   `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="${C.green}"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const ticks = `<svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#53BDEB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -263,7 +264,7 @@ ${cardY
   });
   body += `    <div class="card" id="ads-inbox">
       <div class="ads-ihead">
-        <div class="avatar" style="width:44px;height:44px;background:${C.green};color:#fff;">${icon("chat", 22)}</div>
+        ${waLogo(40)}
         <div class="t">WhatsApp</div>
         <div class="ads-cnt" id="ads-cnt0">1 new</div><div class="ads-cnt" id="ads-cnt1">2 new</div><div class="ads-cnt" id="ads-cnt2">3 new</div>
       </div>
@@ -348,7 +349,7 @@ ${leads
   .join("\n")}
     </svg>
     <div class="card" id="pb-list">
-      <div class="pb-lh"><span style="color:${C.green}">${icon("chat", 24)}</span>WhatsApp enquiries<span class="m">4 unread</span></div>
+      <div class="pb-lh">${waLogo(26)}WhatsApp enquiries<span class="m">4 unread</span></div>
 ${leads
   .map(
     ([t, s], i) => `      <div class="pb-row" id="pb-row${i}" style="top:${76 + i * (rowH + 12)}px;">
@@ -710,7 +711,7 @@ ${chat.js}`;
 .ho-row.sel { background: #EAF3EE; }
 .ho-row.sel::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: ${C.green}; }
 .ho-av { position: relative; width: 44px; height: 44px; border-radius: 50%; background: #EEE8F7; color: #6E4DAF; font-size: 18px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex: none; }
-.ho-av i { position: absolute; right: -2px; bottom: -2px; width: 14px; height: 14px; border-radius: 50%; background: ${C.green}; border: 2px solid #fff; }
+.ho-av i { position: absolute; right: -3px; bottom: -3px; width: 17px; height: 17px; border-radius: 50%; background: #fff url('assets/brand/whatsapp.png') center / 13px 13px no-repeat; }
 .ho-rn { font-size: 18px; font-weight: 600; white-space: nowrap; }
 .ho-rp { font-size: 15px; color: #6B6B6B; margin-top: 3px; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
 .ho-rt { position: absolute; right: 14px; top: 20px; font-size: 12px; color: #6B6B6B; }
@@ -856,7 +857,7 @@ ${items.map(([ic, , vl], i) => `    <div class="ho-fly" id="ho-c${i}" style="lef
 {
   const nodes = [
     ["megaphone", "Ad"],
-    ["chat", "WhatsApp"],
+    ["wa", "WhatsApp"],
     ["spark", "AI<br>Qualification"],
     ["home", "Property<br>Match"],
     ["calendar", "Viewing"],
@@ -883,7 +884,7 @@ ${items.map(([ic, , vl], i) => `    <div class="ho-fly" id="ho-c${i}" style="lef
     </svg>
 ${nodes
   .map(
-    ([ic, lb], i) => `    <div class="jy-n" id="jy-n${i}" style="left:${nx(i) - 36}px;${i === 5 ? `background:${C.greenDeep};color:#fff;border-color:${C.greenDeep};` : ""}">${icon(ic, 30)}</div>
+    ([ic, lb], i) => `    <div class="jy-n" id="jy-n${i}" style="left:${nx(i) - 36}px;${i === 5 ? `background:${C.greenDeep};color:#fff;border-color:${C.greenDeep};` : ""}">${ic === "wa" ? waLogo(36) : icon(ic, 30)}</div>
     <div class="jy-l" id="jy-l${i}" style="left:${nx(i) - 80}px;">${lb}</div>`,
   )
   .join("\n")}
