@@ -5,3 +5,6 @@ work/audio/*.wav
 work/vo/*.wav
 work/vo/test.mp3
 work/poster.png
+work/poster_*.png
+work/work_*.mp4
+work/sheet*.png
