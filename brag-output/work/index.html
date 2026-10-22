@@ -1,0 +1,431 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'Geist';src:url(fonts/geist.woff2) format('woff2');font-weight:100 900;}
+@font-face{font-family:'Hedvig';src:url(fonts/hedvig.woff2) format('woff2');}
+:root{--cream:#F4F3EC;--ink:#131316;--green:#27B578;--deep:#007A5A;--mint:#E5FFEF;--grey:#70707B;--line:#E4E2D8;--coral:#C8665A;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1080px;overflow:hidden;background:#F7F5EF}
+#stage{position:relative;width:1080px;height:1080px;overflow:hidden;background:#F7F5EF;font-family:Geist,sans-serif;color:var(--ink)}
+.abs{position:absolute;will-change:transform,opacity}
+.serif{text-wrap:balance;font-family:Hedvig,Georgia,serif;font-weight:400;letter-spacing:-0.02em}
+.center{text-align:center}
+.card{background:#FFFFFF;border-radius:22px;box-shadow:0 1px 0 rgba(19,19,22,.04),0 10px 30px rgba(60,50,30,.08);border:1px solid rgba(19,19,22,.06)}
+.chip{background:#fff;border-radius:16px;box-shadow:0 8px 22px rgba(80,40,30,.10);border:1px solid rgba(19,19,22,.06);display:flex;align-items:center;gap:10px;padding:0 14px;font-size:17px;font-weight:500;white-space:nowrap}
+.dot{width:10px;height:10px;border-radius:50%}
+.pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;font-weight:600;white-space:nowrap}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;color:#fff;flex:none}
+#subs{text-wrap:balance;position:absolute;left:70px;right:70px;bottom:34px;text-align:center;font:500 28px/1.32 Geist;color:#131316;text-shadow:0 0 6px rgba(247,245,239,.95),0 0 2px rgba(247,245,239,1)}
+svg{overflow:visible}
+</style></head>
+<body><div id="stage"></div>
+<script>
+const W=1080,H=1080;
+const S=document.getElementById('stage');
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const lerp=(a,b,k)=>a+(b-a)*k;
+const E={
+  lin:x=>x,
+  out:x=>1-Math.pow(1-x,3),
+  out5:x=>1-Math.pow(1-x,5),
+  inOut:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,
+  in:x=>x*x*x,
+  back:x=>{const c1=1.5,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)},
+};
+const P=(t,a,d,e=E.out)=>e(clamp((t-a)/d));
+// window envelope: fade in at a over fi, fade out ending at b over fo
+const win=(t,a,b,fi=.35,fo=.3)=>Math.min(clamp((t-a)/fi),clamp((b-t)/fo));
+function el(parent,cls,html,css){const d=document.createElement('div');d.className=cls||'';if(html!=null)d.innerHTML=html;if(css)Object.assign(d.style,css);(parent||S).appendChild(d);return d;}
+function set(e,{o=1,x=0,y=0,s=1,r=0,blur=0}={}){e.style.opacity=o;e.style.transform=`translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;e.style.filter=blur>0.05?`blur(${blur}px)`:'none';}
+const px=v=>v+'px';
+function box(parent,cls,html,l,t,w,h,css={}){return el(parent,'abs '+cls,html,Object.assign({left:px(l),top:px(t),width:w==null?'auto':px(w),height:h==null?'auto':px(h)},css));}
+
+// ---------- icons ----------
+const I={
+ pin:(c='#C8665A')=>`<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>`,
+ clinic:(c='#C8665A')=>`<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-5h6v5"/><path d="M12 8v5M9.5 10.5h5"/></svg>`,
+ chat:(c='#27B578',s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20l1.2-4.2A8.5 8.5 0 1 1 20.5 11.5z"/></svg>`,
+ cal:(c='#B7791F',s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>`,
+ clock:(c='#C8665A',s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>`,
+ check:(c='#fff',s=16,w=3)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`,
+ dticks:(c='#53BDEB',s=20)=>`<svg width="${s}" height="${s*0.7}" viewBox="0 0 24 16" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5l4 4L13 4"/><path d="M9.5 12.5L17 4"/><path d="M7.5 10.5"/></svg>`,
+ eyeoff:(c='#C8665A',s=18)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round"><path d="M3 3l18 18"/><path d="M10.6 5.1A10 10 0 0 1 12 5c6 0 9.5 7 9.5 7a17 17 0 0 1-3 3.8M6.6 6.6A16.5 16.5 0 0 0 2.5 12S6 19 12 19a9.7 9.7 0 0 0 4.2-1"/></svg>`,
+ eye:(c='#007A5A',s=26)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round"><path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>`,
+ sliders:(c='#007A5A',s=26)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>`,
+ bolt:(c='#007A5A',s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="${c}"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>`,
+ search:(c='#9A9AA3',s=18)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>`,
+ dtmark:(s=28)=>`<svg width="${s}" height="${s*0.62}" viewBox="0 0 34 21" fill="none" stroke="#27B578" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l6 6L20 4"/><path d="M14 17L27 4"/></svg>`,
+ verified:(s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path fill="#27B578" d="M12 1.5l2.6 1.9 3.2-.2 1 3 2.7 1.8-.9 3.1.9 3.1-2.7 1.8-1 3-3.2-.2L12 22.5l-2.6-1.9-3.2.2-1-3-2.7-1.8.9-3.1-.9-3.1 2.7-1.8 1-3 3.2.2z"/><path d="M7.5 12.2l3 3 6-6.2" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+};
+
+// ---------- layers ----------
+const tint=el(S,'abs',null,{left:0,top:0,width:'1080px',height:'1080px',background:'radial-gradient(120% 90% at 50% 38%, #FFFFFF 0%, #FBEFEC 46%, #F3D3CC 100%)'});
+const cream=el(S,'abs',null,{left:0,top:0,width:'1080px',height:'1080px',background:'radial-gradient(110% 80% at 50% 35%, #FBFAF6 0%, #F4F3EC 70%, #ECEADF 100%)',opacity:0});
+
+// ===== SCENE 1 =====
+const s1=box(S,'','',0,0,W,H);
+const s1logo=box(s1,'',`<img src="lavida.png" style="height:64px;display:block;margin:0 auto">`,0,44,W,70);
+const s1h1=box(s1,'serif center','6 locations.',0,124,W,null,{fontSize:'86px',lineHeight:'1'});
+const s1h2=box(s1,'serif center','Too many patient conversations<br>to track clearly.',0,226,W,null,{fontSize:'44px',lineHeight:'1.15',color:'#3A2E2C'});
+const clinics=[];
+const gridX=[115,405,695],gridY=[430,566];
+const counts=[3,7,5,12,4,9];
+for(let i=0;i<6;i++){
+  const c=box(s1,'card',`<div style="display:flex;align-items:center;gap:14px;height:100%;padding:0 18px">
+   <div style="width:52px;height:52px;border-radius:14px;background:#FBE9E5;display:flex;align-items:center;justify-content:center">${I.clinic()}</div>
+   <div style="flex:1;white-space:nowrap"><div style="font-weight:600;font-size:23px">Clinic 0${i+1}</div><div style="font-size:16px;color:#70707B;margin-top:2px">Dubai</div></div>
+   <div class="badge" style="min-width:34px;height:34px;padding:0 9px;border-radius:999px;background:#D9604F;color:#fff;font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center">0</div></div>`,
+   gridX[i%3],gridY[Math.floor(i/3)],270,104);
+  clinics.push(c);
+}
+const chipDefs=[
+ [I.chat('#27B578'),'New enquiry · unread',  70, 690,-3],
+ [I.cal('#B7791F'),'Reminder not sent',     370, 716, 2],
+ [I.clock(),'Follow-up overdue',            690, 688,-2],
+ [I.chat('#27B578'),'“Can I reschedule?”',  160, 800, 2.5],
+ [I.clock(),'No reply · 2 days',            470, 822,-1.5],
+ [I.chat('#27B578'),'Price enquiry',        760, 796, 3],
+ [I.cal('#B7791F'),'Who’s following up?',   300, 358,-2],
+ [I.chat('#27B578'),'Missed message',       620, 352, 2],
+];
+const chips=chipDefs.map(([ic,tx,x,y,r])=>box(s1,'chip',`${ic}<span>${tx}</span><span class="dot" style="background:#D9604F;margin-left:2px"></span>`,x,y,null,52));
+
+// ===== SCENE 2 =====
+const s2=box(S,'','',0,0,W,H);
+const s2h=box(s2,'serif center','Scattered chats.<br>Scattered follow-ups.',0,78,W,null,{fontSize:'66px',lineHeight:'1.08'});
+const s2sub=box(s2,'center','Patients&nbsp;&nbsp;·&nbsp;&nbsp;Appointments&nbsp;&nbsp;·&nbsp;&nbsp;Teams',0,242,W,null,{fontSize:'23px',color:'#70707B',fontWeight:'500',letterSpacing:'0.02em'});
+const admin=box(s2,'card',`<div style="display:flex;align-items:center;gap:16px;height:100%;padding:0 22px">
+ <div class="av" style="width:56px;height:56px;background:#3A3A40;font-size:20px">CA</div>
+ <div style="flex:1"><div style="font-weight:600;font-size:23px">Clinic Admin</div><div style="font-size:16px;color:#70707B;margin-top:3px">Monitoring 6 inboxes</div></div></div>`,300,318,480,100);
+const vis=box(s2,'pill',`${I.eyeoff()}Limited visibility`,580,300,null,40,{background:'#FBE3DE',color:'#B4493B',fontSize:'17px',padding:'0 16px',boxShadow:'0 4px 14px rgba(180,73,59,.18)'});
+const patDefs=[
+ ['Patient 01','Appointment follow-up pending','#E0A33A','Clinic 02'],
+ ['Patient 02','Enquiry waiting','#D9604F','Clinic 05'],
+ ['Patient 03','Reschedule requested','#E0A33A','Clinic 01'],
+ ['Patient 04','Lead not contacted','#D9604F','Clinic 04'],
+];
+const patPos=[[110,560],[570,560],[110,720],[570,720]];
+const s2svg=box(s2,'','<svg width="1080" height="1080" id="s2lines"></svg>',0,0,W,H);
+const pats=patDefs.map(([n,iss,col,cl],i)=>box(s2,'card',`<div style="display:flex;align-items:center;gap:16px;height:100%;padding:0 20px">
+ <div class="av" style="width:52px;height:52px;background:#B9B4AA;font-size:18px">P${i+1}</div>
+ <div style="flex:1;min-width:0"><div style="display:flex;align-items:center;gap:10px"><span style="font-weight:600;font-size:21px">${n}</span><span style="font-size:13px;color:#70707B;background:#F1EFE8;border-radius:6px;padding:2px 7px">${cl}</span></div>
+ <div style="font-size:17px;color:#4A4A52;margin-top:5px;display:flex;align-items:center;gap:8px"><span class="dot pdot" style="background:${col}"></span>${iss}</div></div></div>`,patPos[i][0],patPos[i][1],400,116));
+// weak lines from admin to patients
+const s2l=document.getElementById('s2lines');
+s2l.innerHTML=patPos.map(([x,y],i)=>{const sx=540+(i%2?60:-60),sy=418,ex=x+200,ey=y;return `<path class="wl" d="M${sx} ${sy} C ${sx} ${sy+80}, ${ex} ${ey-80}, ${ex} ${ey}" stroke="#C9A39C" stroke-width="2" fill="none" stroke-dasharray="6 9"/>`}).join('')+
+ `<line id="sweep" x1="0" y1="0" x2="0" y2="0" stroke="#27B578" stroke-width="5" stroke-linecap="round"/><line id="sweep2" x1="0" y1="0" x2="0" y2="0" stroke="#27B578" stroke-width="5" stroke-linecap="round"/><circle id="hub" cx="540" cy="640" r="10" fill="#27B578"/>`;
+const wls=[...s2l.querySelectorAll('.wl')];
+const sweep=s2l.querySelector('#sweep'),sweep2=s2l.querySelector('#sweep2'),hub=s2l.querySelector('#hub');
+
+// ===== SCENE 3 =====
+const s3=box(S,'','',0,0,W,H);
+const s3h=box(s3,'serif center','That’s where DoubleTick<br>stepped in.',0,86,W,null,{fontSize:'66px',lineHeight:'1.08'});
+const s3svg=box(s3,'','<svg width="1080" height="1080" id="s3lines"></svg>',0,0,W,H);
+const ringC=[540,610];
+const ring=[...Array(6)].map((_,i)=>{const a=-Math.PI/2+i*Math.PI/3+Math.PI/6; return [ringC[0]+Math.cos(a)*395,ringC[1]+Math.sin(a)*235];});
+const s3l=document.getElementById('s3lines');
+s3l.innerHTML=ring.map(([x,y],i)=>`<path class="gl" d="M${x} ${y} Q ${lerp(x,ringC[0],.5)+(i%2?40:-40)} ${lerp(y,ringC[1],.5)}, ${ringC[0]} ${ringC[1]}" stroke="#27B578" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".55"/>`).join('');
+const gls=[...s3l.querySelectorAll('.gl')];
+const glLen=gls.map(p=>p.getTotalLength());
+gls.forEach((p,i)=>{p.style.strokeDasharray=glLen[i];});
+const packets=[...Array(12)].map((_,i)=>box(s3,'',`<div style="width:38px;height:38px;border-radius:12px;background:#fff;box-shadow:0 6px 16px rgba(0,80,50,.18);display:flex;align-items:center;justify-content:center">${I.chat('#27B578',20)}</div>`,0,0,38,38));
+const crm=box(S,'card',`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px">
+ <div style="display:flex;align-items:center;gap:8px;font-size:17px;font-weight:600;color:#007A5A;background:#E5FFEF;border-radius:999px;padding:6px 14px">${I.dtmark(24)}DoubleTick</div>
+ <div style="font-weight:600;font-size:31px;letter-spacing:-0.01em">Unified WhatsApp CRM</div>
+ <div style="font-size:17px;color:#70707B">All conversations · 6 clinics · 1 view</div></div>`,330,510,420,200,{borderRadius:'26px',boxShadow:'0 0 0 1px rgba(39,181,120,.25), 0 18px 50px rgba(0,122,90,.16)'});
+// shared clinic pills (scene 3 ring -> scene 4 row)
+const cpills=[...Array(6)].map((_,i)=>box(S,'pill',`<span style="width:26px;height:26px;border-radius:8px;background:#E5FFEF;display:flex;align-items:center;justify-content:center">${I.clinic('#007A5A').replace(/28/g,'18')}</span>Clinic 0${i+1}`,0,0,140,44,{background:'#fff',fontSize:'17px',padding:'0 12px',boxShadow:'0 6px 16px rgba(60,50,30,.10)',border:'1px solid rgba(19,19,22,.06)',justifyContent:'center'}));
+const rowPos=[...Array(6)].map((_,i)=>[90+i*150,262]);
+
+// ===== SCENE 4 =====
+const s4=box(S,'','',0,0,W,H);
+const s4num=box(s4,'serif center','',0,50,W,null,{fontSize:'118px',lineHeight:'1'});
+const s4sub=box(s4,'serif center','patient leads. <span style="color:#007A5A">One unified WhatsApp CRM.</span>',0,176,W,null,{fontSize:'38px'});
+const s4svg=box(s4,'','<svg width="1080" height="1080" id="s4lines"></svg>',0,0,W,H);
+const s4l=document.getElementById('s4lines');
+s4l.innerHTML=rowPos.map(([x,y])=>`<path class="rl" d="M${x+70} ${y+44} C ${x+70} ${y+80}, 540 ${y+60}, 540 366" stroke="#27B578" stroke-width="2.5" fill="none" stroke-linecap="round"/>`).join('');
+const rls=[...s4l.querySelectorAll('.rl')];const rlLen=rls.map(p=>p.getTotalLength());rls.forEach((p,i)=>p.style.strokeDasharray=rlLen[i]);
+const dash=box(S,'card','',170,366,740,524,{borderRadius:'24px',overflow:'hidden'});
+const dashIn=el(dash,'',`
+ <div style="height:78px;display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid #EEEDE6">
+   ${I.dtmark(28)}<div style="font-weight:600;font-size:23px;flex:1">All Patient Conversations</div>
+   <div style="display:flex;align-items:center;gap:8px;font-size:15px;color:#4A4A52;border:1px solid #E4E2D8;border-radius:10px;padding:7px 12px">${I.search()}Search</div>
+   <div style="font-size:15px;font-weight:600;color:#007A5A;background:#E5FFEF;border-radius:10px;padding:8px 12px">All 6 clinics ▾</div>
+ </div>`,{});
+const rowDefs=[
+ ['AK','#C97B63','Aisha Khan','Consultation enquiry','Clinic 01','2m',2],
+ ['FN','#7A8F6B','Fatima Noor','Appointment follow-up','Clinic 03','5m',1],
+ ['RS','#8C7BA8','Riya Sharma','Reschedule request','Clinic 05','9m',3],
+ ['SA','#5E8FA8','Sarah Ali','Treatment interest','Clinic 02','12m',1],
+];
+const rows=rowDefs.map(([ini,col,n,m,cl,tm,u],i)=>box(dash,'',`<div style="display:flex;align-items:center;gap:16px;height:100%;padding:0 24px;border-bottom:1px solid #F1F0EA">
+ <div class="av" style="width:52px;height:52px;background:${col};font-size:18px">${ini}</div>
+ <div style="flex:1"><div style="font-weight:600;font-size:21px">${n}</div><div style="font-size:17px;color:#70707B;margin-top:4px;display:flex;align-items:center;gap:6px">${I.chat('#27B578',15)}${m}</div></div>
+ <div style="font-size:13px;color:#4A4A52;background:#F1EFE8;border-radius:6px;padding:3px 8px">${cl}</div>
+ <div style="width:56px;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px"><span style="font-size:14px;color:#27B578;font-weight:600">${tm}</span><span style="width:24px;height:24px;border-radius:50%;background:#27B578;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center">${u}</span></div>
+ </div>`,0,78+i*96,740,96));
+const dashFoot=box(dash,'',`<div style="display:flex;align-items:center;gap:10px;height:100%;padding:0 24px;font-size:16px;color:#007A5A;font-weight:600;background:#FAFDF9"><span class="dot" style="background:#27B578;width:9px;height:9px"></span>6 clinics connected · Live<span style="flex:1"></span><span style="color:#70707B;font-weight:500">Assigned · Tagged · Tracked</span></div>`,0,462,740,62);
+
+// ===== SCENE 5 =====
+const s5=box(S,'','',0,0,W,H);
+const s5h=box(s5,'serif center','Appointment confirmations.<br><span style="color:#007A5A">Automated at scale.</span>',0,74,W,null,{fontSize:'58px',lineHeight:'1.1'});
+const wa=box(s5,'card','',270,250,540,640,{borderRadius:'28px',overflow:'hidden'});
+el(wa,'',`<div style="height:84px;display:flex;align-items:center;gap:14px;padding:0 22px;background:#fff;border-bottom:1px solid #EEEDE6">
+  <div style="width:52px;height:52px;border-radius:50%;background:#FBF6F2;border:1px solid #EFE4DC;display:flex;align-items:center;justify-content:center;overflow:hidden"><img src="lavida.png" style="width:44px"></div>
+  <div><div style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:21px">La Vida Clinic ${I.verified(20)}</div><div style="font-size:14px;color:#70707B;margin-top:2px">Business account</div></div></div>
+  <div style="position:absolute;top:84px;left:0;right:0;bottom:0;background:#EFEAE0"></div>`);
+const waBody=box(wa,'','',0,84,540,556);
+const waDay=box(waBody,'center',`<span style="background:#fff;border-radius:8px;padding:4px 10px;font-size:13px;color:#70707B">Today</span>`,0,20,540,null);
+const waMsg=box(waBody,'',`<div style="background:#fff;border-radius:4px 18px 18px 18px;padding:16px 18px 10px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+  <div style="font-size:20px;line-height:1.42;color:#131316">Hi Aisha, this is a reminder for your appointment <b style="font-weight:600">tomorrow at 4:00 PM</b>. Please confirm.</div>
+  <div style="text-align:right;font-size:12px;color:#8A8A93;margin-top:4px">10:02</div></div>`,24,62,400,null);
+const btnC=box(waBody,'center',`<div style="background:#fff;border-radius:14px;height:52px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:19px;color:#007A5A;box-shadow:0 1px 2px rgba(0,0,0,.06)">Confirm</div>`,24,236,400,52);
+const btnR=box(waBody,'center',`<div style="background:#fff;border-radius:14px;height:52px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:19px;color:#007A5A;box-shadow:0 1px 2px rgba(0,0,0,.06)">Reschedule</div>`,24,296,400,52);
+const tap=box(waBody,'','<div style="width:64px;height:64px;border-radius:50%;background:rgba(19,19,22,.16);border:2px solid rgba(255,255,255,.9)"></div>',192,230,64,64);
+const waReply=box(waBody,'',`<div style="background:#D9FDD3;border-radius:18px 4px 18px 18px;padding:12px 16px 8px;box-shadow:0 1px 2px rgba(0,0,0,.06);display:inline-block;float:right">
+  <div style="font-size:20px;font-weight:500">Confirm</div><div style="display:flex;align-items:center;gap:4px;justify-content:flex-end;font-size:12px;color:#5F7A64;margin-top:2px">10:03 ${I.dticks('#53BDEB',16)}</div></div>`,196,372,320,null);
+const waOk=box(waBody,'center',`<span class="pill" style="background:#E5FFEF;color:#007A5A;font-size:16px;padding:9px 16px;border:1px solid rgba(39,181,120,.3)">${I.check('#007A5A',16,3)} Appointment confirmed · Thu 4:00 PM</span>`,0,470,540,null);
+const miniNames=['Aisha','Fatima','Riya','Sarah','Noor','Mariam'];
+const miniTimes=['Thu 4:00 PM','Thu 11:30 AM','Fri 2:15 PM','Fri 5:00 PM','Sat 10:00 AM','Sat 3:45 PM'];
+const miniPos=[...Array(6)].map((_,i)=>[96+(i%3)*304,262+Math.floor(i/3)*156]);
+const minis=miniNames.map((n,i)=>box(s5,'card',`<div style="padding:16px 18px;height:100%;display:flex;flex-direction:column;justify-content:space-between">
+ <div style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:16px">La Vida Clinic ${I.verified(16)}</div>
+ <div style="font-size:15px;color:#70707B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Hi ${n}, reminder for ${miniTimes[i]}…</div>
+ <div style="display:flex;align-items:center;justify-content:space-between"><span class="pill" style="background:#E5FFEF;color:#007A5A;font-size:14px;padding:5px 11px">${I.check('#007A5A',13,3.2)} Confirmed</span>${I.dticks('#53BDEB',18)}</div></div>`,miniPos[i][0],miniPos[i][1],288,140,{borderRadius:'18px'}));
+const s5num=box(s5,'serif center','1,500–2,000',0,598,W,null,{fontSize:'112px',lineHeight:'1'});
+const s5cap=box(s5,'center','appointment confirmations <b style="font-weight:600;color:#007A5A">every month</b>',0,730,W,null,{fontSize:'30px',fontWeight:'500',color:'#3A3A40'});
+
+// ===== SCENE 6 =====
+const s6=box(S,'','',0,0,W,H);
+const s6h=box(s6,'serif center','Lost leads don’t stay lost.',0,140,W,null,{fontSize:'64px',lineHeight:'1.08'});
+const s6sub=box(s6,'center',`<span class="pill" style="background:#E5FFEF;color:#007A5A;font-size:20px;padding:8px 16px">${I.bolt('#007A5A',16)} Automated re-engagement</span>`,0,230,W,null);
+const lead=box(s6,'card','',220,330,640,140,{borderRadius:'24px'});
+const leadIn=el(lead,'',`<div style="display:flex;align-items:center;gap:18px;height:140px;padding:0 26px">
+ <div class="av lav" style="width:68px;height:68px;font-size:23px;background:#5E8FA8">SA</div>
+ <div style="flex:1"><div style="font-weight:600;font-size:25px">Sarah Ali</div><div style="font-size:17px;color:#70707B;margin-top:4px">Previously lost lead · Last reply 63 days ago</div></div></div>`);
+const stDorm=box(lead,'pill','Dormant',486,48,null,44,{background:'#ECEBE6',color:'#6A6A72',fontSize:'18px',padding:'0 18px'});
+const stRe=box(lead,'pill',`${I.check('#fff',16,3)} Re-engaged`,446,48,null,44,{background:'#27B578',color:'#fff',fontSize:'18px',padding:'0 18px'});
+const leadRing=box(lead,'','',-7,-7,654,154,{borderRadius:'30px',border:'2px solid rgba(39,181,120,.7)'});
+const s6auto=box(s6,'',`<div style="display:flex;align-items:center;gap:6px;font-size:14px;color:#007A5A;font-weight:600;justify-content:flex-end">${I.bolt('#007A5A',13)} Sent automatically via DoubleTick</div>`,420,508,440,null);
+const s6msg=box(s6,'',`<div style="background:#D9FDD3;border-radius:18px 4px 18px 18px;padding:16px 18px 9px;box-shadow:0 2px 8px rgba(0,60,30,.08)">
+ <div style="font-size:20px;line-height:1.42">Hi, just checking if you’d still like to continue your consultation with La Vida Clinic.</div>
+ <div style="display:flex;align-items:center;gap:4px;justify-content:flex-end;font-size:12px;color:#5F7A64;margin-top:3px">11:20 <span class="tk"></span></div></div>`,400,534,460,null);
+const s6tk=s6msg.querySelector('.tk');
+const s6rep=box(s6,'',`<div style="background:#fff;border-radius:4px 18px 18px 18px;padding:14px 18px 8px;box-shadow:0 2px 8px rgba(0,0,0,.06);display:inline-block">
+ <div style="font-size:20px">Yes, please! Can I book this week?</div><div style="text-align:right;font-size:12px;color:#8A8A93;margin-top:3px">11:24</div></div>`,220,730,460,null);
+
+// ===== SCENE 7 =====
+const s7=box(S,'','',0,0,W,H);
+const s7lab=box(s7,'center','THE RESULT',0,268,W,null,{fontSize:'20px',letterSpacing:'0.28em',color:'#70707B',fontWeight:'600'});
+const s7num=box(s7,'serif center','11<span style="color:#27B578">%</span>',0,318,W,null,{fontSize:'300px',lineHeight:'1',letterSpacing:'-0.04em'});
+const s7line=box(s7,'','',440,660,200,3,{background:'#27B578',borderRadius:'2px'});
+const s7cap=box(s7,'serif center','reconversion from<br>lost opportunities',0,694,W,null,{fontSize:'48px',lineHeight:'1.12',color:'#2A2A2E'});
+
+// ===== SCENE 8 =====
+const s8=box(S,'','',0,0,W,H);
+const s8h=box(s8,'serif center','Built for growing clinics<br>in the UAE.',0,108,W,null,{fontSize:'66px',lineHeight:'1.08'});
+const s8svg=box(s8,'','<svg width="1080" height="1080"><line id="fl" x1="120" y1="478" x2="960" y2="478" stroke="#27B578" stroke-width="4" stroke-linecap="round"/></svg>',0,0,W,H);
+const fl=s8svg.querySelector('#fl');fl.style.strokeDasharray=840;
+const nodeDefs=[[I.clinic('#007A5A'),'6 Clinics'],[I.dtmark(34),'One WhatsApp CRM'],[I.eye(),'Better Visibility'],[I.sliders(),'Better Control']];
+const nodes=nodeDefs.map(([ic,tx],i)=>box(s8,'card center',`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px;padding:0 12px">
+ <div class="nic" style="width:52px;height:52px;border-radius:16px;background:#E5FFEF;display:flex;align-items:center;justify-content:center">${ic}</div>
+ <div class="ntx" style="font-weight:600;font-size:21px;line-height:1.2">${tx}</div></div>`,60+i*250,398,210,160,{borderRadius:'22px'}));
+const arrows=[0,1,2].map(i=>box(s8,'center',`<div style="width:30px;height:30px;border-radius:50%;background:#27B578;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>`,270+i*250-15+5,463,30,30));
+const checks=['Conversations','Appointments','Follow-ups','Re-engagement'].map((t,i)=>box(s8,'',`<div style="display:flex;align-items:center;gap:9px;font-size:21px;font-weight:500;color:#2A2A2E;justify-content:center"><span style="width:26px;height:26px;border-radius:50%;background:#27B578;display:flex;align-items:center;justify-content:center">${I.check('#fff',15,3.4)}</span>${t}</div>`,60+i*250,640,210,null));
+
+// ===== SCENE 9 =====
+const s9=box(S,'','',0,0,W,H);
+const s9logo=box(s9,'',`<img src="site/logo-dark.svg" style="width:330px;height:${330*16/130.5}px;display:block;margin:0 auto">`,0,236,W,50);
+const s9h=box(s9,'serif center','Keep every clinic conversation<br>under control.',0,338,W,null,{fontSize:'62px',lineHeight:'1.1'});
+const ctaGlow=box(s9,'','',230,592,620,108,{borderRadius:'999px',border:'3px solid #27B578'});
+const cta=box(s9,'center',`<div style="height:108px;border-radius:999px;background:#007A5A;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:36px;letter-spacing:-0.01em;box-shadow:0 18px 40px rgba(0,122,90,.32),inset 0 1px 0 rgba(255,255,255,.18)">Book Your Free Pilot Today<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="margin-left:14px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>`,230,592,620,108);
+const s9url=box(s9,'center','doubletick.io',0,736,W,null,{fontSize:'24px',color:'#4A4A52',fontWeight:'500'});
+const s9foot=box(s9,'center',`<span style="display:inline-flex;align-items:center;gap:14px;color:#8A8A93;font-size:17px"><img src="lavida.png" style="height:34px">×<span style="font-weight:600;color:#4A4A52">DoubleTick</span> · Case study</span>`,0,820,W,null);
+
+// ===== SUBTITLES =====
+const subs=el(S,'',null,{});subs.id='subs';
+const CUES=[
+ [0.30,2.52,'La Vida Clinic was growing across Dubai.'],
+ [2.85,5.75,'But with 6 locations, patient conversations, appointments,'],
+ [5.75,9.16,'and follow-ups were becoming harder to manage across teams.'],
+ [10.2,11.83,'That’s where DoubleTick stepped in.'],
+ [12.8,16.9,'La Vida brought 30,000+ patient leads into one unified WhatsApp CRM—'],
+ [16.9,21.5,'giving every clinic better visibility and control from a single dashboard.'],
+ [21.9,27.3,'DoubleTick also automated 1,500–2,000 appointment confirmations every month…'],
+ [27.6,29.95,'…and helped re-engage previously lost leads.'],
+ [31.1,31.75,'The result?'],
+ [31.9,34.55,'11% reconversion from lost opportunities.'],
+ [35.4,38.29,'DoubleTick. Built for growing clinics in the UAE.'],
+ [39.1,40.45,'Book Your Free Pilot Today.'],
+];
+
+// ---------- render ----------
+const fmt=n=>Math.round(n).toLocaleString('en-US');
+function render(t){
+  // backgrounds
+  const tk=P(t,9.5,0.8,E.inOut);
+  tint.style.opacity=1-tk; cream.style.opacity=tk;
+
+  // ---- S1 (0-4.8) zoom out at 4.5-5.1
+  const o1=clamp((5.05-t)/0.45); s1.style.display=o1>0?'block':'none';
+  if(o1>0){
+    const z=P(t,4.45,0.6,E.in); set(s1,{o:o1,s:1+0.12*z,y:-30*z});
+    set(s1logo,{o:P(t,-0.2,0.35),y:10*(1-P(t,0,0.5))});
+    set(s1h1,{o:P(t,-0.2,0.3),y:10*(1-P(t,-0.1,0.5))});
+    set(s1h2,{o:P(t,-0.15,0.3),y:10*(1-P(t,-0.1,0.5))});
+    const dirs=[[-260,-40],[0,-220],[260,-40],[-260,60],[0,240],[260,60]];
+    clinics.forEach((c,i)=>{const k=P(t,0.0+i*0.09,0.55,E.out5);set(c,{o:clamp(k*1.6),x:dirs[i][0]*(1-k),y:dirs[i][1]*(1-k)});
+      const b=c.querySelector('.badge');const n=Math.floor(counts[i]*clamp((t-0.9-i*0.15)/3.2)+(t>0.9+i*.15?1:0));b.textContent=Math.min(n,counts[i]+3);
+      const pulse=Math.sin(clamp((t-1)*1)*Math.PI*8+i)*0.5+0.5; b.style.transform=`scale(${1+0.06*pulse*(t>1?1:0)})`;});
+    chips.forEach((c,i)=>{const st=1.05+i*0.28;const k=P(t,st,0.5,E.back);const dr=Math.sin(t*1.3+i*1.7)*5;
+      set(c,{o:clamp((t-st)/0.25),s:0.7+0.3*k,y:dr+(1-k)*14,x:Math.cos(t*0.9+i)*4,r:chipDefs[i][4]});});
+  }
+  // ---- S2 (4.8-9.4)
+  const on2=t>4.75&&t<10.4; s2.style.display=on2?'block':'none';
+  if(on2){
+    const zi=P(t,4.8,0.7,E.out); set(s2,{o:clamp((t-4.8)/0.35),s:0.94+0.06*zi});
+    const hout=1-P(t,9.3,0.35);
+    set(s2h,{o:P(t,4.95,0.4)*hout,y:16*(1-P(t,4.95,0.5))});
+    set(s2sub,{o:P(t,5.35,0.4)*hout});
+    set(admin,{o:P(t,5.1,0.4)*hout,y:14*(1-P(t,5.1,0.5))});
+    set(vis,{o:P(t,6.3,0.3)*hout,s:0.8+0.2*P(t,6.3,0.4,E.back)});
+    const lk=P(t,9.2,0.45,E.inOut);const lo=t>9.2?clamp((9.95-t)/0.2):0;
+    const tail=P(t,9.55,0.35,E.inOut);
+    sweep.setAttribute('x1',lerp(-40,540,tail));sweep.setAttribute('x2',lerp(-40,540,lk));sweep.setAttribute('y1',640);sweep.setAttribute('y2',640);
+    sweep2.setAttribute('x1',lerp(1120,540,tail));sweep2.setAttribute('x2',lerp(1120,540,lk));sweep2.setAttribute('y1',640);sweep2.setAttribute('y2',640);
+    sweep.style.opacity=lo;sweep2.style.opacity=lo;
+    const hb=P(t,9.6,0.3,E.back);hub.setAttribute('r',4+14*hb);hub.style.opacity=t>9.6?clamp((10.05-t)/0.15):0;
+    pats.forEach((p,i)=>{const st=5.4+i*0.18;const k=P(t,st,0.5,E.out5);
+      const g=P(t,9.4+i*0.04,0.45,E.inOut);
+      const cx=540-(patPos[i][0]+200),cy=640-(patPos[i][1]+58);
+      const jit=Math.sin(t*2.1+i*2)*3*(1-g);
+      set(p,{o:clamp((t-st)/0.3)*(1-P(t,9.78,0.14)),x:(i%2?60:-60)*(1-k)+cx*g+jit,y:cy*g,s:1-0.8*g});
+      p.querySelector('.pdot').style.background=t>9.35?'#27B578':patDefs[i][2];});
+    wls.forEach((w,i)=>{const fl=0.35+0.35*Math.abs(Math.sin(t*3.3+i*1.9));w.style.opacity=P(t,5.7+i*0.15,0.4)*fl*(1-P(t,9.2,0.3));w.style.strokeDashoffset=-t*6;});
+  }
+  // ---- S3 (10.0-12.6) + CRM module shared to S4
+  const on3=t>9.85&&t<13.2; s3.style.display=on3?'block':'none';
+  if(on3){
+    set(s3,{o:clamp((13.1-t)/0.4)});
+    set(s3h,{o:P(t,10.15,0.4)*(1-P(t,12.55,0.3)),y:16*(1-P(t,10.15,0.5))});
+    gls.forEach((p,i)=>{const k=P(t,10.3+i*0.08,0.6,E.inOut);p.style.strokeDashoffset=glLen[i]*(1-k);p.style.opacity=0.55*(1-P(t,12.55,0.35));});
+    packets.forEach((pk,j)=>{const i=j%6;const st=10.6+j*0.16;const k=clamp((t-st)/0.75);const e=E.inOut(k);
+      const pt=gls[i].getPointAtLength(glLen[i]*(0.18+0.82*e));set(pk,{o:(k>0&&k<1)?Math.min(1,k*5,(1-k)*5):0,x:pt.x-19,y:pt.y-19,s:1-0.35*e});});
+  }
+  // CRM module: bloom at 10.0, expand into dashboard 12.6-13.3
+  {
+    const bloom=P(t,9.9,0.55,E.back);const toDash=P(t,12.55,0.65,E.inOut);
+    const vis3=t>9.9&&t<13.4;crm.style.display=vis3?'block':'none';
+    if(vis3){
+      // module rect 330,510,420x200 -> dash 170,366,740x524
+      set(crm,{o:clamp((t-9.9)/0.15)*(1-P(t,12.68,0.2)),s:(0.2+0.8*bloom)*(1+0.5*toDash),y:-60*toDash});
+      const pulse=Math.max(0,Math.sin((t-10.6)*Math.PI*1.25))*(t>10.6&&t<12.4?1:0);
+      crm.style.boxShadow=`0 0 0 ${1+4*pulse}px rgba(39,181,120,${.25+.2*pulse}), 0 18px 50px rgba(0,122,90,.16)`;
+    }
+  }
+  // shared clinic pills
+  {
+    const vp=t>10.2&&t<21.9;cpills.forEach((c,i)=>{c.style.display=vp?'flex':'none';if(!vp)return;
+      const a=P(t,10.3+i*0.08,0.5,E.back);const m=P(t,12.6+i*0.04,0.7,E.inOut);
+      const x=lerp(ring[i][0]-70,rowPos[i][0],m),y=lerp(ring[i][1]-22,rowPos[i][1],m);
+      set(c,{o:clamp((t-10.3-i*0.08)/0.25)*(1-P(t,21.45,0.3)),x:x-0,y:y,s:0.85+0.15*a});c.style.left='0px';c.style.top='0px';});
+  }
+  // ---- S4 (12.6-21.6)
+  const on4=t>12.6&&t<22; s4.style.display=on4?'block':'none'; dash.style.display=(t>12.85&&t<22)?'block':'none';
+  if(on4){
+    const out=1-P(t,21.4,0.35);
+    const cnt=P(t,13.0,1.6,E.out);set(s4num,{o:P(t,12.9,0.3)*out,y:14*(1-P(t,12.9,0.5)),s:0.96+0.04*P(t,12.9,0.6)});
+    s4num.innerHTML=fmt(30000*cnt)+(cnt>0.999?'<span style="color:#27B578">+</span>':'<span style="opacity:0">+</span>');
+    set(s4sub,{o:P(t,13.4,0.4)*out,y:12*(1-P(t,13.4,0.5))});
+    rls.forEach((p,i)=>{const k=P(t,13.25+i*0.06,0.5,E.inOut);p.style.strokeDashoffset=rlLen[i]*(1-k);p.style.opacity=out;
+      p.style.strokeDasharray=t>14.2?`6 8`:rlLen[i];if(t>14.2)p.style.strokeDashoffset=-(t-14.2)*30;});
+    const d=P(t,12.85,0.5,E.out);set(dash,{o:clamp((t-12.85)/0.3)*out,s:0.96+0.04*d,y:20*(1-d)});
+    dashIn.style.opacity=P(t,13.1,0.3);
+    rows.forEach((r,i)=>{const k=P(t,13.5+i*0.17,0.45,E.back);set(r,{o:clamp((t-13.5-i*.17)/0.2),x:60*(1-k)});
+      const hl=(t>16.5)?Math.max(0,Math.sin((t-16.5-i*0.9)*Math.PI/0.9)):0; const on=(t>16.5&&t-16.5-i*0.9>0&&t-16.5-i*0.9<0.9);
+      r.style.background=on?`rgba(229,255,239,${hl})`:'transparent';});
+    set(dashFoot,{o:P(t,14.4,0.4)});
+  }
+  // ---- S5 (21.6-27.4)
+  const on5=t>21.55&&t<27.8; s5.style.display=on5?'block':'none';
+  if(on5){
+    const out=1-P(t,27.15,0.3);
+    set(s5,{o:out});
+    set(s5h,{o:P(t,21.7,0.4),y:16*(1-P(t,21.7,0.5))});
+    const shrink=P(t,24.45,0.6,E.inOut);
+    // wa card 270,250 540x640 -> first mini slot 96,262 288x140 (approx by scale .53 to top-left)
+    const sc=1-0.47*shrink;
+    wa.style.transformOrigin='0 0';
+    set(wa,{o:clamp((t-21.7)/0.3)*(1-P(t,24.85,0.2)),s:(0.96+0.04*P(t,21.7,0.5))*sc,x:(96-270)*shrink,y:(262-250)*shrink+16*(1-P(t,21.7,0.5))});
+    set(waDay,{o:P(t,21.9,0.3)});
+    set(waMsg,{o:P(t,22.1,0.25),y:14*(1-P(t,22.1,0.4,E.back)),s:0.96+0.04*P(t,22.1,0.4)});
+    set(btnC,{o:P(t,22.45,0.25),y:10*(1-P(t,22.45,0.4))});
+    set(btnR,{o:P(t,22.55,0.25),y:10*(1-P(t,22.55,0.4))});
+    const press=t>23.15&&t<23.45; btnC.firstChild.style.background=press?'#E5FFEF':'#fff';
+    set(btnC.firstChild,{s:press?0.97:1});
+    set(tap,{o:P(t,22.85,0.2)*(1-P(t,23.4,0.25)),s:t<23.15?1:0.8+0.6*P(t,23.15,0.3),x:20*(1-P(t,22.85,0.35)),y:30*(1-P(t,22.85,0.35))});
+    set(waReply,{o:P(t,23.45,0.2),y:12*(1-P(t,23.45,0.35,E.back))});
+    set(waOk,{o:P(t,23.9,0.3),s:0.9+0.1*P(t,23.9,0.4,E.back)});
+    minis.forEach((m,i)=>{const st=i===0?24.8:24.9+i*0.12;const k=P(t,st,0.4,E.back);set(m,{o:clamp((t-st)/0.2),s:i===0?1:0.85+0.15*k,y:i===0?0:14*(1-k)});});
+    set(s5num,{o:P(t,25.6,0.35),y:20*(1-P(t,25.6,0.5)),s:0.95+0.05*P(t,25.6,0.5)});
+    set(s5cap,{o:P(t,25.85,0.35),y:12*(1-P(t,25.85,0.5))});
+  }
+  // ---- S6 (27.4-30.9)
+  const on6=t>27.35&&t<31.1; s6.style.display=on6?'block':'none';
+  if(on6){
+    set(s6,{o:clamp((30.95-t)/0.3)});
+    set(s6h,{o:P(t,27.45,0.4),y:16*(1-P(t,27.45,0.5))});
+    set(s6sub,{o:P(t,27.75,0.35)});
+    const re=P(t,29.35,0.45,E.inOut);
+    set(lead,{o:P(t,27.55,0.35),y:14*(1-P(t,27.55,0.5)),s:1+0.03*Math.sin(re*Math.PI)});
+    leadIn.style.filter=`grayscale(${1-re})`;leadIn.style.opacity=0.62+0.38*re;
+    lead.style.background=re>0?`rgb(${lerp(250,255,re)},${lerp(250,255,re)},${lerp(248,255,re)})`:'#FAFAF8';
+    set(stDorm,{o:1-re,s:1-0.1*re});set(stRe,{o:re,s:0.85+0.15*E.back(clamp((t-29.35)/0.45))});
+    set(leadRing,{o:re*(1-P(t,29.6,0.7)),s:1+0.05*P(t,29.4,0.9)});
+    set(s6auto,{o:P(t,28.0,0.3)});
+    set(s6msg,{o:P(t,28.05,0.25),y:16*(1-P(t,28.05,0.4,E.back)),x:20*(1-P(t,28.05,0.4))});
+    s6tk.innerHTML=I.dticks(t>28.8?'#53BDEB':'#8A9A8E',16);
+    set(s6rep,{o:P(t,28.95,0.25),y:14*(1-P(t,28.95,0.4,E.back))});
+  }
+  // ---- S7 (30.9-35.2)
+  const on7=t>30.85&&t<35.4; s7.style.display=on7?'block':'none';
+  if(on7){
+    set(s7,{o:clamp((35.25-t)/0.3)});
+    set(s7lab,{o:P(t,31.05,0.4)});
+    const k=P(t,31.85,0.7,E.out5);set(s7num,{o:P(t,31.85,0.4),s:0.94+0.06*k,y:30*(1-k)});
+    const lk=P(t,32.3,0.6,E.inOut);set(s7line,{o:lk>0?1:0});s7line.style.transform=`scaleX(${lk})`;
+    set(s7cap,{o:P(t,32.25,0.45),y:14*(1-P(t,32.25,0.6))});
+  }
+  // ---- S8 (35.2-38.6)
+  const on8=t>35.15&&t<38.85; s8.style.display=on8?'block':'none';
+  if(on8){
+    set(s8,{o:clamp((38.75-t)/0.3)});
+    set(s8h,{o:P(t,35.25,0.4),y:16*(1-P(t,35.25,0.5))});
+    const lk=P(t,35.6,1.3,E.inOut);fl.style.strokeDashoffset=840*(1-lk);
+    nodes.forEach((n,i)=>{const st=35.45+i*0.12;const k=P(t,st,0.4,E.back);set(n,{o:clamp((t-st)/0.25),y:16*(1-k)});
+      const act=P(t,35.6+1.3*(i/3)-0.05,0.3);
+      n.style.boxShadow=`0 0 0 ${2*act}px rgba(39,181,120,${0.9*act}), 0 10px 30px rgba(60,50,30,.08)`;
+      if(i===1){n.style.background=act>0.5?'#007A5A':'#fff';n.querySelector('.ntx').style.color=act>0.5?'#fff':'#131316';n.querySelector('.nic').style.background=act>0.5?'#fff':'#E5FFEF';}});
+    arrows.forEach((a,i)=>{const k=P(t,35.6+1.3*((i+0.5)/3),0.3,E.back);set(a,{o:clamp(k*2),s:0.5+0.5*k});});
+    checks.forEach((c,i)=>{const st=36.7+i*0.16;set(c,{o:P(t,st,0.3),y:10*(1-P(t,st,0.4))});});
+  }
+  // ---- S9 (38.6-end)
+  const on9=t>38.55; s9.style.display=on9?'block':'none';
+  if(on9){
+    set(s9logo,{o:P(t,38.65,0.4),y:10*(1-P(t,38.65,0.5))});
+    set(s9h,{o:P(t,38.85,0.45),y:14*(1-P(t,38.85,0.6))});
+    const k=P(t,39.25,0.7,E.back);
+    const pulse=t>40.6?Math.sin(clamp((t-40.6)/0.5)*Math.PI):0;
+    set(cta,{o:P(t,39.25,0.35),s:(0.96+0.04*k)*(1+0.035*pulse),y:8*(1-P(t,39.25,0.6))});
+    const g=clamp((t-40.6)/0.9);set(ctaGlow,{o:t>40.6?(1-g)*0.8:0,s:1+0.12*E.out(g)});
+    set(s9url,{o:P(t,39.7,0.4)});
+    set(s9foot,{o:P(t,40.0,0.5)});
+  }
+  // ---- subtitles
+  let txt='',so=0;for(const [a,b,s] of CUES){if(t>=a-0.05&&t<b+0.12){txt=s;so=Math.min(clamp((t-a+0.05)/0.12),clamp((b+0.12-t)/0.12));}}
+  if(subs.textContent!==txt)subs.textContent=txt; subs.style.opacity=so;
+}
+window.render=render;
+window.ready=Promise.all([document.fonts.ready,...[...document.images].map(im=>im.complete?1:new Promise(r=>{im.onload=im.onerror=r}))]).then(()=>document.fonts.load('40px Hedvig')).then(()=>document.fonts.load('500 28px Geist')).then(()=>true);
+render(0);
+</script></body></html>
