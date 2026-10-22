@@ -144,15 +144,24 @@ chime(9.92,(74,78,81,86),0.05,0.045,0.6)
 for j in range(12): tick(10.6+j*0.16+0.75,[86,90,93][j%3],0.014,0)
 for i in range(6): tick(12.6+i*0.04+0.7,88,0.012,-0.5+0.2*i)
 for i in range(4): snap(13.5+i*0.17+0.12,0.03,0.3)
-# count-up shimmer
-n=int(1.6*SR); t=np.arange(n)/SR; add(sfx,hp(rng.standard_normal(n),2)*0.01*np.sin(np.pi*t/1.6),13.0)
+# odometer ticks: one tick each time the slowest digit passes a number (matches the page's easeOutCubic roll)
+def odo_ticks(t0,dur,total,g=0.016,m=88):
+    last=-1
+    for k in range(1,total+1):
+        q=1-(1-k/total)**(1/3); tt=t0+q*dur
+        if tt-last<0.045: continue
+        last=tt; tick(tt,m+(k%2)*3,g*(0.6+0.4*k/total),0.15*(1 if k%2 else -1))
+    chime(t0+dur,(74,81,86),0.04,0.03,0.5)
+odo_ticks(13.0,1.8,6*10+0)      # 30,000 (5 digits, slowest spins 6)
+odo_ticks(25.6,1.3,8*10+0)      # 1,500-2,000 (8 digits)
+odo_ticks(31.85,0.85,4*10+1,0.02)  # 11%
 for i in range(4): tick(16.5+i*0.9,93,0.012)
 whoosh(21.45,0.5,0.035)
 pop(22.1,81,0.06); tick(22.45,86,0.02); tick(22.55,88,0.02)
 snap(23.15,0.05); pop(23.45,86,0.05,0.3)
 chime(23.9,(78,81,86),0.045)
 for i in range(6): pop(24.8+(0 if i==0 else 0.1+i*0.12),[74,76,78,81,83,86][i],0.028,(-0.4+0.16*i))
-add(sfx,boom[:int(0.6*SR)]*0.35,25.6)
+add(sfx,boom[:int(0.6*SR)]*0.3,26.9)
 whoosh(27.1,0.5,0.03)
 whoosh(27.9,0.3,0.03,0.4); pop(28.05,83,0.055,0.35); pop(28.95,78,0.05,-0.3)
 chime(29.35,(78,81,85,90),0.05,0.05,0.7)
