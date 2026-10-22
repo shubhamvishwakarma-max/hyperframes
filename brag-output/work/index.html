@@ -26,7 +26,8 @@ const W=1080,H=1080;
 const S=document.getElementById('stage');
 // ---- output format: sq 1080x1080, portrait 1080x1350, land 1920x1080, wide 1280x628 (laid out at 2201x1080, rendered at 0.5815x)
 const FMT=new URLSearchParams(location.search).get('fmt')||'sq';
-const [CW,CH]={sq:[1080,1080],portrait:[1080,1350],land:[1920,1080],wide:[2201,1080]}[FMT];
+const [CW,CH]={sq:[1080,1080],portrait:[1080,1350],land:[1920,1080],wide:[2201,1080],vert:[1080,1920]}[FMT];
+const STACK=FMT==='vert';
 const SPLIT=FMT==='land'||FMT==='wide';
 const CV=document.getElementById('canvas');
 Object.assign(CV.style,{width:CW+'px',height:CH+'px'});Object.assign(document.body.style,{width:CW+'px',height:CH+'px'});
@@ -348,6 +349,7 @@ const cornerDT=box(CV,'',`<img src="site/logo-dark.svg" style="width:190px;heigh
 const cornerLV=box(CV,'',`<img src="lavida.png" style="height:62px;display:block;filter:brightness(0.62) saturate(1.4) contrast(1.15)">`,CW-150,26,null,62);
 // ===== SUBTITLES =====
 const subs=el(CV,'',null,{});subs.id='subs';if(SPLIT)subs.style.fontSize=(FMT==='wide'?40:32)+'px';
+if(STACK){subs.style.fontSize='34px';subs.style.bottom='330px';cornerDT.style.top='96px';cornerLV.style.top='76px';}
 const CUES=[
  [0.30,2.52,'La Vida Clinic was growing across Dubai.'],
  [2.85,5.75,'But with 6 locations, patient conversations, appointments,'],
@@ -368,9 +370,15 @@ function fitCam(x0,y0,x1,y1){const R0={x0:CW*0.42,x1:CW-40,y0:100,y1:960};
   const k=Math.min(1.05,(R0.x1-R0.x0)/(x1-x0),(R0.y1-R0.y0)/(y1-y0));
   return {k,tx:(R0.x0+R0.x1)/2-k*(x0+x1)/2,ty:(R0.y0+R0.y1)/2-k*(y0+y1)/2};}
 const CEN={k:1,tx:(CW-1080)/2,ty:(CH-1080)/2};
-const c1=SPLIT?fitCam(70,352,990,880):CEN, c2=SPLIT?fitCam(100,296,980,840):CEN, c34=SPLIT?fitCam(40,278,1040,1000):CEN,
-      c5=SPLIT?fitCam(90,254,990,938):CEN, c6=SPLIT?fitCam(50,250,1030,938):CEN;
-const CAMS=[[0,c1],[4.8,c2],[9.7,c34],[21.6,c5],[27.4,c6],[30.9,CEN],[35.2,CEN],[38.6,CEN]];
+function fitStack(x0,y0,x1,y1){const R0={x0:40,x1:1040,y0:640,y1:1480};
+  const k=Math.min(1.15,(R0.x1-R0.x0)/(x1-x0),(R0.y1-R0.y0)/(y1-y0));
+  return {k,tx:(R0.x0+R0.x1)/2-k*(x0+x1)/2,ty:(R0.y0+R0.y1)/2-k*(y0+y1)/2};}
+const camC=(k,cy)=>({k,tx:(CW-1080*k)/2,ty:CH/2-70-cy*k});
+const FIT=SPLIT?fitCam:STACK?fitStack:null;
+const c1=FIT?FIT(70,352,990,880):CEN, c2=FIT?FIT(100,296,980,840):CEN, c34=FIT?FIT(40,278,1040,1000):CEN,
+      c5=FIT?FIT(90,254,990,938):CEN, c6=FIT?FIT(50,250,1030,938):CEN;
+const c7=STACK?camC(1.1,534):CEN, c8=STACK?camC(1.0,397):CEN, c9=STACK?camC(1.1,548):CEN;
+const CAMS=[[0,c1],[4.8,c2],[9.7,c34],[21.6,c5],[27.4,c6],[30.9,c7],[35.2,c8],[38.6,c9]];
 function camAt(t){let i=0;while(i+1<CAMS.length&&t>=CAMS[i+1][0])i++;
   let c=CAMS[i][1];const nx=CAMS[i+1];
   if(nx&&t>nx[0]-0.25){const k=E.inOut(clamp((t-(nx[0]-0.25))/0.5));const d=nx[1];c={k:lerp(c.k,d.k,k),tx:lerp(c.tx,d.tx,k),ty:lerp(c.ty,d.ty,k)};}
@@ -383,7 +391,17 @@ function placeLeft(els,c,gaps){const L0=FMT==='wide'?150:110,L1=CW*0.40;
   const sc=els[0].parentElement,pd=sc.style.display;sc.style.display='block';
   const hs=els.map(e=>e.offsetHeight);sc.style.display=pd;const tot=hs.reduce((a,b)=>a+b,0)+(gaps||[]).reduce((a,b)=>a+b,0);
   let y=(CH/2-tot*c.k/2-10-c.ty)/c.k;els.forEach((e,i)=>{e.style.top=px(y);y+=hs[i]+((gaps||[])[i]||0);});}
-function doLayout(){if(!SPLIT)return;
+function placeTop(els,c,gaps){
+  els.forEach(e=>{e.style.left=px((60-c.tx)/c.k);e.style.width=px(960/c.k);e.style.textAlign='center';
+    e.style.fontSize=(parseFloat(getComputedStyle(e).fontSize)*1.12)+'px';});
+  const sc=els[0].parentElement,pd=sc.style.display;sc.style.display='block';
+  const hs=els.map(e=>e.offsetHeight);sc.style.display=pd;
+  const tot=hs.reduce((a,b)=>a+b,0)+(gaps||[]).reduce((a,b)=>a+b,0);
+  let y=(600-tot*c.k-c.ty)/c.k;els.forEach((e,i)=>{e.style.top=px(y);y+=hs[i]+((gaps||[])[i]||0);});}
+function doLayout(){
+  if(STACK){placeTop([s1h1,s1h2],c1,[20]);placeTop([s2h],c2);placeTop([s3h],c34);placeTop([s4num,s4sub],c34,[16]);
+    placeTop([s5h],c5);placeTop([s6h,s6sub],c6,[22]);return;}
+  if(!SPLIT)return;
   [s3h].forEach(e=>e.innerHTML=e.innerHTML.replace('<br>',' '));
   placeLeft([s1h1,s1h2],c1,[22]);placeLeft([s2h],c2);placeLeft([s3h],c34);placeLeft([s4num,s4sub],c34,[18]);
   placeLeft([s5h],c5);placeLeft([s6h,s6sub],c6,[24]);}

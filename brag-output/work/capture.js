@@ -2,7 +2,7 @@ const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const { spawn } = require('child_process');
 const path=require('path');
 const [mode, ...rest]=process.argv.slice(2);
-const FMT=process.env.FMT||'sq';const SZ={sq:[1080,1080,1080,1080],portrait:[1080,1350,1080,1350],land:[1920,1080,1920,1080],wide:[2201,1080,1280,628]}[FMT];
+const FMT=process.env.FMT||'sq';const SZ={sq:[1080,1080,1080,1080],portrait:[1080,1350,1080,1350],land:[1920,1080,1920,1080],wide:[2201,1080,1280,628],vert:[1080,1920,1080,1920]}[FMT];
 (async()=>{
   const b=await chromium.launch({args:['--allow-file-access-from-files']});
   const p=await b.newPage({viewport:{width:SZ[0],height:SZ[1]},deviceScaleFactor:SZ[2]/SZ[0]});
