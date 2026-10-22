@@ -64,7 +64,7 @@ const cream=el(S,'abs',null,{left:0,top:0,width:'1080px',height:'1080px',backgro
 
 // ===== SCENE 1 =====
 const s1=box(S,'','',0,0,W,H);
-const s1logo=box(s1,'',`<img src="lavida.png" style="height:64px;display:block;margin:0 auto">`,0,44,W,70);
+const s1logo=box(s1,'','',0,0,0,0);
 const s1h1=box(s1,'serif center','6 locations.',0,124,W,null,{fontSize:'86px',lineHeight:'1'});
 const s1h2=box(s1,'serif center','Too many patient conversations<br>to track clearly.',0,226,W,null,{fontSize:'44px',lineHeight:'1.15',color:'#3A2E2C'});
 const clinics=[];
@@ -242,6 +242,9 @@ const cta=box(s9,'center',`<div style="height:108px;border-radius:999px;backgrou
 const s9url=box(s9,'center','doubletick.io',0,736,W,null,{fontSize:'24px',color:'#4A4A52',fontWeight:'500'});
 const s9foot=box(s9,'center',`<span style="display:inline-flex;align-items:center;gap:14px;color:#8A8A93;font-size:17px"><img src="lavida.png" style="height:34px">×<span style="font-weight:600;color:#4A4A52">DoubleTick</span> · Case study</span>`,0,820,W,null);
 
+// ===== CORNER LOGOS (all scenes except CTA) =====
+const cornerDT=box(S,'',`<img src="site/logo-dark.svg" style="width:190px;height:${190*16/130.5}px;display:block">`,44,46,190,24);
+const cornerLV=box(S,'',`<img src="lavida.png" style="height:62px;display:block;filter:brightness(0.62) saturate(1.4) contrast(1.15)">`,930,26,null,62);
 // ===== SUBTITLES =====
 const subs=el(S,'',null,{});subs.id='subs';
 const CUES=[
@@ -421,6 +424,8 @@ function render(t){
     set(s9url,{o:P(t,39.7,0.4)});
     set(s9foot,{o:P(t,40.0,0.5)});
   }
+  // ---- corner logos
+  {const o=Math.min(P(t,-0.2,0.3),1-P(t,38.3,0.3));set(cornerDT,{o});set(cornerLV,{o});}
   // ---- subtitles
   let txt='',so=0;for(const [a,b,s] of CUES){if(t>=a-0.05&&t<b+0.12){txt=s;so=Math.min(clamp((t-a+0.05)/0.12),clamp((b+0.12-t)/0.12));}}
   if(subs.textContent!==txt)subs.textContent=txt; subs.style.opacity=so;
