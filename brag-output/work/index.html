@@ -379,7 +379,7 @@ function fitStack(x0,y0,x1,y1){const R0={x0:40,x1:1040,y0:640,y1:1480};
   return {k,tx:(R0.x0+R0.x1)/2-k*(x0+x1)/2,ty:(R0.y0+R0.y1)/2-k*(y0+y1)/2};}
 const camC=(k,cy)=>({k,tx:(CW-1080*k)/2,ty:CH/2-70-cy*k});
 const FIT=SPLIT?fitCam:STACK?fitStack:null;
-const c1=FIT?FIT(70,352,990,880):CEN, c2=FIT?FIT(100,296,980,840):CEN, c34=FIT?FIT(40,278,1040,1000):CEN,
+const c1=FIT?FIT(70,420,990,880):CEN, c2=FIT?FIT(100,296,980,840):CEN, c34=FIT?FIT(90,340,990,1000):CEN,
       c5=FIT?FIT(90,254,990,938):CEN, c6=FIT?FIT(50,250,1030,938):CEN;
 const c7=STACK?camC(1.1,534):CEN, c8=STACK?camC(1.0,397):CEN, c9=STACK?camC(1.1,548):CEN;
 const CAMS=[[0,c1],[4.8,c2],[9.7,c34],[21.6,c5],[27.4,c6],[30.9,c7],[35.2,c8],[38.6,c9]];
@@ -402,12 +402,14 @@ function placeTop(els,c,gaps){
   const hs=els.map(e=>e.offsetHeight);sc.style.display=pd;
   const tot=hs.reduce((a,b)=>a+b,0)+(gaps||[]).reduce((a,b)=>a+b,0);
   let y=(600-tot*c.k-c.ty)/c.k;els.forEach((e,i)=>{e.style.top=px(y);y+=hs[i]+((gaps||[])[i]||0);});}
+function sync0(){['left','width','textAlign','fontSize'].forEach(k=>{if(k!=='fontSize')s1h0.style[k]=s1h1.style[k];});
+  if(STACK)s1h0.style.fontSize=(62*1.12)+'px';s1h0.style.top=s1h1.style.top;}
 function doLayout(){
-  if(STACK){placeTop([s1h1,s1h2],c1,[20]);placeTop([s2h],c2);placeTop([s3h],c34);placeTop([s4pre,s4num,s4sub],c34,[4,16]);
+  if(STACK){placeTop([s1logo,s1h1,s1h2],c1,[26,20]);sync0();placeTop([s2h],c2);placeTop([s3h],c34);placeTop([s4pre,s4num,s4sub],c34,[4,16]);
     placeTop([s5h],c5);placeTop([s6h,s6sub],c6,[22]);return;}
   if(!SPLIT)return;
   [s3h].forEach(e=>e.innerHTML=e.innerHTML.replace('<br>',' '));
-  placeLeft([s1h1,s1h2],c1,[22]);placeLeft([s2h],c2);placeLeft([s3h],c34);placeLeft([s4pre,s4num,s4sub],c34,[4,18]);
+  placeLeft([s1logo,s1h1,s1h2],c1,[30,22]);sync0();placeLeft([s2h],c2);placeLeft([s3h],c34);placeLeft([s4pre,s4num,s4sub],c34,[4,18]);
   placeLeft([s5h],c5);placeLeft([s6h,s6sub],c6,[24]);}
 
 // ---------- render ----------
