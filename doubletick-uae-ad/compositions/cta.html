@@ -17,23 +17,26 @@
 .icbox { display: flex; align-items: center; justify-content: center; border-radius: 14px; background: #E3F6EC; color: #0E7A4C; flex: none; }
 .avatar { display: flex; align-items: center; justify-content: center; border-radius: 50%; flex: none; font-weight: 600; }
 .pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; font-weight: 600; }
-/* WhatsApp-style chat */
-.wa { overflow: hidden; padding: 0; }
-.wa-head { position: absolute; left: 0; right: 0; top: 0; height: 72px; display: flex; align-items: center; gap: 12px; padding: 0 18px; background: #FFFFFF; border-bottom: 1px solid #E4DED3; }
-.wa-name { font-size: 21px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
-.wa-stat { font-size: 15px; color: #66625C; margin-top: 2px; }
-.wa-body { position: absolute; left: 0; right: 0; top: 72px; background: #EFEAE2; overflow: hidden; }
+/* WhatsApp chat — header, wallpaper and composer are the reference screenshot */
+.wa { overflow: hidden; padding: 0; border-radius: 28px; border: 3px solid rgba(20,20,20,.16); background: #E5DDD4; box-shadow: 0 2px 4px rgba(40,32,20,.06), 0 24px 48px -20px rgba(40,32,20,.28); }
+.wa-head { position: absolute; left: 0; right: 0; top: 0; display: block; width: 100%; }
+.wa-av { position: absolute; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0E7A4C; color: #fff; font-weight: 700; letter-spacing: 0.02em; }
+.wa-name { position: absolute; font-family: "Roboto", sans-serif; font-weight: 500; color: #111; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.wa-body { position: absolute; left: 0; right: 0; overflow: hidden; background-repeat: repeat-y; }
 .wa-list { position: absolute; left: 0; right: 0; top: 0; height: 2000px; }
-.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; height: 58px; background: #F7F5F1; display: flex; align-items: center; padding: 0 14px; gap: 10px; border-top: 1px solid #E4DED3; }
-.wa-input { flex: 1; height: 38px; border-radius: 19px; background: #FFFFFF; color: #6F6A63; font-size: 16px; display: flex; align-items: center; padding: 0 16px; }
-.wa-send { width: 38px; height: 38px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; }
-.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 11px 58px 11px 14px; border-radius: 14px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.08); color: #1A1A1A; opacity: 0; }
-.bub.in { left: 14px; background: #FFFFFF; border-top-left-radius: 4px; }
-.bub.out { right: 14px; background: #D9FDD3; border-top-right-radius: 4px; }
-.bub .tm { position: absolute; right: 10px; bottom: 6px; font-size: 13px; line-height: 13px; color: #5F6762; display: flex; align-items: center; gap: 3px; }
+.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; display: block; width: 100%; }
+.wa-day { position: absolute; left: 0; right: 0; top: 12px; text-align: center; }
+.wa-day span { display: inline-block; background: #fff; border-radius: 8px; padding: 4px 14px; font-size: 16px; color: #555; box-shadow: 0 1px 1px rgba(0,0,0,.06); }
+.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 10px 14px 6px; border-radius: 12px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.07); color: #111; opacity: 0; }
+.bub.in { left: 12px; background: #FFFFFF; }
+.bub.out { right: 12px; background: #E7FFD9; }
+.bub .tm { display: block; text-align: right; font-size: 14px; line-height: 20px; color: #707070; margin-top: 2px; }
 .bub .hi { border-radius: 6px; padding: 0 3px; margin: 0 -3px; }
 .bub .src { display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; color: #0E7A4C; margin-top: 4px; font-weight: 500; }
-.typing { position: absolute; left: 14px; width: 74px; height: 44px; border-radius: 14px; border-top-left-radius: 4px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+.bub .btns { margin: 8px -14px -6px; border-top: 1px solid #E6E6E6; }
+.bub .btn { height: 52px; display: flex; align-items: center; justify-content: center; font-size: 21px; color: #1A96D5; font-weight: 500; }
+.bub .btn + .btn { border-top: 1px solid #E6E6E6; }
+.typing { position: absolute; left: 12px; width: 74px; height: 44px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.07); }
 .typing i { width: 9px; height: 9px; border-radius: 50%; background: #A7A39C; display: block; }
 /* extracted chips */
 .chip { position: absolute; height: 84px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: #FFFFFF; border: 1.5px solid #E4DED3; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(40,32,20,.28); opacity: 0; }
@@ -43,15 +46,14 @@
 
 
 #cta-logo { position: absolute; left: 380px; top: 236px; width: 320px; height: 39px; display: block; }
-#cta-hl { top: 350px; font-size: 62px; line-height: 1.1; }
-#cta-btnw { position: absolute; left: 0; right: 0; top: 640px; display: flex; justify-content: center; }
+#cta-hl { top: 392px; font-size: 64px; line-height: 1.1; }
+#cta-btnw { position: absolute; left: 0; right: 0; top: 602px; display: flex; justify-content: center; }
 #cta-btn { position: relative; height: 92px; padding: 0 44px; border-radius: 999px; background: #0E7A4C; color: #fff; font-size: 34px; font-weight: 600; display: flex; align-items: center; gap: 14px; letter-spacing: -0.005em; box-shadow: 0 18px 40px -16px rgba(14,122,76,.6); opacity: 0; }
 #cta-ring { position: absolute; inset: 0; border-radius: 999px; border: 3px solid #27B578; opacity: 0; }
-#cta-url { position: absolute; left: 0; right: 0; top: 760px; text-align: center; font-size: 22px; color: #66625C; font-weight: 500; opacity: 0; }
+#cta-url { position: absolute; left: 0; right: 0; top: 722px; text-align: center; font-size: 22px; color: #66625C; font-weight: 500; opacity: 0; }
 
   </style>
   <div id="root" data-composition-id="cta" data-width="1080" data-height="1080">
-    <img id="cta-logo" src="assets/brand/logo-dark.svg" alt="DoubleTick">
     <h1 class="hl" id="cta-hl"><span class="w " id="cta-hl-w0">Turn</span> <span class="w " id="cta-hl-w1">more</span> <span class="w " id="cta-hl-w2">WhatsApp</span> <span class="w " id="cta-hl-w3">enquiries</span> <br> <span class="w " id="cta-hl-w4">into</span> <span class="w g" id="cta-hl-w5">qualified</span> <span class="w g" id="cta-hl-w6">buyers.</span></h1>
     <div id="cta-btnw"><div id="cta-btn"><div id="cta-ring"></div>Book Your Free Demo Today <span id="cta-arrow" style="display:inline-block">→</span></div></div>
     <div id="cta-url">doubletick.io</div>
@@ -70,7 +72,6 @@
         for (let i = 0; i < n; i++) blurIn(q(prefix + "-w" + i), t + i * gap, 0.16);
       };
 
-      tl.fromTo("#cta-logo", { clipPath: "inset(0 100% 0 0)", opacity: 1 }, { clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "power2.inOut" }, 0.05);
       wordsIn("cta-hl", 7, 0.4, 0.06);
       // CTA: opacity 0→1, scale .96→1 in 0.28 s, magnetic settle, one pulse, hold
       tl.fromTo("#cta-btn", { opacity: 0, scale: 0.96, y: 10 }, { opacity: 1, scale: 1, duration: 0.28, ease: "power3.out" }, 1.15);

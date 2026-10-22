@@ -26,6 +26,9 @@ Subtitles live in `compositions/captions.html` (Geist Medium 28 px, bottom centr
 
 ## Assets
 
+- WhatsApp UI: header, doodle wallpaper and composer are cut from the reference screenshot (`assets/ui/wa-*`); only the avatar, name and messages are ours. The Team Inbox wallpaper is cut from the DoubleTick inbox screenshot (`assets/ui/dt-wall.jpg`).
+- The DoubleTick logo is pinned top-left (80 px from top and left) for the whole film, on the root (`#dt-logo` in `index.html`).
+
 - Logo: `assets/brand/logo-dark.svg` (from doubletick.io). Fonts: Hedvig Letters Serif, Geist (Google Fonts, OFL).
 - Property thumbnails / background towers: Unsplash (Unsplash License).
 - "ABC Properties", "Ahmed", "Sarah" and the listings/prices are fictional demo content.

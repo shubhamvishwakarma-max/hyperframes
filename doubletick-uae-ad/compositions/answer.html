@@ -17,23 +17,26 @@
 .icbox { display: flex; align-items: center; justify-content: center; border-radius: 14px; background: #E3F6EC; color: #0E7A4C; flex: none; }
 .avatar { display: flex; align-items: center; justify-content: center; border-radius: 50%; flex: none; font-weight: 600; }
 .pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; font-weight: 600; }
-/* WhatsApp-style chat */
-.wa { overflow: hidden; padding: 0; }
-.wa-head { position: absolute; left: 0; right: 0; top: 0; height: 72px; display: flex; align-items: center; gap: 12px; padding: 0 18px; background: #FFFFFF; border-bottom: 1px solid #E4DED3; }
-.wa-name { font-size: 21px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
-.wa-stat { font-size: 15px; color: #66625C; margin-top: 2px; }
-.wa-body { position: absolute; left: 0; right: 0; top: 72px; background: #EFEAE2; overflow: hidden; }
+/* WhatsApp chat — header, wallpaper and composer are the reference screenshot */
+.wa { overflow: hidden; padding: 0; border-radius: 28px; border: 3px solid rgba(20,20,20,.16); background: #E5DDD4; box-shadow: 0 2px 4px rgba(40,32,20,.06), 0 24px 48px -20px rgba(40,32,20,.28); }
+.wa-head { position: absolute; left: 0; right: 0; top: 0; display: block; width: 100%; }
+.wa-av { position: absolute; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0E7A4C; color: #fff; font-weight: 700; letter-spacing: 0.02em; }
+.wa-name { position: absolute; font-family: "Roboto", sans-serif; font-weight: 500; color: #111; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.wa-body { position: absolute; left: 0; right: 0; overflow: hidden; background-repeat: repeat-y; }
 .wa-list { position: absolute; left: 0; right: 0; top: 0; height: 2000px; }
-.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; height: 58px; background: #F7F5F1; display: flex; align-items: center; padding: 0 14px; gap: 10px; border-top: 1px solid #E4DED3; }
-.wa-input { flex: 1; height: 38px; border-radius: 19px; background: #FFFFFF; color: #6F6A63; font-size: 16px; display: flex; align-items: center; padding: 0 16px; }
-.wa-send { width: 38px; height: 38px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; }
-.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 11px 58px 11px 14px; border-radius: 14px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.08); color: #1A1A1A; opacity: 0; }
-.bub.in { left: 14px; background: #FFFFFF; border-top-left-radius: 4px; }
-.bub.out { right: 14px; background: #D9FDD3; border-top-right-radius: 4px; }
-.bub .tm { position: absolute; right: 10px; bottom: 6px; font-size: 13px; line-height: 13px; color: #5F6762; display: flex; align-items: center; gap: 3px; }
+.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; display: block; width: 100%; }
+.wa-day { position: absolute; left: 0; right: 0; top: 12px; text-align: center; }
+.wa-day span { display: inline-block; background: #fff; border-radius: 8px; padding: 4px 14px; font-size: 16px; color: #555; box-shadow: 0 1px 1px rgba(0,0,0,.06); }
+.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 10px 14px 6px; border-radius: 12px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.07); color: #111; opacity: 0; }
+.bub.in { left: 12px; background: #FFFFFF; }
+.bub.out { right: 12px; background: #E7FFD9; }
+.bub .tm { display: block; text-align: right; font-size: 14px; line-height: 20px; color: #707070; margin-top: 2px; }
 .bub .hi { border-radius: 6px; padding: 0 3px; margin: 0 -3px; }
 .bub .src { display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; color: #0E7A4C; margin-top: 4px; font-weight: 500; }
-.typing { position: absolute; left: 14px; width: 74px; height: 44px; border-radius: 14px; border-top-left-radius: 4px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+.bub .btns { margin: 8px -14px -6px; border-top: 1px solid #E6E6E6; }
+.bub .btn { height: 52px; display: flex; align-items: center; justify-content: center; font-size: 21px; color: #1A96D5; font-weight: 500; }
+.bub .btn + .btn { border-top: 1px solid #E6E6E6; }
+.typing { position: absolute; left: 12px; width: 74px; height: 44px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.07); }
 .typing i { width: 9px; height: 9px; border-radius: 50%; background: #A7A39C; display: block; }
 /* extracted chips */
 .chip { position: absolute; height: 84px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: #FFFFFF; border: 1.5px solid #E4DED3; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(40,32,20,.28); opacity: 0; }
@@ -42,10 +45,10 @@
 .chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
 
 
-#an-hl { top: 100px; font-size: 58px; }
-#an-hl2 { top: 100px; font-size: 58px; }
-#an-sub { top: 180px; color: #0E7A4C; }
-#an-book { left: 606px; top: 330px; width: 394px; height: 420px; opacity: 0; padding: 26px; }
+#an-hl { top: 140px; font-size: 58px; }
+#an-hl2 { top: 140px; font-size: 58px; }
+#an-sub { top: 220px; color: #0E7A4C; }
+#an-book { left: 606px; top: 362px; width: 394px; height: 420px; opacity: 0; padding: 26px; }
 .an-bh { display: flex; align-items: center; gap: 14px; }
 .an-bh .t { font-size: 24px; font-weight: 600; }
 .an-bh .s { font-size: 17px; color: #66625C; margin-top: 2px; }
@@ -66,36 +69,36 @@
     <h1 class="hl" id="an-hl">Questions answered instantly.</h1>
     <h1 class="hl" id="an-hl2"><span class="w " id="an-hl2-w0">From</span> <span class="w " id="an-hl2-w1">enquiry</span> <span class="w g" id="an-hl2-w2">to</span> <span class="w g" id="an-hl2-w3">viewing.</span></h1>
     <div class="sub" id="an-sub">Pricing · Amenities · Payment Plans</div>
-    <div class="card wa" id="an-chat" style="left:80px;top:252px;width:480px;height:606px;">
-      <div class="wa-head">
-        <div class="avatar" style="width:46px;height:46px;background:#0E7A4C;color:#fff;font-size:14px;">ABC</div>
-        <div><div class="wa-name">ABC Properties <svg width="19" height="19" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#27B578"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="wa-stat">Business account</div></div>
-      </div>
-      <div class="wa-body" style="height:476px;" data-layout-allow-overflow>
+    <div class="card wa" id="an-chat" style="left:80px;top:274px;width:480px;height:600px;">
+      <img class="wa-head" src="assets/ui/wa-header.png" alt="" style="height:86px;">
+      <div class="wa-av" style="left:54px;top:23px;width:48px;height:48px;font-size:14px;">ABC</div>
+      <div class="wa-name" style="left:108px;top:22px;height:34px;font-size:19px;">ABC Properties<img src="assets/ui/wa-verified.png" alt="" style="width:20px;height:20px;display:block;"></div>
+      <div class="wa-body" style="top:86px;height:433px;background-image:url('assets/ui/wa-wall.jpg');background-size:474px auto;" data-layout-allow-overflow>
         <div class="wa-list" id="an-chat-list">
-          <div class="bub in" id="an-m0" style="top:14px;width:320px;padding:11px 14px;"><div style="width:292px;height:150px;border-radius:10px;overflow:hidden;margin:-5px -50px 10px -8px;"><img src="assets/images/marina-residence.jpg" alt="Marina Residence" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div style="font-weight:600;font-size:21px;line-height:26px;">Marina Residence</div><div style="font-size:17px;line-height:24px;color:#66625C;">2 Bedroom · Dubai Marina</div><span class="tm">10:26</span></div>
-          <div class="bub out" id="an-m1" style="top:252px;">What's the price and<br>payment plan?<span class="tm">10:26<svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#53BDEB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-          <div class="bub in" id="an-m2" style="top:344px;">This property starts from<br><b>AED 1.95M</b> with flexible<br>payment options.<div class="src"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>From ABC Properties listing</div><span class="tm">10:26</span></div>
-          <div class="bub out" id="an-m3" style="top:490px;">Does it have a gym and pool?<span class="tm">10:27<svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#53BDEB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-          <div class="bub in" id="an-m4" style="top:552px;">Yes. It includes a gym, pool<br>and covered parking.<span class="tm">10:27</span></div>
-          <div class="bub in" id="an-m5" style="top:644px;">Would you like to schedule<br>a viewing?<span class="tm">10:27</span></div>
-          <div class="bub out" id="an-m6" style="top:736px;">Yes. Saturday afternoon.<span class="tm">10:28<svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#53BDEB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="wa-day"><span>Today</span></div>
+          <div class="bub in" id="an-m0" style="top:56px;width:320px;"><div style="width:292px;height:150px;border-radius:10px;overflow:hidden;margin:-4px -8px 10px -8px;"><img src="assets/images/marina-residence.jpg" alt="Marina Residence" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div style="font-weight:600;font-size:21px;line-height:26px;">Marina Residence</div><div style="font-size:17px;line-height:24px;color:#66625C;">2 Bedroom · Dubai Marina</div><span class="tm">10.26 AM</span></div>
+          <div class="bub out" id="an-m1" style="top:318px;">What's the price and<br>payment plan?<span class="tm">10.26 AM</span></div>
+          <div class="bub in" id="an-m2" style="top:426px;">This property starts from<br><b>AED 1.95M</b> with flexible<br>payment options.<div class="src"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>From ABC Properties listing</div><span class="tm">10.26 AM</span></div>
+          <div class="bub out" id="an-m3" style="top:588px;">Does it have a gym and pool?<span class="tm">10.27 AM</span></div>
+          <div class="bub in" id="an-m4" style="top:666px;">Yes. It includes a gym, pool<br>and covered parking.<span class="tm">10.27 AM</span></div>
+          <div class="bub in" id="an-m5" style="top:774px;">Would you like to schedule<br>a viewing?<span class="tm">10.27 AM</span><div class="btns"><div class="btn">Book a viewing</div><div class="btn">Maybe later</div></div></div>
+          <div class="bub out" id="an-m6" style="top:994px;">Yes. Saturday afternoon.<span class="tm">10.28 AM</span></div>
           <div class="typing" id="an-chat-typing"><i id="an-chat-d0"></i><i id="an-chat-d1"></i><i id="an-chat-d2"></i></div>
         </div>
       </div>
-      <div class="wa-foot"><div class="wa-input">Message</div><div class="wa-send"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></div></div>
+      <img class="wa-foot" src="assets/ui/wa-footer.png" alt="" style="height:75px;">
     </div>
-    <div class="chip" id="an-c0" style="left:606px;top:342px;width:394px;">
+    <div class="chip" id="an-c0" style="left:606px;top:370px;width:394px;">
       <div class="icbox" style="width:52px;height:52px;"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.3 9.3a1 1 0 0 0 1.4 0l8.6-8.6a1 1 0 0 0 0-1.4z"/><circle cx="7" cy="7" r="1.5"/></svg></div>
       <div><div class="lb">Pricing</div><div class="vl">From AED 1.95M</div></div>
       <div class="ck" id="an-c0-ck"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
     </div>
-    <div class="chip" id="an-c1" style="left:606px;top:442px;width:394px;">
+    <div class="chip" id="an-c1" style="left:606px;top:470px;width:394px;">
       <div class="icbox" style="width:52px;height:52px;"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></div>
       <div><div class="lb">Payment Plan</div><div class="vl">Flexible options</div></div>
       <div class="ck" id="an-c1-ck"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
     </div>
-    <div class="chip" id="an-c2" style="left:606px;top:542px;width:394px;">
+    <div class="chip" id="an-c2" style="left:606px;top:570px;width:394px;">
       <div class="icbox" style="width:52px;height:52px;"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></div>
       <div><div class="lb">Amenities</div><div class="vl">Gym · Pool · Parking</div></div>
       <div class="ck" id="an-c2-ck"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
@@ -131,33 +134,33 @@
       tl.fromTo("#an-chat", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, ease: "expo.out" }, 0.0);
       tl.fromTo(q("an-m0"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 0.080);
       tl.fromTo(q("an-m1"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "100% 100%" }, 0.550);
-      tl.set(q("an-chat-typing"), { y: 344 }, 0.930);
+      tl.set(q("an-chat-typing"), { y: 426 }, 0.930);
       tl.fromTo(q("an-chat-typing"), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.14, ease: "power3.out", transformOrigin: "0% 0%" }, 0.930);
       [0, 1, 2].forEach((k) => tl.fromTo(q("an-chat-d" + k), { opacity: 0.35 }, { opacity: 1, duration: 0.12, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0.930 + 0.05 + k * 0.08));
       tl.set(q("an-chat-typing"), { opacity: 0 }, 1.350);
-      tl.to(q("an-chat-list"), { y: -18, duration: 0.34, ease: "power3.out" }, 0.930);
+      tl.to(q("an-chat-list"), { y: -159, duration: 0.34, ease: "power3.out" }, 0.930);
       tl.fromTo(q("an-m2"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 1.350);
-      tl.to(q("an-chat-list"), { y: -80, duration: 0.34, ease: "power3.out" }, 2.250);
+      tl.to(q("an-chat-list"), { y: -237, duration: 0.34, ease: "power3.out" }, 2.250);
       tl.fromTo(q("an-m3"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "100% 100%" }, 2.250);
-      tl.set(q("an-chat-typing"), { y: 552 }, 2.580);
+      tl.set(q("an-chat-typing"), { y: 666 }, 2.580);
       tl.fromTo(q("an-chat-typing"), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.14, ease: "power3.out", transformOrigin: "0% 0%" }, 2.580);
       [0, 1, 2].forEach((k) => tl.fromTo(q("an-chat-d" + k), { opacity: 0.35 }, { opacity: 1, duration: 0.12, yoyo: true, repeat: 1, ease: "sine.inOut" }, 2.580 + 0.05 + k * 0.08));
       tl.set(q("an-chat-typing"), { opacity: 0 }, 3.000);
-      tl.to(q("an-chat-list"), { y: -172, duration: 0.34, ease: "power3.out" }, 2.580);
+      tl.to(q("an-chat-list"), { y: -345, duration: 0.34, ease: "power3.out" }, 2.580);
       tl.fromTo(q("an-m4"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 3.000);
-      tl.set(q("an-chat-typing"), { y: 644 }, 3.730);
+      tl.set(q("an-chat-typing"), { y: 774 }, 3.730);
       tl.fromTo(q("an-chat-typing"), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.14, ease: "power3.out", transformOrigin: "0% 0%" }, 3.730);
       [0, 1, 2].forEach((k) => tl.fromTo(q("an-chat-d" + k), { opacity: 0.35 }, { opacity: 1, duration: 0.12, yoyo: true, repeat: 1, ease: "sine.inOut" }, 3.730 + 0.05 + k * 0.08));
       tl.set(q("an-chat-typing"), { opacity: 0 }, 4.150);
-      tl.to(q("an-chat-list"), { y: -264, duration: 0.34, ease: "power3.out" }, 3.730);
+      tl.to(q("an-chat-list"), { y: -565, duration: 0.34, ease: "power3.out" }, 3.730);
       tl.fromTo(q("an-m5"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 4.150);
-      tl.to(q("an-chat-list"), { y: -326, duration: 0.34, ease: "power3.out" }, 4.800);
+      tl.to(q("an-chat-list"), { y: -643, duration: 0.34, ease: "power3.out" }, 4.800);
       tl.fromTo(q("an-m6"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "100% 100%" }, 4.800);
-      tl.fromTo(q("an-c0"), { opacity: 0, x: -528, y: 334, scale: 0.42 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, 1.55);
+      tl.fromTo(q("an-c0"), { opacity: 0, x: -548, y: 294, scale: 0.42 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, 1.55);
       tl.fromTo(q("an-c0-ck"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.22, ease: "back.out(1.6)" }, 1.97);
-      tl.fromTo(q("an-c1"), { opacity: 0, x: -528, y: 234, scale: 0.42 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, 1.69);
+      tl.fromTo(q("an-c1"), { opacity: 0, x: -548, y: 194, scale: 0.42 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, 1.69);
       tl.fromTo(q("an-c1-ck"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.22, ease: "back.out(1.6)" }, 2.11);
-      tl.fromTo(q("an-c2"), { opacity: 0, x: -511, y: 161, scale: 0.42 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, 3.20);
+      tl.fromTo(q("an-c2"), { opacity: 0, x: -531, y: 121, scale: 0.42 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, 3.20);
       tl.fromTo(q("an-c2-ck"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.22, ease: "back.out(1.6)" }, 3.62);
 
       // viewing stage

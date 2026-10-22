@@ -82,23 +82,26 @@ const BASE_CSS = `
 .icbox { display: flex; align-items: center; justify-content: center; border-radius: 14px; background: ${C.greenTint}; color: ${C.greenDeep}; flex: none; }
 .avatar { display: flex; align-items: center; justify-content: center; border-radius: 50%; flex: none; font-weight: 600; }
 .pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; font-weight: 600; }
-/* WhatsApp-style chat */
-.wa { overflow: hidden; padding: 0; }
-.wa-head { position: absolute; left: 0; right: 0; top: 0; height: 72px; display: flex; align-items: center; gap: 12px; padding: 0 18px; background: #FFFFFF; border-bottom: 1px solid ${C.line}; }
-.wa-name { font-size: 21px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
-.wa-stat { font-size: 15px; color: ${C.muted}; margin-top: 2px; }
-.wa-body { position: absolute; left: 0; right: 0; top: 72px; background: ${C.wa}; overflow: hidden; }
+/* WhatsApp chat — header, wallpaper and composer are the reference screenshot */
+.wa { overflow: hidden; padding: 0; border-radius: 28px; border: 3px solid rgba(20,20,20,.16); background: #E5DDD4; box-shadow: 0 2px 4px rgba(40,32,20,.06), 0 24px 48px -20px rgba(40,32,20,.28); }
+.wa-head { position: absolute; left: 0; right: 0; top: 0; display: block; width: 100%; }
+.wa-av { position: absolute; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: ${C.greenDeep}; color: #fff; font-weight: 700; letter-spacing: 0.02em; }
+.wa-name { position: absolute; font-family: "Roboto", sans-serif; font-weight: 500; color: #111; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.wa-body { position: absolute; left: 0; right: 0; overflow: hidden; background-repeat: repeat-y; }
 .wa-list { position: absolute; left: 0; right: 0; top: 0; height: 2000px; }
-.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; height: 58px; background: #F7F5F1; display: flex; align-items: center; padding: 0 14px; gap: 10px; border-top: 1px solid ${C.line}; }
-.wa-input { flex: 1; height: 38px; border-radius: 19px; background: #FFFFFF; color: #6F6A63; font-size: 16px; display: flex; align-items: center; padding: 0 16px; }
-.wa-send { width: 38px; height: 38px; border-radius: 50%; background: ${C.green}; color: #fff; display: flex; align-items: center; justify-content: center; }
-.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 11px 58px 11px 14px; border-radius: 14px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.08); color: #1A1A1A; opacity: 0; }
-.bub.in { left: 14px; background: #FFFFFF; border-top-left-radius: 4px; }
-.bub.out { right: 14px; background: ${C.waOut}; border-top-right-radius: 4px; }
-.bub .tm { position: absolute; right: 10px; bottom: 6px; font-size: 13px; line-height: 13px; color: #5F6762; display: flex; align-items: center; gap: 3px; }
+.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; display: block; width: 100%; }
+.wa-day { position: absolute; left: 0; right: 0; top: 12px; text-align: center; }
+.wa-day span { display: inline-block; background: #fff; border-radius: 8px; padding: 4px 14px; font-size: 16px; color: #555; box-shadow: 0 1px 1px rgba(0,0,0,.06); }
+.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 10px 14px 6px; border-radius: 12px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.07); color: #111; opacity: 0; }
+.bub.in { left: 12px; background: #FFFFFF; }
+.bub.out { right: 12px; background: #E7FFD9; }
+.bub .tm { display: block; text-align: right; font-size: 14px; line-height: 20px; color: #707070; margin-top: 2px; }
 .bub .hi { border-radius: 6px; padding: 0 3px; margin: 0 -3px; }
 .bub .src { display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; color: ${C.greenDeep}; margin-top: 4px; font-weight: 500; }
-.typing { position: absolute; left: 14px; width: 74px; height: 44px; border-radius: 14px; border-top-left-radius: 4px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+.bub .btns { margin: 8px -14px -6px; border-top: 1px solid #E6E6E6; }
+.bub .btn { height: 52px; display: flex; align-items: center; justify-content: center; font-size: 21px; color: #1A96D5; font-weight: 500; }
+.bub .btn + .btn { border-top: 1px solid #E6E6E6; }
+.typing { position: absolute; left: 12px; width: 74px; height: 44px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.07); }
 .typing i { width: 9px; height: 9px; border-radius: 50%; background: #A7A39C; display: block; }
 /* extracted chips */
 .chip { position: absolute; height: 84px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: #FFFFFF; border: 1.5px solid ${C.line}; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(40,32,20,.28); opacity: 0; }
@@ -140,44 +143,45 @@ ${script}
 // ---------- chat builder ----------
 // msgs: {id, side, lines:[html], t, h? (explicit), extra? (html appended), typing?}
 function buildChat(prefix, box, msgs, opts = {}) {
-  const head = opts.head || { avatar: "ABC", name: "ABC Properties", stat: "Business account" };
-  const bodyH = box.h - 72 - 58;
-  let y = 14;
+  const head = opts.head || { avatar: "ABC", name: "ABC Properties" };
+  const k = (box.w - 6) / 1070; // screenshot px → frame px
+  const headH = Math.round(195 * k), footH = Math.round(170 * k);
+  const bodyH = box.h - 6 - headH - footH;
+  let y = 56;
   const laid = msgs.map((m) => {
-    const h = m.h || m.lines.length * 30 + 22 + (m.extraH || 0);
+    const h = m.h || m.lines.length * 30 + 38 + (m.extraH || 0);
     const o = { ...m, top: y, height: h };
     y += h + 10;
     return o;
   });
-  // scroll targets
   let scroll = 0;
   for (const m of laid) {
     const need = bodyH - 14 - (m.top + m.height);
     scroll = Math.min(scroll, need);
     m.scroll = scroll;
     m.scrollAt = m.side === "in" && m.typing ? m.t - 0.42 : m.t;
-    // absolute centre of the bubble after scroll (scene coordinates)
-    const estW = m.w || Math.max(...m.lines.map((l) => l.replace(/<[^>]+>/g, "").length)) * 11.6 + 72;
-    m.cx = m.side === "out" ? box.x + box.w - 14 - estW / 2 : box.x + 14 + estW / 2;
-    m.cy = box.y + 72 + m.top + m.scroll + m.height / 2;
+    const estW = m.w || Math.max(...m.lines.map((l) => l.replace(/<[^>]+>/g, "").length)) * 11.6 + 30;
+    m.cx = m.side === "out" ? box.x + box.w - 15 - estW / 2 : box.x + 15 + estW / 2;
+    m.cy = box.y + 3 + headH + m.top + m.scroll + m.height / 2;
   }
   const bubbles = laid
     .map(
-      (m) => `          <div class="bub ${m.side}" id="${m.id}" style="top:${m.top}px;${m.w ? `width:${m.w}px;` : ""}${m.style || ""}">${m.lines.join("<br>")}${m.extra || ""}<span class="tm">${m.time || "10:24"}${m.side === "out" ? ticks : ""}</span></div>`,
+      (m) => `          <div class="bub ${m.side}" id="${m.id}" style="top:${m.top}px;${m.w ? `width:${m.w}px;` : ""}${m.style || ""}">${m.lines.join("<br>")}${m.extra || ""}<span class="tm">${m.time || "10.24 AM"}</span>${m.buttons ? `<div class="btns">${m.buttons.map((b) => `<div class="btn">${b}</div>`).join("")}</div>` : ""}</div>`,
     )
     .join("\n");
+  const av = Math.round(108 * k);
   const html = `    <div class="card wa" id="${prefix}" style="left:${box.x}px;top:${box.y}px;width:${box.w}px;height:${box.h}px;">
-      <div class="wa-head">
-        <div class="avatar" style="width:46px;height:46px;background:${head.bg || C.greenDeep};color:#fff;font-size:${head.fs || 14}px;">${head.avatar}</div>
-        <div><div class="wa-name">${head.name} ${head.noVerified ? "" : verified(19)}</div><div class="wa-stat">${head.stat}</div></div>
-      </div>
-      <div class="wa-body" style="height:${bodyH}px;" data-layout-allow-overflow>
+      <img class="wa-head" src="assets/ui/wa-header.png" alt="" style="height:${headH}px;">
+      <div class="wa-av" style="left:${Math.round(121 * k)}px;top:${Math.round(51 * k)}px;width:${av}px;height:${av}px;font-size:${Math.round(av * 0.3)}px;">${head.avatar}</div>
+      <div class="wa-name" style="left:${Math.round(243 * k)}px;top:${Math.round(50 * k)}px;height:${Math.round(76 * k)}px;font-size:${Math.round(44 * k)}px;">${head.name}<img src="assets/ui/wa-verified.png" alt="" style="width:${Math.round(46 * k)}px;height:${Math.round(46 * k)}px;display:block;"></div>
+      <div class="wa-body" style="top:${headH}px;height:${bodyH}px;background-image:url('assets/ui/wa-wall.jpg');background-size:${box.w - 6}px auto;" data-layout-allow-overflow>
         <div class="wa-list" id="${prefix}-list">
+          <div class="wa-day"><span>Today</span></div>
 ${bubbles}
           <div class="typing" id="${prefix}-typing"><i id="${prefix}-d0"></i><i id="${prefix}-d1"></i><i id="${prefix}-d2"></i></div>
         </div>
       </div>
-      <div class="wa-foot"><div class="wa-input">Message</div><div class="wa-send">${icon("chat", 18)}</div></div>
+      <img class="wa-foot" src="assets/ui/wa-footer.png" alt="" style="height:${footH}px;">
     </div>`;
   // script
   let js = "";
@@ -221,15 +225,15 @@ const files = {};
     ["share", "Social Ad", "Instagram · Live"],
     ["grid", "Listing Campaign", "Portal · Live"],
   ];
-  const cardY = [372, 510, 648];
-  const rowY = [452, 552, 652]; // abs centres of inbox rows
+  const cardY = [398, 536, 674];
+  const rowY = [478, 578, 678]; // abs centres of inbox rows
   const css = `
-#ads-hl { top: 96px; font-size: 80px; }
+#ads-hl { top: 140px; font-size: 80px; }
 .ads-src { left: 96px; width: 332px; height: 108px; display: flex; align-items: center; gap: 16px; padding: 0 22px; opacity: 0; }
 .ads-src .t { font-size: 24px; font-weight: 600; }
 .ads-src .s { font-size: 17px; color: ${C.muted}; display: flex; align-items: center; gap: 7px; margin-top: 3px; }
 .ads-src .dot { width: 8px; height: 8px; border-radius: 50%; background: ${C.green}; display: block; }
-#ads-inbox { left: 604px; top: 340px; width: 380px; height: 424px; opacity: 0; }
+#ads-inbox { left: 604px; top: 366px; width: 380px; height: 424px; opacity: 0; }
 .ads-ihead { position: absolute; left: 22px; right: 22px; top: 20px; height: 48px; display: flex; align-items: center; gap: 12px; }
 .ads-ihead .t { font-size: 22px; font-weight: 600; }
 .ads-cnt { position: absolute; right: 0; top: 10px; font-size: 16px; font-weight: 600; color: ${C.greenDeep}; background: ${C.greenTint}; border-radius: 999px; padding: 5px 12px; opacity: 0; }
@@ -265,7 +269,7 @@ ${cardY
       </div>
 ${src
   .map(
-    ([, t], i) => `      <div class="ads-lead" id="ads-lead${i}" style="top:${rowY[i] - 340 - 43}px;">
+    ([, t], i) => `      <div class="ads-lead" id="ads-lead${i}" style="top:${rowY[i] - 366 - 43}px;">
         <div class="avatar" style="width:46px;height:46px;background:${C.greenTint};color:${C.greenDeep};">${icon("user", 22)}</div>
         <div><div class="t">New Lead</div><div class="s">via ${t}</div></div>
         <div class="now">now<div class="bd">1</div></div>
@@ -303,12 +307,12 @@ ${src
     ["Lead 03", "Just exploring"],
     ["Lead 04", "Need a home in Dubai Marina this month"],
   ];
-  const listX = 96, listY = 268, rowH = 104;
+  const listX = 96, listY = 300, rowH = 104;
   const css = `
 #pb-tint { position: absolute; inset: 0; background: ${C.coralTint}; opacity: 0; }
-#pb-hl { top: 100px; font-size: 60px; }
+#pb-hl { top: 140px; font-size: 60px; }
 #pb-hl .w { color: #B9B1A6; }
-#pb-sub { top: 182px; }
+#pb-sub { top: 222px; }
 #pb-list { left: ${listX}px; top: ${listY}px; width: 572px; height: 560px; padding: 0; }
 .pb-lh { position: absolute; left: 24px; right: 24px; top: 18px; height: 44px; display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 600; }
 .pb-lh .m { margin-left: auto; font-size: 16px; color: ${C.muted}; font-weight: 500; }
@@ -318,7 +322,7 @@ ${src
 .pb-row .now { margin-left: auto; text-align: right; font-size: 14px; color: ${C.muted}; align-self: flex-start; margin-top: 22px; }
 .pb-row .bd { width: 24px; height: 24px; border-radius: 50%; background: ${C.greenDeep}; color: #fff; font-size: 13px; display: flex; align-items: center; justify-content: center; margin: 6px 0 0 auto; }
 .pb-q { position: absolute; right: 16px; top: 36px; font-size: 16px; font-weight: 600; color: ${C.coral}; background: ${C.coralTint}; border-radius: 999px; padding: 3px 10px; opacity: 0; }
-#pb-team { left: 738px; top: 396px; width: 246px; height: 304px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; }
+#pb-team { left: 738px; top: 428px; width: 246px; height: 304px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; }
 #pb-team .t { font-size: 24px; font-weight: 600; margin-top: 16px; }
 #pb-team .s { font-size: 18px; color: ${C.muted}; margin-top: 6px; }
 #pb-who { margin-top: 18px; font-size: 17px; color: ${C.coral}; background: ${C.coralTint}; padding: 7px 14px; opacity: 0; }
@@ -326,7 +330,7 @@ ${src
 #pb-sweep { position: absolute; top: -20px; left: 0; width: 8px; height: 1120px; background: ${C.green}; border-radius: 4px; box-shadow: 0 0 28px 6px rgba(39,181,120,.45); opacity: 0; }
 #pb-intro { position: absolute; left: 60px; right: 60px; top: 330px; text-align: center; }
 #pb-logo { display: block; height: 40px; width: 326px; margin: 0 auto; opacity: 0; }
-#pb-introk { font-size: 28px; color: ${C.muted}; font-weight: 500; margin-top: 46px; opacity: 0; }
+#pb-introk { font-size: 30px; color: ${C.muted}; font-weight: 500; opacity: 0; }
 #pb-introt { font-family: "Hedvig Letters Serif", serif; font-size: 84px; line-height: 1.05; margin-top: 14px; letter-spacing: -0.015em; }
 #pb-introt .w { display: inline-block; }
 #pb-introt .g { color: ${C.greenDeep}; }
@@ -339,7 +343,7 @@ ${src
 ${leads
   .map((_, i) => {
     const y = listY + 76 + i * (rowH + 12) + rowH / 2;
-    return `      <path id="pb-line${i}" d="M738 548 C 706 548, 700 ${y}, 668 ${y}" fill="none" stroke="${C.coral}" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>`;
+    return `      <path id="pb-line${i}" d="M738 580 C 706 580, 700 ${y}, 668 ${y}" fill="none" stroke="${C.coral}" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>`;
   })
   .join("\n")}
     </svg>
@@ -364,7 +368,6 @@ ${leads
     </div>
     <div id="pb-sweep" data-layout-ignore></div>
     <div id="pb-intro">
-      <img id="pb-logo" src="assets/brand/logo-dark.svg" alt="DoubleTick">
       <div id="pb-introk">Introducing</div>
       <div id="pb-introt">${words("pb-introt", [["DoubleTick"], ["<br>"], ["Agentic AI", "g"]])}</div>
       <div id="pb-uline"></div>
@@ -394,7 +397,6 @@ ${leads
       blurOut("#pb-list, #pb-team", 5.02, 0.22, { y: -10 });
       tl.set("#pb-sweep", { opacity: 0 }, 5.22);
       // Introducing DoubleTick Agentic AI
-      tl.fromTo("#pb-logo", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 5.15);
       blurIn("#pb-introk", 5.18, 0.16);
       wordsIn("pb-introt", 3, 5.25, 0.08);
       tl.fromTo("#pb-uline", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "expo.out" }, 5.4);
@@ -408,21 +410,21 @@ ${leads
 // SCENE 3+4 — AI QUALIFIES + HIGH INTENT (11.0 – 20.0, 9 s)
 // =====================================================================
 {
-  const box = { x: 80, y: 252, w: 480, h: 606 };
+  const box = { x: 80, y: 274, w: 480, h: 600 };
   const hi = (s) => `<span class="hi" id="__ID__">${s}</span>`;
   const msgs = [
-    { id: "qf-m0", side: "out", t: 0.25, lines: ["Hi, I'm looking for an", "apartment in Dubai."], time: "10:24" },
+    { id: "qf-m0", side: "out", t: 0.25, lines: ["Hi, I'm looking for an", "apartment in Dubai."], time: "10.24 AM" },
     { id: "qf-m1", side: "in", t: 1.0, typing: true, lines: ["Sure. What budget range", "are you considering?"] },
     { id: "qf-m2", side: "out", t: 1.7, lines: [`Around <span class="hi" id="qf-h0">AED 2M</span>.`] },
     { id: "qf-m3", side: "in", t: 2.4, typing: true, lines: ["Which location do you prefer?"] },
-    { id: "qf-m4", side: "out", t: 3.1, lines: [`<span class="hi" id="qf-h1">Dubai Marina</span>.`], time: "10:25" },
-    { id: "qf-m5", side: "in", t: 3.8, typing: true, lines: ["What property type are", "you looking for?"], time: "10:25" },
-    { id: "qf-m6", side: "out", t: 4.5, lines: [`<span class="hi" id="qf-h2">2-bedroom</span> apartment.`], time: "10:25" },
-    { id: "qf-m7", side: "in", t: 5.2, typing: true, lines: ["When are you planning to buy?"], time: "10:25" },
-    { id: "qf-m8", side: "out", t: 5.9, lines: [`Within <span class="hi" id="qf-h3">1–2 months</span>.`], time: "10:26" },
+    { id: "qf-m4", side: "out", t: 3.1, lines: [`<span class="hi" id="qf-h1">Dubai Marina</span>.`], time: "10.25 AM" },
+    { id: "qf-m5", side: "in", t: 3.8, typing: true, lines: ["What property type are", "you looking for?"], time: "10.25 AM" },
+    { id: "qf-m6", side: "out", t: 4.5, lines: [`<span class="hi" id="qf-h2">2-bedroom</span> apartment.`], time: "10.25 AM" },
+    { id: "qf-m7", side: "in", t: 5.2, typing: true, lines: ["When are you planning to buy?"], time: "10.25 AM" },
+    { id: "qf-m8", side: "out", t: 5.9, lines: [`Within <span class="hi" id="qf-h3">1–2 months</span>.`], time: "10.26 AM" },
   ];
   const chat = buildChat("qf-chat", box, msgs);
-  const slotX = 606, slotW = 394, slotY = [318, 418, 518, 618];
+  const slotX = 606, slotW = 394, slotY = [342, 442, 542, 642];
   const chips = [
     ["wallet", "Budget", "AED 2M", 2],
     ["pin", "Location", "Dubai Marina", 4],
@@ -430,13 +432,13 @@ ${leads
     ["calendar", "Timeline", "1–2 Months", 8],
   ];
   // profile card targets
-  const cardX = 315, cardY = 248, cardW = 450;
+  const cardX = 315, cardY = 272, cardW = 450;
   const rowX = cardX + 28, rowY0 = cardY + 108;
   const css = `
-#qf-hl { top: 100px; font-size: 58px; }
-#qf-hl2 { top: 100px; font-size: 58px; opacity: 0; }
-#qf-sub { top: 180px; color: ${C.greenDeep}; }
-#qf-cap { position: absolute; left: ${slotX}px; top: 270px; width: ${slotW}px; font-size: 15px; font-weight: 600; color: ${C.muted}; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0; display: flex; align-items: center; gap: 8px; }
+#qf-hl { top: 140px; font-size: 58px; }
+#qf-hl2 { top: 140px; font-size: 58px; opacity: 0; }
+#qf-sub { top: 220px; color: ${C.greenDeep}; }
+#qf-cap { position: absolute; left: ${slotX}px; top: 300px; width: ${slotW}px; font-size: 15px; font-weight: 600; color: ${C.muted}; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0; display: flex; align-items: center; gap: 8px; }
 #qf-card { left: ${cardX}px; top: ${cardY}px; width: ${cardW}px; height: 610px; opacity: 0; }
 .qf-ch { position: absolute; left: 28px; right: 28px; top: 24px; display: flex; align-items: center; gap: 14px; }
 .qf-ch .t { font-size: 24px; font-weight: 600; }
@@ -516,13 +518,13 @@ ${chat.js}`;
     ["harbour-view", "Harbour View", "AED 2.1M"],
     ["marina-heights", "Marina Heights", "AED 2.3M"],
   ];
-  const xs = [74, 395, 716], pw = 290, py = 330, ph = 470;
+  const xs = [74, 395, 716], pw = 290, py = 346, ph = 470;
   const css = `
-#mt-hl { top: 100px; font-size: 54px; }
-#mt-pill { position: absolute; left: 90px; right: 90px; top: 196px; height: 54px; justify-content: center; background: #fff; border: 1px solid ${C.line}; font-size: 19px; font-weight: 500; color: ${C.ink}; gap: 12px; opacity: 0; }
+#mt-hl { top: 140px; font-size: 54px; }
+#mt-pill { position: absolute; left: 90px; right: 90px; top: 228px; height: 54px; justify-content: center; background: #fff; border: 1px solid ${C.line}; font-size: 19px; font-weight: 500; color: ${C.ink}; gap: 12px; opacity: 0; }
 #mt-pill .hi { color: #fff; background: ${C.greenDeep}; border-radius: 999px; padding: 5px 12px; font-size: 16px; font-weight: 600; }
 #mt-pill .sep { color: #B9B1A6; }
-#mt-src { position: absolute; left: 0; right: 0; top: 276px; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 18px; color: ${C.muted}; font-weight: 500; opacity: 0; }
+#mt-src { position: absolute; left: 0; right: 0; top: 300px; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 18px; color: ${C.muted}; font-weight: 500; opacity: 0; }
 .mt-card { top: ${py}px; width: ${pw}px; height: ${ph}px; overflow: hidden; opacity: 0; }
 .mt-img { position: absolute; left: 10px; top: 10px; width: ${pw - 22}px; height: 196px; border-radius: 16px; overflow: hidden; }
 .mt-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -577,30 +579,30 @@ ${chat.js}`;
 // SCENE 6+7 — QUESTIONS ANSWERED + VIEWING BOOKED (23.8 – 30.8, 7 s)
 // =====================================================================
 {
-  const box = { x: 80, y: 252, w: 480, h: 606 };
-  const propBubble = `<div style="width:292px;height:150px;border-radius:10px;overflow:hidden;margin:-5px -50px 10px -8px;"><img src="assets/images/marina-residence.jpg" alt="Marina Residence" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div style="font-weight:600;font-size:21px;line-height:26px;">Marina Residence</div><div style="font-size:17px;line-height:24px;color:${C.muted};">2 Bedroom · Dubai Marina</div>`;
+  const box = { x: 80, y: 274, w: 480, h: 600 };
+  const propBubble = `<div style="width:292px;height:150px;border-radius:10px;overflow:hidden;margin:-4px -8px 10px -8px;"><img src="assets/images/marina-residence.jpg" alt="Marina Residence" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div style="font-weight:600;font-size:21px;line-height:26px;">Marina Residence</div><div style="font-size:17px;line-height:24px;color:${C.muted};">2 Bedroom · Dubai Marina</div>`;
   const src = `<div class="src">${icon("db", 15)}From ABC Properties listing</div>`;
   const msgs = [
-    { id: "an-m0", side: "in", t: 0.08, lines: [propBubble], h: 228, w: 320, style: "padding:11px 14px;", time: "10:26" },
-    { id: "an-m1", side: "out", t: 0.55, lines: ["What's the price and", "payment plan?"], time: "10:26" },
-    { id: "an-m2", side: "in", t: 1.35, typing: true, lines: ["This property starts from", "<b>AED 1.95M</b> with flexible", "payment options."], extra: src, extraH: 24, time: "10:26" },
-    { id: "an-m3", side: "out", t: 2.25, lines: ["Does it have a gym and pool?"], time: "10:27" },
-    { id: "an-m4", side: "in", t: 3.0, typing: true, lines: ["Yes. It includes a gym, pool", "and covered parking."], time: "10:27" },
-    { id: "an-m5", side: "in", t: 4.15, typing: true, lines: ["Would you like to schedule", "a viewing?"], time: "10:27" },
-    { id: "an-m6", side: "out", t: 4.8, lines: ["Yes. Saturday afternoon."], time: "10:28" },
+    { id: "an-m0", side: "in", t: 0.08, lines: [propBubble], h: 252, w: 320, time: "10.26 AM" },
+    { id: "an-m1", side: "out", t: 0.55, lines: ["What's the price and", "payment plan?"], time: "10.26 AM" },
+    { id: "an-m2", side: "in", t: 1.35, typing: true, lines: ["This property starts from", "<b>AED 1.95M</b> with flexible", "payment options."], extra: src, extraH: 24, time: "10.26 AM" },
+    { id: "an-m3", side: "out", t: 2.25, lines: ["Does it have a gym and pool?"], time: "10.27 AM" },
+    { id: "an-m4", side: "in", t: 3.0, typing: true, lines: ["Yes. It includes a gym, pool", "and covered parking."], time: "10.27 AM" },
+    { id: "an-m5", side: "in", t: 4.15, typing: true, lines: ["Would you like to schedule", "a viewing?"], buttons: ["Book a viewing", "Maybe later"], extraH: 112, time: "10.27 AM" },
+    { id: "an-m6", side: "out", t: 4.8, lines: ["Yes. Saturday afternoon."], time: "10.28 AM" },
   ];
   const chat = buildChat("an-chat", box, msgs);
   const slotX = 606, slotW = 394;
   const chips = [
-    ["tag", "Pricing", "From AED 1.95M", 2, 342],
-    ["card", "Payment Plan", "Flexible options", 2, 442],
-    ["spark", "Amenities", "Gym · Pool · Parking", 4, 542],
+    ["tag", "Pricing", "From AED 1.95M", 2, 370],
+    ["card", "Payment Plan", "Flexible options", 2, 470],
+    ["spark", "Amenities", "Gym · Pool · Parking", 4, 570],
   ];
   const css = `
-#an-hl { top: 100px; font-size: 58px; }
-#an-hl2 { top: 100px; font-size: 58px; }
-#an-sub { top: 180px; color: ${C.greenDeep}; }
-#an-book { left: ${slotX}px; top: 330px; width: ${slotW}px; height: 420px; opacity: 0; padding: 26px; }
+#an-hl { top: 140px; font-size: 58px; }
+#an-hl2 { top: 140px; font-size: 58px; }
+#an-sub { top: 220px; color: ${C.greenDeep}; }
+#an-book { left: ${slotX}px; top: 362px; width: ${slotW}px; height: 420px; opacity: 0; padding: 26px; }
 .an-bh { display: flex; align-items: center; gap: 14px; }
 .an-bh .t { font-size: 24px; font-weight: 600; }
 .an-bh .s { font-size: 17px; color: ${C.muted}; margin-top: 2px; }
@@ -665,148 +667,185 @@ ${chat.js}`;
 
 // =====================================================================
 // SCENE 8+9 — HIGH-INTENT HANDOFF + SALES FOCUS (30.8 – 38.2, 7.4 s)
+// Simplified DoubleTick Team Inbox: chat list · conversation · details
 // =====================================================================
 {
-  const L = { x: 70, y: 262, w: 360, h: 590 };
-  const R = { x: 466, y: 262, w: 544, h: 590 };
+  const X0 = 60, Y0 = 274, W = 960;
+  const LW = 300, CW = 380; // list / chat pane widths; details takes the rest
+  const DX = X0 + LW + CW; // details pane abs x
   const items = [
     ["wallet", "Budget", "AED 2M"],
     ["pin", "Location", "Dubai Marina"],
     ["building", "Property", "2 Bedroom"],
     ["calendar", "Timeline", "1–2 Months"],
-    ["calendar", "Viewing", "Sat · 3 PM"],
+    ["calendar", "Viewing", "Sat · 3:00 PM"],
   ];
-  const chipY = (i) => L.y + 92 + i * 84;
-  const fx = (i) => R.x + 24 + (i % 2) * 254;
-  const fy = (i) => R.y + 176 + Math.floor(i / 2) * 96;
+  const bubTop = 118, rowTop0 = 74, rowStep = 44; // AI summary bubble inside the chat body
+  const bubX = X0 + LW + CW - 14 - 340;
+  const chipAbsY = (i) => Y0 + 56 + bubTop + rowTop0 + i * rowStep;
+  const fieldTop0 = 330, fieldStep = 38;
+  const fieldAbsY = (i) => Y0 + fieldTop0 + i * fieldStep;
+  const leads = [
+    ["A", "Ahmed", "Yes. Saturday afternoon.", "10:28 am", [["High intent", "g"], ["Viewing booked", "g"]]],
+    ["L", "Lead 01", "Looking for a 2 BHK", "10:21 am", [["AI nurturing", "n"]]],
+    ["L", "Lead 02", "Can you send prices?", "10:17 am", [["AI nurturing", "n"]]],
+    ["L", "Lead 03", "Just exploring", "10:09 am", [["AI nurturing", "n"]]],
+    ["F", "Faisal K.", "Is the 3BR still available?", "09:58 am", [["AI nurturing", "n"]]],
+    ["R", "Rania M.", "Thanks, I'll check and revert", "09:41 am", [["AI nurturing", "n"]]],
+    ["O", "Omar S.", "Any off-plan options?", "09:30 am", [["AI nurturing", "n"]]],
+  ];
+  const dticks = `<svg width="16" height="11" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#2BA36A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   const css = `
-#ho-hl { top: 100px; font-size: 58px; }
-#ho-sub { top: 180px; }
-#ho-hl2 { top: 100px; font-size: 58px; }
-#ho-hl3 { top: 100px; font-size: 58px; }
-#ho-ai { left: ${L.x}px; top: ${L.y}px; width: ${L.w}px; height: ${L.h}px; opacity: 0; }
-.ho-aih { position: absolute; left: 22px; right: 22px; top: 22px; display: flex; align-items: center; gap: 12px; }
-.ho-aih .t { font-size: 20px; font-weight: 600; }
-.ho-aih .s { font-size: 15px; color: ${C.muted}; margin-top: 2px; }
-.ho-aif { position: absolute; left: 22px; right: 22px; bottom: 22px; display: flex; align-items: center; gap: 8px; font-size: 16px; color: ${C.greenDeep}; font-weight: 600; }
-.ho-chip { position: absolute; left: ${L.x + 18}px; width: ${L.w - 36}px; height: 70px; display: flex; align-items: center; gap: 12px; padding: 0 14px; border-radius: 16px; background: #fff; border: 1.5px solid ${C.line}; opacity: 0; box-shadow: 0 8px 18px -12px rgba(40,32,20,.3); }
-.ho-chip .lb { font-size: 14px; color: ${C.muted}; font-weight: 500; }
-.ho-chip .vl { font-size: 22px; font-weight: 600; }
-#ho-ws { left: ${R.x}px; top: ${R.y}px; width: ${R.w}px; height: ${R.h}px; opacity: 0; overflow: hidden; }
-.ho-top { position: absolute; left: 0; right: 0; top: 0; height: 58px; border-bottom: 1px solid ${C.line}; display: flex; align-items: center; padding: 0 24px; gap: 12px; }
-.ho-top img { height: 20px; width: 163px; display: block; }
-.ho-top .s { margin-left: auto; font-size: 15px; color: ${C.muted}; font-weight: 500; }
-.ho-cust { position: absolute; left: 24px; right: 24px; top: 78px; display: flex; align-items: center; gap: 14px; }
-.ho-cust .n { font-size: 28px; font-weight: 600; }
-.ho-cust .s { font-size: 16px; color: ${C.muted}; margin-top: 2px; }
-#ho-hi { margin-left: auto; background: ${C.greenDeep}; color: #fff; font-size: 17px; padding: 8px 14px; opacity: 0; }
-.ho-f { position: absolute; width: 242px; height: 84px; border-radius: 16px; border: 1.5px dashed #D3CCC0; padding: 12px 16px; }
-.ho-f .lb { font-size: 14px; color: ${C.muted}; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
-.ho-f .vl { font-size: 23px; font-weight: 600; margin-top: 6px; opacity: 0; }
-#ho-asg { position: absolute; left: 24px; right: 24px; top: 474px; height: 82px; border-radius: 18px; background: ${C.greenTint}; display: flex; align-items: center; gap: 14px; padding: 0 18px; opacity: 0; }
-#ho-asg .s { font-size: 15px; color: ${C.greenDeep}; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
-#ho-asg .n { font-size: 22px; font-weight: 600; margin-top: 2px; }
-#ho-rm { position: absolute; left: 0; right: 0; top: 160px; bottom: 0; background: ${C.wa}; opacity: 0; }
-.ho-rmh { position: absolute; left: 0; right: 0; top: 0; height: 52px; background: #fff; border-bottom: 1px solid ${C.line}; display: flex; align-items: center; gap: 10px; padding: 0 24px; font-size: 16px; color: ${C.muted}; font-weight: 500; }
-#ho-rm .bub { font-size: 21px; line-height: 29px; }
-.ho-lead { position: absolute; left: ${L.x}px; width: ${L.w}px; height: 100px; display: flex; align-items: center; gap: 14px; padding: 0 18px; opacity: 0; }
-.ho-lead .t { font-size: 19px; font-weight: 600; }
-.ho-lead .s { font-size: 18px; color: ${C.muted}; margin-top: 2px; white-space: nowrap; }
-.ho-lead .tg { position: absolute; right: 14px; top: 12px; font-size: 13px; color: ${C.muted}; background: #EFEBE4; padding: 3px 9px; font-weight: 600; }
-#ho-others { position: absolute; left: ${L.x}px; top: ${L.y + 6}px; width: ${L.w}px; text-align: left; font-size: 15px; font-weight: 600; color: ${C.muted}; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0; }
+#ho-hl { top: 140px; font-size: 58px; }
+#ho-sub { top: 220px; }
+#ho-hl2 { top: 140px; font-size: 58px; }
+#ho-hl3 { top: 140px; font-size: 58px; }
+#ho-inbox { left: ${X0}px; top: ${Y0}px; width: ${W}px; height: 900px; border-radius: 22px; overflow: hidden; opacity: 0; background: #fff; -webkit-mask-image: linear-gradient(#000 0px, #000 ${700 - Y0}px, rgba(0,0,0,0.05) ${890 - Y0}px, rgba(0,0,0,0.05) 100%); mask-image: linear-gradient(#000 0px, #000 ${700 - Y0}px, rgba(0,0,0,0.05) ${890 - Y0}px, rgba(0,0,0,0.05) 100%); }
+.ho-pane { position: absolute; top: 0; bottom: 0; }
+.ho-ph { position: absolute; left: 0; right: 0; top: 0; height: 56px; border-bottom: 1px solid #ECEAE6; display: flex; align-items: center; padding: 0 18px; gap: 10px; background: #fff; }
+.ho-ph .t { font-size: 18px; font-weight: 600; }
+.ho-ph .ics { margin-left: auto; display: flex; gap: 14px; color: #3B3B3B; }
+#ho-list { left: 0; width: ${LW}px; border-right: 1px solid #ECEAE6; }
+.ho-row { position: absolute; left: 0; right: 0; height: 108px; display: flex; gap: 12px; padding: 16px 16px 0; border-bottom: 1px solid #F1EFEC; background: #fff; }
+.ho-row.sel { background: #EAF3EE; }
+.ho-row.sel::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: ${C.green}; }
+.ho-av { position: relative; width: 44px; height: 44px; border-radius: 50%; background: #EEE8F7; color: #6E4DAF; font-size: 18px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex: none; }
+.ho-av i { position: absolute; right: -2px; bottom: -2px; width: 14px; height: 14px; border-radius: 50%; background: ${C.green}; border: 2px solid #fff; }
+.ho-rn { font-size: 18px; font-weight: 600; white-space: nowrap; }
+.ho-rp { font-size: 15px; color: #6B6B6B; margin-top: 3px; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
+.ho-rt { position: absolute; right: 14px; top: 20px; font-size: 12px; color: #6B6B6B; }
+.ho-tags { display: flex; gap: 6px; margin-top: 9px; }
+.ho-tag { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+.ho-tag.g { background: ${C.greenTint}; color: ${C.greenDeep}; }
+.ho-tag.n { background: #EFEEEB; color: #66625C; }
+#ho-chat { left: ${LW}px; width: ${CW}px; border-right: 1px solid #ECEAE6; }
+#ho-asg { margin-left: auto; height: 34px; border: 1px solid #DEDBD5; border-radius: 9px; display: flex; align-items: center; gap: 7px; padding: 0 10px; font-size: 15px; font-weight: 500; color: #333; position: relative; width: 132px; }
+#ho-asg .a1, #ho-asg .a2 { position: absolute; left: 34px; top: 7px; white-space: nowrap; }
+#ho-asg .a2 { opacity: 0; font-weight: 600; color: ${C.greenDeep}; }
+.ho-cbody { position: absolute; left: 0; right: 0; top: 56px; bottom: 0; overflow: hidden; background: #F2EFE7 url('assets/ui/dt-wall.jpg') repeat; background-size: 571px auto; }
+#ho-clist { position: absolute; left: 0; right: 0; top: 0; height: 1400px; }
+.ho-day { position: absolute; left: 0; right: 0; top: 14px; text-align: center; }
+.ho-day span { display: inline-block; background: #DEDCD7; color: #555; font-size: 14px; padding: 4px 14px; border-radius: 7px; }
+.ho-b { position: absolute; border-radius: 10px; font-size: 17px; line-height: 25px; padding: 10px 14px 6px; box-shadow: 0 1px 1px rgba(0,0,0,.06); white-space: nowrap; }
+.ho-b.in { left: 14px; background: #fff; }
+.ho-b.out { right: 14px; background: #E6FFF0; }
+.ho-b .tm { display: flex; justify-content: flex-end; align-items: center; gap: 4px; font-size: 12px; color: #6B6B6B; margin-top: 2px; }
+.ho-lbl { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #6A45AD; }
+.ho-lbl .pp { background: #EFE7F7; border-radius: 5px; padding: 1px 7px; font-size: 13px; }
+.ho-lbl.rm { color: ${C.greenDeep}; }
+.ho-sum { font-size: 17px; font-weight: 600; margin-top: 6px; }
+.ho-cr { position: absolute; left: 12px; width: 316px; height: 38px; border-radius: 9px; background: #fff; border: 1px solid #D5EFE0; display: flex; align-items: center; gap: 10px; padding: 0 10px; }
+.ho-cr .lb { font-size: 14px; color: #6B6B6B; width: 72px; }
+.ho-cr .vl { font-size: 17px; font-weight: 600; }
+.ho-sys { position: absolute; left: 0; right: 0; text-align: center; opacity: 0; }
+.ho-sys span { display: inline-block; background: #fff; border-radius: 8px; padding: 6px 12px; font-size: 14px; color: #3D3D3D; box-shadow: 0 1px 1px rgba(0,0,0,.06); }
+#ho-det { left: ${LW + CW}px; right: 0; background: #fff; }
+.ho-tabs { position: absolute; left: 0; right: 0; top: 0; height: 52px; border-bottom: 1px solid #ECEAE6; display: flex; }
+.ho-tabs div { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 15px; color: #6B6B6B; }
+.ho-tabs .on { color: #111; font-weight: 600; box-shadow: inset 0 -3px 0 ${C.green}; }
+.ho-dl { position: absolute; left: 18px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #6B6B6B; display: flex; align-items: center; gap: 6px; }
+.ho-dv { position: absolute; left: 18px; right: 18px; font-size: 16px; color: #1F1F22; display: flex; align-items: center; gap: 8px; }
+.ho-fr { position: absolute; left: 18px; right: 18px; height: 34px; border-radius: 8px; display: flex; align-items: center; padding: 0 8px; }
+.ho-fr .lb { font-size: 14px; color: #6B6B6B; }
+.ho-fr .ph { margin-left: auto; color: #C4BFB6; font-size: 16px; }
+.ho-fr .vl { position: absolute; right: 8px; top: 6px; font-size: 16px; font-weight: 600; opacity: 0; }
+.ho-fly { position: absolute; width: 316px; height: 38px; border-radius: 9px; background: #fff; border: 1.5px solid ${C.green}; display: flex; align-items: center; gap: 10px; padding: 0 10px; opacity: 0; box-shadow: 0 10px 22px -10px rgba(14,122,76,.45); }
+.ho-fly .vl { font-size: 17px; font-weight: 600; }
 `;
+  const row = ([av, n, p, t, tags], i) => `        <div class="ho-row${i === 0 ? " sel" : ""}" id="ho-r${i}" style="top:${56 + i * 108}px;">
+          <div class="ho-av">${av}<i></i></div>
+          <div><div class="ho-rn">${n}</div><div class="ho-rp">${dticks}${p}</div><div class="ho-tags">${tags.map(([x, c]) => `<span class="ho-tag ${c}">${x}</span>`).join("")}</div></div>
+          <div class="ho-rt">${t}</div>
+        </div>`;
   let body = `    <h1 class="hl" id="ho-hl">${words("ho-hl", [["Ready buyer."], ["Full context.", "g"]])}</h1>
     <div class="sub" id="ho-sub">Sales takes over when it matters.</div>
     <h1 class="hl" id="ho-hl2">${words("ho-hl2", [["Stop chasing every enquiry."]])}</h1>
     <h1 class="hl" id="ho-hl3">${words("ho-hl3", [["Focus on buyers"], ["ready to move.", "g"]])}</h1>
-    <div class="card" id="ho-ai">
-      <div class="ho-aih"><div class="icbox" style="width:44px;height:44px;">${icon("spark", 22)}</div><div><div class="t">Agentic AI</div><div class="s">ABC Properties · WhatsApp</div></div></div>
-      <div class="ho-aif">${icon("check", 18, 3)}Qualified &amp; viewing booked</div>
+    <div class="card" id="ho-inbox" data-layout-allow-overflow data-layout-allow-caption-zone>
+      <div class="ho-pane" id="ho-list">
+        <div class="ho-ph"><span class="t">All chats</span><span class="ics">${icon("users", 18)}${icon("sync", 18)}</span></div>
+${leads.map(row).join("\n")}
+      </div>
+      <div class="ho-pane" id="ho-chat">
+        <div class="ho-ph">
+          <div class="ho-av" style="width:36px;height:36px;font-size:15px;">A<i></i></div><span class="t">Ahmed</span>
+          <div id="ho-asg">${icon("user", 16)}<span class="a1">Unassigned</span><span class="a2">Sarah</span></div>
+        </div>
+        <div class="ho-cbody">
+          <div id="ho-clist">
+            <div class="ho-day"><span>Today</span></div>
+            <div class="ho-b in" style="top:56px;">Yes. Saturday afternoon.<div class="tm">10:28 am</div></div>
+            <div class="ho-b out" id="ho-ai" style="top:${bubTop}px;width:340px;height:${rowTop0 + 5 * rowStep + 26}px;">
+              <div class="ho-lbl">${icon("spark", 15)}ABC Properties AI <span class="pp">AI Agent</span></div>
+              <div class="ho-sum">Lead qualified · Viewing booked</div>
+${items.map(([ic, lb, vl], i) => `              <div class="ho-cr" id="ho-cr${i}" style="top:${rowTop0 + i * rowStep}px;"><span style="color:${C.greenDeep}">${icon(ic, 18)}</span><span class="lb">${lb}</span><span class="vl">${vl}</span></div>`).join("\n")}
+              <div class="tm" style="position:absolute;right:12px;bottom:6px;">10:29 am ${dticks}</div>
+            </div>
+            <div class="ho-sys" id="ho-sys" style="top:${bubTop + rowTop0 + 5 * rowStep + 42}px;"><span>Assigned to Sarah (RM) · High-intent lead</span></div>
+            <div class="ho-b out" id="ho-b0" style="top:500px;opacity:0;"><div class="ho-lbl rm">${icon("user", 14)}Sarah · RM</div>Hi Ahmed, I have your requirements<br>and your viewing is confirmed<br>for Saturday.<div class="tm">10:41 am ${dticks}</div></div>
+            <div class="ho-b in" id="ho-b1" style="top:652px;opacity:0;">Perfect, thank you.<div class="tm">10:42 am</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="ho-pane" id="ho-det">
+        <div class="ho-tabs"><div class="on">Details</div><div>Calls</div><div>Notes</div></div>
+        <div class="ho-dv" style="top:68px;"><div class="ho-av" style="width:40px;height:40px;">A<i></i></div><span style="font-size:20px;font-weight:600;">Ahmed</span></div>
+        <div class="ho-dl" style="top:124px;">Phone number</div>
+        <div class="ho-dv" style="top:144px;">+971 50 ••• ••42</div>
+        <div class="ho-dl" style="top:184px;">${icon("usercheck", 14)}Assigned RM</div>
+        <div class="ho-dv" style="top:204px;"><span id="ho-un" style="color:#9A958D">Unassigned</span><span id="ho-sa" style="position:absolute;left:0;top:0;display:flex;align-items:center;gap:8px;opacity:0;"><span class="avatar" style="width:26px;height:26px;background:${C.greenDeep};color:#fff;font-size:13px;">S</span><b style="font-weight:600">Sarah · RM</b></span></div>
+        <div class="ho-dl" style="top:246px;">${icon("tag", 14)}Tags</div>
+        <div class="ho-dv" style="top:266px;"><span class="ho-tag g" id="ho-tg0" style="opacity:0">High intent</span><span class="ho-tag g" id="ho-tg1" style="opacity:0">Dubai Marina</span></div>
+        <div class="ho-dl" style="top:306px;">${icon("grid", 14)}Custom fields</div>
+${items.map(([, lb, vl], i) => `        <div class="ho-fr" id="ho-f${i}" style="top:${fieldTop0 + i * fieldStep}px;"><span class="lb">${lb}</span><span class="ph" id="ho-ph${i}">—</span><span class="vl" id="ho-v${i}">${vl}</span></div>`).join("\n")}
+      </div>
     </div>
-${items
-  .map(
-    ([ic, lb, vl], i) => ["o", ""].map((suf) => `    <div class="ho-chip" id="ho-c${i}${suf}"${suf ? " data-layout-allow-overlap" : ""} style="top:${chipY(i)}px;"><div class="icbox" style="width:44px;height:44px;border-radius:12px;">${icon(ic, 22)}</div><div><div class="lb">${lb}</div><div class="vl">${vl}</div></div></div>`).join("\n"),
-  )
-  .join("\n")}
-    <div class="card" id="ho-ws">
-      <div class="ho-top"><img src="assets/brand/logo-dark.svg" alt="DoubleTick"><span class="s">Team Inbox</span></div>
-      <div class="ho-cust">
-        <div class="avatar" style="width:60px;height:60px;background:${C.greenTint};color:${C.greenDeep};font-size:26px;">A</div>
-        <div><div class="n">Ahmed</div><div class="s">+971 50 ••• ••42 · WhatsApp</div></div>
-        <div class="pill" id="ho-hi">High Intent ${icon("check", 16, 3)}</div>
-      </div>
-${items
-  .map(
-    ([, lb, vl], i) => `      <div class="ho-f" id="ho-f${i}" style="left:${fx(i) - R.x}px;top:${fy(i) - R.y}px;"><div class="lb">${lb}</div><div class="vl" id="ho-v${i}">${vl}</div></div>`,
-  )
-  .join("\n")}
-      <div id="ho-asg">
-        <div class="avatar" style="width:50px;height:50px;background:${C.greenDeep};color:#fff;font-size:21px;">S</div>
-        <div><div class="s">Assigned to RM</div><div class="n">Sarah · Relationship Manager</div></div>
-        <div style="margin-left:auto;color:${C.greenDeep}">${icon("usercheck", 28)}</div>
-      </div>
-      <div id="ho-rm">
-        <div class="ho-rmh">${icon("chat", 18)}Sarah (RM) · chat with Ahmed</div>
-        <div class="bub out" id="ho-b0" style="top:72px;">Hi Ahmed, I have your requirements<br>and your viewing is confirmed<br>for Saturday.<span class="tm">10:41${ticks}</span></div>
-        <div class="bub in" id="ho-b1" style="top:204px;">Perfect, thank you.<span class="tm">10:42</span></div>
-      </div>
-    </div>
-    <div id="ho-others">Other enquiries · AI follow-up</div>
-${[
-  ["Lead 01", "Looking for a 2 BHK"],
-  ["Lead 02", "Can you send prices?"],
-  ["Lead 03", "Just exploring"],
-]
-  .map(
-    ([t, s], i) => `    <div class="card ho-lead" id="ho-l${i}" style="top:${L.y + 48 + i * 116}px;">
-      <div class="avatar" style="width:48px;height:48px;background:#ECE7DF;color:#8C867D;">${icon("user", 22)}</div>
-      <div><div class="t">${t}</div><div class="s">${s}</div></div>
-      <div class="pill tg">Nurturing</div>
-    </div>`,
-  )
-  .join("\n")}
+${items.map(([ic, , vl], i) => `    <div class="ho-fly" id="ho-c${i}" style="left:${bubX + 12}px;top:${chipAbsY(i)}px;"><span style="color:${C.greenDeep}">${icon(ic, 18)}</span><span class="vl">${vl}</span></div>`).join("\n")}
 `;
   let script = `
       gsap.set("#ho-hl2 .w, #ho-hl3 .w", { opacity: 0 });
       wordsIn("ho-hl", 4, 0.05, 0.07);
       blurIn("#ho-sub", 0.4, 0.2);
-      tl.fromTo("#ho-ai", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "expo.out" }, 0.0);
-      for (let i = 0; i < 5; i++) tl.fromTo([q("ho-c" + i), q("ho-c" + i + "o")], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.32, ease: "expo.out" }, 0.1 + i * 0.05);
-      tl.fromTo("#ho-ws", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 0.2);
-      tl.fromTo("#ho-hi", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.5)" }, 0.55);
+      tl.fromTo("#ho-inbox", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 0.0);
+      for (let i = 0; i < 7; i++) tl.fromTo(q("ho-r" + i), { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.12 + i * 0.04);
+      tl.fromTo("#ho-ai", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out", transformOrigin: "100% 100%" }, 0.3);
+      tl.fromTo("#ho-tg0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(1.6)" }, 0.6);
+      tl.fromTo("#ho-tg1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(1.6)" }, 0.68);
 `;
   items.forEach((_, i) => {
     const t = 0.8 + i * 0.2;
-    const dx = fx(i) + 121 - (L.x + L.w / 2);
-    const dy = fy(i) + 42 - (chipY(i) + 35);
-    script += `      tl.to(q("ho-c${i}"), { x: ${dx}, y: ${dy}, scale: 0.78, duration: 0.5, ease: "power3.inOut" }, ${t.toFixed(2)});
+    const dx = DX + 18 + (W - LW - CW - 36) - 8 - 120 - (bubX + 12 + 158);
+    const dy = fieldAbsY(i) + 17 - (chipAbsY(i) + 19);
+    script += `      tl.set(q("ho-c${i}"), { opacity: 1 }, ${t.toFixed(2)});
+      tl.to(q("ho-cr${i}"), { opacity: 0.45, duration: 0.2 }, ${t.toFixed(2)});
+      tl.to(q("ho-c${i}"), { x: ${Math.round(dx)}, y: ${Math.round(dy)}, scale: 0.72, duration: 0.5, ease: "power3.inOut" }, ${t.toFixed(2)});
       tl.to(q("ho-c${i}"), { opacity: 0, duration: 0.12 }, ${(t + 0.44).toFixed(2)});
-      tl.to(q("ho-c${i}o"), { opacity: 0.5, duration: 0.3 }, ${t.toFixed(2)});
-      tl.fromTo(q("ho-v${i}"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" }, ${(t + 0.42).toFixed(2)});
-      tl.to(q("ho-f${i}"), { borderStyle: "solid", borderColor: "${C.green}", backgroundColor: "#F3FBF6", duration: 0.15 }, ${(t + 0.42).toFixed(2)});
+      tl.to(q("ho-ph${i}"), { opacity: 0, duration: 0.08 }, ${(t + 0.42).toFixed(2)});
+      tl.fromTo(q("ho-v${i}"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" }, ${(t + 0.42).toFixed(2)});
+      tl.to(q("ho-f${i}"), { backgroundColor: "#EEF8F2", duration: 0.15 }, ${(t + 0.42).toFixed(2)});
 `;
   });
   script += `
-      tl.fromTo("#ho-asg", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 2.15);
+      // assignment
+      tl.fromTo("#ho-sys", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 2.15);
+      tl.to("#ho-asg .a1, #ho-un", { opacity: 0, duration: 0.1 }, 2.15);
+      tl.fromTo("#ho-asg .a2, #ho-sa", { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 2.18);
+      tl.to("#ho-asg", { borderColor: "${C.green}", backgroundColor: "#EEF8F2", duration: 0.2 }, 2.15);
       // ---- focus stage
       blurOut("#ho-hl, #ho-sub", 3.8, 0.18);
       wordsIn("ho-hl2", 4, 3.98, 0.07);
-      tl.to("#ho-ai, .ho-chip", { opacity: 0, filter: "blur(6px)", duration: 0.22, ease: "power3.in" }, 3.8);
-      blurIn("#ho-others", 4.02, 0.2);
-      for (let i = 0; i < 3; i++) tl.fromTo(q("ho-l" + i), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 4.0 + i * 0.06);
-      tl.to(".ho-lead", { opacity: 0.38, scale: 0.94, x: -14, duration: 0.6, ease: "power2.inOut", stagger: 0.05 }, 4.6);
-      tl.to("#ho-others", { opacity: 0.5, duration: 0.6 }, 4.6);
-      tl.to(".ho-f, #ho-asg", { opacity: 0, duration: 0.2, ease: "power2.in" }, 3.85);
-      tl.fromTo("#ho-rm", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 4.05);
-      tl.to("#ho-ws", { scale: 1.035, x: -6, boxShadow: "0 2px 4px rgba(40,32,20,.06), 0 30px 60px -18px rgba(14,122,76,.35)", duration: 0.7, ease: "power2.inOut" }, 4.4);
+      tl.to("#ho-clist", { y: -268, duration: 0.6, ease: "power3.inOut" }, 4.0);
       tl.fromTo("#ho-b0", { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "100% 100%" }, 4.45);
       tl.fromTo("#ho-b1", { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 5.25);
+      // others recede, the ready buyer comes forward
+      tl.to("#ho-r1, #ho-r2, #ho-r3, #ho-r4, #ho-r5, #ho-r6", { opacity: 0.35, duration: 0.6, ease: "power2.inOut", stagger: 0.04 }, 4.3);
+      tl.to("#ho-r0", { x: 8, boxShadow: "0 16px 30px -14px rgba(14,122,76,.45)", duration: 0.6, ease: "power2.inOut" }, 4.3);
       // headline morph
       tl.to("#ho-hl2 .w", { opacity: 0, filter: "blur(8px)", duration: 0.16, ease: "power3.in", stagger: 0.03 }, 5.35);
       wordsIn("ho-hl3", 6, 5.5, 0.07);
       // exit
       blurOut("#ho-hl3", 7.2, 0.18);
-      tl.to("#ho-ws, .ho-lead, #ho-others", { opacity: 0, filter: "blur(6px)", duration: 0.24, ease: "power3.in" }, 7.18);
+      tl.to("#ho-inbox", { opacity: 0, filter: "blur(6px)", duration: 0.24, ease: "power3.in" }, 7.18);
 `;
   files["handoff"] = scene("handoff", 7.4, css, body, script);
 }
@@ -828,7 +867,7 @@ ${[
   const css = `
 #jy-bg { position: absolute; left: 0; top: 560px; width: 1080px; height: 520px; object-fit: cover; opacity: 0; mix-blend-mode: luminosity; }
 #jy-fade { position: absolute; left: 0; top: 560px; width: 1080px; height: 520px; background: linear-gradient(${C.bg}, rgba(243,239,231,0.6)); }
-#jy-hl { top: 176px; font-size: 76px; }
+#jy-hl { top: 196px; font-size: 76px; }
 #jy-svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1080px; overflow: visible; }
 .jy-n { position: absolute; top: ${ly - 36}px; width: 72px; height: 72px; border-radius: 50%; background: #fff; border: 2.5px solid ${C.green}; color: ${C.greenDeep}; display: flex; align-items: center; justify-content: center; opacity: 0; box-shadow: 0 8px 20px -10px rgba(14,122,76,.4); }
 .jy-l { position: absolute; top: ${ly + 52}px; width: 160px; text-align: center; font-size: 20px; line-height: 25px; font-weight: 600; opacity: 0; }
@@ -875,19 +914,17 @@ ${nodes
 {
   const css = `
 #cta-logo { position: absolute; left: 380px; top: 236px; width: 320px; height: 39px; display: block; }
-#cta-hl { top: 350px; font-size: 62px; line-height: 1.1; }
-#cta-btnw { position: absolute; left: 0; right: 0; top: 640px; display: flex; justify-content: center; }
+#cta-hl { top: 392px; font-size: 64px; line-height: 1.1; }
+#cta-btnw { position: absolute; left: 0; right: 0; top: 602px; display: flex; justify-content: center; }
 #cta-btn { position: relative; height: 92px; padding: 0 44px; border-radius: 999px; background: ${C.greenDeep}; color: #fff; font-size: 34px; font-weight: 600; display: flex; align-items: center; gap: 14px; letter-spacing: -0.005em; box-shadow: 0 18px 40px -16px rgba(14,122,76,.6); opacity: 0; }
 #cta-ring { position: absolute; inset: 0; border-radius: 999px; border: 3px solid ${C.green}; opacity: 0; }
-#cta-url { position: absolute; left: 0; right: 0; top: 760px; text-align: center; font-size: 22px; color: ${C.muted}; font-weight: 500; opacity: 0; }
+#cta-url { position: absolute; left: 0; right: 0; top: 722px; text-align: center; font-size: 22px; color: ${C.muted}; font-weight: 500; opacity: 0; }
 `;
-  const body = `    <img id="cta-logo" src="assets/brand/logo-dark.svg" alt="DoubleTick">
-    <h1 class="hl" id="cta-hl">${words("cta-hl", [["Turn more WhatsApp enquiries"], ["<br>"], ["into"], ["qualified buyers.", "g"]])}</h1>
+  const body = `    <h1 class="hl" id="cta-hl">${words("cta-hl", [["Turn more WhatsApp enquiries"], ["<br>"], ["into"], ["qualified buyers.", "g"]])}</h1>
     <div id="cta-btnw"><div id="cta-btn"><div id="cta-ring"></div>Book Your Free Demo Today <span id="cta-arrow" style="display:inline-block">→</span></div></div>
     <div id="cta-url">doubletick.io</div>
 `;
   const script = `
-      tl.fromTo("#cta-logo", { clipPath: "inset(0 100% 0 0)", opacity: 1 }, { clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "power2.inOut" }, 0.05);
       wordsIn("cta-hl", 7, 0.4, 0.06);
       // CTA: opacity 0→1, scale .96→1 in 0.28 s, magnetic settle, one pulse, hold
       tl.fromTo("#cta-btn", { opacity: 0, scale: 0.96, y: 10 }, { opacity: 1, scale: 1, duration: 0.28, ease: "power3.out" }, 1.15);
@@ -1011,6 +1048,7 @@ ${SCENES.map(
   ([id, s, d], i) =>
     `      <div id="${id}" data-composition-id="${id}" data-composition-src="compositions/${id}.html" data-start="${s}" data-duration="${d}" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1080" style="z-index:${i + 1}"></div>`,
 ).join("\n")}
+      <img id="dt-logo" class="clip" src="assets/brand/logo-dark.svg" alt="DoubleTick" data-start="0" data-duration="${TOTAL}" data-track-index="0" style="position:absolute;left:80px;top:80px;width:245px;height:30px;z-index:45;">
       <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="${TOTAL}" data-track-index="2" data-track-kind="captions" data-width="1080" data-height="1080" style="z-index:50"></div>
 ${VO.map(
   ([f, s]) => `      <audio id="${f}" class="clip" src="assets/vo/${f}.wav" data-start="${s}" data-duration="${dur(path.join(OUT, "assets/vo/" + f + ".wav"))}" data-track-index="3" data-volume="1"></audio>`,
