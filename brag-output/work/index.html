@@ -147,20 +147,20 @@ const tlock=box(S,'center',`<span style="display:inline-flex;align-items:center;
 // shared clinic pills (scene 3 ring -> scene 4 row)
 const cpills=[...Array(6)].map((_,i)=>box(S,'pill',`<span style="width:26px;height:26px;border-radius:8px;background:#E5FFEF;display:flex;align-items:center;justify-content:center">${I.clinic('#007A5A').replace(/28/g,'18')}</span>Location 0${i+1}`,0,0,144,44,{background:'#fff',fontSize:'15px',padding:'0 12px',boxShadow:'0 6px 16px rgba(60,50,30,.10)',border:'1px solid rgba(19,19,22,.06)',justifyContent:'center'}));
 const PSC=0.9; // row pills + inbox drawn at 90% so the scene breathes
-const rowPos=[...Array(6)].map((_,i)=>[540+(i-2.5)*134-72,316]);
+const rowPos=[...Array(6)].map((_,i)=>[540+(i-2.5)*134-72,340]);
 
 // ===== SCENE 4 =====
 const s4=box(S,'','',0,0,W,H);
-const s4pre=box(s4,'serif center','La Vida brought',0,68,W,null,{fontSize:'42px',lineHeight:'1.05'});
-const s4num=box(s4,'serif center','',0,112,W,null,{fontSize:'112px',lineHeight:'1'});
+const s4pre=box(s4,'serif center','La Vida brought',0,92,W,null,{fontSize:'42px',lineHeight:'1.05'});
+const s4num=box(s4,'serif center','',0,136,W,null,{fontSize:'112px',lineHeight:'1'});
 const odo4=makeOdo(s4num,[['30,000',''],['+','#27B578',true]],2);
-const s4sub=box(s4,'serif center','patient leads <span style="color:#007A5A">into one WhatsApp CRM.</span>',0,250,W,null,{fontSize:'38px'});
+const s4sub=box(s4,'serif center','patient leads <span style="color:#007A5A">into one WhatsApp CRM.</span>',0,274,W,null,{fontSize:'38px'});
 const s4svg=box(s4,'','<svg width="1080" height="1080" id="s4lines"></svg>',0,0,W,H);
 const s4l=document.getElementById('s4lines');
-s4l.innerHTML=rowPos.map(([x,y])=>`<path class="rl" d="M${x+72} ${y+42} C ${x+72} ${y+74}, 540 ${y+52}, 540 420" stroke="#27B578" stroke-width="2.5" fill="none" stroke-linecap="round"/>`).join('');
+s4l.innerHTML=rowPos.map(([x,y])=>`<path class="rl" d="M${x+72} ${y+42} C ${x+72} ${y+74}, 540 ${y+52}, 540 444" stroke="#27B578" stroke-width="2.5" fill="none" stroke-linecap="round"/>`).join('');
 const rls=[...s4l.querySelectorAll('.rl')];const rlLen=rls.map(p=>p.getTotalLength());rls.forEach((p,i)=>p.style.strokeDasharray=rlLen[i]);
 // DoubleTick inbox (simplified from the real product UI) — runs to the bottom of the frame, fading into the beige
-const DY=420,DW=1000,DH=(1080-DY)/PSC;
+const DY=444,DW=1000,DH=(1080-DY)/PSC;
 const dash=box(S,'','',40,DY,DW,DH,{background:'#fff',borderRadius:'20px 20px 0 0',overflow:'hidden',boxShadow:'0 0 0 1px rgba(19,19,22,.07), 0 18px 50px rgba(60,50,30,.10)',
   webkitMaskImage:'linear-gradient(to bottom,#000 0%,#000 50%,rgba(0,0,0,.04) 92%,rgba(0,0,0,.04) 100%)',maskImage:'linear-gradient(to bottom,#000 0%,#000 50%,rgba(0,0,0,.04) 92%,rgba(0,0,0,.04) 100%)'});
 const ib=(c='#1F1F1F',s=17)=>({
