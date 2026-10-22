@@ -1,0 +1,200 @@
+<template>
+  <style>
+
+@font-face { font-family: "Hedvig Letters Serif"; src: url("assets/fonts/hedvig-letters-serif.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Geist"; src: url("assets/fonts/geist.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+#root { position: absolute; inset: 0; overflow: hidden; background: #F3EFE7; font-family: "Geist", sans-serif; color: #1F1F22; }
+#root * { box-sizing: border-box; }
+.abs { position: absolute; }
+.hl { position: absolute; left: 60px; right: 60px; text-align: center; font-family: "Hedvig Letters Serif", serif; font-weight: 400; color: #1F1F22; letter-spacing: -0.012em; line-height: 1.08; }
+.hl .w { display: inline-block; }
+.hl .g { color: #0E7A4C; }
+.hl .r { color: #B4473C; }
+.sub { position: absolute; left: 60px; right: 60px; text-align: center; font-size: 24px; font-weight: 500; color: #66625C; letter-spacing: 0.01em; }
+.card { position: absolute; background: #FCFBF8; border-radius: 24px; border: 1px solid #E4DED3; box-shadow: 0 1px 2px rgba(40,32,20,.05), 0 14px 36px -12px rgba(40,32,20,.16); }
+.ic { display: block; flex: none; }
+.row { display: flex; align-items: center; }
+.icbox { display: flex; align-items: center; justify-content: center; border-radius: 14px; background: #E3F6EC; color: #0E7A4C; flex: none; }
+.avatar { display: flex; align-items: center; justify-content: center; border-radius: 50%; flex: none; font-weight: 600; }
+.pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; font-weight: 600; }
+/* WhatsApp-style chat */
+.wa { overflow: hidden; padding: 0; }
+.wa-head { position: absolute; left: 0; right: 0; top: 0; height: 72px; display: flex; align-items: center; gap: 12px; padding: 0 18px; background: #FFFFFF; border-bottom: 1px solid #E4DED3; }
+.wa-name { font-size: 21px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.wa-stat { font-size: 15px; color: #66625C; margin-top: 2px; }
+.wa-body { position: absolute; left: 0; right: 0; top: 72px; background: #EFEAE2; overflow: hidden; }
+.wa-list { position: absolute; left: 0; right: 0; top: 0; height: 2000px; }
+.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; height: 58px; background: #F7F5F1; display: flex; align-items: center; padding: 0 14px; gap: 10px; border-top: 1px solid #E4DED3; }
+.wa-input { flex: 1; height: 38px; border-radius: 19px; background: #FFFFFF; color: #6F6A63; font-size: 16px; display: flex; align-items: center; padding: 0 16px; }
+.wa-send { width: 38px; height: 38px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; }
+.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 11px 58px 11px 14px; border-radius: 14px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.08); color: #1A1A1A; opacity: 0; }
+.bub.in { left: 14px; background: #FFFFFF; border-top-left-radius: 4px; }
+.bub.out { right: 14px; background: #D9FDD3; border-top-right-radius: 4px; }
+.bub .tm { position: absolute; right: 10px; bottom: 6px; font-size: 13px; line-height: 13px; color: #5F6762; display: flex; align-items: center; gap: 3px; }
+.bub .hi { border-radius: 6px; padding: 0 3px; margin: 0 -3px; }
+.bub .src { display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; color: #0E7A4C; margin-top: 4px; font-weight: 500; }
+.typing { position: absolute; left: 14px; width: 74px; height: 44px; border-radius: 14px; border-top-left-radius: 4px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+.typing i { width: 9px; height: 9px; border-radius: 50%; background: #A7A39C; display: block; }
+/* extracted chips */
+.chip { position: absolute; height: 84px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: #FFFFFF; border: 1.5px solid #E4DED3; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(40,32,20,.28); opacity: 0; }
+.chip .lb { font-size: 17px; color: #66625C; font-weight: 500; }
+.chip .vl { font-size: 27px; font-weight: 600; letter-spacing: -0.01em; margin-top: 1px; }
+.chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
+
+
+#qf-hl { top: 100px; font-size: 58px; }
+#qf-hl2 { top: 100px; font-size: 58px; opacity: 0; }
+#qf-sub { top: 180px; color: #0E7A4C; }
+#qf-cap { position: absolute; left: 606px; top: 270px; width: 394px; font-size: 15px; font-weight: 600; color: #66625C; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0; display: flex; align-items: center; gap: 8px; }
+#qf-card { left: 315px; top: 248px; width: 450px; height: 610px; opacity: 0; }
+.qf-ch { position: absolute; left: 28px; right: 28px; top: 24px; display: flex; align-items: center; gap: 14px; }
+.qf-ch .t { font-size: 24px; font-weight: 600; }
+.qf-ch .s { font-size: 17px; color: #66625C; margin-top: 2px; }
+#qf-status { position: absolute; left: 28px; right: 28px; top: 486px; height: 88px; border-radius: 20px; border: 2px dashed #CFC8BC; overflow: hidden; }
+#qf-fill { position: absolute; inset: 0; background: #0E7A4C; transform-origin: 0% 50%; }
+.qf-st { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 30px; font-weight: 600; }
+#qf-st0 { color: #66625C; font-size: 22px; font-weight: 500; }
+#qf-st1 { color: #fff; opacity: 0; }
+
+  </style>
+  <div id="root" data-composition-id="qualify" data-width="1080" data-height="1080">
+    <h1 class="hl" id="qf-hl">AI qualifies every enquiry.</h1>
+    <h1 class="hl" id="qf-hl2"><span class="w " id="qf-hl2-w0">Buying</span> <span class="w " id="qf-hl2-w1">intent</span> <span class="w g" id="qf-hl2-w2">identified.</span></h1>
+    <div class="sub" id="qf-sub">Budget · Location · Property Type · Timeline</div>
+    <div class="card wa" id="qf-chat" style="left:80px;top:252px;width:480px;height:606px;">
+      <div class="wa-head">
+        <div class="avatar" style="width:46px;height:46px;background:#0E7A4C;color:#fff;font-size:14px;">ABC</div>
+        <div><div class="wa-name">ABC Properties <svg width="19" height="19" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#27B578"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="wa-stat">Business account</div></div>
+      </div>
+      <div class="wa-body" style="height:476px;" data-layout-allow-overflow>
+        <div class="wa-list" id="qf-chat-list">
+          <div class="bub out" id="qf-m0" style="top:14px;">Hi, I'm looking for an<br>apartment in Dubai.<span class="tm">10:24<svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#53BDEB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="bub in" id="qf-m1" style="top:106px;">Sure. What budget range<br>are you considering?<span class="tm">10:24</span></div>
+          <div class="bub out" id="qf-m2" style="top:198px;">Around <span class="hi" id="qf-h0">AED 2M</span>.<span class="tm">10:24<svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#53BDEB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="bub in" id="qf-m3" style="top:260px;">Which location do you prefer?<span class="tm">10:24</span></div>
+          <div class="bub out" id="qf-m4" style="top:322px;"><span class="hi" id="qf-h1">Dubai Marina</span>.<span class="tm">10:25<svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#53BDEB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="bub in" id="qf-m5" style="top:384px;">What property type are<br>you looking for?<span class="tm">10:25</span></div>
+          <div class="bub out" id="qf-m6" style="top:476px;"><span class="hi" id="qf-h2">2-bedroom</span> apartment.<span class="tm">10:25<svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#53BDEB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="bub in" id="qf-m7" style="top:538px;">When are you planning to buy?<span class="tm">10:25</span></div>
+          <div class="bub out" id="qf-m8" style="top:600px;">Within <span class="hi" id="qf-h3">1–2 months</span>.<span class="tm">10:26<svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#53BDEB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="typing" id="qf-chat-typing"><i id="qf-chat-d0"></i><i id="qf-chat-d1"></i><i id="qf-chat-d2"></i></div>
+        </div>
+      </div>
+      <div class="wa-foot"><div class="wa-input">Message</div><div class="wa-send"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></div></div>
+    </div>
+    <div id="qf-cap"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Captured from the chat</div>
+    <div class="card" id="qf-card">
+      <div class="qf-ch">
+        <div class="avatar" style="width:56px;height:56px;background:#E3F6EC;color:#0E7A4C;font-size:24px;">A</div>
+        <div><div class="t">Buyer Profile</div><div class="s">Ahmed · via WhatsApp</div></div>
+      </div>
+      <div id="qf-status">
+        <div id="qf-fill"></div>
+        <div class="qf-st" id="qf-st0">Checking buying intent…</div>
+        <div class="qf-st" id="qf-st1">High Intent <span style="display:flex;width:36px;height:36px;border-radius:50%;background:#fff;color:#0E7A4C;align-items:center;justify-content:center;"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+      </div>
+    </div>
+    <div class="chip" id="qf-c0" style="left:606px;top:318px;width:394px;">
+      <div class="icbox" style="width:52px;height:52px;"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/><circle cx="16.5" cy="15" r="1.2"/></svg></div>
+      <div><div class="lb">Budget</div><div class="vl">AED 2M</div></div>
+      <div class="ck" id="qf-c0-ck"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+    </div>
+    <div class="chip" id="qf-c1" style="left:606px;top:418px;width:394px;">
+      <div class="icbox" style="width:52px;height:52px;"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div><div class="lb">Location</div><div class="vl">Dubai Marina</div></div>
+      <div class="ck" id="qf-c1-ck"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+    </div>
+    <div class="chip" id="qf-c2" style="left:606px;top:518px;width:394px;">
+      <div class="icbox" style="width:52px;height:52px;"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg></div>
+      <div><div class="lb">Property type</div><div class="vl">2 Bedroom</div></div>
+      <div class="ck" id="qf-c2-ck"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+    </div>
+    <div class="chip" id="qf-c3" style="left:606px;top:618px;width:394px;">
+      <div class="icbox" style="width:52px;height:52px;"><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+      <div><div class="lb">Timeline</div><div class="vl">1–2 Months</div></div>
+      <div class="ck" id="qf-c3-ck"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+    </div>
+
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const q = (s) => "#" + s;
+      // helpers: entrances / exits
+      const blurIn = (sel, t, d = 0.18, extra = {}) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power4.out", ...extra }, t);
+      const blurOut = (sel, t, d = 0.2, extra = {}) =>
+        tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: d, ease: "power3.in", ...extra }, t);
+      const wordsIn = (prefix, n, t, gap = 0.067) => {
+        for (let i = 0; i < n; i++) blurIn(q(prefix + "-w" + i), t + i * gap, 0.16);
+      };
+
+      blurIn("#qf-hl", 0.05, 0.2);
+      blurIn("#qf-sub", 0.25, 0.2);
+      tl.fromTo("#qf-chat", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 0.0);
+      blurIn("#qf-cap", 1.6, 0.2);
+      tl.fromTo(q("qf-m0"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "100% 100%" }, 0.250);
+      tl.set(q("qf-chat-typing"), { y: 106 }, 0.580);
+      tl.fromTo(q("qf-chat-typing"), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.14, ease: "power3.out", transformOrigin: "0% 0%" }, 0.580);
+      [0, 1, 2].forEach((k) => tl.fromTo(q("qf-chat-d" + k), { opacity: 0.35 }, { opacity: 1, duration: 0.12, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0.580 + 0.05 + k * 0.08));
+      tl.set(q("qf-chat-typing"), { opacity: 0 }, 1.000);
+      tl.fromTo(q("qf-m1"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 1.000);
+      tl.fromTo(q("qf-m2"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "100% 100%" }, 1.700);
+      tl.set(q("qf-chat-typing"), { y: 260 }, 1.980);
+      tl.fromTo(q("qf-chat-typing"), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.14, ease: "power3.out", transformOrigin: "0% 0%" }, 1.980);
+      [0, 1, 2].forEach((k) => tl.fromTo(q("qf-chat-d" + k), { opacity: 0.35 }, { opacity: 1, duration: 0.12, yoyo: true, repeat: 1, ease: "sine.inOut" }, 1.980 + 0.05 + k * 0.08));
+      tl.set(q("qf-chat-typing"), { opacity: 0 }, 2.400);
+      tl.fromTo(q("qf-m3"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 2.400);
+      tl.fromTo(q("qf-m4"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "100% 100%" }, 3.100);
+      tl.set(q("qf-chat-typing"), { y: 384 }, 3.380);
+      tl.fromTo(q("qf-chat-typing"), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.14, ease: "power3.out", transformOrigin: "0% 0%" }, 3.380);
+      [0, 1, 2].forEach((k) => tl.fromTo(q("qf-chat-d" + k), { opacity: 0.35 }, { opacity: 1, duration: 0.12, yoyo: true, repeat: 1, ease: "sine.inOut" }, 3.380 + 0.05 + k * 0.08));
+      tl.set(q("qf-chat-typing"), { opacity: 0 }, 3.800);
+      tl.to(q("qf-chat-list"), { y: -4, duration: 0.34, ease: "power3.out" }, 3.380);
+      tl.fromTo(q("qf-m5"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 3.800);
+      tl.to(q("qf-chat-list"), { y: -66, duration: 0.34, ease: "power3.out" }, 4.500);
+      tl.fromTo(q("qf-m6"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "100% 100%" }, 4.500);
+      tl.set(q("qf-chat-typing"), { y: 538 }, 4.780);
+      tl.fromTo(q("qf-chat-typing"), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.14, ease: "power3.out", transformOrigin: "0% 0%" }, 4.780);
+      [0, 1, 2].forEach((k) => tl.fromTo(q("qf-chat-d" + k), { opacity: 0.35 }, { opacity: 1, duration: 0.12, yoyo: true, repeat: 1, ease: "sine.inOut" }, 4.780 + 0.05 + k * 0.08));
+      tl.set(q("qf-chat-typing"), { opacity: 0 }, 5.200);
+      tl.to(q("qf-chat-list"), { y: -128, duration: 0.34, ease: "power3.out" }, 4.780);
+      tl.fromTo(q("qf-m7"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 5.200);
+      tl.to(q("qf-chat-list"), { y: -190, duration: 0.34, ease: "power3.out" }, 5.900);
+      tl.fromTo(q("qf-m8"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "100% 100%" }, 5.900);
+      tl.to(q("qf-h0"), { backgroundColor: "rgba(39,181,120,.28)", duration: 0.15 }, 1.88);
+      tl.fromTo(q("qf-c0"), { opacity: 0, x: -374, y: 188, scale: 0.42 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, 1.88);
+      tl.to(q("qf-h1"), { backgroundColor: "rgba(39,181,120,.28)", duration: 0.15 }, 3.28);
+      tl.fromTo(q("qf-c1"), { opacity: 0, x: -368, y: 212, scale: 0.42 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, 3.28);
+      tl.to(q("qf-h2"), { backgroundColor: "rgba(39,181,120,.28)", duration: 0.15 }, 4.68);
+      tl.fromTo(q("qf-c2"), { opacity: 0, x: -409, y: 200, scale: 0.42 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, 4.68);
+      tl.to(q("qf-h3"), { backgroundColor: "rgba(39,181,120,.28)", duration: 0.15 }, 6.08);
+      tl.fromTo(q("qf-c3"), { opacity: 0, x: -397, y: 100, scale: 0.42 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, 6.08);
+
+      blurOut("#qf-hl, #qf-sub, #qf-cap", 6.5, 0.18);
+      wordsIn("qf-hl2", 3, 6.72, 0.08);
+      tl.set("#qf-hl2", { opacity: 1 }, 6.72);
+      tl.to("#qf-chat", { x: -80, opacity: 0, filter: "blur(6px)", duration: 0.4, ease: "power3.in" }, 6.55);
+      tl.fromTo("#qf-card", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out" }, 6.8);
+      tl.to(q("qf-c0"), { x: -263, y: 38, duration: 0.5, ease: "power4.out" }, 6.88);
+      tl.fromTo(q("qf-c0-ck"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(1.6)" }, 7.40);
+      tl.to(q("qf-c1"), { x: -263, y: 30, duration: 0.5, ease: "power4.out" }, 6.95);
+      tl.fromTo(q("qf-c1-ck"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(1.6)" }, 7.51);
+      tl.to(q("qf-c2"), { x: -263, y: 22, duration: 0.5, ease: "power4.out" }, 7.02);
+      tl.fromTo(q("qf-c2-ck"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(1.6)" }, 7.62);
+      tl.to(q("qf-c3"), { x: -263, y: 14, duration: 0.5, ease: "power4.out" }, 7.09);
+      tl.fromTo(q("qf-c3-ck"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(1.6)" }, 7.73);
+
+      tl.fromTo("#qf-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.42, ease: "power2.inOut" }, 7.9);
+      tl.to("#qf-status", { borderColor: "#0E7A4C", duration: 0.1 }, 7.9);
+      tl.to("#qf-st0", { opacity: 0, duration: 0.12 }, 7.95);
+      tl.fromTo("#qf-st1", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 8.22);
+      // compress up into the match scene's profile pill
+      tl.to("#qf-card, .chip", { y: "-=260", scale: 0.55, opacity: 0, duration: 0.34, ease: "power3.in", transformOrigin: "50% 0%" }, 8.66);
+      blurOut("#qf-hl2", 8.7, 0.2);
+
+      tl.set({}, {}, 9);
+      window.__timelines["qualify"] = tl;
+    })();
+  </script>
+</template>

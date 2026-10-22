@@ -1,0 +1,172 @@
+<template>
+  <style>
+
+@font-face { font-family: "Hedvig Letters Serif"; src: url("assets/fonts/hedvig-letters-serif.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Geist"; src: url("assets/fonts/geist.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+#root { position: absolute; inset: 0; overflow: hidden; background: #F3EFE7; font-family: "Geist", sans-serif; color: #1F1F22; }
+#root * { box-sizing: border-box; }
+.abs { position: absolute; }
+.hl { position: absolute; left: 60px; right: 60px; text-align: center; font-family: "Hedvig Letters Serif", serif; font-weight: 400; color: #1F1F22; letter-spacing: -0.012em; line-height: 1.08; }
+.hl .w { display: inline-block; }
+.hl .g { color: #0E7A4C; }
+.hl .r { color: #B4473C; }
+.sub { position: absolute; left: 60px; right: 60px; text-align: center; font-size: 24px; font-weight: 500; color: #66625C; letter-spacing: 0.01em; }
+.card { position: absolute; background: #FCFBF8; border-radius: 24px; border: 1px solid #E4DED3; box-shadow: 0 1px 2px rgba(40,32,20,.05), 0 14px 36px -12px rgba(40,32,20,.16); }
+.ic { display: block; flex: none; }
+.row { display: flex; align-items: center; }
+.icbox { display: flex; align-items: center; justify-content: center; border-radius: 14px; background: #E3F6EC; color: #0E7A4C; flex: none; }
+.avatar { display: flex; align-items: center; justify-content: center; border-radius: 50%; flex: none; font-weight: 600; }
+.pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; font-weight: 600; }
+/* WhatsApp-style chat */
+.wa { overflow: hidden; padding: 0; }
+.wa-head { position: absolute; left: 0; right: 0; top: 0; height: 72px; display: flex; align-items: center; gap: 12px; padding: 0 18px; background: #FFFFFF; border-bottom: 1px solid #E4DED3; }
+.wa-name { font-size: 21px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.wa-stat { font-size: 15px; color: #66625C; margin-top: 2px; }
+.wa-body { position: absolute; left: 0; right: 0; top: 72px; background: #EFEAE2; overflow: hidden; }
+.wa-list { position: absolute; left: 0; right: 0; top: 0; height: 2000px; }
+.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; height: 58px; background: #F7F5F1; display: flex; align-items: center; padding: 0 14px; gap: 10px; border-top: 1px solid #E4DED3; }
+.wa-input { flex: 1; height: 38px; border-radius: 19px; background: #FFFFFF; color: #6F6A63; font-size: 16px; display: flex; align-items: center; padding: 0 16px; }
+.wa-send { width: 38px; height: 38px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; }
+.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 11px 58px 11px 14px; border-radius: 14px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.08); color: #1A1A1A; opacity: 0; }
+.bub.in { left: 14px; background: #FFFFFF; border-top-left-radius: 4px; }
+.bub.out { right: 14px; background: #D9FDD3; border-top-right-radius: 4px; }
+.bub .tm { position: absolute; right: 10px; bottom: 6px; font-size: 13px; line-height: 13px; color: #5F6762; display: flex; align-items: center; gap: 3px; }
+.bub .hi { border-radius: 6px; padding: 0 3px; margin: 0 -3px; }
+.bub .src { display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; color: #0E7A4C; margin-top: 4px; font-weight: 500; }
+.typing { position: absolute; left: 14px; width: 74px; height: 44px; border-radius: 14px; border-top-left-radius: 4px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+.typing i { width: 9px; height: 9px; border-radius: 50%; background: #A7A39C; display: block; }
+/* extracted chips */
+.chip { position: absolute; height: 84px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: #FFFFFF; border: 1.5px solid #E4DED3; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(40,32,20,.28); opacity: 0; }
+.chip .lb { font-size: 17px; color: #66625C; font-weight: 500; }
+.chip .vl { font-size: 27px; font-weight: 600; letter-spacing: -0.01em; margin-top: 1px; }
+.chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
+
+
+#pb-tint { position: absolute; inset: 0; background: #F3E2DC; opacity: 0; }
+#pb-hl { top: 100px; font-size: 60px; }
+#pb-hl .w { color: #B9B1A6; }
+#pb-sub { top: 182px; }
+#pb-list { left: 96px; top: 268px; width: 572px; height: 560px; padding: 0; }
+.pb-lh { position: absolute; left: 24px; right: 24px; top: 18px; height: 44px; display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 600; }
+.pb-lh .m { margin-left: auto; font-size: 16px; color: #66625C; font-weight: 500; }
+.pb-row { position: absolute; left: 16px; right: 16px; height: 104px; border-radius: 16px; background: #fff; border: 1px solid #E4DED3; display: flex; align-items: center; gap: 14px; padding: 0 18px; opacity: 0; }
+.pb-row .t { font-size: 20px; font-weight: 600; }
+.pb-row .s { font-size: 21px; line-height: 26px; color: #3B3936; margin-top: 3px; max-width: 300px; }
+.pb-row .now { margin-left: auto; text-align: right; font-size: 14px; color: #66625C; align-self: flex-start; margin-top: 22px; }
+.pb-row .bd { width: 24px; height: 24px; border-radius: 50%; background: #0E7A4C; color: #fff; font-size: 13px; display: flex; align-items: center; justify-content: center; margin: 6px 0 0 auto; }
+.pb-q { position: absolute; right: 16px; top: 36px; font-size: 16px; font-weight: 600; color: #B4473C; background: #F3E2DC; border-radius: 999px; padding: 3px 10px; opacity: 0; }
+#pb-team { left: 738px; top: 396px; width: 246px; height: 304px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; }
+#pb-team .t { font-size: 24px; font-weight: 600; margin-top: 16px; }
+#pb-team .s { font-size: 18px; color: #66625C; margin-top: 6px; }
+#pb-who { margin-top: 18px; font-size: 17px; color: #B4473C; background: #F3E2DC; padding: 7px 14px; opacity: 0; }
+#pb-lines { position: absolute; left: 0; top: 0; width: 1080px; height: 1080px; overflow: visible; }
+#pb-sweep { position: absolute; top: -20px; left: 0; width: 8px; height: 1120px; background: #27B578; border-radius: 4px; box-shadow: 0 0 28px 6px rgba(39,181,120,.45); opacity: 0; }
+#pb-intro { position: absolute; left: 60px; right: 60px; top: 330px; text-align: center; }
+#pb-logo { display: block; height: 40px; width: 326px; margin: 0 auto; opacity: 0; }
+#pb-introk { font-size: 28px; color: #66625C; font-weight: 500; margin-top: 46px; opacity: 0; }
+#pb-introt { font-family: "Hedvig Letters Serif", serif; font-size: 84px; line-height: 1.05; margin-top: 14px; letter-spacing: -0.015em; }
+#pb-introt .w { display: inline-block; }
+#pb-introt .g { color: #0E7A4C; }
+#pb-uline { width: 520px; height: 6px; border-radius: 3px; background: #27B578; margin: 30px auto 0; transform-origin: 0% 50%; }
+
+  </style>
+  <div id="root" data-composition-id="problem" data-width="1080" data-height="1080">
+    <div id="pb-tint" data-layout-ignore></div>
+    <h1 class="hl" id="pb-hl"><span class="w " id="pb-hl-w0">But</span> <span class="w " id="pb-hl-w1">who's</span> <span class="w " id="pb-hl-w2">actually</span> <span class="w r" id="pb-hl-w3">ready</span> <span class="w r" id="pb-hl-w4">to</span> <span class="w r" id="pb-hl-w5">buy?</span></h1>
+    <div class="sub" id="pb-sub">Every enquiry looks urgent. Not every enquiry is.</div>
+    <svg id="pb-lines" viewBox="0 0 1080 1080" data-layout-ignore>
+      <path id="pb-line0" d="M738 548 C 706 548, 700 396, 668 396" fill="none" stroke="#B4473C" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>
+      <path id="pb-line1" d="M738 548 C 706 548, 700 512, 668 512" fill="none" stroke="#B4473C" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>
+      <path id="pb-line2" d="M738 548 C 706 548, 700 628, 668 628" fill="none" stroke="#B4473C" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>
+      <path id="pb-line3" d="M738 548 C 706 548, 700 744, 668 744" fill="none" stroke="#B4473C" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>
+    </svg>
+    <div class="card" id="pb-list">
+      <div class="pb-lh"><span style="color:#27B578"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></span>WhatsApp enquiries<span class="m">4 unread</span></div>
+      <div class="pb-row" id="pb-row0" style="top:76px;">
+        <div class="avatar" style="width:52px;height:52px;background:#ECE7DF;color:#8C867D;"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+        <div><div class="t">Lead 01</div><div class="s">Looking for a 2 BHK</div></div>
+        <div class="now" id="pb-now0">now<div class="bd">1</div></div>
+        <div class="pb-q" id="pb-q0">Priority?</div>
+      </div>
+      <div class="pb-row" id="pb-row1" style="top:192px;">
+        <div class="avatar" style="width:52px;height:52px;background:#ECE7DF;color:#8C867D;"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+        <div><div class="t">Lead 02</div><div class="s">Can you send prices?</div></div>
+        <div class="now" id="pb-now1">now<div class="bd">1</div></div>
+        <div class="pb-q" id="pb-q1">Priority?</div>
+      </div>
+      <div class="pb-row" id="pb-row2" style="top:308px;">
+        <div class="avatar" style="width:52px;height:52px;background:#ECE7DF;color:#8C867D;"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+        <div><div class="t">Lead 03</div><div class="s">Just exploring</div></div>
+        <div class="now" id="pb-now2">now<div class="bd">1</div></div>
+        <div class="pb-q" id="pb-q2">Priority?</div>
+      </div>
+      <div class="pb-row" id="pb-row3" style="top:424px;">
+        <div class="avatar" style="width:52px;height:52px;background:#ECE7DF;color:#8C867D;"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+        <div><div class="t">Lead 04</div><div class="s">Need a home in Dubai Marina this month</div></div>
+        <div class="now" id="pb-now3">now<div class="bd">1</div></div>
+        <div class="pb-q" id="pb-q3">Priority?</div>
+      </div>
+    </div>
+    <div class="card" id="pb-team">
+      <div class="avatar" style="width:84px;height:84px;background:#ECE7DF;color:#5E5952;"><svg class="ic" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="t">Sales Team</div>
+      <div class="s">4 new enquiries</div>
+      <div class="pill" id="pb-who">Who first?</div>
+    </div>
+    <div id="pb-sweep" data-layout-ignore></div>
+    <div id="pb-intro">
+      <img id="pb-logo" src="assets/brand/logo-dark.svg" alt="DoubleTick">
+      <div id="pb-introk">Introducing</div>
+      <div id="pb-introt"><span class="w " id="pb-introt-w0">DoubleTick</span> <br> <span class="w g" id="pb-introt-w1">Agentic</span> <span class="w g" id="pb-introt-w2">AI</span></div>
+      <div id="pb-uline"></div>
+    </div>
+
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const q = (s) => "#" + s;
+      // helpers: entrances / exits
+      const blurIn = (sel, t, d = 0.18, extra = {}) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power4.out", ...extra }, t);
+      const blurOut = (sel, t, d = 0.2, extra = {}) =>
+        tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: d, ease: "power3.in", ...extra }, t);
+      const wordsIn = (prefix, n, t, gap = 0.067) => {
+        for (let i = 0; i < n; i++) blurIn(q(prefix + "-w" + i), t + i * gap, 0.16);
+      };
+
+      tl.to("#pb-tint", { opacity: 1, duration: 0.9, ease: "power2.inOut" }, 0.15);
+      // headline: grey → ink / coral, per word
+      for (let i = 0; i < 6; i++) {
+        tl.fromTo(q("pb-hl-w" + i), { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power2.out" }, 0.1 + i * 0.05);
+        tl.to(q("pb-hl-w" + i), { color: i >= 3 ? "#B4473C" : "#1F1F22", duration: 0.2, ease: "power2.out" }, 0.55 + i * 0.085);
+      }
+      blurIn("#pb-sub", 1.35, 0.2);
+      tl.fromTo("#pb-list", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 0.2);
+      for (let i = 0; i < 4; i++) tl.fromTo(q("pb-row" + i), { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.42, ease: "expo.out" }, 0.32 + i * 0.07);
+      tl.fromTo("#pb-team", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.45, ease: "expo.out" }, 0.75);
+      for (let i = 0; i < 4; i++) tl.fromTo(q("pb-line" + i), { opacity: 0, strokeDashoffset: 60 }, { opacity: 1, strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 1.7 + i * 0.06);
+      for (let i = 0; i < 4; i++) { tl.to(q("pb-now" + i), { opacity: 0, duration: 0.1 }, 2.6 + i * 0.12); tl.fromTo(q("pb-q" + i), { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.22, ease: "power3.out" }, 2.6 + i * 0.12); }
+      tl.fromTo("#pb-who", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.24, ease: "power3.out" }, 3.15);
+      // green line sweeps through, tint clears
+      tl.set("#pb-sweep", { opacity: 1, x: -40 }, 4.5);
+      tl.to("#pb-sweep", { x: 1120, duration: 0.7, ease: "power2.inOut" }, 4.5);
+      tl.fromTo("#pb-tint", { clipPath: "inset(0 0 0 0%)" }, { clipPath: "inset(0 0 0 100%)", duration: 0.7, ease: "power2.inOut" }, 4.5);
+      tl.to(".pb-q, #pb-who, #pb-lines", { opacity: 0, duration: 0.16 }, 4.72);
+      tl.to(".pb-row", { borderColor: "#27B578", duration: 0.12, stagger: 0.03 }, 4.7);
+      blurOut("#pb-hl, #pb-sub", 5.0, 0.2);
+      blurOut("#pb-list, #pb-team", 5.02, 0.22, { y: -10 });
+      tl.set("#pb-sweep", { opacity: 0 }, 5.22);
+      // Introducing DoubleTick Agentic AI
+      tl.fromTo("#pb-logo", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 5.15);
+      blurIn("#pb-introk", 5.18, 0.16);
+      wordsIn("pb-introt", 3, 5.25, 0.08);
+      tl.fromTo("#pb-uline", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "expo.out" }, 5.4);
+      // carry up into the qualification scene
+      tl.to("#pb-intro", { y: -40, opacity: 0, filter: "blur(8px)", duration: 0.3, ease: "power3.in" }, 6.88);
+
+      tl.set({}, {}, 7.2);
+      window.__timelines["problem"] = tl;
+    })();
+  </script>
+</template>

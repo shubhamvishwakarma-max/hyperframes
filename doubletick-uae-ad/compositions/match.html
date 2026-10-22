@@ -1,0 +1,139 @@
+<template>
+  <style>
+
+@font-face { font-family: "Hedvig Letters Serif"; src: url("assets/fonts/hedvig-letters-serif.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Geist"; src: url("assets/fonts/geist.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+#root { position: absolute; inset: 0; overflow: hidden; background: #F3EFE7; font-family: "Geist", sans-serif; color: #1F1F22; }
+#root * { box-sizing: border-box; }
+.abs { position: absolute; }
+.hl { position: absolute; left: 60px; right: 60px; text-align: center; font-family: "Hedvig Letters Serif", serif; font-weight: 400; color: #1F1F22; letter-spacing: -0.012em; line-height: 1.08; }
+.hl .w { display: inline-block; }
+.hl .g { color: #0E7A4C; }
+.hl .r { color: #B4473C; }
+.sub { position: absolute; left: 60px; right: 60px; text-align: center; font-size: 24px; font-weight: 500; color: #66625C; letter-spacing: 0.01em; }
+.card { position: absolute; background: #FCFBF8; border-radius: 24px; border: 1px solid #E4DED3; box-shadow: 0 1px 2px rgba(40,32,20,.05), 0 14px 36px -12px rgba(40,32,20,.16); }
+.ic { display: block; flex: none; }
+.row { display: flex; align-items: center; }
+.icbox { display: flex; align-items: center; justify-content: center; border-radius: 14px; background: #E3F6EC; color: #0E7A4C; flex: none; }
+.avatar { display: flex; align-items: center; justify-content: center; border-radius: 50%; flex: none; font-weight: 600; }
+.pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; font-weight: 600; }
+/* WhatsApp-style chat */
+.wa { overflow: hidden; padding: 0; }
+.wa-head { position: absolute; left: 0; right: 0; top: 0; height: 72px; display: flex; align-items: center; gap: 12px; padding: 0 18px; background: #FFFFFF; border-bottom: 1px solid #E4DED3; }
+.wa-name { font-size: 21px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.wa-stat { font-size: 15px; color: #66625C; margin-top: 2px; }
+.wa-body { position: absolute; left: 0; right: 0; top: 72px; background: #EFEAE2; overflow: hidden; }
+.wa-list { position: absolute; left: 0; right: 0; top: 0; height: 2000px; }
+.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; height: 58px; background: #F7F5F1; display: flex; align-items: center; padding: 0 14px; gap: 10px; border-top: 1px solid #E4DED3; }
+.wa-input { flex: 1; height: 38px; border-radius: 19px; background: #FFFFFF; color: #6F6A63; font-size: 16px; display: flex; align-items: center; padding: 0 16px; }
+.wa-send { width: 38px; height: 38px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; }
+.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 11px 58px 11px 14px; border-radius: 14px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.08); color: #1A1A1A; opacity: 0; }
+.bub.in { left: 14px; background: #FFFFFF; border-top-left-radius: 4px; }
+.bub.out { right: 14px; background: #D9FDD3; border-top-right-radius: 4px; }
+.bub .tm { position: absolute; right: 10px; bottom: 6px; font-size: 13px; line-height: 13px; color: #5F6762; display: flex; align-items: center; gap: 3px; }
+.bub .hi { border-radius: 6px; padding: 0 3px; margin: 0 -3px; }
+.bub .src { display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; color: #0E7A4C; margin-top: 4px; font-weight: 500; }
+.typing { position: absolute; left: 14px; width: 74px; height: 44px; border-radius: 14px; border-top-left-radius: 4px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+.typing i { width: 9px; height: 9px; border-radius: 50%; background: #A7A39C; display: block; }
+/* extracted chips */
+.chip { position: absolute; height: 84px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: #FFFFFF; border: 1.5px solid #E4DED3; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(40,32,20,.28); opacity: 0; }
+.chip .lb { font-size: 17px; color: #66625C; font-weight: 500; }
+.chip .vl { font-size: 27px; font-weight: 600; letter-spacing: -0.01em; margin-top: 1px; }
+.chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
+
+
+#mt-hl { top: 100px; font-size: 54px; }
+#mt-pill { position: absolute; left: 90px; right: 90px; top: 196px; height: 54px; justify-content: center; background: #fff; border: 1px solid #E4DED3; font-size: 19px; font-weight: 500; color: #1F1F22; gap: 12px; opacity: 0; }
+#mt-pill .hi { color: #fff; background: #0E7A4C; border-radius: 999px; padding: 5px 12px; font-size: 16px; font-weight: 600; }
+#mt-pill .sep { color: #B9B1A6; }
+#mt-src { position: absolute; left: 0; right: 0; top: 276px; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 18px; color: #66625C; font-weight: 500; opacity: 0; }
+.mt-card { top: 330px; width: 290px; height: 470px; overflow: hidden; opacity: 0; }
+.mt-img { position: absolute; left: 10px; top: 10px; width: 268px; height: 196px; border-radius: 16px; overflow: hidden; }
+.mt-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mt-b { position: absolute; left: 22px; right: 22px; top: 224px; }
+.mt-b .n { font-size: 25px; font-weight: 600; letter-spacing: -0.01em; }
+.mt-b .m { font-size: 18px; color: #66625C; margin-top: 10px; display: flex; align-items: center; gap: 7px; }
+.mt-b .hr { height: 1px; background: #E4DED3; margin: 18px 0 14px; }
+.mt-b .f { font-size: 15px; color: #66625C; }
+.mt-b .p { font-size: 27px; font-weight: 600; color: #0E7A4C; margin-top: 2px; }
+.mt-ring { position: absolute; inset: -1px; border-radius: 24px; border: 3px solid #27B578; opacity: 0; }
+#mt-best { position: absolute; left: 24px; top: 24px; background: #0E7A4C; color: #fff; font-size: 17px; padding: 7px 13px; opacity: 0; }
+
+  </style>
+  <div id="root" data-composition-id="match" data-width="1080" data-height="1080">
+    <h1 class="hl" id="mt-hl"><span class="w " id="mt-hl-w0">AI</span> <span class="w " id="mt-hl-w1">recommends</span> <span class="w g" id="mt-hl-w2">matching</span> <span class="w g" id="mt-hl-w3">properties.</span></h1>
+    <div class="pill" id="mt-pill"><span class="hi">High Intent</span>Ahmed <span class="sep">·</span> AED 2M <span class="sep">·</span> Dubai Marina <span class="sep">·</span> 2 Bedroom <span class="sep">·</span> 1–2 Months</div>
+    <div id="mt-src"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15 6.7L3 16M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></svg>Matched from ABC Properties' live listings</div>
+    <div class="card mt-card" id="mt-card0" style="left:74px;">
+      <div class="mt-img"><img src="assets/images/marina-residence.jpg" alt="Marina Residence"></div>
+      <div class="mt-b">
+        <div class="n">Marina Residence</div>
+        <div class="m"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>2 Bedroom</div>
+        <div class="m" style="margin-top:6px"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Dubai Marina</div>
+        <div class="hr"></div>
+        <div class="f">Starting from</div>
+        <div class="p">AED 1.95M</div>
+      </div>
+      <div class="mt-ring" id="mt-ring0"></div>
+      <div class="pill" id="mt-best"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Best Match</div>
+    </div>
+    <div class="card mt-card" id="mt-card1" style="left:395px;">
+      <div class="mt-img"><img src="assets/images/harbour-view.jpg" alt="Harbour View"></div>
+      <div class="mt-b">
+        <div class="n">Harbour View</div>
+        <div class="m"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>2 Bedroom</div>
+        <div class="m" style="margin-top:6px"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Dubai Marina</div>
+        <div class="hr"></div>
+        <div class="f">Starting from</div>
+        <div class="p">AED 2.1M</div>
+      </div>
+      <div class="mt-ring" id="mt-ring1"></div>
+      
+    </div>
+    <div class="card mt-card" id="mt-card2" style="left:716px;">
+      <div class="mt-img"><img src="assets/images/marina-heights.jpg" alt="Marina Heights"></div>
+      <div class="mt-b">
+        <div class="n">Marina Heights</div>
+        <div class="m"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>2 Bedroom</div>
+        <div class="m" style="margin-top:6px"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Dubai Marina</div>
+        <div class="hr"></div>
+        <div class="f">Starting from</div>
+        <div class="p">AED 2.3M</div>
+      </div>
+      <div class="mt-ring" id="mt-ring2"></div>
+      
+    </div>
+
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const q = (s) => "#" + s;
+      // helpers: entrances / exits
+      const blurIn = (sel, t, d = 0.18, extra = {}) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power4.out", ...extra }, t);
+      const blurOut = (sel, t, d = 0.2, extra = {}) =>
+        tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: d, ease: "power3.in", ...extra }, t);
+      const wordsIn = (prefix, n, t, gap = 0.067) => {
+        for (let i = 0; i < n; i++) blurIn(q(prefix + "-w" + i), t + i * gap, 0.16);
+      };
+
+      tl.fromTo("#mt-pill", { opacity: 0, scale: 0.9, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "expo.out" }, 0.0);
+      wordsIn("mt-hl", 4, 0.1, 0.07);
+      blurIn("#mt-src", 0.6, 0.2);
+      for (let i = 0; i < 3; i++) tl.fromTo(q("mt-card" + i), { opacity: 0, y: -150, scale: 0.6 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "expo.out", transformOrigin: "50% 0%" }, 0.42 + i * 0.09);
+      // best match
+      tl.to("#mt-card1, #mt-card2", { opacity: 0.45, scale: 0.97, duration: 0.35, ease: "power2.out" }, 1.85);
+      tl.to("#mt-card0", { scale: 1.04, duration: 0.4, ease: "expo.out" }, 1.85);
+      tl.to("#mt-ring0", { opacity: 1, duration: 0.18 }, 1.85);
+      tl.fromTo("#mt-best", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.5)" }, 1.95);
+      // carry the best match into the chat (next scene)
+      blurOut("#mt-hl, #mt-pill, #mt-src", 3.3, 0.2);
+      tl.to("#mt-card1, #mt-card2", { opacity: 0, x: 60, duration: 0.25, ease: "power3.in" }, 3.3);
+      tl.to("#mt-card0", { x: 30, y: -20, scale: 0.92, opacity: 0, duration: 0.4, ease: "power3.in" }, 3.38);
+
+      tl.set({}, {}, 3.8);
+      window.__timelines["match"] = tl;
+    })();
+  </script>
+</template>
