@@ -1,0 +1,147 @@
+<template>
+  <style>
+
+@font-face { font-family: "Hedvig Letters Serif"; src: url("assets/fonts/hedvig-letters-serif.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Geist"; src: url("assets/fonts/geist.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+#root { position: absolute; inset: 0; overflow: hidden; background: #F3EFE7; font-family: "Geist", sans-serif; color: #1F1F22; }
+#root * { box-sizing: border-box; }
+.abs { position: absolute; }
+.hl { position: absolute; left: 60px; right: 60px; text-align: center; font-family: "Hedvig Letters Serif", serif; font-weight: 400; color: #1F1F22; letter-spacing: -0.012em; line-height: 1.08; }
+.hl .w { display: inline-block; }
+.hl .g { color: #0E7A4C; }
+.hl .r { color: #B4473C; }
+.sub { position: absolute; left: 60px; right: 60px; text-align: center; font-size: 24px; font-weight: 500; color: #66625C; letter-spacing: 0.01em; }
+.card { position: absolute; background: #FCFBF8; border-radius: 24px; border: 1px solid #E4DED3; box-shadow: 0 1px 2px rgba(40,32,20,.05), 0 14px 36px -12px rgba(40,32,20,.16); }
+.ic { display: block; flex: none; }
+.row { display: flex; align-items: center; }
+.icbox { display: flex; align-items: center; justify-content: center; border-radius: 14px; background: #E3F6EC; color: #0E7A4C; flex: none; }
+.avatar { display: flex; align-items: center; justify-content: center; border-radius: 50%; flex: none; font-weight: 600; }
+.pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; font-weight: 600; }
+/* WhatsApp chat — header, wallpaper and composer are the reference screenshot */
+.wa { overflow: hidden; padding: 0; border-radius: 28px; border: 3px solid rgba(20,20,20,.16); background: #E5DDD4; box-shadow: 0 2px 4px rgba(40,32,20,.06), 0 24px 48px -20px rgba(40,32,20,.28); }
+.wa-head { position: absolute; left: 0; right: 0; top: 0; display: block; width: 100%; }
+.wa-av { position: absolute; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0E7A4C; color: #fff; font-weight: 700; letter-spacing: 0.02em; }
+.wa-name { position: absolute; font-family: "Roboto", sans-serif; font-weight: 500; color: #111; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.wa-body { position: absolute; left: 0; right: 0; overflow: hidden; background-repeat: repeat-y; }
+.wa-list { position: absolute; left: 0; right: 0; top: 0; height: 2000px; }
+.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; display: block; width: 100%; }
+.wa-day { position: absolute; left: 0; right: 0; top: 12px; text-align: center; }
+.wa-day span { display: inline-block; background: #fff; border-radius: 8px; padding: 4px 14px; font-size: 16px; color: #555; box-shadow: 0 1px 1px rgba(0,0,0,.06); }
+.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 10px 14px 6px; border-radius: 12px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.07); color: #111; opacity: 0; }
+.bub.in { left: 12px; background: #FFFFFF; }
+.bub.out { right: 12px; background: #E7FFD9; }
+.bub .tm { display: block; text-align: right; font-size: 14px; line-height: 20px; color: #707070; margin-top: 2px; }
+.bub .hi { border-radius: 6px; padding: 0 3px; margin: 0 -3px; }
+.bub .src { display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; color: #0E7A4C; margin-top: 4px; font-weight: 500; }
+.bub .btns { margin: 8px -14px -6px; border-top: 1px solid #E6E6E6; }
+.bub .btn { height: 52px; display: flex; align-items: center; justify-content: center; font-size: 21px; color: #1A96D5; font-weight: 500; }
+.bub .btn + .btn { border-top: 1px solid #E6E6E6; }
+.typing { position: absolute; left: 12px; width: 74px; height: 44px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.07); }
+.typing i { width: 9px; height: 9px; border-radius: 50%; background: #A7A39C; display: block; }
+/* extracted chips */
+.chip { position: absolute; height: 84px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: #FFFFFF; border: 1.5px solid #E4DED3; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(40,32,20,.28); opacity: 0; }
+.chip .lb { font-size: 17px; color: #66625C; font-weight: 500; }
+.chip .vl { font-size: 27px; font-weight: 600; letter-spacing: -0.01em; margin-top: 1px; }
+.chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
+
+.stage, .hlwrap { position: absolute; width: 1080px; height: 1080px; }
+.hlwrap { pointer-events: none; }
+
+#ads-hl { top: 140px; font-size: 80px; }
+.ads-src { left: 96px; width: 332px; height: 108px; display: flex; align-items: center; gap: 16px; padding: 0 22px; opacity: 0; }
+.ads-src .t { font-size: 24px; font-weight: 600; }
+.ads-src .s { font-size: 17px; color: #66625C; display: flex; align-items: center; gap: 7px; margin-top: 3px; }
+.ads-src .dot { width: 8px; height: 8px; border-radius: 50%; background: #27B578; display: block; }
+#ads-inbox { left: 604px; top: 366px; width: 380px; height: 424px; opacity: 0; }
+.ads-ihead { position: absolute; left: 22px; right: 22px; top: 20px; height: 48px; display: flex; align-items: center; gap: 12px; }
+.ads-ihead .t { font-size: 22px; font-weight: 600; }
+.ads-cnt { position: absolute; right: 0; top: 10px; font-size: 16px; font-weight: 600; color: #0E7A4C; background: #E3F6EC; border-radius: 999px; padding: 5px 12px; opacity: 0; }
+.ads-lead { position: absolute; left: 18px; right: 18px; height: 86px; border-radius: 16px; background: #fff; border: 1px solid #E4DED3; display: flex; align-items: center; gap: 14px; padding: 0 16px; opacity: 0; }
+.ads-lead .t { font-size: 22px; font-weight: 600; }
+.ads-lead .s { font-size: 16px; color: #66625C; margin-top: 2px; }
+.ads-lead .now { margin-left: auto; text-align: right; font-size: 14px; color: #0E7A4C; font-weight: 600; }
+.ads-lead .bd { width: 24px; height: 24px; border-radius: 50%; background: #0E7A4C; color: #fff; font-size: 13px; display: flex; align-items: center; justify-content: center; margin: 5px 0 0 auto; }
+#ads-wires { position: absolute; left: 0; top: 0; width: 1080px; height: 1080px; overflow: visible; }
+
+
+  </style>
+  <div id="root" data-composition-id="ads" data-width="1080" data-height="1350">
+    <div class="stage" style="left:0px;top:135px;">
+      <svg id="ads-wires" viewBox="0 0 1080 1080" data-layout-ignore>
+        <path id="ads-wire0" d="M428 452 C 520 452, 512 478, 604 478" fill="none" stroke="#27B578" stroke-width="3" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <path id="ads-wire1" d="M428 590 C 520 590, 512 578, 604 578" fill="none" stroke="#27B578" stroke-width="3" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <path id="ads-wire2" d="M428 728 C 520 728, 512 678, 604 678" fill="none" stroke="#27B578" stroke-width="3" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+      </svg>
+      <div class="card ads-src" id="ads-src0" style="top:398px;">
+        <div class="icbox" style="width:58px;height:58px;"><svg class="ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
+        <div><div class="t">Property Ad</div><div class="s"><span class="dot"></span>Meta · Live</div></div>
+      </div>
+      <div class="card ads-src" id="ads-src1" style="top:536px;">
+        <div class="icbox" style="width:58px;height:58px;"><svg class="ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></div>
+        <div><div class="t">Social Ad</div><div class="s"><span class="dot"></span>Instagram · Live</div></div>
+      </div>
+      <div class="card ads-src" id="ads-src2" style="top:674px;">
+        <div class="icbox" style="width:58px;height:58px;"><svg class="ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+        <div><div class="t">Listing Campaign</div><div class="s"><span class="dot"></span>Portal · Live</div></div>
+      </div>
+      <div class="card" id="ads-inbox">
+        <div class="ads-ihead">
+          <img src="assets/brand/whatsapp.png" alt="WhatsApp" style="width:40px;height:40px;display:block;flex:none;">
+          <div class="t">WhatsApp</div>
+          <div class="ads-cnt" id="ads-cnt0">1 new</div><div class="ads-cnt" id="ads-cnt1">2 new</div><div class="ads-cnt" id="ads-cnt2">3 new</div>
+        </div>
+        <div class="ads-lead" id="ads-lead0" style="top:69px;">
+          <div class="avatar" style="width:46px;height:46px;background:#E3F6EC;color:#0E7A4C;"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+          <div><div class="t">New Lead</div><div class="s">via Property Ad</div></div>
+          <div class="now">now<div class="bd">1</div></div>
+        </div>
+        <div class="ads-lead" id="ads-lead1" style="top:169px;">
+          <div class="avatar" style="width:46px;height:46px;background:#E3F6EC;color:#0E7A4C;"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+          <div><div class="t">New Lead</div><div class="s">via Social Ad</div></div>
+          <div class="now">now<div class="bd">1</div></div>
+        </div>
+        <div class="ads-lead" id="ads-lead2" style="top:269px;">
+          <div class="avatar" style="width:46px;height:46px;background:#E3F6EC;color:#0E7A4C;"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+          <div><div class="t">New Lead</div><div class="s">via Listing Campaign</div></div>
+          <div class="now">now<div class="bd">1</div></div>
+        </div>
+      </div>
+  
+    </div>
+    <div class="hlwrap" style="left:0px;top:135px;">
+      <h1 class="hl" id="ads-hl"><span class="w " id="ads-hl-w0">Your</span> <span class="w " id="ads-hl-w1">real</span> <span class="w " id="ads-hl-w2">estate</span> <span class="w " id="ads-hl-w3">ads</span> <br> <span class="w " id="ads-hl-w4">are</span> <span class="w g" id="ads-hl-w5">working.</span></h1>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const q = (s) => "#" + s;
+      // helpers: entrances / exits
+      const blurIn = (sel, t, d = 0.18, extra = {}) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power4.out", ...extra }, t);
+      const blurOut = (sel, t, d = 0.2, extra = {}) =>
+        tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: d, ease: "power3.in", ...extra }, t);
+      const wordsIn = (prefix, n, t, gap = 0.067) => {
+        for (let i = 0; i < n; i++) blurIn(q(prefix + "-w" + i), t + i * gap, 0.16);
+      };
+
+      wordsIn("ads-hl", 5, 0.12, 0.07);
+      const from = [{ x: -90, y: -50 }, { x: -170, y: 0 }, { x: -40, y: 130 }];
+      from.forEach((f, i) => tl.fromTo(q("ads-src" + i), { opacity: 0, x: f.x, y: f.y, filter: "blur(8px)" }, { opacity: 1, x: 0, y: 0, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.32 + i * 0.09));
+      tl.fromTo(q("ads-inbox"), { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 0.5);
+      [0, 1, 2].forEach((i) => {
+        const t = 0.95 + i * 0.26;
+        tl.to(q("ads-wire" + i), { strokeDashoffset: 0, duration: 0.42, ease: "power2.inOut" }, t);
+        tl.fromTo(q("ads-lead" + i), { opacity: 0, x: -28, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.4, ease: "expo.out" }, t + 0.36);
+        tl.fromTo(q("ads-cnt" + i), { opacity: 0 }, { opacity: 1, duration: 0.08 }, t + 0.36);
+        if (i > 0) tl.to(q("ads-cnt" + (i - 1)), { opacity: 0, duration: 0.08 }, t + 0.36);
+      });
+      // exit: blur swap
+      blurOut("#ads-hl", 3.52, 0.2);
+      blurOut(".ads-src, #ads-inbox, #ads-wires", 3.55, 0.22);
+
+      tl.set({}, {}, 3.8);
+      window.__timelines["ads"] = tl;
+    })();
+  </script>
+</template>

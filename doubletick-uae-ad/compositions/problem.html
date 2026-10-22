@@ -44,8 +44,10 @@
 .chip .vl { font-size: 27px; font-weight: 600; letter-spacing: -0.01em; margin-top: 1px; }
 .chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
 
+.stage, .hlwrap { position: absolute; width: 1080px; height: 1080px; }
+.hlwrap { pointer-events: none; }
 
-#pb-tint { position: absolute; inset: 0; background: #F3E2DC; opacity: 0; }
+#pb-tint { position: absolute; left: 0px; top: 0px; width: 1080px; height: 1080px; background: #F3E2DC; opacity: 0; }
 #pb-hl { top: 140px; font-size: 60px; }
 #pb-hl .w { color: #B9B1A6; }
 #pb-sub { top: 222px; }
@@ -72,57 +74,62 @@
 #pb-introt .g { color: #0E7A4C; }
 #pb-uline { width: 520px; height: 6px; border-radius: 3px; background: #27B578; margin: 30px auto 0; transform-origin: 0% 50%; }
 
+
   </style>
   <div id="root" data-composition-id="problem" data-width="1080" data-height="1080">
-    <div id="pb-tint" data-layout-ignore></div>
-    <h1 class="hl" id="pb-hl"><span class="w " id="pb-hl-w0">But</span> <span class="w " id="pb-hl-w1">who's</span> <span class="w " id="pb-hl-w2">actually</span> <span class="w r" id="pb-hl-w3">ready</span> <span class="w r" id="pb-hl-w4">to</span> <span class="w r" id="pb-hl-w5">buy?</span></h1>
-    <div class="sub" id="pb-sub">Every enquiry looks urgent. Not every enquiry is.</div>
-    <svg id="pb-lines" viewBox="0 0 1080 1080" data-layout-ignore>
-      <path id="pb-line0" d="M738 580 C 706 580, 700 428, 668 428" fill="none" stroke="#B4473C" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>
-      <path id="pb-line1" d="M738 580 C 706 580, 700 544, 668 544" fill="none" stroke="#B4473C" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>
-      <path id="pb-line2" d="M738 580 C 706 580, 700 660, 668 660" fill="none" stroke="#B4473C" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>
-      <path id="pb-line3" d="M738 580 C 706 580, 700 776, 668 776" fill="none" stroke="#B4473C" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>
-    </svg>
-    <div class="card" id="pb-list">
-      <div class="pb-lh"><img src="assets/brand/whatsapp.png" alt="WhatsApp" style="width:26px;height:26px;display:block;flex:none;">WhatsApp enquiries<span class="m">4 unread</span></div>
-      <div class="pb-row" id="pb-row0" style="top:76px;">
-        <div class="avatar" style="width:52px;height:52px;background:#ECE7DF;color:#8C867D;"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
-        <div><div class="t">Lead 01</div><div class="s">Looking for a 2 BHK</div></div>
-        <div class="now" id="pb-now0">now<div class="bd">1</div></div>
-        <div class="pb-q" id="pb-q0">Priority?</div>
+    <div class="stage" style="left:0px;top:0px;">
+      <div id="pb-tint" data-layout-ignore></div>
+      <svg id="pb-lines" viewBox="0 0 1080 1080" data-layout-ignore>
+        <path id="pb-line0" d="M738 580 C 706 580, 700 428, 668 428" fill="none" stroke="#B4473C" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>
+        <path id="pb-line1" d="M738 580 C 706 580, 700 544, 668 544" fill="none" stroke="#B4473C" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>
+        <path id="pb-line2" d="M738 580 C 706 580, 700 660, 668 660" fill="none" stroke="#B4473C" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>
+        <path id="pb-line3" d="M738 580 C 706 580, 700 776, 668 776" fill="none" stroke="#B4473C" stroke-width="2.5" stroke-dasharray="6 7" opacity="0"/>
+      </svg>
+      <div class="card" id="pb-list">
+        <div class="pb-lh"><img src="assets/brand/whatsapp.png" alt="WhatsApp" style="width:26px;height:26px;display:block;flex:none;">WhatsApp enquiries<span class="m">4 unread</span></div>
+        <div class="pb-row" id="pb-row0" style="top:76px;">
+          <div class="avatar" style="width:52px;height:52px;background:#ECE7DF;color:#8C867D;"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+          <div><div class="t">Lead 01</div><div class="s">Looking for a 2 BHK</div></div>
+          <div class="now" id="pb-now0">now<div class="bd">1</div></div>
+          <div class="pb-q" id="pb-q0">Priority?</div>
+        </div>
+        <div class="pb-row" id="pb-row1" style="top:192px;">
+          <div class="avatar" style="width:52px;height:52px;background:#ECE7DF;color:#8C867D;"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+          <div><div class="t">Lead 02</div><div class="s">Can you send prices?</div></div>
+          <div class="now" id="pb-now1">now<div class="bd">1</div></div>
+          <div class="pb-q" id="pb-q1">Priority?</div>
+        </div>
+        <div class="pb-row" id="pb-row2" style="top:308px;">
+          <div class="avatar" style="width:52px;height:52px;background:#ECE7DF;color:#8C867D;"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+          <div><div class="t">Lead 03</div><div class="s">Just exploring</div></div>
+          <div class="now" id="pb-now2">now<div class="bd">1</div></div>
+          <div class="pb-q" id="pb-q2">Priority?</div>
+        </div>
+        <div class="pb-row" id="pb-row3" style="top:424px;">
+          <div class="avatar" style="width:52px;height:52px;background:#ECE7DF;color:#8C867D;"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+          <div><div class="t">Lead 04</div><div class="s">Need a home in Dubai Marina this month</div></div>
+          <div class="now" id="pb-now3">now<div class="bd">1</div></div>
+          <div class="pb-q" id="pb-q3">Priority?</div>
+        </div>
       </div>
-      <div class="pb-row" id="pb-row1" style="top:192px;">
-        <div class="avatar" style="width:52px;height:52px;background:#ECE7DF;color:#8C867D;"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
-        <div><div class="t">Lead 02</div><div class="s">Can you send prices?</div></div>
-        <div class="now" id="pb-now1">now<div class="bd">1</div></div>
-        <div class="pb-q" id="pb-q1">Priority?</div>
+      <div class="card" id="pb-team">
+        <div class="avatar" style="width:84px;height:84px;background:#ECE7DF;color:#5E5952;"><svg class="ic" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="t">Sales Team</div>
+        <div class="s">4 new enquiries</div>
+        <div class="pill" id="pb-who">Who first?</div>
       </div>
-      <div class="pb-row" id="pb-row2" style="top:308px;">
-        <div class="avatar" style="width:52px;height:52px;background:#ECE7DF;color:#8C867D;"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
-        <div><div class="t">Lead 03</div><div class="s">Just exploring</div></div>
-        <div class="now" id="pb-now2">now<div class="bd">1</div></div>
-        <div class="pb-q" id="pb-q2">Priority?</div>
+      <div id="pb-sweep" data-layout-ignore></div>
+      <div id="pb-intro">
+        <div id="pb-introk">Introducing</div>
+        <div id="pb-introt"><span class="w " id="pb-introt-w0">DoubleTick</span> <br> <span class="w g" id="pb-introt-w1">Agentic</span> <span class="w g" id="pb-introt-w2">AI</span></div>
+        <div id="pb-uline"></div>
       </div>
-      <div class="pb-row" id="pb-row3" style="top:424px;">
-        <div class="avatar" style="width:52px;height:52px;background:#ECE7DF;color:#8C867D;"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
-        <div><div class="t">Lead 04</div><div class="s">Need a home in Dubai Marina this month</div></div>
-        <div class="now" id="pb-now3">now<div class="bd">1</div></div>
-        <div class="pb-q" id="pb-q3">Priority?</div>
-      </div>
+  
     </div>
-    <div class="card" id="pb-team">
-      <div class="avatar" style="width:84px;height:84px;background:#ECE7DF;color:#5E5952;"><svg class="ic" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <div class="t">Sales Team</div>
-      <div class="s">4 new enquiries</div>
-      <div class="pill" id="pb-who">Who first?</div>
+    <div class="hlwrap" style="left:0px;top:0px;">
+      <h1 class="hl" id="pb-hl"><span class="w " id="pb-hl-w0">But</span> <span class="w " id="pb-hl-w1">who's</span> <span class="w " id="pb-hl-w2">actually</span> <span class="w r" id="pb-hl-w3">ready</span> <span class="w r" id="pb-hl-w4">to</span> <span class="w r" id="pb-hl-w5">buy?</span></h1>
+      <div class="sub" id="pb-sub">Every enquiry looks urgent. Not every enquiry is.</div>
     </div>
-    <div id="pb-sweep" data-layout-ignore></div>
-    <div id="pb-intro">
-      <div id="pb-introk">Introducing</div>
-      <div id="pb-introt"><span class="w " id="pb-introt-w0">DoubleTick</span> <br> <span class="w g" id="pb-introt-w1">Agentic</span> <span class="w g" id="pb-introt-w2">AI</span></div>
-      <div id="pb-uline"></div>
-    </div>
-
   </div>
   <script>
     (function () {

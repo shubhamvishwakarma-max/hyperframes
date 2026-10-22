@@ -44,6 +44,8 @@
 .chip .vl { font-size: 27px; font-weight: 600; letter-spacing: -0.01em; margin-top: 1px; }
 .chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
 
+.stage, .hlwrap { position: absolute; width: 1080px; height: 1080px; }
+.hlwrap { pointer-events: none; }
 
 #ads-hl { top: 140px; font-size: 80px; }
 .ads-src { left: 96px; width: 332px; height: 108px; display: flex; align-items: center; gap: 16px; padding: 0 22px; opacity: 0; }
@@ -61,49 +63,54 @@
 .ads-lead .bd { width: 24px; height: 24px; border-radius: 50%; background: #0E7A4C; color: #fff; font-size: 13px; display: flex; align-items: center; justify-content: center; margin: 5px 0 0 auto; }
 #ads-wires { position: absolute; left: 0; top: 0; width: 1080px; height: 1080px; overflow: visible; }
 
+
   </style>
   <div id="root" data-composition-id="ads" data-width="1080" data-height="1080">
-    <h1 class="hl" id="ads-hl"><span class="w " id="ads-hl-w0">Your</span> <span class="w " id="ads-hl-w1">real</span> <span class="w " id="ads-hl-w2">estate</span> <span class="w " id="ads-hl-w3">ads</span> <br> <span class="w " id="ads-hl-w4">are</span> <span class="w g" id="ads-hl-w5">working.</span></h1>
-    <svg id="ads-wires" viewBox="0 0 1080 1080" data-layout-ignore>
-      <path id="ads-wire0" d="M428 452 C 520 452, 512 478, 604 478" fill="none" stroke="#27B578" stroke-width="3" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
-      <path id="ads-wire1" d="M428 590 C 520 590, 512 578, 604 578" fill="none" stroke="#27B578" stroke-width="3" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
-      <path id="ads-wire2" d="M428 728 C 520 728, 512 678, 604 678" fill="none" stroke="#27B578" stroke-width="3" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
-    </svg>
-    <div class="card ads-src" id="ads-src0" style="top:398px;">
-      <div class="icbox" style="width:58px;height:58px;"><svg class="ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
-      <div><div class="t">Property Ad</div><div class="s"><span class="dot"></span>Meta · Live</div></div>
-    </div>
-    <div class="card ads-src" id="ads-src1" style="top:536px;">
-      <div class="icbox" style="width:58px;height:58px;"><svg class="ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></div>
-      <div><div class="t">Social Ad</div><div class="s"><span class="dot"></span>Instagram · Live</div></div>
-    </div>
-    <div class="card ads-src" id="ads-src2" style="top:674px;">
-      <div class="icbox" style="width:58px;height:58px;"><svg class="ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
-      <div><div class="t">Listing Campaign</div><div class="s"><span class="dot"></span>Portal · Live</div></div>
-    </div>
-    <div class="card" id="ads-inbox">
-      <div class="ads-ihead">
-        <img src="assets/brand/whatsapp.png" alt="WhatsApp" style="width:40px;height:40px;display:block;flex:none;">
-        <div class="t">WhatsApp</div>
-        <div class="ads-cnt" id="ads-cnt0">1 new</div><div class="ads-cnt" id="ads-cnt1">2 new</div><div class="ads-cnt" id="ads-cnt2">3 new</div>
+    <div class="stage" style="left:0px;top:0px;">
+      <svg id="ads-wires" viewBox="0 0 1080 1080" data-layout-ignore>
+        <path id="ads-wire0" d="M428 452 C 520 452, 512 478, 604 478" fill="none" stroke="#27B578" stroke-width="3" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <path id="ads-wire1" d="M428 590 C 520 590, 512 578, 604 578" fill="none" stroke="#27B578" stroke-width="3" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <path id="ads-wire2" d="M428 728 C 520 728, 512 678, 604 678" fill="none" stroke="#27B578" stroke-width="3" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+      </svg>
+      <div class="card ads-src" id="ads-src0" style="top:398px;">
+        <div class="icbox" style="width:58px;height:58px;"><svg class="ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
+        <div><div class="t">Property Ad</div><div class="s"><span class="dot"></span>Meta · Live</div></div>
       </div>
-      <div class="ads-lead" id="ads-lead0" style="top:69px;">
-        <div class="avatar" style="width:46px;height:46px;background:#E3F6EC;color:#0E7A4C;"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
-        <div><div class="t">New Lead</div><div class="s">via Property Ad</div></div>
-        <div class="now">now<div class="bd">1</div></div>
+      <div class="card ads-src" id="ads-src1" style="top:536px;">
+        <div class="icbox" style="width:58px;height:58px;"><svg class="ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></div>
+        <div><div class="t">Social Ad</div><div class="s"><span class="dot"></span>Instagram · Live</div></div>
       </div>
-      <div class="ads-lead" id="ads-lead1" style="top:169px;">
-        <div class="avatar" style="width:46px;height:46px;background:#E3F6EC;color:#0E7A4C;"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
-        <div><div class="t">New Lead</div><div class="s">via Social Ad</div></div>
-        <div class="now">now<div class="bd">1</div></div>
+      <div class="card ads-src" id="ads-src2" style="top:674px;">
+        <div class="icbox" style="width:58px;height:58px;"><svg class="ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+        <div><div class="t">Listing Campaign</div><div class="s"><span class="dot"></span>Portal · Live</div></div>
       </div>
-      <div class="ads-lead" id="ads-lead2" style="top:269px;">
-        <div class="avatar" style="width:46px;height:46px;background:#E3F6EC;color:#0E7A4C;"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
-        <div><div class="t">New Lead</div><div class="s">via Listing Campaign</div></div>
-        <div class="now">now<div class="bd">1</div></div>
+      <div class="card" id="ads-inbox">
+        <div class="ads-ihead">
+          <img src="assets/brand/whatsapp.png" alt="WhatsApp" style="width:40px;height:40px;display:block;flex:none;">
+          <div class="t">WhatsApp</div>
+          <div class="ads-cnt" id="ads-cnt0">1 new</div><div class="ads-cnt" id="ads-cnt1">2 new</div><div class="ads-cnt" id="ads-cnt2">3 new</div>
+        </div>
+        <div class="ads-lead" id="ads-lead0" style="top:69px;">
+          <div class="avatar" style="width:46px;height:46px;background:#E3F6EC;color:#0E7A4C;"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+          <div><div class="t">New Lead</div><div class="s">via Property Ad</div></div>
+          <div class="now">now<div class="bd">1</div></div>
+        </div>
+        <div class="ads-lead" id="ads-lead1" style="top:169px;">
+          <div class="avatar" style="width:46px;height:46px;background:#E3F6EC;color:#0E7A4C;"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+          <div><div class="t">New Lead</div><div class="s">via Social Ad</div></div>
+          <div class="now">now<div class="bd">1</div></div>
+        </div>
+        <div class="ads-lead" id="ads-lead2" style="top:269px;">
+          <div class="avatar" style="width:46px;height:46px;background:#E3F6EC;color:#0E7A4C;"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+          <div><div class="t">New Lead</div><div class="s">via Listing Campaign</div></div>
+          <div class="now">now<div class="bd">1</div></div>
+        </div>
       </div>
+  
     </div>
-
+    <div class="hlwrap" style="left:0px;top:0px;">
+      <h1 class="hl" id="ads-hl"><span class="w " id="ads-hl-w0">Your</span> <span class="w " id="ads-hl-w1">real</span> <span class="w " id="ads-hl-w2">estate</span> <span class="w " id="ads-hl-w3">ads</span> <br> <span class="w " id="ads-hl-w4">are</span> <span class="w g" id="ads-hl-w5">working.</span></h1>
+    </div>
   </div>
   <script>
     (function () {

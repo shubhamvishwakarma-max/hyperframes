@@ -2,3 +2,5 @@
 node_modules/
 renders/work-*/
 renders/.*
+renders/raw-*
+formats/*/.hyperframes/

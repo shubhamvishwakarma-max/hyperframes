@@ -1,0 +1,288 @@
+<template>
+  <style>
+
+@font-face { font-family: "Hedvig Letters Serif"; src: url("assets/fonts/hedvig-letters-serif.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Geist"; src: url("assets/fonts/geist.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+#root { position: absolute; inset: 0; overflow: hidden; background: #F3EFE7; font-family: "Geist", sans-serif; color: #1F1F22; }
+#root * { box-sizing: border-box; }
+.abs { position: absolute; }
+.hl { position: absolute; left: 60px; right: 60px; text-align: center; font-family: "Hedvig Letters Serif", serif; font-weight: 400; color: #1F1F22; letter-spacing: -0.012em; line-height: 1.08; }
+.hl .w { display: inline-block; }
+.hl .g { color: #0E7A4C; }
+.hl .r { color: #B4473C; }
+.sub { position: absolute; left: 60px; right: 60px; text-align: center; font-size: 24px; font-weight: 500; color: #66625C; letter-spacing: 0.01em; }
+.card { position: absolute; background: #FCFBF8; border-radius: 24px; border: 1px solid #E4DED3; box-shadow: 0 1px 2px rgba(40,32,20,.05), 0 14px 36px -12px rgba(40,32,20,.16); }
+.ic { display: block; flex: none; }
+.row { display: flex; align-items: center; }
+.icbox { display: flex; align-items: center; justify-content: center; border-radius: 14px; background: #E3F6EC; color: #0E7A4C; flex: none; }
+.avatar { display: flex; align-items: center; justify-content: center; border-radius: 50%; flex: none; font-weight: 600; }
+.pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; font-weight: 600; }
+/* WhatsApp chat — header, wallpaper and composer are the reference screenshot */
+.wa { overflow: hidden; padding: 0; border-radius: 28px; border: 3px solid rgba(20,20,20,.16); background: #E5DDD4; box-shadow: 0 2px 4px rgba(40,32,20,.06), 0 24px 48px -20px rgba(40,32,20,.28); }
+.wa-head { position: absolute; left: 0; right: 0; top: 0; display: block; width: 100%; }
+.wa-av { position: absolute; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0E7A4C; color: #fff; font-weight: 700; letter-spacing: 0.02em; }
+.wa-name { position: absolute; font-family: "Roboto", sans-serif; font-weight: 500; color: #111; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.wa-body { position: absolute; left: 0; right: 0; overflow: hidden; background-repeat: repeat-y; }
+.wa-list { position: absolute; left: 0; right: 0; top: 0; height: 2000px; }
+.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; display: block; width: 100%; }
+.wa-day { position: absolute; left: 0; right: 0; top: 12px; text-align: center; }
+.wa-day span { display: inline-block; background: #fff; border-radius: 8px; padding: 4px 14px; font-size: 16px; color: #555; box-shadow: 0 1px 1px rgba(0,0,0,.06); }
+.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 10px 14px 6px; border-radius: 12px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.07); color: #111; opacity: 0; }
+.bub.in { left: 12px; background: #FFFFFF; }
+.bub.out { right: 12px; background: #E7FFD9; }
+.bub .tm { display: block; text-align: right; font-size: 14px; line-height: 20px; color: #707070; margin-top: 2px; }
+.bub .hi { border-radius: 6px; padding: 0 3px; margin: 0 -3px; }
+.bub .src { display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; color: #0E7A4C; margin-top: 4px; font-weight: 500; }
+.bub .btns { margin: 8px -14px -6px; border-top: 1px solid #E6E6E6; }
+.bub .btn { height: 52px; display: flex; align-items: center; justify-content: center; font-size: 21px; color: #1A96D5; font-weight: 500; }
+.bub .btn + .btn { border-top: 1px solid #E6E6E6; }
+.typing { position: absolute; left: 12px; width: 74px; height: 44px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.07); }
+.typing i { width: 9px; height: 9px; border-radius: 50%; background: #A7A39C; display: block; }
+/* extracted chips */
+.chip { position: absolute; height: 84px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: #FFFFFF; border: 1.5px solid #E4DED3; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(40,32,20,.28); opacity: 0; }
+.chip .lb { font-size: 17px; color: #66625C; font-weight: 500; }
+.chip .vl { font-size: 27px; font-weight: 600; letter-spacing: -0.01em; margin-top: 1px; }
+.chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
+
+.stage, .hlwrap { position: absolute; width: 1080px; height: 1080px; }
+.hlwrap { pointer-events: none; }
+
+#ho-hl { top: 140px; font-size: 58px; }
+#ho-sub { top: 220px; }
+#ho-hl2 { top: 140px; font-size: 58px; }
+#ho-hl3 { top: 140px; font-size: 58px; }
+#ho-inbox { left: 60px; top: 274px; width: 960px; height: 900px; border-radius: 22px; overflow: hidden; opacity: 0; background: #fff; -webkit-mask-image: linear-gradient(#000 0px, #000 426px, rgba(0,0,0,0.05) 616px, rgba(0,0,0,0.05) 100%); mask-image: linear-gradient(#000 0px, #000 426px, rgba(0,0,0,0.05) 616px, rgba(0,0,0,0.05) 100%); }
+.ho-pane { position: absolute; top: 0; bottom: 0; }
+.ho-ph { position: absolute; left: 0; right: 0; top: 0; height: 56px; border-bottom: 1px solid #ECEAE6; display: flex; align-items: center; padding: 0 18px; gap: 10px; background: #fff; }
+.ho-ph .t { font-size: 18px; font-weight: 600; }
+.ho-ph .ics { margin-left: auto; display: flex; gap: 14px; color: #3B3B3B; }
+#ho-list { left: 0; width: 300px; border-right: 1px solid #ECEAE6; }
+.ho-row { position: absolute; left: 0; right: 0; height: 108px; display: flex; gap: 12px; padding: 16px 16px 0; border-bottom: 1px solid #F1EFEC; background: #fff; }
+.ho-row.sel { background: #EAF3EE; }
+.ho-row.sel::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #27B578; }
+.ho-av { position: relative; width: 44px; height: 44px; border-radius: 50%; background: #EEE8F7; color: #6E4DAF; font-size: 18px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex: none; }
+.ho-av i { position: absolute; right: -3px; bottom: -3px; width: 17px; height: 17px; border-radius: 50%; background: #fff url('assets/brand/whatsapp.png') center / 13px 13px no-repeat; }
+.ho-rn { font-size: 18px; font-weight: 600; white-space: nowrap; }
+.ho-rp { font-size: 15px; color: #6B6B6B; margin-top: 3px; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
+.ho-rt { position: absolute; right: 14px; top: 20px; font-size: 12px; color: #6B6B6B; }
+.ho-tags { display: flex; gap: 6px; margin-top: 9px; }
+.ho-tag { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+.ho-tag.g { background: #E3F6EC; color: #0E7A4C; }
+.ho-tag.n { background: #EFEEEB; color: #66625C; }
+#ho-chat { left: 300px; width: 380px; border-right: 1px solid #ECEAE6; }
+#ho-asg { margin-left: auto; height: 34px; border: 1px solid #DEDBD5; border-radius: 9px; display: flex; align-items: center; gap: 7px; padding: 0 10px; font-size: 15px; font-weight: 500; color: #333; position: relative; width: 132px; }
+#ho-asg .a1, #ho-asg .a2 { position: absolute; left: 34px; top: 7px; white-space: nowrap; }
+#ho-asg .a2 { opacity: 0; font-weight: 600; color: #0E7A4C; }
+.ho-cbody { position: absolute; left: 0; right: 0; top: 56px; bottom: 0; overflow: hidden; background: #F2EFE7 url('assets/ui/dt-wall.jpg') repeat; background-size: 571px auto; }
+#ho-clist { position: absolute; left: 0; right: 0; top: 0; height: 1400px; }
+.ho-day { position: absolute; left: 0; right: 0; top: 14px; text-align: center; }
+.ho-day span { display: inline-block; background: #DEDCD7; color: #555; font-size: 14px; padding: 4px 14px; border-radius: 7px; }
+.ho-b { position: absolute; border-radius: 10px; font-size: 17px; line-height: 25px; padding: 10px 14px 6px; box-shadow: 0 1px 1px rgba(0,0,0,.06); white-space: nowrap; }
+.ho-b.in { left: 14px; background: #fff; }
+.ho-b.out { right: 14px; background: #E6FFF0; }
+.ho-b .tm { display: flex; justify-content: flex-end; align-items: center; gap: 4px; font-size: 12px; color: #6B6B6B; margin-top: 2px; }
+.ho-lbl { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #6A45AD; }
+.ho-lbl .pp { background: #EFE7F7; border-radius: 5px; padding: 1px 7px; font-size: 13px; }
+.ho-lbl.rm { color: #0E7A4C; }
+.ho-sum { font-size: 17px; font-weight: 600; margin-top: 6px; }
+.ho-cr { position: absolute; left: 12px; width: 316px; height: 38px; border-radius: 9px; background: #fff; border: 1px solid #D5EFE0; display: flex; align-items: center; gap: 10px; padding: 0 10px; }
+.ho-cr .lb { font-size: 14px; color: #6B6B6B; width: 72px; }
+.ho-cr .vl { font-size: 17px; font-weight: 600; }
+.ho-sys { position: absolute; left: 0; right: 0; text-align: center; opacity: 0; }
+.ho-sys span { display: inline-block; background: #fff; border-radius: 8px; padding: 6px 12px; font-size: 14px; color: #3D3D3D; box-shadow: 0 1px 1px rgba(0,0,0,.06); }
+#ho-det { left: 680px; right: 0; background: #fff; }
+.ho-tabs { position: absolute; left: 0; right: 0; top: 0; height: 52px; border-bottom: 1px solid #ECEAE6; display: flex; }
+.ho-tabs div { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 15px; color: #6B6B6B; }
+.ho-tabs .on { color: #111; font-weight: 600; box-shadow: inset 0 -3px 0 #27B578; }
+.ho-dl { position: absolute; left: 18px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #6B6B6B; display: flex; align-items: center; gap: 6px; }
+.ho-dv { position: absolute; left: 18px; right: 18px; font-size: 16px; color: #1F1F22; display: flex; align-items: center; gap: 8px; }
+.ho-fr { position: absolute; left: 18px; right: 18px; height: 34px; border-radius: 8px; display: flex; align-items: center; padding: 0 8px; }
+.ho-fr .lb { font-size: 14px; color: #6B6B6B; }
+.ho-fr .ph { margin-left: auto; color: #C4BFB6; font-size: 16px; }
+.ho-fr .vl { position: absolute; right: 8px; top: 6px; font-size: 16px; font-weight: 600; opacity: 0; }
+.ho-fly { position: absolute; width: 316px; height: 38px; border-radius: 9px; background: #fff; border: 1.5px solid #27B578; display: flex; align-items: center; gap: 10px; padding: 0 10px; opacity: 0; box-shadow: 0 10px 22px -10px rgba(14,122,76,.45); }
+.ho-fly .vl { font-size: 17px; font-weight: 600; }
+
+.hlwrap .hl { left: 0 !important; right: auto !important; width: 720px !important; text-align: left !important; top: auto !important; bottom: 520px !important; }
+.hlwrap .sub { left: 0 !important; right: auto !important; width: 720px !important; text-align: left !important; top: 590px !important; }
+  </style>
+  <div id="root" data-composition-id="handoff" data-width="1920" data-height="1080">
+    <div class="stage" style="left:800px;top:-20px;">
+      <div class="card" id="ho-inbox" data-layout-allow-overflow data-layout-allow-caption-zone>
+        <div class="ho-pane" id="ho-list">
+          <div class="ho-ph"><span class="t">All chats</span><span class="ics"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15 6.7L3 16M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></svg></span></div>
+          <div class="ho-row sel" id="ho-r0" style="top:56px;">
+            <div class="ho-av">A<i></i></div>
+            <div><div class="ho-rn">Ahmed</div><div class="ho-rp"><svg width="16" height="11" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#2BA36A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes. Saturday afternoon.</div><div class="ho-tags"><span class="ho-tag g">High intent</span><span class="ho-tag g">Viewing booked</span></div></div>
+            <div class="ho-rt">10:28 am</div>
+          </div>
+          <div class="ho-row" id="ho-r1" style="top:164px;">
+            <div class="ho-av">L<i></i></div>
+            <div><div class="ho-rn">Lead 01</div><div class="ho-rp"><svg width="16" height="11" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#2BA36A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Looking for a 2 BHK</div><div class="ho-tags"><span class="ho-tag n">AI nurturing</span></div></div>
+            <div class="ho-rt">10:21 am</div>
+          </div>
+          <div class="ho-row" id="ho-r2" style="top:272px;">
+            <div class="ho-av">L<i></i></div>
+            <div><div class="ho-rn">Lead 02</div><div class="ho-rp"><svg width="16" height="11" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#2BA36A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Can you send prices?</div><div class="ho-tags"><span class="ho-tag n">AI nurturing</span></div></div>
+            <div class="ho-rt">10:17 am</div>
+          </div>
+          <div class="ho-row" id="ho-r3" style="top:380px;">
+            <div class="ho-av">L<i></i></div>
+            <div><div class="ho-rn">Lead 03</div><div class="ho-rp"><svg width="16" height="11" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#2BA36A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Just exploring</div><div class="ho-tags"><span class="ho-tag n">AI nurturing</span></div></div>
+            <div class="ho-rt">10:09 am</div>
+          </div>
+          <div class="ho-row" id="ho-r4" style="top:488px;">
+            <div class="ho-av">F<i></i></div>
+            <div><div class="ho-rn">Faisal K.</div><div class="ho-rp"><svg width="16" height="11" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#2BA36A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Is the 3BR still available?</div><div class="ho-tags"><span class="ho-tag n">AI nurturing</span></div></div>
+            <div class="ho-rt">09:58 am</div>
+          </div>
+          <div class="ho-row" id="ho-r5" style="top:596px;">
+            <div class="ho-av">R<i></i></div>
+            <div><div class="ho-rn">Rania M.</div><div class="ho-rp"><svg width="16" height="11" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#2BA36A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Thanks, I'll check and revert</div><div class="ho-tags"><span class="ho-tag n">AI nurturing</span></div></div>
+            <div class="ho-rt">09:41 am</div>
+          </div>
+          <div class="ho-row" id="ho-r6" style="top:704px;">
+            <div class="ho-av">O<i></i></div>
+            <div><div class="ho-rn">Omar S.</div><div class="ho-rp"><svg width="16" height="11" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#2BA36A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Any off-plan options?</div><div class="ho-tags"><span class="ho-tag n">AI nurturing</span></div></div>
+            <div class="ho-rt">09:30 am</div>
+          </div>
+        </div>
+        <div class="ho-pane" id="ho-chat">
+          <div class="ho-ph">
+            <div class="ho-av" style="width:36px;height:36px;font-size:15px;">A<i></i></div><span class="t">Ahmed</span>
+            <div id="ho-asg"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg><span class="a1">Unassigned</span><span class="a2">Sarah</span></div>
+          </div>
+          <div class="ho-cbody">
+            <div id="ho-clist">
+              <div class="ho-day"><span>Today</span></div>
+              <div class="ho-b in" style="top:56px;">Yes. Saturday afternoon.<div class="tm">10:28 am</div></div>
+              <div class="ho-b out" id="ho-ai" style="top:118px;width:340px;height:320px;">
+                <div class="ho-lbl"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>ABC Properties AI <span class="pp">AI Agent</span></div>
+                <div class="ho-sum">Lead qualified · Viewing booked</div>
+                <div class="ho-cr" id="ho-cr0" style="top:74px;"><span style="color:#0E7A4C"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/><circle cx="16.5" cy="15" r="1.2"/></svg></span><span class="lb">Budget</span><span class="vl">AED 2M</span></div>
+                <div class="ho-cr" id="ho-cr1" style="top:118px;"><span style="color:#0E7A4C"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="lb">Location</span><span class="vl">Dubai Marina</span></div>
+                <div class="ho-cr" id="ho-cr2" style="top:162px;"><span style="color:#0E7A4C"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg></span><span class="lb">Property</span><span class="vl">2 Bedroom</span></div>
+                <div class="ho-cr" id="ho-cr3" style="top:206px;"><span style="color:#0E7A4C"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="lb">Timeline</span><span class="vl">1–2 Months</span></div>
+                <div class="ho-cr" id="ho-cr4" style="top:250px;"><span style="color:#0E7A4C"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="lb">Viewing</span><span class="vl">Sat · 3:00 PM</span></div>
+                <div class="tm" style="position:absolute;right:12px;bottom:6px;">10:29 am <svg width="16" height="11" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#2BA36A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="ho-sys" id="ho-sys" style="top:454px;"><span>Assigned to Sarah (RM) · High-intent lead</span></div>
+              <div class="ho-b out" id="ho-b0" style="top:500px;opacity:0;"><div class="ho-lbl rm"><svg class="ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>Sarah · RM</div>Hi Ahmed, I have your requirements<br>and your viewing is confirmed<br>for Saturday.<div class="tm">10:41 am <svg width="16" height="11" viewBox="0 0 18 12"><path d="M1 6.5l3 3L10.5 2.5M7 9.5l1 0.5L16.5 2.5" fill="none" stroke="#2BA36A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+              <div class="ho-b in" id="ho-b1" style="top:652px;opacity:0;">Perfect, thank you.<div class="tm">10:42 am</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ho-pane" id="ho-det">
+          <div class="ho-tabs"><div class="on">Details</div><div>Calls</div><div>Notes</div></div>
+          <div class="ho-dv" style="top:68px;"><div class="ho-av" style="width:40px;height:40px;">A<i></i></div><span style="font-size:20px;font-weight:600;">Ahmed</span></div>
+          <div class="ho-dl" style="top:124px;">Phone number</div>
+          <div class="ho-dv" style="top:144px;">+971 50 ••• ••42</div>
+          <div class="ho-dl" style="top:184px;"><svg class="ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></svg>Assigned RM</div>
+          <div class="ho-dv" style="top:204px;"><span id="ho-un" style="color:#9A958D">Unassigned</span><span id="ho-sa" style="position:absolute;left:0;top:0;display:flex;align-items:center;gap:8px;opacity:0;"><span class="avatar" style="width:26px;height:26px;background:#0E7A4C;color:#fff;font-size:13px;">S</span><b style="font-weight:600">Sarah · RM</b></span></div>
+          <div class="ho-dl" style="top:246px;"><svg class="ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.3 9.3a1 1 0 0 0 1.4 0l8.6-8.6a1 1 0 0 0 0-1.4z"/><circle cx="7" cy="7" r="1.5"/></svg>Tags</div>
+          <div class="ho-dv" style="top:266px;"><span class="ho-tag g" id="ho-tg0" style="opacity:0">High intent</span><span class="ho-tag g" id="ho-tg1" style="opacity:0">Dubai Marina</span></div>
+          <div class="ho-dl" style="top:306px;"><svg class="ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Custom fields</div>
+          <div class="ho-fr" id="ho-f0" style="top:330px;"><span class="lb">Budget</span><span class="ph" id="ho-ph0">—</span><span class="vl" id="ho-v0">AED 2M</span></div>
+          <div class="ho-fr" id="ho-f1" style="top:368px;"><span class="lb">Location</span><span class="ph" id="ho-ph1">—</span><span class="vl" id="ho-v1">Dubai Marina</span></div>
+          <div class="ho-fr" id="ho-f2" style="top:406px;"><span class="lb">Property</span><span class="ph" id="ho-ph2">—</span><span class="vl" id="ho-v2">2 Bedroom</span></div>
+          <div class="ho-fr" id="ho-f3" style="top:444px;"><span class="lb">Timeline</span><span class="ph" id="ho-ph3">—</span><span class="vl" id="ho-v3">1–2 Months</span></div>
+          <div class="ho-fr" id="ho-f4" style="top:482px;"><span class="lb">Viewing</span><span class="ph" id="ho-ph4">—</span><span class="vl" id="ho-v4">Sat · 3:00 PM</span></div>
+        </div>
+      </div>
+      <div class="ho-fly" id="ho-c0" style="left:398px;top:522px;"><span style="color:#0E7A4C"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/><circle cx="16.5" cy="15" r="1.2"/></svg></span><span class="vl">AED 2M</span></div>
+      <div class="ho-fly" id="ho-c1" style="left:398px;top:566px;"><span style="color:#0E7A4C"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="vl">Dubai Marina</span></div>
+      <div class="ho-fly" id="ho-c2" style="left:398px;top:610px;"><span style="color:#0E7A4C"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg></span><span class="vl">2 Bedroom</span></div>
+      <div class="ho-fly" id="ho-c3" style="left:398px;top:654px;"><span style="color:#0E7A4C"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="vl">1–2 Months</span></div>
+      <div class="ho-fly" id="ho-c4" style="left:398px;top:698px;"><span style="color:#0E7A4C"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="vl">Sat · 3:00 PM</span></div>
+  
+    </div>
+    <div class="hlwrap" style="left:100px;top:0px;">
+      <h1 class="hl" id="ho-hl"><span class="w " id="ho-hl-w0">Ready</span> <span class="w " id="ho-hl-w1">buyer.</span> <span class="w g" id="ho-hl-w2">Full</span> <span class="w g" id="ho-hl-w3">context.</span></h1>
+      <div class="sub" id="ho-sub">Sales takes over when it matters.</div>
+      <h1 class="hl" id="ho-hl2"><span class="w " id="ho-hl2-w0">Stop</span> <span class="w " id="ho-hl2-w1">chasing</span> <span class="w " id="ho-hl2-w2">every</span> <span class="w " id="ho-hl2-w3">enquiry.</span></h1>
+      <h1 class="hl" id="ho-hl3"><span class="w " id="ho-hl3-w0">Focus</span> <span class="w " id="ho-hl3-w1">on</span> <span class="w " id="ho-hl3-w2">buyers</span> <span class="w g" id="ho-hl3-w3">ready</span> <span class="w g" id="ho-hl3-w4">to</span> <span class="w g" id="ho-hl3-w5">move.</span></h1>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const q = (s) => "#" + s;
+      // helpers: entrances / exits
+      const blurIn = (sel, t, d = 0.18, extra = {}) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power4.out", ...extra }, t);
+      const blurOut = (sel, t, d = 0.2, extra = {}) =>
+        tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: d, ease: "power3.in", ...extra }, t);
+      const wordsIn = (prefix, n, t, gap = 0.067) => {
+        for (let i = 0; i < n; i++) blurIn(q(prefix + "-w" + i), t + i * gap, 0.16);
+      };
+
+      gsap.set("#ho-hl2 .w, #ho-hl3 .w", { opacity: 0 });
+      wordsIn("ho-hl", 4, 0.05, 0.07);
+      blurIn("#ho-sub", 0.4, 0.2);
+      tl.fromTo("#ho-inbox", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 0.0);
+      for (let i = 0; i < 7; i++) tl.fromTo(q("ho-r" + i), { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.12 + i * 0.04);
+      tl.fromTo("#ho-ai", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out", transformOrigin: "100% 100%" }, 0.3);
+      tl.fromTo("#ho-tg0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(1.6)" }, 0.6);
+      tl.fromTo("#ho-tg1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(1.6)" }, 0.68);
+      tl.set(q("ho-c0"), { opacity: 1 }, 0.80);
+      tl.to(q("ho-cr0"), { opacity: 0.45, duration: 0.2 }, 0.80);
+      tl.to(q("ho-c0"), { x: 318, y: 80, scale: 0.72, duration: 0.5, ease: "power3.inOut" }, 0.80);
+      tl.to(q("ho-c0"), { opacity: 0, duration: 0.12 }, 1.24);
+      tl.to(q("ho-ph0"), { opacity: 0, duration: 0.08 }, 1.22);
+      tl.fromTo(q("ho-v0"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" }, 1.22);
+      tl.to(q("ho-f0"), { backgroundColor: "#EEF8F2", duration: 0.15 }, 1.22);
+      tl.set(q("ho-c1"), { opacity: 1 }, 1.00);
+      tl.to(q("ho-cr1"), { opacity: 0.45, duration: 0.2 }, 1.00);
+      tl.to(q("ho-c1"), { x: 318, y: 74, scale: 0.72, duration: 0.5, ease: "power3.inOut" }, 1.00);
+      tl.to(q("ho-c1"), { opacity: 0, duration: 0.12 }, 1.44);
+      tl.to(q("ho-ph1"), { opacity: 0, duration: 0.08 }, 1.42);
+      tl.fromTo(q("ho-v1"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" }, 1.42);
+      tl.to(q("ho-f1"), { backgroundColor: "#EEF8F2", duration: 0.15 }, 1.42);
+      tl.set(q("ho-c2"), { opacity: 1 }, 1.20);
+      tl.to(q("ho-cr2"), { opacity: 0.45, duration: 0.2 }, 1.20);
+      tl.to(q("ho-c2"), { x: 318, y: 68, scale: 0.72, duration: 0.5, ease: "power3.inOut" }, 1.20);
+      tl.to(q("ho-c2"), { opacity: 0, duration: 0.12 }, 1.64);
+      tl.to(q("ho-ph2"), { opacity: 0, duration: 0.08 }, 1.62);
+      tl.fromTo(q("ho-v2"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" }, 1.62);
+      tl.to(q("ho-f2"), { backgroundColor: "#EEF8F2", duration: 0.15 }, 1.62);
+      tl.set(q("ho-c3"), { opacity: 1 }, 1.40);
+      tl.to(q("ho-cr3"), { opacity: 0.45, duration: 0.2 }, 1.40);
+      tl.to(q("ho-c3"), { x: 318, y: 62, scale: 0.72, duration: 0.5, ease: "power3.inOut" }, 1.40);
+      tl.to(q("ho-c3"), { opacity: 0, duration: 0.12 }, 1.84);
+      tl.to(q("ho-ph3"), { opacity: 0, duration: 0.08 }, 1.82);
+      tl.fromTo(q("ho-v3"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" }, 1.82);
+      tl.to(q("ho-f3"), { backgroundColor: "#EEF8F2", duration: 0.15 }, 1.82);
+      tl.set(q("ho-c4"), { opacity: 1 }, 1.60);
+      tl.to(q("ho-cr4"), { opacity: 0.45, duration: 0.2 }, 1.60);
+      tl.to(q("ho-c4"), { x: 318, y: 56, scale: 0.72, duration: 0.5, ease: "power3.inOut" }, 1.60);
+      tl.to(q("ho-c4"), { opacity: 0, duration: 0.12 }, 2.04);
+      tl.to(q("ho-ph4"), { opacity: 0, duration: 0.08 }, 2.02);
+      tl.fromTo(q("ho-v4"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" }, 2.02);
+      tl.to(q("ho-f4"), { backgroundColor: "#EEF8F2", duration: 0.15 }, 2.02);
+
+      // assignment
+      tl.fromTo("#ho-sys", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 2.15);
+      tl.to("#ho-asg .a1, #ho-un", { opacity: 0, duration: 0.1 }, 2.15);
+      tl.fromTo("#ho-asg .a2, #ho-sa", { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 2.18);
+      tl.to("#ho-asg", { borderColor: "#27B578", backgroundColor: "#EEF8F2", duration: 0.2 }, 2.15);
+      // ---- focus stage
+      blurOut("#ho-hl, #ho-sub", 3.8, 0.18);
+      wordsIn("ho-hl2", 4, 3.98, 0.07);
+      tl.to("#ho-clist", { y: -268, duration: 0.6, ease: "power3.inOut" }, 4.0);
+      tl.fromTo("#ho-b0", { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "100% 100%" }, 4.45);
+      tl.fromTo("#ho-b1", { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 5.25);
+      // others recede, the ready buyer comes forward
+      tl.to("#ho-r1, #ho-r2, #ho-r3, #ho-r4, #ho-r5, #ho-r6", { opacity: 0.35, duration: 0.6, ease: "power2.inOut", stagger: 0.04 }, 4.3);
+      tl.to("#ho-r0", { x: 8, boxShadow: "0 16px 30px -14px rgba(14,122,76,.45)", duration: 0.6, ease: "power2.inOut" }, 4.3);
+      // headline morph
+      tl.to("#ho-hl2 .w", { opacity: 0, filter: "blur(8px)", duration: 0.16, ease: "power3.in", stagger: 0.03 }, 5.35);
+      wordsIn("ho-hl3", 6, 5.5, 0.07);
+      // exit
+      blurOut("#ho-hl3", 7.2, 0.18);
+      tl.to("#ho-inbox", { opacity: 0, filter: "blur(6px)", duration: 0.24, ease: "power3.in" }, 7.18);
+
+      tl.set({}, {}, 7.4);
+      window.__timelines["handoff"] = tl;
+    })();
+  </script>
+</template>

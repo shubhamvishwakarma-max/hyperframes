@@ -44,6 +44,8 @@
 .chip .vl { font-size: 27px; font-weight: 600; letter-spacing: -0.01em; margin-top: 1px; }
 .chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
 
+.stage, .hlwrap { position: absolute; width: 1080px; height: 1080px; }
+.hlwrap { pointer-events: none; }
 
 #cta-logo { position: absolute; left: 380px; top: 236px; width: 320px; height: 39px; display: block; }
 #cta-hl { top: 392px; font-size: 64px; line-height: 1.1; }
@@ -52,12 +54,17 @@
 #cta-ring { position: absolute; inset: 0; border-radius: 999px; border: 3px solid #27B578; opacity: 0; }
 #cta-url { position: absolute; left: 0; right: 0; top: 722px; text-align: center; font-size: 22px; color: #66625C; font-weight: 500; opacity: 0; }
 
+
   </style>
   <div id="root" data-composition-id="cta" data-width="1080" data-height="1080">
-    <h1 class="hl" id="cta-hl"><span class="w " id="cta-hl-w0">Turn</span> <span class="w " id="cta-hl-w1">more</span> <span class="w " id="cta-hl-w2">WhatsApp</span> <span class="w " id="cta-hl-w3">enquiries</span> <br> <span class="w " id="cta-hl-w4">into</span> <span class="w g" id="cta-hl-w5">qualified</span> <span class="w g" id="cta-hl-w6">buyers.</span></h1>
-    <div id="cta-btnw"><div id="cta-btn"><div id="cta-ring"></div>Book Your Free Demo Today <span id="cta-arrow" style="display:inline-block">→</span></div></div>
-    <div id="cta-url">doubletick.io</div>
-
+    <div class="stage" style="left:0px;top:0px;">
+      <div id="cta-btnw"><div id="cta-btn"><div id="cta-ring"></div>Book Your Free Demo Today <span id="cta-arrow" style="display:inline-block">→</span></div></div>
+      <div id="cta-url">doubletick.io</div>
+  
+    </div>
+    <div class="hlwrap" style="left:0px;top:0px;">
+      <h1 class="hl" id="cta-hl"><span class="w " id="cta-hl-w0">Turn</span> <span class="w " id="cta-hl-w1">more</span> <span class="w " id="cta-hl-w2">WhatsApp</span> <span class="w " id="cta-hl-w3">enquiries</span> <br> <span class="w " id="cta-hl-w4">into</span> <span class="w g" id="cta-hl-w5">qualified</span> <span class="w g" id="cta-hl-w6">buyers.</span></h1>
+    </div>
   </div>
   <script>
     (function () {

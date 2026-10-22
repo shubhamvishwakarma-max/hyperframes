@@ -5,6 +5,15 @@ import { execSync } from "node:child_process";
 const dur = (f) => Number(execSync(`ffprobe -v error -show_entries format=duration -of csv=p=0 "${f}"`).toString()).toFixed(3);
 
 const OUT = process.argv[2];
+// Canvas: node generate.mjs <dir> [width] [height]. The scenes are authored on a 1080×1080
+// stage; other canvases place that stage (and, in landscape, the headline column) around it.
+const W = Number(process.argv[3] || 1080), H = Number(process.argv[4] || 1080);
+const LAND = W > H;
+const CENTERED = ["journey", "cta", "captions"];
+const isSplit = (id) => LAND && !CENTERED.includes(id);
+const VDY = { 1080: 0, 1350: 135, 1920: 420 }; // vertical offset of the stage per canvas height
+const off = (id) => (LAND ? (isSplit(id) ? { x: 800, y: -20 } : { x: (W - 1080) / 2, y: 0 }) : { x: (W - 1080) / 2, y: VDY[H] ?? (H - 1080) / 2 });
+const CAP_TOP = LAND ? 960 : 900 + (VDY[H] ?? (H - 1080) / 2) + (H > 1080 ? 20 : 0);
 fs.mkdirSync(path.join(OUT, "compositions"), { recursive: true });
 
 // ---------- tokens ----------
@@ -111,14 +120,36 @@ const BASE_CSS = `
 .chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: ${C.green}; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
 `;
 
+// Split a scene body into headline lines (.hl / .sub) and everything else (the stage).
+function place(id, body) {
+  if (id === "captions") return body;
+  const hl = [], st = [];
+  let cur = st;
+  for (const line of body.split("\n")) {
+    if (/^    </.test(line)) cur = /class="(hl|sub)"/.test(line) ? hl : st;
+    cur.push(line);
+  }
+  const o = off(id);
+  const ho = isSplit(id) ? { x: 100, y: 0 } : o;
+  const ind = (a) => a.map((l) => "  " + l).join("\n");
+  return `    <div class="stage" style="left:${o.x}px;top:${o.y}px;">\n${ind(st)}\n    </div>\n    <div class="hlwrap" style="left:${ho.x}px;top:${ho.y}px;">\n${ind(hl)}\n    </div>`;
+}
+
 function scene(id, dur, css, body, script) {
+  const splitCss = isSplit(id)
+    ? `.hlwrap .hl { left: 0 !important; right: auto !important; width: 720px !important; text-align: left !important; top: auto !important; bottom: 520px !important; }
+.hlwrap .sub { left: 0 !important; right: auto !important; width: 720px !important; text-align: left !important; top: 590px !important; }`
+    : "";
   return `<template>
   <style>
 ${BASE_CSS}
+.stage, .hlwrap { position: absolute; width: 1080px; height: 1080px; }
+.hlwrap { pointer-events: none; }
 ${css}
+${splitCss}
   </style>
-  <div id="root" data-composition-id="${id}" data-width="1080" data-height="1080">
-${body}
+  <div id="root" data-composition-id="${id}" data-width="${W}" data-height="${H}">
+${place(id, body)}
   </div>
   <script>
     (function () {
@@ -310,7 +341,7 @@ ${src
   ];
   const listX = 96, listY = 300, rowH = 104;
   const css = `
-#pb-tint { position: absolute; inset: 0; background: ${C.coralTint}; opacity: 0; }
+#pb-tint { position: absolute; left: ${-off("problem").x}px; top: ${-off("problem").y}px; width: ${W}px; height: ${H}px; background: ${C.coralTint}; opacity: 0; }
 #pb-hl { top: 140px; font-size: 60px; }
 #pb-hl .w { color: #B9B1A6; }
 #pb-sub { top: 222px; }
@@ -328,8 +359,8 @@ ${src
 #pb-team .s { font-size: 18px; color: ${C.muted}; margin-top: 6px; }
 #pb-who { margin-top: 18px; font-size: 17px; color: ${C.coral}; background: ${C.coralTint}; padding: 7px 14px; opacity: 0; }
 #pb-lines { position: absolute; left: 0; top: 0; width: 1080px; height: 1080px; overflow: visible; }
-#pb-sweep { position: absolute; top: -20px; left: 0; width: 8px; height: 1120px; background: ${C.green}; border-radius: 4px; box-shadow: 0 0 28px 6px rgba(39,181,120,.45); opacity: 0; }
-#pb-intro { position: absolute; left: 60px; right: 60px; top: 330px; text-align: center; }
+#pb-sweep { position: absolute; top: ${-20 - off("problem").y}px; left: 0; width: 8px; height: ${H + 40}px; background: ${C.green}; border-radius: 4px; box-shadow: 0 0 28px 6px rgba(39,181,120,.45); opacity: 0; }
+#pb-intro { position: absolute; left: ${60 + (W - 1080) / 2 - off("problem").x}px; right: ${60 - (W - 1080) / 2 + off("problem").x}px; top: 330px; text-align: center; }
 #pb-logo { display: block; height: 40px; width: 326px; margin: 0 auto; opacity: 0; }
 #pb-introk { font-size: 30px; color: ${C.muted}; font-weight: 500; opacity: 0; }
 #pb-introt { font-family: "Hedvig Letters Serif", serif; font-size: 84px; line-height: 1.05; margin-top: 14px; letter-spacing: -0.015em; }
@@ -389,8 +420,8 @@ ${leads
       for (let i = 0; i < 4; i++) { tl.to(q("pb-now" + i), { opacity: 0, duration: 0.1 }, 2.6 + i * 0.12); tl.fromTo(q("pb-q" + i), { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.22, ease: "power3.out" }, 2.6 + i * 0.12); }
       tl.fromTo("#pb-who", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.24, ease: "power3.out" }, 3.15);
       // green line sweeps through, tint clears
-      tl.set("#pb-sweep", { opacity: 1, x: -40 }, 4.5);
-      tl.to("#pb-sweep", { x: 1120, duration: 0.7, ease: "power2.inOut" }, 4.5);
+      tl.set("#pb-sweep", { opacity: 1, x: ${-40 - off("problem").x} }, 4.5);
+      tl.to("#pb-sweep", { x: ${W + 40 - off("problem").x}, duration: 0.7, ease: "power2.inOut" }, 4.5);
       tl.fromTo("#pb-tint", { clipPath: "inset(0 0 0 0%)" }, { clipPath: "inset(0 0 0 100%)", duration: 0.7, ease: "power2.inOut" }, 4.5);
       tl.to(".pb-q, #pb-who, #pb-lines", { opacity: 0, duration: 0.16 }, 4.72);
       tl.to(".pb-row", { borderColor: "${C.green}", duration: 0.12, stagger: 0.03 }, 4.7);
@@ -866,8 +897,8 @@ ${items.map(([ic, , vl], i) => `    <div class="ho-fly" id="ho-c${i}" style="lef
   const nx = (i) => 120 + i * 168;
   const ly = 520;
   const css = `
-#jy-bg { position: absolute; left: 0; top: 560px; width: 1080px; height: 520px; object-fit: cover; opacity: 0; mix-blend-mode: luminosity; }
-#jy-fade { position: absolute; left: 0; top: 560px; width: 1080px; height: 520px; background: linear-gradient(${C.bg}, rgba(243,239,231,0.6)); }
+#jy-bg { position: absolute; left: ${-off("journey").x}px; top: 560px; width: ${W}px; height: ${H - off("journey").y - 560}px; object-fit: cover; opacity: 0; mix-blend-mode: luminosity; }
+#jy-fade { position: absolute; left: ${-off("journey").x}px; top: 560px; width: ${W}px; height: ${H - off("journey").y - 560}px; background: linear-gradient(${C.bg}, rgba(243,239,231,0.6)); }
 #jy-hl { top: 196px; font-size: 76px; }
 #jy-svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1080px; overflow: visible; }
 .jy-n { position: absolute; top: ${ly - 36}px; width: 72px; height: 72px; border-radius: 50%; background: #fff; border: 2.5px solid ${C.green}; color: ${C.greenDeep}; display: flex; align-items: center; justify-content: center; opacity: 0; box-shadow: 0 8px 20px -10px rgba(14,122,76,.4); }
@@ -962,7 +993,7 @@ const CAPS = [
 ];
 {
   const css = `
-.cap { position: absolute; left: 110px; right: 110px; top: 900px; text-align: center; font-family: "Geist", sans-serif; font-weight: 500; font-size: 28px; line-height: 36px; color: #2A2926; opacity: 0; }
+.cap { position: absolute; left: ${LAND ? 360 : 110}px; right: ${LAND ? 360 : 110}px; top: ${CAP_TOP}px; text-align: center; font-family: "Geist", sans-serif; font-weight: 500; font-size: 28px; line-height: 36px; color: #2A2926; opacity: 0; }
 #root { background: transparent; }
 `;
   const body = CAPS.map(([, , t], i) => `    <div class="cap" id="cap-${i}">${t}</div>`).join("\n");
@@ -1030,27 +1061,27 @@ const vars = [
   { id: "cta_text", type: "string", label: "CTA text", default: "Book Your Free Demo Today" },
 ];
 const root = `<!doctype html>
-<html lang="en" data-resolution="square">
+<html lang="en" data-resolution="${W === H ? "square" : LAND ? "landscape" : "portrait"}">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1080, height=1080" />
+    <meta name="viewport" content="width=${W}, height=${H}" />
     <title>DoubleTick Agentic AI — UAE Real Estate</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { margin: 0; width: 1080px; height: 1080px; overflow: hidden; background: ${C.bg}; }
+      html, body { margin: 0; width: ${W}px; height: ${H}px; overflow: hidden; background: ${C.bg}; }
       #ground { position: absolute; inset: 0; background: ${C.bg}; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="${TOTAL}" data-width="1080" data-height="1080">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="${TOTAL}" data-width="${W}" data-height="${H}">
       <div id="ground"></div>
 ${SCENES.map(
   ([id, s, d], i) =>
-    `      <div id="${id}" data-composition-id="${id}" data-composition-src="compositions/${id}.html" data-start="${s}" data-duration="${d}" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1080" style="z-index:${i + 1}"></div>`,
+    `      <div id="${id}" data-composition-id="${id}" data-composition-src="compositions/${id}.html" data-start="${s}" data-duration="${d}" data-track-index="1" data-track-kind="graphics" data-width="${W}" data-height="${H}" style="z-index:${i + 1}"></div>`,
 ).join("\n")}
       <img id="dt-logo" class="clip" src="assets/brand/logo-dark.svg" alt="DoubleTick" data-start="0" data-duration="${TOTAL}" data-track-index="0" style="position:absolute;left:80px;top:80px;width:245px;height:30px;z-index:45;">
-      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="${TOTAL}" data-track-index="2" data-track-kind="captions" data-width="1080" data-height="1080" style="z-index:50"></div>
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="${TOTAL}" data-track-index="2" data-track-kind="captions" data-width="${W}" data-height="${H}" style="z-index:50"></div>
 ${VO.map(
   ([f, s]) => `      <audio id="${f}" class="clip" src="assets/vo/${f}.wav" data-start="${s}" data-duration="${dur(path.join(OUT, "assets/vo/" + f + ".wav"))}" data-track-index="3" data-volume="1"></audio>`,
 ).join("\n")}

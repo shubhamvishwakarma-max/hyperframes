@@ -1,0 +1,96 @@
+<template>
+  <style>
+
+@font-face { font-family: "Hedvig Letters Serif"; src: url("assets/fonts/hedvig-letters-serif.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Geist"; src: url("assets/fonts/geist.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+#root { position: absolute; inset: 0; overflow: hidden; background: #F3EFE7; font-family: "Geist", sans-serif; color: #1F1F22; }
+#root * { box-sizing: border-box; }
+.abs { position: absolute; }
+.hl { position: absolute; left: 60px; right: 60px; text-align: center; font-family: "Hedvig Letters Serif", serif; font-weight: 400; color: #1F1F22; letter-spacing: -0.012em; line-height: 1.08; }
+.hl .w { display: inline-block; }
+.hl .g { color: #0E7A4C; }
+.hl .r { color: #B4473C; }
+.sub { position: absolute; left: 60px; right: 60px; text-align: center; font-size: 24px; font-weight: 500; color: #66625C; letter-spacing: 0.01em; }
+.card { position: absolute; background: #FCFBF8; border-radius: 24px; border: 1px solid #E4DED3; box-shadow: 0 1px 2px rgba(40,32,20,.05), 0 14px 36px -12px rgba(40,32,20,.16); }
+.ic { display: block; flex: none; }
+.row { display: flex; align-items: center; }
+.icbox { display: flex; align-items: center; justify-content: center; border-radius: 14px; background: #E3F6EC; color: #0E7A4C; flex: none; }
+.avatar { display: flex; align-items: center; justify-content: center; border-radius: 50%; flex: none; font-weight: 600; }
+.pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; font-weight: 600; }
+/* WhatsApp chat — header, wallpaper and composer are the reference screenshot */
+.wa { overflow: hidden; padding: 0; border-radius: 28px; border: 3px solid rgba(20,20,20,.16); background: #E5DDD4; box-shadow: 0 2px 4px rgba(40,32,20,.06), 0 24px 48px -20px rgba(40,32,20,.28); }
+.wa-head { position: absolute; left: 0; right: 0; top: 0; display: block; width: 100%; }
+.wa-av { position: absolute; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0E7A4C; color: #fff; font-weight: 700; letter-spacing: 0.02em; }
+.wa-name { position: absolute; font-family: "Roboto", sans-serif; font-weight: 500; color: #111; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.wa-body { position: absolute; left: 0; right: 0; overflow: hidden; background-repeat: repeat-y; }
+.wa-list { position: absolute; left: 0; right: 0; top: 0; height: 2000px; }
+.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; display: block; width: 100%; }
+.wa-day { position: absolute; left: 0; right: 0; top: 12px; text-align: center; }
+.wa-day span { display: inline-block; background: #fff; border-radius: 8px; padding: 4px 14px; font-size: 16px; color: #555; box-shadow: 0 1px 1px rgba(0,0,0,.06); }
+.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 10px 14px 6px; border-radius: 12px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.07); color: #111; opacity: 0; }
+.bub.in { left: 12px; background: #FFFFFF; }
+.bub.out { right: 12px; background: #E7FFD9; }
+.bub .tm { display: block; text-align: right; font-size: 14px; line-height: 20px; color: #707070; margin-top: 2px; }
+.bub .hi { border-radius: 6px; padding: 0 3px; margin: 0 -3px; }
+.bub .src { display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; color: #0E7A4C; margin-top: 4px; font-weight: 500; }
+.bub .btns { margin: 8px -14px -6px; border-top: 1px solid #E6E6E6; }
+.bub .btn { height: 52px; display: flex; align-items: center; justify-content: center; font-size: 21px; color: #1A96D5; font-weight: 500; }
+.bub .btn + .btn { border-top: 1px solid #E6E6E6; }
+.typing { position: absolute; left: 12px; width: 74px; height: 44px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.07); }
+.typing i { width: 9px; height: 9px; border-radius: 50%; background: #A7A39C; display: block; }
+/* extracted chips */
+.chip { position: absolute; height: 84px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: #FFFFFF; border: 1.5px solid #E4DED3; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(40,32,20,.28); opacity: 0; }
+.chip .lb { font-size: 17px; color: #66625C; font-weight: 500; }
+.chip .vl { font-size: 27px; font-weight: 600; letter-spacing: -0.01em; margin-top: 1px; }
+.chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
+
+.stage, .hlwrap { position: absolute; width: 1080px; height: 1080px; }
+.hlwrap { pointer-events: none; }
+
+#cta-logo { position: absolute; left: 380px; top: 236px; width: 320px; height: 39px; display: block; }
+#cta-hl { top: 392px; font-size: 64px; line-height: 1.1; }
+#cta-btnw { position: absolute; left: 0; right: 0; top: 602px; display: flex; justify-content: center; }
+#cta-btn { position: relative; height: 92px; padding: 0 44px; border-radius: 999px; background: #0E7A4C; color: #fff; font-size: 34px; font-weight: 600; display: flex; align-items: center; gap: 14px; letter-spacing: -0.005em; box-shadow: 0 18px 40px -16px rgba(14,122,76,.6); opacity: 0; }
+#cta-ring { position: absolute; inset: 0; border-radius: 999px; border: 3px solid #27B578; opacity: 0; }
+#cta-url { position: absolute; left: 0; right: 0; top: 722px; text-align: center; font-size: 22px; color: #66625C; font-weight: 500; opacity: 0; }
+
+
+  </style>
+  <div id="root" data-composition-id="cta" data-width="1080" data-height="1350">
+    <div class="stage" style="left:0px;top:135px;">
+      <div id="cta-btnw"><div id="cta-btn"><div id="cta-ring"></div>Book Your Free Demo Today <span id="cta-arrow" style="display:inline-block">→</span></div></div>
+      <div id="cta-url">doubletick.io</div>
+  
+    </div>
+    <div class="hlwrap" style="left:0px;top:135px;">
+      <h1 class="hl" id="cta-hl"><span class="w " id="cta-hl-w0">Turn</span> <span class="w " id="cta-hl-w1">more</span> <span class="w " id="cta-hl-w2">WhatsApp</span> <span class="w " id="cta-hl-w3">enquiries</span> <br> <span class="w " id="cta-hl-w4">into</span> <span class="w g" id="cta-hl-w5">qualified</span> <span class="w g" id="cta-hl-w6">buyers.</span></h1>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const q = (s) => "#" + s;
+      // helpers: entrances / exits
+      const blurIn = (sel, t, d = 0.18, extra = {}) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power4.out", ...extra }, t);
+      const blurOut = (sel, t, d = 0.2, extra = {}) =>
+        tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: d, ease: "power3.in", ...extra }, t);
+      const wordsIn = (prefix, n, t, gap = 0.067) => {
+        for (let i = 0; i < n; i++) blurIn(q(prefix + "-w" + i), t + i * gap, 0.16);
+      };
+
+      wordsIn("cta-hl", 7, 0.4, 0.06);
+      // CTA: opacity 0→1, scale .96→1 in 0.28 s, magnetic settle, one pulse, hold
+      tl.fromTo("#cta-btn", { opacity: 0, scale: 0.96, y: 10 }, { opacity: 1, scale: 1, duration: 0.28, ease: "power3.out" }, 1.15);
+      tl.to("#cta-btn", { y: 0, duration: 0.5, ease: "elastic.out(1, 0.75)" }, 1.15);
+      tl.fromTo("#cta-arrow", { x: -6 }, { x: 0, duration: 0.45, ease: "expo.out" }, 1.3);
+      blurIn("#cta-url", 1.5, 0.2);
+      tl.to("#cta-btn", { scale: 1.035, duration: 0.2, ease: "power2.out" }, 2.1);
+      tl.to("#cta-btn", { scale: 1, duration: 0.35, ease: "power2.inOut" }, 2.3);
+      tl.fromTo("#cta-ring", { opacity: 0.8, scale: 1 }, { opacity: 0, scale: 1.18, duration: 0.7, ease: "power2.out" }, 2.1);
+
+      tl.set({}, {}, 4);
+      window.__timelines["cta"] = tl;
+    })();
+  </script>
+</template>
