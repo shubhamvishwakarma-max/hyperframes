@@ -23,44 +23,35 @@
   .sub { position: absolute; top: 370px; left: 64px; width: 930px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
   .sub b { color: var(--ink); font-weight: 600; }
 
-  /* AI qualification board */
+  /* AI qualification: one enquiry -> AI -> one qualified card */
   #aq { z-index: 1; left: 64px; top: 490px; width: 952px; height: 620px; border-radius: 14px; background: #fff; border: 1px solid #DCDBD4; overflow: hidden; color: #111B21; }
-  #aq::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(244,243,236,0) 0%, rgba(244,243,236,0) 47%, rgba(244,243,236,0.4) 55%, rgba(244,243,236,0.55) 70%, rgba(244,243,236,0.66) 100%); }
-  .pane { position: absolute; top: 0; bottom: 0; }
-  #inq { left: 0; width: 404px; border-right: 1px solid #EEEEEA; }
-  #qual { left: 404px; right: 0; background: #FBFBF9; }
-  .ph { height: 56px; display: flex; align-items: center; gap: 9px; padding: 0 16px; border-bottom: 1px solid #EEEEEA; font-size: 15px; font-weight: 600; }
-  .ph .cnt { margin-left: auto; font-size: 11.5px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: #E3F1EA; color: var(--green); }
-  .ph .cnt.b { background: #DDEFF7; color: #1F7A9C; }
-  .newin { margin: 10px 14px 4px; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 600; color: #1F7A9C; background: #EEF7FB; border: 1px dashed rgba(31,122,156,0.4); border-radius: 8px; padding: 6px; }
-  .er { display: flex; gap: 10px; padding: 11px 16px; border-bottom: 1px solid #F2F2EF; align-items: center; }
-  .er.sel { background: #EEF6F2; box-shadow: inset 3px 0 0 var(--green); }
-  .av { position: relative; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 600; flex: none; }
-  .av::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 11px; height: 11px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
-  .er .b { flex: 1; min-width: 0; }
-  .er .n { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 600; } .er .n span:last-child { font-size: 10.5px; font-weight: 400; color: #8696A0; }
-  .er .m { margin-top: 2px; font-size: 12.5px; color: #667781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .st { display: inline-flex; align-items: center; gap: 4px; margin-top: 5px; font-size: 10.5px; font-weight: 600; padding: 2px 7px; border-radius: 4px; }
-  .st.g { background: #E3F1EA; color: var(--green); } .st.a { background: #FFF1DA; color: #A86A0C; } .st.x { background: #F0F2F5; color: #8696A0; }
-  .aipill { position: absolute; left: 404px; top: 160px; transform: translateX(-50%); z-index: 3; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: #fff; background: var(--green); padding: 7px 12px; border-radius: 999px; box-shadow: 0 0 0 5px #fff, 0 10px 20px -10px rgba(0,122,90,0.6); white-space: nowrap; }
-  .lead { margin: 14px 16px 0 74px; background: #fff; border: 1.5px solid rgba(0,122,90,0.4); border-radius: 12px; padding: 14px 16px; box-shadow: 0 12px 26px -18px rgba(0,122,90,0.5); }
-  .lead .lt { display: flex; align-items: center; gap: 10px; }
-  .lead .lt b { font-size: 15.5px; font-weight: 600; } .lead .lt small { display: block; font-size: 12px; color: #667781; margin-top: 1px; }
-  .badge { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: #fff; background: var(--green); padding: 5px 10px; border-radius: 999px; }
-  .fields { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .f { border: 1px solid #ECEDEA; background: #FAFAF8; border-radius: 9px; padding: 8px 10px; }
-  .f small { display: flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; color: #8696A0; }
-  .f b { display: block; margin-top: 3px; font-size: 14px; font-weight: 600; }
+  #aq::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(244,243,236,0) 0%, rgba(244,243,236,0) 52%, rgba(244,243,236,0.4) 60%, rgba(244,243,236,0.55) 74%, rgba(244,243,236,0.66) 100%); }
+  .ph { height: 58px; display: flex; align-items: center; gap: 10px; padding: 0 22px; border-bottom: 1px solid #EEEEEA; font-size: 16px; font-weight: 600; }
+  .ph .cnt { margin-left: auto; font-size: 12.5px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #DDEFF7; color: #1F7A9C; }
+  .chat { position: absolute; left: 22px; top: 82px; width: 360px; }
+  .src { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #1F7A9C; background: #EEF7FB; border: 1px solid rgba(31,122,156,0.3); padding: 4px 10px; border-radius: 999px; margin-bottom: 12px; }
+  .cust { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 15px; font-weight: 600; }
+  .av { position: relative; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; font-weight: 600; flex: none; background: #E3E7FB; color: #4F5BD5; }
+  .av::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 12px; height: 12px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
+  .bub { background: #EFEAE2; border-radius: 14px; padding: 14px; }
+  .msg { background: #fff; border-radius: 10px; border-top-left-radius: 2px; padding: 11px 13px 9px; font-size: 16.5px; line-height: 1.4; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .msg .tm { float: right; margin: 6px 0 -3px 10px; font-size: 11px; color: #8696A0; }
+  .arrow { position: absolute; left: 396px; top: 214px; width: 132px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .arrow .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #fff; background: var(--green); padding: 8px 13px; border-radius: 999px; white-space: nowrap; box-shadow: 0 10px 20px -10px rgba(0,122,90,0.6); }
+  .arrow svg { display: block; }
+  .lead { position: absolute; left: 542px; right: 22px; top: 82px; background: #fff; border: 1.5px solid rgba(0,122,90,0.45); border-radius: 14px; padding: 16px 18px; box-shadow: 0 14px 30px -20px rgba(0,122,90,0.55); }
+  .lead .lt { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; }
+  .badge { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 700; color: #fff; background: var(--green); padding: 5px 11px; border-radius: 999px; }
+  .fields { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .f { border: 1px solid #ECEDEA; background: #FAFAF8; border-radius: 10px; padding: 9px 11px; }
+  .f small { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #8696A0; }
   .f small i { font-style: normal; color: var(--green); }
-  .lead .as { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; color: #667781; }
-  .lead .as span.btn2 { font-size: 12.5px; font-weight: 600; color: #fff; background: var(--green); padding: 7px 12px; border-radius: 7px; }
-  .ql { margin: 14px 16px 0 74px; }
-  .ql .h { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #8696A0; margin-bottom: 6px; }
-  .qr { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #ECEDEA; border-radius: 10px; padding: 9px 12px; margin-bottom: 8px; font-size: 13px; }
-  .qr .av { width: 28px; height: 28px; font-size: 11px; } .qr .av::after { width: 9px; height: 9px; }
-  .qr b { font-weight: 600; } .qr small { color: #667781; font-size: 12px; }
-  .qr .st { margin: 0 0 0 auto; }
-  .a1 { background: #E3E7FB; color: #4F5BD5; } .a2 { background: #FBE3EE; color: #C2407A; } .a3 { background: #E0F2E9; color: #1E8A5A; } .a4 { background: #FFF0D9; color: #B7791F; } .a5 { background: #F1E6FB; color: #8A2BC4; } .a6 { background: #DDEFF7; color: #1F7A9C; }
+  .f b { display: block; margin-top: 3px; font-size: 16px; font-weight: 600; }
+  .lead .go { margin-top: 14px; display: flex; justify-content: flex-end; }
+  .lead .go span { font-size: 13px; font-weight: 600; color: #fff; background: var(--green); padding: 8px 13px; border-radius: 8px; }
+  .stats { position: absolute; left: 22px; right: 22px; top: 418px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stats div { border: 1px solid #ECEDEA; border-radius: 12px; padding: 14px 16px; background: #FAFAF8; }
+  .stats b { display: block; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; } .stats small { font-size: 13px; color: #667781; font-weight: 500; }
   .footer { position: absolute; left: 64px; bottom: 180px; z-index: 10; }
   .cta { display: inline-flex; align-items: center; gap: 14px; padding: 0 32px; height: 62px; border-radius: 999px; background: var(--green); color: #fff; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; box-shadow: 0 18px 30px -16px rgba(0,122,90,0.7); }
   .headline br + .red { display: block; text-wrap: balance; }
@@ -80,21 +71,19 @@
 
   <!-- DoubleTick inbox: Sales, Operations and Support on one thread -->
   <div id="aq" class="abs">
-    <div class="pane" id="inq"><div class="ph"><img src="whatsapp-logo.png" alt="" style="width:18px;height:18px" />Dubai tour enquiries<span class="cnt b">38 today</span></div>
-      <div class="newin">↓ New enquiries arriving from your ads</div><div class="er sel"><span class="av a1">H</span><div class="b"><div class="n"><span>Hessa Al Ali</span><span>now</span></div><div class="m">Desert safari + BBQ dinner for 4 on Saturday?</div><span class="st g"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Qualified</span></div></div><div class="er"><span class="av a2">O</span><div class="b"><div class="n"><span>Omar Rashid</span><span>1m</span></div><div class="m">Burj Khalifa tickets for 2 this Friday?</div><span class="st g"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Qualified</span></div></div><div class="er"><span class="av a3">R</span><div class="b"><div class="n"><span>Reem Saeed</span><span>2m</span></div><div class="m">Dhow cruise price? We are a family of 5</div><span class="st a">✦ AI collecting dates</span></div></div><div class="er"><span class="av a4">M</span><div class="b"><div class="n"><span>Majid Karim</span><span>4m</span></div><div class="m">Dubai city tour with kids next week?</div><span class="st g"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Qualified</span></div></div><div class="er"><span class="av a6">F</span><div class="b"><div class="n"><span>Faris Haddad</span><span>6m</span></div><div class="m">Abu Dhabi day trip from Dubai?</div><span class="st a">✦ AI collecting budget</span></div></div><div class="er"><span class="av a5">L</span><div class="b"><div class="n"><span>Leena Nasser</span><span>8m</span></div><div class="m">Just checking prices 🙂</div><span class="st x">Low intent</span></div></div></div>
-    <span class="aipill">✦ DoubleTick AI</span>
-    <div class="pane" id="qual"><div class="ph">AI-qualified travellers<span class="cnt">12 booking-ready</span></div>
-      <div class="lead">
-        <div class="lt"><span class="av a1">H</span><div><b>Hessa Al Ali</b><small>Desert Safari + BBQ Dinner</small></div><span class="badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Booking-ready</span></div>
-        <div class="fields"><div class="f"><small><i>✓</i>DESTINATION</small><b>Dubai · Desert safari</b></div><div class="f"><small><i>✓</i>BUDGET</small><b>AED 1,800</b></div><div class="f"><small><i>✓</i>DATES</small><b>Sat, 14 Dec</b></div><div class="f"><small><i>✓</i>GROUP SIZE</small><b>4 adults</b></div></div>
-        <div class="as"><span>Captured automatically on WhatsApp</span><span class="btn2">Send to Sales · Sara →</span></div>
-      </div>
-      <div class="ql"><div class="h">ALSO QUALIFIED</div>
-        <div class="qr"><span class="av a2">O</span><b>Omar Rashid</b><small>Burj Khalifa · 2 adults · AED 700</small><span class="st g">Booking-ready</span></div>
-        <div class="qr"><span class="av a4">M</span><b>Majid Karim</b><small>City tour · Family of 5 · AED 1,200</small><span class="st g">Booking-ready</span></div>
-        <div class="qr"><span class="av a6">Y</span><b>Yousef Ali</b><small>Dhow cruise · 6 adults · AED 2,100</small><span class="st g">Booking-ready</span></div>
-      </div>
+    <div class="ph"><img src="whatsapp-logo.png" alt="" style="width:20px;height:20px" />Dubai tour enquiries<span class="cnt">↓ New from your ads</span></div>
+    <div class="chat">
+      <span class="src">↗ From Meta ad · Dubai Desert Safari</span>
+      <div class="cust"><span class="av">H</span>Hessa Al Ali</div>
+      <div class="bub"><div class="msg">Hi! Desert safari with BBQ dinner for 4 of us this Saturday. Budget around AED 1,800 🐪<span class="tm">10:02</span></div></div>
     </div>
+    <div class="arrow"><span class="pill">✦ DoubleTick AI</span><svg width="110" height="16" viewBox="0 0 110 16" fill="none"><path d="M2 8h100M94 2l8 6-8 6" stroke="#007A5A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0"/></svg></div>
+    <div class="lead">
+      <div class="lt">Hessa Al Ali<span class="badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Booking-ready</span></div>
+      <div class="fields"><div class="f"><small><i>✓</i>DESTINATION</small><b>Dubai · Safari</b></div><div class="f"><small><i>✓</i>BUDGET</small><b>AED 1,800</b></div><div class="f"><small><i>✓</i>DATES</small><b>Sat, 14 Dec</b></div><div class="f"><small><i>✓</i>GROUP SIZE</small><b>4 adults</b></div></div>
+      <div class="go"><span>Send to Sales →</span></div>
+    </div>
+    <div class="stats"><div><b>38</b><small>Enquiries today</small></div><div><b style="color:#007A5A">12</b><small>Booking-ready</small></div><div><b>26</b><small>Qualified by AI</small></div></div>
   </div>
 
   <div class="footer"><div class="cta">Book Your Free Pilot <svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
