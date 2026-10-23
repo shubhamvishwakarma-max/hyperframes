@@ -69,14 +69,16 @@
   .wl .r b { font-weight: 600; } .wl .r small { color: #667781; font-size: 13px; }
   .wl .r .tm { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 700; color: #D32F2F; background: #FBE9E9; padding: 4px 10px; border-radius: 999px; }
 
-  /* ---- size override 1080x1920 ---- */
+  /* ---- size override 1080x1920 (stories) ---- */
   html, body, .ad { width: 1080px !important; height: 1920px !important; }
-  .logo { top: 450px !important; }
-  .headline { top: 538px !important; }
-  .sub { top: 690px !important; }
-  #pb { top: 832px !important; height: 1090px !important; }
-  #pb::after { background: linear-gradient(to bottom, rgba(244,243,236,0) 0%, rgba(244,243,236,0) 48.3%, rgba(244,243,236,0.4) 53.3%, rgba(244,243,236,0.62) 66.3%, rgba(244,243,236,0.95) 100%) !important; }
-  .footer { bottom: 440px !important; }
+  .logo { top: 250px !important; height: 46px !important; }
+  .headline { top: 336px !important; width: 952px !important; font-size: 72px !important; line-height: 1.06 !important; white-space: normal !important; text-wrap: balance; }
+  .headline br + .red { display: block; text-wrap: balance; }
+  .sub { width: 952px !important; font-size: 31px !important; line-height: 1.4 !important; text-wrap: pretty; }
+  .footer { bottom: auto !important; }
+  .cta { height: 76px !important; font-size: 29px !important; padding: 0 38px !important; }
+  #pb { height: 1200px !important; }
+  #pb::after { background: linear-gradient(to bottom, rgba(244,243,236,0) 0%, rgba(244,243,236,0) 50%, rgba(244,243,236,0.45) 60%, rgba(244,243,236,0.75) 72%, rgba(244,243,236,0.95) 100%) !important; }
 </style>
 </head>
 <body>
@@ -113,5 +115,13 @@
 
   <div class="footer"><div class="cta">Book Your Free Pilot <svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
 </div>
+<script>
+document.fonts.ready.then(function(){
+  var h=document.querySelector('.headline'), s=document.querySelector('.sub'), f=document.querySelector('.footer'), c=document.querySelector('#pb');
+  s.style.top=(h.offsetTop+h.offsetHeight+30)+'px';
+  f.style.top=(s.offsetTop+s.offsetHeight+44)+'px';
+  var ct=f.offsetTop+f.offsetHeight+60; c.style.setProperty('top',ct+'px','important'); c.style.setProperty('height',(1920-ct+2)+'px','important');
+});
+</script>
 </body>
 </html>

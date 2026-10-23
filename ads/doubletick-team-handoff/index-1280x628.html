@@ -78,13 +78,14 @@
   /* ---- size override 1280x628 ---- */
   html, body, .ad { width: 1280px !important; height: 628px !important; }
   .cell, .dot { display: none !important; }
-  .logo { top: 48px !important; left: 56px !important; height: 30px !important; }
-  .headline { top: 104px !important; left: 56px !important; width: 560px !important; font-size: 40px !important; line-height: 1.08 !important; white-space: normal !important; }
-  .sub { left: 56px !important; width: 540px !important; font-size: 18px !important; line-height: 1.42 !important; }
+  .logo { top: 44px !important; left: 56px !important; height: 30px !important; }
+  .headline { left: 56px !important; width: 530px !important; font-size: 38px !important; line-height: 1.08 !important; white-space: normal !important; text-wrap: balance; }
+  .headline br + .red { display: block; text-wrap: balance; }
+  .sub { left: 56px !important; width: 520px !important; font-size: 18px !important; line-height: 1.45 !important; text-wrap: pretty; }
   .footer { left: 56px !important; bottom: auto !important; }
   .cta { height: 52px !important; font-size: 20px !important; padding: 0 26px !important; }
-  #ui { left: 660px !important; top: 60px !important; height: 986px !important; transform: scale(0.6); transform-origin: top left; }
-  #ui::after { background: linear-gradient(to bottom, rgba(244,243,236,0) 0%, rgba(244,243,236,0) 62%, rgba(244,243,236,0.45) 78%, rgba(244,243,236,0.8) 100%) !important; }
+  #ui { left: 628px !important; top: 56px !important; height: 857px !important; transform: scale(0.7); transform-origin: top left; }
+  #ui::after { background: linear-gradient(to bottom, rgba(244,243,236,0) 0%, rgba(244,243,236,0) 58%, rgba(244,243,236,0.5) 76%, rgba(244,243,236,0.85) 100%) !important; }
 </style>
 </head>
 <body>
@@ -135,8 +136,9 @@
 <script>
 document.fonts.ready.then(function(){
   var h=document.querySelector('.headline'), s=document.querySelector('.sub'), f=document.querySelector('.footer');
-  var hb=h.offsetTop+h.offsetHeight; s.style.top=(hb+18)+'px';
-  var sb=s.offsetTop+s.offsetHeight; f.style.top=(sb+30)+'px';
+  var gap1=18, gap2=30, total=h.offsetHeight+gap1+s.offsetHeight+gap2+f.offsetHeight;
+  var top=Math.max(100, 98+(628-98-40-total)/2);
+  h.style.top=top+'px'; s.style.top=(top+h.offsetHeight+gap1)+'px'; f.style.top=(top+h.offsetHeight+gap1+s.offsetHeight+gap2)+'px';
 });
 </script>
 </body>
