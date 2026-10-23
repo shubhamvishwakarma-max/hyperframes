@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1080, height=1080" />
+<title>DoubleTick Team Handoff Ad</title>
+<style>
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin.woff2) format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Geist"; src: url(fonts/geist-latin-ext.woff2) format("woff2"); font-weight: 100 900; unicode-range: U+0100-02BA, U+20A0-20C4; }
+  :root { --bg: #F4F3EC; --ink: #131316; --ink-2: #5A5A63; --green: #007A5A; --green-tint: rgba(0,122,90,0.10); --line: rgba(19,19,22,0.07); --red: #D32F2F; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--bg); }
+  body { font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .ad { position: relative; width: 1080px; height: 1080px; background: var(--bg); overflow: hidden; }
+  .abs { position: absolute; }
+  .grid { position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(to right, var(--line) 1px, transparent 1px), linear-gradient(to bottom, var(--line) 1px, transparent 1px); background-size: 60px 60px; background-position: -1px -1px; -webkit-mask-image: radial-gradient(ellipse 90% 85% at 60% 65%, #000 40%, rgba(0,0,0,0.3) 100%); }
+  .cell { position: absolute; width: 60px; height: 60px; background: var(--green-tint); }
+  .cell.soft { background: rgba(0,122,90,0.05); }
+  .dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--green); transform: translate(-4px,-4px); box-shadow: 0 0 0 6px rgba(0,122,90,0.14); }
+  .logo { position: absolute; top: 70px; left: 64px; height: 38px; }
+  .headline { position: absolute; top: 158px; left: 64px; width: 952px; font-weight: 700; font-size: 62px; line-height: 1.06; letter-spacing: -0.045em; }
+  .headline .red { color: var(--red); }
+  .sub { position: absolute; top: 322px; left: 64px; width: 930px; font-size: 24px; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.01em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* DoubleTick inbox (reference UI, simplified) fading into the background */
+  #ui { z-index: 1; left: 64px; top: 452px; width: 952px; height: 660px; border-radius: 16px; background: #fff; border: 1px solid #E3E3DE; overflow: hidden; color: #111B21; font-size: 12px; }
+  #ui::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 5; background: linear-gradient(to bottom, rgba(244,243,236,0) 0%, rgba(244,243,236,0.00) 44.0%, rgba(244,243,236,0.20) 49.6%, rgba(244,243,236,0.37) 55.2%, rgba(244,243,236,0.52) 60.8%, rgba(244,243,236,0.64) 66.4%, rgba(244,243,236,0.74) 72.0%, rgba(244,243,236,0.82) 77.6%, rgba(244,243,236,0.88) 83.2%, rgba(244,243,236,0.92) 88.8%, rgba(244,243,236,0.94) 94.4%, rgba(244,243,236,0.95) 100.0%); }
+  .comp { height: 46px; flex: none; display: flex; align-items: center; gap: 10px; margin: 8px 10px; padding: 0 12px; border: 1px solid #E3E3DE; border-radius: 10px; font-size: 12px; color: #8696A0; background: #fff; }
+  .stabs { height: 38px; display: flex; align-items: center; gap: 2px; padding: 0 10px; border-bottom: 1px solid #ECECEC; white-space: nowrap; overflow: hidden; }
+  .stabs span { padding: 5px 9px; border-radius: 6px; font-size: 12px; font-weight: 500; color: #3B4A54; display: inline-flex; align-items: center; gap: 5px; }
+  .stabs span.on { background: #E3F1EA; color: var(--green); font-weight: 600; }
+  .stabs b { font-size: 10px; font-weight: 600; background: #EEF0F1; color: #54656F; padding: 0 5px; border-radius: 4px; }
+  .pane { position: absolute; top: 38px; bottom: 0; }
+  #pList { left: 0; width: 262px; border-right: 1px solid #ECECEC; }
+  #pConv { left: 262px; width: 440px; border-right: 1px solid #ECECEC; display: flex; flex-direction: column; }
+  #pDet { left: 702px; right: 0; }
+  .ph2 { height: 48px; display: flex; align-items: center; gap: 9px; padding: 0 12px; border-bottom: 1px solid #ECECEC; font-size: 14px; font-weight: 600; }
+  .ph2 .r { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .crow { display: flex; gap: 10px; padding: 11px 12px; border-bottom: 1px solid #F2F2F2; }
+  .crow.sel { background: #EDF6F1; }
+  .av2 { position: relative; flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 13px; }
+  .wa2 { position: absolute; right: -2px; bottom: -2px; width: 12px; height: 12px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 2px #fff; }
+  .a1 { background: #E3E7FB; color: #4F5BD5; } .a2 { background: #FBE3EE; color: #C2407A; } .a3 { background: #E0F2E9; color: #1E8A5A; } .a4 { background: #FFF0D9; color: #B7791F; }
+  .crow .b2 { flex: 1; min-width: 0; }
+  .crow .nm { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 600; }
+  .crow .nm span:last-child { font-size: 10px; font-weight: 400; color: #8696A0; }
+  .crow .pv { margin-top: 2px; font-size: 11.5px; color: #667781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tg2 { margin-top: 6px; display: flex; gap: 5px; }
+  .tg2 span { font-size: 10.5px; padding: 2px 7px; border-radius: 4px; background: #E3F1EA; color: #1E7A57; }
+  .tg2 span.amb { background: #FFF1DA; color: #A86A0C; } .tg2 span.blu { background: #DDEFF7; color: #1F7A9C; }
+  .waba { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 5px 9px; border: 1px solid #E3E3DE; border-radius: 7px; }
+  .thr { flex: 1; position: relative; background: #EFEAE2; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+  .thr::before { content: ""; position: absolute; inset: 0; opacity: 0.35; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' fill='none' stroke='%23D6CFC4' stroke-width='1.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='14' r='5'/%3E%3Cpath d='M42 9l7 7m0-7l-7 7'/%3E%3Cpath d='M18 46c4-5 9-5 12 0'/%3E%3Crect x='47' y='42' width='10' height='10' rx='3'/%3E%3C/svg%3E"); }
+  .thr > * { position: relative; }
+  .dchip { align-self: center; font-size: 10.5px; color: #54656F; background: #E1DCD3; padding: 3px 10px; border-radius: 6px; }
+  .sysc { align-self: center; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: var(--green); background: #fff; border: 1px solid rgba(0,122,90,0.3); padding: 3px 10px; border-radius: 999px; }
+  .msg { max-width: 80%; padding: 6px 9px 6px; border-radius: 8px; font-size: 12.5px; line-height: 1.35; box-shadow: 0 1px 0.5px rgba(11,20,26,0.12); }
+  .msg.in { align-self: flex-start; background: #fff; border-top-left-radius: 0; }
+  .msg.out { align-self: flex-end; background: #D9FDD3; border-top-right-radius: 0; }
+  .msg.note { align-self: flex-end; background: #FFF6D6; border: 1px solid #F2DE9B; box-shadow: none; }
+  .msg .who { display: flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 600; color: var(--green); margin-bottom: 2px; }
+  .msg .who i { font-style: normal; font-size: 9.5px; padding: 0 5px; border-radius: 4px; background: rgba(0,122,90,0.12); }
+  .msg.note .who { color: #B7791F; } .msg.note .who i { background: rgba(183,121,31,0.14); }
+  .msg .tm { float: right; margin: 4px 0 -2px 8px; font-size: 9.5px; color: #8696A0; }
+  .dtabs { height: 48px; display: flex; align-items: flex-end; gap: 18px; padding: 0 14px; border-bottom: 1px solid #ECECEC; font-size: 12.5px; color: #667781; }
+  .dtabs span { padding-bottom: 13px; } .dtabs span.on { color: var(--green); font-weight: 600; border-bottom: 2px solid var(--green); }
+  .dsec { padding: 10px 14px 0; }
+  .dl { font-size: 10.5px; color: #667781; } .dv { font-size: 12.5px; color: #111B21; margin-top: 2px; }
+  .dh2 { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; color: #3B4A54; }
+  .collab { display: flex; gap: 6px; margin-top: 7px; flex-wrap: wrap; }
+  .collab span { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 2px 8px 2px 2px; border-radius: 999px; background: #F3F4F3; }
+  .collab span b { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; font-size: 9.5px; }
+  .sel2 { margin-top: 5px; height: 32px; border: 1px solid #E3E3DE; border-radius: 7px; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; font-size: 12.5px; }
+  .footer { position: absolute; left: 64px; bottom: 180px; z-index: 10; }
+  .cta { display: inline-flex; align-items: center; gap: 14px; padding: 0 32px; height: 62px; border-radius: 999px; background: var(--green); color: #fff; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; box-shadow: 0 18px 30px -16px rgba(0,122,90,0.7); }
+
+  /* ---- size override 1280x628 ---- */
+  html, body, .ad { width: 1280px !important; height: 628px !important; }
+  .cell, .dot { display: none !important; }
+  .logo { top: 48px !important; left: 56px !important; height: 30px !important; }
+  .headline { top: 104px !important; left: 56px !important; width: 560px !important; font-size: 40px !important; line-height: 1.08 !important; white-space: normal !important; }
+  .sub { left: 56px !important; width: 540px !important; font-size: 18px !important; line-height: 1.42 !important; }
+  .footer { left: 56px !important; bottom: auto !important; }
+  .cta { height: 52px !important; font-size: 20px !important; padding: 0 26px !important; }
+  #ui { left: 660px !important; top: 60px !important; height: 986px !important; transform: scale(0.6); transform-origin: top left; }
+  #ui::after { background: linear-gradient(to bottom, rgba(244,243,236,0) 0%, rgba(244,243,236,0) 62%, rgba(244,243,236,0.45) 78%, rgba(244,243,236,0.8) 100%) !important; }
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="grid"></div>
+  <div class="cell" style="left:960px;top:60px"></div>
+  <div class="cell soft" style="left:900px;top:120px"></div>
+  <div class="cell" style="left:0px;top:420px"></div>
+  <div class="cell soft" style="left:420px;top:960px"></div>
+  <div class="cell" style="left:1020px;top:960px"></div>
+  <div class="dot" style="left:900px;top:120px"></div>
+
+  <img class="logo" src="doubletick-logo.webp" alt="DoubleTick" />
+
+  <h1 class="headline">Trip booked, but operations <span class="red">still missing the customer details?</span></h1>
+  <p class="sub">With DoubleTick, connect <b>Sales, Operations and Support</b> on one WhatsApp workspace, with <b>shared conversation history</b> and <b>smarter customer routing</b>.</p>
+
+  <!-- DoubleTick inbox: Sales, Operations and Support on one thread -->
+  <div id="ui" class="abs">
+    <div class="stabs"><span class="on">All</span><span>Sales <b>12</b></span><span>Operations <b>8</b></span><span>Support <b>5</b></span><span>Booking Confirmed <b>9</b></span><span>Docs Pending <b>3</b></span><span>Escalated</span><span>Open <b>24</b></span></div>
+    <div class="pane" id="pList"><div class="ph2">All chats<span class="r"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#54656F"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span></div><div class="crow sel"><div class="av2 a1">A<span class="wa2"></span></div><div class="b2"><div class="nm"><span>Aisha Rahman</span><span>11:42</span></div><div class="pv">Hi Aisha, I have all your details...</div><div class="tg2"><span class="">Operations</span><span class="amb">Booking Confirmed</span></div></div></div><div class="crow"><div class="av2 a2">K<span class="wa2"></span></div><div class="b2"><div class="nm"><span>Khalid Al Mansoori</span><span>11:30</span></div><div class="pv">Can you share the Baku options?</div><div class="tg2"><span class="blu">Sales</span></div></div></div><div class="crow"><div class="av2 a3">M<span class="wa2"></span></div><div class="b2"><div class="nm"><span>Mariam Saeed</span><span>11:18</span></div><div class="pv">My transfer driver is waiting...</div><div class="tg2"><span class="amb">Support</span></div></div></div><div class="crow"><div class="av2 a4">Y<span class="wa2"></span></div><div class="b2"><div class="nm"><span>Yousef Ali</span><span>10:52</span></div><div class="pv">Passport copies sent ✅</div><div class="tg2"><span class="">Operations</span></div></div></div><div class="crow"><div class="av2 a2">F<span class="wa2"></span></div><div class="b2"><div class="nm"><span>Fatima Hassan</span><span>10:31</span></div><div class="pv">Can I change my hotel?</div><div class="tg2"><span class="amb">Support</span></div></div></div><div class="crow"><div class="av2 a3">L<span class="wa2"></span></div><div class="b2"><div class="nm"><span>Layla Ahmed</span><span>10:12</span></div><div class="pv">Georgia package for 4?</div><div class="tg2"><span class="blu">Sales</span></div></div></div></div>
+    <div class="pane" id="pConv">
+      <div class="ph2"><div class="av2 a1" style="width:30px;height:30px">A<span class="wa2"></span></div>Aisha Rahman<span class="r"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span class="waba"><img src="whatsapp-logo.png" alt="" style="width:15px;height:15px" />ABC Holidays <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></span></div>
+      <div class="thr">
+        <span class="dchip">Today</span>
+                <div class="msg out"><span class="who">Omar <i>SALES</i></span>Booking confirmed ✅ Bali, 12–17 Dec. Our operations team will take it from here.<span class="tm">11:05</span></div>
+        <span class="sysc">↪ Routed to Operations · Faisal</span>
+        <div class="msg note"><span class="who">Omar → Faisal <i>NOTE</i></span>Passports, hotel preference and flights are in the history 📎</div>
+        <div class="msg out"><span class="who">Faisal <i>OPERATIONS</i></span>Hi Aisha, I have all your details. Vouchers coming tonight ✈️<span class="tm">11:42</span></div>
+        <div class="msg in">Amazing, thank you! 🙏<span class="tm">11:44</span></div>
+        <span class="sysc">Sara · Support added as collaborator</span>
+      </div>
+      <div class="comp">Type message or use "/" for quick replies</div>
+    </div>
+    <div class="pane" id="pDet">
+      <div class="dtabs"><span class="on">Details</span><span>Calls</span><span>Notes</span></div>
+      <div class="dsec" style="display:flex;align-items:center;gap:9px;padding-top:12px"><div class="av2 a1">A<span class="wa2"></span></div><b style="font-size:14px;font-weight:600">Aisha Rahman</b></div>
+      <div class="dsec"><div class="dl">Phone number</div><div class="dv">+971 50 482 4832</div></div>
+      <div class="dsec"><div class="dh2">COLLABORATORS</div><div class="collab"><span><b class="a2">O</b>Sales</span><span><b class="a3">F</b>Ops</span><span><b class="a4">S</b>Support</span></div></div>
+      <div class="dsec"><div class="dl">Chat Status</div><div class="sel2">Booking Confirmed <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div></div>
+      <div class="dsec"><div class="dl">Chat Queue</div><div class="sel2">Operations <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#54656F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div></div>
+      <div class="dsec"><div class="dh2">TAGS</div><div class="tg2"><span class="amb">Booking Confirmed</span><span>Bali Holiday</span></div></div>
+    </div>
+  </div>
+
+  <div class="footer"><div class="cta">Book Your Free Pilot <svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+</div>
+<script>
+document.fonts.ready.then(function(){
+  var h=document.querySelector('.headline'), s=document.querySelector('.sub'), f=document.querySelector('.footer');
+  var hb=h.offsetTop+h.offsetHeight; s.style.top=(hb+18)+'px';
+  var sb=s.offsetTop+s.offsetHeight; f.style.top=(sb+30)+'px';
+});
+</script>
+</body>
+</html>
