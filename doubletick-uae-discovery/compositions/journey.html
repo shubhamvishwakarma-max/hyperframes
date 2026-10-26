@@ -1,0 +1,112 @@
+<template>
+  <style>
+
+@font-face { font-family: "Hedvig Letters Serif"; src: url("assets/fonts/hedvig-letters-serif.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Geist"; src: url("assets/fonts/geist.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+#root { position: absolute; inset: 0; overflow: hidden; background: #F3EFE7; font-family: "Geist", sans-serif; color: #1F1F22; }
+#root * { box-sizing: border-box; }
+.abs { position: absolute; }
+.hl { position: absolute; left: 60px; right: 60px; text-align: center; font-family: "Hedvig Letters Serif", serif; font-weight: 400; color: #1F1F22; letter-spacing: -0.012em; line-height: 1.08; }
+.hl .w { display: inline-block; }
+.hl .g { color: #0E7A4C; }
+.hl .r { color: #B4473C; }
+.sub { position: absolute; left: 60px; right: 60px; text-align: center; font-size: 24px; font-weight: 500; color: #66625C; letter-spacing: 0.01em; }
+.card { position: absolute; background: #FCFBF8; border-radius: 24px; border: 1px solid #E4DED3; box-shadow: 0 1px 2px rgba(40,32,20,.05), 0 14px 36px -12px rgba(40,32,20,.16); }
+.ic { display: block; flex: none; }
+.row { display: flex; align-items: center; }
+.icbox { display: flex; align-items: center; justify-content: center; border-radius: 14px; background: #E3F6EC; color: #0E7A4C; flex: none; }
+.avatar { display: flex; align-items: center; justify-content: center; border-radius: 50%; flex: none; font-weight: 600; }
+.pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; font-weight: 600; }
+/* WhatsApp chat — header, wallpaper and composer are the reference screenshot */
+.wa { overflow: hidden; padding: 0; border-radius: 28px; border: 3px solid rgba(20,20,20,.16); background: #E5DDD4; box-shadow: 0 2px 4px rgba(40,32,20,.06), 0 24px 48px -20px rgba(40,32,20,.28); }
+.wa-head { position: absolute; left: 0; right: 0; top: 0; display: block; width: 100%; }
+.wa-av { position: absolute; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0E7A4C; color: #fff; font-weight: 700; letter-spacing: 0.02em; }
+.wa-name { position: absolute; font-family: "Roboto", sans-serif; font-weight: 500; color: #111; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.wa-body { position: absolute; left: 0; right: 0; overflow: hidden; background-repeat: repeat-y; }
+.wa-list { position: absolute; left: 0; right: 0; top: 0; height: 2000px; }
+.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; display: block; width: 100%; }
+.wa-day { position: absolute; left: 0; right: 0; top: 12px; text-align: center; }
+.wa-day span { display: inline-block; background: #fff; border-radius: 8px; padding: 4px 14px; font-size: 16px; color: #555; box-shadow: 0 1px 1px rgba(0,0,0,.06); }
+.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 10px 14px 6px; border-radius: 12px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.07); color: #111; opacity: 0; }
+.bub.in { left: 12px; background: #FFFFFF; }
+.bub.out { right: 12px; background: #E7FFD9; }
+.bub .tm { display: block; text-align: right; font-size: 14px; line-height: 20px; color: #707070; margin-top: 2px; }
+.bub .hi { border-radius: 6px; padding: 0 3px; margin: 0 -3px; }
+.bub .src { display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; color: #0E7A4C; margin-top: 4px; font-weight: 500; }
+.bub .btns { margin: 8px -14px -6px; border-top: 1px solid #E6E6E6; }
+.bub .btn { height: 52px; display: flex; align-items: center; justify-content: center; font-size: 21px; color: #1A96D5; font-weight: 500; }
+.bub .btn + .btn { border-top: 1px solid #E6E6E6; }
+.typing { position: absolute; left: 12px; width: 74px; height: 44px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.07); }
+.typing i { width: 9px; height: 9px; border-radius: 50%; background: #A7A39C; display: block; }
+/* extracted chips */
+.chip { position: absolute; height: 84px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: #FFFFFF; border: 1.5px solid #E4DED3; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(40,32,20,.28); opacity: 0; }
+.chip .lb { font-size: 17px; color: #66625C; font-weight: 500; }
+.chip .vl { font-size: 27px; font-weight: 600; letter-spacing: -0.01em; margin-top: 1px; }
+.chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
+
+.stage, .hlwrap { position: absolute; width: 1080px; height: 1080px; }
+.hlwrap { pointer-events: none; }
+
+#jy-hl { top: 178px; font-size: 70px; }
+#jy-svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1080px; overflow: visible; }
+.jy-n { position: absolute; top: 504px; width: 72px; height: 72px; border-radius: 50%; background: #fff; border: 2.5px solid #27B578; color: #0E7A4C; display: flex; align-items: center; justify-content: center; opacity: 0; box-shadow: 0 8px 20px -10px rgba(14,122,76,.4); }
+.jy-l { position: absolute; top: 592px; width: 160px; text-align: center; font-size: 20px; line-height: 25px; font-weight: 600; opacity: 0; }
+#jy-sub { top: 720px; font-size: 46px; }
+
+
+  </style>
+  <div id="root" data-composition-id="journey" data-width="1080" data-height="1080">
+    <div class="stage" style="left:0px;top:0px;">
+      <svg id="jy-svg" viewBox="0 0 1080 1080" data-layout-ignore>
+        <path d="M120 540 L960 540" stroke="#E4DED3" stroke-width="4" stroke-linecap="round"/>
+        <path id="jy-path" d="M120 540 L960 540" stroke="#27B578" stroke-width="5" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" fill="none"/>
+      </svg>
+      <div class="jy-n" id="jy-n0" style="left:84px;"><svg class="ic" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+      <div class="jy-l" id="jy-l0" style="left:40px;">Buyer<br>Requirement</div>
+      <div class="jy-n" id="jy-n1" style="left:252px;"><svg class="ic" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
+      <div class="jy-l" id="jy-l1" style="left:208px;">Property<br>Match</div>
+      <div class="jy-n" id="jy-n2" style="left:420px;"><svg class="ic" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+      <div class="jy-l" id="jy-l2" style="left:376px;">Compare</div>
+      <div class="jy-n" id="jy-n3" style="left:588px;"><svg class="ic" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></div>
+      <div class="jy-l" id="jy-l3" style="left:544px;">Questions</div>
+      <div class="jy-n" id="jy-n4" style="left:756px;"><svg class="ic" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+      <div class="jy-l" id="jy-l4" style="left:712px;">Viewing</div>
+      <div class="jy-n" id="jy-n5" style="left:924px;background:#0E7A4C;color:#fff;border-color:#0E7A4C;"><svg class="ic" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="jy-l" id="jy-l5" style="left:880px;color:#0E7A4C;">Site Visit ✓</div>
+    </div>
+    <div class="hlwrap" style="left:0px;top:0px;">
+      <h1 class="hl" id="jy-hl"><span class="w " id="jy-hl-w0">From</span> <span class="w " id="jy-hl-w1">property</span> <span class="w " id="jy-hl-w2">search</span> <br> <span class="w " id="jy-hl-w3">to</span> <span class="w g" id="jy-hl-w4">site</span> <span class="w g" id="jy-hl-w5">visit.</span></h1>
+      <h2 class="hl" id="jy-sub"><span class="w " id="jy-sub-w0">Keep</span> <span class="w " id="jy-sub-w1">every</span> <span class="w " id="jy-sub-w2">buyer</span> <span class="w g" id="jy-sub-w3">moving</span> <span class="w g" id="jy-sub-w4">forward.</span></h2>
+  
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const q = (s) => "#" + s;
+      // helpers: entrances / exits
+      const blurIn = (sel, t, d = 0.18, extra = {}) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power4.out", ...extra }, t);
+      const blurOut = (sel, t, d = 0.2, extra = {}) =>
+        tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: d, ease: "power3.in", ...extra }, t);
+      const wordsIn = (prefix, n, t, gap = 0.067) => {
+        for (let i = 0; i < n; i++) blurIn(q(prefix + "-w" + i), t + i * gap, 0.16);
+      };
+
+      wordsIn("jy-hl", 6, 0.1, 0.07);
+      tl.to("#jy-path", { strokeDashoffset: 0, duration: 1.8, ease: "power1.inOut" }, 0.55);
+      for (let i = 0; i < 6; i++) {
+        const t = 0.55 + 1.8 * (i / 5) * 0.97;
+        tl.fromTo(q("jy-n" + i), { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.7)" }, t - 0.05);
+        tl.fromTo(q("jy-l" + i), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, t);
+      }
+      tl.to("#jy-n5", { scale: 1.12, duration: 0.2, ease: "power2.out" }, 2.45);
+      tl.to("#jy-n5", { scale: 1, duration: 0.3, ease: "power2.inOut" }, 2.65);
+      wordsIn("jy-sub", 5, 2.2, 0.07);
+      tl.to(".jy-n, .jy-l, #jy-svg, #jy-hl, #jy-sub", { opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power3.in" }, 4.56);
+
+      tl.set({}, {}, 4.8);
+      window.__timelines["journey"] = tl;
+    })();
+  </script>
+</template>

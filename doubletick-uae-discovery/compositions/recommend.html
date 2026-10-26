@@ -1,0 +1,118 @@
+<template>
+  <style>
+
+@font-face { font-family: "Hedvig Letters Serif"; src: url("assets/fonts/hedvig-letters-serif.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Geist"; src: url("assets/fonts/geist.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+#root { position: absolute; inset: 0; overflow: hidden; background: #F3EFE7; font-family: "Geist", sans-serif; color: #1F1F22; }
+#root * { box-sizing: border-box; }
+.abs { position: absolute; }
+.hl { position: absolute; left: 60px; right: 60px; text-align: center; font-family: "Hedvig Letters Serif", serif; font-weight: 400; color: #1F1F22; letter-spacing: -0.012em; line-height: 1.08; }
+.hl .w { display: inline-block; }
+.hl .g { color: #0E7A4C; }
+.hl .r { color: #B4473C; }
+.sub { position: absolute; left: 60px; right: 60px; text-align: center; font-size: 24px; font-weight: 500; color: #66625C; letter-spacing: 0.01em; }
+.card { position: absolute; background: #FCFBF8; border-radius: 24px; border: 1px solid #E4DED3; box-shadow: 0 1px 2px rgba(40,32,20,.05), 0 14px 36px -12px rgba(40,32,20,.16); }
+.ic { display: block; flex: none; }
+.row { display: flex; align-items: center; }
+.icbox { display: flex; align-items: center; justify-content: center; border-radius: 14px; background: #E3F6EC; color: #0E7A4C; flex: none; }
+.avatar { display: flex; align-items: center; justify-content: center; border-radius: 50%; flex: none; font-weight: 600; }
+.pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; font-weight: 600; }
+/* WhatsApp chat — header, wallpaper and composer are the reference screenshot */
+.wa { overflow: hidden; padding: 0; border-radius: 28px; border: 3px solid rgba(20,20,20,.16); background: #E5DDD4; box-shadow: 0 2px 4px rgba(40,32,20,.06), 0 24px 48px -20px rgba(40,32,20,.28); }
+.wa-head { position: absolute; left: 0; right: 0; top: 0; display: block; width: 100%; }
+.wa-av { position: absolute; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0E7A4C; color: #fff; font-weight: 700; letter-spacing: 0.02em; }
+.wa-name { position: absolute; font-family: "Roboto", sans-serif; font-weight: 500; color: #111; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.wa-body { position: absolute; left: 0; right: 0; overflow: hidden; background-repeat: repeat-y; }
+.wa-list { position: absolute; left: 0; right: 0; top: 0; height: 2000px; }
+.wa-foot { position: absolute; left: 0; right: 0; bottom: 0; display: block; width: 100%; }
+.wa-day { position: absolute; left: 0; right: 0; top: 12px; text-align: center; }
+.wa-day span { display: inline-block; background: #fff; border-radius: 8px; padding: 4px 14px; font-size: 16px; color: #555; box-shadow: 0 1px 1px rgba(0,0,0,.06); }
+.bub { position: absolute; font-size: 22px; line-height: 30px; padding: 10px 14px 6px; border-radius: 12px; white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.07); color: #111; opacity: 0; }
+.bub.in { left: 12px; background: #FFFFFF; }
+.bub.out { right: 12px; background: #E7FFD9; }
+.bub .tm { display: block; text-align: right; font-size: 14px; line-height: 20px; color: #707070; margin-top: 2px; }
+.bub .hi { border-radius: 6px; padding: 0 3px; margin: 0 -3px; }
+.bub .src { display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; color: #0E7A4C; margin-top: 4px; font-weight: 500; }
+.bub .btns { margin: 8px -14px -6px; border-top: 1px solid #E6E6E6; }
+.bub .btn { height: 52px; display: flex; align-items: center; justify-content: center; font-size: 21px; color: #1A96D5; font-weight: 500; }
+.bub .btn + .btn { border-top: 1px solid #E6E6E6; }
+.typing { position: absolute; left: 12px; width: 74px; height: 44px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; opacity: 0; box-shadow: 0 1px 1px rgba(0,0,0,.07); }
+.typing i { width: 9px; height: 9px; border-radius: 50%; background: #A7A39C; display: block; }
+/* extracted chips */
+.chip { position: absolute; height: 84px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: #FFFFFF; border: 1.5px solid #E4DED3; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(40,32,20,.28); opacity: 0; }
+.chip .lb { font-size: 17px; color: #66625C; font-weight: 500; }
+.chip .vl { font-size: 27px; font-weight: 600; letter-spacing: -0.01em; margin-top: 1px; }
+.chip .ck { position: absolute; right: 18px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #27B578; color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
+
+.stage, .hlwrap { position: absolute; width: 1080px; height: 1080px; }
+.hlwrap { pointer-events: none; }
+
+#rc-hl { top: 140px; font-size: 54px; }
+#rc-m2 .tm { display: none; }
+
+
+  </style>
+  <div id="root" data-composition-id="recommend" data-width="1080" data-height="1080">
+    <div class="stage" style="left:0px;top:0px;">
+      <div class="card wa" id="rc-chat" style="left:300px;top:274px;width:480px;height:600px;">
+        <img class="wa-head" src="assets/ui/wa-header.png" alt="" style="height:86px;">
+        <div class="wa-av" style="left:54px;top:23px;width:48px;height:48px;font-size:14px;">ABC</div>
+        <div class="wa-name" style="left:108px;top:22px;height:34px;font-size:19px;">ABC Properties<img src="assets/ui/wa-verified.png" alt="" style="width:20px;height:20px;display:block;"></div>
+        <div class="wa-body" style="top:86px;height:433px;background-image:url('assets/ui/wa-wall.jpg');background-size:474px auto;" data-layout-allow-overflow>
+          <div class="wa-list" id="rc-chat-list">
+            <div class="wa-day"><span>Today</span></div>
+            <div class="bub out" id="rc-m0" style="top:56px;">Sea view and ready to<br>move in.<span class="tm">10.26 AM</span></div>
+            <div class="bub in" id="rc-m1" style="top:164px;">Based on your requirements,<br>here are the best matches<br>in Dubai Marina.<span class="tm">10.26 AM</span></div>
+            <div class="bub in" id="rc-m2" style="top:302px;width:452px;background:transparent;box-shadow:none;padding:0;"><div style="display:flex;gap:10px;"><div style="width:214px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 1px rgba(0,0,0,.07);white-space:nowrap;"><img src="assets/images/marina-vista.jpg" alt="Marina Vista" style="width:214px;height:118px;object-fit:cover;display:block;"><div style="padding:9px 12px 0;"><div style="font-size:18px;line-height:23px;font-weight:600;">Marina Vista</div><div style="font-size:17px;line-height:23px;font-weight:600;color:#0E7A4C;">AED 1.95M</div><div style="font-size:14px;line-height:20px;color:#666;">2 Bedroom · Dubai Marina</div></div><div style="margin-top:8px;border-top:1px solid #E6E6E6;height:42px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#1A96D5;font-weight:500;">View Details</div></div><div style="width:214px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 1px rgba(0,0,0,.07);white-space:nowrap;"><img src="assets/images/harbour-residence.jpg" alt="Harbour Residence" style="width:214px;height:118px;object-fit:cover;display:block;"><div style="padding:9px 12px 0;"><div style="font-size:18px;line-height:23px;font-weight:600;">Harbour Residence</div><div style="font-size:17px;line-height:23px;font-weight:600;color:#0E7A4C;">AED 2.05M</div><div style="font-size:14px;line-height:20px;color:#666;">2 Bedroom · Dubai Marina</div></div><div style="margin-top:8px;border-top:1px solid #E6E6E6;height:42px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#1A96D5;font-weight:500;">View Details</div></div></div><span class="tm">10.24 AM</span></div>
+            <div class="bub in" id="rc-m3" style="top:574px;">Want to compare them<br>side by side?<span class="tm">10.26 AM</span><div class="btns"><div class="btn" id="rc-m3-b0">Compare</div></div></div>
+            <div class="bub out" id="rc-m4" style="top:742px;">Compare<span class="tm">10.27 AM</span></div>
+            <div class="typing" id="rc-chat-typing"><i id="rc-chat-d0"></i><i id="rc-chat-d1"></i><i id="rc-chat-d2"></i></div>
+          </div>
+        </div>
+        <img class="wa-foot" src="assets/ui/wa-footer.png" alt="" style="height:75px;">
+      </div>
+  
+    </div>
+    <div class="hlwrap" style="left:0px;top:0px;">
+      <h1 class="hl" id="rc-hl"><span class="w " id="rc-hl-w0">Shared</span> <span class="w " id="rc-hl-w1">instantly</span> <span class="w g" id="rc-hl-w2">on</span> <span class="w g" id="rc-hl-w3">WhatsApp.</span></h1>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const q = (s) => "#" + s;
+      // helpers: entrances / exits
+      const blurIn = (sel, t, d = 0.18, extra = {}) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power4.out", ...extra }, t);
+      const blurOut = (sel, t, d = 0.2, extra = {}) =>
+        tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: d, ease: "power3.in", ...extra }, t);
+      const wordsIn = (prefix, n, t, gap = 0.067) => {
+        for (let i = 0; i < n; i++) blurIn(q(prefix + "-w" + i), t + i * gap, 0.16);
+      };
+
+      wordsIn("rc-hl", 4, 0.05, 0.07);
+      tl.fromTo("#rc-chat", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 0.0);
+      tl.fromTo(q("rc-m0"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "100% 100%" }, 0.020);
+      tl.set(q("rc-chat-typing"), { y: 164 }, 0.030);
+      tl.fromTo(q("rc-chat-typing"), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.14, ease: "power3.out", transformOrigin: "0% 0%" }, 0.030);
+      [0, 1, 2].forEach((k) => tl.fromTo(q("rc-chat-d" + k), { opacity: 0.35 }, { opacity: 1, duration: 0.12, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0.030 + 0.05 + k * 0.08));
+      tl.set(q("rc-chat-typing"), { opacity: 0 }, 0.450);
+      tl.fromTo(q("rc-m1"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 0.450);
+      tl.to(q("rc-chat-list"), { y: -145, duration: 0.34, ease: "power3.out" }, 0.950);
+      tl.fromTo(q("rc-m2"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 0.950);
+      tl.to(q("rc-chat-list"), { y: -313, duration: 0.34, ease: "power3.out" }, 1.650);
+      tl.fromTo(q("rc-m3"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 1.650);
+      tl.to(q("rc-chat-list"), { y: -391, duration: 0.34, ease: "power3.out" }, 3.100);
+      tl.fromTo(q("rc-m4"), { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "100% 100%" }, 3.100);
+
+      // the buyer taps Compare
+      tl.to("#rc-m3-b0", { backgroundColor: "#DCEEF8", duration: 0.08 }, 2.85);
+      tl.to("#rc-m3-b0", { backgroundColor: "rgba(220,238,248,0)", duration: 0.3 }, 3.0);
+      blurOut("#rc-hl", 3.62, 0.2);
+      tl.to("#rc-chat", { opacity: 0, scale: 0.96, filter: "blur(6px)", duration: 0.3, ease: "power3.in" }, 3.65);
+
+      tl.set({}, {}, 4);
+      window.__timelines["recommend"] = tl;
+    })();
+  </script>
+</template>
