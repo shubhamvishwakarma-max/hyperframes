@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en" data-resolution="square">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #05070c;
+        --ink: #ffffff;
+        --wa-green: #25d366;
+        --wa-dark: #0b141a;
+        --wa-header: #1f2c34;
+        --wa-in: #1f2c34;
+        --wa-out: #005c4b;
+        --muted: #8696a0;
+        --font-ui: -apple-system, "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+        font-family: var(--font-ui);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      /* ---------- Scene plate ---------- */
+      #plate {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      #cam {
+        position: absolute;
+        top: 0;
+        left: -420px;
+        width: 1920px;
+        height: 1080px;
+        transform-origin: 50% 50%;
+      }
+      #bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #glow {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 51% 72%,
+          rgba(120, 180, 255, 0.35) 0%,
+          rgba(120, 180, 255, 0.08) 22%,
+          rgba(0, 0, 0, 0) 45%
+        );
+        mix-blend-mode: screen;
+        opacity: 0.5;
+      }
+      #vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at 50% 55%,
+          rgba(0, 0, 0, 0) 40%,
+          rgba(0, 0, 0, 0.75) 100%
+        );
+      }
+      #fade {
+        position: absolute;
+        inset: 0;
+        background: #000;
+      }
+
+      /* ---------- Notification banner ---------- */
+      #banner {
+        position: absolute;
+        top: 48px;
+        left: 60px;
+        width: 960px;
+        padding: 26px 30px;
+        border-radius: 40px;
+        background: rgba(30, 34, 40, 0.72);
+        backdrop-filter: blur(28px) saturate(160%);
+        -webkit-backdrop-filter: blur(28px) saturate(160%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+        color: var(--ink);
+      }
+      .wa-icon {
+        flex: none;
+        width: 84px;
+        height: 84px;
+        border-radius: 20px;
+        background: var(--wa-green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .wa-icon svg {
+        width: 58px;
+        height: 58px;
+      }
+      .b-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .b-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+      .b-app {
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.62);
+      }
+      .b-time {
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .b-name {
+        margin-top: 6px;
+        font-size: 36px;
+        font-weight: 700;
+      }
+      .b-msg {
+        margin-top: 4px;
+        font-size: 34px;
+        line-height: 1.25;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      /* ---------- Chat phone ---------- */
+      #phone {
+        position: absolute;
+        right: 60px;
+        bottom: -30px;
+        width: 470px;
+        height: 700px;
+        border-radius: 64px;
+        background: #000;
+        padding: 14px;
+        box-shadow:
+          0 0 0 3px #2a2d33,
+          0 40px 120px rgba(0, 0, 0, 0.8),
+          0 0 140px rgba(37, 211, 102, 0.18);
+      }
+      #screen {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 52px;
+        overflow: hidden;
+        background: var(--wa-dark);
+        display: flex;
+        flex-direction: column;
+      }
+      .chat-head {
+        flex: none;
+        background: var(--wa-header);
+        padding: 56px 24px 18px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: var(--ink);
+      }
+      .avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f5a65b, #d9534f);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 28px;
+      }
+      .c-name {
+        font-size: 30px;
+        font-weight: 600;
+      }
+      .c-status {
+        font-size: 22px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .chat {
+        flex: 1;
+        padding: 26px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 14px;
+        background-color: var(--wa-dark);
+        background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1.5px, transparent 1.5px);
+        background-size: 22px 22px;
+      }
+      .day {
+        align-self: center;
+        font-size: 19px;
+        color: var(--muted);
+        background: #182229;
+        padding: 6px 16px;
+        border-radius: 12px;
+        margin-bottom: 6px;
+      }
+      .bubble {
+        max-width: 84%;
+        padding: 14px 18px 26px;
+        border-radius: 18px;
+        font-size: 27px;
+        line-height: 1.3;
+        color: #e9edef;
+        position: relative;
+      }
+      .bubble .t {
+        position: absolute;
+        right: 14px;
+        bottom: 6px;
+        font-size: 19px;
+        color: rgba(233, 237, 239, 0.85);
+      }
+      .in {
+        align-self: flex-start;
+        background: var(--wa-in);
+        border-top-left-radius: 4px;
+      }
+      .out {
+        align-self: flex-end;
+        background: var(--wa-out);
+        border-top-right-radius: 4px;
+      }
+      .ticks {
+        color: #7fd3f7;
+      }
+      .typing {
+        align-self: flex-start;
+        background: var(--wa-in);
+        border-radius: 18px;
+        border-top-left-radius: 4px;
+        padding: 18px 22px;
+        display: flex;
+        gap: 8px;
+      }
+      .typing i {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--muted);
+        display: block;
+      }
+      .composer {
+        flex: none;
+        padding: 14px 18px 30px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .field {
+        flex: 1;
+        height: 62px;
+        border-radius: 31px;
+        background: var(--wa-header);
+        color: var(--muted);
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+      }
+      .mic {
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        background: var(--wa-green);
+      }
+
+      /* ---------- Caption ---------- */
+      #time {
+        position: absolute;
+        left: 70px;
+        bottom: 70px;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 30px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+      #time b {
+        display: block;
+        font-size: 96px;
+        font-weight: 200;
+        letter-spacing: -0.02em;
+        color: #fff;
+        margin-top: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="10"
+      data-width="1080"
+      data-height="1080"
+    >
+      <div id="plate" class="clip" data-start="0" data-duration="10" data-track-index="0">
+        <div id="cam">
+          <img id="bg" src="assets/bg.png" alt="" />
+          <div id="glow"></div>
+        </div>
+        <div id="vignette"></div>
+      </div>
+
+      <div id="time" class="clip" data-start="0" data-duration="10" data-track-index="1">
+        Late night
+        <b>1:47 AM</b>
+      </div>
+
+      <div id="banner" class="clip" data-start="0" data-duration="10" data-track-index="2">
+        <div class="wa-icon">
+          <svg viewBox="0 0 32 32" fill="#fff" aria-hidden="true">
+            <path
+              d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.9-1.7l-.4-.3-3.8 1.2 1.2-3.7-.3-.4c-1.2-1.8-1.8-3.8-1.8-5.9C5 9.9 9.9 5.2 16 5.2s11 4.7 11 10.6-4.9 10.6-11 10.6zm6-7.9c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.7-1.7-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.5c-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.4 3.7 5.9 5.1 2.9 1.1 3.5.9 4.1.9.6-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.3-.7-.4z"
+            />
+          </svg>
+        </div>
+        <div class="b-body">
+          <div class="b-top">
+            <span class="b-app">WhatsApp</span><span class="b-time">now</span>
+          </div>
+          <div class="b-name">Aisha</div>
+          <div class="b-msg">You still awake? I have news.</div>
+        </div>
+      </div>
+
+      <div id="phone" class="clip" data-start="0" data-duration="10" data-track-index="3">
+        <div id="screen">
+          <div class="chat-head">
+            <div class="avatar">A</div>
+            <div>
+              <div class="c-name">Aisha</div>
+              <div class="c-status" id="status">online</div>
+            </div>
+          </div>
+          <div class="chat">
+            <div class="day">Today</div>
+            <div class="bubble in" id="m1">You still awake? I have news.<span class="t">1:47</span></div>
+            <div class="bubble out" id="m2">Yeah, can't sleep. What's up?<span class="t">1:47 <span class="ticks">✓✓</span></span></div>
+            <div class="typing" id="typing"><i></i><i></i><i></i></div>
+            <div class="bubble in" id="m3">WE GOT IT. The offer came through!<span class="t">1:48</span></div>
+          </div>
+          <div class="composer">
+            <div class="field">Message</div>
+            <div class="mic"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="fade" class="clip" data-start="0" data-duration="10" data-track-index="4"></div>
+
+      <audio
+        id="ping1"
+        src="assets/sfx.mp3"
+        data-start="2.35"
+        data-duration="1.04"
+        data-track-index="5"
+        data-volume="1"
+      ></audio>
+      <audio
+        id="ping2"
+        src="assets/sfx.mp3"
+        data-start="7.65"
+        data-duration="1.04"
+        data-track-index="6"
+        data-volume="0.7"
+      ></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // Opening: fade up from black, slow push-in on the plate for the whole film.
+      tl.fromTo("#fade", { opacity: 1 }, { opacity: 0, duration: 1.0, ease: "power2.out" }, 0);
+      tl.fromTo("#cam", { scale: 1.04 }, { scale: 1.14, duration: 10, ease: "none" }, 0);
+      // Camera drifts so he sits on the left third while the chat is up.
+      tl.fromTo("#cam", { x: 0 }, { x: -300, duration: 1.2, ease: "power2.inOut" }, 4.3);
+      tl.fromTo(
+        "#time",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
+        0.5,
+      );
+
+      // Phone screen glow breathes gently.
+      tl.to("#glow", { opacity: 0.7, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+
+      // 2.4s — message arrives: glow flares, frame buzzes, banner drops in.
+      tl.to("#glow", { opacity: 1, duration: 0.15, ease: "power2.out" }, 2.4);
+      tl.to("#glow", { opacity: 0.75, duration: 0.8, ease: "power2.inOut" }, 2.6);
+      tl.fromTo(
+        "#plate",
+        { x: 0 },
+        { x: 4, duration: 0.05, ease: "none", yoyo: true, repeat: 5 },
+        2.4,
+      );
+      tl.fromTo(
+        "#banner",
+        { y: -260, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "back.out(1.4)" },
+        2.4,
+      );
+      tl.to("#time", { opacity: 0, y: 20, duration: 0.5, ease: "power2.in" }, 4.0);
+
+      // 4.4s — banner tucks away, the WhatsApp chat rises into view.
+      tl.to("#banner", { y: -260, opacity: 0, duration: 0.5, ease: "power3.in" }, 4.4);
+      tl.fromTo(
+        "#phone",
+        { y: 820, rotation: 6 },
+        { y: 0, rotation: -3, duration: 0.9, ease: "power3.out" },
+        4.5,
+      );
+
+      // Chat plays out.
+      tl.fromTo("#m1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, 4.9);
+      tl.fromTo("#m2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, 5.8);
+      tl.fromTo("#typing", { opacity: 0, display: "none" }, { opacity: 1, display: "flex", duration: 0.25 }, 6.5);
+      tl.set("#status", { textContent: "typing…" }, 6.5);
+      tl.fromTo(
+        "#typing i",
+        { y: 0 },
+        { y: -6, duration: 0.25, ease: "sine.inOut", stagger: 0.12, yoyo: true, repeat: 3 },
+        6.6,
+      );
+      tl.set("#typing", { display: "none" }, 7.7);
+      tl.set("#status", { textContent: "online" }, 7.7);
+      tl.fromTo(
+        "#m3",
+        { opacity: 0, scale: 0.85, transformOrigin: "0% 100%" },
+        { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" },
+        7.7,
+      );
+      tl.to("#glow", { opacity: 1, duration: 0.2 }, 7.7);
+      tl.to("#glow", { opacity: 0.7, duration: 0.8 }, 7.9);
+
+      // Hidden-until-revealed initial states.
+      tl.set(["#m1", "#m2", "#m3"], { opacity: 0 }, 0);
+      tl.set("#typing", { display: "none" }, 0);
+
+      // Out.
+      tl.to("#fade", { opacity: 1, duration: 0.8, ease: "power2.in" }, 9.2);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
