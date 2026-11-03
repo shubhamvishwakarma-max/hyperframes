@@ -1,0 +1,1092 @@
+<!doctype html>
+<html lang="en" data-resolution="square">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Cormorant";
+        src: url("assets/cormorant-500.woff2") format("woff2");
+        font-weight: 400 700;
+      }
+      :root {
+        --ground: #ffffff;
+        --ink: #1f2a24;
+        --muted: #5b665f;
+        --sage: #7d9a82;
+        --sage-deep: #4f6b55;
+        --sage-soft: #eef3ec;
+        --sage-line: #d5e0d3;
+        --g-blue: #1a0dab;
+        --g-text: #202124;
+        --g-muted: #4d5156;
+        --g-line: #ebebeb;
+        --chrome: #dfe3e8;
+        --font-ui: "Inter", "Helvetica Neue", Arial, sans-serif;
+        --font-serif: "Cormorant", "Georgia", serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+        font-family: var(--font-ui);
+        -webkit-font-smoothing: antialiased;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+      }
+      #stage {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* ---------- Browser chrome ---------- */
+      .tabs {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 46px;
+        background: var(--chrome);
+      }
+      .lights {
+        position: absolute;
+        left: 20px;
+        top: 17px;
+        display: flex;
+        gap: 9px;
+      }
+      .lights i {
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        display: block;
+      }
+      .tab {
+        position: absolute;
+        left: 96px;
+        top: 8px;
+        width: 340px;
+        height: 38px;
+        background: #fff;
+        border-radius: 10px 10px 0 0;
+      }
+      .tab-fav {
+        position: absolute;
+        left: 14px;
+        top: 11px;
+        width: 16px;
+        height: 16px;
+      }
+      .tab-title {
+        position: absolute;
+        left: 40px;
+        top: 10px;
+        font-size: 14px;
+        color: #3c4043;
+        white-space: nowrap;
+      }
+      .tab-x {
+        position: absolute;
+        right: 12px;
+        top: 9px;
+        font-size: 15px;
+        color: #5f6368;
+      }
+      .spinner {
+        position: absolute;
+        left: 14px;
+        top: 11px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid #c6dafc;
+        border-top-color: #1a73e8;
+        opacity: 0;
+      }
+      .toolbar {
+        position: absolute;
+        left: 0;
+        top: 46px;
+        width: 1080px;
+        height: 56px;
+        background: #fff;
+        border-bottom: 1px solid #dadce0;
+      }
+      .navicons {
+        position: absolute;
+        left: 20px;
+        top: 17px;
+        display: flex;
+        gap: 22px;
+      }
+      .omni {
+        position: absolute;
+        left: 150px;
+        top: 9px;
+        width: 860px;
+        height: 38px;
+        border-radius: 19px;
+        background: #f1f3f4;
+      }
+      .omni svg {
+        position: absolute;
+        left: 16px;
+        top: 11px;
+      }
+      .url {
+        position: absolute;
+        left: 44px;
+        top: 9px;
+        font-size: 15px;
+        color: #202124;
+        white-space: nowrap;
+      }
+      .url span {
+        color: #5f6368;
+      }
+      .progress {
+        position: absolute;
+        left: 0;
+        top: 101px;
+        height: 3px;
+        width: 1080px;
+        background: #1a73e8;
+        transform-origin: 0 50%;
+        transform: scaleX(0);
+        opacity: 0;
+        z-index: 5;
+      }
+
+      /* ---------- Viewport ---------- */
+      .viewport {
+        position: absolute;
+        left: 0;
+        top: 102px;
+        width: 1080px;
+        height: 978px;
+        overflow: hidden;
+        background: #fff;
+      }
+
+      /* ---------- Google SERP ---------- */
+      .serp {
+        position: absolute;
+        inset: 0;
+        color: var(--g-text);
+      }
+      .glogo {
+        position: absolute;
+        left: 40px;
+        top: 30px;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        font-size: 42px;
+        font-weight: 500;
+        letter-spacing: -1.5px;
+      }
+      .sbox {
+        position: absolute;
+        left: 190px;
+        top: 22px;
+        width: 760px;
+        height: 60px;
+        border-radius: 30px;
+        background: #fff;
+        box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+      }
+      .sbox .q {
+        position: absolute;
+        left: 28px;
+        top: 17px;
+        font-size: 21px;
+        color: #202124;
+      }
+      .sbox .icons {
+        position: absolute;
+        right: 22px;
+        top: 18px;
+        display: flex;
+        gap: 18px;
+        align-items: center;
+      }
+      .stabs {
+        position: absolute;
+        left: 190px;
+        top: 112px;
+        display: flex;
+        gap: 30px;
+        font-size: 16px;
+        color: #5f6368;
+      }
+      .stabs b {
+        color: #1a73e8;
+        font-weight: 500;
+        position: relative;
+      }
+      .stabs b::after {
+        content: "";
+        position: absolute;
+        left: -4px;
+        right: -4px;
+        top: 33px;
+        height: 3px;
+        border-radius: 3px 3px 0 0;
+        background: #1a73e8;
+      }
+      .sline {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 148px;
+        height: 1px;
+        background: var(--g-line);
+      }
+      .stats {
+        position: absolute;
+        left: 190px;
+        top: 168px;
+        font-size: 15px;
+        color: #70757a;
+      }
+      .res {
+        position: absolute;
+        left: 190px;
+        width: 760px;
+      }
+      .spons {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--g-text);
+        margin-bottom: 14px;
+      }
+      .site {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .fav {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--sage-soft);
+        border: 1px solid #dfe5dd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-serif);
+        font-weight: 600;
+        font-size: 18px;
+        color: var(--sage-deep);
+      }
+      .fav.n {
+        background: #f1f3f4;
+        border-color: #e8eaed;
+        color: #5f6368;
+        font-family: var(--font-ui);
+        font-size: 14px;
+      }
+      .site-name {
+        font-size: 16px;
+        color: #202124;
+        line-height: 1.3;
+      }
+      .site-url {
+        font-size: 14px;
+        color: #4d5156;
+        line-height: 1.3;
+      }
+      .r-head {
+        margin-top: 12px;
+        font-size: 25px;
+        line-height: 1.3;
+        color: var(--g-blue);
+        display: inline-block;
+        position: relative;
+      }
+      .r-head .ul {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 1px;
+        height: 1.5px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: 0 50%;
+      }
+      .r-desc {
+        margin-top: 6px;
+        font-size: 17px;
+        line-height: 1.55;
+        color: var(--g-muted);
+      }
+      .ad-btn {
+        margin-top: 16px;
+        display: inline-flex;
+        align-items: center;
+        height: 42px;
+        padding: 0 22px;
+        border-radius: 21px;
+        border: 1px solid #dadce0;
+        font-size: 16px;
+        color: #1a73e8;
+        font-weight: 500;
+      }
+      .ad-links {
+        margin-top: 14px;
+        display: flex;
+        gap: 28px;
+        font-size: 17px;
+        color: var(--g-blue);
+      }
+      .ripple {
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        margin: -22px 0 0 -22px;
+        border-radius: 50%;
+        background: rgba(26, 13, 171, 0.18);
+        transform: scale(0);
+        opacity: 0;
+        z-index: 40;
+        pointer-events: none;
+      }
+
+      /* ---------- Clinic website ---------- */
+      .site-wrap {
+        position: absolute;
+        inset: 0;
+        color: var(--ink);
+      }
+      .page {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1500px;
+        background: #fff;
+      }
+      .nav {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 84px;
+        border-bottom: 1px solid #edf1ec;
+      }
+      .brand {
+        position: absolute;
+        left: 48px;
+        top: 26px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1.5px solid var(--sage);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-serif);
+        font-size: 19px;
+        font-weight: 600;
+        color: var(--sage-deep);
+      }
+      .brand-name {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 3.2px;
+        color: var(--ink);
+      }
+      .links {
+        position: absolute;
+        left: 520px;
+        top: 32px;
+        display: flex;
+        gap: 30px;
+        font-size: 15px;
+        color: var(--muted);
+      }
+      .nav-cta {
+        position: absolute;
+        right: 48px;
+        top: 20px;
+        height: 44px;
+        padding: 0 22px;
+        border-radius: 22px;
+        background: var(--sage-deep);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+      }
+      .eyebrow {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 2.6px;
+        color: var(--sage-deep);
+      }
+      .hero-copy {
+        position: absolute;
+        left: 56px;
+        top: 146px;
+        width: 480px;
+      }
+      .hero-h {
+        margin-top: 18px;
+        font-family: var(--font-serif);
+        font-weight: 600;
+        font-size: 64px;
+        line-height: 1.02;
+        letter-spacing: -0.5px;
+        color: var(--ink);
+      }
+      .hero-h em {
+        font-style: italic;
+        color: var(--sage-deep);
+      }
+      .hero-sub {
+        margin-top: 22px;
+        font-size: 19px;
+        line-height: 1.55;
+        color: var(--muted);
+        width: 430px;
+      }
+      .hero-btns {
+        margin-top: 30px;
+        display: flex;
+        gap: 14px;
+      }
+      .btn {
+        height: 54px;
+        padding: 0 26px;
+        border-radius: 27px;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .btn.fill {
+        background: var(--sage-deep);
+        color: #fff;
+      }
+      .btn.line {
+        border: 1.5px solid var(--sage-line);
+        color: var(--ink);
+      }
+      .hero-img {
+        position: absolute;
+        left: 584px;
+        top: 116px;
+        width: 448px;
+        height: 468px;
+        border-radius: 28px;
+        overflow: hidden;
+        background: var(--sage-soft);
+      }
+      .hero-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 30%;
+      }
+      .badge {
+        position: absolute;
+        left: 548px;
+        top: 488px;
+        background: #fff;
+        border-radius: 16px;
+        padding: 14px 18px;
+        box-shadow: 0 10px 30px rgba(31, 42, 36, 0.12);
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .badge .stars {
+        color: #8c7334;
+        font-size: 15px;
+        letter-spacing: 1px;
+      }
+      .badge b {
+        display: block;
+        font-size: 15px;
+        color: var(--ink);
+      }
+      .badge small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .sec-title {
+        position: absolute;
+        left: 56px;
+        top: 650px;
+        width: 968px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+      .sec-title h2 {
+        font-family: var(--font-serif);
+        font-weight: 600;
+        font-size: 40px;
+        color: var(--ink);
+      }
+      .sec-title span {
+        font-size: 15px;
+        color: var(--sage-deep);
+        font-weight: 500;
+      }
+      .card {
+        position: absolute;
+        top: 718px;
+        width: 312px;
+        height: 250px;
+        border-radius: 20px;
+        border: 1px solid #e7ede5;
+        overflow: hidden;
+        background: #fff;
+      }
+      .card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        display: block;
+      }
+      .card h3 {
+        margin: 18px 22px 0;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .card p {
+        margin: 6px 22px 0;
+        font-size: 15px;
+        color: var(--sage-deep);
+        font-weight: 500;
+      }
+      .booking {
+        position: absolute;
+        left: 0;
+        top: 1006px;
+        width: 1080px;
+        height: 494px;
+        background: var(--sage-soft);
+      }
+      .book-copy {
+        position: absolute;
+        left: 56px;
+        top: 64px;
+        width: 400px;
+      }
+      .book-copy h2 {
+        margin-top: 16px;
+        font-family: var(--font-serif);
+        font-weight: 600;
+        font-size: 46px;
+        line-height: 1.05;
+        color: var(--ink);
+      }
+      .book-copy ul {
+        list-style: none;
+        margin-top: 26px;
+      }
+      .book-copy li {
+        font-size: 17px;
+        color: var(--muted);
+        margin-bottom: 14px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .tick {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--sage-deep);
+        color: #fff;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      .form-card {
+        position: absolute;
+        left: 512px;
+        top: 34px;
+        width: 520px;
+        height: 420px;
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 18px 50px rgba(52, 72, 58, 0.12);
+      }
+      .form-card h3 {
+        position: absolute;
+        left: 38px;
+        top: 32px;
+        font-family: var(--font-serif);
+        font-weight: 600;
+        font-size: 34px;
+        color: var(--ink);
+      }
+      .field {
+        position: absolute;
+        left: 38px;
+        width: 444px;
+        height: 58px;
+        border-radius: 14px;
+        border: 1.5px solid #dfe5dd;
+        background: #fbfcfa;
+      }
+      .field .ph {
+        position: absolute;
+        left: 20px;
+        top: 17px;
+        font-size: 17px;
+        color: #69716b;
+      }
+      .field .chev {
+        position: absolute;
+        right: 20px;
+        top: 21px;
+      }
+      .field .glow {
+        position: absolute;
+        inset: -1.5px;
+        border-radius: 14px;
+        border: 1.5px solid var(--sage);
+        box-shadow: 0 0 0 4px rgba(125, 154, 130, 0.16);
+        background: rgba(238, 243, 236, 0.4);
+        opacity: 0;
+      }
+      .submit {
+        position: absolute;
+        left: 38px;
+        top: 330px;
+        width: 444px;
+        height: 58px;
+        border-radius: 29px;
+        background: var(--sage-deep);
+        color: #fff;
+        font-size: 17px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ---------- Cursor ---------- */
+      #cursor {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1px;
+        height: 1px;
+        z-index: 50;
+        will-change: transform;
+      }
+      #cursor svg {
+        position: absolute;
+        filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.28));
+      }
+      #c-arrow {
+        left: -2px;
+        top: -1px;
+      }
+      #c-hand {
+        left: -11px;
+        top: -2px;
+        opacity: 0;
+      }
+      #c-beam {
+        left: -6px;
+        top: -13px;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="10"
+      data-width="1080"
+      data-height="1080"
+    >
+      <div id="stage" class="clip" data-start="0" data-duration="10" data-track-index="0">
+        <!-- Browser chrome -->
+        <div class="tabs">
+          <div class="lights">
+            <i style="background: #ff5f57"></i><i style="background: #febc2e"></i
+            ><i style="background: #28c840"></i>
+          </div>
+          <div class="tab">
+            <svg class="tab-fav" id="fav-g" viewBox="0 0 16 16">
+              <circle cx="8" cy="8" r="7" fill="#fff" stroke="#4285f4" stroke-width="2.4" />
+              <rect x="8" y="6.8" width="7" height="2.4" fill="#4285f4" />
+            </svg>
+            <div class="tab-fav" id="fav-c" style="opacity: 0">
+              <svg viewBox="0 0 16 16" width="16" height="16">
+                <circle cx="8" cy="8" r="7.2" fill="#eef3ec" stroke="#7d9a82" stroke-width="1.2" />
+                <text
+                  x="8"
+                  y="11.4"
+                  text-anchor="middle"
+                  font-size="9.5"
+                  font-family="Georgia, serif"
+                  fill="#4f6b55"
+                >
+                  A
+                </text>
+              </svg>
+            </div>
+            <div class="spinner" id="spinner"></div>
+            <div class="tab-title" id="title-g">Best Acne Treatment Near Me - Search</div>
+            <div class="tab-title" id="title-c" style="opacity: 0">ABC Aesthetic Clinic</div>
+            <div class="tab-x">×</div>
+          </div>
+        </div>
+        <div class="toolbar">
+          <div class="navicons">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 10H4M9 4l-6 6 6 6" />
+            </svg>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#bdc1c6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 10h12M11 4l6 6-6 6" />
+            </svg>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round">
+              <path d="M16 10a6 6 0 1 1-1.8-4.3M16 3.5v3.6h-3.6" />
+            </svg>
+          </div>
+          <div class="omni">
+            <svg width="14" height="16" viewBox="0 0 14 16" fill="none" stroke="#5f6368" stroke-width="1.8">
+              <rect x="1.5" y="7" width="11" height="8" rx="2" />
+              <path d="M4 7V5a3 3 0 0 1 6 0v2" />
+            </svg>
+            <div class="url" id="url-g">google.com<span>/search?q=best+acne+treatment+near+me</span></div>
+            <div class="url" id="url-c" style="opacity: 0">abcaestheticclinic.com<span>/acne-treatment</span></div>
+          </div>
+        </div>
+        <div class="progress" id="progress"></div>
+
+        <!-- Page viewport -->
+        <div class="viewport">
+          <!-- Google results -->
+          <div class="serp" id="serp">
+            <div class="glogo" data-layout-ignore>
+              <span style="color: #4285f4">G</span><span style="color: #ea4335">o</span
+              ><span style="color: #fbbc05">o</span><span style="color: #4285f4">g</span
+              ><span style="color: #34a853">l</span><span style="color: #ea4335">e</span>
+            </div>
+            <div class="sbox">
+              <div class="q">Best Acne Treatment Near Me</div>
+              <div class="icons">
+                <svg width="18" height="18" viewBox="0 0 18 18" stroke="#70757a" stroke-width="2" stroke-linecap="round">
+                  <path d="M3 3l12 12M15 3L3 15" />
+                </svg>
+                <div style="width: 1px; height: 26px; background: #dadce0"></div>
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#4285f4" stroke-width="2.4" stroke-linecap="round">
+                  <circle cx="9" cy="9" r="6.5" />
+                  <path d="M14 14l5.5 5.5" />
+                </svg>
+              </div>
+            </div>
+            <div class="stabs">
+              <b>All</b><span>Maps</span><span>Images</span><span>News</span><span>Videos</span
+              ><span>Shopping</span>
+            </div>
+            <div class="sline"></div>
+            <div class="stats">About 18,400,000 results (0.41 seconds)</div>
+
+            <div class="res" style="top: 212px">
+              <div class="spons">Sponsored</div>
+              <div class="site">
+                <div class="fav">A</div>
+                <div>
+                  <div class="site-name">ABC Aesthetic Clinic</div>
+                  <div class="site-url">https://www.abcaestheticclinic.com</div>
+                </div>
+              </div>
+              <div class="r-head" id="ad-head">
+                Reveal Your Best Self | Expert Acne Treatment<i class="ul" id="ad-ul"></i>
+              </div>
+              <div class="r-desc">Personalised skin treatments and expert aesthetic care.</div>
+              <div class="ad-btn">Visit Website</div>
+            </div>
+
+            <div class="res" style="top: 470px">
+              <div class="site">
+                <div class="fav n">D</div>
+                <div>
+                  <div class="site-name">Dermatology Today</div>
+                  <div class="site-url">https://www.dermatologytoday.org › acne › treatments</div>
+                </div>
+              </div>
+              <div class="r-head">Acne Treatments: What Actually Works in 2026</div>
+              <div class="r-desc">
+                A dermatologist's guide to topical, oral and in-clinic acne treatments, how long
+                each takes to show results, and when to see a specialist.
+              </div>
+            </div>
+
+            <div class="res" style="top: 680px">
+              <div class="site">
+                <div class="fav n">S</div>
+                <div>
+                  <div class="site-name">SkinHealth Directory</div>
+                  <div class="site-url">https://www.skinhealthdirectory.com › clinics</div>
+                </div>
+              </div>
+              <div class="r-head">Top-Rated Acne Clinics Near You — Compare Reviews</div>
+              <div class="r-desc">
+                Compare verified patient reviews, treatment prices and availability for skin
+                clinics in your area. Book a consultation online.
+              </div>
+            </div>
+            <div class="ripple" id="ripple"></div>
+          </div>
+
+          <!-- Clinic website -->
+          <div class="site-wrap" id="site" style="opacity: 0">
+            <div class="page" id="page" data-layout-allow-occlusion>
+              <div class="nav fx">
+                <div class="brand">
+                  <div class="mark">A</div>
+                  <div class="brand-name">ABC AESTHETIC CLINIC</div>
+                </div>
+                <div class="links">
+                  <span>Treatments</span><span>Specialists</span><span>Results</span>
+                </div>
+                <div class="nav-cta">Book Now</div>
+              </div>
+
+              <div class="hero-copy">
+                <div class="eyebrow fx">ACNE &amp; ADVANCED SKIN CARE</div>
+                <h1 class="hero-h fx">Your Journey to <em>Healthier Skin</em> Starts Here.</h1>
+                <p class="hero-sub fx" data-layout-allow-occlusion>
+                  Personalised acne treatments and advanced aesthetic care.
+                </p>
+                <div class="hero-btns fx">
+                  <div class="btn fill">Book a Consultation</div>
+                  <div class="btn line">Explore Treatments</div>
+                </div>
+              </div>
+              <div class="hero-img fx-img">
+                <img src="assets/hero.jpg" alt="Portrait of a woman with healthy, radiant skin" />
+              </div>
+              <div class="badge fx">
+                <div class="stars">★★★★★</div>
+                <div><b>4.9 rating</b><small>1,200+ happy patients</small></div>
+              </div>
+
+              <div class="sec-title fx2">
+                <h2>Our Treatments</h2>
+                <span>View all treatments →</span>
+              </div>
+              <div class="card fx2" style="left: 48px">
+                <img src="assets/acne.jpg" alt="" />
+                <h3>Acne Treatment</h3>
+                <p>Clear, calm skin →</p>
+              </div>
+              <div class="card fx2" style="left: 384px">
+                <img src="assets/rejuv.jpg" alt="" style="object-position: 50% 40%" />
+                <h3>Skin Rejuvenation</h3>
+                <p>Restore your glow →</p>
+              </div>
+              <div class="card fx2" style="left: 720px">
+                <img src="assets/specialist.jpg" alt="" style="object-position: 50% 20%" />
+                <h3>Meet Our Specialists</h3>
+                <p>Expert dermatologists →</p>
+              </div>
+
+              <div class="booking">
+                <div class="book-copy fx3">
+                  <div class="eyebrow">CONSULTATIONS</div>
+                  <h2>Begin your personalised skin plan.</h2>
+                  <ul>
+                    <li><span class="tick">✓</span>One-to-one skin assessment</li>
+                    <li><span class="tick">✓</span>Tailored acne treatment plan</li>
+                    <li><span class="tick">✓</span>Follow-up care with specialists</li>
+                  </ul>
+                </div>
+                <div class="form-card fx3">
+                  <h3>Book Your Appointment</h3>
+                  <div class="field" id="f1" style="top: 100px">
+                    <div class="glow"></div>
+                    <div class="ph">Full Name</div>
+                  </div>
+                  <div class="field" id="f2" style="top: 176px">
+                    <div class="glow"></div>
+                    <div class="ph">Phone Number</div>
+                  </div>
+                  <div class="field" id="f3" style="top: 252px">
+                    <div class="glow"></div>
+                    <div class="ph">Select Treatment</div>
+                    <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#5b665f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3.5 6l4.5 4.5L12.5 6" />
+                    </svg>
+                  </div>
+                  <div class="submit">Submit Enquiry</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cursor (screen space) -->
+        <div id="cursor">
+          <svg id="c-arrow" width="26" height="34" viewBox="0 0 26 34">
+            <path
+              d="M2 1.5 L2 26 L8.2 20.4 L12.4 30.4 L16.6 28.6 L12.5 18.9 L20.8 18.9 Z"
+              fill="#111"
+              stroke="#fff"
+              stroke-width="1.8"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <svg id="c-hand" width="28" height="32" viewBox="0 0 28 32">
+            <path
+              d="M11 2.2c1.4 0 2.4 1 2.4 2.4v9.2l.2-.1c.4-1.1 1.4-1.8 2.6-1.6 1 .1 1.8.9 2 1.9.5-.8 1.4-1.2 2.4-1 1.1.2 1.9 1.1 2 2.2.5-.4 1.2-.6 1.9-.4 1.1.3 1.9 1.3 1.9 2.4v6.4c0 4.6-3.6 8.2-8.2 8.2h-2.4c-2.6 0-4.9-1.2-6.4-3.2L3.2 20c-.8-1.1-.6-2.6.4-3.4 1-.8 2.4-.7 3.3.2l1.7 1.8V4.6C8.6 3.2 9.7 2.2 11 2.2z"
+              fill="#fff"
+              stroke="#111"
+              stroke-width="1.6"
+              stroke-linejoin="round"
+            />
+            <path d="M13.4 21v4.6M17.2 21v4.6M21 21v4.6" stroke="#111" stroke-width="1.4" stroke-linecap="round" />
+          </svg>
+          <svg id="c-beam" width="12" height="26" viewBox="0 0 12 26">
+            <path
+              d="M2 2.2c2 0 3.2.6 4 1.6.8-1 2-1.6 4-1.6M6 3.8v18.4M2 23.8c2 0 3.2-.6 4-1.6.8 1 2 1.6 4 1.6M3.4 13h5.2"
+              fill="none"
+              stroke="#fff"
+              stroke-width="3.6"
+              stroke-linecap="round"
+            />
+            <path
+              d="M2 2.2c2 0 3.2.6 4 1.6.8-1 2-1.6 4-1.6M6 3.8v18.4M2 23.8c2 0 3.2-.6 4-1.6.8 1 2 1.6 4 1.6M3.4 13h5.2"
+              fill="none"
+              stroke="#111"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const VY = 102; // viewport top in screen space
+      const SCROLL = 500;
+
+      // Cursor helper: x and y on slightly different eases for a natural, curved path.
+      const moveTo = (x, y, at, dur, ex = "power2.inOut", ey = "sine.inOut") => {
+        tl.to("#cursor", { x, duration: dur, ease: ex }, at);
+        tl.to("#cursor", { y, duration: dur, ease: ey }, at);
+      };
+      const showCursor = (id, at) => {
+        ["#c-arrow", "#c-hand", "#c-beam"].forEach((c) =>
+          tl.to(c, { opacity: c === id ? 1 : 0, duration: 0.08, ease: "none" }, at),
+        );
+      };
+
+      // ---------- Initial state ----------
+      tl.set("#cursor", { x: 1130, y: 1010 }, 0);
+      tl.set(".fx, .fx2, .fx3", { opacity: 0, y: 16 }, 0);
+      tl.set(".fx-img", { opacity: 0, scale: 1.025 }, 0);
+
+      // ---------- Scene 1 (0–2s): cursor enters, heads to the sponsored ad, clicks ----------
+      // Ad headline sits at roughly x 190–700, screen y ~ 418.
+      moveTo(392, 424, 0.2, 1.3, "power3.inOut", "power2.inOut");
+      showCursor("#c-hand", 1.36);
+      tl.to("#ad-ul", { scaleX: 1, duration: 0.01, ease: "none" }, 1.36);
+      // gentle settle before the click
+      moveTo(396, 426, 1.5, 0.15, "sine.out", "sine.out");
+      // click press
+      tl.to("#cursor", { scale: 0.86, duration: 0.08, ease: "power2.in" }, 1.68);
+      tl.to("#cursor", { scale: 1, duration: 0.14, ease: "power2.out" }, 1.76);
+      tl.set("#ripple", { left: 396, top: 426 - VY, opacity: 1, scale: 0 }, 1.7);
+      tl.to("#ripple", { scale: 1.6, opacity: 0, duration: 0.45, ease: "power2.out" }, 1.7);
+      tl.to("#ad-head", { color: "#681da8", duration: 0.12, ease: "none" }, 1.74);
+
+      // ---------- Scene 2 (2–3s): browser navigation ----------
+      tl.to("#fav-g", { opacity: 0, duration: 0.15 }, 1.85);
+      tl.to("#spinner", { opacity: 1, duration: 0.15 }, 1.85);
+      tl.to("#spinner", { rotation: 720, duration: 1.0, ease: "none" }, 1.85);
+      tl.set("#progress", { opacity: 1 }, 1.85);
+      tl.to("#progress", { scaleX: 0.72, duration: 0.6, ease: "power2.out" }, 1.85);
+      tl.to("#progress", { scaleX: 1, duration: 0.3, ease: "power1.in" }, 2.45);
+      tl.to("#progress", { opacity: 0, duration: 0.2 }, 2.78);
+      tl.to("#url-g", { opacity: 0, duration: 0.2 }, 1.9);
+      tl.to("#url-c", { opacity: 1, duration: 0.25 }, 2.0);
+      // cursor leaves the link as the page goes away
+      showCursor("#c-arrow", 2.0);
+      tl.to("#ad-ul", { opacity: 0, duration: 0.1 }, 2.0);
+      // SERP softly fades / lifts out
+      tl.to("#serp", { opacity: 0, y: -14, duration: 0.5, ease: "power2.inOut" }, 2.0);
+      tl.set("#site", { opacity: 1 }, 2.5);
+      tl.to("#title-g", { opacity: 0, duration: 0.2 }, 2.55);
+      tl.to("#title-c", { opacity: 1, duration: 0.25 }, 2.65);
+      tl.to("#spinner", { opacity: 0, duration: 0.15 }, 2.8);
+      tl.to("#fav-c", { opacity: 1, duration: 0.2 }, 2.82);
+      // cursor drifts a touch while loading
+      moveTo(420, 440, 2.0, 1.0, "sine.inOut", "sine.inOut");
+
+      // ---------- Scene 3 (3–7s): website reveals, cursor travels, slow scroll ----------
+      tl.to(".nav.fx", { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 2.55);
+      tl.to(".hero-copy .fx", { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", stagger: 0.12 }, 2.7);
+      tl.to(".fx-img", { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 2.8);
+      tl.to(".badge.fx", { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 3.3);
+      tl.to(".fx2", { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", stagger: 0.1 }, 3.25);
+
+      // cursor glides across the hero, hovering past the image
+      moveTo(760, 470, 3.25, 1.3, "power2.inOut", "sine.inOut");
+
+      // slow, controlled scroll down to the booking section
+      tl.to("#page", { y: -SCROLL, duration: 2.5, ease: "power1.inOut" }, 4.5);
+      tl.to(".fx3", { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", stagger: 0.15 }, 5.1);
+
+      // cursor heads toward the appointment form (Full Name field)
+      // form card: page x 512, page y 1006+34 → field 1 centre page y 1169 → screen 1169-500+102 = 771
+      moveTo(650, 771, 4.75, 2.25, "power2.inOut", "power1.inOut");
+
+      // ---------- Scene 4 (7–10s): hover the booking fields, pause, stop ----------
+      showCursor("#c-beam", 6.92);
+      tl.to("#f1 .glow", { opacity: 1, duration: 0.3, ease: "power1.out" }, 6.95);
+      // tiny settle
+      moveTo(654, 773, 7.0, 0.5, "sine.out", "sine.out");
+
+      moveTo(660, 847, 7.75, 0.6, "power2.inOut", "sine.inOut");
+      tl.to("#f1 .glow", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 7.85);
+      tl.to("#f2 .glow", { opacity: 1, duration: 0.3, ease: "power1.out" }, 8.15);
+
+      moveTo(700, 923, 8.95, 0.6, "power2.inOut", "sine.inOut");
+      tl.to("#f2 .glow", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 9.05);
+      showCursor("#c-arrow", 9.4);
+      tl.to("#f3 .glow", { opacity: 1, duration: 0.3, ease: "power1.out" }, 9.35);
+
+      // hold to the end
+      tl.to({}, { duration: 0.01 }, 9.99);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
